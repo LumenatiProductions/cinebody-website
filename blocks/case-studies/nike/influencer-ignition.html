@@ -1,0 +1,313 @@
+<!-- Cinebody Influencer Ignition - Nike Case Study -->
+<!-- Paste this into a Squarespace Code Block -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
+
+  /* ── Wrapper ── */
+  .cb-ignite-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #F4F4F3;
+    overflow: hidden;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .cb-ignite-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  /* ── Animations ── */
+  @keyframes cb-ignite-fadeLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes cb-ignite-fadeRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── Grid Layout — videos left, content right ── */
+  .cb-ignite-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* ── Videos (Left) — 2 vertical side-by-side ── */
+  .cb-ignite-videos {
+    display: flex;
+    gap: 20px;
+    animation: cb-ignite-fadeLeft 0.8s ease-out;
+  }
+
+  /* ── Video Card (9:16 vertical) ── */
+  .cb-ignite-video-card {
+    position: relative;
+    width: 320px;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    background: #1a1a1a;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  .cb-ignite-video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+  }
+  .cb-ignite-video-card iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 180%;
+    height: 180%;
+    transform: translate(-50%, -50%);
+    border: none;
+    pointer-events: none;
+  }
+
+  /* ── Video Label ── */
+  .cb-ignite-video-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    z-index: 3;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Play Button ── */
+  .cb-ignite-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0077ff, #00c6ff);
+    border: 3px solid #ffd200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,119,255,0.4);
+    cursor: pointer;
+  }
+  .cb-ignite-play-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+    margin-left: 3px;
+  }
+  .cb-ignite-video-card:hover .cb-ignite-play-btn {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  .cb-ignite-video-card.cb-ignite-playing .cb-ignite-play-btn {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  .cb-ignite-video-card.cb-ignite-playing:hover .cb-ignite-play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* ── Content (Right) ── */
+  .cb-ignite-content {
+    animation: cb-ignite-fadeRight 0.8s ease-out 0.2s both;
+  }
+  .cb-ignite-label {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #00bcf1;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+  .cb-ignite-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0 0 24px 0;
+  }
+  .cb-ignite-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #71717a;
+    margin: 0 0 16px 0;
+    max-width: 520px;
+  }
+  .cb-ignite-text:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1000px) {
+    .cb-ignite-inner { padding: 60px 28px; }
+    .cb-ignite-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .cb-ignite-videos {
+      justify-content: center;
+      order: -1;
+    }
+    .cb-ignite-video-card { width: 260px; }
+    .cb-ignite-content { text-align: center; }
+    .cb-ignite-text { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 768px) {
+    .cb-ignite-inner { padding: 48px 20px; }
+    .cb-ignite-title { font-size: clamp(1.5rem, 5vw, 2rem); }
+    .cb-ignite-text { font-size: 1rem; }
+    .cb-ignite-video-card {
+      width: 200px;
+      border-radius: 12px;
+    }
+    .cb-ignite-videos { gap: 14px; }
+    .cb-ignite-play-btn { width: 52px; height: 52px; }
+    .cb-ignite-play-btn svg { width: 18px; height: 18px; }
+  }
+  @media (max-width: 480px) {
+    .cb-ignite-inner { padding: 40px 16px; }
+    .cb-ignite-video-card { width: 160px; }
+    .cb-ignite-videos { gap: 10px; }
+    .cb-ignite-play-btn { width: 44px; height: 44px; }
+    .cb-ignite-play-btn svg { width: 16px; height: 16px; }
+  }
+</style>
+
+<div class="cb-ignite-wrapper">
+  <div class="cb-ignite-inner">
+    <div class="cb-ignite-grid">
+
+      <!-- Videos (Left) — 2 vertical side-by-side -->
+      <div class="cb-ignite-videos">
+        <div class="cb-ignite-video-card" data-vimeo-id="329885560">
+          <iframe src="https://player.vimeo.com/video/329885560?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-ignite-video-label">Workout Story</div>
+          <div class="cb-ignite-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+        <div class="cb-ignite-video-card" data-vimeo-id="329885498">
+          <iframe src="https://player.vimeo.com/video/329885498?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-ignite-video-label">Daily Routine</div>
+          <div class="cb-ignite-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content (Right) -->
+      <div class="cb-ignite-content">
+        <span class="cb-ignite-label">Influencer Ignition</span>
+        <h2 class="cb-ignite-title">No scripts. No crews. Just real athletes, real stories.</h2>
+        <p class="cb-ignite-text">Nike partnered with Cinebody to put the creative power directly in the hands of athletes and influencers. Instead of flying in production teams, Cinebody's platform guided creators through shot lists from their own gyms, trails, and neighborhoods — capturing the kind of raw, first-person content that resonates on social.</p>
+        <p class="cb-ignite-text">The result was a library of authentic influencer stories that felt native to every platform. From morning workout routines to daily training diaries, each piece of content carried the credibility of a real athlete's voice — no polish needed, just honest storytelling at scale.</p>
+      </div>
+
+    </div><!-- /cb-ignite-grid -->
+  </div><!-- /cb-ignite-inner -->
+</div><!-- /cb-ignite-wrapper -->
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  var wrapper = document.querySelector('.cb-ignite-wrapper');
+  if (!wrapper) return;
+
+  var cards = wrapper.querySelectorAll('.cb-ignite-video-card');
+  var players = new Map();
+
+  // Initialize Vimeo players
+  cards.forEach(function(card) {
+    var iframe = card.querySelector('iframe');
+    if (iframe) {
+      var player = new Vimeo.Player(iframe);
+      players.set(card, player);
+    }
+  });
+
+  // Reset all players to muted/paused
+  function resetAll() {
+    players.forEach(function(player, card) {
+      player.setVolume(0);
+      player.pause();
+      card.classList.remove('cb-ignite-playing');
+    });
+  }
+
+  // Click to unmute / pause toggle
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var player = players.get(card);
+      if (!player) return;
+
+      if (card.classList.contains('cb-ignite-playing')) {
+        // Currently playing with audio — pause and mute
+        player.setVolume(0);
+        player.pause();
+        card.classList.remove('cb-ignite-playing');
+      } else {
+        // Mute all others first
+        players.forEach(function(p, c) {
+          if (c !== card) {
+            p.setVolume(0);
+            c.classList.remove('cb-ignite-playing');
+          }
+        });
+        // Unmute and play this one
+        player.setVolume(1);
+        player.play();
+        card.classList.add('cb-ignite-playing');
+      }
+    });
+  });
+
+  // Auto-play all videos muted on load
+  function autoplayAll() {
+    players.forEach(function(player) {
+      player.setVolume(0);
+      player.play().catch(function() {});
+    });
+  }
+
+  // IntersectionObserver: autoplay when block scrolls into view
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          autoplayAll();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(wrapper);
+  } else {
+    autoplayAll();
+  }
+})();
+</script>

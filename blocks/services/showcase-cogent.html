@@ -1,0 +1,76 @@
+<!-- Cinebody Video Showcase - Cogent -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .cb-video-showcase-cogent-wrapper { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: #ffffff; padding: 80px 0; margin-top: 0 !important; margin-bottom: 0 !important; overflow: visible; }
+  .cb-video-showcase-cogent-container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+  .cb-video-showcase-cogent-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; align-items: center; }
+  .cb-video-showcase-cogent-content { animation: cb-fadeRight 0.8s ease-out; display: flex; flex-direction: column; justify-content: center; }
+  @keyframes cb-fadeRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-showcase-cogent-logo { width: 200px; height: auto; margin-bottom: 24px; }
+  .cb-video-showcase-cogent-title { font-family: 'Open Sans', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 700; color: #5A5A5A; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .cb-video-showcase-cogent-description { font-family: 'Open Sans', sans-serif; font-size: 1.1rem; color: #71717a; line-height: 1.7; margin-bottom: 0; }
+  .cb-video-grid-cogent { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; animation: cb-fadeLeft 0.8s ease-out 0.2s both; }
+  @keyframes cb-fadeLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-item-cogent { position: relative; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 9 / 16; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); cursor: pointer; z-index: 1; }
+  .cb-video-item-cogent::before, .cb-video-item-cogent::after { display: none !important; content: none !important; }
+  .cb-video-item-cogent:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2); }
+  .cb-video-item-cogent:hover::before, .cb-video-item-cogent:hover::after { display: none !important; content: none !important; }
+  .cb-video-item-cogent iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: none; }
+  .cb-video-overlay-cogent { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; cursor: pointer; background: transparent; transition: opacity 0.3s ease; }
+  .cb-cogent-play-btn { position: absolute; bottom: 14px; left: 14px; width: 42px; height: 42px; background: linear-gradient(135deg, #00bcf1, #0099c8); border-radius: 9px; z-index: 10; pointer-events: none; transition: all 0.3s ease; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4), inset 0 0 0 2px rgba(255, 236, 3, 0.6); display: flex; align-items: center; justify-content: center; }
+  .cb-cogent-play-btn::after { content: ''; display: block; width: 0; height: 0; border-left: 11px solid #ffffff; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-right: none; margin-left: 3px; transition: all 0.3s ease; }
+  .cb-video-item-cogent:hover .cb-cogent-play-btn { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0, 188, 241, 0.6), inset 0 0 0 2.5px rgba(255, 236, 3, 1), 0 0 20px rgba(255, 236, 3, 0.4); }
+  .cb-video-item-cogent.cb-cogent-playing .cb-cogent-play-btn { width: 34px; height: 34px; border-radius: 7px; background: linear-gradient(135deg, rgba(0, 188, 241, 0.8), rgba(0, 153, 200, 0.8)); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 236, 3, 0.8); }
+  .cb-video-item-cogent.cb-cogent-playing .cb-cogent-play-btn::after { content: ''; display: block; width: 10px; height: 12px; border-top: none; border-bottom: none; border-left: 3px solid #ffffff; border-right: 3px solid #ffffff; margin-left: 0; }
+  @media (max-width: 1000px) { .cb-video-showcase-cogent-layout { grid-template-columns: 1fr; gap: 50px; } .cb-video-showcase-cogent-content { text-align: center; order: -1; } .cb-video-grid-cogent { order: 1; } .cb-video-showcase-cogent-logo { margin-left: auto; margin-right: auto; } .cb-video-grid-cogent { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; gap: 20px; } .cb-video-item-cogent { width: 100%; } }
+  @media (max-width: 640px) { .cb-video-showcase-cogent-wrapper { padding: 60px 0; width: 100%; left: 0; right: 0; margin-left: 0; margin-right: 0; position: static; } .cb-video-showcase-cogent-container { padding: 0 16px; max-width: 100%; background: transparent; } .cb-video-showcase-cogent-layout { display: flex; flex-direction: column; background: transparent; } .cb-video-showcase-cogent-content { margin-bottom: 40px; background: transparent; } .cb-video-showcase-cogent-logo { margin-bottom: 24px; } .cb-video-grid-cogent { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 100%; background: transparent; padding: 0; } .cb-video-item-cogent { width: 100%; max-width: 100%; margin: 0; display: block; position: relative; background: transparent; border-radius: 0; box-shadow: none; } .cb-video-item-cogent iframe { display: block; width: 100%; height: auto; min-height: 600px; background: transparent; } .cb-cogent-play-btn { width: 38px; height: 38px; } }
+</style>
+
+<div class="cb-video-showcase-cogent-wrapper">
+  <div class="cb-video-showcase-cogent-container">
+    <div class="cb-video-showcase-cogent-layout">
+      <div class="cb-video-grid-cogent">
+        <div class="cb-video-item-cogent" data-cogent-vid="0">
+          <div class="cb-video-overlay-cogent"></div>
+          <div class="cb-cogent-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1090977594?h=646a9f78bc&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cb-video-item-cogent" data-cogent-vid="1">
+          <div class="cb-video-overlay-cogent"></div>
+          <div class="cb-cogent-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1090655136?h=32eda7fecd&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cb-video-item-cogent" data-cogent-vid="2">
+          <div class="cb-video-overlay-cogent"></div>
+          <div class="cb-cogent-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1089063815?h=0822c777dc&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="cb-video-showcase-cogent-content">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/4bfe7c7f-7e13-45ad-97dd-94c06ed463d3/1629489003234.jpg" alt="A logo with a white blimp silhouette on a red background, and the text 'COGENT WORLD' below it with 'WORLD' in gray." class="cb-video-showcase-cogent-logo" />
+        <h2 class="cb-video-showcase-cogent-title">Scaling content for hundreds of events</h2>
+        <p class="cb-video-showcase-cogent-description">From music festivals to brand activations, Cogent World produces hundreds of events across the globe. With Cinebody, they empower on-site teams and talent to capture real, in-the-moment content, fueling a steady stream of authentic video that connects with their community long after the event ends.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  function initCogent() {
+    var wrapper = document.querySelector('.cb-video-showcase-cogent-wrapper');
+    if (!wrapper) return;
+    var allVids = wrapper.querySelectorAll('[data-cogent-vid]');
+    var players = []; var overlays = []; var activeIndex = null;
+    allVids.forEach(function(v) { var iframe = v.querySelector('iframe'); var p = new Vimeo.Player(iframe); p.setVolume(0); players.push(p); overlays.push(v.querySelector('.cb-video-overlay-cogent')); });
+    function resetAll() { allVids.forEach(function(v, i) { v.classList.remove('cb-cogent-playing'); overlays[i].style.opacity = '1'; players[i].setVolume(0); players[i].play(); }); activeIndex = null; }
+    allVids.forEach(function(v, idx) { v.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); if (activeIndex === idx) { resetAll(); } else { resetAll(); players.forEach(function(p, i) { if (i !== idx) { p.pause(); p.setVolume(0); } }); v.classList.add('cb-cogent-playing'); overlays[idx].style.opacity = '0'; players[idx].setVolume(1); players[idx].play(); activeIndex = idx; } }); });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initCogent); } else { initCogent(); }
+})();
+</script>

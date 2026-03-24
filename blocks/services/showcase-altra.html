@@ -1,0 +1,112 @@
+<!-- Cinebody Video Showcase - Altra -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .cb-video-showcase-altra-wrapper { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: #ffffff; padding: 80px 0; margin-top: 0 !important; margin-bottom: 0 !important; overflow: visible; }
+  .cb-video-showcase-altra-container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+  .cb-video-showcase-altra-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; align-items: center; }
+  .cb-video-showcase-altra-content { animation: cb-fadeRight 0.8s ease-out; display: flex; flex-direction: column; justify-content: center; }
+  @keyframes cb-fadeRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-showcase-altra-logo { width: 160px; height: auto; margin-bottom: 32px; }
+  .cb-video-showcase-altra-title { font-family: 'Open Sans', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 700; color: #5A5A5A; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .cb-video-showcase-altra-description { font-family: 'Open Sans', sans-serif; font-size: 1.1rem; color: #71717a; line-height: 1.7; margin-bottom: 0; }
+  .cb-video-grid-altra { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; animation: cb-fadeLeft 0.8s ease-out 0.2s both; }
+  @keyframes cb-fadeLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-item-altra { position: relative; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 9 / 16; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); cursor: pointer; z-index: 1; }
+  .cb-video-item-altra::before, .cb-video-item-altra::after { display: none !important; content: none !important; }
+  .cb-video-item-altra:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2); }
+  .cb-video-item-altra:hover::before, .cb-video-item-altra:hover::after { display: none !important; content: none !important; }
+  .cb-video-item-altra iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: none; }
+  .cb-video-overlay-altra { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; cursor: pointer; background: transparent; transition: opacity 0.3s ease; }
+  .cb-altra-play-btn { position: absolute; bottom: 14px; left: 14px; width: 42px; height: 42px; background: linear-gradient(135deg, #00bcf1, #0099c8); border-radius: 9px; z-index: 10; pointer-events: none; transition: all 0.3s ease; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4), inset 0 0 0 2px rgba(255, 236, 3, 0.6); display: flex; align-items: center; justify-content: center; }
+  .cb-altra-play-btn::after { content: ''; display: block; width: 0; height: 0; border-left: 11px solid #ffffff; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-right: none; margin-left: 3px; transition: all 0.3s ease; }
+  .cb-video-item-altra:hover .cb-altra-play-btn { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0, 188, 241, 0.6), inset 0 0 0 2.5px rgba(255, 236, 3, 1), 0 0 20px rgba(255, 236, 3, 0.4); }
+  .cb-video-item-altra.cb-altra-playing .cb-altra-play-btn { width: 34px; height: 34px; border-radius: 7px; background: linear-gradient(135deg, rgba(0, 188, 241, 0.8), rgba(0, 153, 200, 0.8)); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 236, 3, 0.8); }
+  .cb-video-item-altra.cb-altra-playing .cb-altra-play-btn::after { content: ''; display: block; width: 10px; height: 12px; border-top: none; border-bottom: none; border-left: 3px solid #ffffff; border-right: 3px solid #ffffff; margin-left: 0; }
+  @media (max-width: 1000px) { .cb-video-showcase-altra-layout { grid-template-columns: 1fr; gap: 50px; } .cb-video-showcase-altra-content { text-align: center; order: -1; } .cb-video-grid-altra { order: 1; } .cb-video-showcase-altra-logo { margin-left: auto; margin-right: auto; } .cb-video-grid-altra { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; gap: 20px; } .cb-video-item-altra { width: 100%; } }
+  @media (max-width: 640px) { .cb-video-showcase-altra-wrapper { padding: 60px 0; width: 100%; left: 0; right: 0; margin-left: 0; margin-right: 0; position: static; } .cb-video-showcase-altra-container { padding: 0 16px; max-width: 100%; background: transparent; } .cb-video-showcase-altra-layout { display: flex; flex-direction: column; background: transparent; } .cb-video-showcase-altra-content { margin-bottom: 40px; background: transparent; } .cb-video-showcase-altra-logo { margin-bottom: 24px; } .cb-video-grid-altra { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 100%; background: transparent; padding: 0; } .cb-video-item-altra { width: 100%; max-width: 100%; margin: 0; display: block; position: relative; background: transparent; border-radius: 0; box-shadow: none; } .cb-video-item-altra iframe { display: block; width: 100%; height: auto; min-height: 600px; background: transparent; } .cb-altra-play-btn { width: 38px; height: 38px; } }
+</style>
+
+<div class="cb-video-showcase-altra-wrapper">
+  <div class="cb-video-showcase-altra-container">
+    <div class="cb-video-showcase-altra-layout">
+      <div class="cb-video-grid-altra">
+        <div class="cb-video-item-altra" data-altra-vid="0">
+          <div class="cb-video-overlay-altra"></div>
+          <div class="cb-altra-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1098260354?h=9d87d05789&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cb-video-item-altra" data-altra-vid="1">
+          <div class="cb-video-overlay-altra"></div>
+          <div class="cb-altra-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cb-video-item-altra" data-altra-vid="2">
+          <div class="cb-video-overlay-altra"></div>
+          <div class="cb-altra-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1092215288?h=b0766b2779&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="cb-video-showcase-altra-content">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629004054-HX71A4E1K421KGFNT0PC/Altra_running_logo.png" alt="Altra logo with stylized red and black design." class="cb-video-showcase-altra-logo" />
+        <h2 class="cb-video-showcase-altra-title">Activating the community</h2>
+        <p class="cb-video-showcase-altra-description">Athletes share stories and unboxings. Cinebody edits them into content that deepens the bond between brand and running community.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  function initAltra() {
+    var wrapper = document.querySelector('.cb-video-showcase-altra-wrapper');
+    if (!wrapper) return;
+    var allVids = wrapper.querySelectorAll('[data-altra-vid]');
+    var players = [];
+    var overlays = [];
+    var activeIndex = null;
+    allVids.forEach(function(v) {
+      var iframe = v.querySelector('iframe');
+      var p = new Vimeo.Player(iframe);
+      p.setVolume(0);
+      players.push(p);
+      overlays.push(v.querySelector('.cb-video-overlay-altra'));
+    });
+    function resetAll() {
+      allVids.forEach(function(v, i) {
+        v.classList.remove('cb-altra-playing');
+        overlays[i].style.opacity = '1';
+        players[i].setVolume(0);
+        players[i].play();
+      });
+      activeIndex = null;
+    }
+    allVids.forEach(function(v, idx) {
+      v.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (activeIndex === idx) {
+          resetAll();
+        } else {
+          resetAll();
+          players.forEach(function(p, i) {
+            if (i !== idx) { p.pause(); p.setVolume(0); }
+          });
+          v.classList.add('cb-altra-playing');
+          overlays[idx].style.opacity = '0';
+          players[idx].setVolume(1);
+          players[idx].play();
+          activeIndex = idx;
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAltra);
+  } else { initAltra(); }
+})();
+</script>

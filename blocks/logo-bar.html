@@ -1,0 +1,232 @@
+<!-- Cinebody Logo Bar Component -->
+<!-- Paste this into a Squarespace Code Block -->
+<!-- IMPORTANT: Replace [SQUARESPACE_IMAGE_URL] with actual image URLs from Squarespace -->
+
+<style>
+  .cb-logo-bar-wrapper {
+    padding: 50px 0;
+    background: #f8f8f8;
+    overflow: hidden;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .cb-logo-bar-header {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+
+  .cb-logo-bar-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #07BCF1;
+    margin-bottom: 10px;
+  }
+
+  .cb-logo-bar-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 600;
+    color: #5A5A5A;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Marquee container */
+  .cb-logo-marquee-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Individual marquee row */
+  .cb-logo-marquee-row {
+    display: flex;
+    gap: 40px;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  /* Row 1 scrolls left */
+  .cb-logo-marquee-row.row-1 {
+    animation: scrollLeft 40s linear infinite;
+  }
+
+  /* Pause on hover */
+  .cb-logo-marquee-container:hover .cb-logo-marquee-row {
+    animation-play-state: paused;
+  }
+
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Logo item */
+  .cb-logo-item {
+    flex-shrink: 0;
+    width: 120px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.4s ease;
+  }
+
+  .cb-logo-item:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  .cb-logo-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .cb-logo-bar-wrapper {
+      padding: 40px 0;
+    }
+
+    .cb-logo-marquee-row {
+      gap: 30px;
+    }
+
+    .cb-logo-marquee-row.row-1 {
+      animation: scrollLeft 7s linear infinite;
+    }
+
+    .cb-logo-item {
+      width: 100px;
+      height: 50px;
+    }
+  }
+</style>
+
+<div class="cb-logo-bar-wrapper">
+
+  <div class="cb-logo-bar-header">
+    <h2 class="cb-logo-bar-title">The brands you know trust Cinebody to capture the content they can't.</h2>
+  </div>
+
+  <div class="cb-logo-marquee-container">
+
+    <!-- Single row (scrolls left) -->
+    <div class="cb-logo-marquee-row row-1" id="logoRow1">
+      <!-- Logos will be injected here by JavaScript -->
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  (function() {
+
+    // ============================================
+    // STEP 1: UPLOAD LOGOS TO SQUARESPACE
+    // ============================================
+    // 1. Go to Pages > Not Linked > Create "Assets" page
+    // 2. Upload all logo images (PNG with transparent backgrounds work best)
+    // 3. Right-click each logo > Copy Image Address
+    // 4. Paste URLs below, replacing [SQUARESPACE_IMAGE_URL]
+
+    // ============================================
+    // STEP 2: PASTE YOUR IMAGE URLS HERE
+    // ============================================
+
+    const logos = [
+      // Row 1 - 9 logos
+      { name: 'Siemens', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627396194-CW02B4SCASKFVILEHX39/image.png?format=300w' },
+      { name: 'WebMD', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627404824-YUXZ8IAY5N0NJ7Y6L4Y7/WebMD_logo.png?format=300w' },
+      { name: 'Royal Caribbean', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627411120-274CV165FQ2V3F5ES5RB/Royal_Caribbean_logo_%2525282024%252529.svg.png?format=300w' },
+      { name: 'point.me', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752539299392-CNCV57B8V2NSA87YEUPB/PointMe_Logo.png?format=300w' },
+      { name: 'Roku', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627421486-833XE0MQ1XX3CN6X4CWM/Roku_logo.svg.png?format=300w' },
+      { name: 'Altra', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627430711-TW8HK4VKFQZ4J7AZ0P7G/Altra_running_logo.png?format=300w' },
+      { name: 'Floyd\'s', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752539257117-LBLHIWV78BGJIZCKUJIZ/Floyds_99_Barbershop_Logo.png?format=300w' },
+      { name: 'Fresh Express', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627442034-X3L763REUWI36FAO2C8D/fresh-express-logo-png_seeklogo-57651.png?format=100w' },
+      { name: 'Raising Cane\'s', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627368500-NQBINXS11BCBMVSRSI07/Raising_Cane%252527s_Chicken_Fingers_logo.svg.png?format=300w' },
+
+      // Row 2 - 9 logos (need Nike and Adidas URLs - using first 7 for now)
+      { name: 'American Cancer Society', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627244801-4T8VLUAN2NBAD3KRIXG0/ACS_RGB.webp?format=300w' },
+      { name: 'Boeing', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627268766-2QVYTRN3751AIPACC1DY/Boeing_full_logo.svg.png?format=300w' },
+      { name: 'Experian', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627290901-W6MGMUKBSWN9LCQ0A0PE/Experian_logo.svg.png?format=300w' },
+      { name: 'Dell', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627278987-YPPWINMNWY9CFG5RG38P/Dell_Logo.svg.png?format=100w' },
+      { name: 'Ball', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627302251-THIBJL435U9YGI7FHQLF/Logo_Ball_Corporation.svg.png?format=100w' },
+      { name: 'S&P Global', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627309936-06LGFF1K8WXPIXXW2NVF/S%252526P_Global_logo.svg.png?format=300w' },
+      { name: 'UCF', url: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627329609-7BZ8MAMCD38ND9HZBA9X/University_of_Central_Florida_Logo_color.png?format=300w' }
+    ];
+
+    // ============================================
+    // NO NEED TO EDIT BELOW THIS LINE
+    // ============================================
+
+    // Combine all logos into single row
+    const allLogos = logos;
+
+    // Function to create logo HTML
+    function createLogoHTML(logo) {
+      // If URL is still placeholder, show text fallback
+      if (logo.url === '[SQUARESPACE_IMAGE_URL]') {
+        return `
+          <div class="cb-logo-item">
+            <div style="
+              font-family: 'Open Sans', sans-serif;
+              font-size: 0.9rem;
+              font-weight: 600;
+              color: #5A5A5A;
+              text-align: center;
+              padding: 10px;
+            ">
+              ${logo.name}
+            </div>
+          </div>
+        `;
+      }
+
+      // Otherwise show actual image
+      return `
+        <div class="cb-logo-item">
+          <img src="${logo.url}" alt="${logo.name}" />
+        </div>
+      `;
+    }
+
+    // Function to populate a row (duplicated for infinite scroll effect)
+    function populateRow(rowElement, logos) {
+      let html = '';
+
+      // Duplicate logos 3 times for seamless infinite scroll
+      for (let i = 0; i < 3; i++) {
+        logos.forEach(logo => {
+          html += createLogoHTML(logo);
+        });
+      }
+
+      rowElement.innerHTML = html;
+    }
+
+    // Populate the single row
+    const row1Element = document.getElementById('logoRow1');
+
+    if (row1Element) {
+      populateRow(row1Element, allLogos);
+    }
+
+  })();
+</script>

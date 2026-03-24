@@ -1,0 +1,459 @@
+<!-- Cinebody Software - Georgia-Pacific Case Study Teaser -->
+<!-- Paste this into a Squarespace Code Block -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
+
+  .cb-gpt-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #5a5a5a !important;
+    color: #ffffff !important;
+    padding: 56px 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    overflow: hidden;
+  }
+
+  .cb-gpt-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 360px minmax(0, 440px) 360px;
+    gap: 36px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* ===== LEFT: Video ===== */
+  .cb-gpt-video-link {
+    display: block;
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 9 / 16;
+    width: 180px;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+    animation: cb-gpt-videoIn 0.7s ease-out 0.2s both;
+  }
+  @keyframes cb-gpt-videoIn {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .cb-gpt-video-link:hover {
+    transform: scale(1.06) translateY(-4px);
+    box-shadow: 0 16px 44px rgba(0, 188, 241, 0.25), 0 0 0 2px rgba(0, 188, 241, 0.3);
+  }
+  .cb-gpt-video-link iframe {
+    position: absolute;
+    top: -1px; left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: none;
+    pointer-events: none;
+    object-fit: cover;
+  }
+  .cb-gpt-video-link::before { display: none; }
+  .cb-gpt-video-link::after { display: none; }
+
+  /* ===== CENTER: Copy + Stats + CTA ===== */
+  .cb-gpt-center {
+    text-align: center;
+    animation: cb-gpt-fadeUp 0.7s ease-out 0.1s both;
+  }
+  @keyframes cb-gpt-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-gpt-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .cb-gpt-badge {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #5a5a5a;
+    background: #ffec03;
+    padding: 3px 10px;
+    border-radius: 4px;
+    animation: cb-gpt-badgePop 0.5s ease-out 0.5s both;
+  }
+  @keyframes cb-gpt-badgePop {
+    0% { opacity: 0; transform: scale(0.7); }
+    70% { transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .cb-gpt-client {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #cccccc !important;
+  }
+
+  .cb-gpt-wrapper h3 { color: #ffffff !important; }
+  .cb-gpt-wrapper h3 span { color: #00bcf1 !important; }
+  .cb-gpt-wrapper p { color: #b0b0b0 !important; }
+
+  .cb-gpt-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+    font-weight: 800;
+    color: #ffffff !important;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 4px 0;
+  }
+  .cb-gpt-title span { color: #00bcf1 !important; }
+  .cb-gpt-desc {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #b0b0b0 !important;
+    line-height: 1.6;
+    margin: 0 auto 20px;
+    max-width: 400px;
+  }
+
+  /* Stats */
+  .cb-gpt-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 22px;
+  }
+  .cb-gpt-stat {
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: default;
+    opacity: 0;
+    animation: cb-gpt-statPop 0.5s ease-out both;
+  }
+  .cb-gpt-stat:hover { transform: translateY(-4px); }
+  .cb-gpt-stat:hover .cb-gpt-stat-num {
+    color: #ffec03 !important;
+    text-shadow: 0 2px 8px rgba(255, 236, 3, 0.3);
+  }
+  .cb-gpt-stat:nth-child(1) { animation-delay: 0.4s; }
+  .cb-gpt-stat:nth-child(3) { animation-delay: 0.5s; }
+  .cb-gpt-stat:nth-child(5) { animation-delay: 0.6s; }
+  .cb-gpt-stat:nth-child(7) { animation-delay: 0.7s; }
+  .cb-gpt-stat-num {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #00bcf1 !important;
+    line-height: 1;
+    margin-bottom: 2px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  .cb-gpt-stat-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #cccccc !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+  }
+  .cb-gpt-stat:hover .cb-gpt-stat-label { color: #ffffff !important; }
+  .cb-gpt-stat-pipe {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    align-self: stretch;
+    opacity: 0;
+    animation: cb-gpt-statPop 0.5s ease-out both;
+  }
+  .cb-gpt-stat-pipe:nth-child(2) { animation-delay: 0.45s; }
+  .cb-gpt-stat-pipe:nth-child(4) { animation-delay: 0.55s; }
+  .cb-gpt-stat-pipe:nth-child(6) { animation-delay: 0.65s; }
+  @keyframes cb-gpt-statPop {
+    from { opacity: 0; transform: translateY(12px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* CTA */
+  .cb-gpt-cta {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: #00bcf1;
+    padding: 10px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 188, 241, 0.3);
+    animation: cb-gpt-ctaIn 0.5s ease-out 0.8s both;
+  }
+  @keyframes cb-gpt-ctaIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-gpt-cta:hover {
+    background: #0099c8;
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 8px 24px rgba(0, 188, 241, 0.45);
+  }
+
+  /* ===== RIGHT: Brand Ecosystem Graphic ===== */
+  .cb-gpt-eco {
+    width: 100%;
+    max-width: 360px;
+    animation: cb-gpt-ecoIn 0.7s ease-out 0.3s both;
+  }
+  @keyframes cb-gpt-ecoIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .cb-gpt-eco-svg { width: 100%; height: auto; }
+
+  /* Hub circle */
+  .cb-gpt-hub-outer {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.4);
+    stroke-width: 1.8;
+  }
+  .cb-gpt-hub-fill {
+    fill: rgba(0, 188, 241, 0.12);
+  }
+  .cb-gpt-hub-pulse {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.15);
+    stroke-width: 1;
+    animation: cb-gpt-hubPulse 3s ease-out infinite;
+  }
+  @keyframes cb-gpt-hubPulse {
+    0% { r: 36; opacity: 0.4; }
+    100% { r: 60; opacity: 0; }
+  }
+  .cb-gpt-hub-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 7px;
+    font-weight: 800;
+    fill: #00bcf1;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .cb-gpt-hub-sublabel {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+    fill: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Connection lines */
+  .cb-gpt-connection {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.25);
+    stroke-width: 1;
+    stroke-dasharray: 4 3;
+    animation: cb-gpt-ecoDash 20s linear infinite;
+  }
+  @keyframes cb-gpt-ecoDash {
+    from { stroke-dashoffset: 0; }
+    to { stroke-dashoffset: -140; }
+  }
+
+  /* Brand nodes */
+  .cb-gpt-node {
+    cursor: pointer;
+    opacity: 0;
+  }
+  .cb-gpt-node-1 { animation: cb-gpt-nodeIn 0.5s ease-out 0.6s both; }
+  .cb-gpt-node-2 { animation: cb-gpt-nodeIn 0.5s ease-out 0.8s both; }
+  .cb-gpt-node-3 { animation: cb-gpt-nodeIn 0.5s ease-out 1.0s both; }
+  @keyframes cb-gpt-nodeIn {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .cb-gpt-node-bg {
+    fill: rgba(0, 188, 241, 0.1);
+    stroke: rgba(0, 188, 241, 0.35);
+    stroke-width: 1;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+  }
+  .cb-gpt-node:hover .cb-gpt-node-bg {
+    fill: rgba(255, 236, 3, 0.12);
+    stroke: rgba(255, 236, 3, 0.5);
+  }
+
+  .cb-gpt-node-glow {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.12);
+    stroke-width: 0.8;
+    animation: cb-gpt-ecoPulse 3s ease-in-out infinite;
+  }
+  .cb-gpt-node-1 .cb-gpt-node-glow { animation-delay: 0s; }
+  .cb-gpt-node-2 .cb-gpt-node-glow { animation-delay: 1s; }
+  .cb-gpt-node-3 .cb-gpt-node-glow { animation-delay: 2s; }
+  @keyframes cb-gpt-ecoPulse {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  .cb-gpt-node-brand {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    fill: #ffffff;
+    transition: fill 0.3s ease;
+  }
+  .cb-gpt-node:hover .cb-gpt-node-brand { fill: #ffec03; }
+
+  .cb-gpt-node-type {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+    fill: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: fill 0.3s ease;
+  }
+  .cb-gpt-node:hover .cb-gpt-node-type { fill: rgba(255, 236, 3, 0.7); }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1000px) {
+    .cb-gpt-container {
+      grid-template-columns: 280px minmax(0, 360px) 280px;
+      gap: 24px;
+      padding: 0 24px;
+    }
+    .cb-gpt-video-link { width: 150px; }
+    .cb-gpt-eco { max-width: 280px; }
+    .cb-gpt-stats { gap: 16px; }
+    .cb-gpt-stat-num { font-size: 1.3rem; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .cb-gpt-wrapper { padding: 44px 0; }
+    .cb-gpt-container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 0 32px;
+    }
+    .cb-gpt-center { order: 1; }
+    .cb-gpt-video-link { order: 2; max-width: 200px; width: 100%; margin: 0 auto; }
+    .cb-gpt-eco { order: 3; max-width: 320px; margin: 0 auto; }
+    .cb-gpt-stats { gap: 14px; }
+    .cb-gpt-stat-num { font-size: 1.4rem; }
+    .cb-gpt-desc { font-size: 0.82rem; max-width: 320px; }
+  }
+</style>
+
+<div class="cb-gpt-wrapper">
+  <div class="cb-gpt-container">
+
+    <!-- LEFT: Video -->
+    <a href="/georgia-pacific" class="cb-gpt-video-link">
+      <iframe
+        src="https://player.vimeo.com/video/1091854157?background=1&autoplay=1&loop=1&byline=0&title=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </a>
+
+    <!-- CENTER: Copy + Stats + CTA -->
+    <div class="cb-gpt-center">
+      <div class="cb-gpt-eyebrow">
+        <span class="cb-gpt-badge">Case Study</span>
+        <span class="cb-gpt-client">Georgia-Pacific</span>
+      </div>
+      <h3 class="cb-gpt-title">
+        <span>Multiple brands. One platform.</span><br>
+        No production crews needed.
+      </h3>
+      <p class="cb-gpt-desc">Georgia-Pacific uses Cinebody to power authentic video content across Sparkle, Vanity Fair, and Innovia — capturing real customer stories at scale without a single production crew.</p>
+
+      <div class="cb-gpt-stats">
+        <div class="cb-gpt-stat">
+          <div class="cb-gpt-stat-num">3</div>
+          <div class="cb-gpt-stat-label">Brands</div>
+        </div>
+        <div class="cb-gpt-stat-pipe"></div>
+        <div class="cb-gpt-stat">
+          <div class="cb-gpt-stat-num">1</div>
+          <div class="cb-gpt-stat-label">Platform</div>
+        </div>
+        <div class="cb-gpt-stat-pipe"></div>
+        <div class="cb-gpt-stat">
+          <div class="cb-gpt-stat-num">0</div>
+          <div class="cb-gpt-stat-label">Studios</div>
+        </div>
+        <div class="cb-gpt-stat-pipe"></div>
+        <div class="cb-gpt-stat">
+          <div class="cb-gpt-stat-num">100%</div>
+          <div class="cb-gpt-stat-label">Authentic</div>
+        </div>
+      </div>
+
+      <a href="/georgia-pacific" class="cb-gpt-cta">See the Full Story</a>
+    </div>
+
+    <!-- RIGHT: Brand Ecosystem Graphic -->
+    <div class="cb-gpt-eco">
+      <svg class="cb-gpt-eco-svg" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet">
+
+        <!-- Connection lines from hub to nodes -->
+        <line class="cb-gpt-connection" x1="120" y1="120" x2="120" y2="32" />
+        <line class="cb-gpt-connection" x1="120" y1="120" x2="44" y2="196" />
+        <line class="cb-gpt-connection" x1="120" y1="120" x2="196" y2="196" />
+
+        <!-- Center hub: CB Platform -->
+        <circle class="cb-gpt-hub-pulse" cx="120" cy="120" r="36" />
+        <circle class="cb-gpt-hub-fill" cx="120" cy="120" r="36" />
+        <circle class="cb-gpt-hub-outer" cx="120" cy="120" r="36" />
+        <text class="cb-gpt-hub-label" x="120" y="117" text-anchor="middle">CB</text>
+        <text class="cb-gpt-hub-sublabel" x="120" y="128" text-anchor="middle">PLATFORM</text>
+
+        <!-- Node 1: Sparkle (top center) -->
+        <g class="cb-gpt-node cb-gpt-node-1" transform="translate(120, 32)">
+          <circle class="cb-gpt-node-glow" cx="0" cy="0" r="32" />
+          <rect class="cb-gpt-node-bg" x="-30" y="-16" width="60" height="32" rx="6" />
+          <text class="cb-gpt-node-brand" x="0" y="-2" text-anchor="middle">Sparkle&#xAE;</text>
+          <text class="cb-gpt-node-type" x="0" y="9" text-anchor="middle">Creator Demos</text>
+        </g>
+
+        <!-- Node 2: Vanity Fair (bottom-left) -->
+        <g class="cb-gpt-node cb-gpt-node-2" transform="translate(44, 196)">
+          <circle class="cb-gpt-node-glow" cx="0" cy="0" r="32" />
+          <rect class="cb-gpt-node-bg" x="-36" y="-16" width="72" height="32" rx="6" />
+          <text class="cb-gpt-node-brand" x="0" y="-2" text-anchor="middle">Vanity Fair&#xAE;</text>
+          <text class="cb-gpt-node-type" x="0" y="9" text-anchor="middle">Lifestyle Content</text>
+        </g>
+
+        <!-- Node 3: Innovia (bottom-right) -->
+        <g class="cb-gpt-node cb-gpt-node-3" transform="translate(196, 196)">
+          <circle class="cb-gpt-node-glow" cx="0" cy="0" r="32" />
+          <rect class="cb-gpt-node-bg" x="-30" y="-16" width="60" height="32" rx="6" />
+          <text class="cb-gpt-node-brand" x="0" y="-2" text-anchor="middle">Innovia&#xAE;</text>
+          <text class="cb-gpt-node-type" x="0" y="9" text-anchor="middle">Testimonials</text>
+        </g>
+
+      </svg>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,630 @@
+<!-- ============================================================
+     CINEBODY — Pricing Block
+     3-card layout with annual/monthly toggle
+     ============================================================ -->
+
+<style>
+/* ── Variables ─────────────────────────────────────── */
+:root {
+  --cb-blue: #07BCF1;
+  --cb-blue-dark: #0599C4;
+  --cb-yellow: #FEF247;
+  --cb-yellow-dark: #E5D93F;
+  --cb-dark: #1A1A2E;
+  --cb-grey-50: #F8F9FA;
+  --cb-grey-100: #F1F3F5;
+  --cb-grey-200: #E9ECEF;
+  --cb-grey-400: #ADB5BD;
+  --cb-grey-600: #6C757D;
+  --cb-grey-800: #343A40;
+  --cb-radius: 12px;
+  --cb-radius-lg: 16px;
+  --cb-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --cb-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --cb-shadow-featured: 0 8px 32px rgba(7, 188, 241, 0.18);
+  --cb-transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Section ───────────────────────────────────────── */
+.cb-pricing {
+  background: #FFFFFF;
+  padding: 100px 24px;
+}
+
+.cb-pricing__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.cb-pricing__header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.cb-pricing__title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--cb-dark);
+  line-height: 1.2;
+  margin: 0 0 20px;
+  letter-spacing: -0.02em;
+}
+
+.cb-pricing__savings {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cb-grey-50);
+  border: 1px solid var(--cb-grey-200);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cb-grey-800);
+  margin-bottom: 32px;
+}
+
+.cb-pricing__savings-icon {
+  font-size: 1.1rem;
+}
+
+/* ── Toggle ────────────────────────────────────────── */
+.cb-pricing__toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.cb-pricing__toggle-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cb-grey-400);
+  transition: color var(--cb-transition);
+  cursor: pointer;
+  user-select: none;
+}
+
+.cb-pricing__toggle-label--active {
+  color: var(--cb-dark);
+}
+
+.cb-pricing__toggle {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  background: var(--cb-grey-200);
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--cb-transition);
+  flex-shrink: 0;
+}
+
+.cb-pricing__toggle[aria-checked="true"] {
+  background: var(--cb-blue);
+}
+
+.cb-pricing__toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition: transform var(--cb-transition);
+  pointer-events: none;
+}
+
+.cb-pricing__toggle[aria-checked="true"] .cb-pricing__toggle-knob {
+  transform: translateX(26px);
+}
+
+.cb-pricing__annual-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--cb-blue);
+  background: rgba(7, 188, 241, 0.1);
+  border-radius: 100px;
+  padding: 4px 10px;
+  margin-left: 2px;
+  transition: opacity var(--cb-transition);
+}
+
+.cb-pricing__annual-tag--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Card Grid ─────────────────────────────────────── */
+.cb-pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+
+/* ── Card Base ─────────────────────────────────────── */
+.cb-pricing__card {
+  background: #FFFFFF;
+  border: 1px solid var(--cb-grey-200);
+  border-radius: var(--cb-radius-lg);
+  padding: 40px 32px 36px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition:
+    transform var(--cb-transition),
+    box-shadow var(--cb-transition),
+    border-color var(--cb-transition);
+  box-shadow: var(--cb-shadow);
+}
+
+.cb-pricing__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--cb-shadow-hover);
+}
+
+/* ── Featured Card ─────────────────────────────────── */
+.cb-pricing__card--featured {
+  border: 2px solid var(--cb-blue);
+  box-shadow: var(--cb-shadow-featured);
+}
+
+.cb-pricing__card--featured:hover {
+  box-shadow: 0 12px 40px rgba(7, 188, 241, 0.22);
+  transform: translateY(-6px);
+}
+
+.cb-pricing__badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cb-blue);
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 5px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* ── Card Content ──────────────────────────────────── */
+.cb-pricing__tier {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cb-blue);
+  margin: 0 0 4px;
+}
+
+.cb-pricing__card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cb-grey-600);
+  margin: 0 0 24px;
+}
+
+.cb-pricing__price-wrap {
+  margin-bottom: 28px;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cb-pricing__price {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--cb-dark);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.cb-pricing__price-period {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--cb-grey-400);
+}
+
+.cb-pricing__price--annual {
+  display: block;
+}
+
+.cb-pricing__price--monthly {
+  display: none;
+}
+
+.cb-pricing[data-billing="monthly"] .cb-pricing__price--annual {
+  display: none;
+}
+
+.cb-pricing[data-billing="monthly"] .cb-pricing__price--monthly {
+  display: block;
+}
+
+.cb-pricing__price-custom {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--cb-dark);
+  line-height: 1.3;
+}
+
+.cb-pricing__divider {
+  width: 100%;
+  height: 1px;
+  background: var(--cb-grey-200);
+  margin-bottom: 24px;
+  border: none;
+}
+
+.cb-pricing__features-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cb-grey-400);
+  margin: 0 0 14px;
+}
+
+.cb-pricing__features {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+  flex: 1;
+}
+
+.cb-pricing__features li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--cb-grey-800);
+  padding: 7px 0 7px 26px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.cb-pricing__features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5L12 4l1 1z' fill='%2307BCF1'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ── Buttons ───────────────────────────────────────── */
+.cb-pricing__btn {
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--cb-radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    background var(--cb-transition),
+    color var(--cb-transition),
+    border-color var(--cb-transition),
+    transform var(--cb-transition),
+    box-shadow var(--cb-transition);
+}
+
+.cb-pricing__btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Outline */
+.cb-pricing__btn--outline {
+  background: transparent;
+  border-color: var(--cb-dark);
+  color: var(--cb-dark);
+}
+
+.cb-pricing__btn--outline:hover {
+  background: var(--cb-dark);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(26, 26, 46, 0.2);
+}
+
+/* Blue */
+.cb-pricing__btn--blue {
+  background: var(--cb-blue);
+  border-color: var(--cb-blue);
+  color: #FFFFFF;
+}
+
+.cb-pricing__btn--blue:hover {
+  background: var(--cb-blue-dark);
+  border-color: var(--cb-blue-dark);
+  box-shadow: 0 4px 16px rgba(7, 188, 241, 0.35);
+}
+
+/* Yellow */
+.cb-pricing__btn--yellow {
+  background: var(--cb-yellow);
+  border-color: var(--cb-yellow);
+  color: var(--cb-dark);
+}
+
+.cb-pricing__btn--yellow:hover {
+  background: var(--cb-yellow-dark);
+  border-color: var(--cb-yellow-dark);
+  box-shadow: 0 4px 16px rgba(254, 242, 71, 0.45);
+}
+
+/* ── Footer Note ───────────────────────────────────── */
+.cb-pricing__footer {
+  text-align: center;
+  margin-top: 48px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--cb-grey-600);
+  line-height: 1.6;
+}
+
+.cb-pricing__footer a {
+  color: var(--cb-blue);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--cb-transition);
+}
+
+.cb-pricing__footer a:hover {
+  color: var(--cb-blue-dark);
+  text-decoration: underline;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cb-pricing__grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 24px;
+  }
+
+  /* Featured card appears first on tablet/mobile */
+  .cb-pricing__card--featured {
+    order: -1;
+  }
+
+  .cb-pricing__card {
+    padding: 36px 28px 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cb-pricing {
+    padding: 64px 16px;
+  }
+
+  .cb-pricing__header {
+    margin-bottom: 40px;
+  }
+
+  .cb-pricing__grid {
+    margin-top: 40px;
+  }
+
+  .cb-pricing__savings {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+  }
+}
+
+/* ── Entrance animation ────────────────────────────── */
+@keyframes cb-pricing-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cb-pricing__card {
+  animation: cb-pricing-fadeUp 0.5s ease-out both;
+}
+
+.cb-pricing__card:nth-child(1) { animation-delay: 0.1s; }
+.cb-pricing__card:nth-child(2) { animation-delay: 0.2s; }
+.cb-pricing__card:nth-child(3) { animation-delay: 0.3s; }
+</style>
+
+<section class="cb-pricing" data-billing="annual">
+  <div class="cb-pricing__inner">
+
+    <!-- Header -->
+    <div class="cb-pricing__header">
+      <h2 class="cb-pricing__title">Pick the plan that fits how you work.</h2>
+
+      <div class="cb-pricing__savings">
+        <span class="cb-pricing__savings-icon">&#x1F4B0;</span>
+        Brands using Cinebody typically save 70%+ vs. traditional production
+      </div>
+
+      <!-- Toggle -->
+      <div class="cb-pricing__toggle-wrap">
+        <span class="cb-pricing__toggle-label cb-pricing__toggle-label--active" data-label="annual">Annual</span>
+
+        <button
+          class="cb-pricing__toggle"
+          role="switch"
+          aria-checked="true"
+          aria-label="Toggle between annual and monthly billing"
+        >
+          <span class="cb-pricing__toggle-knob"></span>
+        </button>
+
+        <span class="cb-pricing__toggle-label" data-label="monthly">Monthly</span>
+        <span class="cb-pricing__annual-tag">Save up to 30%</span>
+      </div>
+    </div>
+
+    <!-- Card Grid -->
+    <div class="cb-pricing__grid">
+
+      <!-- ── PLUS ──────────────────────────────────── -->
+      <div class="cb-pricing__card">
+        <p class="cb-pricing__tier">Plus</p>
+        <p class="cb-pricing__card-title">For small teams</p>
+
+        <div class="cb-pricing__price-wrap">
+          <div class="cb-pricing__price--annual">
+            <span class="cb-pricing__price">$250</span>
+            <span class="cb-pricing__price-period">/mo</span>
+          </div>
+          <div class="cb-pricing__price--monthly">
+            <span class="cb-pricing__price">$350</span>
+            <span class="cb-pricing__price-period">/mo</span>
+          </div>
+        </div>
+
+        <hr class="cb-pricing__divider">
+        <p class="cb-pricing__features-heading">What's included</p>
+
+        <ul class="cb-pricing__features">
+          <li>1 Team</li>
+          <li>2 admin seats</li>
+          <li>25 GB storage</li>
+          <li>Unlimited filmers</li>
+          <li>Shot list tech</li>
+          <li>Photo capture</li>
+          <li>Email support</li>
+        </ul>
+
+        <a href="#" class="cb-pricing__btn cb-pricing__btn--outline">Get Started</a>
+      </div>
+
+      <!-- ── PRO (Featured) ────────────────────────── -->
+      <div class="cb-pricing__card cb-pricing__card--featured">
+        <span class="cb-pricing__badge">Most Popular</span>
+        <p class="cb-pricing__tier">Pro</p>
+        <p class="cb-pricing__card-title">For growing brands</p>
+
+        <div class="cb-pricing__price-wrap">
+          <div class="cb-pricing__price--annual">
+            <span class="cb-pricing__price">$500</span>
+            <span class="cb-pricing__price-period">/mo</span>
+          </div>
+          <div class="cb-pricing__price--monthly">
+            <span class="cb-pricing__price">$650</span>
+            <span class="cb-pricing__price-period">/mo</span>
+          </div>
+        </div>
+
+        <hr class="cb-pricing__divider">
+        <p class="cb-pricing__features-heading">Everything in Plus, and</p>
+
+        <ul class="cb-pricing__features">
+          <li>Multiple teams</li>
+          <li>5 admin seats</li>
+          <li>100 GB storage</li>
+          <li>Dedicated support</li>
+          <li>SSO</li>
+          <li>Custom legal</li>
+          <li>API access</li>
+        </ul>
+
+        <a href="#" class="cb-pricing__btn cb-pricing__btn--blue">Book a Demo</a>
+      </div>
+
+      <!-- ── ENTERPRISE ────────────────────────────── -->
+      <div class="cb-pricing__card">
+        <p class="cb-pricing__tier">Enterprise</p>
+        <p class="cb-pricing__card-title">For large organizations</p>
+
+        <div class="cb-pricing__price-wrap">
+          <span class="cb-pricing__price-custom">Let's scope it together.</span>
+        </div>
+
+        <hr class="cb-pricing__divider">
+        <p class="cb-pricing__features-heading">Everything in Pro, and</p>
+
+        <ul class="cb-pricing__features">
+          <li>Custom teams &amp; admins</li>
+          <li>Custom storage</li>
+          <li>Concierge support</li>
+          <li>Advanced security</li>
+          <li>Custom integrations</li>
+          <li>Strategic Producer</li>
+          <li>Custom legal signing</li>
+        </ul>
+
+        <a href="#" class="cb-pricing__btn cb-pricing__btn--yellow">Talk to Our Team</a>
+      </div>
+
+    </div><!-- /.cb-pricing__grid -->
+
+    <!-- Footer -->
+    <p class="cb-pricing__footer">
+      Need help with production, editing, or creative strategy?
+      <a href="#">Explore our creative services</a> to extend your team.
+    </p>
+
+  </div><!-- /.cb-pricing__inner -->
+</section>
+
+<script>
+(function () {
+  const section = document.querySelector('.cb-pricing');
+  if (!section) return;
+
+  const toggle      = section.querySelector('.cb-pricing__toggle');
+  const labelAnnual = section.querySelector('[data-label="annual"]');
+  const labelMonth  = section.querySelector('[data-label="monthly"]');
+  const annualTag   = section.querySelector('.cb-pricing__annual-tag');
+
+  function setBilling(mode) {
+    const isAnnual = mode === 'annual';
+
+    section.setAttribute('data-billing', mode);
+    toggle.setAttribute('aria-checked', String(isAnnual));
+
+    labelAnnual.classList.toggle('cb-pricing__toggle-label--active', isAnnual);
+    labelMonth.classList.toggle('cb-pricing__toggle-label--active', !isAnnual);
+    annualTag.classList.toggle('cb-pricing__annual-tag--hidden', !isAnnual);
+  }
+
+  toggle.addEventListener('click', function () {
+    const current = section.getAttribute('data-billing');
+    setBilling(current === 'annual' ? 'monthly' : 'annual');
+  });
+
+  labelAnnual.addEventListener('click', function () {
+    setBilling('annual');
+  });
+
+  labelMonth.addEventListener('click', function () {
+    setBilling('monthly');
+  });
+})();
+</script>

@@ -1,0 +1,276 @@
+<!-- Cinebody Nationwide Sync - Nike Case Study -->
+<!-- Paste this into a Squarespace Code Block -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+  .cb-sync-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #5a5a5a;
+    overflow: hidden;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .cb-sync-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+  .cb-sync-header {
+    text-align: center;
+    margin-bottom: 56px;
+    animation: cb-sync-fadeUp 0.8s ease-out;
+  }
+  @keyframes cb-sync-fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-sync-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0 0 12px 0;
+  }
+  .cb-sync-title span {
+    color: #00bcf1;
+  }
+  .cb-sync-subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+  }
+
+  /* 2x2 Video Grid */
+  .cb-sync-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .cb-sync-cell {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #333;
+    aspect-ratio: 16 / 9;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: cb-sync-fadeUp 0.8s ease-out both;
+  }
+  .cb-sync-cell:nth-child(1) { animation-delay: 0.1s; }
+  .cb-sync-cell:nth-child(2) { animation-delay: 0.2s; }
+  .cb-sync-cell:nth-child(3) { animation-delay: 0.3s; }
+  .cb-sync-cell:nth-child(4) { animation-delay: 0.4s; }
+
+  .cb-sync-cell:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  }
+  .cb-sync-cell iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+
+  /* City Label */
+  .cb-sync-label {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 6px 16px;
+    border-radius: 20px;
+    z-index: 3;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  /* Play / Pause Button */
+  .cb-sync-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0077ff, #00c6ff);
+    border: 3px solid #00bcf1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 119, 255, 0.4);
+  }
+  .cb-sync-play-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #ffffff;
+    margin-left: 3px;
+  }
+  .cb-sync-playing .cb-sync-play-btn {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  .cb-sync-cell:hover .cb-sync-play-btn {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  .cb-sync-playing:hover .cb-sync-play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* Responsive */
+  @media (max-width: 1000px) {
+    .cb-sync-inner { padding: 60px 28px; }
+    .cb-sync-grid { gap: 18px; }
+  }
+  @media (max-width: 768px) {
+    .cb-sync-inner { padding: 48px 20px; }
+    .cb-sync-title { margin-bottom: 8px; }
+    .cb-sync-subtitle { font-size: 0.95rem; }
+    .cb-sync-header { margin-bottom: 36px; }
+    .cb-sync-grid { grid-template-columns: 1fr; gap: 16px; }
+    .cb-sync-cell { border-radius: 12px; }
+    .cb-sync-play-btn { width: 50px; height: 50px; }
+    .cb-sync-play-btn svg { width: 16px; height: 16px; }
+    .cb-sync-label { font-size: 12px; padding: 5px 12px; bottom: 10px; left: 10px; }
+  }
+  @media (max-width: 640px) {
+    .cb-sync-wrapper { width: 100%; left: 0; position: static; transform: none; overflow: hidden; }
+    .cb-sync-inner { padding: 40px 16px; }
+  }
+</style>
+
+<div class="cb-sync-wrapper">
+  <div class="cb-sync-inner">
+
+    <div class="cb-sync-header">
+      <h2 class="cb-sync-title">Four cities. One weekend. <span>Every run, captured.</span></h2>
+      <p class="cb-sync-subtitle">Simultaneous content capture across Nike Run Club communities nationwide.</p>
+    </div>
+
+    <div class="cb-sync-grid">
+
+      <!-- NYC -->
+      <div class="cb-sync-cell" data-vimeo-id="210955565">
+        <iframe src="https://player.vimeo.com/video/210955565?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+        <div class="cb-sync-label">New York City</div>
+        <div class="cb-sync-play-btn">
+          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+        </div>
+      </div>
+
+      <!-- LA -->
+      <div class="cb-sync-cell" data-vimeo-id="210956522">
+        <iframe src="https://player.vimeo.com/video/210956522?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+        <div class="cb-sync-label">Los Angeles</div>
+        <div class="cb-sync-play-btn">
+          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+        </div>
+      </div>
+
+      <!-- Chicago -->
+      <div class="cb-sync-cell" data-vimeo-id="210956382">
+        <iframe src="https://player.vimeo.com/video/210956382?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+        <div class="cb-sync-label">Chicago</div>
+        <div class="cb-sync-play-btn">
+          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+        </div>
+      </div>
+
+      <!-- Austin -->
+      <div class="cb-sync-cell" data-vimeo-id="210956225">
+        <iframe src="https://player.vimeo.com/video/210956225?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+        <div class="cb-sync-label">Austin</div>
+        <div class="cb-sync-play-btn">
+          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  var wrapper = document.querySelector('.cb-sync-wrapper');
+  if (!wrapper) return;
+
+  var cells = wrapper.querySelectorAll('.cb-sync-cell');
+  var players = new Map();
+
+  // Initialize Vimeo players
+  cells.forEach(function(cell) {
+    var iframe = cell.querySelector('iframe');
+    if (iframe) {
+      var player = new Vimeo.Player(iframe);
+      players.set(cell, player);
+    }
+  });
+
+  function pauseAllPlayers() {
+    players.forEach(function(player, cell) {
+      player.setVolume(0);
+      player.pause();
+      cell.classList.remove('cb-sync-playing');
+    });
+  }
+
+  function autoplayAll() {
+    players.forEach(function(player) {
+      player.setVolume(0);
+      player.play();
+    });
+  }
+
+  // Click to unmute/pause toggle
+  cells.forEach(function(cell) {
+    cell.addEventListener('click', function() {
+      var player = players.get(cell);
+      if (!player) return;
+
+      if (cell.classList.contains('cb-sync-playing')) {
+        // Clicking active video: mute it, pause it
+        player.setVolume(0);
+        player.pause();
+        cell.classList.remove('cb-sync-playing');
+      } else {
+        // Mute all others first
+        players.forEach(function(p, c) {
+          if (c !== cell) {
+            p.setVolume(0);
+            c.classList.remove('cb-sync-playing');
+          }
+        });
+        // Unmute and play this one
+        player.setVolume(1);
+        player.play();
+        cell.classList.add('cb-sync-playing');
+      }
+    });
+  });
+
+  // Auto-play all muted on load
+  autoplayAll();
+})();
+</script>

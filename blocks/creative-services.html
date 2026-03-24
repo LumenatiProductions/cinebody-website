@@ -1,0 +1,339 @@
+<!-- Cinebody Creative Services Showcase - Redesigned -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  /* Full-width section */
+  .cb-services-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 80px 0;
+    background: #f8f8f8;
+    overflow: hidden;
+  }
+
+  .cb-services-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* Header */
+  .cb-services-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .cb-services-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    color: #5A5A5A;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+
+  /* Grid - 3 columns */
+  .cb-services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 50px;
+  }
+
+  /* Service Card - White with color accent */
+  .cb-service-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #ffffff;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid transparent;
+  }
+
+  .cb-service-card:nth-child(1) {
+    border-top-color: #00bcf1;
+  }
+
+  .cb-service-card:nth-child(2) {
+    border-top-color: #ffec03;
+  }
+
+  .cb-service-card:nth-child(3) {
+    border-top-color: #eb008b;
+  }
+
+  .cb-service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Image with overlay gradient */
+  .cb-service-image-wrap {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .cb-service-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .cb-service-card:hover .cb-service-image {
+    transform: scale(1.08);
+  }
+
+  /* Gradient overlay on image */
+  .cb-service-image-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    pointer-events: none;
+  }
+
+  /* Content area */
+  .cb-service-content {
+    padding: 32px 28px 36px;
+    background: #ffffff;
+  }
+
+  .cb-service-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    margin-bottom: 12px;
+  }
+
+  .cb-service-card:nth-child(1) .cb-service-label {
+    color: #00bcf1;
+  }
+
+  .cb-service-card:nth-child(2) .cb-service-label {
+    color: #5A5A5A;
+  }
+
+  .cb-service-card:nth-child(3) .cb-service-label {
+    color: #eb008b;
+  }
+
+  .cb-service-description {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #5A5A5A;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Icon badge on image */
+  .cb-service-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .cb-service-card:hover .cb-service-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  /* CTA */
+  .cb-services-cta {
+    text-align: center;
+  }
+
+  .cb-services-button {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: #00bcf1;
+    border: none;
+    padding: 18px 50px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 188, 241, 0.3);
+  }
+
+  .cb-services-button:hover {
+    background: #0099c8;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 188, 241, 0.4);
+  }
+
+  /* Tablet - 2 columns */
+  @media (max-width: 900px) {
+    .cb-services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cb-service-card:nth-child(3) {
+      grid-column: span 2;
+      max-width: 50%;
+      margin: 0 auto;
+    }
+  }
+
+  /* Mobile - 1 column */
+  @media (max-width: 640px) {
+    .cb-services-wrapper {
+      padding: 60px 0;
+    }
+
+    .cb-services-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .cb-service-card:nth-child(3) {
+      grid-column: span 1;
+      max-width: 100%;
+    }
+
+    .cb-service-image-wrap {
+      height: 240px;
+    }
+
+    .cb-service-content {
+      padding: 28px 24px 32px;
+    }
+
+    .cb-service-icon {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  /* Animate in */
+  @keyframes cb-fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cb-service-card {
+    animation: cb-fadeUp 0.6s ease-out both;
+  }
+
+  .cb-service-card:nth-child(1) { animation-delay: 0.1s; }
+  .cb-service-card:nth-child(2) { animation-delay: 0.25s; }
+  .cb-service-card:nth-child(3) { animation-delay: 0.4s; }
+</style>
+
+<div class="cb-services-wrapper">
+  <div class="cb-services-container">
+
+    <!-- Header -->
+    <div class="cb-services-header">
+      <h2 class="cb-services-title">Explore our most popular creative service plans</h2>
+    </div>
+
+    <!-- Grid -->
+    <div class="cb-services-grid">
+
+      <!-- Testimonials -->
+      <div class="cb-service-card">
+        <div class="cb-service-image-wrap">
+          <div class="cb-service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00bcf1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <img
+            src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/cb0a7130-c45d-406f-affe-a21bd63dd973/Screenshot+2025-07-15+at+12.40.36%E2%80%AFPM.png"
+            alt="Testimonials"
+            class="cb-service-image"
+          />
+        </div>
+        <div class="cb-service-content">
+          <div class="cb-service-label">Testimonials</div>
+          <div class="cb-service-description">
+            Your happiest customers already have something to say. Cinebody gives them the tools to say it on camera, guided by your shot list, filmed on their phone, and delivered to your dashboard in real time.
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Content -->
+      <div class="cb-service-card">
+        <div class="cb-service-image-wrap">
+          <div class="cb-service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5A5A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <img
+            src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/4ec36436-918f-4381-8824-15885955f625/Screenshot+2025-07-15+at+12.46.02%E2%80%AFPM.png"
+            alt="Event Content"
+            class="cb-service-image"
+          />
+        </div>
+        <div class="cb-service-content">
+          <div class="cb-service-label">Event Content</div>
+          <div class="cb-service-description">
+            Every event generates hundreds of moments worth capturing. Cinebody lets you deploy unlimited filmers on-site with attendees, staff, or brand ambassadors so you walk away with a library of authentic footage.
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Content -->
+      <div class="cb-service-card">
+        <div class="cb-service-image-wrap">
+          <div class="cb-service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#eb008b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </div>
+          <img
+            src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/f97d5edc-70d0-4924-8238-e2e84baed34f/Screenshot+2025-07-15+at+9.03.12%E2%80%AFAM.png"
+            alt="Social Content"
+            class="cb-service-image"
+          />
+        </div>
+        <div class="cb-service-content">
+          <div class="cb-service-label">Social Content</div>
+          <div class="cb-service-description">
+            Algorithms reward authenticity. Cinebody helps you build a steady pipeline of real, community-created content for your organic and paid channels — without the back-and-forth of freelancer briefs or Dropbox links.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="cb-services-cta">
+      <a href="https://cinebody.com/services" class="cb-services-button">Explore More</a>
+    </div>
+
+  </div>
+</div>

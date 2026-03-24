@@ -1,0 +1,82 @@
+<!-- Cinebody Video Showcase - Point.me -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .cb-video-showcase-pointme-wrapper { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: #F4F4F3; padding: 80px 0; margin-top: 0 !important; margin-bottom: 0 !important; overflow: visible; }
+  .cb-video-showcase-pointme-container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+  .cb-video-showcase-pointme-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; align-items: center; }
+  .cb-video-showcase-pointme-content { animation: cb-fadeRight 0.8s ease-out; display: flex; flex-direction: column; justify-content: center; }
+  @keyframes cb-fadeRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-showcase-pointme-logo { width: 160px; height: auto; margin-bottom: 8px; }
+  .cb-video-showcase-pointme-title { font-family: 'Open Sans', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #5A5A5A; line-height: 1.2; margin-top: -10px; margin-bottom: 24px; letter-spacing: -0.02em; }
+  .cb-video-showcase-pointme-description { font-family: 'Open Sans', sans-serif; font-size: 1.1rem; color: #71717a; line-height: 1.7; margin-bottom: 0; }
+  .cb-video-item-pointme { position: relative; border-radius: 20px; overflow: hidden; background: #000; aspect-ratio: 16 / 9; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); cursor: pointer; z-index: 1; animation: cb-fadeLeft 0.8s ease-out 0.2s both; }
+  .cb-video-item-pointme::before, .cb-video-item-pointme::after { display: none !important; content: none !important; }
+  @keyframes cb-fadeLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-item-pointme:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18); }
+  .cb-video-item-pointme:hover::before, .cb-video-item-pointme:hover::after { display: none !important; content: none !important; }
+  .cb-video-item-pointme iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: none; }
+  .cb-video-overlay-pointme { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; cursor: pointer; background: transparent; transition: opacity 0.3s ease; }
+  .cb-pointme-play-btn { position: absolute; bottom: 24px; left: 24px; width: 64px; height: 64px; background: linear-gradient(135deg, #00bcf1, #0099c8); border-radius: 12px; z-index: 10; pointer-events: none; transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 0 0 2.5px rgba(255, 236, 3, 0.6); display: flex; align-items: center; justify-content: center; }
+  .cb-pointme-play-btn::after { content: ''; display: block; width: 0; height: 0; border-left: 18px solid #ffffff; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-right: none; margin-left: 4px; transition: all 0.3s ease; }
+  .cb-video-item-pointme:hover .cb-pointme-play-btn { transform: scale(1.08); box-shadow: 0 6px 20px rgba(0, 188, 241, 0.6), inset 0 0 0 3px rgba(255, 236, 3, 1), 0 0 24px rgba(255, 236, 3, 0.5); }
+  .cb-video-item-pointme.cb-pointme-playing .cb-pointme-play-btn { width: 48px; height: 48px; border-radius: 10px; background: linear-gradient(135deg, rgba(0, 188, 241, 0.8), rgba(0, 153, 200, 0.8)); box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3), inset 0 0 0 2.5px rgba(255, 236, 3, 0.8); }
+  .cb-video-item-pointme.cb-pointme-playing .cb-pointme-play-btn::after { content: ''; display: block; width: 14px; height: 18px; border-top: none; border-bottom: none; border-left: 4px solid #ffffff; border-right: 4px solid #ffffff; margin-left: 0; }
+  @media (max-width: 1000px) { .cb-video-showcase-pointme-layout { grid-template-columns: 1fr; gap: 50px; } .cb-video-showcase-pointme-content { text-align: center; order: -1; } .cb-video-item-pointme { order: 1; } .cb-video-showcase-pointme-logo { margin-left: auto; margin-right: auto; } }
+  @media (max-width: 640px) { .cb-video-showcase-pointme-wrapper { padding: 60px 0; width: 100%; left: 0; right: 0; margin-left: 0; margin-right: 0; position: static; } .cb-video-showcase-pointme-container { padding: 0 16px; max-width: 100%; } .cb-video-showcase-pointme-layout { display: flex; flex-direction: column; } .cb-video-showcase-pointme-content { margin-bottom: 40px; } .cb-video-item-pointme { width: 100%; margin: 0; border-radius: 12px; aspect-ratio: 16 / 9; } .cb-video-item-pointme iframe { width: 100%; height: 100%; } .cb-pointme-play-btn { width: 48px; height: 48px; bottom: 16px; left: 16px; border-radius: 10px; } .cb-pointme-play-btn::after { border-left-width: 14px; border-top-width: 9px; border-bottom-width: 9px; margin-left: 3px; } }
+</style>
+
+<div class="cb-video-showcase-pointme-wrapper">
+  <div class="cb-video-showcase-pointme-container">
+    <div class="cb-video-showcase-pointme-layout">
+      <div class="cb-video-item-pointme" data-pointme-vid="0">
+        <div class="cb-video-overlay-pointme"></div>
+        <div class="cb-pointme-play-btn"></div>
+        <iframe src="https://player.vimeo.com/video/1078357962?h=ac0da6551d&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="cb-video-showcase-pointme-content">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629603184-0N75S5FV7AKEU5STOVOC/1I88jMGuA5ObZ3LgSCItTrMBtb51693924089177_200x200.png" alt="Silhouette of a person holding a walking stick against a sunset or sunrise background with volcanoes in the distance." class="cb-video-showcase-pointme-logo" />
+        <h2 class="cb-video-showcase-pointme-title">The most authentic CTV ad</h2>
+        <p class="cb-video-showcase-pointme-description">To prove how simple it is to book flights with points, Point.me needed more than a script, they needed real voices. With Cinebody, they captured true customer testimonials remotely, creating relatable CTV content that actually connects.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  function initPointme() {
+    var item = document.querySelector('[data-pointme-vid]');
+    if (!item) return;
+    var iframe = item.querySelector('iframe');
+    var overlay = item.querySelector('.cb-video-overlay-pointme');
+    var player = new Vimeo.Player(iframe);
+    var isActive = false;
+    player.setVolume(0);
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!isActive) {
+        item.classList.add('cb-pointme-playing');
+        overlay.style.opacity = '0';
+        player.setVolume(1);
+        player.play();
+        isActive = true;
+      } else {
+        item.classList.remove('cb-pointme-playing');
+        overlay.style.opacity = '1';
+        player.setVolume(0);
+        player.play();
+        isActive = false;
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPointme);
+  } else { initPointme(); }
+})();
+</script>

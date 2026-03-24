@@ -1,0 +1,220 @@
+<!-- Cinebody Hero Header - We Handle the Video -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  /* Force remove Squarespace padding */
+  .sqs-block-code {
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .sqs-block-code .sqs-block-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Full-width hero */
+  .cb-hero-video-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: #ffffff;
+    overflow: hidden;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .cb-hero-video-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* Left content */
+  .cb-hero-video-content {
+    animation: cb-fadeLeft 0.8s ease-out;
+  }
+
+  @keyframes cb-fadeLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .cb-hero-video-title-line1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    color: #00bcf1;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 2px;
+  }
+
+  .cb-hero-video-title-line2 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    color: #5A5A5A;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-top: 0;
+    margin-bottom: 28px;
+  }
+
+  .cb-hero-video-description {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #71717a;
+    margin-bottom: 40px;
+    max-width: 540px;
+  }
+
+  .cb-hero-video-button {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: #00bcf1;
+    border: none;
+    padding: 18px 48px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 16px rgba(0, 188, 241, 0.3);
+  }
+
+  .cb-hero-video-button:hover {
+    background: #0099c8;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 188, 241, 0.4);
+  }
+
+  /* Right image - larger */
+  .cb-hero-video-image-wrap {
+    position: relative;
+    animation: cb-fadeRight 0.8s ease-out 0.2s both;
+  }
+
+  @keyframes cb-fadeRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .cb-hero-video-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    transition: transform 0.5s ease;
+  }
+
+  .cb-hero-video-image-wrap:hover .cb-hero-video-image {
+    transform: scale(1.03);
+  }
+
+  /* Accent element behind image */
+  .cb-hero-video-image-wrap::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #00bcf1 0%, #eb008b 100%);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.15;
+  }
+
+  /* Tablet */
+  @media (max-width: 1000px) {
+    .cb-hero-video-container {
+      grid-template-columns: 1fr;
+      gap: 50px;
+      padding: 70px 30px;
+    }
+
+    .cb-hero-video-content {
+      text-align: center;
+    }
+
+    .cb-hero-video-description {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cb-hero-video-button {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .cb-hero-video-container {
+      padding: 50px 16px;
+      gap: 40px;
+    }
+
+    .cb-hero-video-content {
+      padding: 0;
+      max-width: 100%;
+    }
+
+    .cb-hero-video-button {
+      display: inline-block;
+      width: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 14px 24px;
+      font-size: 0.95rem;
+    }
+
+    .cb-hero-video-description {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<div class="cb-hero-video-wrapper">
+  <div class="cb-hero-video-container">
+
+    <!-- Left: Content -->
+    <div class="cb-hero-video-content">
+      <h1 class="cb-hero-video-title-line1">We handle the video.</h1>
+      <h2 class="cb-hero-video-title-line2">You keep the credit.</h2>
+
+      <p class="cb-hero-video-description">
+        From testimonials and CTV, to social content and employee spotlights, our Cinebody creative services team helps you create scroll-stopping content that's on brand, on time, and built to perform.
+      </p>
+
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-hero-video-button">Get Started</a>
+    </div>
+
+    <!-- Right: Image -->
+    <div class="cb-hero-video-image-wrap">
+      <img
+        src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306060316-U1R6SFCSLPPUXPWSWEKE/CB_HowItWorxxx_LB_600.01_00_24_09.Still001.jpg"
+        alt="Person holding a smartphone taking a picture of a crowd participating in a water event outdoors, with palm trees and a clear blue sky in the background."
+        class="cb-hero-video-image"
+      />
+    </div>
+
+  </div>
+</div>

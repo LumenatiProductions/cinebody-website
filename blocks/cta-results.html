@@ -1,0 +1,336 @@
+<!-- Cinebody CTA Section - Want Results Like These -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  /* Full-width section */
+  .cb-cta-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 0;
+    background: #ffec03;
+    overflow: hidden;
+  }
+
+  .cb-cta-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px 0;
+    text-align: center;
+    animation: cb-fadeIn 0.8s ease-out;
+  }
+
+  @keyframes cb-fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Header */
+  .cb-cta-header {
+    margin-bottom: 40px;
+  }
+
+  .cb-cta-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #00bcf1;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    animation: cb-slideDown 0.6s ease-out;
+  }
+
+  @keyframes cb-slideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cb-cta-subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: #5A5A5A;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin: 0;
+    animation: cb-slideDown 0.6s ease-out 0.1s both;
+  }
+
+  /* Button */
+  .cb-cta-button {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: #00bcf1;
+    border: none;
+    padding: 18px 50px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+    margin-bottom: 60px;
+    box-shadow: 0 4px 12px rgba(0, 188, 241, 0.3);
+    animation: cb-buttonPulse 0.6s ease-out 0.3s both;
+  }
+
+  @keyframes cb-buttonPulse {
+    0% { opacity: 0; transform: scale(0.9); }
+    50% { transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  .cb-cta-button:hover {
+    background: #0099c8;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 188, 241, 0.4);
+  }
+
+  /* Image strip with marquee scroll */
+  .cb-cta-images {
+    display: flex;
+    gap: 0;
+    margin: 0;
+    height: 280px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cb-cta-images-track {
+    display: flex;
+    animation: cb-marqueeScroll 20s linear infinite;
+  }
+
+  @keyframes cb-marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .cb-cta-images:hover .cb-cta-images-track {
+    animation-play-state: paused;
+  }
+
+  .cb-cta-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 280px;
+    height: 280px;
+    flex-shrink: 0;
+  }
+
+  /* Ordered: Blue, Yellow, Pink, Blue, Yellow, Pink */
+  .cb-cta-image-wrapper:nth-child(1),
+  .cb-cta-image-wrapper:nth-child(4),
+  .cb-cta-image-wrapper:nth-child(7),
+  .cb-cta-image-wrapper:nth-child(10) {
+    background: #00bcf1;
+  }
+
+  .cb-cta-image-wrapper:nth-child(2),
+  .cb-cta-image-wrapper:nth-child(5),
+  .cb-cta-image-wrapper:nth-child(8),
+  .cb-cta-image-wrapper:nth-child(11) {
+    background: #ffec03;
+  }
+
+  .cb-cta-image-wrapper:nth-child(3),
+  .cb-cta-image-wrapper:nth-child(6),
+  .cb-cta-image-wrapper:nth-child(9),
+  .cb-cta-image-wrapper:nth-child(12) {
+    background: #eb008b;
+  }
+
+  .cb-cta-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+  }
+
+  .cb-cta-image-wrapper:hover .cb-cta-image {
+    transform: scale(1.1) rotate(2deg);
+  }
+
+  /* Tablet - slower scroll */
+  @media (max-width: 900px) {
+    .cb-cta-images-track {
+      animation: cb-marqueeScroll 30s linear infinite;
+    }
+
+    .cb-cta-container {
+      padding: 60px 20px 0;
+    }
+
+    .cb-cta-button {
+      margin-bottom: 70px;
+    }
+
+    .cb-cta-image-wrapper {
+      width: 240px;
+      height: 240px;
+    }
+
+    .cb-cta-images {
+      height: 240px;
+    }
+  }
+
+  /* Mobile - slowest scroll */
+  @media (max-width: 600px) {
+    .cb-cta-images-track {
+      animation: cb-marqueeScroll 40s linear infinite;
+    }
+
+    .cb-cta-container {
+      padding: 50px 15px 0;
+    }
+
+    .cb-cta-button {
+      margin-bottom: 60px;
+      font-size: 1rem;
+      padding: 16px 40px;
+    }
+
+    .cb-cta-image-wrapper {
+      width: 200px;
+      height: 200px;
+    }
+
+    .cb-cta-images {
+      height: 200px;
+    }
+  }
+</style>
+
+<div class="cb-cta-wrapper">
+  <div class="cb-cta-container">
+
+    <!-- Header -->
+    <div class="cb-cta-header">
+      <h2 class="cb-cta-title">Want results like these?</h2>
+      <p class="cb-cta-subtitle">Let's map out your content strategy.</p>
+    </div>
+
+    <!-- CTA Button -->
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cta-button">Book A Strategy Call</a>
+
+  </div>
+
+  <!-- Image Strip with Marquee Scroll -->
+  <div class="cb-cta-images">
+    <div class="cb-cta-images-track">
+
+      <!-- First set - correct order -->
+      <!-- 1. Blue background - Still006 -->
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067842-W3N6CINAWS6FJ5O6Q484/CB_HowItWorxxx_LB_600.01_00_34_07.Still006.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <!-- 2. Yellow background - Still005 -->
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067373-3MRS4UVWV56617AA85XS/CB_HowItWorxxx_LB_600.01_00_34_01.Still005.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <!-- 3. Pink background - Still004 -->
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306065468-1HKIBXXJSUM9GFEZ2CTI/CB_HowItWorxxx_LB_600.01_00_33_16.Still004.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <!-- 4. Blue background - Still009 -->
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070881-BK5GKCA5ECJQRMP9WY2H/CB_HowItWorxxx_LB_600.01_00_37_10.Still009.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <!-- 5. Yellow background - Still008 -->
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070087-YSRR51XA0NJGJ0ZBXRZ6/CB_HowItWorxxx_LB_600.01_00_34_22.Still008.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <!-- 6. Pink background - Still007 -->
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306069318-SEP54C57M1PLPEUXU5Z2/CB_HowItWorxxx_LB_600.01_00_34_14.Still007.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <!-- Duplicate set for seamless loop -->
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067842-W3N6CINAWS6FJ5O6Q484/CB_HowItWorxxx_LB_600.01_00_34_07.Still006.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067373-3MRS4UVWV56617AA85XS/CB_HowItWorxxx_LB_600.01_00_34_01.Still005.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306065468-1HKIBXXJSUM9GFEZ2CTI/CB_HowItWorxxx_LB_600.01_00_33_16.Still004.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070881-BK5GKCA5ECJQRMP9WY2H/CB_HowItWorxxx_LB_600.01_00_37_10.Still009.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070087-YSRR51XA0NJGJ0ZBXRZ6/CB_HowItWorxxx_LB_600.01_00_34_22.Still008.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+      <div class="cb-cta-image-wrapper">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306069318-SEP54C57M1PLPEUXU5Z2/CB_HowItWorxxx_LB_600.01_00_34_14.Still007.jpg"
+          alt="Person filming with phone"
+          class="cb-cta-image"
+        />
+      </div>
+
+    </div>
+  </div>
+
+</div>

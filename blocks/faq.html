@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody – FAQ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
+  .cb-faq * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .cb-faq {
+    --cb-teal: #00bcf1;
+    --cb-teal-10: rgba(0, 188, 241, 0.08);
+    --cb-dark: #5A5A5A;
+    --cb-gray-500: #71717a;
+    --cb-gray-100: #ededef;
+    --cb-white: #ffffff;
+    --font-heading: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    font-family: var(--font-body);
+    color: var(--cb-dark);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  .cb-faq__title {
+    font-family: var(--font-body);
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: -0.03em;
+    margin-bottom: 50px;
+  }
+
+  /* ── Accordion Item ── */
+  .cb-faq__item {
+    border-bottom: 1px solid var(--cb-gray-100);
+  }
+
+  .cb-faq__item:first-child {
+    border-top: 1px solid var(--cb-gray-100);
+  }
+
+  .cb-faq__trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 8px;
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #5A5A5A;
+    text-align: left;
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+
+  .cb-faq__trigger:hover {
+    color: var(--cb-teal);
+  }
+
+  .cb-faq__trigger[aria-expanded="true"] {
+    color: var(--cb-teal);
+  }
+
+  /* ── Plus/Minus Icon ── */
+  .cb-faq__icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--cb-teal-10);
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .cb-faq__trigger[aria-expanded="true"] .cb-faq__icon {
+    background: var(--cb-teal);
+  }
+
+  .cb-faq__icon::before,
+  .cb-faq__icon::after {
+    content: '';
+    position: absolute;
+    background: var(--cb-teal);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-faq__icon::before {
+    width: 14px; height: 2px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .cb-faq__icon::after {
+    width: 2px; height: 14px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .cb-faq__trigger[aria-expanded="true"] .cb-faq__icon::before,
+  .cb-faq__trigger[aria-expanded="true"] .cb-faq__icon::after {
+    background: var(--cb-white);
+  }
+
+  .cb-faq__trigger[aria-expanded="true"] .cb-faq__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  /* ── Answer Panel ── */
+  .cb-faq__panel {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-faq__panel[aria-hidden="false"] {
+    max-height: 500px;
+  }
+
+  .cb-faq__answer {
+    padding: 0 8px 24px;
+    font-size: 1.05rem;
+    color: #5A5A5A;
+    line-height: 1.7;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .cb-faq {
+      padding: 50px 20px 60px;
+    }
+    .cb-faq__trigger {
+      font-size: 1.05rem;
+      padding: 20px 4px;
+    }
+    .cb-faq__answer {
+      font-size: 1rem;
+      padding: 0 4px 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="cb-faq">
+  <h3 class="cb-faq__title">Frequently Asked Questions</h3>
+
+  <div class="cb-faq__item">
+    <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-1">
+      What's the difference between the software and creative services?
+      <span class="cb-faq__icon"></span>
+    </button>
+    <div class="cb-faq__panel" id="faq-1" aria-hidden="true">
+      <div class="cb-faq__answer">Cinebody is our video platform that lets you capture content from anyone, anywhere. Our creative services are an optional add-on — ideal if you need help with strategy, production, editing, or full campaign execution. You can use just the software, or pair it with our team to handle everything start to finish.</div>
+    </div>
+  </div>
+
+  <div class="cb-faq__item">
+    <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-2">
+      How does the software subscription work?
+      <span class="cb-faq__icon"></span>
+    </button>
+    <div class="cb-faq__panel" id="faq-2" aria-hidden="true">
+      <div class="cb-faq__answer">Plans start at $250/month, billed annually — a fraction of what a single traditional video shoot would cost. Each plan includes unlimited filmers, patented shot list technology, and real-time cloud sync. We can customize your subscription based on storage, admin seats, and additional features you need.</div>
+    </div>
+  </div>
+
+  <div class="cb-faq__item">
+    <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-3">
+      Who can film using Cinebody?
+      <span class="cb-faq__icon"></span>
+    </button>
+    <div class="cb-faq__panel" id="faq-3" aria-hidden="true">
+      <div class="cb-faq__answer">Anyone you invite. Employees, influencers, customers, ambassadors, and brand fans can all contribute footage through the software. You control who can join and film by inviting them via a project code or smart link.</div>
+    </div>
+  </div>
+
+  <div class="cb-faq__item">
+    <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-4">
+      How does the shot list work?
+      <span class="cb-faq__icon"></span>
+    </button>
+    <div class="cb-faq__panel" id="faq-4" aria-hidden="true">
+      <div class="cb-faq__answer">Within every project is Cinebody's patented shot list technology. You customize it with creative direction to guide your filmers on exactly what to capture, and set the FPS and resolution for each shot. It's like giving creative direction without being on set.</div>
+    </div>
+  </div>
+
+  <div class="cb-faq__item">
+    <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-5">
+      What does the post-production workflow look like?
+      <span class="cb-faq__icon"></span>
+    </button>
+    <div class="cb-faq__panel" id="faq-5" aria-hidden="true">
+      <div class="cb-faq__answer">Footage automatically uploads the second recording stops, so you can review clips in real time. If you're editing in-house, you have immediate access to download everything. If you're working with our team, we'll review, organize, and edit your content into polished social cuts, CTV-ready ads, testimonial reels, or long-form brand videos.</div>
+    </div>
+  </div>
+
+  <div class="cb-faq__item">
+    <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-6">
+      Which video formats are supported?
+      <span class="cb-faq__icon"></span>
+    </button>
+    <div class="cb-faq__panel" id="faq-6" aria-hidden="true">
+      <div class="cb-faq__answer">Cinebody supports a range of resolutions, frame rates, and aspect ratios — including vertical, horizontal, and 4K. Whether you're producing for social, web, or connected TV, your footage is optimized for the platforms that matter to you.</div>
+    </div>
+  </div>
+
+  <div class="cb-faq__item">
+    <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-7">
+      What kind of support is included?
+      <span class="cb-faq__icon"></span>
+    </button>
+    <div class="cb-faq__panel" id="faq-7" aria-hidden="true">
+      <div class="cb-faq__answer">Every subscription includes onboarding support to get you up and running. For larger or custom plans, you'll also have access to a Strategic Producer who can advise on shot lists, recruiting tactics, and getting the most from your subscription.</div>
+    </div>
+  </div>
+
+  <div class="cb-faq__item">
+    <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-8">
+      Does Cinebody integrate with other tools?
+      <span class="cb-faq__icon"></span>
+    </button>
+    <div class="cb-faq__panel" id="faq-8" aria-hidden="true">
+      <div class="cb-faq__answer">Yes. Cinebody offers SSO, legal document signing, and API access to integrate with Google Drive and DAM systems. If you need something specific, we're happy to explore custom integrations based on your workflow.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  document.querySelectorAll('.cb-faq__trigger').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var expanded = this.getAttribute('aria-expanded') === 'true';
+      // Close all
+      document.querySelectorAll('.cb-faq__trigger').forEach(function(b) {
+        b.setAttribute('aria-expanded', 'false');
+        document.getElementById(b.getAttribute('aria-controls')).setAttribute('aria-hidden', 'true');
+      });
+      // Open clicked (if it was closed)
+      if (!expanded) {
+        this.setAttribute('aria-expanded', 'true');
+        document.getElementById(this.getAttribute('aria-controls')).setAttribute('aria-hidden', 'false');
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

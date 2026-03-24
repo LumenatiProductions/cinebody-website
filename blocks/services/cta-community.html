@@ -1,0 +1,102 @@
+<!-- Cinebody CTA Section - Community -->
+<!-- Paste this into a Squarespace Code Block -->
+<style>
+  /* Force remove Squarespace code block padding */
+  .sqs-block-code {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .sqs-block-code .sqs-block-content {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  /* Full-width hero section */
+  .cb-cta-community-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 100px 20px 80px;
+    background: #ffec03;
+    overflow: hidden;
+    text-align: center;
+  }
+  .cb-cta-community-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  /* Hero text */
+  .cb-cta-community-text {
+    margin-bottom: 40px;
+  }
+  .cb-cta-community-line1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    color: #5A5A5A;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    animation: cb-slideDown 0.8s ease-out;
+  }
+  .cb-cta-community-line2 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    color: #00bcf1;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    animation: cb-slideDown 0.8s ease-out 0.1s both;
+  }
+  @keyframes cb-slideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* CTA Button */
+  .cb-cta-community-button {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: #00bcf1;
+    border: none;
+    padding: 20px 55px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 16px rgba(0, 188, 241, 0.35);
+    animation: cb-buttonPop 0.6s ease-out 0.4s both;
+  }
+  @keyframes cb-buttonPop {
+    0% { opacity: 0; transform: scale(0.85); }
+    60% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .cb-cta-community-button:hover {
+    background: #0099c8;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(0, 188, 241, 0.45);
+  }
+  /* Tablet */
+  @media (max-width: 900px) {
+    .cb-cta-community-wrapper { padding: 80px 20px; }
+    .cb-cta-community-text { margin-bottom: 35px; }
+  }
+  /* Mobile */
+  @media (max-width: 600px) {
+    .cb-cta-community-wrapper { padding: 60px 15px; }
+    .cb-cta-community-text { margin-bottom: 30px; }
+    .cb-cta-community-button { font-size: 1.05rem; padding: 18px 45px; }
+  }
+</style>
+<div class="cb-cta-community-wrapper">
+  <div class="cb-cta-community-container">
+    <div class="cb-cta-community-text">
+      <div class="cb-cta-community-line1">Ready to see what your community can create?</div>
+      <div class="cb-cta-community-line2">Talk to our team.</div>
+    </div>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cta-community-button">Let's Talk</a>
+  </div>
+</div>

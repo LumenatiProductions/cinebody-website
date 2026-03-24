@@ -1,0 +1,531 @@
+<!-- Cinebody Homepage - Nike Case Study Teaser -->
+<!-- Paste this into a Squarespace Code Block -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
+
+  .cb-nt-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #5a5a5a;
+    padding: 56px 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    overflow: hidden;
+  }
+
+  .cb-nt-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 480px) 300px;
+    gap: 36px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* ===== LEFT: Video Thumbnail ===== */
+  .cb-nt-video-link {
+    display: block;
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 16 / 9;
+    width: 300px;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+    animation: cb-nt-videoIn 0.7s ease-out 0.2s both;
+  }
+
+  @keyframes cb-nt-videoIn {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .cb-nt-video-link:hover {
+    transform: scale(1.06) translateY(-4px);
+    box-shadow: 0 16px 44px rgba(0, 188, 241, 0.25), 0 0 0 2px rgba(0, 188, 241, 0.3);
+  }
+
+  .cb-nt-video-link iframe {
+    position: absolute;
+    top: -1px; left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: none;
+    pointer-events: none;
+    object-fit: cover;
+  }
+
+  .cb-nt-video-link::before { display: none; }
+  .cb-nt-video-link::after { display: none; }
+
+  .cb-nt-video-label {
+    position: absolute;
+    top: 10px; left: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    padding: 3px 8px;
+    border-radius: 5px;
+    z-index: 10;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: background 0.3s ease;
+  }
+
+  .cb-nt-video-link:hover .cb-nt-video-label {
+    background: rgba(0, 188, 241, 0.7);
+  }
+
+  /* ===== CENTER: Copy + Stats + CTA ===== */
+  .cb-nt-center {
+    text-align: center;
+    animation: cb-nt-fadeUp 0.7s ease-out 0.1s both;
+  }
+
+  @keyframes cb-nt-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cb-nt-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .cb-nt-badge {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #5a5a5a;
+    background: #ffec03;
+    padding: 3px 10px;
+    border-radius: 4px;
+    animation: cb-nt-badgePop 0.5s ease-out 0.5s both;
+  }
+
+  @keyframes cb-nt-badgePop {
+    0% { opacity: 0; transform: scale(0.7); }
+    70% { transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  .cb-nt-client {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .cb-nt-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 4px 0;
+  }
+
+  .cb-nt-title span {
+    color: #00bcf1;
+  }
+
+  .cb-nt-desc {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.6;
+    margin: 0 auto 20px;
+    max-width: 400px;
+  }
+
+  /* Stats row */
+  .cb-nt-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 22px;
+  }
+
+  .cb-nt-stat {
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+
+  .cb-nt-stat:hover {
+    transform: translateY(-4px);
+  }
+
+  .cb-nt-stat:hover .cb-nt-stat-num {
+    color: #ffec03 !important;
+    text-shadow: 0 2px 8px rgba(255, 236, 3, 0.3);
+  }
+
+  .cb-nt-stat-num {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #00bcf1;
+    line-height: 1;
+    margin-bottom: 2px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .cb-nt-stat:nth-child(3) .cb-nt-stat-num {
+    color: #ffec03;
+  }
+
+  .cb-nt-stat-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: color 0.3s ease;
+  }
+
+  .cb-nt-stat:hover .cb-nt-stat-label {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .cb-nt-stat-pipe {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    align-self: stretch;
+  }
+
+  /* Staggered stat entrance */
+  .cb-nt-stat {
+    opacity: 0;
+    animation: cb-nt-statPop 0.5s ease-out both;
+  }
+
+  .cb-nt-stat:nth-child(1) { animation-delay: 0.4s; }
+  .cb-nt-stat:nth-child(3) { animation-delay: 0.5s; }
+  .cb-nt-stat:nth-child(5) { animation-delay: 0.6s; }
+  .cb-nt-stat:nth-child(7) { animation-delay: 0.7s; }
+
+  .cb-nt-stat-pipe {
+    opacity: 0;
+    animation: cb-nt-statPop 0.5s ease-out both;
+  }
+
+  .cb-nt-stat-pipe:nth-child(2) { animation-delay: 0.45s; }
+  .cb-nt-stat-pipe:nth-child(4) { animation-delay: 0.55s; }
+  .cb-nt-stat-pipe:nth-child(6) { animation-delay: 0.65s; }
+
+  @keyframes cb-nt-statPop {
+    from { opacity: 0; transform: translateY(12px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* CTA */
+  .cb-nt-cta {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: #00bcf1;
+    padding: 10px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 188, 241, 0.3);
+    animation: cb-nt-ctaIn 0.5s ease-out 0.8s both;
+  }
+
+  @keyframes cb-nt-ctaIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cb-nt-cta:hover {
+    background: #0099c8;
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 8px 24px rgba(0, 188, 241, 0.45);
+  }
+
+  /* ===== RIGHT: Map ===== */
+  .cb-nt-map {
+    position: relative;
+    align-self: center;
+    transform: translateY(-4%);
+    animation: cb-nt-mapIn 0.7s ease-out 0.3s both;
+  }
+
+  @keyframes cb-nt-mapIn {
+    from { opacity: 0; transform: translateX(30px) translateY(-4%); }
+    to { opacity: 1; transform: translateX(0) translateY(-4%); }
+  }
+
+  .cb-nt-map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.12;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    filter: brightness(2);
+  }
+
+  .cb-nt-map:hover .cb-nt-map-img {
+    opacity: 0.2;
+  }
+
+  .cb-nt-map-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  .cb-nt-dot-glow {
+    fill: rgba(0, 188, 241, 0.12);
+    transition: fill 0.3s ease;
+  }
+
+  .cb-nt-dot-core {
+    fill: #00bcf1;
+    filter: drop-shadow(0 0 8px rgba(0, 188, 241, 0.8));
+    transition: fill 0.3s ease, filter 0.3s ease, r 0.3s ease;
+  }
+
+  .cb-nt-connection {
+    stroke: rgba(0, 188, 241, 0.18);
+    stroke-width: 1.5;
+    stroke-dasharray: 5 3;
+    fill: none;
+    animation: cb-nt-dash 15s linear infinite;
+    transition: stroke 0.3s ease;
+  }
+
+  .cb-nt-map:hover .cb-nt-connection {
+    stroke: rgba(0, 188, 241, 0.35);
+  }
+
+  @keyframes cb-nt-dash {
+    to { stroke-dashoffset: -100; }
+  }
+
+  /* Map hover → yellow shift */
+  .cb-nt-city {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .cb-nt-city:hover .cb-nt-dot-glow {
+    fill: rgba(255, 236, 3, 0.2);
+  }
+
+  .cb-nt-city:hover .cb-nt-dot-core {
+    fill: #ffec03;
+    filter: drop-shadow(0 0 14px rgba(255, 236, 3, 0.9));
+  }
+
+  .cb-nt-city:hover .cb-nt-city-label {
+    fill: #ffec03;
+  }
+
+  .cb-nt-pulse {
+    fill: none;
+    stroke: #00bcf1;
+    stroke-width: 2;
+    opacity: 0;
+    transition: stroke 0.3s ease;
+  }
+
+  .cb-nt-city:hover .cb-nt-pulse {
+    stroke: #ffec03;
+  }
+
+  .cb-nt-city:nth-child(1) .cb-nt-pulse { animation: cb-nt-pulseRing 2.5s ease-out infinite 0s; }
+  .cb-nt-city:nth-child(2) .cb-nt-pulse { animation: cb-nt-pulseRing 2.5s ease-out infinite 0.6s; }
+  .cb-nt-city:nth-child(3) .cb-nt-pulse { animation: cb-nt-pulseRing 2.5s ease-out infinite 1.2s; }
+  .cb-nt-city:nth-child(4) .cb-nt-pulse { animation: cb-nt-pulseRing 2.5s ease-out infinite 1.8s; }
+
+  @keyframes cb-nt-pulseRing {
+    0% { r: 8; opacity: 0.7; stroke-width: 2.5; }
+    100% { r: 32; opacity: 0; stroke-width: 0.3; }
+  }
+
+  /* Staggered city dot entrance */
+  .cb-nt-city {
+    opacity: 0;
+    animation: cb-nt-dotIn 0.4s ease-out both;
+  }
+
+  .cb-nt-city:nth-child(1) { animation-delay: 0.5s; }
+  .cb-nt-city:nth-child(2) { animation-delay: 0.65s; }
+  .cb-nt-city:nth-child(3) { animation-delay: 0.8s; }
+  .cb-nt-city:nth-child(4) { animation-delay: 0.95s; }
+
+  @keyframes cb-nt-dotIn {
+    from { opacity: 0; transform: scale(0); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .cb-nt-city-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    fill: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: fill 0.3s ease;
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1000px) {
+    .cb-nt-container {
+      grid-template-columns: 240px minmax(0, 400px) 240px;
+      gap: 24px;
+      padding: 0 24px;
+      justify-content: center;
+    }
+
+    .cb-nt-video-link { width: 240px; }
+    .cb-nt-stats { gap: 16px; }
+    .cb-nt-stat-num { font-size: 1.3rem; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .cb-nt-wrapper { padding: 44px 0; }
+
+    .cb-nt-container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 0 32px;
+    }
+
+    .cb-nt-center { order: 1; }
+    .cb-nt-video-link { order: 2; max-width: 280px; margin: 0 auto; }
+    .cb-nt-map { order: 3; max-width: 300px; margin: 0 auto; transform: none; }
+
+    .cb-nt-stats { gap: 14px; }
+    .cb-nt-stat-num { font-size: 1.4rem; }
+    .cb-nt-desc { font-size: 0.82rem; max-width: 320px; }
+  }
+</style>
+
+<div class="cb-nt-wrapper">
+  <div class="cb-nt-container">
+
+    <!-- LEFT: Video -->
+    <a href="/nike" class="cb-nt-video-link">
+      <iframe
+        src="https://player.vimeo.com/video/265928299?h=10ec2810ff&background=1&autoplay=1&loop=1&byline=0&title=0"
+        frameborder="0"
+        allow="autoplay"
+        loading="lazy"
+      ></iframe>
+    </a>
+
+    <!-- CENTER: Copy + Stats + CTA -->
+    <div class="cb-nt-center">
+      <div class="cb-nt-eyebrow">
+        <span class="cb-nt-badge">Case Study</span>
+        <span class="cb-nt-client">Nike</span>
+      </div>
+      <h3 class="cb-nt-title">
+        <span>Four cities. One weekend.</span><br>
+        Zero production crews.
+      </h3>
+      <p class="cb-nt-desc">Nike used Cinebody to capture authentic run club content across the country — simultaneously, on brand, at scale.</p>
+
+      <div class="cb-nt-stats">
+        <div class="cb-nt-stat">
+          <div class="cb-nt-stat-num">4</div>
+          <div class="cb-nt-stat-label">Cities</div>
+        </div>
+        <div class="cb-nt-stat-pipe"></div>
+        <div class="cb-nt-stat">
+          <div class="cb-nt-stat-num">0</div>
+          <div class="cb-nt-stat-label">Crews</div>
+        </div>
+        <div class="cb-nt-stat-pipe"></div>
+        <div class="cb-nt-stat">
+          <div class="cb-nt-stat-num">1</div>
+          <div class="cb-nt-stat-label">Platform</div>
+        </div>
+        <div class="cb-nt-stat-pipe"></div>
+        <div class="cb-nt-stat">
+          <div class="cb-nt-stat-num">100%</div>
+          <div class="cb-nt-stat-label">On Brand</div>
+        </div>
+      </div>
+
+      <a href="/nike" class="cb-nt-cta">See the Full Story</a>
+    </div>
+
+    <!-- RIGHT: Map -->
+    <div class="cb-nt-map">
+      <img
+        class="cb-nt-map-img"
+        src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/06fc5653-5ee8-4524-b07a-10c3ae0d26a4/united-states.png?format=750w"
+        alt="US map"
+      />
+      <svg class="cb-nt-map-svg" viewBox="0 0 533 354" preserveAspectRatio="xMidYMid meet">
+        <line class="cb-nt-connection" x1="72" y1="210" x2="248" y2="255" />
+        <line class="cb-nt-connection" x1="248" y1="255" x2="340" y2="125" />
+        <line class="cb-nt-connection" x1="340" y1="125" x2="478" y2="112" />
+        <line class="cb-nt-connection" x1="72" y1="210" x2="340" y2="125" />
+        <line class="cb-nt-connection" x1="248" y1="255" x2="478" y2="112" />
+        <line class="cb-nt-connection" x1="72" y1="210" x2="478" y2="112" />
+
+        <!-- LA — Southern California coast -->
+        <g class="cb-nt-city">
+          <circle class="cb-nt-pulse" cx="72" cy="210" r="8" />
+          <circle class="cb-nt-dot-glow" cx="72" cy="210" r="20" />
+          <circle class="cb-nt-dot-core" cx="72" cy="210" r="8" />
+          <text class="cb-nt-city-label" x="72" y="237" text-anchor="middle">LA</text>
+        </g>
+        <!-- Austin — Central Texas -->
+        <g class="cb-nt-city">
+          <circle class="cb-nt-pulse" cx="248" cy="255" r="8" />
+          <circle class="cb-nt-dot-glow" cx="248" cy="255" r="20" />
+          <circle class="cb-nt-dot-core" cx="248" cy="255" r="8" />
+          <text class="cb-nt-city-label" x="248" y="282" text-anchor="middle">ATX</text>
+        </g>
+        <!-- Chicago — Lake Michigan, upper midwest -->
+        <g class="cb-nt-city">
+          <circle class="cb-nt-pulse" cx="340" cy="125" r="8" />
+          <circle class="cb-nt-dot-glow" cx="340" cy="125" r="20" />
+          <circle class="cb-nt-dot-core" cx="340" cy="125" r="8" />
+          <text class="cb-nt-city-label" x="340" y="110" text-anchor="middle">CHI</text>
+        </g>
+        <!-- NYC — East coast, northeast -->
+        <g class="cb-nt-city">
+          <circle class="cb-nt-pulse" cx="478" cy="112" r="8" />
+          <circle class="cb-nt-dot-glow" cx="478" cy="112" r="20" />
+          <circle class="cb-nt-dot-core" cx="478" cy="112" r="8" />
+          <text class="cb-nt-city-label" x="478" y="97" text-anchor="middle">NYC</text>
+        </g>
+      </svg>
+    </div>
+
+  </div>
+</div>

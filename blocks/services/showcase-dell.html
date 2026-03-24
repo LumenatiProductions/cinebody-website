@@ -1,0 +1,76 @@
+<!-- Cinebody Video Showcase - Dell -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .cb-video-showcase-dell-wrapper { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: #F4F4F3; padding: 80px 0; margin-top: 0 !important; margin-bottom: 0 !important; overflow: visible; }
+  .cb-video-showcase-dell-container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+  .cb-video-showcase-dell-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: center; }
+  .cb-video-showcase-dell-content { animation: cb-fadeLeft 0.8s ease-out; display: flex; flex-direction: column; justify-content: center; }
+  @keyframes cb-fadeLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-showcase-dell-logo { width: 160px; height: auto; margin-bottom: 32px; }
+  .cb-video-showcase-dell-title { font-family: 'Open Sans', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 700; color: #5A5A5A; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .cb-video-showcase-dell-description { font-family: 'Open Sans', sans-serif; font-size: 1.1rem; color: #71717a; line-height: 1.7; margin-bottom: 0; }
+  .cb-video-grid-dell { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; animation: cb-fadeRight 0.8s ease-out 0.2s both; }
+  @keyframes cb-fadeRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-item-dell { position: relative; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 9 / 16; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); cursor: pointer; z-index: 1; }
+  .cb-video-item-dell::before, .cb-video-item-dell::after { display: none !important; content: none !important; }
+  .cb-video-item-dell:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2); }
+  .cb-video-item-dell:hover::before, .cb-video-item-dell:hover::after { display: none !important; content: none !important; }
+  .cb-video-item-dell iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: none; }
+  .cb-video-overlay-dell { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; cursor: pointer; background: transparent; transition: opacity 0.3s ease; }
+  .cb-dell-play-btn { position: absolute; bottom: 14px; left: 14px; width: 42px; height: 42px; background: linear-gradient(135deg, #00bcf1, #0099c8); border-radius: 9px; z-index: 10; pointer-events: none; transition: all 0.3s ease; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4), inset 0 0 0 2px rgba(255, 236, 3, 0.6); display: flex; align-items: center; justify-content: center; }
+  .cb-dell-play-btn::after { content: ''; display: block; width: 0; height: 0; border-left: 11px solid #ffffff; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-right: none; margin-left: 3px; transition: all 0.3s ease; }
+  .cb-video-item-dell:hover .cb-dell-play-btn { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0, 188, 241, 0.6), inset 0 0 0 2.5px rgba(255, 236, 3, 1), 0 0 20px rgba(255, 236, 3, 0.4); }
+  .cb-video-item-dell.cb-dell-playing .cb-dell-play-btn { width: 34px; height: 34px; border-radius: 7px; background: linear-gradient(135deg, rgba(0, 188, 241, 0.8), rgba(0, 153, 200, 0.8)); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 236, 3, 0.8); }
+  .cb-video-item-dell.cb-dell-playing .cb-dell-play-btn::after { content: ''; display: block; width: 10px; height: 12px; border-top: none; border-bottom: none; border-left: 3px solid #ffffff; border-right: 3px solid #ffffff; margin-left: 0; }
+  @media (max-width: 1000px) { .cb-video-showcase-dell-layout { grid-template-columns: 1fr; gap: 50px; } .cb-video-showcase-dell-content { text-align: center; } .cb-video-showcase-dell-logo { margin-left: auto; margin-right: auto; } .cb-video-grid-dell { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; gap: 20px; } .cb-video-item-dell { width: 100%; } }
+  @media (max-width: 640px) { .cb-video-showcase-dell-wrapper { padding: 60px 0; width: 100%; left: 0; right: 0; margin-left: 0; margin-right: 0; position: static; } .cb-video-showcase-dell-container { padding: 0 16px; max-width: 100%; background: transparent; } .cb-video-showcase-dell-layout { display: block; background: transparent; } .cb-video-showcase-dell-content { margin-bottom: 40px; background: transparent; } .cb-video-showcase-dell-logo { margin-bottom: 24px; } .cb-video-grid-dell { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 100%; background: transparent; padding: 0; } .cb-video-item-dell { width: 100%; max-width: 100%; margin: 0; display: block; position: relative; background: transparent; border-radius: 0; box-shadow: none; } .cb-video-item-dell iframe { display: block; width: 100%; height: auto; min-height: 600px; background: transparent; } .cb-dell-play-btn { width: 38px; height: 38px; } }
+</style>
+
+<div class="cb-video-showcase-dell-wrapper">
+  <div class="cb-video-showcase-dell-container">
+    <div class="cb-video-showcase-dell-layout">
+      <div class="cb-video-showcase-dell-content">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752696389465-KJM0HADL2FMJ1SK8AFQU/dell-2-logo-png-transparent.png" alt="Dell logo with blue circle outline" class="cb-video-showcase-dell-logo" />
+        <h2 class="cb-video-showcase-dell-title">Elevating employee voices worldwide</h2>
+        <p class="cb-video-showcase-dell-description">Dell uses Cinebody to capture authentic stories from employees and communities across the world to highlight the people behind the innovation. By turning real experiences into high-performing content, Dell builds connection, transparency, and a stronger global culture.</p>
+      </div>
+      <div class="cb-video-grid-dell">
+        <div class="cb-video-item-dell" data-dell-vid="0">
+          <div class="cb-video-overlay-dell"></div>
+          <div class="cb-dell-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1065884285?h=75786524f6&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cb-video-item-dell" data-dell-vid="1">
+          <div class="cb-video-overlay-dell"></div>
+          <div class="cb-dell-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1065886093?h=80404d7365&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cb-video-item-dell" data-dell-vid="2">
+          <div class="cb-video-overlay-dell"></div>
+          <div class="cb-dell-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1065890083?h=8d129ec781&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  function initDell() {
+    var wrapper = document.querySelector('.cb-video-showcase-dell-wrapper');
+    if (!wrapper) return;
+    var allVids = wrapper.querySelectorAll('[data-dell-vid]');
+    var players = []; var overlays = []; var activeIndex = null;
+    allVids.forEach(function(v) { var iframe = v.querySelector('iframe'); var p = new Vimeo.Player(iframe); p.setVolume(0); players.push(p); overlays.push(v.querySelector('.cb-video-overlay-dell')); });
+    function resetAll() { allVids.forEach(function(v, i) { v.classList.remove('cb-dell-playing'); overlays[i].style.opacity = '1'; players[i].setVolume(0); players[i].play(); }); activeIndex = null; }
+    allVids.forEach(function(v, idx) { v.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); if (activeIndex === idx) { resetAll(); } else { resetAll(); players.forEach(function(p, i) { if (i !== idx) { p.pause(); p.setVolume(0); } }); v.classList.add('cb-dell-playing'); overlays[idx].style.opacity = '0'; players[idx].setVolume(1); players[idx].play(); activeIndex = idx; } }); });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initDell); } else { initDell(); }
+})();
+</script>

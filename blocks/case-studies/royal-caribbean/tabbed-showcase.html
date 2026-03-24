@@ -1,0 +1,433 @@
+<style>
+  .cb-tabs-rc-wrapper {
+    background: #5a5a5a;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cb-tabs-rc-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .cb-tabs-rc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 40px;
+    padding: 8px 18px;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .cb-tabs-rc-badge-dot {
+    width: 10px;
+    height: 10px;
+    background: #e53935;
+    border-radius: 50%;
+    animation: cb-tabs-rc-pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes cb-tabs-rc-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(229,57,53,0.5); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(229,57,53,0); }
+  }
+  .cb-tabs-rc-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 40px 0;
+    line-height: 1.15;
+  }
+  .cb-tabs-rc-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .cb-tabs-rc-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .cb-tabs-rc-tab svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  .cb-tabs-rc-tab svg path,
+  .cb-tabs-rc-tab svg circle,
+  .cb-tabs-rc-tab svg rect,
+  .cb-tabs-rc-tab svg polyline,
+  .cb-tabs-rc-tab svg line {
+    stroke: #fff;
+    transition: stroke 0.3s ease;
+  }
+  .cb-tabs-rc-tab:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .cb-tabs-rc-tab.active {
+    background: rgba(255,210,0,0.12);
+    border-color: #ffd200;
+    color: #ffd200;
+  }
+  .cb-tabs-rc-tab.active svg path,
+  .cb-tabs-rc-tab.active svg circle,
+  .cb-tabs-rc-tab.active svg rect,
+  .cb-tabs-rc-tab.active svg polyline,
+  .cb-tabs-rc-tab.active svg line {
+    stroke: #ffd200;
+  }
+  .cb-tabs-rc-panel {
+    display: none;
+    opacity: 0;
+    animation: cb-tabs-rc-fadeIn 0.4s ease forwards;
+  }
+  .cb-tabs-rc-panel.active {
+    display: block;
+  }
+  @keyframes cb-tabs-rc-fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-tabs-rc-panel-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .cb-tabs-rc-desc {
+    flex: 1;
+    min-width: 240px;
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.8);
+  }
+  .cb-tabs-rc-videos {
+    display: flex;
+    gap: 20px;
+    flex: 1.4;
+  }
+  .cb-tabs-rc-video-card {
+    flex: 1;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    background: #333;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .cb-tabs-rc-video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .cb-tabs-rc-video-card iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 180%;
+    height: 180%;
+    transform: translate(-50%, -50%);
+    border: none;
+    pointer-events: none;
+  }
+  .cb-tabs-rc-video-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    z-index: 3;
+    letter-spacing: 0.3px;
+  }
+  .cb-tabs-rc-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0077ff, #00c6ff);
+    border: 3px solid #ffd200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,119,255,0.4);
+  }
+  .cb-tabs-rc-play-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+    margin-left: 3px;
+  }
+  .cb-tabs-rc-playing .cb-tabs-rc-play-btn {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  .cb-tabs-rc-video-card:hover .cb-tabs-rc-play-btn {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  .cb-tabs-rc-playing:hover .cb-tabs-rc-play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  @media (max-width: 1000px) {
+    .cb-tabs-rc-wrapper { padding: 60px 28px; }
+    .cb-tabs-rc-heading { font-size: 36px; }
+    .cb-tabs-rc-panel-content { flex-direction: column; gap: 28px; }
+    .cb-tabs-rc-desc { min-width: unset; }
+    .cb-tabs-rc-videos { max-width: 500px; }
+  }
+  @media (max-width: 768px) {
+    .cb-tabs-rc-wrapper { padding: 48px 20px; }
+    .cb-tabs-rc-heading { font-size: 28px; margin-bottom: 28px; }
+    .cb-tabs-rc-tabs { gap: 8px; margin-bottom: 28px; }
+    .cb-tabs-rc-tab { padding: 10px 16px; font-size: 13px; gap: 8px; }
+    .cb-tabs-rc-tab svg { width: 16px; height: 16px; }
+    .cb-tabs-rc-videos { gap: 12px; max-width: 100%; }
+    .cb-tabs-rc-video-card { border-radius: 12px; }
+    .cb-tabs-rc-play-btn { width: 52px; height: 52px; }
+    .cb-tabs-rc-play-btn svg { width: 18px; height: 18px; }
+    .cb-tabs-rc-desc { font-size: 15px; }
+  }
+</style>
+
+<div class="cb-tabs-rc-wrapper">
+  <div class="cb-tabs-rc-inner">
+
+    <div class="cb-tabs-rc-badge">
+      <span class="cb-tabs-rc-badge-dot"></span>
+      Always On
+    </div>
+
+    <h2 class="cb-tabs-rc-heading">Royal Caribbean's content engine.</h2>
+
+    <div class="cb-tabs-rc-tabs">
+      <button class="cb-tabs-rc-tab active" data-tab="deck">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        Deck Diaries
+      </button>
+      <button class="cb-tabs-rc-tab" data-tab="rover">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Rover
+      </button>
+      <button class="cb-tabs-rc-tab" data-tab="fleet">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 20l2-2h4l2 2"/>
+          <path d="M14 20l2-2h4l2 2"/>
+          <path d="M8 16l2-2h4l2 2"/>
+          <line x1="12" y1="4" x2="12" y2="14"/>
+          <polyline points="8 8 12 4 16 8"/>
+        </svg>
+        Always-On Content
+      </button>
+    </div>
+
+    <!-- Deck Diaries Panel -->
+    <div class="cb-tabs-rc-panel active" data-panel="deck">
+      <div class="cb-tabs-rc-panel-content">
+        <div class="cb-tabs-rc-desc">
+          Guests capture daily ship life, from sunrise ocean views to late-night deck parties. Deck Diaries turns authentic passenger moments into a rolling content series that fuels Royal Caribbean's social channels with real, unscripted energy.
+        </div>
+        <div class="cb-tabs-rc-videos">
+          <div class="cb-tabs-rc-video-card" data-vimeo-id="1012467060">
+            <iframe src="https://player.vimeo.com/video/1012467060?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+            <div class="cb-tabs-rc-video-label">Deck Diaries Ep. 1</div>
+            <div class="cb-tabs-rc-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+          <div class="cb-tabs-rc-video-card" data-vimeo-id="1027412030">
+            <iframe src="https://player.vimeo.com/video/1027412030?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+            <div class="cb-tabs-rc-video-label">Deck Diaries Ep. 2</div>
+            <div class="cb-tabs-rc-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rover Panel -->
+    <div class="cb-tabs-rc-panel" data-panel="rover">
+      <div class="cb-tabs-rc-panel-content">
+        <div class="cb-tabs-rc-desc">
+          Rover drops creators into port cities with nothing but a camera and a mission. Every episode is a raw, fast-paced exploration of the destinations Royal Caribbean visits, giving future cruisers a taste of what's waiting on shore.
+        </div>
+        <div class="cb-tabs-rc-videos">
+          <div class="cb-tabs-rc-video-card" data-vimeo-id="1061059233">
+            <iframe src="https://player.vimeo.com/video/1061059233?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+            <div class="cb-tabs-rc-video-label">Rover: Nassau</div>
+            <div class="cb-tabs-rc-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+          <div class="cb-tabs-rc-video-card" data-vimeo-id="1005975033">
+            <iframe src="https://player.vimeo.com/video/1005975033?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+            <div class="cb-tabs-rc-video-label">Rover: Cozumel</div>
+            <div class="cb-tabs-rc-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Always-On Content Panel -->
+    <div class="cb-tabs-rc-panel" data-panel="fleet">
+      <div class="cb-tabs-rc-panel-content">
+        <div class="cb-tabs-rc-desc">
+          Across the entire fleet, Cinebody keeps the content pipeline flowing. Crew members and guests contribute footage around the clock, building a library of authentic moments that Royal Caribbean deploys across paid, organic, and owned channels.
+        </div>
+        <div class="cb-tabs-rc-videos">
+          <div class="cb-tabs-rc-video-card" data-vimeo-id="981489599">
+            <iframe src="https://player.vimeo.com/video/981489599?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+            <div class="cb-tabs-rc-video-label">Fleet Highlights</div>
+            <div class="cb-tabs-rc-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+          <div class="cb-tabs-rc-video-card" data-vimeo-id="1035722950">
+            <iframe src="https://player.vimeo.com/video/1035722950?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+            <div class="cb-tabs-rc-video-label">Always-On Reel</div>
+            <div class="cb-tabs-rc-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  const wrapper = document.querySelector('.cb-tabs-rc-wrapper');
+  if (!wrapper) return;
+
+  const tabs = wrapper.querySelectorAll('.cb-tabs-rc-tab');
+  const panels = wrapper.querySelectorAll('.cb-tabs-rc-panel');
+  const videoCards = wrapper.querySelectorAll('.cb-tabs-rc-video-card');
+  const players = new Map();
+
+  // Initialize Vimeo players
+  videoCards.forEach(function(card) {
+    const iframe = card.querySelector('iframe');
+    if (iframe) {
+      const player = new Vimeo.Player(iframe);
+      players.set(card, player);
+    }
+  });
+
+  function pauseAllPlayers() {
+    players.forEach(function(player, card) {
+      player.setVolume(0);
+      player.pause();
+      card.classList.remove('cb-tabs-rc-playing');
+    });
+  }
+
+  function playVisiblePanelVideos() {
+    const activePanel = wrapper.querySelector('.cb-tabs-rc-panel.active');
+    if (!activePanel) return;
+    const visibleCards = activePanel.querySelectorAll('.cb-tabs-rc-video-card');
+    visibleCards.forEach(function(card) {
+      const player = players.get(card);
+      if (player) {
+        player.setVolume(0);
+        player.play();
+      }
+    });
+  }
+
+  // Tab switching
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = tab.getAttribute('data-tab');
+
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+
+      pauseAllPlayers();
+
+      panels.forEach(function(panel) {
+        panel.classList.remove('active');
+        panel.style.animation = 'none';
+      });
+
+      var targetPanel = wrapper.querySelector('[data-panel="' + target + '"]');
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+        void targetPanel.offsetWidth;
+        targetPanel.style.animation = '';
+        playVisiblePanelVideos();
+      }
+    });
+  });
+
+  // Click to unmute / pause toggle
+  videoCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var player = players.get(card);
+      if (!player) return;
+
+      if (card.classList.contains('cb-tabs-rc-playing')) {
+        player.setVolume(0);
+        player.pause();
+        card.classList.remove('cb-tabs-rc-playing');
+      } else {
+        // Mute all others first
+        players.forEach(function(p, c) {
+          if (c !== card) {
+            p.setVolume(0);
+            c.classList.remove('cb-tabs-rc-playing');
+          }
+        });
+        player.setVolume(1);
+        player.play();
+        card.classList.add('cb-tabs-rc-playing');
+      }
+    });
+  });
+
+  // Auto-play first panel on load
+  playVisiblePanelVideos();
+})();
+</script>

@@ -1,0 +1,521 @@
+<!-- Cinebody Creator-Powered Content Carousel - Georgia-Pacific Case Study -->
+<!-- Paste this into a Squarespace Code Block -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
+
+  /* ── Wrapper ── */
+  .cb-vf-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    overflow: hidden;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .cb-vf-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  /* ── Header ── */
+  .cb-vf-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 24px;
+  }
+  .cb-vf-label {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #00bcf1;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+  .cb-vf-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0;
+    max-width: 700px;
+  }
+
+  /* ── Controls (arrows + counter) ── */
+  .cb-vf-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .cb-vf-counter {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #71717a;
+    min-width: 80px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .cb-vf-arrow {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #f4f4f5;
+    border: 1px solid #e4e4e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .cb-vf-arrow:hover {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+  }
+  .cb-vf-arrow:hover svg {
+    stroke: #fff;
+  }
+  .cb-vf-arrow svg {
+    width: 20px;
+    height: 20px;
+    stroke: #1a1a1a;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s ease;
+  }
+
+  /* ── Carousel Track ── */
+  .cb-vf-track-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  .cb-vf-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  /* Hide scrollbar */
+  .cb-vf-track::-webkit-scrollbar { display: none; }
+  .cb-vf-track { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* ── Video Card (9:16 vertical) ── */
+  .cb-vf-video-card {
+    position: relative;
+    width: 240px;
+    min-width: 240px;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    background: #1a1a1a;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .cb-vf-video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+  }
+  .cb-vf-video-card iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 180%;
+    height: 180%;
+    transform: translate(-50%, -50%);
+    border: none;
+    pointer-events: none;
+  }
+
+  /* ── Video Label ── */
+  .cb-vf-video-label {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    padding: 5px 12px;
+    border-radius: 20px;
+    z-index: 3;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Play Button ── */
+  .cb-vf-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0077ff, #00c6ff);
+    border: 3px solid #ffd200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,119,255,0.4);
+    cursor: pointer;
+  }
+  .cb-vf-play-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+    margin-left: 2px;
+  }
+  .cb-vf-video-card:hover .cb-vf-play-btn {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  .cb-vf-video-card.cb-vf-playing .cb-vf-play-btn {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  .cb-vf-video-card.cb-vf-playing:hover .cb-vf-play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .cb-vf-inner { padding: 60px 28px; }
+    .cb-vf-header { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 768px) {
+    .cb-vf-inner { padding: 48px 20px; }
+    .cb-vf-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+    .cb-vf-video-card { width: 200px; min-width: 200px; border-radius: 12px; }
+    .cb-vf-play-btn { width: 48px; height: 48px; }
+    .cb-vf-play-btn svg { width: 16px; height: 16px; }
+    .cb-vf-arrow { width: 40px; height: 40px; }
+    .cb-vf-arrow svg { width: 16px; height: 16px; }
+    .cb-vf-track { gap: 12px; }
+  }
+</style>
+
+<div class="cb-vf-wrapper">
+  <div class="cb-vf-inner">
+
+    <!-- Header -->
+    <div class="cb-vf-header">
+      <div>
+        <span class="cb-vf-label">Creator-Powered Content</span>
+        <h2 class="cb-vf-title">Real people. Real products. Authentic content that converts.</h2>
+      </div>
+      <div class="cb-vf-controls">
+        <button class="cb-vf-arrow cb-vf-arrow-left" aria-label="Scroll left">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="cb-vf-counter">1-5 of 16</span>
+        <button class="cb-vf-arrow cb-vf-arrow-right" aria-label="Scroll right">
+          <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Carousel Track -->
+    <div class="cb-vf-track-wrapper">
+      <div class="cb-vf-track">
+
+        <!-- 1 - Innovia -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849422">
+          <iframe src="https://player.vimeo.com/video/1091849422?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Innovia</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 2 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849476">
+          <iframe src="https://player.vimeo.com/video/1091849476?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 3 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849503">
+          <iframe src="https://player.vimeo.com/video/1091849503?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 4 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849528">
+          <iframe src="https://player.vimeo.com/video/1091849528?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 5 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849557">
+          <iframe src="https://player.vimeo.com/video/1091849557?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 6 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849588">
+          <iframe src="https://player.vimeo.com/video/1091849588?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 7 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849620">
+          <iframe src="https://player.vimeo.com/video/1091849620?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 8 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849653">
+          <iframe src="https://player.vimeo.com/video/1091849653?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 9 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849688">
+          <iframe src="https://player.vimeo.com/video/1091849688?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 10 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849720">
+          <iframe src="https://player.vimeo.com/video/1091849720?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 11 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849755">
+          <iframe src="https://player.vimeo.com/video/1091849755?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 12 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849790">
+          <iframe src="https://player.vimeo.com/video/1091849790?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 13 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849825">
+          <iframe src="https://player.vimeo.com/video/1091849825?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 14 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849860">
+          <iframe src="https://player.vimeo.com/video/1091849860?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 15 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849895">
+          <iframe src="https://player.vimeo.com/video/1091849895?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+        <!-- 16 - Vanity Fair -->
+        <div class="cb-vf-video-card" data-vimeo-id="1091849930">
+          <iframe src="https://player.vimeo.com/video/1091849930?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-vf-video-label">Vanity Fair</div>
+          <div class="cb-vf-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+
+      </div><!-- /cb-vf-track -->
+    </div><!-- /cb-vf-track-wrapper -->
+
+  </div><!-- /cb-vf-inner -->
+</div><!-- /cb-vf-wrapper -->
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  var wrapper = document.querySelector('.cb-vf-wrapper');
+  if (!wrapper) return;
+
+  var track = wrapper.querySelector('.cb-vf-track');
+  var cards = wrapper.querySelectorAll('.cb-vf-video-card');
+  var arrowLeft = wrapper.querySelector('.cb-vf-arrow-left');
+  var arrowRight = wrapper.querySelector('.cb-vf-arrow-right');
+  var counter = wrapper.querySelector('.cb-vf-counter');
+  var players = new Map();
+  var totalCards = cards.length;
+
+  // Initialize Vimeo players
+  cards.forEach(function(card) {
+    var iframe = card.querySelector('iframe');
+    if (iframe) {
+      var player = new Vimeo.Player(iframe);
+      players.set(card, player);
+    }
+  });
+
+  // ── Counter Logic ──
+  function updateCounter() {
+    if (!track || !counter) return;
+    var trackRect = track.getBoundingClientRect();
+    var firstVisible = null;
+    var lastVisible = null;
+
+    cards.forEach(function(card, index) {
+      var cardRect = card.getBoundingClientRect();
+      var cardCenter = cardRect.left + cardRect.width / 2;
+      if (cardCenter >= trackRect.left && cardCenter <= trackRect.right) {
+        if (firstVisible === null) firstVisible = index + 1;
+        lastVisible = index + 1;
+      }
+    });
+
+    if (firstVisible !== null && lastVisible !== null) {
+      counter.textContent = firstVisible + '-' + lastVisible + ' of ' + totalCards;
+    }
+  }
+
+  // ── Scroll by ~4 cards ──
+  function getScrollAmount() {
+    var card = cards[0];
+    if (!card) return 300;
+    var cardWidth = card.offsetWidth + 16; // card width + gap
+    return cardWidth * 4;
+  }
+
+  // Arrow click handlers
+  if (arrowLeft) {
+    arrowLeft.addEventListener('click', function() {
+      track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+    });
+  }
+  if (arrowRight) {
+    arrowRight.addEventListener('click', function() {
+      track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+    });
+  }
+
+  // Update counter on scroll
+  if (track) {
+    track.addEventListener('scroll', updateCounter);
+  }
+
+  // Click to unmute / pause toggle
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var player = players.get(card);
+      if (!player) return;
+
+      if (card.classList.contains('cb-vf-playing')) {
+        // Currently playing with audio — pause and mute
+        player.setVolume(0);
+        player.pause();
+        card.classList.remove('cb-vf-playing');
+      } else {
+        // Mute all others first
+        players.forEach(function(p, c) {
+          if (c !== card) {
+            p.setVolume(0);
+            c.classList.remove('cb-vf-playing');
+          }
+        });
+        // Unmute and play this one
+        player.setVolume(1);
+        player.play();
+        card.classList.add('cb-vf-playing');
+      }
+    });
+  });
+
+  // Auto-play visible videos muted on load
+  function autoplayVisible() {
+    if (!track) return;
+    var trackRect = track.getBoundingClientRect();
+    cards.forEach(function(card) {
+      var cardRect = card.getBoundingClientRect();
+      var cardCenter = cardRect.left + cardRect.width / 2;
+      if (cardCenter >= trackRect.left && cardCenter <= trackRect.right) {
+        var player = players.get(card);
+        if (player) {
+          player.setVolume(0);
+          player.play().catch(function() {});
+        }
+      }
+    });
+  }
+
+  // IntersectionObserver: autoplay when block scrolls into view
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          autoplayVisible();
+          updateCounter();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(wrapper);
+  } else {
+    autoplayVisible();
+    updateCounter();
+  }
+})();
+</script>

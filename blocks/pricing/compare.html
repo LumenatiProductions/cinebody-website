@@ -1,0 +1,47 @@
+<!-- Cinebody Pricing Comparison - Services vs Software -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+
+  .cb-pricing-compare-wrapper { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: #f0f0f0; padding: 80px 0; margin-top: 0 !important; margin-bottom: 0 !important; }
+  .cb-pricing-compare-container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+  .cb-pricing-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .cb-pricing-option { background: #ffffff; border-radius: 16px; padding: 40px 32px 44px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); animation: cb-fadeUp 0.6s ease-out both; }
+  .cb-pricing-option:nth-child(1) { animation-delay: 0.1s; }
+  .cb-pricing-option:nth-child(2) { animation-delay: 0.25s; }
+  .cb-pricing-option:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12); }
+  .cb-pricing-image { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin: 0 auto 32px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); }
+  .cb-pricing-headline { font-family: 'Open Sans', sans-serif; font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; color: #00bcf1; line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .cb-pricing-description { font-family: 'Open Sans', sans-serif; font-size: 1rem; color: #5A5A5A; line-height: 1.7; margin-bottom: 20px; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .cb-pricing-info { font-family: 'Open Sans', sans-serif; font-size: 1rem; color: #00bcf1; font-weight: 600; margin-bottom: 32px; }
+  .cb-pricing-cta { display: inline-block; font-family: 'Open Sans', sans-serif; font-size: 1rem; font-weight: 700; color: #ffffff; background: #00bcf1; border: none; padding: 14px 40px; border-radius: 10px; text-decoration: none; text-transform: capitalize; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 188, 241, 0.3); box-sizing: border-box; }
+  .cb-pricing-cta:hover { background: #0099c8; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 188, 241, 0.4); }
+  @keyframes cb-fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 900px) { .cb-pricing-compare-grid { grid-template-columns: 1fr; gap: 24px; max-width: 500px; margin: 0 auto; } .cb-pricing-option { padding: 36px 28px 40px; } .cb-pricing-image { width: 160px; height: 160px; } }
+  @media (max-width: 600px) { .cb-pricing-compare-wrapper { padding: 60px 0; width: 100%; left: 0; right: 0; margin-left: 0; margin-right: 0; position: static; } .cb-pricing-compare-container { padding: 0 16px; } .cb-pricing-option { padding: 32px 20px 36px; border-radius: 14px; } .cb-pricing-image { width: 140px; height: 140px; margin-bottom: 24px; } .cb-pricing-headline { font-size: 1.35rem; } .cb-pricing-description { font-size: 0.95rem; } .cb-pricing-cta { display: block; width: 100%; padding: 14px 16px; text-align: center; } }
+</style>
+
+<div class="cb-pricing-compare-wrapper">
+  <div class="cb-pricing-compare-container">
+    <div class="cb-pricing-compare-grid">
+      <div class="cb-pricing-option">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/39ac2bb5-c3fa-47e8-88bd-ac9e68606e4d/unsplash-image-tUpJSfgkKvo.jpg" alt="Two people clasped hands, one with a sleeve tattoo and the other with painted nails, against a plain wall." class="cb-pricing-image" />
+        <h3 class="cb-pricing-headline">Want a team<br>behind your content?</h3>
+        <p class="cb-pricing-description">From strategy to final cut, our producers and editors handle every step. You approve. We deliver. Perfect for teams that need volume, quality, and speed without adding headcount.</p>
+        <div class="cb-pricing-info">Contact us for custom pricing</div>
+        <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing-cta">Talk To Our Team</a>
+      </div>
+      <div class="cb-pricing-option">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752690852135-2P56HV9LTN1FF839DFJH/unsplash-image-ab0D6SoBn3w.jpg" alt="A man working on a laptop at a desk in a studio with blue lighting, surrounded by photography and film equipment." class="cb-pricing-image" />
+        <h3 class="cb-pricing-headline">Want to run<br>it by yourself?</h3>
+        <p class="cb-pricing-description">Cinebody's platform lets you direct shoots remotely and collect footage from anyone, anywhere. Set the specs, send the link, get the clips.</p>
+        <div class="cb-pricing-info">Plans start at $250/mo</div>
+        <a href="/pricing" class="cb-pricing-cta">Platform Pricing</a>
+      </div>
+    </div>
+  </div>
+</div>

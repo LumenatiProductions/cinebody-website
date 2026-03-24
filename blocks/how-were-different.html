@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody – How We're Different</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
+  .cb-diff * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
+  .cb-diff {
+    --cb-teal: #07BCF1;
+    --cb-teal-10: rgba(7, 188, 241, 0.08);
+    --cb-yellow: #FEF247;
+    --cb-dark: #5A5A5A;
+    --cb-gray-500: #71717a;
+    --cb-gray-100: #ededef;
+    --cb-white: #ffffff;
+    --font-heading: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    font-family: var(--font-body);
+    background: var(--cb-dark);
+    color: var(--cb-white);
+    padding: 56px 40px;
+  }
+
+  .cb-diff__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .cb-diff__header {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+
+  .cb-diff__label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--cb-teal);
+    margin-bottom: 10px;
+  }
+
+  .cb-diff__title {
+    font-family: var(--font-body);
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  /* ── Grid ── */
+  .cb-diff__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .cb-diff__card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 28px 24px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-diff__card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(7, 188, 241, 0.5);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(7, 188, 241, 0.25);
+  }
+
+  .cb-diff__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(7, 188, 241, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-diff__card:hover .cb-diff__icon {
+    background: rgba(7, 188, 241, 0.25);
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .cb-diff__icon svg {
+    transition: all 0.3s ease;
+  }
+
+  .cb-diff__card:hover .cb-diff__icon svg {
+    stroke: #FEF247;
+    transform: scale(1.1);
+  }
+
+  .cb-diff__card-title {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .cb-diff__card-desc {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.55;
+  }
+
+  /* ── Tablet ── */
+  @media (max-width: 900px) {
+    .cb-diff__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 540px) {
+    .cb-diff {
+      padding: 40px 16px;
+    }
+    .cb-diff__grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .cb-diff__card {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      grid-template-rows: auto auto;
+      gap: 0 14px;
+      padding: 22px 20px;
+    }
+    .cb-diff__icon {
+      grid-row: 1 / 3;
+      margin-bottom: 0;
+      align-self: center;
+    }
+    .cb-diff__card-title { margin-bottom: 2px; }
+  }
+
+  /* ── Animate ── */
+  @keyframes cb-fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-diff__card { animation: cb-fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .cb-diff__card:nth-child(1) { animation-delay: 0.05s; }
+  .cb-diff__card:nth-child(2) { animation-delay: 0.12s; }
+  .cb-diff__card:nth-child(3) { animation-delay: 0.19s; }
+  .cb-diff__card:nth-child(4) { animation-delay: 0.26s; }
+</style>
+</head>
+<body>
+
+<div class="cb-diff">
+  <div class="cb-diff__inner">
+
+    <div class="cb-diff__header">
+      <div class="cb-diff__label">Why Cinebody</div>
+      <h2 class="cb-diff__title">Not another UGC marketplace.<br>Something actually different.</h2>
+    </div>
+
+    <div class="cb-diff__grid">
+
+      <div class="cb-diff__card">
+        <div class="cb-diff__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#07BCF1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="cb-diff__card-title">It's not fake UGC.</div>
+        <div class="cb-diff__card-desc">We don't match you with paid creators pretending to be customers. Your real community films for you.</div>
+      </div>
+
+      <div class="cb-diff__card">
+        <div class="cb-diff__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#07BCF1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div class="cb-diff__card-title">It's not a free-for-all.</div>
+        <div class="cb-diff__card-desc">Our patented shot list technology lets you control FPS, resolution, orientation, and creative direction — remotely.</div>
+      </div>
+
+      <div class="cb-diff__card">
+        <div class="cb-diff__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#07BCF1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+        </div>
+        <div class="cb-diff__card-title">It's not just software.</div>
+        <div class="cb-diff__card-desc">Pair the platform with our creative services team for end-to-end production, from strategy to final cut.</div>
+      </div>
+
+      <div class="cb-diff__card">
+        <div class="cb-diff__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#07BCF1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div class="cb-diff__card-title">It's not one-and-done.</div>
+        <div class="cb-diff__card-desc">Annual subscriptions mean you build a content engine, not a one-off project.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody – Services Process</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
+  .cb-process * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .cb-process {
+    --cb-teal: #00bcf1;
+    --cb-teal-dark: #0099c8;
+    --cb-teal-10: rgba(0, 188, 241, 0.08);
+    --cb-teal-20: rgba(0, 188, 241, 0.15);
+    --cb-dark: #5A5A5A;
+    --cb-gray-500: #71717a;
+    --cb-gray-100: #ededef;
+    --cb-white: #ffffff;
+    --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    font-family: var(--font-body);
+    color: var(--cb-dark);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  .cb-process__title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: -0.03em;
+    margin-bottom: 15px;
+  }
+
+  .cb-process__subtitle {
+    text-align: center;
+    font-size: 1.15rem;
+    color: var(--cb-gray-500);
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+
+  .cb-process__timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
+  }
+
+  .cb-process__step {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .cb-process__step:not(:last-child)::after {
+    content: '\2192';
+    position: absolute;
+    top: 32px;
+    right: -32px;
+    font-size: 24px;
+    color: var(--cb-teal);
+    opacity: 0.5;
+    z-index: 2;
+    animation: cb-arrowSlide 2s ease-in-out infinite;
+  }
+
+  @keyframes cb-arrowSlide {
+    0%, 100% { opacity: 0.3; transform: translateX(-3px); }
+    50% { opacity: 0.8; transform: translateX(3px); }
+  }
+
+  .cb-process__dot-wrap {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--cb-white);
+    border: 4px solid var(--cb-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .cb-process__dot-wrap svg { transition: all 0.35s; }
+
+  .cb-process__step:hover .cb-process__dot-wrap {
+    background: var(--cb-teal);
+    border-color: var(--cb-teal);
+    transform: scale(1.12);
+    box-shadow: 0 12px 32px rgba(0, 188, 241, 0.35), 0 0 0 8px rgba(255, 236, 3, 0.15);
+  }
+
+  .cb-process__step:hover .cb-process__dot-wrap svg {
+    stroke: var(--cb-white);
+    transform: scale(1.05);
+  }
+
+  .cb-process__dot-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid #ffec03;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-process__step:hover .cb-process__dot-wrap::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .cb-process__step-num {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--cb-teal);
+    margin-bottom: 8px;
+  }
+
+  .cb-process__step-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .cb-process__step-desc {
+    font-size: 1.05rem;
+    color: var(--cb-gray-500);
+    line-height: 1.6;
+    padding: 0 8px;
+  }
+
+  .cb-process__step-content { position: relative; }
+
+  @media (max-width: 1000px) {
+    .cb-process__timeline { grid-template-columns: repeat(3, 1fr); row-gap: 50px; gap: 30px; }
+    .cb-process__step:nth-child(3)::after, .cb-process__step:nth-child(5)::after { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .cb-process { padding: 50px 16px 60px; }
+    .cb-process__timeline { grid-template-columns: 1fr; gap: 0; padding-left: 24px; }
+    .cb-process__step { display: grid; grid-template-columns: 75px 1fr; grid-template-rows: auto auto auto; text-align: left; gap: 0 20px; padding-bottom: 40px; position: relative; }
+    .cb-process__step:last-child { padding-bottom: 0; }
+    .cb-process__step::after { display: none !important; }
+    .cb-process__step:not(:last-child) .cb-process__step-content::before { content: ''; position: absolute; left: -57.5px; top: 75px; bottom: -40px; width: 3px; background: linear-gradient(to bottom, var(--cb-teal) 0%, var(--cb-teal) 70%, rgba(0, 188, 241, 0.2) 100%); border-radius: 3px; }
+    .cb-process__dot-wrap { width: 75px; height: 75px; margin: 0; grid-row: 1 / 4; align-self: start; position: relative; }
+    .cb-process__step-num { margin-bottom: 4px; }
+    .cb-process__step-title { margin-bottom: 6px; font-size: 1.15rem; }
+    .cb-process__step-desc { padding: 0; font-size: 1rem; }
+  }
+
+  @keyframes cb-fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .cb-process__step { animation: cb-fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .cb-process__step:nth-child(1) { animation-delay: 0.1s; }
+  .cb-process__step:nth-child(2) { animation-delay: 0.25s; }
+  .cb-process__step:nth-child(3) { animation-delay: 0.4s; }
+  .cb-process__step:nth-child(4) { animation-delay: 0.55s; }
+  .cb-process__step:nth-child(5) { animation-delay: 0.7s; }
+</style>
+</head>
+<body>
+
+<div class="cb-process">
+  <h3 class="cb-process__title">What you get with our creative services</h3>
+  <p class="cb-process__subtitle">From concept to final cut — our team handles every step so you don't have to.</p>
+
+  <div class="cb-process__timeline">
+
+    <div class="cb-process__step">
+      <div class="cb-process__dot-wrap">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      </div>
+      <div class="cb-process__step-content">
+        <div class="cb-process__step-num">Step 1</div>
+        <div class="cb-process__step-title">Vision & Alignment</div>
+        <div class="cb-process__step-desc">We align on goals, audience, and creative direction — so every shoot has a purpose.</div>
+      </div>
+    </div>
+
+    <div class="cb-process__step">
+      <div class="cb-process__dot-wrap">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="cb-process__step-content">
+        <div class="cb-process__step-num">Step 2</div>
+        <div class="cb-process__step-title">Talent & Casting</div>
+        <div class="cb-process__step-desc">We recruit the right voices from your community — the people your audience trusts.</div>
+      </div>
+    </div>
+
+    <div class="cb-process__step">
+      <div class="cb-process__dot-wrap">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      </div>
+      <div class="cb-process__step-content">
+        <div class="cb-process__step-num">Step 3</div>
+        <div class="cb-process__step-title">Project Execution</div>
+        <div class="cb-process__step-desc">Our producers manage the shoot remotely, keeping filmers on-brief and on-schedule.</div>
+      </div>
+    </div>
+
+    <div class="cb-process__step">
+      <div class="cb-process__dot-wrap">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <div class="cb-process__step-content">
+        <div class="cb-process__step-num">Step 4</div>
+        <div class="cb-process__step-title">Pro Editing</div>
+        <div class="cb-process__step-desc">Editing starts the moment footage lands — no waiting for a hard drive in the mail.</div>
+      </div>
+    </div>
+
+    <div class="cb-process__step">
+      <div class="cb-process__dot-wrap">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="cb-process__step-content">
+        <div class="cb-process__step-num">Step 5</div>
+        <div class="cb-process__step-title">Motion GFX & Music</div>
+        <div class="cb-process__step-desc">Branded graphics and licensed music give every video a polished, professional finish.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

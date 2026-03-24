@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody – Stats Bar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
+  /* Kill Squarespace wrapper padding */
+  .cb-stats,
+  .cb-stats * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .sqs-block-code .sqs-block-content,
+  .sqs-block-code {
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .cb-stats {
+    --cb-teal: #00bcf1;
+    --cb-dark: #5A5A5A;
+    --cb-white: #ffffff;
+    --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    font-family: var(--font-body);
+    background: var(--cb-teal);
+    padding: 28px 0;
+    margin: 0 !important;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+  }
+
+  .cb-stats__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .cb-stats__item {
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .cb-stats__item:hover {
+    transform: scale(1.05);
+  }
+
+  /* Vertical dividers between items - more prominent */
+  .cb-stats__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  }
+
+  .cb-stats__number {
+    font-family: var(--font-body);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--cb-white);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .cb-stats__number.counting {
+    animation: cb-pulse 0.8s ease-in-out;
+  }
+
+  @keyframes cb-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .cb-stats__label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Tablet ── */
+  @media (max-width: 700px) {
+    .cb-stats__inner {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 16px;
+    }
+    /* Remove right dividers, add bottom ones for top row */
+    .cb-stats__item::after { display: none !important; }
+    .cb-stats__item:nth-child(1),
+    .cb-stats__item:nth-child(2) {
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 400px) {
+    .cb-stats { padding: 20px 0; }
+    .cb-stats__inner { padding: 0 16px; }
+    .cb-stats__number { font-size: 1.8rem; }
+  }
+
+  /* ── Animate ── */
+  @keyframes cb-fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-stats__item { animation: cb-fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .cb-stats__item:nth-child(1) { animation-delay: 0s; }
+  .cb-stats__item:nth-child(2) { animation-delay: 0.1s; }
+  .cb-stats__item:nth-child(3) { animation-delay: 0.2s; }
+  .cb-stats__item:nth-child(4) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<div class="cb-stats">
+  <div class="cb-stats__inner">
+
+    <div class="cb-stats__item">
+      <div class="cb-stats__number" data-target="160" data-suffix="+">0</div>
+      <div class="cb-stats__label">Countries</div>
+    </div>
+
+    <div class="cb-stats__item">
+      <div class="cb-stats__number" data-target="5000" data-suffix="+">0</div>
+      <div class="cb-stats__label">Cities worldwide</div>
+    </div>
+
+    <div class="cb-stats__item">
+      <div class="cb-stats__number" data-target="70" data-suffix="%" data-prefix="">0</div>
+      <div class="cb-stats__label">Avg. cost savings</div>
+    </div>
+
+    <div class="cb-stats__item">
+      <div class="cb-stats__number" data-target="24" data-suffix="hr">0</div>
+      <div class="cb-stats__label">Real-time footage sync</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  var animated = false;
+
+  function animateCounter(el, isHover) {
+    var target = parseInt(el.dataset.target);
+    var suffix = el.dataset.suffix || '';
+    var prefix = el.dataset.prefix !== undefined ? el.dataset.prefix : '';
+    var duration = isHover ? 1200 : 2400; // Faster on hover
+    var startTime = null;
+
+    // Add counting class for pulse animation
+    el.classList.add('counting');
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 4);
+      var current = Math.floor(eased * target);
+
+      if (target >= 1000) {
+        el.textContent = prefix + current.toLocaleString() + suffix;
+      } else {
+        el.textContent = prefix + current + suffix;
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        if (target >= 1000) {
+          el.textContent = prefix + target.toLocaleString() + suffix;
+        } else {
+          el.textContent = prefix + target + suffix;
+        }
+        setTimeout(function() {
+          el.classList.remove('counting');
+        }, 100);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function animateCounters() {
+    if (animated) return;
+    animated = true;
+
+    document.querySelectorAll('.cb-stats__number[data-target]').forEach(function(el, index) {
+      setTimeout(function() {
+        animateCounter(el, false);
+      }, index * 150);
+    });
+  }
+
+  // Add hover recount to each stat item
+  document.querySelectorAll('.cb-stats__item').forEach(function(item) {
+    item.addEventListener('mouseenter', function() {
+      var numberEl = item.querySelector('.cb-stats__number');
+      if (numberEl && animated) { // Only recount if initial animation has happened
+        animateCounter(numberEl, true);
+      }
+    });
+  });
+
+  // Trigger on scroll into view
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateCounters();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(document.querySelector('.cb-stats'));
+})();
+</script>
+
+</body>
+</html>

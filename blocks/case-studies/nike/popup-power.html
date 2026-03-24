@@ -1,0 +1,299 @@
+<!-- Cinebody Pop-Up Power - Nike Case Study -->
+<!-- Paste this into a Squarespace Code Block -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
+
+  /* ── Wrapper ── */
+  .cb-popup-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    overflow: hidden;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .cb-popup-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  /* ── Animations ── */
+  @keyframes cb-popup-fadeLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes cb-popup-fadeRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── Grid Layout ── */
+  .cb-popup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* ── Content (Left) ── */
+  .cb-popup-content {
+    animation: cb-popup-fadeLeft 0.8s ease-out;
+  }
+  .cb-popup-label {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #00bcf1;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+  .cb-popup-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0 0 24px 0;
+  }
+  .cb-popup-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #71717a;
+    margin: 0 0 16px 0;
+    max-width: 520px;
+  }
+  .cb-popup-text:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Videos (Right) — 2 stacked horizontal ── */
+  .cb-popup-videos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: cb-popup-fadeRight 0.8s ease-out 0.2s both;
+  }
+
+  /* ── Video Card (16:9 horizontal) ── */
+  .cb-popup-video-card {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: #1a1a1a;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  .cb-popup-video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+  }
+  .cb-popup-video-card iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+
+  /* ── Video Label ── */
+  .cb-popup-video-label {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    z-index: 3;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Play Button ── */
+  .cb-popup-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0077ff, #00c6ff);
+    border: 3px solid #ffd200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,119,255,0.4);
+    cursor: pointer;
+  }
+  .cb-popup-play-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+    margin-left: 3px;
+  }
+  .cb-popup-video-card:hover .cb-popup-play-btn {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  .cb-popup-video-card.cb-popup-playing .cb-popup-play-btn {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  .cb-popup-video-card.cb-popup-playing:hover .cb-popup-play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1000px) {
+    .cb-popup-inner { padding: 60px 28px; }
+    .cb-popup-grid { grid-template-columns: 1fr; gap: 40px; }
+    .cb-popup-content { text-align: center; }
+    .cb-popup-text { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 768px) {
+    .cb-popup-inner { padding: 48px 20px; }
+    .cb-popup-title { font-size: clamp(1.5rem, 5vw, 2rem); }
+    .cb-popup-text { font-size: 1rem; }
+    .cb-popup-video-card { border-radius: 12px; }
+    .cb-popup-play-btn { width: 52px; height: 52px; }
+    .cb-popup-play-btn svg { width: 18px; height: 18px; }
+    .cb-popup-videos { gap: 14px; }
+  }
+  @media (max-width: 480px) {
+    .cb-popup-inner { padding: 40px 16px; }
+    .cb-popup-videos { gap: 12px; }
+  }
+</style>
+
+<div class="cb-popup-wrapper">
+  <div class="cb-popup-inner">
+    <div class="cb-popup-grid">
+
+      <!-- Content (Left) -->
+      <div class="cb-popup-content">
+        <span class="cb-popup-label">Pop-Up Power</span>
+        <h2 class="cb-popup-title">Product drops. Live activations. Content captured in real time.</h2>
+        <p class="cb-popup-text">Nike's pop-up events move fast — a new shoe drops, a community run launches, and the energy is gone by morning. Cinebody was on the ground at every activation, arming Nike's own teams with guided shot lists so they could capture the raw energy of each moment without waiting on a production crew.</p>
+        <p class="cb-popup-text">From limited-edition product launches to surprise run club meetups, every event became a content engine. Footage flowed into the platform in real time, giving Nike's marketing team fresh, authentic assets they could push to social within hours — not weeks.</p>
+      </div>
+
+      <!-- Videos (Right) — 2 stacked horizontal -->
+      <div class="cb-popup-videos">
+        <div class="cb-popup-video-card" data-vimeo-id="265928299">
+          <iframe src="https://player.vimeo.com/video/265928299?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-popup-video-label">Product Launch</div>
+          <div class="cb-popup-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+        <div class="cb-popup-video-card" data-vimeo-id="214760772">
+          <iframe src="https://player.vimeo.com/video/214760772?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
+          <div class="cb-popup-video-label">Brand Activation</div>
+          <div class="cb-popup-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cb-popup-grid -->
+  </div><!-- /cb-popup-inner -->
+</div><!-- /cb-popup-wrapper -->
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  var wrapper = document.querySelector('.cb-popup-wrapper');
+  if (!wrapper) return;
+
+  var cards = wrapper.querySelectorAll('.cb-popup-video-card');
+  var players = new Map();
+
+  // Initialize Vimeo players
+  cards.forEach(function(card) {
+    var iframe = card.querySelector('iframe');
+    if (iframe) {
+      var player = new Vimeo.Player(iframe);
+      players.set(card, player);
+    }
+  });
+
+  // Reset all players to muted/paused
+  function resetAll() {
+    players.forEach(function(player, card) {
+      player.setVolume(0);
+      player.pause();
+      card.classList.remove('cb-popup-playing');
+    });
+  }
+
+  // Click to unmute / pause toggle
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var player = players.get(card);
+      if (!player) return;
+
+      if (card.classList.contains('cb-popup-playing')) {
+        // Currently playing with audio — pause and mute
+        player.setVolume(0);
+        player.pause();
+        card.classList.remove('cb-popup-playing');
+      } else {
+        // Mute all others first
+        players.forEach(function(p, c) {
+          if (c !== card) {
+            p.setVolume(0);
+            c.classList.remove('cb-popup-playing');
+          }
+        });
+        // Unmute and play this one
+        player.setVolume(1);
+        player.play();
+        card.classList.add('cb-popup-playing');
+      }
+    });
+  });
+
+  // Auto-play all videos muted on load
+  function autoplayAll() {
+    players.forEach(function(player) {
+      player.setVolume(0);
+      player.play().catch(function() {});
+    });
+  }
+
+  // IntersectionObserver: autoplay when block scrolls into view
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          autoplayAll();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(wrapper);
+  } else {
+    autoplayAll();
+  }
+})();
+</script>

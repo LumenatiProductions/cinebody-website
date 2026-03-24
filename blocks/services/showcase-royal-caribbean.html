@@ -1,0 +1,112 @@
+<!-- Cinebody Video Showcase - Royal Caribbean -->
+<!-- Paste this into a Squarespace Code Block -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+  .sqs-block-code { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .cb-video-showcase-wrapper { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: #F4F4F3; padding: 80px 0; margin-top: 0 !important; margin-bottom: 0 !important; overflow: visible; }
+  .cb-video-showcase-container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+  .cb-video-showcase-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: center; }
+  .cb-video-showcase-content { animation: cb-fadeLeft 0.8s ease-out; display: flex; flex-direction: column; justify-content: center; }
+  @keyframes cb-fadeLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-showcase-logo { width: 160px; height: auto; margin-bottom: 32px; }
+  .cb-video-showcase-title { font-family: 'Open Sans', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 700; color: #5A5A5A; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .cb-video-showcase-description { font-family: 'Open Sans', sans-serif; font-size: 1.1rem; color: #71717a; line-height: 1.7; margin-bottom: 0; }
+  .cb-video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; animation: cb-fadeRight 0.8s ease-out 0.2s both; }
+  @keyframes cb-fadeRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  .cb-video-item { position: relative; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 9 / 16; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); cursor: pointer; z-index: 1; }
+  .cb-video-item::before, .cb-video-item::after { display: none !important; content: none !important; }
+  .cb-video-item:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2); }
+  .cb-video-item:hover::before, .cb-video-item:hover::after { display: none !important; content: none !important; }
+  .cb-video-item iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: none; }
+  .cb-video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; cursor: pointer; background: transparent; transition: opacity 0.3s ease; }
+  .cb-rc-play-btn { position: absolute; bottom: 14px; left: 14px; width: 42px; height: 42px; background: linear-gradient(135deg, #00bcf1, #0099c8); border-radius: 9px; z-index: 10; pointer-events: none; transition: all 0.3s ease; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4), inset 0 0 0 2px rgba(255, 236, 3, 0.6); display: flex; align-items: center; justify-content: center; }
+  .cb-rc-play-btn::after { content: ''; display: block; width: 0; height: 0; border-left: 11px solid #ffffff; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-right: none; margin-left: 3px; transition: all 0.3s ease; }
+  .cb-video-item:hover .cb-rc-play-btn { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0, 188, 241, 0.6), inset 0 0 0 2.5px rgba(255, 236, 3, 1), 0 0 20px rgba(255, 236, 3, 0.4); }
+  .cb-video-item.cb-rc-playing .cb-rc-play-btn { width: 34px; height: 34px; border-radius: 7px; background: linear-gradient(135deg, rgba(0, 188, 241, 0.8), rgba(0, 153, 200, 0.8)); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 236, 3, 0.8); }
+  .cb-video-item.cb-rc-playing .cb-rc-play-btn::after { content: ''; display: block; width: 10px; height: 12px; border-top: none; border-bottom: none; border-left: 3px solid #ffffff; border-right: 3px solid #ffffff; margin-left: 0; }
+  @media (max-width: 1000px) { .cb-video-showcase-layout { grid-template-columns: 1fr; gap: 50px; } .cb-video-showcase-content { text-align: center; } .cb-video-showcase-logo { margin-left: auto; margin-right: auto; } .cb-video-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; gap: 20px; } .cb-video-item { width: 100%; } }
+  @media (max-width: 640px) { .cb-video-showcase-wrapper { padding: 60px 0; width: 100%; left: 0; right: 0; margin-left: 0; margin-right: 0; position: static; } .cb-video-showcase-container { padding: 0 16px; max-width: 100%; background: transparent; } .cb-video-showcase-layout { display: block; background: transparent; } .cb-video-showcase-content { margin-bottom: 40px; background: transparent; } .cb-video-showcase-logo { margin-bottom: 24px; } .cb-video-grid { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 100%; background: transparent; padding: 0; } .cb-video-item { width: 100%; max-width: 100%; margin: 0; display: block; position: relative; background: transparent; border-radius: 0; box-shadow: none; } .cb-video-item iframe { display: block; width: 100%; height: auto; min-height: 600px; background: transparent; } .cb-rc-play-btn { width: 38px; height: 38px; } }
+</style>
+
+<div class="cb-video-showcase-wrapper">
+  <div class="cb-video-showcase-container">
+    <div class="cb-video-showcase-layout">
+      <div class="cb-video-showcase-content">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752612044764-HV8GVV2QA08BISZN4AXZ/Royal-Cribbean-logo.png" alt="Royal Caribbean International logo with a blue background, white text, and a yellow banner underneath with the word 'International' in black." class="cb-video-showcase-logo" />
+        <h2 class="cb-video-showcase-title">A constant stream of social content.</h2>
+        <p class="cb-video-showcase-description">Crew members film daily life on board. Cinebody's team turns raw moments into a steady stream of social content, keeping feeds fresh across the fleet.</p>
+      </div>
+      <div class="cb-video-grid">
+        <div class="cb-video-item" data-rc-vid="0">
+          <div class="cb-video-overlay"></div>
+          <div class="cb-rc-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/981489599?h=89701ad11c&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cb-video-item" data-rc-vid="1">
+          <div class="cb-video-overlay"></div>
+          <div class="cb-rc-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1065911751?h=c0f9984c45&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cb-video-item" data-rc-vid="2">
+          <div class="cb-video-overlay"></div>
+          <div class="cb-rc-play-btn"></div>
+          <iframe src="https://player.vimeo.com/video/1065240591?h=14347353e0&background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function() {
+  function initRC() {
+    var wrapper = document.querySelector('.cb-video-showcase-wrapper');
+    if (!wrapper) return;
+    var allVids = wrapper.querySelectorAll('[data-rc-vid]');
+    var players = [];
+    var overlays = [];
+    var activeIndex = null;
+    allVids.forEach(function(v) {
+      var iframe = v.querySelector('iframe');
+      var p = new Vimeo.Player(iframe);
+      p.setVolume(0);
+      players.push(p);
+      overlays.push(v.querySelector('.cb-video-overlay'));
+    });
+    function resetAll() {
+      allVids.forEach(function(v, i) {
+        v.classList.remove('cb-rc-playing');
+        overlays[i].style.opacity = '1';
+        players[i].setVolume(0);
+        players[i].play();
+      });
+      activeIndex = null;
+    }
+    allVids.forEach(function(v, idx) {
+      v.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (activeIndex === idx) {
+          resetAll();
+        } else {
+          resetAll();
+          players.forEach(function(p, i) {
+            if (i !== idx) { p.pause(); p.setVolume(0); }
+          });
+          v.classList.add('cb-rc-playing');
+          overlays[idx].style.opacity = '0';
+          players[idx].setVolume(1);
+          players[idx].play();
+          activeIndex = idx;
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRC);
+  } else { initRC(); }
+})();
+</script>
