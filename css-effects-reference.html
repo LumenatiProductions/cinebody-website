@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaaS Dark Theme CSS Effects Reference</title>
+
+<!-- ============================================
+     @property declarations (CSS Houdini)
+     Must be top-level, cannot be nested
+     ============================================ -->
+<style>
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-position {
+  syntax: "<percentage>";
+  initial-value: 0%;
+  inherits: false;
+}
+
+@property --bg-position {
+  syntax: "<percentage>";
+  initial-value: 0%;
+  inherits: false;
+}
+</style>
+
+<style>
+/* ============================================
+   RESET & BASE DARK THEME
+   Inspired by Linear, Vercel, Raycast
+   ============================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Core palette - dark SaaS standard */
+  --bg-primary: #0a0a0b;
+  --bg-secondary: #111113;
+  --bg-tertiary: #1a1a1f;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+
+  --text-primary: #ededef;
+  --text-secondary: #8a8a8e;
+  --text-tertiary: #5c5c63;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.1);
+
+  /* Accent colors */
+  --accent-blue: #5b7fff;
+  --accent-purple: #8b5cf6;
+  --accent-cyan: #06b6d4;
+  --accent-pink: #ec4899;
+  --accent-green: #10b981;
+
+  /* Glow colors */
+  --glow-blue: rgba(91, 127, 255, 0.15);
+  --glow-purple: rgba(139, 92, 246, 0.15);
+
+  color-scheme: dark;
+}
+
+html {
+  color-scheme: dark;           /* Vercel technique: dark scrollbars + form controls */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+  display: block;
+}
+
+
+/* ============================================
+   1. ANIMATED GRADIENT BORDER (Spinning Rainbow)
+   Uses @property + conic-gradient
+   Source: ibelick.com, bramus CodePen
+   ============================================ */
+
+.gradient-border-demo {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Method A: conic-gradient spinning border */
+.spinning-border {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Transparent border trick: border is invisible, background shows through */
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--bg-secondary), var(--bg-secondary)) padding-box,
+    conic-gradient(from var(--angle), #5b7fff, #8b5cf6, #ec4899, #06b6d4, #5b7fff) border-box;
+  animation: spin-border 4s linear infinite;
+}
+
+@keyframes spin-border {
+  to { --angle: 360deg; }
+}
+
+/* Method B: Pseudo-element with blur glow behind the border */
+.spinning-border-glow {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.spinning-border-glow::before,
+.spinning-border-glow::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: conic-gradient(from var(--angle), #5b7fff, #8b5cf6, #ec4899, #06b6d4, #5b7fff);
+  animation: spin-border 4s linear infinite;
+  z-index: -1;
+}
+
+.spinning-border-glow::after {
+  /* Glow layer: same gradient but blurred */
+  filter: blur(20px);
+  opacity: 0.6;
+  inset: -4px;
+  z-index: -2;
+}
+
+
+/* ============================================
+   2. DOT GRID / GRID PATTERN BACKGROUNDS
+   Source: ibelick.com
+   ============================================ */
+
+.pattern-demos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.pattern-box {
+  position: relative;
+  height: 250px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pattern-box span {
+  position: relative;
+  z-index: 2;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Dot grid - radial gradient method */
+.dot-grid {
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Line grid - linear gradient method */
+.line-grid {
+  background-color: var(--bg-primary);
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Dot grid with radial mask (fades at edges - Linear style) */
+.dot-grid-masked {
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 40%, transparent 100%);
+}
+
+/* Cross-hatch pattern */
+.crosshatch {
+  background-color: var(--bg-primary);
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+
+/* ============================================
+   3. CARD GLOW ON HOVER (Cursor-following)
+   Source: dev.to/yxsh, frontendmasters.com
+   ============================================ */
+
+.glow-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;                       /* Gap becomes the "border" between cards */
+  background: var(--border-subtle); /* The gap color = border color */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.glow-card {
+  background: var(--bg-secondary);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.glow-card:hover {
+  background: var(--bg-tertiary);
+}
+
+/* The glow blob that follows the cursor */
+.glow-card::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-blue) 0%, transparent 70%);
+  transform: translate(var(--mouse-x, -200px), var(--mouse-y, -200px));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+.glow-card h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.glow-card p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* METHOD B: Blob approach (from dev.to tutorial) */
+.blob-card {
+  background: rgba(128, 128, 128, 0.15);
+  padding: 3px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.blob-card .inner {
+  border-radius: 10px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  transition: background 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.blob-card:hover .inner {
+  background: rgba(17, 17, 19, 0.7);
+  backdrop-filter: blur(80px);
+}
+
+.blob-card .blob {
+  filter: blur(40px);
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(91, 127, 255, 0.4);
+}
+
+.blob-card .fakeblob {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.blob-cards-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+
+/* ============================================
+   4. TEXT GRADIENT EFFECTS
+   Source: CSS-Tricks, web.dev
+   ============================================ */
+
+.text-gradient-demos {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Static gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #5b7fff 0%, #8b5cf6 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* Animated shimmer gradient text (Linear / Stripe style) */
+.gradient-text-animated {
+  --bg-size: 400%;
+  background: linear-gradient(
+    90deg,
+    var(--accent-blue),
+    var(--accent-purple),
+    var(--accent-pink),
+    var(--accent-cyan),
+    var(--accent-blue)
+  ) 0 0 / var(--bg-size) 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  animation: shimmer-text 8s linear infinite;
+}
+
+@keyframes shimmer-text {
+  to { background-position: var(--bg-size) 0; }
+}
+
+/* Subtle fade gradient (Vercel style - white to gray) */
+.gradient-text-subtle {
+  background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+
+/* ============================================
+   5. GLASSMORPHISM
+   ~95% browser support as of 2025
+   Source: playground.halfaccessible.com
+   ============================================ */
+
+.glass-demo-container {
+  position: relative;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Colorful background to show the blur effect */
+  background:
+    radial-gradient(circle at 20% 30%, rgba(91, 127, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+    var(--bg-secondary);
+}
+
+.glass-card {
+  /* Core glassmorphism properties */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);      /* Required for Safari */
+
+  /* Thin light border for edge definition */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* Soft shadow for depth */
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  border-radius: 16px;
+  padding: 32px;
+  width: 360px;
+  /* GPU acceleration hint for performance */
+  transform: translateZ(0);
+}
+
+.glass-card h4 {
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+}
+
+.glass-card p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(12px)) {
+  .glass-card {
+    background: rgba(26, 26, 31, 0.95);
+  }
+}
+
+/* Dark glassmorphism variant (elevated card) */
+.glass-card-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 16px;
+  width: 360px;
+}
+
+
+/* ============================================
+   6. PARALLAX SCROLL (Pure CSS)
+   Source: digitalocean.com, dev.to
+   ============================================ */
+
+.parallax-container {
+  height: 400px;
+  perspective: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+.parallax-layer-back {
+  position: absolute;
+  inset: 0;
+  /* Push back and scale up to compensate for size reduction */
+  transform: translateZ(-4px) scale(2);
+  z-index: -1;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(91, 127, 255, 0.3), transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(139, 92, 246, 0.2), transparent 50%),
+    radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 24px 24px;
+}
+
+.parallax-layer-front {
+  transform: translateZ(0);
+  padding: 60px 40px;
+  min-height: 600px;
+}
+
+.parallax-layer-front h4 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.parallax-layer-front p {
+  color: var(--text-secondary);
+  max-width: 500px;
+}
+
+/* Alternative: JS-enhanced scroll parallax (more reliable cross-browser) */
+.parallax-hero {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.parallax-hero-bg {
+  position: absolute;
+  inset: -50px;
+  background:
+    radial-gradient(circle at 40% 30%, rgba(91, 127, 255, 0.4), transparent 60%),
+    radial-gradient(circle at 60% 70%, rgba(236, 72, 153, 0.3), transparent 60%),
+    var(--bg-secondary);
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+.parallax-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+
+/* ============================================
+   7. MICRO-INTERACTIONS & EXTRAS
+   ============================================ */
+
+/* --- 7a. Noise/Grain Texture Overlay --- */
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  z-index: 100;
+  mix-blend-mode: soft-light;
+}
+
+/* --- 7b. Stripe-style Ambient Gradient Background --- */
+.ambient-gradient {
+  position: relative;
+  overflow: hidden;
+  height: 400px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+.ambient-gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  animation: float-orb 12s ease-in-out infinite alternate;
+}
+
+.ambient-gradient-orb:nth-child(1) {
+  width: 500px;
+  height: 500px;
+  background: rgba(91, 127, 255, 0.4);
+  top: -20%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.ambient-gradient-orb:nth-child(2) {
+  width: 400px;
+  height: 400px;
+  background: rgba(139, 92, 246, 0.35);
+  top: 30%;
+  right: -10%;
+  animation-delay: -4s;
+}
+
+.ambient-gradient-orb:nth-child(3) {
+  width: 350px;
+  height: 350px;
+  background: rgba(236, 72, 153, 0.3);
+  bottom: -20%;
+  left: 30%;
+  animation-delay: -8s;
+}
+
+@keyframes float-orb {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -20px) scale(1.05); }
+  66%  { transform: translate(-20px, 15px) scale(0.95); }
+  100% { transform: translate(10px, -10px) scale(1.02); }
+}
+
+/* --- 7c. Spotlight / Radial Hover on Sections --- */
+.spotlight-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-section::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-purple) 0%, transparent 70%);
+  transform: translate(var(--spot-x, -300px), var(--spot-y, -300px));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.spotlight-section:hover::before {
+  opacity: 1;
+}
+
+/* --- 7d. Animated Entry (Fade up on scroll) --- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- 7e. Button with glow pulse --- */
+.btn-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-blue);
+  color: white;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-glow:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 20px rgba(91, 127, 255, 0.4),
+    0 0 60px rgba(91, 127, 255, 0.15);
+}
+
+.btn-glow:active {
+  transform: translateY(0);
+}
+
+/* --- 7f. Animated border on hover (subtle) --- */
+.hover-border-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-border-card:hover {
+  border-color: var(--border-medium);
+  box-shadow: 0 0 0 1px var(--border-medium);
+}
+
+/* --- 7g. Shimmer / skeleton loading effect --- */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    rgba(255, 255, 255, 0.05) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* --- 7h. Staggered animation delays (for card grids) --- */
+.stagger > *:nth-child(1) { transition-delay: 0ms; }
+.stagger > *:nth-child(2) { transition-delay: 75ms; }
+.stagger > *:nth-child(3) { transition-delay: 150ms; }
+.stagger > *:nth-child(4) { transition-delay: 225ms; }
+.stagger > *:nth-child(5) { transition-delay: 300ms; }
+.stagger > *:nth-child(6) { transition-delay: 375ms; }
+
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-40 { margin-top: 40px; }
+.text-center { text-align: center; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.gap-12 { gap: 12px; }
+.gap-24 { gap: 24px; }
+</style>
+</head>
+
+<body>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header style="padding: 24px 0; border-bottom: 1px solid var(--border-subtle);">
+  <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+    <span style="font-weight: 600;">CSS Effects Reference</span>
+    <span style="color: var(--text-tertiary); font-size: 0.8125rem;">7 Techniques / Implementable Code</span>
+  </div>
+</header>
+
+
+<!-- ============================================
+     1. ANIMATED GRADIENT BORDERS
+     ============================================ -->
+<section id="gradient-borders">
+  <div class="container">
+    <span class="label">01</span>
+    <h2>Animated Gradient Borders</h2>
+    <h3>Spinning rainbow border using @property + conic-gradient. Two methods shown.</h3>
+
+    <div class="gradient-border-demo">
+      <!-- Method A: border-box trick -->
+      <div class="spinning-border">
+        <span style="color: var(--text-secondary); font-size: 0.875rem;">border-box method</span>
+      </div>
+
+      <!-- Method B: pseudo-element with glow -->
+      <div class="spinning-border-glow">
+        <span style="color: var(--text-secondary); font-size: 0.875rem;">pseudo-element + blur glow</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     2. DOT GRID / GRID PATTERNS
+     ============================================ -->
+<section id="grid-patterns">
+  <div class="container">
+    <span class="label">02</span>
+    <h2>Grid & Dot Pattern Backgrounds</h2>
+    <h3>Pure CSS repeating patterns using radial-gradient and linear-gradient.</h3>
+
+    <div class="pattern-demos">
+      <div class="pattern-box dot-grid"><span>Dot Grid</span></div>
+      <div class="pattern-box line-grid"><span>Line Grid</span></div>
+      <div class="pattern-box dot-grid-masked"><span>Dot Grid + Radial Mask</span></div>
+      <div class="pattern-box crosshatch"><span>Crosshatch</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     3. CARD GLOW ON HOVER
+     ============================================ -->
+<section id="card-glow" class="spotlight-section">
+  <div class="container">
+    <span class="label">03</span>
+    <h2>Card Glow on Hover</h2>
+    <h3>Cursor-following glow using CSS variables + mousemove. Two approaches.</h3>
+
+    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px;">
+      <strong>Method A:</strong> CSS radial-gradient + custom properties (simpler, lower overhead)
+    </p>
+
+    <div class="glow-cards" id="glow-cards-a">
+      <div class="glow-card">
+        <h4>Issue Tracking</h4>
+        <p>Create, manage, and prioritize issues across teams with real-time sync.</p>
+      </div>
+      <div class="glow-card">
+        <h4>Cycle Planning</h4>
+        <p>Plan sprints and cycles with automated task distribution and deadlines.</p>
+      </div>
+      <div class="glow-card">
+        <h4>Roadmap Views</h4>
+        <p>Visualize your product roadmap with timeline and kanban views.</p>
+      </div>
+    </div>
+
+    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px; margin-top: 40px;">
+      <strong>Method B:</strong> Animated blob element (richer glow, border illumination)
+    </p>
+
+    <div class="blob-cards-row" id="blob-cards">
+      <div class="blob-card">
+        <div class="inner">
+          <h4 style="margin-bottom: 8px;">Workflows</h4>
+          <p style="color: var(--text-secondary); font-size: 0.875rem;">Automate repetitive tasks with custom triggers and actions.</p>
+        </div>
+        <div class="blob"></div>
+        <div class="fakeblob"></div>
+      </div>
+      <div class="blob-card">
+        <div class="inner">
+          <h4 style="margin-bottom: 8px;">Integrations</h4>
+          <p style="color: var(--text-secondary); font-size: 0.875rem;">Connect with GitHub, Slack, Figma, and 50+ other tools.</p>
+        </div>
+        <div class="blob"></div>
+        <div class="fakeblob"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     4. TEXT GRADIENT EFFECTS
+     ============================================ -->
+<section id="text-gradients">
+  <div class="container">
+    <span class="label">04</span>
+    <h2>Text Gradient Effects</h2>
+    <h3>Three variants: static multi-color, animated shimmer, and subtle fade.</h3>
+
+    <div class="text-gradient-demos">
+      <div>
+        <p style="color: var(--text-tertiary); font-size: 0.75rem; margin-bottom: 8px;">Multi-color (Linear / Raycast style)</p>
+        <div class="gradient-text">Build software at the speed of thought.</div>
+      </div>
+      <div>
+        <p style="color: var(--text-tertiary); font-size: 0.75rem; margin-bottom: 8px;">Animated shimmer</p>
+        <div class="gradient-text-animated">The developer experience platform.</div>
+      </div>
+      <div>
+        <p style="color: var(--text-tertiary); font-size: 0.75rem; margin-bottom: 8px;">Subtle fade (Vercel style)</p>
+        <div class="gradient-text-subtle">Develop. Preview. Ship.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     5. GLASSMORPHISM
+     ============================================ -->
+<section id="glassmorphism">
+  <div class="container">
+    <span class="label">05</span>
+    <h2>Glassmorphism</h2>
+    <h3>backdrop-filter: blur() with proper fallback, border, and shadow treatment.</h3>
+
+    <div class="glass-demo-container noise-overlay">
+      <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
+        <div class="glass-card">
+          <h4>Standard Glass</h4>
+          <p>Semi-transparent background with blur(12px), thin border, and inset highlight.</p>
+        </div>
+        <div class="glass-card-dark">
+          <h4>Dark Glass</h4>
+          <p>Darker variant with saturate(1.2) for richer color. Better for elevated surfaces.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     6. PARALLAX SCROLL
+     ============================================ -->
+<section id="parallax">
+  <div class="container">
+    <span class="label">06</span>
+    <h2>Parallax Scroll</h2>
+    <h3>Pure CSS perspective method + JS-enhanced scroll offset. Two approaches.</h3>
+
+    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">
+      <strong>CSS-only:</strong> Uses perspective + translateZ (scroll inside the box to see effect)
+    </p>
+
+    <div class="parallax-container" style="transform-style: preserve-3d;">
+      <div class="parallax-layer-back"></div>
+      <div class="parallax-layer-front">
+        <h4>Pure CSS Parallax</h4>
+        <p>The background grid moves slower than the foreground text as you scroll inside this container. Uses perspective: 4px and translateZ(-4px) scale(2) on the back layer.</p>
+        <br><br>
+        <p>Keep scrolling to see the effect. The deeper the translateZ negative value, the slower the layer moves.</p>
+        <br><br><br><br><br>
+        <p style="color: var(--text-tertiary);">End of scroll area.</p>
+      </div>
+    </div>
+
+    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px; margin-top: 24px;">
+      <strong>JS-enhanced:</strong> Uses scroll position to translate background (better cross-browser)
+    </p>
+
+    <div class="parallax-hero" id="parallax-hero">
+      <div class="parallax-hero-bg" id="parallax-hero-bg"></div>
+      <div class="parallax-hero-content">
+        <div class="gradient-text" style="font-size: 2rem; margin-bottom: 8px;">Scroll the page</div>
+        <p style="color: var(--text-secondary);">Background shifts based on scroll position</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     7. MICRO-INTERACTIONS & EXTRAS
+     ============================================ -->
+<section id="micro-interactions">
+  <div class="container">
+    <span class="label">07</span>
+    <h2>Micro-Interactions & Extras</h2>
+    <h3>Ambient gradients, glow buttons, shimmer loading, fade-up scroll entries.</h3>
+
+    <!-- Ambient gradient (Stripe-style) -->
+    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">
+      <strong>Stripe-style ambient gradient:</strong> Floating orbs with blur(80px) and alternating float animation
+    </p>
+
+    <div class="ambient-gradient noise-overlay">
+      <div class="ambient-gradient-orb"></div>
+      <div class="ambient-gradient-orb"></div>
+      <div class="ambient-gradient-orb"></div>
+    </div>
+
+    <!-- Glow button -->
+    <div class="mt-40">
+      <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">
+        <strong>Glow button:</strong> box-shadow glow on hover with translateY lift
+      </p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button class="btn-glow">Get Started</button>
+        <button class="btn-glow" style="background: var(--accent-purple);">Documentation</button>
+        <button class="btn-glow" style="background: transparent; border: 1px solid var(--border-medium);">
+          Learn More
+        </button>
+      </div>
+    </div>
+
+    <!-- Shimmer loading -->
+    <div class="mt-40">
+      <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">
+        <strong>Shimmer loading:</strong> Animated gradient sweep for skeleton states
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px;">
+        <div class="shimmer" style="height: 20px; width: 60%;"></div>
+        <div class="shimmer" style="height: 16px; width: 100%;"></div>
+        <div class="shimmer" style="height: 16px; width: 85%;"></div>
+        <div class="shimmer" style="height: 120px; width: 100%; margin-top: 8px;"></div>
+      </div>
+    </div>
+
+    <!-- Fade-up on scroll -->
+    <div class="mt-40">
+      <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">
+        <strong>Fade-up on scroll:</strong> IntersectionObserver toggles .visible class
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;" class="stagger">
+        <div class="fade-up hover-border-card">
+          <h4 style="font-size: 0.9375rem; margin-bottom: 4px;">Card One</h4>
+          <p style="color: var(--text-secondary); font-size: 0.8125rem;">Staggered entry with border hover.</p>
+        </div>
+        <div class="fade-up hover-border-card">
+          <h4 style="font-size: 0.9375rem; margin-bottom: 4px;">Card Two</h4>
+          <p style="color: var(--text-secondary); font-size: 0.8125rem;">Each card fades up with a 75ms delay.</p>
+        </div>
+        <div class="fade-up hover-border-card">
+          <h4 style="font-size: 0.9375rem; margin-bottom: 4px;">Card Three</h4>
+          <p style="color: var(--text-secondary); font-size: 0.8125rem;">Uses IntersectionObserver for trigger.</p>
+        </div>
+        <div class="fade-up hover-border-card">
+          <h4 style="font-size: 0.9375rem; margin-bottom: 4px;">Card Four</h4>
+          <p style="color: var(--text-secondary); font-size: 0.8125rem;">Lightweight, no library needed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+// -----------------------------------------------
+// 3A. Card Glow - CSS variable approach
+// -----------------------------------------------
+document.querySelectorAll('#glow-cards-a .glow-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    // Set CSS custom properties for the radial gradient position
+    card.style.setProperty('--mouse-x', `${e.clientX - rect.left - 200}px`);
+    card.style.setProperty('--mouse-y', `${e.clientY - rect.top - 200}px`);
+  });
+});
+
+// -----------------------------------------------
+// 3B. Card Glow - Blob approach
+// -----------------------------------------------
+const blobCards = document.querySelectorAll('.blob-card');
+window.addEventListener('mousemove', (ev) => {
+  blobCards.forEach(card => {
+    const blob = card.querySelector('.blob');
+    const fblob = card.querySelector('.fakeblob');
+    const rec = fblob.getBoundingClientRect();
+    blob.animate(
+      [{
+        transform: `translate(${ev.clientX - rec.left - (rec.width / 2)}px, ${ev.clientY - rec.top - (rec.height / 2)}px)`
+      }],
+      { duration: 300, fill: 'forwards' }
+    );
+  });
+});
+
+// -----------------------------------------------
+// Spotlight section (cursor-following radial glow)
+// -----------------------------------------------
+document.querySelectorAll('.spotlight-section').forEach(section => {
+  section.addEventListener('mousemove', (e) => {
+    const rect = section.getBoundingClientRect();
+    section.style.setProperty('--spot-x', `${e.clientX - rect.left - 300}px`);
+    section.style.setProperty('--spot-y', `${e.clientY - rect.top - 300}px`);
+  });
+});
+
+// -----------------------------------------------
+// 6. JS-enhanced parallax
+// -----------------------------------------------
+const parallaxHeroBg = document.getElementById('parallax-hero-bg');
+const parallaxHero = document.getElementById('parallax-hero');
+
+if (parallaxHeroBg && parallaxHero) {
+  window.addEventListener('scroll', () => {
+    const rect = parallaxHero.getBoundingClientRect();
+    const scrollProgress = rect.top / window.innerHeight;
+    // Move background at 30% of scroll speed
+    parallaxHeroBg.style.transform = `translateY(${scrollProgress * 50}px)`;
+  }, { passive: true });
+}
+
+// -----------------------------------------------
+// 7. Fade-up on scroll (IntersectionObserver)
+// -----------------------------------------------
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+</script>
+
+</body>
+</html>

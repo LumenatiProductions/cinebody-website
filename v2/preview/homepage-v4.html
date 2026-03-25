@@ -47,6 +47,35 @@ a { color: inherit; text-decoration: none; }
 /* ── Subtle per-section aurora (not fixed/global) ── */
 body > * { position: relative; z-index: 1; }
 
+/* Subtle dot grid on dark sections */
+.why, .faq {
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ── CURVED SECTION DIVIDERS — "smile" arcs ── */
+.curve {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0;
+  margin-top: -1px;
+}
+
+.curve svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+.curve--flip svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 600px) {
+  .curve svg { height: 30px; }
+}
+
 /* ── CONTAINER ── */
 .contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 
@@ -84,6 +113,14 @@ body > * { position: relative; z-index: 1; }
   box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
 }
 
+.btn-glow::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
+}
+
+.btn-glow:hover::before { opacity: 0.7; }
+
 .btn-glow:hover {
   box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
   transform: translateY(-2px);
@@ -97,10 +134,22 @@ body > * { position: relative; z-index: 1; }
    ═══════════════════════════ */
 .hero { padding: 160px 0 120px; overflow: hidden; position: relative; }
 
+/* Hero aurora — teal top-right, pink bottom-left */
 .hero::before {
-  content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(0,188,241,0.06) 0%, transparent 65%);
-  pointer-events: none;
+  content: ''; position: absolute; top: -20%; right: -15%; width: 700px; height: 700px;
+  background: var(--teal); border-radius: 50%; filter: blur(140px); opacity: 0.07;
+  pointer-events: none; animation: hero-glow 18s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: ''; position: absolute; bottom: -30%; left: -10%; width: 500px; height: 500px;
+  background: var(--pink); border-radius: 50%; filter: blur(140px); opacity: 0.035;
+  pointer-events: none; animation: hero-glow 22s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes hero-glow {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(30px, -20px); }
 }
 
 .hero .contain {
@@ -108,19 +157,28 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--mono); font-size: 11px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal);
-  margin-bottom: 28px; display: flex; align-items: center; gap: 12px;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
 }
 
-.hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--teal); }
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
 
 .hero h1 {
   font-size: clamp(2.75rem, 5.5vw, 4rem);
   font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
 }
 
-.hero h1 em { font-style: normal; color: var(--teal); }
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
 
 .hero-body {
   font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
@@ -173,7 +231,9 @@ body > * { position: relative; z-index: 1; }
   padding: 40px 20px; text-align: center; transition: background 0.3s ease;
 }
 
-.stat:hover { background: var(--surface-hover); }
+.stat:hover { background: var(--surface-hover); cursor: pointer; }
+.stat:hover .stat-num { text-shadow: 0 0 20px rgba(0,188,241,0.4); transform: scale(1.08); }
+.stat-num { transition: transform 0.3s var(--ease), text-shadow 0.3s ease; }
 
 .stat-num {
   font-size: 2.5rem; font-weight: 700; color: var(--teal);
@@ -185,7 +245,20 @@ body > * { position: relative; z-index: 1; }
 /* ═══════════════════════════
    CASE STUDY TEASER
    ═══════════════════════════ */
-.teaser { padding: 100px 0; }
+.teaser { padding: 100px 0; background: var(--bg); overflow: hidden; position: relative; }
+
+/* Per-teaser aurora accents */
+.teaser--glow-pink::before {
+  content: ''; position: absolute; top: -20%; right: -10%; width: 500px; height: 500px;
+  background: var(--pink); border-radius: 50%; filter: blur(140px); opacity: 0.04;
+  pointer-events: none;
+}
+
+.teaser--glow-teal::before {
+  content: ''; position: absolute; bottom: -20%; left: -10%; width: 500px; height: 500px;
+  background: var(--teal); border-radius: 50%; filter: blur(140px); opacity: 0.05;
+  pointer-events: none;
+}
 
 .teaser .contain {
   display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
@@ -203,7 +276,7 @@ body > * { position: relative; z-index: 1; }
 .teaser--light .teaser-stat-pipe { background: #e0e0e0; }
 .teaser--light .teaser-vid { border-color: #e0e0e0; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
 
-.teaser--light { position: relative; }
+.teaser--light { position: relative; overflow: hidden; }
 
 .teaser-badge { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
 
@@ -252,12 +325,15 @@ body > * { position: relative; z-index: 1; }
 .teaser-vid-pair { display: flex; gap: 12px; justify-content: center; }
 .teaser-vid-pair .teaser-vid { flex: 1; max-width: 200px; }
 
-/* Accent SVGs */
+/* Accent SVGs — contained, behind the video */
 .teaser-accent {
-  position: absolute; inset: -15%; z-index: 0; opacity: 0.4; pointer-events: none;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100%; height: 100%; z-index: 0; opacity: 0.5; pointer-events: none;
 }
 
+.teaser-visual { position: relative; }
 .teaser-vid { position: relative; z-index: 1; }
+.teaser-vid-pair { position: relative; z-index: 1; }
 
 /* Globe */
 .t-globe-ring { fill: none; stroke: rgba(0,188,241,0.15); stroke-width: 0.8; }
@@ -299,7 +375,30 @@ body > * { position: relative; z-index: 1; }
   padding: 36px 24px; transition: background 0.4s ease;
 }
 
-.why-card:hover { background: var(--surface-hover); }
+.why-card:hover {
+  background: var(--surface-hover);
+  box-shadow: inset 0 1px 0 rgba(0,188,241,0.1), 0 0 20px rgba(0,188,241,0.03);
+}
+
+/* Cursor-following glow on cards */
+.glow-track {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-track::after {
+  content: '';
+  position: absolute;
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(0,188,241,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(var(--glow-x, -200px), var(--glow-y, -200px));
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.glow-track:hover::after { opacity: 1; }
 
 .why-icon {
   width: 36px; height: 36px; border-radius: 8px; background: rgba(0,188,241,0.06);
@@ -494,8 +593,11 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
+<!-- curve: dark → light -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
 <!-- ═══ TEASER: POINT.ME ═══ -->
-<section class="teaser teaser--light">
+<section class="teaser teaser--light" style="padding-top:60px">
   <div class="contain">
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">point.me</span></div>
@@ -516,6 +618,9 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
+<!-- curve: light → dark -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
 <!-- ═══ WHY ═══ -->
 <section class="why">
   <div class="contain">
@@ -525,16 +630,19 @@ body > * { position: relative; z-index: 1; }
       <p class="why-sub">Other platforms match you with paid creators pretending to be fans. Cinebody activates your real community — guided by patented technology.</p>
     </div>
     <div class="why-grid reveal reveal-d2">
-      <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Real people, not actors</h3><p>Your actual community films for you — customers, employees, fans.</p></div>
-      <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><h3>Directed, not chaotic</h3><p>Patented shot list tech controls FPS, resolution, and creative direction remotely.</p></div>
-      <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><h3>Platform + services</h3><p>Use the software standalone or pair with our team for end-to-end production.</p></div>
-      <div class="why-card"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3>Always-on, not one-off</h3><p>Build a content engine with annual subscriptions — not a one-time project.</p></div>
+      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Real people, not actors</h3><p>Your actual community films for you — customers, employees, fans.</p></div>
+      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><h3>Directed, not chaotic</h3><p>Patented shot list tech controls FPS, resolution, and creative direction remotely.</p></div>
+      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><h3>Platform + services</h3><p>Use the software standalone or pair with our team for end-to-end production.</p></div>
+      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3>Always-on, not one-off</h3><p>Build a content engine with annual subscriptions — not a one-time project.</p></div>
     </div>
   </div>
 </section>
 
+<!-- curve: dark → light -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
 <!-- ═══ CASE STUDIES ═══ -->
-<section class="cases">
+<section class="cases" style="padding-top:60px">
   <div class="contain">
     <div class="reveal"><div class="label">Case Studies</div><h2>See what brands are building with Cinebody</h2></div>
     <div class="cases-grid reveal reveal-d1">
@@ -547,8 +655,11 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
+<!-- curve: light → dark -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
 <!-- ═══ TEASER: ROYAL CARIBBEAN ═══ -->
-<section class="teaser teaser--flip">
+<section class="teaser teaser--flip teaser--glow-pink">
   <div class="contain">
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">Royal Caribbean</span></div>
@@ -572,8 +683,11 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
+<!-- curve: dark → light -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fafafa"/></svg></div>
+
 <!-- ═══ SERVICES ═══ -->
-<section class="services">
+<section class="services" style="padding-top:60px">
   <div class="contain">
     <div class="reveal"><div class="label">Creative Services</div><h2>Content plans built for scale.</h2></div>
     <div class="svc-grid reveal reveal-d2">
@@ -584,8 +698,11 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
+<!-- curve: light → dark -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
 <!-- ═══ TEASER: NIKE ═══ -->
-<section class="teaser">
+<section class="teaser teaser--glow-teal">
   <div class="contain">
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">Nike</span></div>
@@ -612,14 +729,20 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
+<!-- curve: dark → yellow -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+
 <!-- ═══ CTA ═══ -->
-<section class="cta-band">
+<section class="cta-band" style="padding-top:40px">
   <div class="contain">
     <h2 class="reveal">Want results like these?<br><span>Let's map out your strategy.</span></h2>
     <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   </div>
   <div class="cta-marquee"><div class="cta-marquee-track" id="ctaTrack"></div></div>
 </section>
+
+<!-- curve: yellow → dark -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
 
 <!-- ═══ FAQ ═══ -->
 <section class="faq">
@@ -681,11 +804,37 @@ body > * { position: relative; z-index: 1; }
   document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
 })();
 
-// Counter
+// Counter with hover recount
 (function(){
-  var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){var el=e.target,t=parseInt(el.dataset.countTo),s=el.dataset.countSuffix||'',st=null;function step(ts){if(!st)st=ts;var p=Math.min((ts-st)/1600,1),v=Math.floor((1-Math.pow(1-p,4))*t);el.textContent=(t>=1000?v.toLocaleString():v)+s;if(p<1)requestAnimationFrame(step);else el.textContent=(t>=1000?t.toLocaleString():t)+s;}requestAnimationFrame(step);o.unobserve(el);}});},{threshold:0.3});
+  function animateCount(el, duration) {
+    var t=parseInt(el.dataset.countTo), s=el.dataset.countSuffix||'', st=null;
+    function step(ts){
+      if(!st)st=ts; var p=Math.min((ts-st)/duration,1), v=Math.floor((1-Math.pow(1-p,4))*t);
+      el.textContent=(t>=1000?v.toLocaleString():v)+s;
+      if(p<1)requestAnimationFrame(step); else el.textContent=(t>=1000?t.toLocaleString():t)+s;
+    }
+    requestAnimationFrame(step);
+  }
+  // Initial count on scroll
+  var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){animateCount(e.target,1600);o.unobserve(e.target);}});},{threshold:0.3});
   document.querySelectorAll('[data-count-to]').forEach(function(el){o.observe(el);});
+  // Recount on hover (faster)
+  document.querySelectorAll('.stat').forEach(function(stat){
+    stat.addEventListener('mouseenter',function(){
+      var el=stat.querySelector('[data-count-to]');
+      if(el) animateCount(el, 800);
+    });
+  });
 })();
+
+// Cursor glow tracking
+document.querySelectorAll('.glow-track').forEach(function(card){
+  card.addEventListener('mousemove',function(e){
+    var r=card.getBoundingClientRect();
+    card.style.setProperty('--glow-x',(e.clientX-r.left-125)+'px');
+    card.style.setProperty('--glow-y',(e.clientY-r.top-125)+'px');
+  });
+});
 
 // FAQ
 document.querySelectorAll('.faq-q').forEach(function(b){
