@@ -1074,6 +1074,355 @@ footer .sqs-block-html h3 {
     font-size: 1.75rem;
   }
 }
+/* --- 04a-case-study-pointme.html --- */
+  .cb-v2-pmt-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 80px 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .cb-v2-pmt-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 340px minmax(0, 460px) 340px;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* ===== LEFT: Video ===== */
+  .cb-v2-pmt-video {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 16 / 9;
+    width: 280px;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  .cb-v2-pmt-video:hover {
+    transform: scale(1.04) translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0, 188, 241, 0.2), 0 0 0 2px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-pmt-video iframe {
+    position: absolute;
+    top: -1px; left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: none;
+    pointer-events: none;
+  }
+  .cb-v2-pmt-video::before,
+  .cb-v2-pmt-video::after { display: none; }
+
+  /* ===== CENTER: Copy + Stats + CTA ===== */
+  .cb-v2-pmt-center {
+    text-align: center;
+  }
+
+  .cb-v2-pmt-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cb-v2-pmt-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1a1a1a;
+    background: #ffec03;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .cb-v2-pmt-badge.cb-reveal {
+    animation: cb-v2-pmt-badgePop 0.5s ease-out both;
+  }
+  @keyframes cb-v2-pmt-badgePop {
+    0% { opacity: 0; transform: scale(0.7); }
+    70% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .cb-v2-pmt-client {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+  }
+
+  .cb-v2-pmt-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px 0;
+  }
+  .cb-v2-pmt-title span {
+    color: #00bcf1;
+  }
+
+  .cb-v2-pmt-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.65;
+    margin: 0 auto 24px;
+    max-width: 400px;
+  }
+
+  /* Stats */
+  .cb-v2-pmt-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .cb-v2-pmt-stat {
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+  .cb-v2-pmt-stat:hover {
+    transform: translateY(-3px);
+  }
+  .cb-v2-pmt-stat:hover .cb-v2-pmt-stat-num {
+    color: #ffec03 !important;
+    text-shadow: 0 2px 8px rgba(255, 236, 3, 0.25);
+  }
+  .cb-v2-pmt-stat:hover .cb-v2-pmt-stat-label {
+    color: #1a1a1a;
+  }
+  .cb-v2-pmt-stat-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #00bcf1;
+    line-height: 1;
+    margin-bottom: 3px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  .cb-v2-pmt-stat:nth-child(5) .cb-v2-pmt-stat-num {
+    color: #1a1a1a;
+  }
+  .cb-v2-pmt-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+  }
+  .cb-v2-pmt-stat-pipe {
+    width: 1px;
+    background: rgba(26, 26, 26, 0.12);
+    align-self: stretch;
+  }
+
+  /* CTA */
+  .cb-v2-pmt-cta {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    background: #00bcf1;
+    padding: 11px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-pmt-cta:hover {
+    background: #0099c8;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 28px rgba(0, 188, 241, 0.4);
+  }
+
+  /* ===== RIGHT: Globe Graphic ===== */
+  .cb-v2-pmt-globe {
+    width: 100%;
+    max-width: 340px;
+  }
+  .cb-v2-pmt-globe-svg { width: 100%; height: auto; }
+
+  /* Globe body */
+  .cb-v2-pmt-globe-outer {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.22);
+    stroke-width: 1;
+  }
+  .cb-v2-pmt-globe-fill {
+    fill: rgba(0, 188, 241, 0.04);
+  }
+  .cb-v2-pmt-globe-grid {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.1);
+    stroke-width: 0.6;
+  }
+
+  /* Orbit ring */
+  .cb-v2-pmt-orbit {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.14);
+    stroke-width: 0.8;
+    stroke-dasharray: 4 4;
+  }
+
+  /* Orbiting plane */
+  .cb-v2-pmt-orbit-group {
+    animation: cb-v2-pmt-orbitSpin 14s linear infinite;
+    transform-origin: 120px 120px;
+  }
+  @keyframes cb-v2-pmt-orbitSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .cb-v2-pmt-plane-body { fill: #00bcf1; }
+  .cb-v2-pmt-plane-wing { fill: rgba(0, 188, 241, 0.75); }
+  .cb-v2-pmt-plane-accent { fill: #ffec03; }
+
+  /* Content cards */
+  .cb-v2-pmt-card { cursor: pointer; }
+  .cb-v2-pmt-card-bg {
+    fill: rgba(0, 188, 241, 0.06);
+    stroke: rgba(0, 188, 241, 0.2);
+    stroke-width: 0.7;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+  }
+  .cb-v2-pmt-card:hover .cb-v2-pmt-card-bg {
+    fill: rgba(255, 236, 3, 0.08);
+    stroke: rgba(255, 236, 3, 0.35);
+  }
+  .cb-v2-pmt-card-play {
+    fill: #00bcf1;
+    opacity: 0.6;
+    transition: fill 0.3s ease, opacity 0.3s ease;
+  }
+  .cb-v2-pmt-card:hover .cb-v2-pmt-card-play {
+    fill: #ffec03;
+    opacity: 0.85;
+  }
+  .cb-v2-pmt-card-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 7px;
+    font-weight: 700;
+    fill: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: fill 0.3s ease;
+  }
+  .cb-v2-pmt-card:hover .cb-v2-pmt-card-label { fill: #ffec03; }
+
+  /* Card float animations */
+  .cb-v2-pmt-float-1 { animation: cb-v2-pmt-float1 5s ease-in-out infinite; }
+  .cb-v2-pmt-float-2 { animation: cb-v2-pmt-float2 5.5s ease-in-out infinite; }
+  .cb-v2-pmt-float-3 { animation: cb-v2-pmt-float3 4.5s ease-in-out infinite; }
+  .cb-v2-pmt-float-4 { animation: cb-v2-pmt-float4 5.2s ease-in-out infinite; }
+
+  @keyframes cb-v2-pmt-float1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(1.5px, -3px); }
+  }
+  @keyframes cb-v2-pmt-float2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-2px, -2.5px); }
+  }
+  @keyframes cb-v2-pmt-float3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(2px, 2px); }
+  }
+  @keyframes cb-v2-pmt-float4 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-1.5px, 3px); }
+  }
+
+  /* Card glow */
+  .cb-v2-pmt-card-glow {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.1);
+    stroke-width: 0.6;
+    opacity: 0;
+  }
+  .cb-v2-pmt-glow-1 { animation: cb-v2-pmt-cardGlow 3.5s ease-in-out infinite 0s; }
+  .cb-v2-pmt-glow-2 { animation: cb-v2-pmt-cardGlow 3.5s ease-in-out infinite 0.9s; }
+  .cb-v2-pmt-glow-3 { animation: cb-v2-pmt-cardGlow 3.5s ease-in-out infinite 1.8s; }
+  .cb-v2-pmt-glow-4 { animation: cb-v2-pmt-cardGlow 3.5s ease-in-out infinite 2.6s; }
+  @keyframes cb-v2-pmt-cardGlow {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  /* ===== cb-reveal animations ===== */
+  .cb-v2-pmt-video.cb-reveal {
+    animation: cb-v2-pmt-slideLeft 0.7s ease-out both;
+  }
+  @keyframes cb-v2-pmt-slideLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .cb-v2-pmt-center.cb-reveal {
+    animation: cb-v2-pmt-fadeUp 0.7s ease-out 0.1s both;
+  }
+  @keyframes cb-v2-pmt-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-v2-pmt-globe.cb-reveal {
+    animation: cb-v2-pmt-slideRight 0.7s ease-out 0.2s both;
+  }
+  @keyframes cb-v2-pmt-slideRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1000px) {
+    .cb-v2-pmt-container {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 0 32px;
+    }
+    .cb-v2-pmt-center { order: 1; }
+    .cb-v2-pmt-video { order: 2; margin: 0 auto; }
+    .cb-v2-pmt-globe { order: 3; max-width: 300px; margin: 0 auto; }
+    .cb-v2-pmt-stats { gap: 18px; }
+    .cb-v2-pmt-stat-num { font-size: 1.4rem; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .cb-v2-pmt-wrapper { padding: 56px 0; }
+    .cb-v2-pmt-container {
+      gap: 28px;
+      padding: 0 24px;
+    }
+    .cb-v2-pmt-video { width: 100%; max-width: 300px; }
+    .cb-v2-pmt-globe { max-width: 260px; }
+    .cb-v2-pmt-stats { gap: 14px; }
+    .cb-v2-pmt-stat-num { font-size: 1.3rem; }
+    .cb-v2-pmt-desc { font-size: 0.84rem; max-width: 320px; }
+  }
 /* --- 03-why-cinebody.html --- */
   *, *::before, *::after {
     margin: 0;
@@ -1540,6 +1889,536 @@ footer .sqs-block-html h3 {
       aspect-ratio: 4 / 3;
     }
   }
+/* --- 06a-cta-results.html --- */
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-cta-results {
+    --cb-teal: #00bcf1;
+    --cb-dark: #1a1a1a;
+    --cb-yellow: #ffec03;
+    --cb-pink: #eb008b;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cb-yellow);
+    overflow: hidden;
+  }
+
+  /* Top text area */
+  .cb-cta-results__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px clamp(1rem, 3vw, 2.5rem) 0;
+    text-align: center;
+  }
+
+  .cb-cta-results__title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 4px;
+    color: var(--cb-teal);
+  }
+
+  .cb-cta-results__subtitle {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 32px;
+    color: var(--cb-dark);
+  }
+
+  /* CTA Button with glow */
+  .cb-cta-results__btn {
+    display: inline-block;
+    background: var(--cb-teal);
+    color: #fff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 44px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0, 188, 241, 0.3), 0 0 0 0 rgba(0, 188, 241, 0);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+
+  .cb-cta-results__btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .cb-cta-results__btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(0, 188, 241, 0.4), 0 0 60px rgba(0, 188, 241, 0.15);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .cb-cta-results__btn:hover::before {
+    opacity: 1;
+  }
+
+  .cb-cta-results__btn:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+
+  /* Image marquee strip */
+  .cb-cta-results__marquee {
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cb-cta-results__track {
+    display: flex;
+    animation: cb-results-scroll 25s linear infinite;
+  }
+
+  .cb-cta-results__marquee:hover .cb-cta-results__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes cb-results-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .cb-cta-results__img-wrap {
+    position: relative;
+    overflow: hidden;
+    width: 240px;
+    height: 240px;
+    flex-shrink: 0;
+  }
+
+  /* Cycling color backgrounds: teal, yellow, pink */
+  .cb-cta-results__img-wrap:nth-child(3n+1) { background: var(--cb-teal); }
+  .cb-cta-results__img-wrap:nth-child(3n+2) { background: var(--cb-yellow); }
+  .cb-cta-results__img-wrap:nth-child(3n+0) { background: var(--cb-pink); }
+
+  .cb-cta-results__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cb-cta-results__img-wrap:hover .cb-cta-results__img {
+    transform: scale(1.05) rotate(1deg);
+  }
+
+  /* Reveal animation */
+  .cb-cta-results .cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cb-cta-results .cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .cb-cta-results__inner {
+      padding: 64px clamp(1rem, 3vw, 2.5rem) 0;
+    }
+
+    .cb-cta-results__track {
+      animation-duration: 32s;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .cb-cta-results__inner {
+      padding: 48px 1rem 0;
+    }
+
+    .cb-cta-results__btn {
+      font-size: 14px;
+      padding: 14px 36px;
+      margin-bottom: 36px;
+    }
+
+    .cb-cta-results__marquee {
+      height: 180px;
+    }
+
+    .cb-cta-results__img-wrap {
+      width: 180px;
+      height: 180px;
+    }
+
+    .cb-cta-results__track {
+      animation-duration: 38s;
+    }
+  }
+/* --- 07a-case-study-rc.html --- */
+  .cb-v2-rct-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    padding: 80px 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .cb-v2-rct-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 340px minmax(0, 460px) 340px;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* ===== LEFT: Video (portrait 9:16) ===== */
+  .cb-v2-rct-video {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 9 / 16;
+    width: 180px;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  .cb-v2-rct-video:hover {
+    transform: scale(1.04) translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0, 188, 241, 0.2), 0 0 0 2px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-rct-video iframe {
+    position: absolute;
+    top: -1px; left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: none;
+    pointer-events: none;
+  }
+  .cb-v2-rct-video::before,
+  .cb-v2-rct-video::after { display: none; }
+
+  /* ===== CENTER: Copy + Stats + CTA ===== */
+  .cb-v2-rct-center {
+    text-align: center;
+  }
+
+  .cb-v2-rct-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cb-v2-rct-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1a1a1a;
+    background: #ffec03;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .cb-v2-rct-badge.cb-reveal {
+    animation: cb-v2-rct-badgePop 0.5s ease-out both;
+  }
+  @keyframes cb-v2-rct-badgePop {
+    0% { opacity: 0; transform: scale(0.7); }
+    70% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .cb-v2-rct-client {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .cb-v2-rct-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px 0;
+  }
+  .cb-v2-rct-title span {
+    color: #00bcf1;
+  }
+
+  .cb-v2-rct-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.65;
+    margin: 0 auto 24px;
+    max-width: 400px;
+  }
+
+  /* Stats */
+  .cb-v2-rct-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .cb-v2-rct-stat {
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+  .cb-v2-rct-stat:hover {
+    transform: translateY(-3px);
+  }
+  .cb-v2-rct-stat:hover .cb-v2-rct-stat-num {
+    color: #ffec03 !important;
+    text-shadow: 0 2px 8px rgba(255, 236, 3, 0.25);
+  }
+  .cb-v2-rct-stat:hover .cb-v2-rct-stat-label {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .cb-v2-rct-stat-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #00bcf1;
+    line-height: 1;
+    margin-bottom: 3px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  .cb-v2-rct-stat:nth-child(5) .cb-v2-rct-stat-num {
+    color: #ffec03;
+  }
+  .cb-v2-rct-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+  }
+  .cb-v2-rct-stat-pipe {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    align-self: stretch;
+  }
+
+  /* CTA */
+  .cb-v2-rct-cta {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    background: #00bcf1;
+    padding: 11px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-rct-cta:hover {
+    background: #0099c8;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 28px rgba(0, 188, 241, 0.4);
+  }
+
+  /* ===== RIGHT: Ship + Content Stream ===== */
+  .cb-v2-rct-stream {
+    width: 100%;
+    max-width: 340px;
+  }
+  .cb-v2-rct-stream-svg { width: 100%; height: auto; }
+
+  /* Ship */
+  .cb-v2-rct-ship-hull {
+    fill: rgba(255, 255, 255, 0.06);
+    transition: fill 0.4s ease;
+  }
+  .cb-v2-rct-stream:hover .cb-v2-rct-ship-hull { fill: rgba(255, 255, 255, 0.1); }
+  .cb-v2-rct-ship-deck {
+    fill: rgba(0, 188, 241, 0.12);
+    transition: fill 0.4s ease;
+  }
+  .cb-v2-rct-stream:hover .cb-v2-rct-ship-deck { fill: rgba(0, 188, 241, 0.2); }
+  .cb-v2-rct-ship-funnel {
+    fill: #00bcf1;
+    filter: drop-shadow(0 0 5px rgba(0, 188, 241, 0.35));
+  }
+  .cb-v2-rct-ship-window { fill: rgba(255, 255, 255, 0.1); }
+  .cb-v2-rct-funnel-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 7px;
+    font-weight: 800;
+    fill: #ffffff;
+    letter-spacing: 0.06em;
+  }
+
+  /* Waves */
+  .cb-v2-rct-wave {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.1);
+    stroke-width: 1.2;
+    animation: cb-v2-rct-waveMove 5s ease-in-out infinite;
+  }
+  .cb-v2-rct-wave-2 {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.06);
+    stroke-width: 1.2;
+    animation: cb-v2-rct-waveMove 5s ease-in-out infinite -1.2s;
+  }
+  @keyframes cb-v2-rct-waveMove {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+
+  /* Rising lines from funnel */
+  .cb-v2-rct-rise-line {
+    stroke: rgba(0, 188, 241, 0.1);
+    stroke-width: 0.8;
+    stroke-dasharray: 4 4;
+    animation: cb-v2-rct-riseDash 10s linear infinite;
+  }
+  @keyframes cb-v2-rct-riseDash {
+    to { stroke-dashoffset: -80; }
+  }
+
+  /* Content cards */
+  .cb-v2-rct-card {
+    cursor: pointer;
+  }
+  .cb-v2-rct-card-bg {
+    fill: rgba(0, 188, 241, 0.06);
+    stroke: rgba(0, 188, 241, 0.18);
+    stroke-width: 0.7;
+    rx: 5; ry: 5;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+  }
+  .cb-v2-rct-card:hover .cb-v2-rct-card-bg {
+    fill: rgba(255, 236, 3, 0.08);
+    stroke: rgba(255, 236, 3, 0.35);
+  }
+  .cb-v2-rct-card-play {
+    fill: #00bcf1;
+    opacity: 0.5;
+    transition: fill 0.3s ease, opacity 0.3s ease;
+  }
+  .cb-v2-rct-card:hover .cb-v2-rct-card-play {
+    fill: #ffec03;
+    opacity: 0.85;
+  }
+  .cb-v2-rct-card-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    fill: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: fill 0.3s ease;
+  }
+  .cb-v2-rct-card:hover .cb-v2-rct-card-label { fill: #ffec03; }
+
+  /* Card glow pulse */
+  .cb-v2-rct-card-glow {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.1);
+    stroke-width: 0.6;
+    rx: 5; ry: 5;
+    opacity: 0;
+  }
+  .cb-v2-rct-glow-1 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 0s; }
+  .cb-v2-rct-glow-2 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 0.6s; }
+  .cb-v2-rct-glow-3 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 1.2s; }
+  .cb-v2-rct-glow-4 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 1.8s; }
+  .cb-v2-rct-glow-5 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 2.4s; }
+  .cb-v2-rct-glow-6 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 3s; }
+  @keyframes cb-v2-rct-cardGlow {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  /* ===== cb-reveal animations ===== */
+  .cb-v2-rct-video.cb-reveal {
+    animation: cb-v2-rct-slideLeft 0.7s ease-out both;
+  }
+  @keyframes cb-v2-rct-slideLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .cb-v2-rct-center.cb-reveal {
+    animation: cb-v2-rct-fadeUp 0.7s ease-out 0.1s both;
+  }
+  @keyframes cb-v2-rct-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-v2-rct-stream.cb-reveal {
+    animation: cb-v2-rct-slideRight 0.7s ease-out 0.2s both;
+  }
+  @keyframes cb-v2-rct-slideRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1000px) {
+    .cb-v2-rct-container {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 0 32px;
+    }
+    .cb-v2-rct-center { order: 1; }
+    .cb-v2-rct-video { order: 2; margin: 0 auto; }
+    .cb-v2-rct-stream { order: 3; max-width: 300px; margin: 0 auto; }
+    .cb-v2-rct-stats { gap: 18px; }
+    .cb-v2-rct-stat-num { font-size: 1.4rem; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .cb-v2-rct-wrapper { padding: 56px 0; }
+    .cb-v2-rct-container {
+      gap: 28px;
+      padding: 0 24px;
+    }
+    .cb-v2-rct-video { width: 160px; }
+    .cb-v2-rct-stream { max-width: 260px; }
+    .cb-v2-rct-stats { gap: 14px; }
+    .cb-v2-rct-stat-num { font-size: 1.3rem; }
+    .cb-v2-rct-desc { font-size: 0.84rem; max-width: 320px; }
+  }
 /* --- 05-services-cta.html --- */
   .services-section {
     background: #f4f4f5;
@@ -1792,6 +2671,463 @@ footer .sqs-block-html h3 {
     .services-section { padding: 64px 20px; }
     .services-grid { grid-template-columns: 1fr; gap: 16px; }
     .cta-section { padding: 56px 20px; }
+  }
+/* --- 09a-case-study-nike.html --- */
+  .cb-v2-nt-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    padding: 80px 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .cb-v2-nt-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 340px minmax(0, 460px) 340px;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* ===== LEFT: Video ===== */
+  .cb-v2-nt-video {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 16 / 9;
+    width: 300px;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  .cb-v2-nt-video:hover {
+    transform: scale(1.04) translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0, 188, 241, 0.2), 0 0 0 2px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-nt-video iframe {
+    position: absolute;
+    top: -1px; left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: none;
+    pointer-events: none;
+  }
+  .cb-v2-nt-video::before,
+  .cb-v2-nt-video::after { display: none; }
+
+  /* ===== CENTER: Copy + Stats + CTA ===== */
+  .cb-v2-nt-center {
+    text-align: center;
+  }
+
+  .cb-v2-nt-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cb-v2-nt-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1a1a1a;
+    background: #ffec03;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .cb-v2-nt-badge.cb-reveal {
+    animation: cb-v2-nt-badgePop 0.5s ease-out both;
+  }
+  @keyframes cb-v2-nt-badgePop {
+    0% { opacity: 0; transform: scale(0.7); }
+    70% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .cb-v2-nt-client {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .cb-v2-nt-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px 0;
+  }
+  .cb-v2-nt-title span {
+    color: #00bcf1;
+  }
+
+  .cb-v2-nt-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.65;
+    margin: 0 auto 24px;
+    max-width: 400px;
+  }
+
+  /* Stats */
+  .cb-v2-nt-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .cb-v2-nt-stat {
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+  .cb-v2-nt-stat:hover {
+    transform: translateY(-3px);
+  }
+  .cb-v2-nt-stat:hover .cb-v2-nt-stat-num {
+    color: #ffec03 !important;
+    text-shadow: 0 2px 8px rgba(255, 236, 3, 0.25);
+  }
+  .cb-v2-nt-stat:hover .cb-v2-nt-stat-label {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .cb-v2-nt-stat-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #00bcf1;
+    line-height: 1;
+    margin-bottom: 3px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  .cb-v2-nt-stat:nth-child(5) .cb-v2-nt-stat-num {
+    color: #ffec03;
+  }
+  .cb-v2-nt-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+  }
+  .cb-v2-nt-stat-pipe {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    align-self: stretch;
+  }
+
+  /* CTA */
+  .cb-v2-nt-cta {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    background: #00bcf1;
+    padding: 11px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-nt-cta:hover {
+    background: #0099c8;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 28px rgba(0, 188, 241, 0.4);
+  }
+
+  /* ===== RIGHT: Map ===== */
+  .cb-v2-nt-map {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    align-self: center;
+  }
+
+  .cb-v2-nt-map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.1;
+    pointer-events: none;
+    filter: brightness(2);
+    transition: opacity 0.4s ease;
+  }
+  .cb-v2-nt-map:hover .cb-v2-nt-map-img {
+    opacity: 0.16;
+  }
+
+  .cb-v2-nt-map-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  /* City dots */
+  .cb-v2-nt-dot-glow {
+    fill: rgba(0, 188, 241, 0.08);
+    transition: fill 0.3s ease;
+  }
+  .cb-v2-nt-dot-core {
+    fill: #00bcf1;
+    filter: drop-shadow(0 0 6px rgba(0, 188, 241, 0.7));
+    transition: fill 0.3s ease, filter 0.3s ease;
+  }
+
+  .cb-v2-nt-connection {
+    stroke: rgba(0, 188, 241, 0.12);
+    stroke-width: 1;
+    stroke-dasharray: 5 4;
+    fill: none;
+    animation: cb-v2-nt-dash 18s linear infinite;
+    transition: stroke 0.3s ease;
+  }
+  .cb-v2-nt-map:hover .cb-v2-nt-connection {
+    stroke: rgba(0, 188, 241, 0.25);
+  }
+  @keyframes cb-v2-nt-dash {
+    to { stroke-dashoffset: -100; }
+  }
+
+  /* City hover */
+  .cb-v2-nt-city {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .cb-v2-nt-city:hover .cb-v2-nt-dot-glow {
+    fill: rgba(255, 236, 3, 0.15);
+  }
+  .cb-v2-nt-city:hover .cb-v2-nt-dot-core {
+    fill: #ffec03;
+    filter: drop-shadow(0 0 12px rgba(255, 236, 3, 0.85));
+  }
+  .cb-v2-nt-city:hover .cb-v2-nt-city-label {
+    fill: #ffec03;
+  }
+
+  /* Pulse rings */
+  .cb-v2-nt-pulse {
+    fill: none;
+    stroke: #00bcf1;
+    stroke-width: 1.5;
+    opacity: 0;
+    transition: stroke 0.3s ease;
+  }
+  .cb-v2-nt-city:hover .cb-v2-nt-pulse {
+    stroke: #ffec03;
+  }
+  .cb-v2-nt-city:nth-child(1) .cb-v2-nt-pulse { animation: cb-v2-nt-pulseRing 3s ease-out infinite 0s; }
+  .cb-v2-nt-city:nth-child(2) .cb-v2-nt-pulse { animation: cb-v2-nt-pulseRing 3s ease-out infinite 0.75s; }
+  .cb-v2-nt-city:nth-child(3) .cb-v2-nt-pulse { animation: cb-v2-nt-pulseRing 3s ease-out infinite 1.5s; }
+  .cb-v2-nt-city:nth-child(4) .cb-v2-nt-pulse { animation: cb-v2-nt-pulseRing 3s ease-out infinite 2.25s; }
+
+  @keyframes cb-v2-nt-pulseRing {
+    0% { r: 7; opacity: 0.6; stroke-width: 2; }
+    100% { r: 28; opacity: 0; stroke-width: 0.3; }
+  }
+
+  .cb-v2-nt-city-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    fill: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: fill 0.3s ease;
+  }
+
+  /* ===== cb-reveal animations ===== */
+  .cb-v2-nt-video.cb-reveal {
+    animation: cb-v2-nt-slideLeft 0.7s ease-out both;
+  }
+  @keyframes cb-v2-nt-slideLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .cb-v2-nt-center.cb-reveal {
+    animation: cb-v2-nt-fadeUp 0.7s ease-out 0.1s both;
+  }
+  @keyframes cb-v2-nt-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-v2-nt-map.cb-reveal {
+    animation: cb-v2-nt-slideRight 0.7s ease-out 0.2s both;
+  }
+  @keyframes cb-v2-nt-slideRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1000px) {
+    .cb-v2-nt-container {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 0 32px;
+    }
+    .cb-v2-nt-center { order: 1; }
+    .cb-v2-nt-video { order: 2; width: 260px; margin: 0 auto; }
+    .cb-v2-nt-map { order: 3; max-width: 300px; margin: 0 auto; }
+    .cb-v2-nt-stats { gap: 18px; }
+    .cb-v2-nt-stat-num { font-size: 1.4rem; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .cb-v2-nt-wrapper { padding: 56px 0; }
+    .cb-v2-nt-container {
+      gap: 28px;
+      padding: 0 24px;
+    }
+    .cb-v2-nt-video { width: 100%; max-width: 280px; }
+    .cb-v2-nt-map { max-width: 260px; }
+    .cb-v2-nt-stats { gap: 14px; }
+    .cb-v2-nt-stat-num { font-size: 1.3rem; }
+    .cb-v2-nt-desc { font-size: 0.84rem; max-width: 320px; }
+  }
+/* --- 10-hero-cta.html --- */
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-hero-cta {
+    --cb-teal: #00bcf1;
+    --cb-dark: #1a1a1a;
+    --cb-yellow: #ffec03;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cb-yellow);
+    padding: 100px 20px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .cb-hero-cta__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .cb-hero-cta__line1 {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--cb-dark);
+    margin: 0 0 6px;
+  }
+
+  .cb-hero-cta__line2 {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--cb-teal);
+    margin: 0 0 40px;
+  }
+
+  /* CTA Button with glow */
+  .cb-hero-cta__btn {
+    display: inline-block;
+    background: var(--cb-teal);
+    color: #fff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 18px 48px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0, 188, 241, 0.3), 0 0 0 0 rgba(0, 188, 241, 0);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cb-hero-cta__btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .cb-hero-cta__btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(0, 188, 241, 0.4), 0 0 60px rgba(0, 188, 241, 0.15);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .cb-hero-cta__btn:hover::before {
+    opacity: 1;
+  }
+
+  .cb-hero-cta__btn:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+
+  /* Reveal animation */
+  .cb-hero-cta .cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cb-hero-cta .cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .cb-hero-cta {
+      padding: 80px 20px;
+    }
+
+    .cb-hero-cta__line2 {
+      margin-bottom: 36px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .cb-hero-cta {
+      padding: 64px 1rem;
+    }
+
+    .cb-hero-cta__line2 {
+      margin-bottom: 32px;
+    }
+
+    .cb-hero-cta__btn {
+      font-size: 14px;
+      padding: 16px 40px;
+    }
   }
 /* --- 06-faq.html --- */
 /* ------------------------------------------------
@@ -2120,8 +3456,194 @@ footer .sqs-block-html h3 {
 
 <div class="cb-hero-bar"></div>
 <!-- 02-social-proof.html -->
+<!-- 02 — Social Proof: Logo Marquee + Stats Bar -->
+<section class="social-proof">
 
+  <!-- Logo Marquee -->
+  <div class="logo-marquee-section">
+    <p class="marquee-label">Trusted by the world's most ambitious brands</p>
+    <div class="marquee-track-wrapper">
+      <div class="marquee-track" id="marqueeTrack">
+        <!-- Logos populated by JS below -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" data-count-to="160" data-count-suffix="+">0+</span>
+        <span class="stat-label">Countries</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-count-to="5000" data-count-suffix="+">0+</span>
+        <span class="stat-label">Cities</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-count-to="70" data-count-suffix="%">0%</span>
+        <span class="stat-label">Cost Savings</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-count-to="24" data-count-suffix="hr">0hr</span>
+        <span class="stat-label">Sync</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- 04a-case-study-pointme.html -->
+<!-- Cinebody v2 Homepage - Point.me Case Study Teaser -->
+<!-- White background, 3-column: video | copy+stats | globe SVG -->
+
+<div class="cb-v2-pmt-wrapper">
+  <div class="cb-v2-pmt-container">
+
+    <!-- LEFT: Video -->
+    <a href="/pointme" class="cb-v2-pmt-video cb-reveal">
+      <iframe
+        src="https://player.vimeo.com/video/1078357962?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </a>
+
+    <!-- CENTER: Copy + Stats + CTA -->
+    <div class="cb-v2-pmt-center cb-reveal">
+      <div class="cb-v2-pmt-eyebrow">
+        <span class="cb-v2-pmt-badge cb-reveal">Case Study</span>
+        <span class="cb-v2-pmt-client">point.me</span>
+      </div>
+      <h3 class="cb-v2-pmt-title">
+        <span>One shoot. Every platform.</span><br>
+        No second production needed.
+      </h3>
+      <p class="cb-v2-pmt-desc">Point.me turned one CTV spot featuring 70+ real customers into a full multi-platform campaign &mdash; a hero commercial, social vignettes, and branded clips, all from a single Cinebody production.</p>
+
+      <div class="cb-v2-pmt-stats">
+        <div class="cb-v2-pmt-stat">
+          <div class="cb-v2-pmt-stat-num">1</div>
+          <div class="cb-v2-pmt-stat-label">Shoot</div>
+        </div>
+        <div class="cb-v2-pmt-stat-pipe"></div>
+        <div class="cb-v2-pmt-stat">
+          <div class="cb-v2-pmt-stat-num">70+</div>
+          <div class="cb-v2-pmt-stat-label">Customers</div>
+        </div>
+        <div class="cb-v2-pmt-stat-pipe"></div>
+        <div class="cb-v2-pmt-stat">
+          <div class="cb-v2-pmt-stat-num">Multi</div>
+          <div class="cb-v2-pmt-stat-label">Platform</div>
+        </div>
+        <div class="cb-v2-pmt-stat-pipe"></div>
+        <div class="cb-v2-pmt-stat">
+          <div class="cb-v2-pmt-stat-num">100%</div>
+          <div class="cb-v2-pmt-stat-label">Authentic</div>
+        </div>
+      </div>
+
+      <a href="/pointme" class="cb-v2-pmt-cta">See the Full Story</a>
+    </div>
+
+    <!-- RIGHT: Globe + Orbiting Plane + Content Cards -->
+    <div class="cb-v2-pmt-globe cb-reveal">
+      <svg class="cb-v2-pmt-globe-svg" viewBox="0 0 240 244" preserveAspectRatio="xMidYMid meet">
+
+        <!-- Globe -->
+        <circle class="cb-v2-pmt-globe-fill" cx="120" cy="120" r="52" />
+        <circle class="cb-v2-pmt-globe-outer" cx="120" cy="120" r="52" />
+
+        <!-- Globe grid lines - latitude -->
+        <ellipse class="cb-v2-pmt-globe-grid" cx="120" cy="120" rx="52" ry="18" />
+        <ellipse class="cb-v2-pmt-globe-grid" cx="120" cy="104" rx="46" ry="12" />
+        <ellipse class="cb-v2-pmt-globe-grid" cx="120" cy="136" rx="46" ry="12" />
+
+        <!-- Globe grid lines - longitude -->
+        <ellipse class="cb-v2-pmt-globe-grid" cx="120" cy="120" rx="18" ry="52" />
+        <ellipse class="cb-v2-pmt-globe-grid" cx="120" cy="120" rx="38" ry="52" />
+
+        <!-- Orbit ring -->
+        <ellipse class="cb-v2-pmt-orbit" cx="120" cy="120" rx="72" ry="72" />
+
+        <!-- Orbiting plane group -->
+        <g class="cb-v2-pmt-orbit-group">
+          <g transform="translate(120, 48)">
+            <!-- Fuselage -->
+            <ellipse class="cb-v2-pmt-plane-body" cx="2" cy="0" rx="14" ry="2.5" />
+            <!-- Nose -->
+            <path class="cb-v2-pmt-plane-body" d="M14,-1.8 Q21,0 14,1.8 Z" />
+            <!-- Main wings -->
+            <path class="cb-v2-pmt-plane-wing" d="M3,-2.5 L-1,-14 L-8,-14 L-3,-2.5 Z" />
+            <path class="cb-v2-pmt-plane-wing" d="M3,2.5 L-1,14 L-8,14 L-3,2.5 Z" />
+            <!-- Tail wings -->
+            <path class="cb-v2-pmt-plane-wing" d="M-10,-2 L-14,-8 L-18,-8 L-13,-2 Z" />
+            <path class="cb-v2-pmt-plane-wing" d="M-10,2 L-14,8 L-18,8 L-13,2 Z" />
+            <!-- Tail fin -->
+            <rect class="cb-v2-pmt-plane-accent" x="-14" y="-1" width="4" height="2" rx="0.6" />
+            <!-- Engine pods -->
+            <ellipse cx="-1" cy="-6" rx="2.5" ry="1.2" fill="rgba(0,188,241,0.4)" />
+            <ellipse cx="-1" cy="6" rx="2.5" ry="1.2" fill="rgba(0,188,241,0.4)" />
+            <!-- Contrails -->
+            <line x1="-4" y1="-6" x2="-22" y2="-6" stroke="rgba(0,188,241,0.06)" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="-4" y1="6" x2="-22" y2="6" stroke="rgba(0,188,241,0.06)" stroke-width="1.5" stroke-linecap="round" />
+          </g>
+        </g>
+
+        <!-- Content cards -->
+
+        <!-- Card 1: CTV (top-left) -->
+        <g class="cb-v2-pmt-card cb-v2-pmt-float-1">
+          <rect class="cb-v2-pmt-card-glow cb-v2-pmt-glow-1" x="18" y="28" width="44" height="26" rx="4" />
+          <rect class="cb-v2-pmt-card-bg" x="20" y="30" width="40" height="22" rx="3" />
+          <polygon class="cb-v2-pmt-card-play" points="36,36 36,46 44,41" />
+          <text class="cb-v2-pmt-card-label" x="40" y="62" text-anchor="middle">CTV</text>
+        </g>
+
+        <!-- Card 2: Social (top-right) -->
+        <g class="cb-v2-pmt-card cb-v2-pmt-float-2">
+          <rect class="cb-v2-pmt-card-glow cb-v2-pmt-glow-2" x="178" y="34" width="44" height="26" rx="4" />
+          <rect class="cb-v2-pmt-card-bg" x="180" y="36" width="40" height="22" rx="3" />
+          <polygon class="cb-v2-pmt-card-play" points="196,42 196,52 204,47" />
+          <text class="cb-v2-pmt-card-label" x="200" y="68" text-anchor="middle">Social</text>
+        </g>
+
+        <!-- Card 3: Vignettes (bottom-left) -->
+        <g class="cb-v2-pmt-card cb-v2-pmt-float-3">
+          <rect class="cb-v2-pmt-card-glow cb-v2-pmt-glow-3" x="14" y="186" width="52" height="26" rx="4" />
+          <rect class="cb-v2-pmt-card-bg" x="16" y="188" width="48" height="22" rx="3" />
+          <polygon class="cb-v2-pmt-card-play" points="36,194 36,204 44,199" />
+          <text class="cb-v2-pmt-card-label" x="40" y="220" text-anchor="middle">Vignettes</text>
+        </g>
+
+        <!-- Card 4: Clips (bottom-right) -->
+        <g class="cb-v2-pmt-card cb-v2-pmt-float-4">
+          <rect class="cb-v2-pmt-card-glow cb-v2-pmt-glow-4" x="178" y="190" width="44" height="26" rx="4" />
+          <rect class="cb-v2-pmt-card-bg" x="180" y="192" width="40" height="22" rx="3" />
+          <polygon class="cb-v2-pmt-card-play" points="196,198 196,208 204,203" />
+          <text class="cb-v2-pmt-card-label" x="200" y="224" text-anchor="middle">Clips</text>
+        </g>
+
+      </svg>
+    </div>
+
+  </div>
+</div>
 <!-- 03-why-cinebody.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Cinebody</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -2214,6 +3736,7 @@ footer .sqs-block-html h3 {
 </body>
 </html>
 <!-- 04-case-studies.html -->
+<!-- 04 — Case Studies Showcase -->
 
 <section class="cb-cases">
   <div class="cb-cases-container">
@@ -2300,7 +3823,208 @@ footer .sqs-block-html h3 {
   </div>
 </section>
 
+<!-- 06a-cta-results.html -->
+
+<div class="cb-cta-results">
+  <div class="cb-cta-results__inner cb-reveal">
+    <h2 class="cb-cta-results__title">Want results like these?</h2>
+    <p class="cb-cta-results__subtitle">Let's map out your content strategy.</p>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cta-results__btn">Book a Strategy Call</a>
+  </div>
+
+  <!-- Scrolling image marquee -->
+  <div class="cb-cta-results__marquee">
+    <div class="cb-cta-results__track">
+
+      <!-- First set -->
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067842-W3N6CINAWS6FJ5O6Q484/CB_HowItWorxxx_LB_600.01_00_34_07.Still006.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067373-3MRS4UVWV56617AA85XS/CB_HowItWorxxx_LB_600.01_00_34_01.Still005.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306065468-1HKIBXXJSUM9GFEZ2CTI/CB_HowItWorxxx_LB_600.01_00_33_16.Still004.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070881-BK5GKCA5ECJQRMP9WY2H/CB_HowItWorxxx_LB_600.01_00_37_10.Still009.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070087-YSRR51XA0NJGJ0ZBXRZ6/CB_HowItWorxxx_LB_600.01_00_34_22.Still008.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306069318-SEP54C57M1PLPEUXU5Z2/CB_HowItWorxxx_LB_600.01_00_34_14.Still007.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+
+      <!-- Duplicate set for seamless loop -->
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067842-W3N6CINAWS6FJ5O6Q484/CB_HowItWorxxx_LB_600.01_00_34_07.Still006.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067373-3MRS4UVWV56617AA85XS/CB_HowItWorxxx_LB_600.01_00_34_01.Still005.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306065468-1HKIBXXJSUM9GFEZ2CTI/CB_HowItWorxxx_LB_600.01_00_33_16.Still004.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070881-BK5GKCA5ECJQRMP9WY2H/CB_HowItWorxxx_LB_600.01_00_37_10.Still009.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070087-YSRR51XA0NJGJ0ZBXRZ6/CB_HowItWorxxx_LB_600.01_00_34_22.Still008.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306069318-SEP54C57M1PLPEUXU5Z2/CB_HowItWorxxx_LB_600.01_00_34_14.Still007.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 07a-case-study-rc.html -->
+<!-- Cinebody v2 Homepage - Royal Caribbean Case Study Teaser -->
+<!-- Dark background #1a1a1a, 3-column: video (9:16) | copy+stats | ship SVG -->
+
+<div class="cb-v2-rct-wrapper">
+  <div class="cb-v2-rct-container">
+
+    <!-- LEFT: Video (portrait) -->
+    <a href="/royal-caribbean" class="cb-v2-rct-video cb-reveal">
+      <iframe
+        src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </a>
+
+    <!-- CENTER: Copy + Stats + CTA -->
+    <div class="cb-v2-rct-center cb-reveal">
+      <div class="cb-v2-rct-eyebrow">
+        <span class="cb-v2-rct-badge cb-reveal">Case Study</span>
+        <span class="cb-v2-rct-client">Royal Caribbean</span>
+      </div>
+      <h3 class="cb-v2-rct-title">
+        <span>No crews flown in.</span><br>
+        The crew became the content team.
+      </h3>
+      <p class="cb-v2-rct-desc">Royal Caribbean turned their ship crews into an always-on content engine &mdash; capturing waterslides, dining, entertainment, and Rover the dog, all guided by Cinebody shot lists.</p>
+
+      <div class="cb-v2-rct-stats">
+        <div class="cb-v2-rct-stat">
+          <div class="cb-v2-rct-stat-num">Entire</div>
+          <div class="cb-v2-rct-stat-label">Fleet</div>
+        </div>
+        <div class="cb-v2-rct-stat-pipe"></div>
+        <div class="cb-v2-rct-stat">
+          <div class="cb-v2-rct-stat-num">0</div>
+          <div class="cb-v2-rct-stat-label">Prod. Crews</div>
+        </div>
+        <div class="cb-v2-rct-stat-pipe"></div>
+        <div class="cb-v2-rct-stat">
+          <div class="cb-v2-rct-stat-num">Always</div>
+          <div class="cb-v2-rct-stat-label">On</div>
+        </div>
+        <div class="cb-v2-rct-stat-pipe"></div>
+        <div class="cb-v2-rct-stat">
+          <div class="cb-v2-rct-stat-num">100%</div>
+          <div class="cb-v2-rct-stat-label">On Brand</div>
+        </div>
+      </div>
+
+      <a href="/royal-caribbean" class="cb-v2-rct-cta">See the Full Story</a>
+    </div>
+
+    <!-- RIGHT: Ship + Content Stream -->
+    <div class="cb-v2-rct-stream cb-reveal">
+      <svg class="cb-v2-rct-stream-svg" viewBox="0 0 240 300" preserveAspectRatio="xMidYMid meet">
+
+        <!-- Rising dashed lines from funnel -->
+        <line class="cb-v2-rct-rise-line" x1="108" y1="210" x2="75" y2="20" />
+        <line class="cb-v2-rct-rise-line" x1="120" y1="210" x2="120" y2="20" />
+        <line class="cb-v2-rct-rise-line" x1="132" y1="210" x2="165" y2="20" />
+
+        <!-- Content cards - pyramid layout -->
+
+        <!-- Row 3 (bottom): 3 cards -->
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-1" x="17" y="143" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="19" y="145" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="38,155 38,170 50,162.5" />
+          <text class="cb-v2-rct-card-label" x="45" y="178" text-anchor="middle">Slides</text>
+        </g>
+
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-2" x="93" y="143" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="95" y="145" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="114,155 114,170 126,162.5" />
+          <text class="cb-v2-rct-card-label" x="121" y="178" text-anchor="middle">Dining</text>
+        </g>
+
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-3" x="169" y="143" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="171" y="145" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="190,155 190,170 202,162.5" />
+          <text class="cb-v2-rct-card-label" x="197" y="178" text-anchor="middle">Rover</text>
+        </g>
+
+        <!-- Row 2 (middle): 2 cards -->
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-4" x="55" y="85" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="57" y="87" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="76,97 76,112 88,104.5" />
+          <text class="cb-v2-rct-card-label" x="83" y="120" text-anchor="middle">Deck</text>
+        </g>
+
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-5" x="131" y="85" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="133" y="87" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="152,97 152,112 164,104.5" />
+          <text class="cb-v2-rct-card-label" x="159" y="120" text-anchor="middle">Shows</text>
+        </g>
+
+        <!-- Row 1 (top): 1 card -->
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-6" x="93" y="27" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="95" y="29" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="114,39 114,54 126,46.5" />
+          <text class="cb-v2-rct-card-label" x="121" y="62" text-anchor="middle">Pool</text>
+        </g>
+
+        <!-- Waves -->
+        <path class="cb-v2-rct-wave" d="M0,268 Q20,260 40,268 Q60,276 80,268 Q100,260 120,268 Q140,276 160,268 Q180,260 200,268 Q220,276 240,268" />
+        <path class="cb-v2-rct-wave-2" d="M-10,274 Q10,266 30,274 Q50,282 70,274 Q90,266 110,274 Q130,282 150,274 Q170,266 190,274 Q210,282 230,274" />
+
+        <!-- Ship -->
+        <g transform="translate(120, 255)">
+          <!-- Hull -->
+          <path class="cb-v2-rct-ship-hull" d="M-60,6 L-50,-8 L50,-8 L60,6 Q45,12 0,12 Q-45,12 -60,6 Z" />
+          <!-- Main deck -->
+          <rect class="cb-v2-rct-ship-deck" x="-42" y="-20" width="84" height="12" rx="3" />
+          <!-- Upper deck -->
+          <rect class="cb-v2-rct-ship-deck" x="-30" y="-28" width="60" height="8" rx="2" style="fill: rgba(0,188,241,0.08);" />
+          <!-- Bridge -->
+          <rect class="cb-v2-rct-ship-deck" x="-16" y="-35" width="32" height="7" rx="2" />
+          <!-- Funnel -->
+          <rect class="cb-v2-rct-ship-funnel" x="-5" y="-46" width="10" height="11" rx="2" />
+          <text class="cb-v2-rct-funnel-label" x="0" y="-38" text-anchor="middle">CB</text>
+          <!-- Windows -->
+          <rect class="cb-v2-rct-ship-window" x="-35" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="-26" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="-17" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="-8" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="1" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="10" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="19" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="28" y="-16" width="4" height="3" rx="0.5" />
+        </g>
+
+      </svg>
+    </div>
+
+  </div>
+</div>
 <!-- 05-services-cta.html -->
+<!-- 05: Services Overview + CTA -->
 
 <!-- Services Overview -->
 <section class="services-section">
@@ -2390,7 +4114,214 @@ footer .sqs-block-html h3 {
     <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cta-section__btn" target="_blank" rel="noopener">Book a Strategy Call</a>
   </div>
 </section>
+<!-- 09a-case-study-nike.html -->
+<!-- Cinebody v2 Homepage - Nike Case Study Teaser -->
+<!-- Dark background #1a1a1a, 3-column: video (16:9) | copy+stats | US map -->
+
+<div class="cb-v2-nt-wrapper">
+  <div class="cb-v2-nt-container">
+
+    <!-- LEFT: Video -->
+    <a href="/nike" class="cb-v2-nt-video cb-reveal">
+      <iframe
+        src="https://player.vimeo.com/video/265928299?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </a>
+
+    <!-- CENTER: Copy + Stats + CTA -->
+    <div class="cb-v2-nt-center cb-reveal">
+      <div class="cb-v2-nt-eyebrow">
+        <span class="cb-v2-nt-badge cb-reveal">Case Study</span>
+        <span class="cb-v2-nt-client">Nike</span>
+      </div>
+      <h3 class="cb-v2-nt-title">
+        <span>Four cities. One weekend.</span><br>
+        Zero production crews.
+      </h3>
+      <p class="cb-v2-nt-desc">Nike used Cinebody to capture authentic run club content across the country &mdash; simultaneously, on brand, at scale.</p>
+
+      <div class="cb-v2-nt-stats">
+        <div class="cb-v2-nt-stat">
+          <div class="cb-v2-nt-stat-num">4</div>
+          <div class="cb-v2-nt-stat-label">Cities</div>
+        </div>
+        <div class="cb-v2-nt-stat-pipe"></div>
+        <div class="cb-v2-nt-stat">
+          <div class="cb-v2-nt-stat-num">0</div>
+          <div class="cb-v2-nt-stat-label">Crews</div>
+        </div>
+        <div class="cb-v2-nt-stat-pipe"></div>
+        <div class="cb-v2-nt-stat">
+          <div class="cb-v2-nt-stat-num">1</div>
+          <div class="cb-v2-nt-stat-label">Platform</div>
+        </div>
+        <div class="cb-v2-nt-stat-pipe"></div>
+        <div class="cb-v2-nt-stat">
+          <div class="cb-v2-nt-stat-num">100%</div>
+          <div class="cb-v2-nt-stat-label">On Brand</div>
+        </div>
+      </div>
+
+      <a href="/nike" class="cb-v2-nt-cta">See the Full Story</a>
+    </div>
+
+    <!-- RIGHT: US Map with City Dots -->
+    <div class="cb-v2-nt-map cb-reveal">
+      <img
+        class="cb-v2-nt-map-img"
+        src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/06fc5653-5ee8-4524-b07a-10c3ae0d26a4/united-states.png?format=750w"
+        alt="US map"
+      />
+      <svg class="cb-v2-nt-map-svg" viewBox="0 0 533 354" preserveAspectRatio="xMidYMid meet">
+        <!-- Connection lines -->
+        <line class="cb-v2-nt-connection" x1="72" y1="210" x2="248" y2="255" />
+        <line class="cb-v2-nt-connection" x1="248" y1="255" x2="340" y2="125" />
+        <line class="cb-v2-nt-connection" x1="340" y1="125" x2="478" y2="112" />
+        <line class="cb-v2-nt-connection" x1="72" y1="210" x2="340" y2="125" />
+        <line class="cb-v2-nt-connection" x1="248" y1="255" x2="478" y2="112" />
+        <line class="cb-v2-nt-connection" x1="72" y1="210" x2="478" y2="112" />
+
+        <!-- LA -->
+        <g class="cb-v2-nt-city">
+          <circle class="cb-v2-nt-pulse" cx="72" cy="210" r="7" />
+          <circle class="cb-v2-nt-dot-glow" cx="72" cy="210" r="18" />
+          <circle class="cb-v2-nt-dot-core" cx="72" cy="210" r="6" />
+          <text class="cb-v2-nt-city-label" x="72" y="235" text-anchor="middle">LA</text>
+        </g>
+
+        <!-- Austin -->
+        <g class="cb-v2-nt-city">
+          <circle class="cb-v2-nt-pulse" cx="248" cy="255" r="7" />
+          <circle class="cb-v2-nt-dot-glow" cx="248" cy="255" r="18" />
+          <circle class="cb-v2-nt-dot-core" cx="248" cy="255" r="6" />
+          <text class="cb-v2-nt-city-label" x="248" y="280" text-anchor="middle">ATX</text>
+        </g>
+
+        <!-- Chicago -->
+        <g class="cb-v2-nt-city">
+          <circle class="cb-v2-nt-pulse" cx="340" cy="125" r="7" />
+          <circle class="cb-v2-nt-dot-glow" cx="340" cy="125" r="18" />
+          <circle class="cb-v2-nt-dot-core" cx="340" cy="125" r="6" />
+          <text class="cb-v2-nt-city-label" x="340" y="110" text-anchor="middle">CHI</text>
+        </g>
+
+        <!-- NYC -->
+        <g class="cb-v2-nt-city">
+          <circle class="cb-v2-nt-pulse" cx="478" cy="112" r="7" />
+          <circle class="cb-v2-nt-dot-glow" cx="478" cy="112" r="18" />
+          <circle class="cb-v2-nt-dot-core" cx="478" cy="112" r="6" />
+          <text class="cb-v2-nt-city-label" x="478" y="97" text-anchor="middle">NYC</text>
+        </g>
+      </svg>
+    </div>
+
+  </div>
+</div>
+<!-- 10-hero-cta.html -->
+
+<div class="cb-hero-cta">
+  <div class="cb-hero-cta__inner cb-reveal">
+    <div class="cb-hero-cta__line1">Stop outsourcing to strangers.</div>
+    <div class="cb-hero-cta__line2">Start capturing from your community.</div>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-hero-cta__btn">See How It Works</a>
+  </div>
+</div>
+
 <!-- 06-faq.html -->
+<!-- 06 — FAQ -->
+<section class="cb-faq" id="faq">
+  <div class="cb-faq__container">
+    <h2 class="cb-faq__heading">Frequently asked questions</h2>
+
+    <div class="cb-faq__list">
+
+      <div class="cb-faq__item">
+        <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-answer-1">
+          <span class="cb-faq__question">What exactly is Cinebody?</span>
+          <span class="cb-faq__icon"></span>
+        </button>
+        <div class="cb-faq__answer" id="faq-answer-1" role="region">
+          <p>Cinebody is a patented video capture platform that lets you collect professional-quality footage from anyone, anywhere — employees, customers, influencers, or brand ambassadors. You set the shot list, resolution, and creative direction. They film on their phone. Footage syncs to your dashboard in real time.</p>
+        </div>
+      </div>
+
+      <div class="cb-faq__item">
+        <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-answer-2">
+          <span class="cb-faq__question">How is this different from hiring a UGC creator?</span>
+          <span class="cb-faq__icon"></span>
+        </button>
+        <div class="cb-faq__answer" id="faq-answer-2" role="region">
+          <p>UGC marketplaces match you with paid creators who pretend to be customers. Cinebody activates your actual community — the people who already know and love your brand. The result is content that's genuinely authentic, not performed.</p>
+        </div>
+      </div>
+
+      <div class="cb-faq__item">
+        <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-answer-3">
+          <span class="cb-faq__question">Do filmers need to download an app?</span>
+          <span class="cb-faq__icon"></span>
+        </button>
+        <div class="cb-faq__answer" id="faq-answer-3" role="region">
+          <p>No. Cinebody works as a web app — filmers access it through a link or QR code. No downloads, no friction. They're filming within seconds.</p>
+        </div>
+      </div>
+
+      <div class="cb-faq__item">
+        <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-answer-4">
+          <span class="cb-faq__question">What does the patented shot list do?</span>
+          <span class="cb-faq__icon"></span>
+        </button>
+        <div class="cb-faq__answer" id="faq-answer-4" role="region">
+          <p>It's like having a director on every set. You customize FPS, resolution, orientation, and creative direction for each shot. Filmers follow guided prompts so footage comes back on-brand and production-ready.</p>
+        </div>
+      </div>
+
+      <div class="cb-faq__item">
+        <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-answer-5">
+          <span class="cb-faq__question">Can I use it without your creative services?</span>
+          <span class="cb-faq__icon"></span>
+        </button>
+        <div class="cb-faq__answer" id="faq-answer-5" role="region">
+          <p>Absolutely. The software subscription is standalone — you direct shoots, collect footage, and edit in-house. Our creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution.</p>
+        </div>
+      </div>
+
+      <div class="cb-faq__item">
+        <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-answer-6">
+          <span class="cb-faq__question">How much does it cost?</span>
+          <span class="cb-faq__icon"></span>
+        </button>
+        <div class="cb-faq__answer" id="faq-answer-6" role="region">
+          <p>Software plans start at $250/month billed annually. Creative services are custom-quoted based on scope. Most brands save 70%+ compared to traditional video production.</p>
+        </div>
+      </div>
+
+      <div class="cb-faq__item">
+        <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-answer-7">
+          <span class="cb-faq__question">What video formats and quality levels are supported?</span>
+          <span class="cb-faq__icon"></span>
+        </button>
+        <div class="cb-faq__answer" id="faq-answer-7" role="region">
+          <p>Cinebody supports HD, 4K, multiple frame rates, and vertical, horizontal, or square orientations. Footage is optimized for social, web, and connected TV.</p>
+        </div>
+      </div>
+
+      <div class="cb-faq__item">
+        <button class="cb-faq__trigger" aria-expanded="false" aria-controls="faq-answer-8">
+          <span class="cb-faq__question">Does Cinebody integrate with other tools?</span>
+          <span class="cb-faq__icon"></span>
+        </button>
+        <div class="cb-faq__answer" id="faq-answer-8" role="region">
+          <p>Yes. We offer SSO, custom legal document signing, and API access to integrate with Google Drive, DAM systems, and other enterprise tools.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <!-- footer.html -->
 
@@ -2529,8 +4460,32 @@ footer .sqs-block-html h3 {
     observer.observe(el);
   });
 })();
-</script>
-<script>
+(function() {
+  var els = document.querySelectorAll('.cb-cta-results .cb-reveal');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { obs.observe(el); });
+})();
+(function() {
+  var els = document.querySelectorAll('.cb-hero-cta .cb-reveal');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { obs.observe(el); });
+})();
 /* ============================================
    CINEBODY V2 SHARED JAVASCRIPT
    Paste this into Settings > Advanced > Code Injection > Footer
@@ -2755,5 +4710,4 @@ footer .sqs-block-html h3 {
     init();
   }
 })();
-</script>
-</body></html>
+</script></body></html>
