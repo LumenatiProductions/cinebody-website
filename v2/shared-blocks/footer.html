@@ -1,0 +1,210 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.cb-footer {
+  position: relative;
+  background: #1a1a1a;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cb-footer * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cb-footer-accent {
+  height: 3px;
+  background: linear-gradient(90deg, #2dd4bf, #facc15, #ec4899);
+}
+
+.cb-footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 64px 40px 32px;
+}
+
+.cb-footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+
+/* Column 1 — Brand */
+.cb-footer-brand-logo {
+  height: 28px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.cb-footer-brand-text {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  max-width: 280px;
+  margin-bottom: 24px;
+}
+
+.cb-footer-social {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cb-footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+  transition: color 250ms ease;
+}
+
+.cb-footer-social a:hover {
+  color: #2dd4bf;
+}
+
+.cb-footer-social a svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Link columns */
+.cb-footer-col-header {
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+}
+
+.cb-footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cb-footer-links a {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 250ms ease;
+}
+
+.cb-footer-links a:hover {
+  color: #2dd4bf;
+}
+
+/* Bottom bar */
+.cb-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.cb-footer-bottom span {
+  color: rgba(255,255,255,0.3);
+  font-size: 0.8rem;
+}
+
+/* Responsive — 768px */
+@media (max-width: 768px) {
+  .cb-footer-inner {
+    padding: 48px 24px 28px;
+  }
+
+  .cb-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+/* Responsive — 480px */
+@media (max-width: 480px) {
+  .cb-footer-inner {
+    padding: 40px 20px 24px;
+  }
+
+  .cb-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .cb-footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+</style>
+
+<footer class="cb-footer">
+  <div class="cb-footer-accent"></div>
+  <div class="cb-footer-inner">
+    <div class="cb-footer-grid">
+
+      <!-- Brand -->
+      <div>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody" class="cb-footer-brand-logo" />
+        <p class="cb-footer-brand-text">The video capture platform that turns your community into your content team.</p>
+        <div class="cb-footer-social">
+          <a href="https://vimeo.com/cinebody" target="_blank" rel="noopener" aria-label="Vimeo">
+            <svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609C15.9 20.058 13.014 22 10.552 22c-1.52 0-2.808-1.403-3.86-4.21-.703-2.576-1.405-5.152-2.107-7.728-.78-2.808-1.617-4.21-2.514-4.21-.195 0-.878.41-2.047 1.23L0 6.697c1.287-1.13 2.556-2.26 3.807-3.39C5.37 1.96 6.546 1.276 7.33 1.216c1.936-.186 3.128 1.14 3.574 3.975.482 3.059.816 4.96 1.003 5.704.557 2.529 1.17 3.794 1.838 3.794.52 0 1.298-.82 2.338-2.46 1.038-1.64 1.594-2.89 1.668-3.747.148-1.415-.408-2.124-1.668-2.124-.594 0-1.205.136-1.838.406 1.22-3.998 3.553-5.94 6.998-5.828 2.554.074 3.76 1.732 3.734 4.98z"/></svg>
+          </a>
+          <a href="http://instagram.com/cinebody" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="http://facebook.com/cinebody" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Product -->
+      <div>
+        <h4 class="cb-footer-col-header">Product</h4>
+        <ul class="cb-footer-links">
+          <li><a href="/software">Software</a></li>
+          <li><a href="/services">Creative Services</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/pointme">Case Studies</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h4 class="cb-footer-col-header">Resources</h4>
+        <ul class="cb-footer-links">
+          <li><a href="/cinebody-blog">Blog</a></li>
+          <li><a href="/knowledge-base">Knowledge Base</a></li>
+          <li><a href="/patents">Patents</a></li>
+          <li><a href="https://pro.cinebody.com/login" target="_blank" rel="noopener">Login</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h4 class="cb-footer-col-header">Company</h4>
+        <ul class="cb-footer-links">
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-service">Terms of Service</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="cb-footer-bottom">
+      <span>&copy; 2025 Super 6 LLC d/b/a Cinebody. All rights reserved.</span>
+      <span>Denver, CO</span>
+    </div>
+  </div>
+</footer>
