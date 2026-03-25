@@ -1,0 +1,244 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-cs-nk-hero {
+    --cb-teal: #00bcf1;
+    --cb-dark: #1a1a1a;
+    --cb-body: #71717a;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fff;
+    padding: 80px 0 40px;
+    position: relative;
+  }
+
+  .cb-cs-nk-hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+    display: grid;
+    grid-template-columns: 55% 45%;
+    align-items: center;
+    gap: 48px;
+  }
+
+  /* Logo pairing */
+  .cb-cs-nk-hero-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .cb-cs-nk-hero-logo {
+    height: 36px;
+    width: auto;
+  }
+
+  .cb-cs-nk-hero-logo--cb {
+    filter: brightness(0) saturate(100%) invert(35%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(55%) contrast(90%);
+  }
+
+  .cb-cs-nk-hero-logo-divider {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: #ccc;
+    line-height: 1;
+  }
+
+  /* Headline */
+  .cb-cs-nk-hero h1 {
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 0 0 24px;
+  }
+
+  .cb-cs-nk-hero h1 .cb-teal {
+    color: var(--cb-teal);
+    display: block;
+  }
+
+  .cb-cs-nk-hero h1 .cb-dark {
+    color: var(--cb-dark);
+    display: block;
+  }
+
+  /* Body */
+  .cb-cs-nk-hero-body {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cb-body);
+    max-width: 500px;
+    margin: 0 0 32px;
+  }
+
+  /* CTA */
+  .cb-cs-nk-hero-cta {
+    display: inline-block;
+    background: var(--cb-teal);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cb-cs-nk-hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 188, 241, 0.35);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* Image */
+  .cb-cs-nk-hero-image-wrap {
+    position: relative;
+  }
+
+  .cb-cs-nk-hero-image-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    background: linear-gradient(135deg, rgba(0, 188, 241, 0.12), rgba(240, 98, 146, 0.12));
+    border-radius: 28px;
+    z-index: 0;
+  }
+
+  .cb-cs-nk-hero-image-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease;
+  }
+
+  .cb-cs-nk-hero-image-wrap:hover img {
+    transform: scale(1.02);
+  }
+
+  /* Tri-color bar */
+  .cb-cs-nk-hero-bar {
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(to right, var(--cb-teal) 0%, var(--cb-teal) 33%, var(--cb-yellow) 33%, var(--cb-yellow) 66%, var(--cb-pink) 66%, var(--cb-pink) 100%);
+  }
+
+  /* Reveal animations */
+  .cb-cs-nk-hero-text.cb-reveal {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cb-cs-nk-hero-text.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .cb-cs-nk-hero-image-wrap.cb-reveal {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+  }
+
+  .cb-cs-nk-hero-image-wrap.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Responsive: tablet */
+  @media (max-width: 1000px) {
+    .cb-cs-nk-hero-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 40px;
+    }
+
+    .cb-cs-nk-hero-logos {
+      justify-content: center;
+    }
+
+    .cb-cs-nk-hero-body {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cb-cs-nk-hero-image-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+  }
+
+  /* Responsive: mobile */
+  @media (max-width: 600px) {
+    .cb-cs-nk-hero {
+      padding: 48px 0 24px;
+    }
+
+    .cb-cs-nk-hero-container {
+      gap: 32px;
+    }
+
+    .cb-cs-nk-hero-logo {
+      height: 28px;
+    }
+
+    .cb-cs-nk-hero-cta {
+      padding: 12px 24px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<section class="cb-cs-nk-hero">
+  <div class="cb-cs-nk-hero-container">
+
+    <div class="cb-cs-nk-hero-text cb-reveal">
+      <div class="cb-cs-nk-hero-logos">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody logo" class="cb-cs-nk-hero-logo cb-cs-nk-hero-logo--cb" />
+        <span class="cb-cs-nk-hero-logo-divider">+</span>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/c88ed68e-c822-40bd-acd0-f6840ed36cec/toppng.com-nike-black-wordmark-logo-png-450x240.png" alt="Nike logo" class="cb-cs-nk-hero-logo" />
+      </div>
+      <h1>
+        <span class="cb-teal">Real people. Real runs.</span>
+        <span class="cb-dark">Real content at scale.</span>
+      </h1>
+      <p class="cb-cs-nk-hero-body">When Nike needed authentic community content at scale, they handed the camera to the people who live the brand — from run club recaps to pop-up activations to influencer partnerships, all guided by shot lists, all delivered fast.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cs-nk-hero-cta" target="_blank" rel="noopener">See How It Works</a>
+    </div>
+
+    <div class="cb-cs-nk-hero-image-wrap cb-reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/9996245a-9c39-419f-8fdb-5f8b0cd7af21/nike_phone.png" alt="Nike community content on mobile" loading="eager" />
+    </div>
+
+  </div>
+</section>
+
+<div class="cb-cs-nk-hero-bar" style="--cb-teal:#00bcf1;--cb-yellow:#f5c542;--cb-pink:#f06292;"></div>
+
+<script>
+(function() {
+  var els = document.querySelectorAll('.cb-cs-nk-hero .cb-reveal');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { obs.observe(el); });
+})();
+</script>

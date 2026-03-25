@@ -1,0 +1,592 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  /* ── Shared variables ── */
+  .cb-cs-nk-content {
+    --cb-teal: #00bcf1;
+    --cb-900: #1a1a1a;
+    --cb-500: #71717a;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .cb-cs-nk-content *,
+  .cb-cs-nk-content *::before,
+  .cb-cs-nk-content *::after {
+    box-sizing: border-box;
+  }
+
+  .cb-cs-nk-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+  }
+
+  /* ── Section label ── */
+  .cb-cs-nk-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cb-teal);
+    border: 1.5px solid var(--cb-teal);
+    border-radius: 100px;
+    padding: 6px 16px;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .cb-cs-nk-section-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    margin: 0 0 20px;
+  }
+
+  .cb-cs-nk-section-desc {
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 520px;
+    margin: 0 0 32px;
+  }
+
+  /* ── Shared video ── */
+  .cb-video {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #000;
+  }
+
+  .cb-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+
+  .cb-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .cb-video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+  }
+
+  .cb-video:hover .cb-video-play {
+    background: var(--cb-teal);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .cb-video-play svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+    margin-left: 3px;
+  }
+
+  .cb-video-label {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 6px;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+  }
+
+  .cb-video.is-playing img,
+  .cb-video.is-playing .cb-video-play,
+  .cb-video.is-playing .cb-video-label {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ── SECTION A: Nationwide Sync ── */
+  .cb-cs-nk-sync {
+    background: var(--cb-900);
+    padding: 80px 0;
+    color: #fff;
+  }
+
+  .cb-cs-nk-sync .cb-cs-nk-section-desc {
+    color: #a1a1aa;
+  }
+
+  .cb-cs-nk-sync-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .cb-cs-nk-sync-grid .cb-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ── SECTION B: Campaign Reach Map ── */
+  .cb-cs-nk-map {
+    background: #f4f4f5;
+    padding: 80px 0;
+    color: var(--cb-900);
+  }
+
+  .cb-cs-nk-map .cb-cs-nk-section-title {
+    text-align: center;
+  }
+
+  .cb-cs-nk-map-wrap {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto 0;
+  }
+
+  .cb-cs-nk-map-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.18;
+  }
+
+  .cb-cs-nk-map-wrap svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cb-cs-nk-map-dot {
+    fill: var(--cb-teal);
+  }
+
+  .cb-cs-nk-map-pulse {
+    fill: none;
+    stroke: var(--cb-teal);
+    stroke-width: 1.5;
+    opacity: 0;
+    animation: cb-cs-nk-pulse 2.5s ease-out infinite;
+  }
+
+  @keyframes cb-cs-nk-pulse {
+    0%   { r: 6; opacity: 0.7; }
+    100% { r: 22; opacity: 0; }
+  }
+
+  .cb-cs-nk-map-line {
+    stroke: var(--cb-teal);
+    stroke-width: 1;
+    stroke-dasharray: 6 4;
+    fill: none;
+    opacity: 0.4;
+  }
+
+  .cb-cs-nk-map-city {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--cb-900);
+    text-anchor: middle;
+  }
+
+  .cb-cs-nk-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .cb-cs-nk-stat {
+    text-align: center;
+  }
+
+  .cb-cs-nk-stat-value {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 800;
+    color: var(--cb-teal);
+    line-height: 1;
+  }
+
+  .cb-cs-nk-stat-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cb-500);
+    margin-top: 6px;
+  }
+
+  /* ── SECTION C: Pop-Up Power ── */
+  .cb-cs-nk-popup {
+    background: #fff;
+    padding: 80px 0;
+    color: var(--cb-900);
+  }
+
+  .cb-cs-nk-popup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .cb-cs-nk-popup-videos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cb-cs-nk-popup-videos .cb-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ── SECTION D: Influencer Ignition ── */
+  .cb-cs-nk-influencer {
+    background: #f4f4f5;
+    padding: 80px 0;
+    color: var(--cb-900);
+  }
+
+  .cb-cs-nk-influencer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .cb-cs-nk-influencer-videos {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .cb-cs-nk-influencer-videos .cb-video {
+    width: 280px;
+    aspect-ratio: 9 / 16;
+    flex-shrink: 0;
+  }
+
+  /* ── SECTION E: CTA ── */
+  .cb-cs-nk-cta {
+    background: var(--cb-yellow);
+    padding: 64px 0;
+    text-align: center;
+  }
+
+  .cb-cs-nk-cta-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cb-900);
+    margin: 0 0 8px;
+    opacity: 0.7;
+  }
+
+  .cb-cs-nk-cta-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 800;
+    color: var(--cb-900);
+    letter-spacing: -0.03em;
+    margin: 0 0 28px;
+  }
+
+  .cb-cs-nk-cta-btn {
+    display: inline-block;
+    background: var(--cb-900);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cb-cs-nk-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* ── Reveal animations ── */
+  .cb-cs-nk-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cb-cs-nk-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1000px) {
+    .cb-cs-nk-popup-grid,
+    .cb-cs-nk-influencer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .cb-cs-nk-influencer-videos {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .cb-cs-nk-sync-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cb-cs-nk-influencer-videos .cb-video {
+      width: 220px;
+    }
+
+    .cb-cs-nk-stats {
+      gap: 32px;
+    }
+
+    .cb-cs-nk-sync,
+    .cb-cs-nk-map,
+    .cb-cs-nk-popup,
+    .cb-cs-nk-influencer {
+      padding: 56px 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cb-cs-nk-influencer-videos {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cb-cs-nk-influencer-videos .cb-video {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+</style>
+
+<div class="cb-cs-nk-content">
+
+  <!-- ═══════════ SECTION A: Nationwide Sync ═══════════ -->
+  <section class="cb-cs-nk-sync">
+    <div class="cb-cs-nk-inner">
+      <div class="cb-cs-nk-reveal">
+        <span class="cb-cs-nk-label">Nationwide Sync</span>
+        <h2 class="cb-cs-nk-section-title" style="color:#fff;">Four cities. One weekend. Every&nbsp;run,&nbsp;captured.</h2>
+        <p class="cb-cs-nk-section-desc">Nike run club ambassadors across the country filmed simultaneously using Cinebody — no production crews, no travel budgets. Just real runners capturing real moments, all synced through one platform.</p>
+      </div>
+
+      <div class="cb-cs-nk-sync-grid cb-cs-nk-reveal" data-cb-video-group>
+        <!-- NYC -->
+        <div class="cb-video" data-vimeo-id="210955565">
+          <img src="https://vumbnail.com/210955565.jpg" alt="Nike Run Club NYC" loading="lazy" />
+          <div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+          <span class="cb-video-label">NYC</span>
+        </div>
+        <!-- LA -->
+        <div class="cb-video" data-vimeo-id="210956522">
+          <img src="https://vumbnail.com/210956522.jpg" alt="Nike Run Club LA" loading="lazy" />
+          <div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+          <span class="cb-video-label">LA</span>
+        </div>
+        <!-- Chicago -->
+        <div class="cb-video" data-vimeo-id="210956382">
+          <img src="https://vumbnail.com/210956382.jpg" alt="Nike Run Club Chicago" loading="lazy" />
+          <div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+          <span class="cb-video-label">Chicago</span>
+        </div>
+        <!-- ATX -->
+        <div class="cb-video" data-vimeo-id="210956225">
+          <img src="https://vumbnail.com/210956225.jpg" alt="Nike Run Club Austin" loading="lazy" />
+          <div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+          <span class="cb-video-label">ATX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SECTION B: Campaign Reach Map ═══════════ -->
+  <section class="cb-cs-nk-map">
+    <div class="cb-cs-nk-inner">
+      <div class="cb-cs-nk-reveal">
+        <h2 class="cb-cs-nk-section-title">One platform. Four cities. Content captured&nbsp;simultaneously.</h2>
+      </div>
+
+      <div class="cb-cs-nk-map-wrap cb-cs-nk-reveal">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/06fc5653-5ee8-4524-b07a-10c3ae0d26a4/united-states.png?format=1500w" alt="United States map" loading="lazy" />
+        <svg viewBox="0 0 533 354" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <!-- Connection lines -->
+          <line class="cb-cs-nk-map-line" x1="72" y1="210" x2="248" y2="255" />
+          <line class="cb-cs-nk-map-line" x1="248" y1="255" x2="340" y2="125" />
+          <line class="cb-cs-nk-map-line" x1="340" y1="125" x2="478" y2="112" />
+
+          <!-- LA -->
+          <circle class="cb-cs-nk-map-dot" cx="72" cy="210" r="6" />
+          <circle class="cb-cs-nk-map-pulse" cx="72" cy="210" r="6" />
+          <text class="cb-cs-nk-map-city" x="72" y="198">LA</text>
+
+          <!-- Austin -->
+          <circle class="cb-cs-nk-map-dot" cx="248" cy="255" r="6" />
+          <circle class="cb-cs-nk-map-pulse" cx="248" cy="255" r="6" style="animation-delay:0.6s;" />
+          <text class="cb-cs-nk-map-city" x="248" y="243">Austin</text>
+
+          <!-- Chicago -->
+          <circle class="cb-cs-nk-map-dot" cx="340" cy="125" r="6" />
+          <circle class="cb-cs-nk-map-pulse" cx="340" cy="125" r="6" style="animation-delay:1.2s;" />
+          <text class="cb-cs-nk-map-city" x="340" y="113">Chicago</text>
+
+          <!-- NYC -->
+          <circle class="cb-cs-nk-map-dot" cx="478" cy="112" r="6" />
+          <circle class="cb-cs-nk-map-pulse" cx="478" cy="112" r="6" style="animation-delay:1.8s;" />
+          <text class="cb-cs-nk-map-city" x="478" y="100">NYC</text>
+        </svg>
+      </div>
+
+      <div class="cb-cs-nk-stats cb-cs-nk-reveal">
+        <div class="cb-cs-nk-stat">
+          <div class="cb-cs-nk-stat-value">4</div>
+          <div class="cb-cs-nk-stat-label">Cities</div>
+        </div>
+        <div class="cb-cs-nk-stat">
+          <div class="cb-cs-nk-stat-value">0</div>
+          <div class="cb-cs-nk-stat-label">Production Crews</div>
+        </div>
+        <div class="cb-cs-nk-stat">
+          <div class="cb-cs-nk-stat-value">100%</div>
+          <div class="cb-cs-nk-stat-label">On Brand</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SECTION C: Pop-Up Power ═══════════ -->
+  <section class="cb-cs-nk-popup">
+    <div class="cb-cs-nk-inner">
+      <div class="cb-cs-nk-popup-grid">
+        <div class="cb-cs-nk-reveal">
+          <span class="cb-cs-nk-label">Pop-Up Power</span>
+          <h2 class="cb-cs-nk-section-title">Product drops. Live activations. Content in&nbsp;real&nbsp;time.</h2>
+          <p class="cb-cs-nk-section-desc" style="color:var(--cb-500);">When Nike launches a product or hosts a live event, Cinebody creators are already on the ground — capturing unscripted moments that feel real because they are. No call sheets. No post-production delays. Just authentic content delivered in hours, not weeks.</p>
+        </div>
+        <div class="cb-cs-nk-popup-videos cb-cs-nk-reveal">
+          <div class="cb-video" data-vimeo-id="265928299">
+            <img src="https://vumbnail.com/265928299.jpg" alt="Nike Product Launch" loading="lazy" />
+            <div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+            <span class="cb-video-label">Product Launch</span>
+          </div>
+          <div class="cb-video" data-vimeo-id="214760772">
+            <img src="https://vumbnail.com/214760772.jpg" alt="Nike Brand Activation" loading="lazy" />
+            <div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+            <span class="cb-video-label">Brand Activation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SECTION D: Influencer Ignition ═══════════ -->
+  <section class="cb-cs-nk-influencer">
+    <div class="cb-cs-nk-inner">
+      <div class="cb-cs-nk-influencer-grid">
+        <div class="cb-cs-nk-influencer-videos cb-cs-nk-reveal">
+          <div class="cb-video" data-vimeo-id="329885560">
+            <img src="https://vumbnail.com/329885560.jpg" alt="Nike Workout Story" loading="lazy" />
+            <div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+            <span class="cb-video-label">Workout Story</span>
+          </div>
+          <div class="cb-video" data-vimeo-id="329885498">
+            <img src="https://vumbnail.com/329885498.jpg" alt="Nike Daily Routine" loading="lazy" />
+            <div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+            <span class="cb-video-label">Daily Routine</span>
+          </div>
+        </div>
+        <div class="cb-cs-nk-reveal">
+          <span class="cb-cs-nk-label">Influencer Ignition</span>
+          <h2 class="cb-cs-nk-section-title">No scripts. No crews. Just real athletes, real&nbsp;stories.</h2>
+          <p class="cb-cs-nk-section-desc" style="color:var(--cb-500);">Nike's athlete partners use Cinebody to self-capture vertical content — workouts, routines, day-in-the-life stories — all guided by brand shot lists and delivered directly through the platform. Authentic storytelling at the speed of social.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SECTION E: CTA ═══════════ -->
+  <section class="cb-cs-nk-cta">
+    <div class="cb-cs-nk-inner cb-cs-nk-reveal">
+      <p class="cb-cs-nk-cta-label">Want authentic content from every city?</p>
+      <h2 class="cb-cs-nk-cta-title">Let's build your content engine.</h2>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cs-nk-cta-btn" target="_blank" rel="noopener">Let's Talk</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  /* Reveal on scroll */
+  var els = document.querySelectorAll('.cb-cs-nk-reveal');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function(el) { obs.observe(el); });
+
+  /* Click-to-play for all .cb-video */
+  document.querySelectorAll('.cb-cs-nk-content .cb-video').forEach(function(card) {
+    card.addEventListener('click', function() {
+      if (card.classList.contains('is-playing')) return;
+      var id = card.getAttribute('data-vimeo-id');
+      if (!id) return;
+
+      /* Pause siblings in same video group */
+      var group = card.closest('[data-cb-video-group]');
+      if (group) {
+        group.querySelectorAll('.cb-video.is-playing iframe').forEach(function(f) {
+          f.parentElement.classList.remove('is-playing');
+          f.remove();
+        });
+      }
+
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&title=0&byline=0&portrait=0';
+      iframe.allow = 'autoplay; fullscreen';
+      iframe.setAttribute('allowfullscreen', '');
+      card.appendChild(iframe);
+      card.classList.add('is-playing');
+    });
+  });
+})();
+</script>
