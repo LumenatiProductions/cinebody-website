@@ -1,0 +1,428 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-cs-rc-content {
+    --cb-teal: #00bcf1;
+    --cb-900: #1a1a1a;
+    --cb-500: #71717a;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cb-900);
+    color: #fff;
+  }
+
+  /* ── Header section ── */
+  .cb-cs-rc-header {
+    padding: 80px 0 48px;
+    text-align: center;
+  }
+
+  .cb-cs-rc-header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .cb-cs-rc-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #ef4444;
+    margin-bottom: 20px;
+  }
+
+  .cb-cs-rc-live-dot {
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    animation: cb-cs-rc-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes cb-cs-rc-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  }
+
+  .cb-cs-rc-header h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    color: #fff;
+  }
+
+  .cb-cs-rc-header-sub {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cb-500);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── Tabs ── */
+  .cb-cs-rc-tabs {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem) 80px;
+  }
+
+  .cb-cs-rc-tab-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .cb-cs-rc-tab-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cb-500);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .cb-cs-rc-tab-btn:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .cb-cs-rc-tab-btn.is-active {
+    color: #fff;
+    background: var(--cb-teal);
+    border-color: var(--cb-teal);
+  }
+
+  /* Tab panels */
+  .cb-cs-rc-tab-panel {
+    display: none;
+  }
+
+  .cb-cs-rc-tab-panel.is-active {
+    display: block;
+  }
+
+  .cb-cs-rc-tab-desc {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cb-500);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+
+  .cb-cs-rc-tab-videos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* ── Video card styles ── */
+  .cb-cs-rc-content .cb-video {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0a0a0a;
+    cursor: pointer;
+    aspect-ratio: 9 / 16;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .cb-cs-rc-content .cb-video:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .cb-cs-rc-content .cb-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+
+  .cb-cs-rc-content .cb-video__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 5;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-cs-rc-content .cb-video.is-playing .cb-video__poster {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cb-cs-rc-content .cb-video__play {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    background: var(--cb-teal);
+    border-radius: 10px;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .cb-cs-rc-content .cb-video__play::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 10px solid #fff;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    margin-left: 2px;
+    transition: all 0.25s ease;
+  }
+
+  .cb-cs-rc-content .cb-video:hover .cb-video__play {
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.4);
+  }
+
+  .cb-cs-rc-content .cb-video.is-playing .cb-video__play {
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 188, 241, 0.85);
+  }
+
+  .cb-cs-rc-content .cb-video.is-playing .cb-video__play::after {
+    width: 8px;
+    height: 10px;
+    border: none;
+    border-left: 2.5px solid #fff;
+    border-right: 2.5px solid #fff;
+    margin-left: 0;
+  }
+
+  /* ── CTA section ── */
+  .cb-cs-rc-cta {
+    background: #ffec03;
+    padding: 80px 24px;
+    text-align: center;
+  }
+
+  .cb-cs-rc-cta-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cb-cs-rc-cta-line1 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--cb-900);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .cb-cs-rc-cta-line2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--cb-teal);
+    line-height: 1.25;
+    margin: 0 0 40px;
+  }
+
+  .cb-cs-rc-cta-btn {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--cb-teal);
+    padding: 16px 40px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+
+  .cb-cs-rc-cta-btn:hover {
+    background: #0099c8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 188, 241, 0.35);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* ── Reveal ── */
+  .cb-cs-rc-header-inner.cb-reveal,
+  .cb-cs-rc-tabs.cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cb-cs-rc-header-inner.cb-reveal.is-visible,
+  .cb-cs-rc-tabs.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .cb-cs-rc-header {
+      padding: 56px 0 36px;
+    }
+
+    .cb-cs-rc-tabs {
+      padding-bottom: 56px;
+    }
+
+    .cb-cs-rc-tab-videos {
+      max-width: 400px;
+      gap: 12px;
+    }
+
+    .cb-cs-rc-cta {
+      padding: 56px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cb-cs-rc-tab-btn {
+      font-size: 13px;
+      padding: 8px 18px;
+    }
+
+    .cb-cs-rc-tab-videos {
+      max-width: 320px;
+      gap: 10px;
+    }
+  }
+</style>
+
+<div class="cb-cs-rc-content">
+
+  <!-- ── Header ── -->
+  <div class="cb-cs-rc-header">
+    <div class="cb-cs-rc-header-inner cb-reveal">
+      <div class="cb-cs-rc-live-badge">
+        <span class="cb-cs-rc-live-dot"></span>
+        Always On
+      </div>
+      <h2>Royal Caribbean's content engine.</h2>
+      <p class="cb-cs-rc-header-sub">Crew members across the fleet capture real moments every day — waterslides, sunsets, late-night entertainment — and our team turns it into a constant stream of ready-to-post content.</p>
+    </div>
+  </div>
+
+  <!-- ── Tabbed showcase ── -->
+  <div class="cb-cs-rc-tabs cb-reveal">
+
+    <div class="cb-cs-rc-tab-buttons">
+      <button class="cb-cs-rc-tab-btn is-active" data-tab="deck">Deck Diaries</button>
+      <button class="cb-cs-rc-tab-btn" data-tab="rover">Rover</button>
+      <button class="cb-cs-rc-tab-btn" data-tab="fleet">Always-On Content</button>
+    </div>
+
+    <!-- Tab 1: Deck Diaries -->
+    <div class="cb-cs-rc-tab-panel is-active" data-panel="deck" data-cb-video-group>
+      <p class="cb-cs-rc-tab-desc">Short-form day-in-the-life content filmed by crew members on deck — capturing the energy and atmosphere guests experience on every voyage.</p>
+      <div class="cb-cs-rc-tab-videos">
+        <div class="cb-video" data-vimeo-id="1012467060">
+          <img class="cb-video__poster" src="https://vumbnail.com/1012467060.jpg" alt="Deck Diaries video 1" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1012467060?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video" data-vimeo-id="1027412030">
+          <img class="cb-video__poster" src="https://vumbnail.com/1027412030.jpg" alt="Deck Diaries video 2" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1027412030?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Rover -->
+    <div class="cb-cs-rc-tab-panel" data-panel="rover" data-cb-video-group>
+      <p class="cb-cs-rc-tab-desc">Roving content captured across destinations and ports of call — giving audiences a taste of the places Royal Caribbean takes them.</p>
+      <div class="cb-cs-rc-tab-videos">
+        <div class="cb-video" data-vimeo-id="1061059233">
+          <img class="cb-video__poster" src="https://vumbnail.com/1061059233.jpg" alt="Rover video 1" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video" data-vimeo-id="1005975033">
+          <img class="cb-video__poster" src="https://vumbnail.com/1005975033.jpg" alt="Rover video 2" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1005975033?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Always-On Content -->
+    <div class="cb-cs-rc-tab-panel" data-panel="fleet" data-cb-video-group>
+      <p class="cb-cs-rc-tab-desc">A steady flow of content from ships across the fleet — keeping Royal Caribbean's social channels full with authentic, on-brand moments every week.</p>
+      <div class="cb-cs-rc-tab-videos">
+        <div class="cb-video" data-vimeo-id="981489599">
+          <img class="cb-video__poster" src="https://vumbnail.com/981489599.jpg" alt="Fleet video 1" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/981489599?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video" data-vimeo-id="1035722950">
+          <img class="cb-video__poster" src="https://vumbnail.com/1035722950.jpg" alt="Fleet video 2" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1035722950?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── CTA ── -->
+  <section class="cb-cs-rc-cta">
+    <div class="cb-cs-rc-cta-inner cb-reveal">
+      <p class="cb-cs-rc-cta-line1">Want an always-on content engine?</p>
+      <p class="cb-cs-rc-cta-line2">Let your team tell the story.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cs-rc-cta-btn" target="_blank" rel="noopener">Let's Talk</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  var buttons = document.querySelectorAll('.cb-cs-rc-tab-btn');
+  var panels = document.querySelectorAll('.cb-cs-rc-tab-panel');
+
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var tab = this.getAttribute('data-tab');
+
+      buttons.forEach(function(b) { b.classList.remove('is-active'); });
+      panels.forEach(function(p) { p.classList.remove('is-active'); });
+
+      this.classList.add('is-active');
+      var target = document.querySelector('.cb-cs-rc-tab-panel[data-panel="' + tab + '"]');
+      if (target) target.classList.add('is-active');
+    });
+  });
+})();
+</script>

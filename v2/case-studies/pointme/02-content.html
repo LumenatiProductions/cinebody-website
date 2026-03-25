@@ -1,0 +1,544 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-cs-pm-content {
+    --cb-teal: #00bcf1;
+    --cb-900: #1a1a1a;
+    --cb-500: #71717a;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cb-900);
+    color: #fff;
+  }
+
+  /* ── Header ── */
+  .cb-cs-pm-header {
+    padding: 80px 0 48px;
+    text-align: center;
+  }
+
+  .cb-cs-pm-header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .cb-cs-pm-header h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    color: #fff;
+  }
+
+  .cb-cs-pm-header-sub {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cb-500);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* ── Hero CTV video ── */
+  .cb-cs-pm-hero-video {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem) 24px;
+    text-align: center;
+  }
+
+  .cb-cs-pm-hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cb-teal);
+    border: 1.5px solid rgba(0, 188, 241, 0.3);
+    border-radius: 100px;
+    padding: 6px 16px;
+    margin-bottom: 16px;
+  }
+
+  .cb-cs-pm-content .cb-video--hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0a0a0a;
+    cursor: pointer;
+    aspect-ratio: 16 / 9;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .cb-cs-pm-content .cb-video--hero:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 56px rgba(0, 0, 0, 0.5);
+  }
+
+  .cb-cs-pm-content .cb-video--hero iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+
+  .cb-cs-pm-content .cb-video--hero .cb-video__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 5;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-cs-pm-content .cb-video--hero.is-playing .cb-video__poster {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Large center play button for hero */
+  .cb-cs-pm-content .cb-video--hero .cb-video__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    background: var(--cb-teal);
+    border-radius: 50%;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 24px rgba(0, 188, 241, 0.4);
+  }
+
+  .cb-cs-pm-content .cb-video--hero .cb-video__play::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 16px solid #fff;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    margin-left: 4px;
+    transition: all 0.25s ease;
+  }
+
+  .cb-cs-pm-content .cb-video--hero:hover .cb-video__play {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 8px 32px rgba(0, 188, 241, 0.5);
+  }
+
+  .cb-cs-pm-content .cb-video--hero.is-playing .cb-video__play {
+    width: 44px;
+    height: 44px;
+    top: auto;
+    left: 20px;
+    bottom: 20px;
+    transform: none;
+    border-radius: 10px;
+    background: rgba(0, 188, 241, 0.85);
+  }
+
+  .cb-cs-pm-content .cb-video--hero.is-playing .cb-video__play::after {
+    width: 10px;
+    height: 12px;
+    border: none;
+    border-left: 2.5px solid #fff;
+    border-right: 2.5px solid #fff;
+    margin-left: 0;
+  }
+
+  .cb-cs-pm-hero-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--cb-500);
+    max-width: 600px;
+    margin: 20px auto 0;
+  }
+
+  /* ── Tree / Branch structure ── */
+  .cb-cs-pm-tree {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px clamp(1rem, 3vw, 2.5rem) 80px;
+    position: relative;
+  }
+
+  .cb-cs-pm-tree-label {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cb-500);
+    margin-bottom: 32px;
+  }
+
+  /* Vertical trunk line */
+  .cb-cs-pm-trunk {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cb-cs-pm-trunk::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 40px;
+    background: var(--cb-teal);
+    opacity: 0.4;
+  }
+
+  /* Horizontal branch bar */
+  .cb-cs-pm-branch-bar {
+    width: 80%;
+    max-width: 1000px;
+    height: 2px;
+    background: var(--cb-teal);
+    opacity: 0.4;
+    margin-top: 40px;
+    position: relative;
+  }
+
+  /* Node grid */
+  .cb-cs-pm-nodes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* Drop lines from branch bar to each node */
+  .cb-cs-pm-node {
+    position: relative;
+    text-align: center;
+  }
+
+  .cb-cs-pm-node::before {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 24px;
+    background: var(--cb-teal);
+    opacity: 0.4;
+    margin: 0 auto 12px;
+  }
+
+  /* Node video card */
+  .cb-cs-pm-content .cb-video--node {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #0a0a0a;
+    cursor: pointer;
+    aspect-ratio: 9 / 16;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .cb-cs-pm-content .cb-video--node:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .cb-cs-pm-content .cb-video--node iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+
+  .cb-cs-pm-content .cb-video--node .cb-video__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 5;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-cs-pm-content .cb-video--node.is-playing .cb-video__poster {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cb-cs-pm-content .cb-video--node .cb-video__play {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    width: 40px;
+    height: 40px;
+    background: var(--cb-teal);
+    border-radius: 10px;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .cb-cs-pm-content .cb-video--node .cb-video__play::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 9px solid #fff;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    margin-left: 2px;
+    transition: all 0.25s ease;
+  }
+
+  .cb-cs-pm-content .cb-video--node:hover .cb-video__play {
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.4);
+  }
+
+  .cb-cs-pm-content .cb-video--node.is-playing .cb-video__play {
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 188, 241, 0.85);
+  }
+
+  .cb-cs-pm-content .cb-video--node.is-playing .cb-video__play::after {
+    width: 7px;
+    height: 9px;
+    border: none;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+    margin-left: 0;
+  }
+
+  .cb-cs-pm-node-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin: 12px 0 4px;
+  }
+
+  .cb-cs-pm-node-desc {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--cb-500);
+    margin: 0;
+  }
+
+  /* ── CTA section ── */
+  .cb-cs-pm-cta {
+    background: #ffec03;
+    padding: 80px 24px;
+    text-align: center;
+  }
+
+  .cb-cs-pm-cta-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cb-cs-pm-cta-line1 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--cb-900);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .cb-cs-pm-cta-line2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--cb-teal);
+    line-height: 1.25;
+    margin: 0 0 40px;
+  }
+
+  .cb-cs-pm-cta-btn {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--cb-teal);
+    padding: 16px 40px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+
+  .cb-cs-pm-cta-btn:hover {
+    background: #0099c8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 188, 241, 0.35);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* ── Reveal ── */
+  .cb-cs-pm-header-inner.cb-reveal,
+  .cb-cs-pm-hero-video.cb-reveal,
+  .cb-cs-pm-tree.cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cb-cs-pm-header-inner.cb-reveal.is-visible,
+  .cb-cs-pm-hero-video.cb-reveal.is-visible,
+  .cb-cs-pm-tree.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .cb-cs-pm-nodes {
+      grid-template-columns: repeat(2, 1fr);
+      width: 90%;
+      gap: 20px;
+    }
+
+    .cb-cs-pm-branch-bar {
+      display: none;
+    }
+
+    .cb-cs-pm-trunk::before {
+      display: none;
+    }
+
+    .cb-cs-pm-node::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cb-cs-pm-header {
+      padding: 56px 0 36px;
+    }
+
+    .cb-cs-pm-tree {
+      padding-bottom: 56px;
+    }
+
+    .cb-cs-pm-cta {
+      padding: 56px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cb-cs-pm-nodes {
+      gap: 16px;
+    }
+  }
+</style>
+
+<div class="cb-cs-pm-content">
+
+  <!-- ── Header ── -->
+  <div class="cb-cs-pm-header">
+    <div class="cb-cs-pm-header-inner cb-reveal">
+      <h2>One shoot. An entire content ecosystem.</h2>
+      <p class="cb-cs-pm-header-sub">Point.me brought together 70+ real participants for a single Cinebody-powered shoot — and walked away with a hero CTV spot, customer vignettes, social stories, and bite-sized clips for every channel.</p>
+    </div>
+  </div>
+
+  <!-- ── Hero CTV video ── -->
+  <div class="cb-cs-pm-hero-video cb-reveal" data-cb-video-group>
+    <div class="cb-cs-pm-hero-label">Hero CTV Commercial</div>
+    <div class="cb-video cb-video--hero" data-vimeo-id="1078357962">
+      <img class="cb-video__poster" src="https://vumbnail.com/1078357962.jpg" alt="Point.me hero CTV commercial" loading="lazy" />
+      <iframe data-src="https://player.vimeo.com/video/1078357962?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+      <div class="cb-video__play"></div>
+    </div>
+    <p class="cb-cs-pm-hero-desc">The flagship spot — real customers sharing real stories about how Point.me changed the way they travel. Built for connected TV and streaming platforms.</p>
+  </div>
+
+  <!-- ── Content tree ── -->
+  <div class="cb-cs-pm-tree cb-reveal" data-cb-video-group>
+    <div class="cb-cs-pm-tree-label">Repurposed from one shoot into:</div>
+
+    <div class="cb-cs-pm-trunk">
+      <div class="cb-cs-pm-branch-bar"></div>
+    </div>
+
+    <div class="cb-cs-pm-nodes">
+
+      <div class="cb-cs-pm-node">
+        <div class="cb-video cb-video--node" data-vimeo-id="1087419136">
+          <img class="cb-video__poster" src="https://vumbnail.com/1087419136.jpg" alt="Customer Vignette" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1087419136?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <p class="cb-cs-pm-node-label">Customer Vignette</p>
+        <p class="cb-cs-pm-node-desc">In-depth personal story for mid-funnel consideration</p>
+      </div>
+
+      <div class="cb-cs-pm-node">
+        <div class="cb-video cb-video--node" data-vimeo-id="1087421388">
+          <img class="cb-video__poster" src="https://vumbnail.com/1087421388.jpg" alt="Social Story" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1087421388?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <p class="cb-cs-pm-node-label">Social Story</p>
+        <p class="cb-cs-pm-node-desc">Optimized for Instagram, TikTok, and Reels</p>
+      </div>
+
+      <div class="cb-cs-pm-node">
+        <div class="cb-video cb-video--node" data-vimeo-id="1087576984">
+          <img class="cb-video__poster" src="https://vumbnail.com/1087576984.jpg" alt="Bite-Sized Clip" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1087576984?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <p class="cb-cs-pm-node-label">Bite-Sized Clip</p>
+        <p class="cb-cs-pm-node-desc">Quick-hit content for paid ads and retargeting</p>
+      </div>
+
+      <div class="cb-cs-pm-node">
+        <div class="cb-video cb-video--node" data-vimeo-id="1087438401">
+          <img class="cb-video__poster" src="https://vumbnail.com/1087438401.jpg" alt="Bonus Spot" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1087438401?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <p class="cb-cs-pm-node-label">Bonus Spot</p>
+        <p class="cb-cs-pm-node-desc">Extra creative for A/B testing and fresh rotation</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <section class="cb-cs-pm-cta">
+    <div class="cb-cs-pm-cta-inner cb-reveal">
+      <p class="cb-cs-pm-cta-line1">Want results like Point.me?</p>
+      <p class="cb-cs-pm-cta-line2">Let's build your content ecosystem.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cs-pm-cta-btn" target="_blank" rel="noopener">Let's Talk</a>
+    </div>
+  </section>
+
+</div>
