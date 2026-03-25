@@ -8,8 +8,8 @@
     --cb-dark: #1a1a1a;
     --cb-body: #71717a;
     --cb-trust: #a1a1aa;
-    --cb-yellow: #f5c542;
-    --cb-pink: #f06292;
+    --cb-yellow: #ffec03;
+    --cb-pink: #eb008b;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: #fff;
     padding: 80px 0 40px;
@@ -69,25 +69,44 @@
     margin: 0 0 32px;
   }
 
-  /* CTA Button */
+  /* CTA Button — impactful with glow */
   .cb-hero-cta {
     display: inline-block;
     background: var(--cb-teal);
     color: #fff;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
-    padding: 14px 32px;
-    border-radius: 10px;
+    padding: 16px 40px;
+    border-radius: 12px;
     text-decoration: none;
-    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 188, 241, 0.3), 0 0 0 0 rgba(0, 188, 241, 0);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cb-hero-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .cb-hero-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(0, 188, 241, 0.35);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(0, 188, 241, 0.4), 0 0 60px rgba(0, 188, 241, 0.15);
     color: #fff;
     text-decoration: none;
+  }
+
+  .cb-hero-cta:hover::before {
+    opacity: 1;
+  }
+
+  .cb-hero-cta:active {
+    transform: translateY(-1px) scale(0.99);
   }
 
   /* Trust line */
@@ -115,12 +134,13 @@
   .cb-hero-image-wrap img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 420px;
+    object-fit: cover;
     border-radius: 20px;
     position: relative;
     z-index: 1;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
-    transition: transform 0.4s ease;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .cb-hero-image-wrap:hover img {
@@ -215,4 +235,4 @@
   </div>
 </section>
 
-<div class="cb-hero-bar" style="--cb-teal:#00bcf1;--cb-yellow:#f5c542;--cb-pink:#f06292;height:3px;width:100%;background:linear-gradient(to right,var(--cb-teal) 0%,var(--cb-teal) 33%,var(--cb-yellow) 33%,var(--cb-yellow) 66%,var(--cb-pink) 66%,var(--cb-pink) 100%);"></div>
+<div class="cb-hero-bar"></div>
