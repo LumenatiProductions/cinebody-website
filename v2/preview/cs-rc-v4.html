@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody — Royal Caribbean Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY CASE STUDY — ROYAL CARIBBEAN
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── SIGNATURE BAR ── */
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+
+/* ── CONTAINER ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── SECTION LABEL ── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--teal); margin-bottom: 20px;
+}
+
+/* ── CURVED DIVIDERS ── */
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; margin-top: -1px; }
+.curve svg { display: block; width: 100%; height: 50px; }
+.curve--flip svg { transform: rotate(180deg); }
+@media (max-width: 600px) { .curve svg { height: 30px; } }
+
+/* ── BUTTON ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease); position: relative; isolation: isolate;
+}
+
+.btn-glow {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.btn-glow::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
+}
+
+.btn-glow:hover::before { opacity: 0.7; }
+.btn-glow:hover {
+  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg { transform: translateX(3px); }
+
+/* ═══════════════════════════
+   HERO
+   ═══════════════════════════ */
+.hero { padding: 160px 0 120px; overflow: hidden; position: relative; }
+
+.hero::before {
+  content: ''; position: absolute; top: -20%; right: -15%; width: 700px; height: 700px;
+  background: var(--teal); border-radius: 50%; filter: blur(140px); opacity: 0.12;
+  pointer-events: none; animation: hero-glow 18s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: ''; position: absolute; bottom: -30%; left: -10%; width: 500px; height: 500px;
+  background: var(--pink); border-radius: 50%; filter: blur(140px); opacity: 0.06;
+  pointer-events: none; animation: hero-glow 22s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes hero-glow {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(30px, -20px); }
+}
+
+.hero .contain {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-body {
+  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
+}
+
+/* Logo pairing */
+.logo-pair {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+}
+
+.logo-pair img {
+  height: 28px; width: auto; object-fit: contain;
+}
+
+.logo-pair img.grayscale { filter: grayscale(1) brightness(2); opacity: 0.7; }
+
+.logo-pair .logo-x {
+  font-size: 18px; font-weight: 300; color: var(--text-muted);
+}
+
+/* Hero visual */
+.hero-visual {
+  position: relative;
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+}
+
+.hero-visual .vid-wrap {
+  position: relative; padding-bottom: 56.25%; background: #111;
+}
+
+.hero-visual .vid-wrap img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+
+.hero-visual .vid-wrap iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+}
+
+/* ═══════════════════════════
+   TABBED SHOWCASE
+   ═══════════════════════════ */
+.showcase { padding: 100px 0; }
+
+.showcase-head { text-align: center; margin-bottom: 48px; }
+
+.showcase h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px;
+}
+
+.showcase h2 em {
+  font-style: normal; color: var(--teal);
+}
+
+.showcase-sub {
+  font-size: 0.95rem; color: var(--text-dim); line-height: 1.65; max-width: 560px; margin: 0 auto;
+}
+
+/* Tabs */
+.tabs {
+  display: flex; justify-content: center; gap: 4px; margin-bottom: 48px;
+}
+
+.tab-btn {
+  font-family: var(--font); font-size: 13px; font-weight: 600;
+  padding: 10px 24px; border-radius: 100px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); cursor: pointer;
+  transition: all 0.3s var(--ease);
+}
+
+.tab-btn:hover {
+  border-color: var(--border-hover); color: var(--text);
+}
+
+.tab-btn.active {
+  background: var(--teal); color: #fff; border-color: var(--teal);
+  box-shadow: 0 0 16px rgba(0,188,241,0.2);
+}
+
+/* Tab panels */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.vid-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  max-width: 900px; margin: 0 auto;
+}
+
+.vid-card {
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2); background: #111;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.vid-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,188,241,0.08);
+}
+
+.vid-card .vid-wrap {
+  position: relative; padding-bottom: 56.25%;
+}
+
+.vid-card .vid-wrap img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+
+.vid-card .vid-wrap iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+}
+
+.vid-card .vid-label {
+  padding: 12px 16px;
+  font-size: 0.78rem; font-weight: 600; color: var(--text-dim);
+  border-top: 1px solid var(--border);
+}
+
+/* ═══════════════════════════
+   CTA BAND — yellow
+   ═══════════════════════════ */
+.cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
+
+.cta-band h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; color: #111; line-height: 1.2; margin-bottom: 28px;
+}
+
+.cta-band h2 span { color: var(--teal); }
+
+.cta-band .btn-glow {
+  background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+.cta-band .btn-glow:hover {
+  box-shadow: 0 0 40px rgba(0,0,0,0.25);
+}
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer { border-top: 1px solid var(--border); padding: 56px 0 28px; position: relative; overflow: hidden; }
+.footer::after {
+  content: ''; position: absolute; bottom: -30%; right: -10%; width: 400px; height: 400px;
+  background: var(--teal); border-radius: 50%; filter: blur(140px); opacity: 0.03;
+  pointer-events: none;
+}
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══════════════════════════
+   RESPONSIVE
+   ═══════════════════════════ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 100px 0 80px; }
+  .vid-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 80px 0 60px; }
+  .hero h1 { font-size: 2.25rem; }
+  .tabs { flex-wrap: wrap; }
+  .showcase, .cta-band { padding: 60px 0; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Case Study</div>
+      <div class="logo-pair">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody" class="grayscale">
+        <span class="logo-x">&times;</span>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/068c9dcb-e657-4362-9f5c-21916890e158/RCI_Brand_Logo_2-Line_Horiz_White.webp" alt="Royal Caribbean" style="height:32px">
+      </div>
+      <h1>Every ship is a studio. <em>Every crew member, a creator.</em></h1>
+      <p class="hero-body">Royal Caribbean turned their onboard crew into an always-on content engine — capturing waterslides, dining, entertainment, and Rover the dog across the entire fleet. No production crews flown in. No outsourced talent. Just real people, guided by Cinebody.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="hero-visual reveal reveal-d2">
+      <div class="vid-wrap">
+        <img src="https://vumbnail.com/1012467060.jpg" alt="Royal Caribbean hero" loading="lazy">
+        <iframe src="https://player.vimeo.com/video/1012467060?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → dark (showcase) -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ TABBED SHOWCASE ═══ -->
+<section class="showcase">
+  <div class="contain">
+    <div class="showcase-head reveal">
+      <div class="label">Content Programs</div>
+      <h2>Three programs. <em>One platform.</em></h2>
+      <p class="showcase-sub">From daily deck content to Rover's adventures and always-on social — Royal Caribbean runs it all through Cinebody.</p>
+    </div>
+
+    <div class="tabs reveal reveal-d1">
+      <button class="tab-btn active" data-tab="deck">Deck Diaries</button>
+      <button class="tab-btn" data-tab="rover">Rover</button>
+      <button class="tab-btn" data-tab="always">Always-On</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-deck">
+      <div class="vid-grid reveal reveal-d2">
+        <div class="vid-card">
+          <div class="vid-wrap">
+            <img src="https://vumbnail.com/1012467060.jpg" alt="Deck Diaries 1" loading="lazy">
+            <iframe src="https://player.vimeo.com/video/1012467060?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+          </div>
+          <div class="vid-label">Deck Diaries — Waterslide POV</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-wrap">
+            <img src="https://vumbnail.com/1027412030.jpg" alt="Deck Diaries 2" loading="lazy">
+            <iframe src="https://player.vimeo.com/video/1027412030?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+          </div>
+          <div class="vid-label">Deck Diaries — Sunset Dining</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-rover">
+      <div class="vid-grid">
+        <div class="vid-card">
+          <div class="vid-wrap">
+            <img src="https://vumbnail.com/1061059233.jpg" alt="Rover 1" loading="lazy">
+            <iframe src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+          </div>
+          <div class="vid-label">Rover — On Deck</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-wrap">
+            <img src="https://vumbnail.com/1005975033.jpg" alt="Rover 2" loading="lazy">
+            <iframe src="https://player.vimeo.com/video/1005975033?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+          </div>
+          <div class="vid-label">Rover — Meet &amp; Greet</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-always">
+      <div class="vid-grid">
+        <div class="vid-card">
+          <div class="vid-wrap">
+            <img src="https://vumbnail.com/981489599.jpg" alt="Always-On 1" loading="lazy">
+            <iframe src="https://player.vimeo.com/video/981489599?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+          </div>
+          <div class="vid-label">Always-On — Entertainment</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-wrap">
+            <img src="https://vumbnail.com/1035722950.jpg" alt="Always-On 2" loading="lazy">
+            <iframe src="https://player.vimeo.com/video/1035722950?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+          </div>
+          <div class="vid-label">Always-On — Destinations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → yellow -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="contain">
+    <h2 class="reveal">Want an always-on content engine?<br><span>Let's build yours.</span></h2>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+</section>
+
+<!-- curve: yellow → dark -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="sig-bar" style="margin-bottom:0"></div>
+  <div class="contain" style="padding-top:56px">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody"/><p>The video capture platform that turns your community into your content team.</p></div>
+      <div class="footer-col"><h4>Product</h4><a href="/software">Software</a><a href="/services">Creative Services</a><a href="/pricing">Pricing</a><a href="/pointme">Case Studies</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/cinebody-blog">Blog</a><a href="/knowledge-base">Knowledge Base</a><a href="/patents">Patents</a><a href="https://pro.cinebody.com/login">Login</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-service">Terms of Service</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 Super 6 LLC d/b/a Cinebody.</span><span>Denver, CO</span></div>
+  </div>
+</footer>
+
+<script>
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Reveal
+(function(){
+  var o = new IntersectionObserver(function(e){
+    e.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); o.unobserve(e.target); }});
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
