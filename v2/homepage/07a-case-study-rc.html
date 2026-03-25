@@ -1,0 +1,491 @@
+<!-- Cinebody v2 Homepage - Royal Caribbean Case Study Teaser -->
+<!-- Dark background #1a1a1a, 3-column: video (9:16) | copy+stats | ship SVG -->
+<style>
+  .cb-v2-rct-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    padding: 80px 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .cb-v2-rct-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 340px minmax(0, 460px) 340px;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* ===== LEFT: Video (portrait 9:16) ===== */
+  .cb-v2-rct-video {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 9 / 16;
+    width: 180px;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  .cb-v2-rct-video:hover {
+    transform: scale(1.04) translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0, 188, 241, 0.2), 0 0 0 2px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-rct-video iframe {
+    position: absolute;
+    top: -1px; left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: none;
+    pointer-events: none;
+  }
+  .cb-v2-rct-video::before,
+  .cb-v2-rct-video::after { display: none; }
+
+  /* ===== CENTER: Copy + Stats + CTA ===== */
+  .cb-v2-rct-center {
+    text-align: center;
+  }
+
+  .cb-v2-rct-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cb-v2-rct-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1a1a1a;
+    background: #ffec03;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .cb-v2-rct-badge.cb-reveal {
+    animation: cb-v2-rct-badgePop 0.5s ease-out both;
+  }
+  @keyframes cb-v2-rct-badgePop {
+    0% { opacity: 0; transform: scale(0.7); }
+    70% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .cb-v2-rct-client {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .cb-v2-rct-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px 0;
+  }
+  .cb-v2-rct-title span {
+    color: #00bcf1;
+  }
+
+  .cb-v2-rct-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.65;
+    margin: 0 auto 24px;
+    max-width: 400px;
+  }
+
+  /* Stats */
+  .cb-v2-rct-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .cb-v2-rct-stat {
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+  .cb-v2-rct-stat:hover {
+    transform: translateY(-3px);
+  }
+  .cb-v2-rct-stat:hover .cb-v2-rct-stat-num {
+    color: #ffec03 !important;
+    text-shadow: 0 2px 8px rgba(255, 236, 3, 0.25);
+  }
+  .cb-v2-rct-stat:hover .cb-v2-rct-stat-label {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .cb-v2-rct-stat-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #00bcf1;
+    line-height: 1;
+    margin-bottom: 3px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  .cb-v2-rct-stat:nth-child(5) .cb-v2-rct-stat-num {
+    color: #ffec03;
+  }
+  .cb-v2-rct-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+  }
+  .cb-v2-rct-stat-pipe {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    align-self: stretch;
+  }
+
+  /* CTA */
+  .cb-v2-rct-cta {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    background: #00bcf1;
+    padding: 11px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-rct-cta:hover {
+    background: #0099c8;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 28px rgba(0, 188, 241, 0.4);
+  }
+
+  /* ===== RIGHT: Ship + Content Stream ===== */
+  .cb-v2-rct-stream {
+    width: 100%;
+    max-width: 340px;
+  }
+  .cb-v2-rct-stream-svg { width: 100%; height: auto; }
+
+  /* Ship */
+  .cb-v2-rct-ship-hull {
+    fill: rgba(255, 255, 255, 0.06);
+    transition: fill 0.4s ease;
+  }
+  .cb-v2-rct-stream:hover .cb-v2-rct-ship-hull { fill: rgba(255, 255, 255, 0.1); }
+  .cb-v2-rct-ship-deck {
+    fill: rgba(0, 188, 241, 0.12);
+    transition: fill 0.4s ease;
+  }
+  .cb-v2-rct-stream:hover .cb-v2-rct-ship-deck { fill: rgba(0, 188, 241, 0.2); }
+  .cb-v2-rct-ship-funnel {
+    fill: #00bcf1;
+    filter: drop-shadow(0 0 5px rgba(0, 188, 241, 0.35));
+  }
+  .cb-v2-rct-ship-window { fill: rgba(255, 255, 255, 0.1); }
+  .cb-v2-rct-funnel-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 7px;
+    font-weight: 800;
+    fill: #ffffff;
+    letter-spacing: 0.06em;
+  }
+
+  /* Waves */
+  .cb-v2-rct-wave {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.1);
+    stroke-width: 1.2;
+    animation: cb-v2-rct-waveMove 5s ease-in-out infinite;
+  }
+  .cb-v2-rct-wave-2 {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.06);
+    stroke-width: 1.2;
+    animation: cb-v2-rct-waveMove 5s ease-in-out infinite -1.2s;
+  }
+  @keyframes cb-v2-rct-waveMove {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+
+  /* Rising lines from funnel */
+  .cb-v2-rct-rise-line {
+    stroke: rgba(0, 188, 241, 0.1);
+    stroke-width: 0.8;
+    stroke-dasharray: 4 4;
+    animation: cb-v2-rct-riseDash 10s linear infinite;
+  }
+  @keyframes cb-v2-rct-riseDash {
+    to { stroke-dashoffset: -80; }
+  }
+
+  /* Content cards */
+  .cb-v2-rct-card {
+    cursor: pointer;
+  }
+  .cb-v2-rct-card-bg {
+    fill: rgba(0, 188, 241, 0.06);
+    stroke: rgba(0, 188, 241, 0.18);
+    stroke-width: 0.7;
+    rx: 5; ry: 5;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+  }
+  .cb-v2-rct-card:hover .cb-v2-rct-card-bg {
+    fill: rgba(255, 236, 3, 0.08);
+    stroke: rgba(255, 236, 3, 0.35);
+  }
+  .cb-v2-rct-card-play {
+    fill: #00bcf1;
+    opacity: 0.5;
+    transition: fill 0.3s ease, opacity 0.3s ease;
+  }
+  .cb-v2-rct-card:hover .cb-v2-rct-card-play {
+    fill: #ffec03;
+    opacity: 0.85;
+  }
+  .cb-v2-rct-card-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    fill: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: fill 0.3s ease;
+  }
+  .cb-v2-rct-card:hover .cb-v2-rct-card-label { fill: #ffec03; }
+
+  /* Card glow pulse */
+  .cb-v2-rct-card-glow {
+    fill: none;
+    stroke: rgba(0, 188, 241, 0.1);
+    stroke-width: 0.6;
+    rx: 5; ry: 5;
+    opacity: 0;
+  }
+  .cb-v2-rct-glow-1 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 0s; }
+  .cb-v2-rct-glow-2 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 0.6s; }
+  .cb-v2-rct-glow-3 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 1.2s; }
+  .cb-v2-rct-glow-4 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 1.8s; }
+  .cb-v2-rct-glow-5 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 2.4s; }
+  .cb-v2-rct-glow-6 { animation: cb-v2-rct-cardGlow 3.5s ease-in-out infinite 3s; }
+  @keyframes cb-v2-rct-cardGlow {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  /* ===== cb-reveal animations ===== */
+  .cb-v2-rct-video.cb-reveal {
+    animation: cb-v2-rct-slideLeft 0.7s ease-out both;
+  }
+  @keyframes cb-v2-rct-slideLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .cb-v2-rct-center.cb-reveal {
+    animation: cb-v2-rct-fadeUp 0.7s ease-out 0.1s both;
+  }
+  @keyframes cb-v2-rct-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-v2-rct-stream.cb-reveal {
+    animation: cb-v2-rct-slideRight 0.7s ease-out 0.2s both;
+  }
+  @keyframes cb-v2-rct-slideRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1000px) {
+    .cb-v2-rct-container {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 0 32px;
+    }
+    .cb-v2-rct-center { order: 1; }
+    .cb-v2-rct-video { order: 2; margin: 0 auto; }
+    .cb-v2-rct-stream { order: 3; max-width: 300px; margin: 0 auto; }
+    .cb-v2-rct-stats { gap: 18px; }
+    .cb-v2-rct-stat-num { font-size: 1.4rem; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .cb-v2-rct-wrapper { padding: 56px 0; }
+    .cb-v2-rct-container {
+      gap: 28px;
+      padding: 0 24px;
+    }
+    .cb-v2-rct-video { width: 160px; }
+    .cb-v2-rct-stream { max-width: 260px; }
+    .cb-v2-rct-stats { gap: 14px; }
+    .cb-v2-rct-stat-num { font-size: 1.3rem; }
+    .cb-v2-rct-desc { font-size: 0.84rem; max-width: 320px; }
+  }
+</style>
+
+<div class="cb-v2-rct-wrapper">
+  <div class="cb-v2-rct-container">
+
+    <!-- LEFT: Video (portrait) -->
+    <a href="/royal-caribbean" class="cb-v2-rct-video cb-reveal">
+      <iframe
+        src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </a>
+
+    <!-- CENTER: Copy + Stats + CTA -->
+    <div class="cb-v2-rct-center cb-reveal">
+      <div class="cb-v2-rct-eyebrow">
+        <span class="cb-v2-rct-badge cb-reveal">Case Study</span>
+        <span class="cb-v2-rct-client">Royal Caribbean</span>
+      </div>
+      <h3 class="cb-v2-rct-title">
+        <span>No crews flown in.</span><br>
+        The crew became the content team.
+      </h3>
+      <p class="cb-v2-rct-desc">Royal Caribbean turned their ship crews into an always-on content engine &mdash; capturing waterslides, dining, entertainment, and Rover the dog, all guided by Cinebody shot lists.</p>
+
+      <div class="cb-v2-rct-stats">
+        <div class="cb-v2-rct-stat">
+          <div class="cb-v2-rct-stat-num">Entire</div>
+          <div class="cb-v2-rct-stat-label">Fleet</div>
+        </div>
+        <div class="cb-v2-rct-stat-pipe"></div>
+        <div class="cb-v2-rct-stat">
+          <div class="cb-v2-rct-stat-num">0</div>
+          <div class="cb-v2-rct-stat-label">Prod. Crews</div>
+        </div>
+        <div class="cb-v2-rct-stat-pipe"></div>
+        <div class="cb-v2-rct-stat">
+          <div class="cb-v2-rct-stat-num">Always</div>
+          <div class="cb-v2-rct-stat-label">On</div>
+        </div>
+        <div class="cb-v2-rct-stat-pipe"></div>
+        <div class="cb-v2-rct-stat">
+          <div class="cb-v2-rct-stat-num">100%</div>
+          <div class="cb-v2-rct-stat-label">On Brand</div>
+        </div>
+      </div>
+
+      <a href="/royal-caribbean" class="cb-v2-rct-cta">See the Full Story</a>
+    </div>
+
+    <!-- RIGHT: Ship + Content Stream -->
+    <div class="cb-v2-rct-stream cb-reveal">
+      <svg class="cb-v2-rct-stream-svg" viewBox="0 0 240 300" preserveAspectRatio="xMidYMid meet">
+
+        <!-- Rising dashed lines from funnel -->
+        <line class="cb-v2-rct-rise-line" x1="108" y1="210" x2="75" y2="20" />
+        <line class="cb-v2-rct-rise-line" x1="120" y1="210" x2="120" y2="20" />
+        <line class="cb-v2-rct-rise-line" x1="132" y1="210" x2="165" y2="20" />
+
+        <!-- Content cards - pyramid layout -->
+
+        <!-- Row 3 (bottom): 3 cards -->
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-1" x="17" y="143" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="19" y="145" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="38,155 38,170 50,162.5" />
+          <text class="cb-v2-rct-card-label" x="45" y="178" text-anchor="middle">Slides</text>
+        </g>
+
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-2" x="93" y="143" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="95" y="145" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="114,155 114,170 126,162.5" />
+          <text class="cb-v2-rct-card-label" x="121" y="178" text-anchor="middle">Dining</text>
+        </g>
+
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-3" x="169" y="143" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="171" y="145" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="190,155 190,170 202,162.5" />
+          <text class="cb-v2-rct-card-label" x="197" y="178" text-anchor="middle">Rover</text>
+        </g>
+
+        <!-- Row 2 (middle): 2 cards -->
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-4" x="55" y="85" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="57" y="87" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="76,97 76,112 88,104.5" />
+          <text class="cb-v2-rct-card-label" x="83" y="120" text-anchor="middle">Deck</text>
+        </g>
+
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-5" x="131" y="85" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="133" y="87" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="152,97 152,112 164,104.5" />
+          <text class="cb-v2-rct-card-label" x="159" y="120" text-anchor="middle">Shows</text>
+        </g>
+
+        <!-- Row 1 (top): 1 card -->
+        <g class="cb-v2-rct-card">
+          <rect class="cb-v2-rct-card-glow cb-v2-rct-glow-6" x="93" y="27" width="56" height="42" />
+          <rect class="cb-v2-rct-card-bg" x="95" y="29" width="52" height="38" />
+          <polygon class="cb-v2-rct-card-play" points="114,39 114,54 126,46.5" />
+          <text class="cb-v2-rct-card-label" x="121" y="62" text-anchor="middle">Pool</text>
+        </g>
+
+        <!-- Waves -->
+        <path class="cb-v2-rct-wave" d="M0,268 Q20,260 40,268 Q60,276 80,268 Q100,260 120,268 Q140,276 160,268 Q180,260 200,268 Q220,276 240,268" />
+        <path class="cb-v2-rct-wave-2" d="M-10,274 Q10,266 30,274 Q50,282 70,274 Q90,266 110,274 Q130,282 150,274 Q170,266 190,274 Q210,282 230,274" />
+
+        <!-- Ship -->
+        <g transform="translate(120, 255)">
+          <!-- Hull -->
+          <path class="cb-v2-rct-ship-hull" d="M-60,6 L-50,-8 L50,-8 L60,6 Q45,12 0,12 Q-45,12 -60,6 Z" />
+          <!-- Main deck -->
+          <rect class="cb-v2-rct-ship-deck" x="-42" y="-20" width="84" height="12" rx="3" />
+          <!-- Upper deck -->
+          <rect class="cb-v2-rct-ship-deck" x="-30" y="-28" width="60" height="8" rx="2" style="fill: rgba(0,188,241,0.08);" />
+          <!-- Bridge -->
+          <rect class="cb-v2-rct-ship-deck" x="-16" y="-35" width="32" height="7" rx="2" />
+          <!-- Funnel -->
+          <rect class="cb-v2-rct-ship-funnel" x="-5" y="-46" width="10" height="11" rx="2" />
+          <text class="cb-v2-rct-funnel-label" x="0" y="-38" text-anchor="middle">CB</text>
+          <!-- Windows -->
+          <rect class="cb-v2-rct-ship-window" x="-35" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="-26" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="-17" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="-8" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="1" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="10" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="19" y="-16" width="4" height="3" rx="0.5" />
+          <rect class="cb-v2-rct-ship-window" x="28" y="-16" width="4" height="3" rx="0.5" />
+        </g>
+
+      </svg>
+    </div>
+
+  </div>
+</div>

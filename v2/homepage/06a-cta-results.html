@@ -1,0 +1,254 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-cta-results {
+    --cb-teal: #00bcf1;
+    --cb-dark: #1a1a1a;
+    --cb-yellow: #ffec03;
+    --cb-pink: #eb008b;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cb-yellow);
+    overflow: hidden;
+  }
+
+  /* Top text area */
+  .cb-cta-results__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px clamp(1rem, 3vw, 2.5rem) 0;
+    text-align: center;
+  }
+
+  .cb-cta-results__title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 4px;
+    color: var(--cb-teal);
+  }
+
+  .cb-cta-results__subtitle {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 32px;
+    color: var(--cb-dark);
+  }
+
+  /* CTA Button with glow */
+  .cb-cta-results__btn {
+    display: inline-block;
+    background: var(--cb-teal);
+    color: #fff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 44px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0, 188, 241, 0.3), 0 0 0 0 rgba(0, 188, 241, 0);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+
+  .cb-cta-results__btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .cb-cta-results__btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(0, 188, 241, 0.4), 0 0 60px rgba(0, 188, 241, 0.15);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .cb-cta-results__btn:hover::before {
+    opacity: 1;
+  }
+
+  .cb-cta-results__btn:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+
+  /* Image marquee strip */
+  .cb-cta-results__marquee {
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cb-cta-results__track {
+    display: flex;
+    animation: cb-results-scroll 25s linear infinite;
+  }
+
+  .cb-cta-results__marquee:hover .cb-cta-results__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes cb-results-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .cb-cta-results__img-wrap {
+    position: relative;
+    overflow: hidden;
+    width: 240px;
+    height: 240px;
+    flex-shrink: 0;
+  }
+
+  /* Cycling color backgrounds: teal, yellow, pink */
+  .cb-cta-results__img-wrap:nth-child(3n+1) { background: var(--cb-teal); }
+  .cb-cta-results__img-wrap:nth-child(3n+2) { background: var(--cb-yellow); }
+  .cb-cta-results__img-wrap:nth-child(3n+0) { background: var(--cb-pink); }
+
+  .cb-cta-results__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cb-cta-results__img-wrap:hover .cb-cta-results__img {
+    transform: scale(1.05) rotate(1deg);
+  }
+
+  /* Reveal animation */
+  .cb-cta-results .cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cb-cta-results .cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .cb-cta-results__inner {
+      padding: 64px clamp(1rem, 3vw, 2.5rem) 0;
+    }
+
+    .cb-cta-results__track {
+      animation-duration: 32s;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .cb-cta-results__inner {
+      padding: 48px 1rem 0;
+    }
+
+    .cb-cta-results__btn {
+      font-size: 14px;
+      padding: 14px 36px;
+      margin-bottom: 36px;
+    }
+
+    .cb-cta-results__marquee {
+      height: 180px;
+    }
+
+    .cb-cta-results__img-wrap {
+      width: 180px;
+      height: 180px;
+    }
+
+    .cb-cta-results__track {
+      animation-duration: 38s;
+    }
+  }
+</style>
+
+<div class="cb-cta-results">
+  <div class="cb-cta-results__inner cb-reveal">
+    <h2 class="cb-cta-results__title">Want results like these?</h2>
+    <p class="cb-cta-results__subtitle">Let's map out your content strategy.</p>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cta-results__btn">Book a Strategy Call</a>
+  </div>
+
+  <!-- Scrolling image marquee -->
+  <div class="cb-cta-results__marquee">
+    <div class="cb-cta-results__track">
+
+      <!-- First set -->
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067842-W3N6CINAWS6FJ5O6Q484/CB_HowItWorxxx_LB_600.01_00_34_07.Still006.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067373-3MRS4UVWV56617AA85XS/CB_HowItWorxxx_LB_600.01_00_34_01.Still005.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306065468-1HKIBXXJSUM9GFEZ2CTI/CB_HowItWorxxx_LB_600.01_00_33_16.Still004.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070881-BK5GKCA5ECJQRMP9WY2H/CB_HowItWorxxx_LB_600.01_00_37_10.Still009.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070087-YSRR51XA0NJGJ0ZBXRZ6/CB_HowItWorxxx_LB_600.01_00_34_22.Still008.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306069318-SEP54C57M1PLPEUXU5Z2/CB_HowItWorxxx_LB_600.01_00_34_14.Still007.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+
+      <!-- Duplicate set for seamless loop -->
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067842-W3N6CINAWS6FJ5O6Q484/CB_HowItWorxxx_LB_600.01_00_34_07.Still006.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067373-3MRS4UVWV56617AA85XS/CB_HowItWorxxx_LB_600.01_00_34_01.Still005.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306065468-1HKIBXXJSUM9GFEZ2CTI/CB_HowItWorxxx_LB_600.01_00_33_16.Still004.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070881-BK5GKCA5ECJQRMP9WY2H/CB_HowItWorxxx_LB_600.01_00_37_10.Still009.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070087-YSRR51XA0NJGJ0ZBXRZ6/CB_HowItWorxxx_LB_600.01_00_34_22.Still008.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+      <div class="cb-cta-results__img-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306069318-SEP54C57M1PLPEUXU5Z2/CB_HowItWorxxx_LB_600.01_00_34_14.Still007.jpg" alt="Community creator filming content" class="cb-cta-results__img" loading="lazy" />
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var els = document.querySelectorAll('.cb-cta-results .cb-reveal');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { obs.observe(el); });
+})();
+</script>

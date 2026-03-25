@@ -1,0 +1,440 @@
+<!-- Cinebody v2 Homepage - Nike Case Study Teaser -->
+<!-- Dark background #1a1a1a, 3-column: video (16:9) | copy+stats | US map -->
+<style>
+  .cb-v2-nt-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    padding: 80px 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .cb-v2-nt-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 340px minmax(0, 460px) 340px;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* ===== LEFT: Video ===== */
+  .cb-v2-nt-video {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 16 / 9;
+    width: 300px;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  .cb-v2-nt-video:hover {
+    transform: scale(1.04) translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0, 188, 241, 0.2), 0 0 0 2px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-nt-video iframe {
+    position: absolute;
+    top: -1px; left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: none;
+    pointer-events: none;
+  }
+  .cb-v2-nt-video::before,
+  .cb-v2-nt-video::after { display: none; }
+
+  /* ===== CENTER: Copy + Stats + CTA ===== */
+  .cb-v2-nt-center {
+    text-align: center;
+  }
+
+  .cb-v2-nt-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cb-v2-nt-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1a1a1a;
+    background: #ffec03;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .cb-v2-nt-badge.cb-reveal {
+    animation: cb-v2-nt-badgePop 0.5s ease-out both;
+  }
+  @keyframes cb-v2-nt-badgePop {
+    0% { opacity: 0; transform: scale(0.7); }
+    70% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .cb-v2-nt-client {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .cb-v2-nt-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px 0;
+  }
+  .cb-v2-nt-title span {
+    color: #00bcf1;
+  }
+
+  .cb-v2-nt-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.65;
+    margin: 0 auto 24px;
+    max-width: 400px;
+  }
+
+  /* Stats */
+  .cb-v2-nt-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .cb-v2-nt-stat {
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+  .cb-v2-nt-stat:hover {
+    transform: translateY(-3px);
+  }
+  .cb-v2-nt-stat:hover .cb-v2-nt-stat-num {
+    color: #ffec03 !important;
+    text-shadow: 0 2px 8px rgba(255, 236, 3, 0.25);
+  }
+  .cb-v2-nt-stat:hover .cb-v2-nt-stat-label {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .cb-v2-nt-stat-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #00bcf1;
+    line-height: 1;
+    margin-bottom: 3px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  .cb-v2-nt-stat:nth-child(5) .cb-v2-nt-stat-num {
+    color: #ffec03;
+  }
+  .cb-v2-nt-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+  }
+  .cb-v2-nt-stat-pipe {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    align-self: stretch;
+  }
+
+  /* CTA */
+  .cb-v2-nt-cta {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    background: #00bcf1;
+    padding: 11px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+  .cb-v2-nt-cta:hover {
+    background: #0099c8;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 28px rgba(0, 188, 241, 0.4);
+  }
+
+  /* ===== RIGHT: Map ===== */
+  .cb-v2-nt-map {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    align-self: center;
+  }
+
+  .cb-v2-nt-map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.1;
+    pointer-events: none;
+    filter: brightness(2);
+    transition: opacity 0.4s ease;
+  }
+  .cb-v2-nt-map:hover .cb-v2-nt-map-img {
+    opacity: 0.16;
+  }
+
+  .cb-v2-nt-map-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  /* City dots */
+  .cb-v2-nt-dot-glow {
+    fill: rgba(0, 188, 241, 0.08);
+    transition: fill 0.3s ease;
+  }
+  .cb-v2-nt-dot-core {
+    fill: #00bcf1;
+    filter: drop-shadow(0 0 6px rgba(0, 188, 241, 0.7));
+    transition: fill 0.3s ease, filter 0.3s ease;
+  }
+
+  .cb-v2-nt-connection {
+    stroke: rgba(0, 188, 241, 0.12);
+    stroke-width: 1;
+    stroke-dasharray: 5 4;
+    fill: none;
+    animation: cb-v2-nt-dash 18s linear infinite;
+    transition: stroke 0.3s ease;
+  }
+  .cb-v2-nt-map:hover .cb-v2-nt-connection {
+    stroke: rgba(0, 188, 241, 0.25);
+  }
+  @keyframes cb-v2-nt-dash {
+    to { stroke-dashoffset: -100; }
+  }
+
+  /* City hover */
+  .cb-v2-nt-city {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .cb-v2-nt-city:hover .cb-v2-nt-dot-glow {
+    fill: rgba(255, 236, 3, 0.15);
+  }
+  .cb-v2-nt-city:hover .cb-v2-nt-dot-core {
+    fill: #ffec03;
+    filter: drop-shadow(0 0 12px rgba(255, 236, 3, 0.85));
+  }
+  .cb-v2-nt-city:hover .cb-v2-nt-city-label {
+    fill: #ffec03;
+  }
+
+  /* Pulse rings */
+  .cb-v2-nt-pulse {
+    fill: none;
+    stroke: #00bcf1;
+    stroke-width: 1.5;
+    opacity: 0;
+    transition: stroke 0.3s ease;
+  }
+  .cb-v2-nt-city:hover .cb-v2-nt-pulse {
+    stroke: #ffec03;
+  }
+  .cb-v2-nt-city:nth-child(1) .cb-v2-nt-pulse { animation: cb-v2-nt-pulseRing 3s ease-out infinite 0s; }
+  .cb-v2-nt-city:nth-child(2) .cb-v2-nt-pulse { animation: cb-v2-nt-pulseRing 3s ease-out infinite 0.75s; }
+  .cb-v2-nt-city:nth-child(3) .cb-v2-nt-pulse { animation: cb-v2-nt-pulseRing 3s ease-out infinite 1.5s; }
+  .cb-v2-nt-city:nth-child(4) .cb-v2-nt-pulse { animation: cb-v2-nt-pulseRing 3s ease-out infinite 2.25s; }
+
+  @keyframes cb-v2-nt-pulseRing {
+    0% { r: 7; opacity: 0.6; stroke-width: 2; }
+    100% { r: 28; opacity: 0; stroke-width: 0.3; }
+  }
+
+  .cb-v2-nt-city-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    fill: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: fill 0.3s ease;
+  }
+
+  /* ===== cb-reveal animations ===== */
+  .cb-v2-nt-video.cb-reveal {
+    animation: cb-v2-nt-slideLeft 0.7s ease-out both;
+  }
+  @keyframes cb-v2-nt-slideLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .cb-v2-nt-center.cb-reveal {
+    animation: cb-v2-nt-fadeUp 0.7s ease-out 0.1s both;
+  }
+  @keyframes cb-v2-nt-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cb-v2-nt-map.cb-reveal {
+    animation: cb-v2-nt-slideRight 0.7s ease-out 0.2s both;
+  }
+  @keyframes cb-v2-nt-slideRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1000px) {
+    .cb-v2-nt-container {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 0 32px;
+    }
+    .cb-v2-nt-center { order: 1; }
+    .cb-v2-nt-video { order: 2; width: 260px; margin: 0 auto; }
+    .cb-v2-nt-map { order: 3; max-width: 300px; margin: 0 auto; }
+    .cb-v2-nt-stats { gap: 18px; }
+    .cb-v2-nt-stat-num { font-size: 1.4rem; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .cb-v2-nt-wrapper { padding: 56px 0; }
+    .cb-v2-nt-container {
+      gap: 28px;
+      padding: 0 24px;
+    }
+    .cb-v2-nt-video { width: 100%; max-width: 280px; }
+    .cb-v2-nt-map { max-width: 260px; }
+    .cb-v2-nt-stats { gap: 14px; }
+    .cb-v2-nt-stat-num { font-size: 1.3rem; }
+    .cb-v2-nt-desc { font-size: 0.84rem; max-width: 320px; }
+  }
+</style>
+
+<div class="cb-v2-nt-wrapper">
+  <div class="cb-v2-nt-container">
+
+    <!-- LEFT: Video -->
+    <a href="/nike" class="cb-v2-nt-video cb-reveal">
+      <iframe
+        src="https://player.vimeo.com/video/265928299?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </a>
+
+    <!-- CENTER: Copy + Stats + CTA -->
+    <div class="cb-v2-nt-center cb-reveal">
+      <div class="cb-v2-nt-eyebrow">
+        <span class="cb-v2-nt-badge cb-reveal">Case Study</span>
+        <span class="cb-v2-nt-client">Nike</span>
+      </div>
+      <h3 class="cb-v2-nt-title">
+        <span>Four cities. One weekend.</span><br>
+        Zero production crews.
+      </h3>
+      <p class="cb-v2-nt-desc">Nike used Cinebody to capture authentic run club content across the country &mdash; simultaneously, on brand, at scale.</p>
+
+      <div class="cb-v2-nt-stats">
+        <div class="cb-v2-nt-stat">
+          <div class="cb-v2-nt-stat-num">4</div>
+          <div class="cb-v2-nt-stat-label">Cities</div>
+        </div>
+        <div class="cb-v2-nt-stat-pipe"></div>
+        <div class="cb-v2-nt-stat">
+          <div class="cb-v2-nt-stat-num">0</div>
+          <div class="cb-v2-nt-stat-label">Crews</div>
+        </div>
+        <div class="cb-v2-nt-stat-pipe"></div>
+        <div class="cb-v2-nt-stat">
+          <div class="cb-v2-nt-stat-num">1</div>
+          <div class="cb-v2-nt-stat-label">Platform</div>
+        </div>
+        <div class="cb-v2-nt-stat-pipe"></div>
+        <div class="cb-v2-nt-stat">
+          <div class="cb-v2-nt-stat-num">100%</div>
+          <div class="cb-v2-nt-stat-label">On Brand</div>
+        </div>
+      </div>
+
+      <a href="/nike" class="cb-v2-nt-cta">See the Full Story</a>
+    </div>
+
+    <!-- RIGHT: US Map with City Dots -->
+    <div class="cb-v2-nt-map cb-reveal">
+      <img
+        class="cb-v2-nt-map-img"
+        src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/06fc5653-5ee8-4524-b07a-10c3ae0d26a4/united-states.png?format=750w"
+        alt="US map"
+      />
+      <svg class="cb-v2-nt-map-svg" viewBox="0 0 533 354" preserveAspectRatio="xMidYMid meet">
+        <!-- Connection lines -->
+        <line class="cb-v2-nt-connection" x1="72" y1="210" x2="248" y2="255" />
+        <line class="cb-v2-nt-connection" x1="248" y1="255" x2="340" y2="125" />
+        <line class="cb-v2-nt-connection" x1="340" y1="125" x2="478" y2="112" />
+        <line class="cb-v2-nt-connection" x1="72" y1="210" x2="340" y2="125" />
+        <line class="cb-v2-nt-connection" x1="248" y1="255" x2="478" y2="112" />
+        <line class="cb-v2-nt-connection" x1="72" y1="210" x2="478" y2="112" />
+
+        <!-- LA -->
+        <g class="cb-v2-nt-city">
+          <circle class="cb-v2-nt-pulse" cx="72" cy="210" r="7" />
+          <circle class="cb-v2-nt-dot-glow" cx="72" cy="210" r="18" />
+          <circle class="cb-v2-nt-dot-core" cx="72" cy="210" r="6" />
+          <text class="cb-v2-nt-city-label" x="72" y="235" text-anchor="middle">LA</text>
+        </g>
+
+        <!-- Austin -->
+        <g class="cb-v2-nt-city">
+          <circle class="cb-v2-nt-pulse" cx="248" cy="255" r="7" />
+          <circle class="cb-v2-nt-dot-glow" cx="248" cy="255" r="18" />
+          <circle class="cb-v2-nt-dot-core" cx="248" cy="255" r="6" />
+          <text class="cb-v2-nt-city-label" x="248" y="280" text-anchor="middle">ATX</text>
+        </g>
+
+        <!-- Chicago -->
+        <g class="cb-v2-nt-city">
+          <circle class="cb-v2-nt-pulse" cx="340" cy="125" r="7" />
+          <circle class="cb-v2-nt-dot-glow" cx="340" cy="125" r="18" />
+          <circle class="cb-v2-nt-dot-core" cx="340" cy="125" r="6" />
+          <text class="cb-v2-nt-city-label" x="340" y="110" text-anchor="middle">CHI</text>
+        </g>
+
+        <!-- NYC -->
+        <g class="cb-v2-nt-city">
+          <circle class="cb-v2-nt-pulse" cx="478" cy="112" r="7" />
+          <circle class="cb-v2-nt-dot-glow" cx="478" cy="112" r="18" />
+          <circle class="cb-v2-nt-dot-core" cx="478" cy="112" r="6" />
+          <text class="cb-v2-nt-city-label" x="478" y="97" text-anchor="middle">NYC</text>
+        </g>
+      </svg>
+    </div>
+
+  </div>
+</div>
