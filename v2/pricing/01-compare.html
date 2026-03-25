@@ -1,0 +1,165 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-compare {
+    --cb-teal: #00bcf1;
+    --cb-dark: #1a1a1a;
+    --cb-body: #71717a;
+    --cb-trust: #a1a1aa;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f4f4f5;
+    padding: 80px 0;
+  }
+
+  .cb-compare-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .cb-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .cb-compare-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cb-compare-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .cb-compare-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 28px;
+    display: block;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+
+  .cb-compare-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cb-teal);
+    margin: 0 0 14px;
+    line-height: 1.25;
+  }
+
+  .cb-compare-card p {
+    font-size: 0.95rem;
+    color: var(--cb-body);
+    line-height: 1.65;
+    margin: 0 0 24px;
+  }
+
+  .cb-compare-price {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cb-teal);
+    margin: 0 0 24px;
+  }
+
+  .cb-compare-btn {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 100px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .cb-compare-btn--primary {
+    background: var(--cb-teal);
+    color: #fff;
+    border: 2px solid var(--cb-teal);
+  }
+
+  .cb-compare-btn--primary:hover {
+    background: #009fd4;
+    border-color: #009fd4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,188,241,0.35);
+  }
+
+  .cb-compare-btn--outline {
+    background: transparent;
+    color: var(--cb-teal);
+    border: 2px solid var(--cb-teal);
+  }
+
+  .cb-compare-btn--outline:hover {
+    background: var(--cb-teal);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,188,241,0.35);
+  }
+
+  @media (max-width: 768px) {
+    .cb-compare-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .cb-compare-card {
+      padding: 32px 28px;
+    }
+
+    .cb-compare-img {
+      width: 130px;
+      height: 130px;
+    }
+  }
+</style>
+
+<div class="cb-compare">
+  <div class="cb-compare-container">
+    <div class="cb-compare-grid">
+
+      <!-- Card 1: Services -->
+      <div class="cb-compare-card">
+        <img
+          class="cb-compare-img"
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/39ac2bb5-c3fa-47e8-88bd-ac9e68606e4d/unsplash-image-tUpJSfgkKvo.jpg"
+          alt="Creative services team at work"
+          loading="lazy"
+        />
+        <h3>Want a team behind your content?</h3>
+        <p>From strategy to final cut, our producers and editors handle every step. You approve. We deliver.</p>
+        <div class="cb-compare-price">Contact us for custom pricing</div>
+        <a href="https://calendly.com/cinebody" class="cb-compare-btn cb-compare-btn--primary">Talk to Our Team</a>
+      </div>
+
+      <!-- Card 2: Software -->
+      <div class="cb-compare-card">
+        <img
+          class="cb-compare-img"
+          src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752690852135-2P56HV9LTN1FF839DFJH/unsplash-image-ab0D6SoBn3w.jpg"
+          alt="Person using Cinebody platform on laptop"
+          loading="lazy"
+        />
+        <h3>Want to run it yourself?</h3>
+        <p>The platform lets you direct shoots remotely and collect footage from anyone, anywhere. Set the specs, send the link, get the clips.</p>
+        <div class="cb-compare-price">Plans start at $250/mo</div>
+        <a href="#pricing-plans" class="cb-compare-btn cb-compare-btn--outline">See Platform Pricing</a>
+      </div>
+
+    </div>
+  </div>
+</div>
