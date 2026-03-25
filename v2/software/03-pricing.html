@@ -1,0 +1,492 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-sw-pricing {
+    --cb-teal: #00bcf1;
+    --cb-900: #1a1a1a;
+    --cb-700: #3f3f46;
+    --cb-500: #71717a;
+    --cb-300: #d4d4d8;
+    --cb-200: #e4e4e7;
+    --cb-100: #f4f4f5;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fff;
+    padding: 96px 0;
+  }
+
+  .cb-sw-pricing-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+  }
+
+  /* ── Header ── */
+  .cb-sw-pricing-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 48px;
+  }
+
+  .cb-sw-pricing-header h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--cb-900);
+    margin: 0 0 16px;
+    line-height: 1.15;
+  }
+
+  .cb-sw-pricing-header p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cb-500);
+    margin: 0 0 24px;
+  }
+
+  /* Savings badge */
+  .cb-sw-pricing-savings {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cb-900);
+    background: rgba(245, 197, 66, 0.15);
+    border-radius: 100px;
+    padding: 8px 20px;
+    line-height: 1;
+  }
+
+  /* ── Toggle ── */
+  .cb-sw-pricing-toggle-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 32px 0 48px;
+  }
+
+  .cb-sw-pricing-toggle-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cb-300);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    user-select: none;
+  }
+
+  .cb-sw-pricing-toggle-label.is-active {
+    color: var(--cb-900);
+  }
+
+  .cb-sw-pricing-toggle {
+    width: 48px;
+    height: 26px;
+    background: var(--cb-200);
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    outline: none;
+    transition: background 0.2s ease;
+  }
+
+  .cb-sw-pricing-toggle[aria-checked="true"] {
+    background: var(--cb-teal);
+  }
+
+  .cb-sw-pricing-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease;
+  }
+
+  .cb-sw-pricing-toggle[aria-checked="true"]::after {
+    transform: translateX(22px);
+  }
+
+  /* ── Cards grid ── */
+  .cb-sw-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .cb-sw-pricing-card {
+    background: #fff;
+    border: 1.5px solid var(--cb-200);
+    border-radius: 20px;
+    padding: 40px 32px;
+    position: relative;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .cb-sw-pricing-card:hover {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+    transform: translateY(-4px);
+  }
+
+  /* Featured card */
+  .cb-sw-pricing-card.is-featured {
+    border-color: var(--cb-teal);
+    box-shadow: 0 8px 40px rgba(0, 188, 241, 0.12);
+  }
+
+  .cb-sw-pricing-card.is-featured:hover {
+    box-shadow: 0 12px 48px rgba(0, 188, 241, 0.18);
+  }
+
+  .cb-sw-pricing-popular {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: var(--cb-teal);
+    padding: 5px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .cb-sw-pricing-tier {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cb-500);
+    margin: 0 0 16px;
+  }
+
+  .cb-sw-pricing-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .cb-sw-pricing-dollar {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cb-900);
+    line-height: 1;
+  }
+
+  .cb-sw-pricing-amount {
+    font-size: clamp(2.5rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--cb-900);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .cb-sw-pricing-period {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cb-500);
+  }
+
+  .cb-sw-pricing-billing {
+    font-size: 12px;
+    color: var(--cb-500);
+    margin: 0 0 24px;
+  }
+
+  .cb-sw-pricing-custom-label {
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: var(--cb-900);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin: 0 0 8px;
+  }
+
+  .cb-sw-pricing-custom-sub {
+    font-size: 14px;
+    color: var(--cb-500);
+    margin: 0 0 24px;
+  }
+
+  /* Divider */
+  .cb-sw-pricing-divider {
+    height: 1px;
+    background: var(--cb-200);
+    margin: 0 0 24px;
+    border: none;
+  }
+
+  .cb-sw-pricing-includes {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cb-500);
+    margin: 0 0 16px;
+  }
+
+  /* Feature list */
+  .cb-sw-pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cb-sw-pricing-features li {
+    font-size: 14px;
+    color: var(--cb-700);
+    line-height: 1.45;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .cb-sw-pricing-features li::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 8.2L6.5 11.2L12.5 4.8' stroke='%2300bcf1' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  /* CTA Buttons */
+  .cb-sw-pricing-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cb-sw-pricing-btn:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  /* Outline */
+  .cb-sw-pricing-btn--outline {
+    color: var(--cb-900);
+    border: 1.5px solid var(--cb-300);
+    background: transparent;
+  }
+
+  .cb-sw-pricing-btn--outline:hover {
+    border-color: var(--cb-900);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    color: var(--cb-900);
+  }
+
+  /* Blue (teal) */
+  .cb-sw-pricing-btn--teal {
+    color: #fff;
+    background: var(--cb-teal);
+    border: 1.5px solid var(--cb-teal);
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+
+  .cb-sw-pricing-btn--teal:hover {
+    box-shadow: 0 6px 24px rgba(0, 188, 241, 0.35);
+    color: #fff;
+  }
+
+  /* Yellow */
+  .cb-sw-pricing-btn--yellow {
+    color: var(--cb-900);
+    background: var(--cb-yellow);
+    border: 1.5px solid var(--cb-yellow);
+    box-shadow: 0 4px 16px rgba(245, 197, 66, 0.25);
+  }
+
+  .cb-sw-pricing-btn--yellow:hover {
+    box-shadow: 0 6px 24px rgba(245, 197, 66, 0.35);
+    color: var(--cb-900);
+  }
+
+  /* Footer note */
+  .cb-sw-pricing-footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: var(--cb-500);
+  }
+
+  .cb-sw-pricing-footer a {
+    color: var(--cb-teal);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+  }
+
+  .cb-sw-pricing-footer a:hover {
+    opacity: 0.8;
+  }
+
+  /* Reveal */
+  .cb-sw-pricing-header.cb-reveal,
+  .cb-sw-pricing-grid.cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cb-sw-pricing-header.cb-reveal.is-visible,
+  .cb-sw-pricing-grid.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .cb-sw-pricing-grid.cb-reveal {
+    transition-delay: 0.12s;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .cb-sw-pricing-grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .cb-sw-pricing-card.is-featured {
+      order: -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cb-sw-pricing {
+      padding: 64px 0;
+    }
+
+    .cb-sw-pricing-card {
+      padding: 32px 24px;
+    }
+  }
+</style>
+
+<section class="cb-sw-pricing">
+  <div class="cb-sw-pricing-container">
+
+    <!-- Header -->
+    <div class="cb-sw-pricing-header cb-reveal">
+      <h2>Pick the plan that fits how you work.</h2>
+      <p>Run it yourself or bring in our team. Real content from real people — at a fraction of traditional production costs.</p>
+      <span class="cb-sw-pricing-savings">Brands using Cinebody typically save 70%+ vs. traditional production</span>
+
+      <!-- Toggle -->
+      <div class="cb-sw-pricing-toggle-wrap">
+        <span class="cb-sw-pricing-toggle-label is-active" id="cb-label-annual">Annual</span>
+        <button class="cb-sw-pricing-toggle" id="cb-pricing-toggle" role="switch" aria-checked="false" aria-label="Toggle annual or monthly pricing"></button>
+        <span class="cb-sw-pricing-toggle-label" id="cb-label-monthly">Monthly</span>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cb-sw-pricing-grid cb-reveal">
+
+      <!-- Plus -->
+      <div class="cb-sw-pricing-card">
+        <p class="cb-sw-pricing-tier">Plus</p>
+        <div class="cb-sw-pricing-price">
+          <span class="cb-sw-pricing-dollar">$</span>
+          <span class="cb-sw-pricing-amount" data-annual="250" data-monthly="350">250</span>
+          <span class="cb-sw-pricing-period">/mo</span>
+        </div>
+        <p class="cb-sw-pricing-billing" data-billing-annual="Billed annually" data-billing-monthly="Billed monthly">Billed annually</p>
+
+        <hr class="cb-sw-pricing-divider">
+        <p class="cb-sw-pricing-includes">What's included</p>
+
+        <ul class="cb-sw-pricing-features">
+          <li>1 Team</li>
+          <li>2 admin seats</li>
+          <li>25GB storage</li>
+          <li>Unlimited filmers</li>
+          <li>Shot lists</li>
+          <li>Photo capture</li>
+          <li>Email support</li>
+        </ul>
+
+        <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-sw-pricing-btn cb-sw-pricing-btn--outline" target="_blank" rel="noopener">Get Started</a>
+      </div>
+
+      <!-- Pro (Featured) -->
+      <div class="cb-sw-pricing-card is-featured">
+        <span class="cb-sw-pricing-popular">Most Popular</span>
+        <p class="cb-sw-pricing-tier">Pro</p>
+        <div class="cb-sw-pricing-price">
+          <span class="cb-sw-pricing-dollar">$</span>
+          <span class="cb-sw-pricing-amount" data-annual="500" data-monthly="650">500</span>
+          <span class="cb-sw-pricing-period">/mo</span>
+        </div>
+        <p class="cb-sw-pricing-billing" data-billing-annual="Billed annually" data-billing-monthly="Billed monthly">Billed annually</p>
+
+        <hr class="cb-sw-pricing-divider">
+        <p class="cb-sw-pricing-includes">Everything in Plus, and</p>
+
+        <ul class="cb-sw-pricing-features">
+          <li>Multiple teams</li>
+          <li>5 admin seats</li>
+          <li>100GB storage</li>
+          <li>Dedicated support</li>
+          <li>SSO</li>
+          <li>Custom legal</li>
+          <li>API access</li>
+        </ul>
+
+        <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-sw-pricing-btn cb-sw-pricing-btn--teal" target="_blank" rel="noopener">Book a Demo</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="cb-sw-pricing-card">
+        <p class="cb-sw-pricing-tier">Enterprise</p>
+        <p class="cb-sw-pricing-custom-label">Custom</p>
+        <p class="cb-sw-pricing-custom-sub">Tailored to your organization</p>
+
+        <hr class="cb-sw-pricing-divider">
+        <p class="cb-sw-pricing-includes">Everything in Pro, and</p>
+
+        <ul class="cb-sw-pricing-features">
+          <li>Custom teams &amp; admins</li>
+          <li>Custom storage</li>
+          <li>Concierge support</li>
+          <li>Advanced security</li>
+          <li>Custom integrations</li>
+          <li>Strategic Producer</li>
+          <li>Custom legal agreements</li>
+        </ul>
+
+        <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-sw-pricing-btn cb-sw-pricing-btn--yellow" target="_blank" rel="noopener">Talk to Our Team</a>
+      </div>
+
+    </div>
+
+    <!-- Footer note -->
+    <p class="cb-sw-pricing-footer">Need help with production? <a href="/services">Pair any plan with our creative services &rarr;</a></p>
+
+  </div>
+</section>

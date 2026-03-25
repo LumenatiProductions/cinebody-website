@@ -1,0 +1,346 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-sw-hiw {
+    --cb-teal: #00bcf1;
+    --cb-900: #1a1a1a;
+    --cb-700: #3f3f46;
+    --cb-500: #71717a;
+    --cb-300: #d4d4d8;
+    --cb-100: #f4f4f5;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fff;
+    padding: 96px 0;
+  }
+
+  .cb-sw-hiw-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* ── Left column: Steps ── */
+  .cb-sw-hiw-left h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--cb-900);
+    margin: 0 0 48px;
+    line-height: 1.15;
+  }
+
+  .cb-sw-hiw-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .cb-sw-hiw-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    position: relative;
+    padding-bottom: 40px;
+  }
+
+  .cb-sw-hiw-step:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Vertical connecting line */
+  .cb-sw-hiw-step:not(:last-child) .cb-sw-hiw-num::after {
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: calc(100% - 8px);
+    background: var(--cb-300);
+  }
+
+  .cb-sw-hiw-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--cb-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cb-900);
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .cb-sw-hiw-step:hover .cb-sw-hiw-num {
+    background: var(--cb-teal);
+    border-color: var(--cb-teal);
+    color: #fff;
+  }
+
+  .cb-sw-hiw-step-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cb-900);
+    margin: 0 0 8px;
+    padding-top: 2px;
+  }
+
+  .cb-sw-hiw-step-content p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--cb-500);
+    margin: 0;
+  }
+
+  /* Steps CTA */
+  .cb-sw-hiw-cta {
+    display: inline-block;
+    background: var(--cb-teal);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 40px;
+  }
+
+  .cb-sw-hiw-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 188, 241, 0.35);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* ── Right column: Dark card ── */
+  .cb-sw-hiw-card {
+    background: var(--cb-900);
+    border-radius: 20px;
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle radial gradient accent top-right */
+  .cb-sw-hiw-card::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0, 188, 241, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cb-sw-hiw-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--cb-teal);
+    margin: 0 0 16px;
+  }
+
+  .cb-sw-hiw-card h4 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 16px;
+  }
+
+  .cb-sw-hiw-card-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #a1a1aa;
+    margin: 0 0 28px;
+  }
+
+  /* Checkmark list */
+  .cb-sw-hiw-checks {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cb-sw-hiw-checks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #e4e4e7;
+    line-height: 1.4;
+  }
+
+  .cb-sw-hiw-checks li svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Ghost button */
+  .cb-sw-hiw-ghost {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    padding: 12px 28px;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .cb-sw-hiw-ghost:hover {
+    border-color: var(--cb-teal);
+    background: rgba(0, 188, 241, 0.08);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* Reveal */
+  .cb-sw-hiw-left.cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .cb-sw-hiw-left.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .cb-sw-hiw-card.cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+  }
+  .cb-sw-hiw-card.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .cb-sw-hiw-container {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .cb-sw-hiw-card {
+      max-width: 520px;
+    }
+
+    .cb-sw-hiw-cta,
+    .cb-sw-hiw-ghost {
+      display: block;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .cb-sw-hiw-left h2 {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cb-sw-hiw {
+      padding: 64px 0;
+    }
+
+    .cb-sw-hiw-card {
+      padding: 32px 24px;
+    }
+  }
+</style>
+
+<section class="cb-sw-hiw">
+  <div class="cb-sw-hiw-container">
+
+    <!-- Left column: Steps -->
+    <div class="cb-sw-hiw-left cb-reveal">
+      <h2>How the Cinebody platform works</h2>
+
+      <div class="cb-sw-hiw-steps">
+
+        <div class="cb-sw-hiw-step">
+          <div class="cb-sw-hiw-num">1</div>
+          <div class="cb-sw-hiw-step-content">
+            <h3>Onboard your filmers</h3>
+            <p>Share a link or QR code. Filmers are capturing in under a minute — no app download required.</p>
+          </div>
+        </div>
+
+        <div class="cb-sw-hiw-step">
+          <div class="cb-sw-hiw-num">2</div>
+          <div class="cb-sw-hiw-step-content">
+            <h3>Direct from anywhere</h3>
+            <p>Set your shot list with exact FPS, resolution, and orientation. Like having a director on every set, remotely.</p>
+          </div>
+        </div>
+
+        <div class="cb-sw-hiw-step">
+          <div class="cb-sw-hiw-num">3</div>
+          <div class="cb-sw-hiw-step-content">
+            <h3>Get footage instantly</h3>
+            <p>Video syncs to your cloud dashboard the second recording stops. Review, approve, and download in one place.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-sw-hiw-cta" target="_blank" rel="noopener">Demo the Platform</a>
+    </div>
+
+    <!-- Right column: Dark card -->
+    <div class="cb-sw-hiw-card cb-reveal">
+      <p class="cb-sw-hiw-card-label">Creative Services</p>
+      <h4>Don't have an editing team? We do.</h4>
+      <p class="cb-sw-hiw-card-body">Pair the platform with our creative services for end-to-end production — from strategy and casting to editing and delivery.</p>
+
+      <ul class="cb-sw-hiw-checks">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="#00bcf1" fill-opacity="0.15"/><path d="M5.5 9.2L7.8 11.5L12.5 6.5" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Strategy &amp; creative direction
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="#00bcf1" fill-opacity="0.15"/><path d="M5.5 9.2L7.8 11.5L12.5 6.5" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Professional editing &amp; revisions
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="#00bcf1" fill-opacity="0.15"/><path d="M5.5 9.2L7.8 11.5L12.5 6.5" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Branded motion graphics &amp; music
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="#00bcf1" fill-opacity="0.15"/><path d="M5.5 9.2L7.8 11.5L12.5 6.5" stroke="#00bcf1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Dedicated Strategic Producer
+        </li>
+      </ul>
+
+      <a href="/services" class="cb-sw-hiw-ghost">Explore Services</a>
+    </div>
+
+  </div>
+</section>
