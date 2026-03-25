@@ -1,0 +1,229 @@
+<!-- 02 — Social Proof: Logo Marquee + Stats Bar -->
+<section class="social-proof">
+
+  <!-- Logo Marquee -->
+  <div class="logo-marquee-section">
+    <p class="marquee-label">Trusted by the world's most ambitious brands</p>
+    <div class="marquee-track-wrapper">
+      <div class="marquee-track" id="marqueeTrack">
+        <!-- Logos populated by JS below -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" data-count-to="160" data-count-suffix="+">0+</span>
+        <span class="stat-label">Countries</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-count-to="5000" data-count-suffix="+">0+</span>
+        <span class="stat-label">Cities</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-count-to="70" data-count-suffix="%">0%</span>
+        <span class="stat-label">Cost Savings</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-count-to="24" data-count-suffix="hr">0hr</span>
+        <span class="stat-label">Sync</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+/* ------------------------------------------------
+   02 — Social Proof
+   ------------------------------------------------ */
+
+/* Logo Marquee Section */
+.logo-marquee-section {
+  background: #fafafa;
+  padding: 40px 0;
+  overflow: hidden;
+}
+
+.marquee-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: center;
+  margin: 0 0 28px;
+}
+
+.marquee-track-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-track img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+.marquee-track img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Stats Bar */
+.stats-bar {
+  background: #00bcf1;
+  padding: 28px 24px;
+}
+
+.stats-grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 0 24px;
+}
+
+.stat-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+
+/* Responsive — Tablet */
+@media (max-width: 768px) {
+  .stats-grid {
+    flex-wrap: wrap;
+    gap: 20px 0;
+  }
+
+  .stat-item {
+    flex: 0 0 50%;
+    padding: 8px 0;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+
+/* Responsive — Small Mobile */
+@media (max-width: 480px) {
+  .logo-marquee-section {
+    padding: 32px 0;
+  }
+
+  .marquee-label {
+    font-size: 11px;
+    padding: 0 16px;
+    margin-bottom: 20px;
+  }
+
+  .marquee-track img {
+    height: 24px;
+  }
+
+  .marquee-track {
+    gap: 36px;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+}
+</style>
+
+<script>
+(function () {
+  /* ---- Logo Marquee ---- */
+  const logos = [
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627396194-CW02B4SCASKFVILEHX39/image.png?format=300w', alt: 'Siemens' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627404824-YUXZ8IAY5N0NJ7Y6L4Y7/WebMD_logo.png?format=300w', alt: 'WebMD' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627411120-274CV165FQ2V3F5ES5RB/Royal_Caribbean_logo_%2525282024%252529.svg.png?format=300w', alt: 'Royal Caribbean' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627421486-833XE0MQ1XX3CN6X4CWM/Roku_logo.svg.png?format=300w', alt: 'Roku' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627430711-TW8HK4VKFQZ4J7AZ0P7G/Altra_running_logo.png?format=300w', alt: 'Altra' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627268766-2QVYTRN3751AIPACC1DY/Boeing_full_logo.svg.png?format=300w', alt: 'Boeing' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627290901-W6MGMUKBSWN9LCQ0A0PE/Experian_logo.svg.png?format=300w', alt: 'Experian' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627278987-YPPWINMNWY9CFG5RG38P/Dell_Logo.svg.png?format=100w', alt: 'Dell' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627309936-06LGFF1K8WXPIXXW2NVF/S%252526P_Global_logo.svg.png?format=300w', alt: 'S&P Global' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627244801-4T8VLUAN2NBAD3KRIXG0/ACS_RGB.webp?format=300w', alt: 'ACS' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627302251-THIBJL435U9YGI7FHQLF/Logo_Ball_Corporation.svg.png?format=100w', alt: 'Ball' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627368500-NQBINXS11BCBMVSRSI07/Raising_Cane%252527s_Chicken_Fingers_logo.svg.png?format=300w', alt: "Raising Cane's" }
+  ];
+
+  const track = document.getElementById('marqueeTrack');
+
+  // Duplicate logos 3x for seamless infinite scroll
+  for (let i = 0; i < 3; i++) {
+    logos.forEach(function (logo) {
+      const img = document.createElement('img');
+      img.src = logo.src;
+      img.alt = logo.alt;
+      img.loading = 'lazy';
+      img.draggable = false;
+      track.appendChild(img);
+    });
+  }
+})();
+</script>
