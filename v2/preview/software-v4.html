@@ -196,8 +196,7 @@ body > * { position: relative; z-index: 1; }
 /* Video wall — 2x2 grid */
 .hero-wall {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   width: 100%;
 }
@@ -260,7 +259,7 @@ body > * { position: relative; z-index: 1; }
 
 .how h2 {
   font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.03em;
-  line-height: 1.1; margin-bottom: 64px; text-align: center;
+  line-height: 1.1; margin-bottom: 64px; text-align: center; color: #111;
 }
 
 .steps {
@@ -271,7 +270,7 @@ body > * { position: relative; z-index: 1; }
 /* Connecting line */
 .steps::before {
   content: ''; position: absolute; top: 28px; left: calc(16.66% + 14px); right: calc(16.66% + 14px);
-  height: 2px; background: var(--border);
+  height: 2px; background: #e0e0e0;
   z-index: 0;
 }
 
@@ -297,11 +296,11 @@ body > * { position: relative; z-index: 1; }
 
 .step h3 {
   font-size: 1rem; font-weight: 700; margin-bottom: 10px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.01em; color: #111;
 }
 
 .step p {
-  font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;
+  font-size: 0.85rem; color: #666; line-height: 1.6;
   max-width: 280px; margin: 0 auto;
 }
 
@@ -310,12 +309,12 @@ body > * { position: relative; z-index: 1; }
 /* ═══════════════════════════
    CROSS-SELL CARD
    ═══════════════════════════ */
-.cross-sell { padding: 0 0 120px; position: relative; }
+.cross-sell { padding: 0 0 80px; position: relative; background: #fff; }
 
 .cross-card {
-  background: var(--surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  background: #111; color: #fff;
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+  padding: 48px; max-width: 640px;
   align-items: center; transition: border-color 0.4s ease;
   overflow: hidden; position: relative;
 }
@@ -356,6 +355,60 @@ body > * { position: relative; z-index: 1; }
 }
 
 /* ═══════════════════════════
+   PRICING — original proven design
+   ═══════════════════════════ */
+.cb-pricing * { margin: 0; padding: 0; box-sizing: border-box; }
+.cb-pricing__header { text-align: center; max-width: 800px; margin: 0 auto 12px; }
+.cb-pricing__header h2 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 16px; color: #0d0d0d; }
+.cb-pricing__header p { font-size: clamp(1rem, 2vw, 1.15rem); color: #71717a; line-height: 1.6; max-width: 680px; margin: 0 auto; }
+.cb-pricing__savings { display: block; margin: 20px auto 32px; padding: 10px 24px; background: linear-gradient(135deg, #fefde6 0%, #fdf9b8 100%); border: 1px solid rgba(254,242,71,0.35); border-radius: 100px; width: fit-content; font-size: 0.9rem; font-weight: 500; color: #3f3f46; text-align: center; }
+.cb-pricing__toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 32px; font-size: 0.95rem; font-weight: 500; }
+.cb-pricing__toggle-label { color: #71717a; transition: color 0.3s; cursor: pointer; user-select: none; }
+.cb-pricing__toggle-label--active { color: #0d0d0d; }
+.cb-pricing__toggle { position: relative; width: 52px; height: 28px; background: #c4c4c8; border-radius: 100px; cursor: pointer; transition: background 0.3s; border: none; }
+.cb-pricing__toggle[aria-checked="true"] { background: #07BCF1; }
+.cb-pricing__toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.cb-pricing__toggle[aria-checked="true"]::after { transform: translateX(24px); }
+.cb-pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+.cb-pricing__card { position: relative; background: #fff; border: 1px solid #ededef; border-radius: 16px; padding: 36px 30px 32px; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s; }
+.cb-pricing__card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+.cb-pricing__card--featured { border: 2px solid #07BCF1; box-shadow: 0 12px 32px rgba(7,188,241,0.14); }
+.cb-pricing__card--featured:hover { box-shadow: 0 24px 48px rgba(7,188,241,0.2); }
+.cb-pricing__badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: #07BCF1; color: #fff; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 16px; border-radius: 100px; white-space: nowrap; }
+.cb-pricing__plan-name { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #71717a; margin-bottom: 4px; }
+.cb-pricing__card--featured .cb-pricing__plan-name { color: #07BCF1; }
+.cb-pricing__card--featured .cb-pricing__price-dollar, .cb-pricing__card--featured .cb-pricing__price-amount { color: #07BCF1; }
+.cb-pricing__plan-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; color: #0d0d0d; }
+.cb-pricing__plan-desc { font-size: 0.88rem; color: #71717a; line-height: 1.5; margin-bottom: 24px; min-height: 40px; }
+.cb-pricing__price-wrap { margin-bottom: 24px; }
+.cb-pricing__price { display: flex; align-items: baseline; gap: 4px; }
+.cb-pricing__price-dollar { font-size: 0.95rem; font-weight: 600; position: relative; top: -18px; }
+.cb-pricing__price-amount { font-size: 3rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.cb-pricing__price-period { font-size: 0.88rem; color: #71717a; }
+.cb-pricing__price-billing { font-size: 0.8rem; color: #71717a; margin-top: 4px; }
+.cb-pricing__price-custom { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; color: #0d0d0d; }
+.cb-pricing__price-custom-sub { font-size: 0.88rem; color: #71717a; margin-top: 4px; }
+.cb-pricing__divider { height: 1px; background: #ededef; margin-bottom: 24px; }
+.cb-pricing__features-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #71717a; margin-bottom: 14px; }
+.cb-pricing__features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.cb-pricing__feature { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: #3f3f46; line-height: 1.45; }
+.cb-pricing__feature svg { flex-shrink: 0; margin-top: 2px; }
+.cb-pricing__card--featured .cb-pricing__feature svg path { stroke: #07BCF1; }
+.cb-pricing__feature strong { font-weight: 600; color: #0d0d0d; }
+.cb-pricing__cta { display: block; width: 100%; padding: 14px 24px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-align: center; text-decoration: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); border: none; }
+.cb-pricing__cta--primary { background: #FEF247; color: #0d0d0d; }
+.cb-pricing__cta--primary:hover { background: #f0e53e; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(254,242,71,0.5); }
+.cb-pricing__cta--secondary { background: #07BCF1; color: #fff; }
+.cb-pricing__cta--secondary:hover { background: #0099c8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(7,188,241,0.4); }
+.cb-pricing__cta--outline { background: transparent; color: #0d0d0d; border: 1.5px solid #c4c4c8; }
+.cb-pricing__cta--outline:hover { border-color: #07BCF1; color: #07BCF1; background: #e6f7fd; transform: translateY(-1px); }
+.cb-pricing__footer { text-align: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid #ededef; }
+.cb-pricing__footer p { font-size: 0.9rem; color: #71717a; line-height: 1.6; max-width: 560px; margin: 0 auto; }
+.cb-pricing__footer a { color: #07BCF1; font-weight: 600; text-decoration: none; }
+@media (max-width: 960px) { .cb-pricing__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; gap: 24px; } .cb-pricing__card--featured { order: -1; } .cb-pricing__plan-desc { min-height: unset; } }
+
+/* ═══════════════════════════
+   (legacy — kept for reference)
    PRICING — light section
    ═══════════════════════════ */
 .pricing { background: #fff; color: #111; padding: 120px 0; }
@@ -460,7 +513,7 @@ body > * { position: relative; z-index: 1; }
   line-height: 1; margin-bottom: 4px; display: flex; align-items: baseline;
 }
 
-.price-amount .price-dollar { font-size: 1.25rem; font-weight: 600; margin-right: 2px; }
+.price-amount .price-dollar { font-size: 1.1rem; font-weight: 600; margin-right: 1px; position: relative; top: -0.15em; }
 .price-amount span { font-size: 1rem; font-weight: 500; color: #999; }
 
 .price-period { font-size: 0.78rem; color: #999; margin-bottom: 24px; }
@@ -613,16 +666,24 @@ body > * { position: relative; z-index: 1; }
       <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
     </div>
     <div class="hero-wall reveal reveal-d2">
-      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1091854157.jpg')"><span class="wall-label">Sparkle · Creator Demo</span><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1078357962.jpg')"><span class="wall-label">point.me · CTV Spot</span><iframe src="https://player.vimeo.com/video/1078357962?h=ac0da6551d&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1061059233.jpg')"><span class="wall-label">Royal Caribbean · Deck Life</span><iframe src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1091854157.jpg')"><span class="wall-label">Sparkle · Creator</span><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1078357962.jpg')"><span class="wall-label">Point.me · CTV</span><iframe src="https://player.vimeo.com/video/1078357962?h=ac0da6551d&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1061059233.jpg')"><span class="wall-label">RC · Rover</span><iframe src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
       <div class="wall-cell" style="background-image:url('https://vumbnail.com/265928299.jpg')"><span class="wall-label">Nike · Run Club</span><iframe src="https://player.vimeo.com/video/265928299?h=10ec2810ff&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1092175563.jpg')"><span class="wall-label">Altra · Athlete</span><iframe src="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1065886093.jpg')"><span class="wall-label">Dell · Employee</span><iframe src="https://player.vimeo.com/video/1065886093?h=80404d7365&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/981489599.jpg')"><span class="wall-label">RC · Fleet</span><iframe src="https://player.vimeo.com/video/981489599?h=89701ad11c&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1130557367.jpg')"><span class="wall-label">Sploot · CTV</span><iframe src="https://player.vimeo.com/video/1130557367?h=67815d0119&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1090977594.jpg')"><span class="wall-label">Cogent · Events</span><iframe src="https://player.vimeo.com/video/1090977594?h=646a9f78bc&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
     </div>
   </div>
 </section>
 
 <!-- ═══ HOW IT WORKS ═══ -->
-<section class="how">
+<!-- curve: dark → light -->
+<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<section class="how" style="background:#fff;color:#111">
   <div class="contain">
     <div class="reveal" style="text-align:center">
       <div class="label">How It Works</div>
@@ -667,112 +728,87 @@ body > * { position: relative; z-index: 1; }
         </ul>
         <a href="/services" class="btn btn-ghost">Explore Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
-      <div style="display:flex;align-items:center;justify-content:center">
-        <svg width="260" height="260" viewBox="0 0 260 260" fill="none">
-          <!-- Abstract creative services illustration -->
-          <circle cx="130" cy="130" r="80" stroke="rgba(0,188,241,0.1)" stroke-width="1"/>
-          <circle cx="130" cy="130" r="55" stroke="rgba(235,0,139,0.08)" stroke-width="1"/>
-          <circle cx="130" cy="130" r="110" stroke="rgba(0,188,241,0.06)" stroke-width="0.8" stroke-dasharray="4 4">
-            <animateTransform attributeName="transform" type="rotate" from="0 130 130" to="360 130 130" dur="30s" repeatCount="indefinite"/>
-          </circle>
-          <!-- Nodes -->
-          <circle cx="130" cy="50" r="4" fill="rgba(0,188,241,0.5)"/>
-          <circle cx="210" cy="130" r="4" fill="rgba(235,0,139,0.5)"/>
-          <circle cx="130" cy="210" r="4" fill="rgba(255,236,3,0.5)"/>
-          <circle cx="50" cy="130" r="4" fill="rgba(0,188,241,0.5)"/>
-          <!-- Lines -->
-          <line x1="130" y1="50" x2="210" y2="130" stroke="rgba(0,188,241,0.08)" stroke-width="0.8"/>
-          <line x1="210" y1="130" x2="130" y2="210" stroke="rgba(235,0,139,0.06)" stroke-width="0.8"/>
-          <line x1="130" y1="210" x2="50" y2="130" stroke="rgba(255,236,3,0.06)" stroke-width="0.8"/>
-          <line x1="50" y1="130" x2="130" y2="50" stroke="rgba(0,188,241,0.08)" stroke-width="0.8"/>
-          <!-- Center icon — play button -->
-          <polygon points="122,115 122,145 148,130" fill="rgba(0,188,241,0.2)" stroke="rgba(0,188,241,0.4)" stroke-width="1"/>
-        </svg>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- curve: dark → light -->
-<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
-
-<!-- ═══ PRICING ═══ -->
-<section class="pricing" style="padding-top:60px">
-  <div class="contain">
-    <div class="reveal">
-      <div class="label" style="text-align:center;color:var(--teal)">Pricing</div>
-      <h2>Pick the plan that fits how you work.</h2>
-      <p class="pricing-sub">Software-only subscriptions. Add creative services anytime.</p>
-      <div class="pricing-badge-wrap">
-        <div class="savings-badge">Save up to 30% with annual billing</div>
-      </div>
-    </div>
-
-    <div class="toggle-wrap reveal reveal-d1">
-      <span class="toggle-label active" data-plan="annual">Annual</span>
-      <div class="toggle-track annual" id="pricingToggle">
-        <div class="toggle-thumb"></div>
-      </div>
-      <span class="toggle-label" data-plan="monthly">Monthly</span>
-    </div>
-
-    <div class="pricing-grid reveal reveal-d2">
-      <!-- Plus -->
-      <div class="price-card">
-        <div class="price-tier">Starter</div>
-        <div class="price-name">Plus</div>
-        <div class="price-amount"><span class="price-dollar">$</span><span class="price-val">250</span><span>/mo</span></div>
-        <div class="price-period annual-label">Billed annually</div>
-        <ul class="price-features">
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited filmers</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 active project</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Shot list builder</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Cloud dashboard</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>HD resolution</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Email support</li>
-        </ul>
-        <button class="price-cta">Get Started</button>
-      </div>
-
-      <!-- Pro (featured) -->
-      <div class="price-card price-card--featured">
-        <div class="price-tier">Growth</div>
-        <div class="price-name">Pro</div>
-        <div class="price-amount"><span class="price-dollar">$</span><span class="price-val">500</span><span>/mo</span></div>
-        <div class="price-period annual-label">Billed annually</div>
-        <ul class="price-features">
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Everything in Plus</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited projects</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4K resolution</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom branding</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Analytics dashboard</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priority support</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>API access</li>
-        </ul>
-        <button class="price-cta">Get Started</button>
-      </div>
-
-      <!-- Enterprise -->
-      <div class="price-card">
-        <div class="price-tier">Scale</div>
-        <div class="price-name">Enterprise</div>
-        <div class="price-amount" style="font-size:2rem">Custom</div>
-        <div class="price-period">Tailored to your organization</div>
-        <ul class="price-features">
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Everything in Pro</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SSO / SAML</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Dedicated account manager</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SLA & uptime guarantees</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom integrations</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Multi-team management</li>
-        </ul>
-        <button class="price-cta">Contact Sales</button>
-      </div>
-    </div>
-
-    <p class="pricing-note reveal reveal-d3">Need editing, strategy, or motion graphics? <a href="/services">Add creative services</a> to any plan.</p>
+<!-- ═══ PRICING — using original proven design ═══ -->
+<div class="cb-pricing" style="font-family:'Inter',sans-serif;max-width:1200px;margin:0 auto;padding:40px 24px 60px">
+  <div class="cb-pricing__header">
+    <h2 style="font-family:'Inter',sans-serif">Pick the plan that fits how you work.</h2>
+    <p>Run it yourself or bring in our team. Either way, you're getting real content from real people — at a fraction of traditional production costs.</p>
   </div>
-</section>
+  <div class="cb-pricing__savings">Brands using Cinebody typically save 70%+ vs. traditional production</div>
+  <div class="cb-pricing__toggle-wrap">
+    <span class="cb-pricing__toggle-label cb-pricing__toggle-label--active" id="cb-label-annual">Annual</span>
+    <button class="cb-pricing__toggle" role="switch" aria-checked="false" id="cb-toggle"></button>
+    <span class="cb-pricing__toggle-label" id="cb-label-monthly">Monthly</span>
+  </div>
+  <div class="cb-pricing__grid">
+    <div class="cb-pricing__card">
+      <div class="cb-pricing__plan-name">Plus</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For small teams</div>
+      <div class="cb-pricing__plan-desc">Everything you need to start capturing community video on your own.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="250" data-monthly="350">250</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">What's included</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>1 Team</strong> with 2 admin seats</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>25 GB</strong> cloud storage</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Unlimited filmers</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Patented shot list technology</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Photo capture + real-time sync</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Email & FAQ support</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--outline">Get Started</a>
+    </div>
+    <div class="cb-pricing__card cb-pricing__card--featured">
+      <div class="cb-pricing__badge">Most Popular</div>
+      <div class="cb-pricing__plan-name">Pro</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For growing brands</div>
+      <div class="cb-pricing__plan-desc">Scale content across multiple projects with more storage and dedicated support.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="500" data-monthly="650">500</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">Everything in Plus, and</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Multiple teams</strong> as you grow</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>5 admin seats</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>100 GB</strong> cloud storage</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Dedicated support</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SSO integration</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom legal + API access</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--secondary">Book a Demo</a>
+    </div>
+    <div class="cb-pricing__card">
+      <div class="cb-pricing__plan-name">Enterprise</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For large organizations</div>
+      <div class="cb-pricing__plan-desc">Custom-built for your team's needs — storage, seats, security, and support.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price-custom" style="font-family:'Inter',sans-serif">Let's scope it together.</div>
+        <div class="cb-pricing__price-custom-sub">Custom pricing based on your needs</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">Everything in Pro, and</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Custom teams, admins & storage</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Concierge support</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Advanced security & encryption</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom integrations (DAM, Drive)</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Strategic Producer</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom legal document signing</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--primary">Talk to Our Team</a>
+    </div>
+  </div>
+  <div class="cb-pricing__footer"><p>Don't have an editing team? Pair any plan with our <a href="/services">creative services</a> for end-to-end production.</p></div>
+</div>
 
 <!-- curve: light → dark -->
 <div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
@@ -821,6 +857,24 @@ body > * { position: relative; z-index: 1; }
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }, { passive: true });
+})();
+
+// Pricing toggle
+(function(){
+  var toggle=document.getElementById('cb-toggle');if(!toggle)return;
+  var la=document.getElementById('cb-label-annual'),lm=document.getElementById('cb-label-monthly');
+  var amounts=document.querySelectorAll('.cb-pricing__price-amount');
+  var billings=document.querySelectorAll('.cb-pricing__price-billing');
+  function update(m){
+    toggle.setAttribute('aria-checked',m);
+    if(la)la.classList.toggle('cb-pricing__toggle-label--active',!m);
+    if(lm)lm.classList.toggle('cb-pricing__toggle-label--active',m);
+    amounts.forEach(function(el){el.textContent=m?el.dataset.monthly:el.dataset.annual;});
+    billings.forEach(function(el){el.textContent=m?el.dataset.monthly:el.dataset.annual;});
+  }
+  toggle.addEventListener('click',function(){update(toggle.getAttribute('aria-checked')!=='true');});
+  if(la)la.addEventListener('click',function(){update(false);});
+  if(lm)lm.addEventListener('click',function(){update(true);});
 })();
 
 // FAQ
