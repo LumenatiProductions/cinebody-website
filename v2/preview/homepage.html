@@ -964,14 +964,29 @@ footer .sqs-block-html h3 {
 }
 
 .marquee-track img {
-  height: 22px;
+  height: 20px;
+  max-width: 100px;
   width: auto;
   object-fit: contain;
   filter: grayscale(100%);
-  opacity: 0.6;
+  opacity: 0.5;
   transition: filter 0.3s ease, opacity 0.3s ease;
   flex-shrink: 0;
 }
+
+/* Normalize individual logos to similar visual weight */
+.marquee-track img[alt="Siemens"] { height: 18px; max-width: 90px; }
+.marquee-track img[alt="WebMD"] { height: 16px; }
+.marquee-track img[alt="Royal Caribbean"] { height: 22px; max-width: 110px; }
+.marquee-track img[alt="Roku"] { height: 16px; }
+.marquee-track img[alt="Altra"] { height: 14px; }
+.marquee-track img[alt="Boeing"] { height: 14px; max-width: 80px; }
+.marquee-track img[alt="Experian"] { height: 16px; }
+.marquee-track img[alt="Dell"] { height: 18px; max-width: 50px; }
+.marquee-track img[alt="S&P Global"] { height: 18px; max-width: 95px; }
+.marquee-track img[alt="ACS"] { height: 22px; max-width: 60px; }
+.marquee-track img[alt="Ball"] { height: 20px; max-width: 50px; }
+.marquee-track img[alt="Raising Cane's"] { height: 22px; max-width: 80px; }
 
 .marquee-track img:hover {
   filter: grayscale(0%);
@@ -3011,7 +3026,7 @@ footer .sqs-block-html h3 {
   .sqs-block.code-block { padding: 0 !important; }
   .sqs-block-content { padding: 0 !important; }
 
-  .cb-hero-cta {
+  .cb-cta2 {
     --cb-teal: #00bcf1;
     --cb-dark: #1a1a1a;
     --cb-yellow: #ffec03;
@@ -3026,13 +3041,13 @@ footer .sqs-block-html h3 {
     overflow: hidden;
   }
 
-  .cb-hero-cta__inner {
+  .cb-cta2__inner {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 clamp(1rem, 3vw, 2.5rem);
   }
 
-  .cb-hero-cta__line1 {
+  .cb-cta2__line1 {
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     font-weight: 700;
     line-height: 1.1;
@@ -3041,7 +3056,7 @@ footer .sqs-block-html h3 {
     margin: 0 0 6px;
   }
 
-  .cb-hero-cta__line2 {
+  .cb-cta2__line2 {
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     font-weight: 700;
     line-height: 1.1;
@@ -3051,7 +3066,7 @@ footer .sqs-block-html h3 {
   }
 
   /* CTA Button with glow */
-  .cb-hero-cta__btn {
+  .cb-cta2__btn {
     display: inline-block;
     background: var(--cb-teal);
     color: #fff;
@@ -3067,7 +3082,7 @@ footer .sqs-block-html h3 {
     overflow: hidden;
   }
 
-  .cb-hero-cta__btn::before {
+  .cb-cta2__btn::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -3076,55 +3091,55 @@ footer .sqs-block-html h3 {
     transition: opacity 0.3s ease;
   }
 
-  .cb-hero-cta__btn:hover {
+  .cb-cta2__btn:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 8px 32px rgba(0, 188, 241, 0.4), 0 0 60px rgba(0, 188, 241, 0.15);
     color: #fff;
     text-decoration: none;
   }
 
-  .cb-hero-cta__btn:hover::before {
+  .cb-cta2__btn:hover::before {
     opacity: 1;
   }
 
-  .cb-hero-cta__btn:active {
+  .cb-cta2__btn:active {
     transform: translateY(-1px) scale(0.99);
   }
 
   /* Reveal animation */
-  .cb-hero-cta .cb-reveal {
+  .cb-cta2 .cb-reveal {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .cb-hero-cta .cb-reveal.is-visible {
+  .cb-cta2 .cb-reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
   /* Tablet */
   @media (max-width: 900px) {
-    .cb-hero-cta {
+    .cb-cta2 {
       padding: 80px 20px;
     }
 
-    .cb-hero-cta__line2 {
+    .cb-cta2__line2 {
       margin-bottom: 36px;
     }
   }
 
   /* Mobile */
   @media (max-width: 600px) {
-    .cb-hero-cta {
+    .cb-cta2 {
       padding: 64px 1rem;
     }
 
-    .cb-hero-cta__line2 {
+    .cb-cta2__line2 {
       margin-bottom: 32px;
     }
 
-    .cb-hero-cta__btn {
+    .cb-cta2__btn {
       font-size: 14px;
       padding: 16px 40px;
     }
@@ -4222,11 +4237,11 @@ footer .sqs-block-html h3 {
 </div>
 <!-- 10-hero-cta.html -->
 
-<div class="cb-hero-cta">
-  <div class="cb-hero-cta__inner cb-reveal">
-    <div class="cb-hero-cta__line1">Stop outsourcing to strangers.</div>
-    <div class="cb-hero-cta__line2">Start capturing from your community.</div>
-    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-hero-cta__btn">See How It Works</a>
+<div class="cb-cta2">
+  <div class="cb-cta2__inner cb-reveal">
+    <div class="cb-cta2__line1">Stop outsourcing to strangers.</div>
+    <div class="cb-cta2__line2">Start capturing from your community.</div>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cta2__btn">See How It Works</a>
   </div>
 </div>
 
@@ -4474,7 +4489,7 @@ footer .sqs-block-html h3 {
   els.forEach(function(el) { obs.observe(el); });
 })();
 (function() {
-  var els = document.querySelectorAll('.cb-hero-cta .cb-reveal');
+  var els = document.querySelectorAll('.cb-cta2 .cb-reveal');
   if (!els.length) return;
   var obs = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {

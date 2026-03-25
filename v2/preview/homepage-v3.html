@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody — Video Capture Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   CINEBODY V3 HOMEPAGE — HOLISTIC DESIGN
+   ═══════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dark: #0099c8;
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --dark: #0f0f0f;
+  --dark-surface: #161616;
+  --dark-card: #1c1c1c;
+  --dark-border: rgba(255,255,255,0.06);
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.35);
+  --light-bg: #fafafa;
+  --light-text: #111;
+  --light-body: #555;
+  --light-muted: #999;
+  --light-border: #e8e8e8;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--dark);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.contain {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+/* ── Scroll Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── Signature Bar ── */
+.sig-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%);
+}
+
+/* ═══════════════════════════════════════
+   SECTION 1: HERO — Dark, bold, confident
+   ═══════════════════════════════════════ */
+/* Global aurora layer — sits behind everything */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 70% 10%, rgba(0,188,241,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 60%, rgba(0,188,241,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 30% at 80% 80%, rgba(235,0,139,0.025) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body > * { position: relative; z-index: 1; }
+
+@keyframes aurora-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -20px) scale(1.05); }
+}
+
+.hero {
+  padding: 140px 0 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -5%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0,188,241,0.07) 0%, transparent 60%);
+  pointer-events: none;
+  animation: aurora-drift 14s ease-in-out infinite alternate;
+}
+
+.hero .contain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--teal);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: 28px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--teal);
+}
+
+.hero-body {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 460px;
+  margin-bottom: 40px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s var(--ease);
+  position: relative;
+}
+
+.btn-primary {
+  background: var(--teal);
+  color: #fff;
+  box-shadow: 0 0 0 0 rgba(0,188,241,0), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 40px rgba(0,188,241,0.2), 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+
+.btn-primary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease);
+}
+
+.btn-primary:hover svg {
+  transform: translateX(3px);
+}
+
+.hero-trust {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 24px;
+}
+
+.hero-image {
+  position: relative;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--dark-border);
+}
+
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0,188,241,0.15), transparent 60%);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 2: LOGOS — Minimal trust bar
+   ═══════════════════════════════════════ */
+.logos {
+  padding: 48px 0;
+  border-top: 1px solid var(--dark-border);
+  border-bottom: 1px solid var(--dark-border);
+  overflow: hidden;
+}
+
+.logos-track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  animation: scroll 60s linear infinite;
+  width: max-content;
+}
+
+.logos-track:hover { animation-play-state: paused; }
+
+.logos-track img {
+  height: 18px;
+  width: auto;
+  opacity: 0.3;
+  filter: brightness(10);
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+.logos-track img:hover { opacity: 0.7; }
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════
+   SECTION 3: STATS — Floating over dark
+   ═══════════════════════════════════════ */
+.stats {
+  padding: 80px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--dark-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.stat {
+  background: var(--dark-surface);
+  padding: 40px 24px;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.stat:hover { background: var(--dark-card); }
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 4: WHY — Differentiators
+   ═══════════════════════════════════════ */
+.why {
+  padding: 120px 0;
+  position: relative;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--teal);
+}
+
+.why h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  max-width: 600px;
+}
+
+.why-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 64px;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--dark-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.why-card {
+  background: var(--dark-surface);
+  padding: 40px 28px;
+  transition: background 0.4s ease;
+}
+
+.why-card:hover { background: var(--dark-card); }
+
+.why-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(0,188,241,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  transition: all 0.3s var(--ease);
+}
+
+.why-card:hover .why-card-icon {
+  background: rgba(0,188,241,0.15);
+  transform: translateY(-2px);
+}
+
+.why-card-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--teal);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.why-card h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.why-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════
+   CASE STUDY TEASERS
+   ═══════════════════════════════════════ */
+.cs-teaser {
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Light variant — soft fade in/out instead of hard edge */
+.cs-teaser--light {
+  background: #fff;
+  border-top: none;
+  box-shadow: 0 -1px 0 var(--light-border);
+  position: relative;
+}
+
+/* Soft gradient fade at top and bottom edges */
+.cs-teaser--light::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--dark), #fff);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cs-teaser--light::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to top, var(--dark), #fff);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cs-teaser--light h3 { color: var(--light-text); }
+.cs-teaser--light h3 em { color: var(--teal); }
+.cs-teaser--light .cs-desc { color: var(--light-body); }
+.cs-teaser--light .cs-stat-num { color: var(--teal); }
+.cs-teaser--light .cs-stat-label { color: var(--light-muted); }
+.cs-teaser--light .cs-stat-pipe { background: var(--light-border); }
+.cs-teaser--light .cs-badge-name { color: var(--light-muted); }
+.cs-teaser--light .cs-video { border-color: var(--light-border); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+.cs-teaser .contain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.cs-teaser--reverse .contain {
+  direction: rtl;
+}
+
+.cs-teaser--reverse .contain > * {
+  direction: ltr;
+}
+
+.cs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.cs-badge-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dark);
+  background: var(--yellow);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.cs-badge-name {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.cs-teaser h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.cs-teaser h3 em {
+  font-style: normal;
+  color: var(--teal);
+}
+
+.cs-teaser .cs-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  max-width: 440px;
+}
+
+.cs-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.cs-stat {
+  text-align: center;
+  cursor: default;
+  transition: transform 0.2s ease;
+}
+
+.cs-stat:hover { transform: translateY(-2px); }
+.cs-stat:hover .cs-stat-num { color: var(--yellow); }
+
+.cs-stat-num {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 4px;
+  transition: color 0.2s ease;
+}
+
+.cs-stat-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cs-stat-pipe {
+  width: 1px;
+  background: var(--dark-border);
+  align-self: stretch;
+}
+
+.cs-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--teal);
+  transition: gap 0.3s var(--ease);
+}
+
+.cs-link:hover { gap: 12px; }
+
+/* Video in teaser */
+.cs-visual {
+  position: relative;
+}
+
+.cs-video {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--dark-border);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.cs-video iframe {
+  display: block;
+  width: 100%;
+  border: none;
+}
+
+.cs-video--landscape iframe { aspect-ratio: 16/9; }
+.cs-video--portrait iframe { aspect-ratio: 9/16; }
+
+.cs-video-pair {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.cs-video-pair .cs-video--portrait {
+  flex: 1;
+  max-width: 200px;
+}
+
+/* SVG accent behind video */
+.cs-accent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110%;
+  height: 110%;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+/* Globe animation */
+.cs-globe-ring {
+  fill: none;
+  stroke: rgba(0,188,241,0.12);
+  stroke-width: 1;
+}
+
+.cs-globe-grid {
+  fill: none;
+  stroke: rgba(0,188,241,0.08);
+  stroke-width: 0.6;
+}
+
+.cs-orbit {
+  fill: none;
+  stroke: rgba(0,188,241,0.15);
+  stroke-width: 0.8;
+  stroke-dasharray: 4 3;
+}
+
+.cs-orbit-dot {
+  fill: var(--teal);
+  filter: drop-shadow(0 0 4px rgba(0,188,241,0.5));
+  animation: orbit-spin 15s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+
+/* Ship waves */
+.cs-wave {
+  fill: none;
+  stroke: rgba(0,188,241,0.1);
+  stroke-width: 1;
+  animation: wave-move 4s ease-in-out infinite;
+}
+
+@keyframes wave-move {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+/* Map dots */
+.cs-dot-core {
+  fill: var(--teal);
+  filter: drop-shadow(0 0 6px rgba(0,188,241,0.6));
+}
+
+.cs-dot-pulse {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 1.5;
+  opacity: 0;
+  animation: dot-pulse 2.5s ease-out infinite;
+}
+
+@keyframes dot-pulse {
+  0% { r: 4; opacity: 0.6; }
+  100% { r: 20; opacity: 0; }
+}
+
+.cs-connection {
+  stroke: rgba(0,188,241,0.15);
+  stroke-width: 1;
+  stroke-dasharray: 5 4;
+  fill: none;
+  animation: dash-flow 12s linear infinite;
+}
+
+@keyframes dash-flow { to { stroke-dashoffset: -100; } }
+
+@media (max-width: 1000px) {
+  .cs-teaser .contain { grid-template-columns: 1fr; gap: 40px; }
+  .cs-teaser--reverse .contain { direction: ltr; }
+  .cs-video--portrait { max-width: 160px; }
+}
+
+@media (max-width: 600px) {
+  .cs-teaser { padding: 64px 0; }
+  .cs-stats { gap: 16px; }
+  .cs-stat-num { font-size: 1.1rem; }
+}
+
+/* ═══════════════════════════════════════
+   SECTION 5: CASE STUDIES — Light section
+   ═══════════════════════════════════════ */
+.cases {
+  background: #fff;
+  color: var(--light-text);
+  padding: 120px 0;
+  position: relative;
+}
+
+.cases::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--dark), #fff);
+  pointer-events: none;
+}
+
+.cases::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to top, var(--dark), #fff);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cases .section-label::before { background: var(--teal); }
+.cases .section-label { color: var(--teal); }
+
+.cases h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--light-text);
+  margin-bottom: 64px;
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.case-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  transition: transform 0.5s var(--ease);
+}
+
+.case-card:hover { transform: translateY(-4px); }
+
+.case-card img.case-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+
+.case-card:hover img.case-bg { transform: scale(1.05); }
+
+.case-card .case-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+}
+
+.case-card .case-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 20px;
+  z-index: 2;
+}
+
+.case-card .case-logo {
+  height: 20px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.case-card .case-stat {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.case-card .case-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.45;
+}
+
+.cases-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin-top: 40px;
+  transition: gap 0.3s var(--ease);
+}
+
+.cases-link:hover { gap: 12px; }
+
+/* ═══════════════════════════════════════
+   SECTION 6: SERVICES — Dark
+   ═══════════════════════════════════════ */
+.services {
+  padding: 120px 0;
+  background: var(--light-bg);
+  color: var(--light-text);
+  position: relative;
+}
+
+.services::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--dark), var(--light-bg));
+  pointer-events: none;
+}
+
+.services::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to top, var(--dark), var(--light-bg));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.services h2 { color: var(--light-text); }
+.services .section-label { color: var(--teal); }
+.services .section-label::before { background: var(--teal); }
+
+.services .services-grid {
+  background: var(--light-border);
+}
+
+.services .service-card {
+  background: #fff;
+  color: var(--light-text);
+}
+
+.services .service-card:hover { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.services .service-card h3 { color: var(--light-text); }
+.services .service-card p { color: var(--light-body); }
+.services .service-card ul li { color: var(--light-muted); }
+
+.services h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 64px;
+  max-width: 500px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--dark-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.service-card {
+  background: var(--dark-surface);
+  padding: 44px 32px;
+  transition: background 0.4s ease;
+  position: relative;
+}
+
+.service-card:hover { background: var(--dark-card); }
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.service-card:nth-child(1)::before { background: var(--teal); }
+.service-card:nth-child(2)::before { background: var(--yellow); }
+.service-card:nth-child(3)::before { background: var(--pink); }
+
+.service-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.service-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.service-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.service-card ul li {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-card ul li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 7: CTA — Yellow with images
+   ═══════════════════════════════════════ */
+.cta-band {
+  background: var(--yellow);
+  padding: 80px 0 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cta-band h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+
+.cta-band h2 span { color: var(--teal); }
+
+.cta-band .btn-primary {
+  margin-bottom: 64px;
+}
+
+.cta-marquee {
+  display: flex;
+  height: 220px;
+  overflow: hidden;
+}
+
+.cta-marquee-track {
+  display: flex;
+  animation: scroll 30s linear infinite;
+  flex-shrink: 0;
+}
+
+.cta-marquee-track img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 8: FAQ
+   ═══════════════════════════════════════ */
+.faq {
+  padding: 120px 0;
+}
+
+.faq .contain {
+  max-width: 720px;
+}
+
+.faq h2 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--dark-border);
+}
+
+.faq-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s ease;
+}
+
+.faq-trigger:hover { color: var(--teal); }
+
+.faq-trigger .faq-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--teal);
+  border-radius: 1px;
+  transition: all 0.3s var(--ease);
+}
+
+.faq-icon::before {
+  width: 12px; height: 1.5px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.faq-icon::after {
+  width: 1.5px; height: 12px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.faq-item.is-open .faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
+}
+
+.faq-item.is-open .faq-trigger { color: var(--teal); }
+
+.faq-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease);
+}
+
+.faq-item.is-open .faq-panel {
+  max-height: 300px;
+}
+
+.faq-answer {
+  padding: 0 0 24px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--dark-border);
+  padding: 64px 0 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.footer-brand img { height: 24px; margin-bottom: 16px; }
+.footer-brand p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; max-width: 260px; }
+
+.footer-col h4 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.footer-col a {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.footer-col a:hover { color: var(--teal); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid var(--dark-border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 100px 0 80px; }
+  .hero-image img { height: 360px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .cases-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 80px 0 60px; }
+  .hero h1 { font-size: 2rem; }
+  .hero-image img { height: 280px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: 1fr; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .case-card { aspect-ratio: 4/3; }
+  .why, .cases, .services, .faq { padding: 80px 0; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .cta-marquee-track img { width: 160px; height: 160px; }
+  .cta-marquee { height: 160px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SIGNATURE BAR ═══ -->
+<div class="sig-bar"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Video Platform + Creative Services</div>
+      <h1>Your customers are <em>your best creators.</em></h1>
+      <p class="hero-body">Cinebody is the only platform that lets you capture real video from real people — at scale, on brand, and without a single production crew.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-primary">
+        Book a Demo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
+    </div>
+    <div class="hero-image reveal reveal-delay-2">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306065651-4R0SKHXF02F02SR3CXJO/CB_HowItWorxxx_LB_600.01_00_30_04.Still003.jpg" alt="Person photographs a group using a smartphone" />
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LOGOS ═══ -->
+<div class="logos">
+  <div class="logos-track" id="logoTrack"></div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats">
+  <div class="contain">
+    <div class="stats-grid reveal">
+      <div class="stat"><div class="stat-number" data-count-to="160" data-count-suffix="+">0+</div><div class="stat-label">Countries</div></div>
+      <div class="stat"><div class="stat-number" data-count-to="5000" data-count-suffix="+">0+</div><div class="stat-label">Cities</div></div>
+      <div class="stat"><div class="stat-number" data-count-to="70" data-count-suffix="%">0%</div><div class="stat-label">Cost Savings</div></div>
+      <div class="stat"><div class="stat-number">24hr</div><div class="stat-label">Real-time Sync</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY CINEBODY ═══ -->
+<section class="why">
+  <div class="contain">
+    <div class="reveal">
+      <div class="section-label">Why Cinebody</div>
+      <h2>Not another UGC marketplace. Something actually different.</h2>
+      <p class="why-subtitle">Other platforms match you with paid creators pretending to be fans. Cinebody activates your real community — guided by patented technology.</p>
+    </div>
+    <div class="why-grid reveal reveal-delay-2">
+      <div class="why-card">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Real people, not actors</h3>
+        <p>Your actual community films for you — customers, employees, fans. No paid creators pretending.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <h3>Directed, not chaotic</h3>
+        <p>Patented shot list technology controls FPS, resolution, and creative direction — remotely.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div>
+        <h3>Platform + services</h3>
+        <p>Use the software standalone or pair with our creative team for end-to-end production.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <h3>Always-on, not one-off</h3>
+        <p>Annual subscriptions mean you build a content engine — not a one-time project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TEASER: POINT.ME ═══ -->
+<section class="cs-teaser cs-teaser--light">
+  <div class="contain">
+    <div class="reveal">
+      <div class="cs-badge"><span class="cs-badge-tag">Case Study</span><span class="cs-badge-name">point.me</span></div>
+      <h3><em>One shoot. Every platform.</em><br>No second production needed.</h3>
+      <p class="cs-desc">Point.me turned one CTV spot featuring 70+ real customers into a full multi-platform campaign — a hero commercial, social vignettes, and branded clips, all from a single Cinebody production.</p>
+      <div class="cs-stats">
+        <div class="cs-stat"><div class="cs-stat-num">1</div><div class="cs-stat-label">Shoot</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">70+</div><div class="cs-stat-label">Customers</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">Multi</div><div class="cs-stat-label">Platform</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">100%</div><div class="cs-stat-label">Authentic</div></div>
+      </div>
+      <a href="/pointme" class="cs-link">See the full story <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="cs-visual reveal reveal-delay-2">
+      <div class="cs-video cs-video--landscape">
+        <iframe src="https://player.vimeo.com/video/1078357962?h=ac0da6551d&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+      </div>
+      <svg class="cs-accent" viewBox="0 0 300 300">
+        <circle class="cs-globe-ring" cx="150" cy="150" r="60"/>
+        <ellipse class="cs-globe-grid" cx="150" cy="150" rx="60" ry="20"/>
+        <ellipse class="cs-globe-grid" cx="150" cy="150" rx="20" ry="60"/>
+        <circle class="cs-orbit" cx="150" cy="150" r="90"/>
+        <circle class="cs-orbit-dot" cx="150" cy="60" r="4"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CASE STUDIES ═══ -->
+<section class="cases">
+  <div class="contain">
+    <div class="reveal">
+      <div class="section-label">Case Studies</div>
+      <h2>See what brands are building with Cinebody</h2>
+    </div>
+    <div class="cases-grid reveal reveal-delay-1">
+      <a href="/pointme" class="case-card">
+        <img class="case-bg" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/be064369-ea83-4b63-8a58-3d834b9a8a20/Screenshot+2025-07-15+at+8.52.47%E2%80%AFAM.png" alt="point.me" />
+        <div class="case-overlay"></div>
+        <div class="case-content">
+          <img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/182c813c-c6da-4c9c-a4c2-f4f3bb7205e5/PointMe_Logo_alt.png" alt="point.me" />
+          <div class="case-stat">1 Shoot · 70+ Customers · CTV + Social</div>
+          <div class="case-desc">One shoot became a full multi-platform campaign.</div>
+        </div>
+      </a>
+      <a href="/royal-caribbean" class="case-card">
+        <img class="case-bg" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/b76de59f-310a-4b26-a7e3-651359614dfd/Screenshot+2025-07-15+at+9.03.36%E2%80%AFAM.png" alt="Royal Caribbean" />
+        <div class="case-overlay"></div>
+        <div class="case-content">
+          <img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/068c9dcb-e657-4362-9f5c-21916890e158/RCI_Brand_Logo_2-Line_Horiz_White.webp" alt="Royal Caribbean" />
+          <div class="case-stat">Entire Fleet · 0 Crews · Always On</div>
+          <div class="case-desc">Crew members became an always-on content engine.</div>
+        </div>
+      </a>
+      <a href="/nike" class="case-card">
+        <img class="case-bg" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/c7a826f6-08ea-4cea-8b21-929cba3c1c98/Screenshot+2025-07-20+at+4.55.19%E2%80%AFPM.png" alt="Nike" />
+        <div class="case-overlay"></div>
+        <div class="case-content">
+          <img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/b72f46ef-17b5-4efa-80e1-4bf2c18d681a/60-609637_nike-logo-png-white.png" alt="Nike" />
+          <div class="case-stat">4 Cities · 0 Crews · 1 Weekend</div>
+          <div class="case-desc">Authentic run club content captured nationwide.</div>
+        </div>
+      </a>
+      <a href="/georgia-pacific" class="case-card">
+        <img class="case-bg" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/040f2cd8-5aad-4f5f-bcc3-6adc732d7ca4/Paper-Plate-Dinosaur-Craft.aShadeOfTeal-3.webp" alt="Georgia-Pacific" />
+        <div class="case-overlay"></div>
+        <div class="case-content">
+          <img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/ac7b8ca0-3f0a-4096-8a0d-69fc16fcf032/444-4440410_gp-bug-color-georgia-pacific-logo-white-clipart.png" alt="Georgia-Pacific" />
+          <div class="case-stat">3 Brands · 1 Platform · 100% Authentic</div>
+          <div class="case-desc">Scaled authentic video across consumer brands.</div>
+        </div>
+      </a>
+    </div>
+    <a href="/pointme" class="cases-link reveal reveal-delay-3">View all case studies <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══ TEASER: ROYAL CARIBBEAN ═══ -->
+<section class="cs-teaser cs-teaser--reverse">
+  <div class="contain">
+    <div class="reveal">
+      <div class="cs-badge"><span class="cs-badge-tag">Case Study</span><span class="cs-badge-name">Royal Caribbean</span></div>
+      <h3><em>No crews flown in.</em><br>The crew became the content team.</h3>
+      <p class="cs-desc">Royal Caribbean turned their ship crews into an always-on content engine — capturing waterslides, dining, entertainment, and Rover the dog, all guided by Cinebody shot lists.</p>
+      <div class="cs-stats">
+        <div class="cs-stat"><div class="cs-stat-num">Entire</div><div class="cs-stat-label">Fleet</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">0</div><div class="cs-stat-label">Prod. Crews</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">Always</div><div class="cs-stat-label">On</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">100%</div><div class="cs-stat-label">On Brand</div></div>
+      </div>
+      <a href="/royal-caribbean" class="cs-link">See the full story <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="cs-visual reveal reveal-delay-2">
+      <div class="cs-video-pair">
+        <div class="cs-video cs-video--portrait">
+          <iframe src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        </div>
+        <div class="cs-video cs-video--portrait">
+          <iframe src="https://player.vimeo.com/video/1005975033?h=77f1627015&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section class="services">
+  <div class="contain">
+    <div class="reveal">
+      <div class="section-label">Creative Services</div>
+      <h2>Content plans built for scale.</h2>
+    </div>
+    <div class="services-grid reveal reveal-delay-2">
+      <div class="service-card">
+        <h3>Testimonials</h3>
+        <p>Your happiest customers on camera — guided by shot lists, filmed on their phone, delivered in real time.</p>
+        <ul><li>Remote capture from anywhere</li><li>Guided shot list prompts</li><li>Professional editing included</li></ul>
+      </div>
+      <div class="service-card">
+        <h3>Event Content</h3>
+        <p>Deploy unlimited filmers at every event. Walk away with a library of footage from attendees and ambassadors.</p>
+        <ul><li>Unlimited on-site filmers</li><li>Real-time footage sync</li><li>Quick-turn social edits</li></ul>
+      </div>
+      <div class="service-card">
+        <h3>Social Content</h3>
+        <p>A steady pipeline of community-created content for organic and paid channels — no freelancer briefs needed.</p>
+        <ul><li>Always-on content engine</li><li>Platform-optimized formats</li><li>Branded motion graphics</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TEASER: NIKE ═══ -->
+<section class="cs-teaser">
+  <div class="contain">
+    <div class="reveal">
+      <div class="cs-badge"><span class="cs-badge-tag">Case Study</span><span class="cs-badge-name">Nike</span></div>
+      <h3><em>Four cities. One weekend.</em><br>Zero production crews.</h3>
+      <p class="cs-desc">Nike used Cinebody to capture authentic run club content across the country — simultaneously, on brand, at scale. No crews, no studios, just real community moments.</p>
+      <div class="cs-stats">
+        <div class="cs-stat"><div class="cs-stat-num">4</div><div class="cs-stat-label">Cities</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">0</div><div class="cs-stat-label">Crews</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">1</div><div class="cs-stat-label">Platform</div></div>
+        <div class="cs-stat-pipe"></div>
+        <div class="cs-stat"><div class="cs-stat-num">100%</div><div class="cs-stat-label">On Brand</div></div>
+      </div>
+      <a href="/nike" class="cs-link">See the full story <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="cs-visual reveal reveal-delay-2">
+      <div class="cs-video cs-video--landscape">
+        <iframe src="https://player.vimeo.com/video/265928299?h=10ec2810ff&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+      </div>
+      <svg class="cs-accent" viewBox="0 0 533 354">
+        <line class="cs-connection" x1="72" y1="210" x2="248" y2="255"/>
+        <line class="cs-connection" x1="248" y1="255" x2="340" y2="125"/>
+        <line class="cs-connection" x1="340" y1="125" x2="478" y2="112"/>
+        <line class="cs-connection" x1="72" y1="210" x2="340" y2="125"/>
+        <line class="cs-connection" x1="248" y1="255" x2="478" y2="112"/>
+        <line class="cs-connection" x1="72" y1="210" x2="478" y2="112"/>
+        <g><circle class="cs-dot-pulse" cx="72" cy="210" r="4"/><circle class="cs-dot-core" cx="72" cy="210" r="4"/><text x="72" y="232" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,0.3)" font-family="Inter">LA</text></g>
+        <g><circle class="cs-dot-pulse" cx="248" cy="255" r="4" style="animation-delay:0.6s"/><circle class="cs-dot-core" cx="248" cy="255" r="4"/><text x="248" y="277" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,0.3)" font-family="Inter">ATX</text></g>
+        <g><circle class="cs-dot-pulse" cx="340" cy="125" r="4" style="animation-delay:1.2s"/><circle class="cs-dot-core" cx="340" cy="125" r="4"/><text x="340" y="113" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,0.3)" font-family="Inter">CHI</text></g>
+        <g><circle class="cs-dot-pulse" cx="478" cy="112" r="4" style="animation-delay:1.8s"/><circle class="cs-dot-core" cx="478" cy="112" r="4"/><text x="478" y="100" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,0.3)" font-family="Inter">NYC</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA WITH IMAGES ═══ -->
+<section class="cta-band">
+  <div class="contain">
+    <h2 class="reveal">Want results like these?<br><span>Let's map out your strategy.</span></h2>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-primary reveal reveal-delay-1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="cta-marquee">
+    <div class="cta-marquee-track" id="ctaTrack"></div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq">
+  <div class="contain">
+    <h2 class="reveal">Frequently asked questions</h2>
+    <div class="reveal reveal-delay-1">
+      <div class="faq-item"><button class="faq-trigger">What exactly is Cinebody?<span class="faq-icon"></span></button><div class="faq-panel"><div class="faq-answer">Cinebody is a patented video capture platform that lets you collect professional-quality footage from anyone, anywhere. You set the shot list, resolution, and creative direction. They film on their phone. Footage syncs to your dashboard in real time.</div></div></div>
+      <div class="faq-item"><button class="faq-trigger">How is this different from hiring a UGC creator?<span class="faq-icon"></span></button><div class="faq-panel"><div class="faq-answer">UGC marketplaces match you with paid creators who pretend to be customers. Cinebody activates your actual community — the people who already know and love your brand. The result is content that's genuinely authentic, not performed.</div></div></div>
+      <div class="faq-item"><button class="faq-trigger">Do filmers need to download an app?<span class="faq-icon"></span></button><div class="faq-panel"><div class="faq-answer">No. Cinebody works as a web app — filmers access it through a link or QR code. No downloads, no friction. They're filming within seconds.</div></div></div>
+      <div class="faq-item"><button class="faq-trigger">What does the patented shot list do?<span class="faq-icon"></span></button><div class="faq-panel"><div class="faq-answer">It's like having a director on every set. You customize FPS, resolution, orientation, and creative direction for each shot. Filmers follow guided prompts so footage comes back on-brand and production-ready.</div></div></div>
+      <div class="faq-item"><button class="faq-trigger">Can I use it without creative services?<span class="faq-icon"></span></button><div class="faq-panel"><div class="faq-answer">Absolutely. The software subscription is standalone. Our creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution.</div></div></div>
+      <div class="faq-item"><button class="faq-trigger">How much does it cost?<span class="faq-icon"></span></button><div class="faq-panel"><div class="faq-answer">Software plans start at $250/month billed annually. Creative services are custom-quoted based on scope. Most brands save 70%+ compared to traditional video production.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="sig-bar" style="margin-bottom:0;"></div>
+  <div class="contain" style="padding-top:64px;">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody" />
+        <p>The video capture platform that turns your community into your content team.</p>
+      </div>
+      <div class="footer-col"><h4>Product</h4><a href="/software">Software</a><a href="/services">Creative Services</a><a href="/pricing">Pricing</a><a href="/pointme">Case Studies</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/cinebody-blog">Blog</a><a href="/knowledge-base">Knowledge Base</a><a href="/patents">Patents</a><a href="https://pro.cinebody.com/login">Login</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-service">Terms of Service</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Super 6 LLC d/b/a Cinebody. All rights reserved.</span>
+      <span>Denver, CO</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Logos ──
+(function() {
+  var logos = [
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627396194-CW02B4SCASKFVILEHX39/image.png?format=300w', alt: 'Siemens' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627404824-YUXZ8IAY5N0NJ7Y6L4Y7/WebMD_logo.png?format=300w', alt: 'WebMD' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627421486-833XE0MQ1XX3CN6X4CWM/Roku_logo.svg.png?format=300w', alt: 'Roku' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627268766-2QVYTRN3751AIPACC1DY/Boeing_full_logo.svg.png?format=300w', alt: 'Boeing' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627290901-W6MGMUKBSWN9LCQ0A0PE/Experian_logo.svg.png?format=300w', alt: 'Experian' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627278987-YPPWINMNWY9CFG5RG38P/Dell_Logo.svg.png?format=100w', alt: 'Dell' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627309936-06LGFF1K8WXPIXXW2NVF/S%252526P_Global_logo.svg.png?format=300w', alt: 'S&P Global' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752627411120-274CV165FQ2V3F5ES5RB/Royal_Caribbean_logo_%2525282024%252529.svg.png?format=300w', alt: 'Royal Caribbean' }
+  ];
+  var track = document.getElementById('logoTrack');
+  for (var i = 0; i < 4; i++) {
+    logos.forEach(function(l) {
+      var img = document.createElement('img');
+      img.src = l.src; img.alt = l.alt; img.loading = 'lazy'; img.draggable = false;
+      track.appendChild(img);
+    });
+  }
+})();
+
+// ── CTA Marquee ──
+(function() {
+  var imgs = [
+    'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067842-W3N6CINAWS6FJ5O6Q484/CB_HowItWorxxx_LB_600.01_00_34_07.Still006.jpg',
+    'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306067373-3MRS4UVWV56617AA85XS/CB_HowItWorxxx_LB_600.01_00_34_01.Still005.jpg',
+    'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306065468-1HKIBXXJSUM9GFEZ2CTI/CB_HowItWorxxx_LB_600.01_00_33_16.Still004.jpg',
+    'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070881-BK5GKCA5ECJQRMP9WY2H/CB_HowItWorxxx_LB_600.01_00_37_10.Still009.jpg',
+    'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306070087-YSRR51XA0NJGJ0ZBXRZ6/CB_HowItWorxxx_LB_600.01_00_34_22.Still008.jpg',
+    'https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306069318-SEP54C57M1PLPEUXU5Z2/CB_HowItWorxxx_LB_600.01_00_34_14.Still007.jpg'
+  ];
+  var track = document.getElementById('ctaTrack');
+  for (var i = 0; i < 4; i++) {
+    imgs.forEach(function(src) {
+      var img = document.createElement('img');
+      img.src = src; img.loading = 'lazy'; img.alt = '';
+      track.appendChild(img);
+    });
+  }
+})();
+
+// ── Scroll Reveal ──
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  els.forEach(function(el) { observer.observe(el); });
+})();
+
+// ── Counter ──
+(function() {
+  var counters = document.querySelectorAll('[data-count-to]');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var el = e.target, target = parseInt(el.dataset.countTo), suffix = el.dataset.countSuffix || '', start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / 2000, 1), eased = 1 - Math.pow(1 - p, 4), v = Math.floor(eased * target);
+          el.textContent = (target >= 1000 ? v.toLocaleString() : v) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = (target >= 1000 ? target.toLocaleString() : target) + suffix;
+        }
+        requestAnimationFrame(step);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  counters.forEach(function(el) { observer.observe(el); });
+})();
+
+// ── FAQ ──
+(function() {
+  document.querySelectorAll('.faq-trigger').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = this.closest('.faq-item');
+      var wasOpen = item.classList.contains('is-open');
+      document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('is-open'); });
+      if (!wasOpen) item.classList.add('is-open');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

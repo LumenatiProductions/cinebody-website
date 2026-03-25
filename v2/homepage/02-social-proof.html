@@ -82,14 +82,29 @@
 }
 
 .marquee-track img {
-  height: 22px;
+  height: 20px;
+  max-width: 100px;
   width: auto;
   object-fit: contain;
   filter: grayscale(100%);
-  opacity: 0.6;
+  opacity: 0.5;
   transition: filter 0.3s ease, opacity 0.3s ease;
   flex-shrink: 0;
 }
+
+/* Normalize individual logos to similar visual weight */
+.marquee-track img[alt="Siemens"] { height: 18px; max-width: 90px; }
+.marquee-track img[alt="WebMD"] { height: 16px; }
+.marquee-track img[alt="Royal Caribbean"] { height: 22px; max-width: 110px; }
+.marquee-track img[alt="Roku"] { height: 16px; }
+.marquee-track img[alt="Altra"] { height: 14px; }
+.marquee-track img[alt="Boeing"] { height: 14px; max-width: 80px; }
+.marquee-track img[alt="Experian"] { height: 16px; }
+.marquee-track img[alt="Dell"] { height: 18px; max-width: 50px; }
+.marquee-track img[alt="S&P Global"] { height: 18px; max-width: 95px; }
+.marquee-track img[alt="ACS"] { height: 22px; max-width: 60px; }
+.marquee-track img[alt="Ball"] { height: 20px; max-width: 50px; }
+.marquee-track img[alt="Raising Cane's"] { height: 22px; max-width: 80px; }
 
 .marquee-track img:hover {
   filter: grayscale(0%);
