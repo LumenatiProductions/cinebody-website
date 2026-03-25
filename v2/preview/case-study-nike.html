@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinebody — Preview: Nike Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+  </style>
+  <link rel="stylesheet" href="../design-system.css" />
+  <style>
+    /* ── 01-hero ── */
+    .cb-cs-nk-hero { --cb-teal: #00bcf1; --cb-dark: #1a1a1a; --cb-body: #71717a; --cb-yellow: #f5c542; --cb-pink: #f06292; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; padding: 80px 0 40px; position: relative; }
+    .cb-cs-nk-hero-container { max-width: 1400px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2.5rem); display: grid; grid-template-columns: 55% 45%; align-items: center; gap: 48px; }
+    .cb-cs-nk-hero-logos { display: flex; align-items: center; gap: 20px; margin-bottom: 32px; }
+    .cb-cs-nk-hero-logo { height: 36px; width: auto; }
+    .cb-cs-nk-hero-logo--cb { filter: brightness(0) saturate(100%) invert(35%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(55%) contrast(90%); }
+    .cb-cs-nk-hero-logo-divider { font-size: 1.8rem; font-weight: 300; color: #ccc; line-height: 1; }
+    .cb-cs-nk-hero h1 { font-size: clamp(2.25rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; margin: 0 0 24px; }
+    .cb-cs-nk-hero h1 .cb-teal { color: var(--cb-teal); display: block; }
+    .cb-cs-nk-hero h1 .cb-dark { color: var(--cb-dark); display: block; }
+    .cb-cs-nk-hero-body { font-size: 16px; line-height: 1.65; color: var(--cb-body); max-width: 500px; margin: 0 0 32px; }
+    .cb-cs-nk-hero-cta { display: inline-block; background: var(--cb-teal); color: #fff; font-size: 14px; font-weight: 600; padding: 14px 32px; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .cb-cs-nk-hero-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0, 188, 241, 0.35); color: #fff; text-decoration: none; }
+    .cb-cs-nk-hero-image-wrap { position: relative; }
+    .cb-cs-nk-hero-image-wrap::before { content: ''; position: absolute; inset: -16px; background: linear-gradient(135deg, rgba(0, 188, 241, 0.12), rgba(240, 98, 146, 0.12)); border-radius: 28px; z-index: 0; }
+    .cb-cs-nk-hero-image-wrap img { display: block; width: 100%; height: auto; border-radius: 20px; position: relative; z-index: 1; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08); transition: transform 0.4s ease; }
+    .cb-cs-nk-hero-image-wrap:hover img { transform: scale(1.02); }
+    .cb-cs-nk-hero-bar { height: 3px; width: 100%; background: linear-gradient(to right, var(--cb-teal) 0%, var(--cb-teal) 33%, var(--cb-yellow) 33%, var(--cb-yellow) 66%, var(--cb-pink) 66%, var(--cb-pink) 100%); }
+    .cb-cs-nk-hero-text.cb-reveal { opacity: 0; transform: translateX(-20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .cb-cs-nk-hero-text.cb-reveal.is-visible { opacity: 1; transform: translateX(0); }
+    .cb-cs-nk-hero-image-wrap.cb-reveal { opacity: 0; transform: translateX(20px); transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s; }
+    .cb-cs-nk-hero-image-wrap.cb-reveal.is-visible { opacity: 1; transform: translateX(0); }
+    @media (max-width: 1000px) { .cb-cs-nk-hero-container { grid-template-columns: 1fr; text-align: center; gap: 40px; } .cb-cs-nk-hero-logos { justify-content: center; } .cb-cs-nk-hero-body { margin-left: auto; margin-right: auto; } .cb-cs-nk-hero-image-wrap { max-width: 560px; margin: 0 auto; } }
+    @media (max-width: 600px) { .cb-cs-nk-hero { padding: 48px 0 24px; } .cb-cs-nk-hero-container { gap: 32px; } .cb-cs-nk-hero-logo { height: 28px; } .cb-cs-nk-hero-cta { padding: 12px 24px; font-size: 13px; } }
+  </style>
+  <style>
+    /* ── 02-content ── */
+    .cb-cs-nk-content { --cb-teal: #00bcf1; --cb-900: #1a1a1a; --cb-500: #71717a; --cb-yellow: #f5c542; --cb-pink: #f06292; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .cb-cs-nk-content *, .cb-cs-nk-content *::before, .cb-cs-nk-content *::after { box-sizing: border-box; }
+    .cb-cs-nk-inner { max-width: 1400px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2.5rem); }
+    .cb-cs-nk-label { display: inline-block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cb-teal); border: 1.5px solid var(--cb-teal); border-radius: 100px; padding: 6px 16px; margin-bottom: 16px; line-height: 1; }
+    .cb-cs-nk-section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; margin: 0 0 20px; }
+    .cb-cs-nk-section-desc { font-size: 16px; line-height: 1.65; max-width: 520px; margin: 0 0 32px; }
+    .cb-cs-nk-content .cb-video { position: relative; overflow: hidden; border-radius: 12px; cursor: pointer; background: #000; }
+    .cb-cs-nk-content .cb-video img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.3s ease; }
+    .cb-cs-nk-content .cb-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .cb-cs-nk-content .cb-video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 56px; height: 56px; background: rgba(0, 0, 0, 0.55); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s ease, transform 0.2s ease; z-index: 2; }
+    .cb-cs-nk-content .cb-video:hover .cb-video-play { background: var(--cb-teal); transform: translate(-50%, -50%) scale(1.1); }
+    .cb-cs-nk-content .cb-video-play svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+    .cb-cs-nk-content .cb-video-label { position: absolute; bottom: 12px; left: 12px; background: rgba(0, 0, 0, 0.6); color: #fff; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 6px; z-index: 2; backdrop-filter: blur(4px); }
+    .cb-cs-nk-content .cb-video.is-playing img, .cb-cs-nk-content .cb-video.is-playing .cb-video-play, .cb-cs-nk-content .cb-video.is-playing .cb-video-label { opacity: 0; pointer-events: none; }
+    .cb-cs-nk-sync { background: var(--cb-900); padding: 80px 0; color: #fff; }
+    .cb-cs-nk-sync .cb-cs-nk-section-desc { color: #a1a1aa; }
+    .cb-cs-nk-sync-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+    .cb-cs-nk-sync-grid .cb-video { aspect-ratio: 16 / 9; }
+    .cb-cs-nk-map { background: #f4f4f5; padding: 80px 0; color: var(--cb-900); }
+    .cb-cs-nk-map .cb-cs-nk-section-title { text-align: center; }
+    .cb-cs-nk-map-wrap { position: relative; max-width: 800px; margin: 40px auto 0; }
+    .cb-cs-nk-map-wrap img { width: 100%; height: auto; display: block; opacity: 0.18; }
+    .cb-cs-nk-map-wrap svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .cb-cs-nk-map-dot { fill: var(--cb-teal); }
+    .cb-cs-nk-map-pulse { fill: none; stroke: var(--cb-teal); stroke-width: 1.5; opacity: 0; animation: cb-cs-nk-pulse 2.5s ease-out infinite; }
+    @keyframes cb-cs-nk-pulse { 0% { r: 6; opacity: 0.7; } 100% { r: 22; opacity: 0; } }
+    .cb-cs-nk-map-line { stroke: var(--cb-teal); stroke-width: 1; stroke-dasharray: 6 4; fill: none; opacity: 0.4; }
+    .cb-cs-nk-map-city { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; fill: var(--cb-900); text-anchor: middle; }
+    .cb-cs-nk-stats { display: flex; justify-content: center; gap: 48px; margin-top: 48px; flex-wrap: wrap; }
+    .cb-cs-nk-stat { text-align: center; }
+    .cb-cs-nk-stat-value { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 800; color: var(--cb-teal); line-height: 1; }
+    .cb-cs-nk-stat-label { font-size: 13px; font-weight: 500; color: var(--cb-500); margin-top: 6px; }
+    .cb-cs-nk-popup { background: #fff; padding: 80px 0; color: var(--cb-900); }
+    .cb-cs-nk-popup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .cb-cs-nk-popup-videos { display: flex; flex-direction: column; gap: 20px; }
+    .cb-cs-nk-popup-videos .cb-video { aspect-ratio: 16 / 9; }
+    .cb-cs-nk-influencer { background: #f4f4f5; padding: 80px 0; color: var(--cb-900); }
+    .cb-cs-nk-influencer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .cb-cs-nk-influencer-videos { display: flex; gap: 20px; justify-content: center; }
+    .cb-cs-nk-influencer-videos .cb-video { width: 280px; aspect-ratio: 9 / 16; flex-shrink: 0; }
+    .cb-cs-nk-cta { background: var(--cb-yellow); padding: 64px 0; text-align: center; }
+    .cb-cs-nk-cta-label { font-size: 15px; font-weight: 600; color: var(--cb-900); margin: 0 0 8px; opacity: 0.7; }
+    .cb-cs-nk-cta-title { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: var(--cb-900); letter-spacing: -0.03em; margin: 0 0 28px; }
+    .cb-cs-nk-cta-btn { display: inline-block; background: var(--cb-900); color: #fff; font-size: 14px; font-weight: 600; padding: 14px 36px; border-radius: 10px; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .cb-cs-nk-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2); color: #fff; text-decoration: none; }
+    .cb-cs-nk-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .cb-cs-nk-reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 1000px) { .cb-cs-nk-popup-grid, .cb-cs-nk-influencer-grid { grid-template-columns: 1fr; gap: 32px; } .cb-cs-nk-influencer-videos { justify-content: center; } }
+    @media (max-width: 700px) { .cb-cs-nk-sync-grid { grid-template-columns: 1fr; } .cb-cs-nk-influencer-videos .cb-video { width: 220px; } .cb-cs-nk-stats { gap: 32px; } .cb-cs-nk-sync, .cb-cs-nk-map, .cb-cs-nk-popup, .cb-cs-nk-influencer { padding: 56px 0; } }
+    @media (max-width: 480px) { .cb-cs-nk-influencer-videos { flex-direction: column; align-items: center; } .cb-cs-nk-influencer-videos .cb-video { width: 100%; max-width: 280px; } }
+  </style>
+  <style>
+    .cb-footer { position: relative; background: #1a1a1a; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; }
+    .cb-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+    .cb-footer-accent { height: 3px; background: linear-gradient(90deg, #2dd4bf, #facc15, #ec4899); }
+    .cb-footer-inner { max-width: 1400px; margin: 0 auto; padding: 64px 40px 32px; }
+    .cb-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; }
+    .cb-footer-brand-logo { height: 28px; display: block; margin-bottom: 20px; }
+    .cb-footer-brand-text { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; max-width: 280px; margin-bottom: 24px; }
+    .cb-footer-social { display: flex; gap: 16px; align-items: center; }
+    .cb-footer-social a { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); transition: color 250ms ease; }
+    .cb-footer-social a:hover { color: #2dd4bf; }
+    .cb-footer-social a svg { width: 20px; height: 20px; fill: currentColor; }
+    .cb-footer-col-header { color: #fff; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; }
+    .cb-footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .cb-footer-links a { color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none; transition: color 250ms ease; }
+    .cb-footer-links a:hover { color: #2dd4bf; }
+    .cb-footer-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cb-footer-bottom span { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+    @media (max-width: 768px) { .cb-footer-inner { padding: 48px 24px 28px; } .cb-footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+    @media (max-width: 480px) { .cb-footer-inner { padding: 40px 20px 24px; } .cb-footer-grid { grid-template-columns: 1fr; gap: 36px; } .cb-footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<!-- ═══ 01-hero ═══ -->
+<section class="cb-cs-nk-hero">
+  <div class="cb-cs-nk-hero-container">
+    <div class="cb-cs-nk-hero-text cb-reveal">
+      <div class="cb-cs-nk-hero-logos">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody logo" class="cb-cs-nk-hero-logo cb-cs-nk-hero-logo--cb" />
+        <span class="cb-cs-nk-hero-logo-divider">+</span>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/c88ed68e-c822-40bd-acd0-f6840ed36cec/toppng.com-nike-black-wordmark-logo-png-450x240.png" alt="Nike logo" class="cb-cs-nk-hero-logo" />
+      </div>
+      <h1>
+        <span class="cb-teal">Real people. Real runs.</span>
+        <span class="cb-dark">Real content at scale.</span>
+      </h1>
+      <p class="cb-cs-nk-hero-body">When Nike needed authentic community content at scale, they handed the camera to the people who live the brand — from run club recaps to pop-up activations to influencer partnerships, all guided by shot lists, all delivered fast.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cs-nk-hero-cta" target="_blank" rel="noopener">See How It Works</a>
+    </div>
+    <div class="cb-cs-nk-hero-image-wrap cb-reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/9996245a-9c39-419f-8fdb-5f8b0cd7af21/nike_phone.png" alt="Nike community content on mobile" loading="eager" />
+    </div>
+  </div>
+</section>
+<div class="cb-cs-nk-hero-bar" style="--cb-teal:#00bcf1;--cb-yellow:#f5c542;--cb-pink:#f06292;"></div>
+
+<!-- ═══ 02-content ═══ -->
+<div class="cb-cs-nk-content">
+  <section class="cb-cs-nk-sync">
+    <div class="cb-cs-nk-inner">
+      <div class="cb-cs-nk-reveal">
+        <span class="cb-cs-nk-label">Nationwide Sync</span>
+        <h2 class="cb-cs-nk-section-title" style="color:#fff;">Four cities. One weekend. Every&nbsp;run,&nbsp;captured.</h2>
+        <p class="cb-cs-nk-section-desc">Nike run club ambassadors across the country filmed simultaneously using Cinebody — no production crews, no travel budgets. Just real runners capturing real moments, all synced through one platform.</p>
+      </div>
+      <div class="cb-cs-nk-sync-grid cb-cs-nk-reveal" data-cb-video-group>
+        <div class="cb-video" data-vimeo-id="210955565"><img src="https://vumbnail.com/210955565.jpg" alt="Nike Run Club NYC" loading="lazy" /><div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="cb-video-label">NYC</span></div>
+        <div class="cb-video" data-vimeo-id="210956522"><img src="https://vumbnail.com/210956522.jpg" alt="Nike Run Club LA" loading="lazy" /><div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="cb-video-label">LA</span></div>
+        <div class="cb-video" data-vimeo-id="210956382"><img src="https://vumbnail.com/210956382.jpg" alt="Nike Run Club Chicago" loading="lazy" /><div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="cb-video-label">Chicago</span></div>
+        <div class="cb-video" data-vimeo-id="210956225"><img src="https://vumbnail.com/210956225.jpg" alt="Nike Run Club Austin" loading="lazy" /><div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="cb-video-label">ATX</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="cb-cs-nk-map">
+    <div class="cb-cs-nk-inner">
+      <div class="cb-cs-nk-reveal"><h2 class="cb-cs-nk-section-title">One platform. Four cities. Content captured&nbsp;simultaneously.</h2></div>
+      <div class="cb-cs-nk-map-wrap cb-cs-nk-reveal">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/06fc5653-5ee8-4524-b07a-10c3ae0d26a4/united-states.png?format=1500w" alt="United States map" loading="lazy" />
+        <svg viewBox="0 0 533 354" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <line class="cb-cs-nk-map-line" x1="72" y1="210" x2="248" y2="255" />
+          <line class="cb-cs-nk-map-line" x1="248" y1="255" x2="340" y2="125" />
+          <line class="cb-cs-nk-map-line" x1="340" y1="125" x2="478" y2="112" />
+          <circle class="cb-cs-nk-map-dot" cx="72" cy="210" r="6" /><circle class="cb-cs-nk-map-pulse" cx="72" cy="210" r="6" /><text class="cb-cs-nk-map-city" x="72" y="198">LA</text>
+          <circle class="cb-cs-nk-map-dot" cx="248" cy="255" r="6" /><circle class="cb-cs-nk-map-pulse" cx="248" cy="255" r="6" style="animation-delay:0.6s;" /><text class="cb-cs-nk-map-city" x="248" y="243">Austin</text>
+          <circle class="cb-cs-nk-map-dot" cx="340" cy="125" r="6" /><circle class="cb-cs-nk-map-pulse" cx="340" cy="125" r="6" style="animation-delay:1.2s;" /><text class="cb-cs-nk-map-city" x="340" y="113">Chicago</text>
+          <circle class="cb-cs-nk-map-dot" cx="478" cy="112" r="6" /><circle class="cb-cs-nk-map-pulse" cx="478" cy="112" r="6" style="animation-delay:1.8s;" /><text class="cb-cs-nk-map-city" x="478" y="100">NYC</text>
+        </svg>
+      </div>
+      <div class="cb-cs-nk-stats cb-cs-nk-reveal">
+        <div class="cb-cs-nk-stat"><div class="cb-cs-nk-stat-value">4</div><div class="cb-cs-nk-stat-label">Cities</div></div>
+        <div class="cb-cs-nk-stat"><div class="cb-cs-nk-stat-value">0</div><div class="cb-cs-nk-stat-label">Production Crews</div></div>
+        <div class="cb-cs-nk-stat"><div class="cb-cs-nk-stat-value">100%</div><div class="cb-cs-nk-stat-label">On Brand</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="cb-cs-nk-popup">
+    <div class="cb-cs-nk-inner">
+      <div class="cb-cs-nk-popup-grid">
+        <div class="cb-cs-nk-reveal">
+          <span class="cb-cs-nk-label">Pop-Up Power</span>
+          <h2 class="cb-cs-nk-section-title">Product drops. Live activations. Content in&nbsp;real&nbsp;time.</h2>
+          <p class="cb-cs-nk-section-desc" style="color:var(--cb-500);">When Nike launches a product or hosts a live event, Cinebody creators are already on the ground — capturing unscripted moments that feel real because they are. No call sheets. No post-production delays. Just authentic content delivered in hours, not weeks.</p>
+        </div>
+        <div class="cb-cs-nk-popup-videos cb-cs-nk-reveal">
+          <div class="cb-video" data-vimeo-id="265928299"><img src="https://vumbnail.com/265928299.jpg" alt="Nike Product Launch" loading="lazy" /><div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="cb-video-label">Product Launch</span></div>
+          <div class="cb-video" data-vimeo-id="214760772"><img src="https://vumbnail.com/214760772.jpg" alt="Nike Brand Activation" loading="lazy" /><div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="cb-video-label">Brand Activation</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cb-cs-nk-influencer">
+    <div class="cb-cs-nk-inner">
+      <div class="cb-cs-nk-influencer-grid">
+        <div class="cb-cs-nk-influencer-videos cb-cs-nk-reveal">
+          <div class="cb-video" data-vimeo-id="329885560"><img src="https://vumbnail.com/329885560.jpg" alt="Nike Workout Story" loading="lazy" /><div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="cb-video-label">Workout Story</span></div>
+          <div class="cb-video" data-vimeo-id="329885498"><img src="https://vumbnail.com/329885498.jpg" alt="Nike Daily Routine" loading="lazy" /><div class="cb-video-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="cb-video-label">Daily Routine</span></div>
+        </div>
+        <div class="cb-cs-nk-reveal">
+          <span class="cb-cs-nk-label">Influencer Ignition</span>
+          <h2 class="cb-cs-nk-section-title">No scripts. No crews. Just real athletes, real&nbsp;stories.</h2>
+          <p class="cb-cs-nk-section-desc" style="color:var(--cb-500);">Nike's athlete partners use Cinebody to self-capture vertical content — workouts, routines, day-in-the-life stories — all guided by brand shot lists and delivered directly through the platform. Authentic storytelling at the speed of social.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cb-cs-nk-cta">
+    <div class="cb-cs-nk-inner cb-cs-nk-reveal">
+      <p class="cb-cs-nk-cta-label">Want authentic content from every city?</p>
+      <h2 class="cb-cs-nk-cta-title">Let's build your content engine.</h2>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cs-nk-cta-btn" target="_blank" rel="noopener">Let's Talk</a>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<footer class="cb-footer">
+  <div class="cb-footer-accent"></div>
+  <div class="cb-footer-inner">
+    <div class="cb-footer-grid">
+      <div>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody" class="cb-footer-brand-logo" />
+        <p class="cb-footer-brand-text">The video capture platform that turns your community into your content team.</p>
+        <div class="cb-footer-social">
+          <a href="https://vimeo.com/cinebody" target="_blank" rel="noopener" aria-label="Vimeo"><svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609C15.9 20.058 13.014 22 10.552 22c-1.52 0-2.808-1.403-3.86-4.21-.703-2.576-1.405-5.152-2.107-7.728-.78-2.808-1.617-4.21-2.514-4.21-.195 0-.878.41-2.047 1.23L0 6.697c1.287-1.13 2.556-2.26 3.807-3.39C5.37 1.96 6.546 1.276 7.33 1.216c1.936-.186 3.128 1.14 3.574 3.975.482 3.059.816 4.96 1.003 5.704.557 2.529 1.17 3.794 1.838 3.794.52 0 1.298-.82 2.338-2.46 1.038-1.64 1.594-2.89 1.668-3.747.148-1.415-.408-2.124-1.668-2.124-.594 0-1.205.136-1.838.406 1.22-3.998 3.553-5.94 6.998-5.828 2.554.074 3.76 1.732 3.734 4.98z"/></svg></a>
+          <a href="http://instagram.com/cinebody" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="http://facebook.com/cinebody" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        </div>
+      </div>
+      <div><h4 class="cb-footer-col-header">Product</h4><ul class="cb-footer-links"><li><a href="/software">Software</a></li><li><a href="/services">Creative Services</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/pointme">Case Studies</a></li></ul></div>
+      <div><h4 class="cb-footer-col-header">Resources</h4><ul class="cb-footer-links"><li><a href="/cinebody-blog">Blog</a></li><li><a href="/knowledge-base">Knowledge Base</a></li><li><a href="/patents">Patents</a></li><li><a href="https://pro.cinebody.com/login" target="_blank" rel="noopener">Login</a></li></ul></div>
+      <div><h4 class="cb-footer-col-header">Company</h4><ul class="cb-footer-links"><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-service">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="cb-footer-bottom">
+      <span>&copy; 2025 Super 6 LLC d/b/a Cinebody. All rights reserved.</span>
+      <span>Denver, CO</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function() {
+  /* Reveal on scroll */
+  var els = document.querySelectorAll('.cb-cs-nk-reveal');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function(el) { obs.observe(el); });
+
+  /* Click-to-play */
+  document.querySelectorAll('.cb-cs-nk-content .cb-video').forEach(function(card) {
+    card.addEventListener('click', function() {
+      if (card.classList.contains('is-playing')) return;
+      var id = card.getAttribute('data-vimeo-id');
+      if (!id) return;
+      var group = card.closest('[data-cb-video-group]');
+      if (group) {
+        group.querySelectorAll('.cb-video.is-playing iframe').forEach(function(f) {
+          f.parentElement.classList.remove('is-playing');
+          f.remove();
+        });
+      }
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&title=0&byline=0&portrait=0';
+      iframe.allow = 'autoplay; fullscreen';
+      iframe.setAttribute('allowfullscreen', '');
+      card.appendChild(iframe);
+      card.classList.add('is-playing');
+    });
+  });
+})();
+</script>
+</body>
+</html>

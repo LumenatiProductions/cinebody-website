@@ -55,8 +55,8 @@
   /* ── Grid ── */
   .cb-cases-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
     margin-bottom: 48px;
   }
 
@@ -65,7 +65,7 @@
     position: relative;
     border-radius: 16px;
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 4;
     display: block;
     text-decoration: none;
     cursor: pointer;
@@ -217,6 +217,13 @@
   }
 
   /* ── Responsive ── */
+  @media (max-width: 1000px) {
+    .cb-cases-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+  }
+
   @media (max-width: 768px) {
     .cb-cases {
       padding: 64px 0;
@@ -249,6 +256,10 @@
     .cb-cases-grid {
       grid-template-columns: 1fr;
       gap: 16px;
+    }
+
+    .cb-case-card {
+      aspect-ratio: 4 / 3;
     }
   }
 </style>

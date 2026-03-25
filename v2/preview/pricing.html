@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinebody — Preview: Pricing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Global Reset ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+  </style>
+  <link rel="stylesheet" href="../design-system.css" />
+  <style>
+    /* ── 01-compare ── */
+    .cb-compare {
+      --cb-teal: #00bcf1;
+      --cb-dark: #1a1a1a;
+      --cb-body: #71717a;
+      --cb-trust: #a1a1aa;
+      --cb-yellow: #f5c542;
+      --cb-pink: #f06292;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f4f4f5;
+      padding: 80px 0;
+    }
+    .cb-compare-container { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2.5rem); }
+    .cb-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .cb-compare-card { background: #fff; border-radius: 20px; padding: 40px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .cb-compare-card:hover { transform: translateY(-6px); box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06); }
+    .cb-compare-img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin: 0 auto 28px; display: block; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+    .cb-compare-card h3 { font-size: 1.5rem; font-weight: 700; color: var(--cb-teal); margin: 0 0 14px; line-height: 1.25; }
+    .cb-compare-card p { font-size: 0.95rem; color: var(--cb-body); line-height: 1.65; margin: 0 0 24px; }
+    .cb-compare-price { font-size: 0.95rem; font-weight: 600; color: var(--cb-teal); margin: 0 0 24px; }
+    .cb-compare-btn { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; text-decoration: none; padding: 14px 32px; border-radius: 100px; transition: all 0.25s ease; cursor: pointer; }
+    .cb-compare-btn--primary { background: var(--cb-teal); color: #fff; border: 2px solid var(--cb-teal); }
+    .cb-compare-btn--primary:hover { background: #009fd4; border-color: #009fd4; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,188,241,0.35); }
+    .cb-compare-btn--outline { background: transparent; color: var(--cb-teal); border: 2px solid var(--cb-teal); }
+    .cb-compare-btn--outline:hover { background: var(--cb-teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,188,241,0.35); }
+    @media (max-width: 768px) {
+      .cb-compare-grid { grid-template-columns: 1fr; gap: 24px; }
+      .cb-compare-card { padding: 32px 28px; }
+      .cb-compare-img { width: 130px; height: 130px; }
+    }
+  </style>
+  <style>
+    /* ── 02-plans ── */
+    .cb-plans {
+      --cb-teal: #00bcf1;
+      --cb-dark: #1a1a1a;
+      --cb-body: #71717a;
+      --cb-trust: #a1a1aa;
+      --cb-yellow: #f5c542;
+      --cb-pink: #f06292;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      padding: 80px 0;
+    }
+    .cb-plans-container { max-width: 1400px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2.5rem); }
+    .cb-plans-header { text-align: center; margin-bottom: 48px; }
+    .cb-plans-header h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; color: var(--cb-dark); margin: 0 0 12px; line-height: 1.15; }
+    .cb-plans-header p { font-size: 1.05rem; color: var(--cb-body); margin: 0 0 28px; line-height: 1.6; }
+    .cb-plans-badge { display: inline-block; font-size: 0.8rem; font-weight: 700; color: #16a34a; background: #dcfce7; padding: 6px 16px; border-radius: 100px; margin-bottom: 24px; letter-spacing: 0.02em; }
+    .cb-plans-toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; }
+    .cb-plans-toggle-label { font-size: 0.95rem; font-weight: 600; color: var(--cb-trust); transition: color 0.25s ease; cursor: pointer; user-select: none; }
+    .cb-plans-toggle-label.is-active { color: var(--cb-dark); }
+    .cb-plans-toggle { position: relative; width: 52px; height: 28px; cursor: pointer; }
+    .cb-plans-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .cb-plans-toggle-track { position: absolute; inset: 0; background: #d4d4d8; border-radius: 100px; transition: background 0.3s ease; }
+    .cb-plans-toggle input:checked + .cb-plans-toggle-track { background: var(--cb-teal); }
+    .cb-plans-toggle-knob { position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: #fff; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,0.15); transition: transform 0.3s ease; pointer-events: none; }
+    .cb-plans-toggle input:checked ~ .cb-plans-toggle-knob { transform: translateX(24px); }
+    .cb-plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
+    .cb-plans-card { background: #fff; border: 1px solid #e4e4e7; border-radius: 20px; padding: 40px 32px; display: flex; flex-direction: column; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .cb-plans-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .cb-plans-card--featured { border: 2px solid var(--cb-teal); box-shadow: 0 4px 20px rgba(0,188,241,0.12); }
+    .cb-plans-card--featured:hover { box-shadow: 0 8px 30px rgba(0,188,241,0.2); }
+    .cb-plans-popular { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--cb-teal); color: #fff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 18px; border-radius: 100px; white-space: nowrap; }
+    .cb-plans-name { font-size: 1.25rem; font-weight: 700; color: var(--cb-dark); margin: 0 0 6px; }
+    .cb-plans-tagline { font-size: 0.85rem; color: var(--cb-body); margin: 0 0 24px; line-height: 1.5; }
+    .cb-plans-price { display: flex; align-items: baseline; gap: 2px; margin-bottom: 8px; }
+    .cb-plans-dollar { font-size: 1.25rem; font-weight: 700; color: var(--cb-dark); line-height: 1; }
+    .cb-plans-amount { font-size: 3rem; font-weight: 700; color: var(--cb-dark); line-height: 1; letter-spacing: -0.03em; }
+    .cb-plans-period { font-size: 0.95rem; font-weight: 500; color: var(--cb-trust); margin-left: 2px; }
+    .cb-plans-billed { font-size: 0.8rem; color: var(--cb-trust); margin: 0 0 28px; }
+    .cb-plans-custom-label { font-size: 3rem; font-weight: 700; color: var(--cb-dark); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .cb-plans-custom-sub { font-size: 0.8rem; color: var(--cb-trust); margin: 0 0 28px; }
+    .cb-plans-divider { width: 100%; height: 1px; background: #e4e4e7; margin: 0 0 24px; border: none; }
+    .cb-plans-features-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cb-trust); margin: 0 0 16px; }
+    .cb-plans-features { list-style: none; padding: 0; margin: 0 0 32px; flex-grow: 1; }
+    .cb-plans-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--cb-dark); line-height: 1.5; margin-bottom: 12px; }
+    .cb-plans-features li svg { flex-shrink: 0; margin-top: 2px; }
+    .cb-plans-check { color: var(--cb-dark); }
+    .cb-plans-card--featured .cb-plans-check { color: var(--cb-teal); }
+    .cb-plans-btn { display: block; width: 100%; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; text-align: center; text-decoration: none; padding: 14px 24px; border-radius: 100px; border: 2px solid transparent; transition: all 0.25s ease; cursor: pointer; box-sizing: border-box; }
+    .cb-plans-btn--outline { background: transparent; color: var(--cb-teal); border-color: var(--cb-teal); }
+    .cb-plans-btn--outline:hover { background: var(--cb-teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,188,241,0.3); }
+    .cb-plans-btn--teal { background: var(--cb-teal); color: #fff; border-color: var(--cb-teal); }
+    .cb-plans-btn--teal:hover { background: #009fd4; border-color: #009fd4; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,188,241,0.35); }
+    .cb-plans-btn--yellow { background: var(--cb-yellow); color: var(--cb-dark); border-color: var(--cb-yellow); }
+    .cb-plans-btn--yellow:hover { background: #e6b53a; border-color: #e6b53a; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(245,197,66,0.4); }
+    .cb-plans-footer { text-align: center; margin-top: 40px; font-size: 0.9rem; color: var(--cb-body); line-height: 1.6; }
+    .cb-plans-footer a { color: var(--cb-teal); text-decoration: none; font-weight: 600; }
+    .cb-plans-footer a:hover { text-decoration: underline; }
+    @media (max-width: 960px) {
+      .cb-plans-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+      .cb-plans-card--featured { order: -1; }
+    }
+  </style>
+  <style>
+    /* ── Footer ── */
+    .cb-footer { position: relative; background: #1a1a1a; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; }
+    .cb-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+    .cb-footer-accent { height: 3px; background: linear-gradient(90deg, #2dd4bf, #facc15, #ec4899); }
+    .cb-footer-inner { max-width: 1400px; margin: 0 auto; padding: 64px 40px 32px; }
+    .cb-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; }
+    .cb-footer-brand-logo { height: 28px; display: block; margin-bottom: 20px; }
+    .cb-footer-brand-text { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; max-width: 280px; margin-bottom: 24px; }
+    .cb-footer-social { display: flex; gap: 16px; align-items: center; }
+    .cb-footer-social a { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); transition: color 250ms ease; }
+    .cb-footer-social a:hover { color: #2dd4bf; }
+    .cb-footer-social a svg { width: 20px; height: 20px; fill: currentColor; }
+    .cb-footer-col-header { color: #fff; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; }
+    .cb-footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .cb-footer-links a { color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none; transition: color 250ms ease; }
+    .cb-footer-links a:hover { color: #2dd4bf; }
+    .cb-footer-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cb-footer-bottom span { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+    @media (max-width: 768px) { .cb-footer-inner { padding: 48px 24px 28px; } .cb-footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+    @media (max-width: 480px) { .cb-footer-inner { padding: 40px 20px 24px; } .cb-footer-grid { grid-template-columns: 1fr; gap: 36px; } .cb-footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<!-- ═══ 01-compare ═══ -->
+<div class="cb-compare">
+  <div class="cb-compare-container">
+    <div class="cb-compare-grid">
+      <div class="cb-compare-card">
+        <img class="cb-compare-img" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/39ac2bb5-c3fa-47e8-88bd-ac9e68606e4d/unsplash-image-tUpJSfgkKvo.jpg" alt="Creative services team at work" loading="lazy" />
+        <h3>Want a team behind your content?</h3>
+        <p>From strategy to final cut, our producers and editors handle every step. You approve. We deliver.</p>
+        <div class="cb-compare-price">Contact us for custom pricing</div>
+        <a href="https://calendly.com/cinebody" class="cb-compare-btn cb-compare-btn--primary">Talk to Our Team</a>
+      </div>
+      <div class="cb-compare-card">
+        <img class="cb-compare-img" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752690852135-2P56HV9LTN1FF839DFJH/unsplash-image-ab0D6SoBn3w.jpg" alt="Person using Cinebody platform on laptop" loading="lazy" />
+        <h3>Want to run it yourself?</h3>
+        <p>The platform lets you direct shoots remotely and collect footage from anyone, anywhere. Set the specs, send the link, get the clips.</p>
+        <div class="cb-compare-price">Plans start at $250/mo</div>
+        <a href="#pricing-plans" class="cb-compare-btn cb-compare-btn--outline">See Platform Pricing</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 02-plans ═══ -->
+<div class="cb-plans" id="pricing-plans">
+  <div class="cb-plans-container">
+    <div class="cb-plans-header">
+      <h2>Pick the plan that fits how you work.</h2>
+      <p>Every plan includes unlimited projects, unlimited contributors, and full platform access.</p>
+      <span class="cb-plans-badge">Save up to 29% with annual billing</span>
+      <div class="cb-plans-toggle-wrap">
+        <span class="cb-plans-toggle-label is-active" data-plan="annual">Annual</span>
+        <label class="cb-plans-toggle" id="cb-pricing-toggle">
+          <input type="checkbox" />
+          <span class="cb-plans-toggle-track"></span>
+          <span class="cb-plans-toggle-knob"></span>
+        </label>
+        <span class="cb-plans-toggle-label" data-plan="monthly">Monthly</span>
+      </div>
+    </div>
+    <div class="cb-plans-grid">
+      <div class="cb-plans-card">
+        <div class="cb-plans-name">Plus</div>
+        <div class="cb-plans-tagline">For teams getting started with remote video collection.</div>
+        <div class="cb-plans-price">
+          <span class="cb-plans-dollar">$</span>
+          <span class="cb-plans-amount" data-annual="250" data-monthly="350">250</span>
+          <span class="cb-plans-period">/mo</span>
+        </div>
+        <div class="cb-plans-billed" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+        <hr class="cb-plans-divider" />
+        <div class="cb-plans-features-title">What's included</div>
+        <ul class="cb-plans-features">
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 3 active projects</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Unlimited contributors</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Shot list builder</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> HD downloads</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Basic analytics</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Email support</li>
+        </ul>
+        <a href="https://calendly.com/cinebody" class="cb-plans-btn cb-plans-btn--outline">Get Started</a>
+      </div>
+      <div class="cb-plans-card cb-plans-card--featured">
+        <span class="cb-plans-popular">Most Popular</span>
+        <div class="cb-plans-name">Pro</div>
+        <div class="cb-plans-tagline">For brands running multiple campaigns with global teams.</div>
+        <div class="cb-plans-price">
+          <span class="cb-plans-dollar">$</span>
+          <span class="cb-plans-amount" data-annual="500" data-monthly="650">500</span>
+          <span class="cb-plans-period">/mo</span>
+        </div>
+        <div class="cb-plans-billed" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+        <hr class="cb-plans-divider" />
+        <div class="cb-plans-features-title">Everything in Plus, and</div>
+        <ul class="cb-plans-features">
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Unlimited active projects</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 4K downloads</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Custom branding on capture links</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Advanced analytics &amp; reporting</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Team roles &amp; permissions</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Priority support</li>
+        </ul>
+        <a href="https://calendly.com/cinebody" class="cb-plans-btn cb-plans-btn--teal">Get Started</a>
+      </div>
+      <div class="cb-plans-card">
+        <div class="cb-plans-name">Enterprise</div>
+        <div class="cb-plans-tagline">For organizations that need scale, security, and dedicated support.</div>
+        <div class="cb-plans-custom-label">Custom</div>
+        <div class="cb-plans-custom-sub">Tailored to your team's needs</div>
+        <hr class="cb-plans-divider" />
+        <div class="cb-plans-features-title">Everything in Pro, and</div>
+        <ul class="cb-plans-features">
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> SSO &amp; enterprise security</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Dedicated account manager</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Custom integrations &amp; API access</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> SLA &amp; uptime guarantees</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Onboarding &amp; training</li>
+          <li><svg class="cb-plans-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Multi-team workspaces</li>
+        </ul>
+        <a href="https://calendly.com/cinebody" class="cb-plans-btn cb-plans-btn--yellow">Talk to Sales</a>
+      </div>
+    </div>
+    <div class="cb-plans-footer">
+      Need creative services too? Every plan can be paired with our <a href="/services">production and editing team</a>.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<footer class="cb-footer">
+  <div class="cb-footer-accent"></div>
+  <div class="cb-footer-inner">
+    <div class="cb-footer-grid">
+      <div>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody" class="cb-footer-brand-logo" />
+        <p class="cb-footer-brand-text">The video capture platform that turns your community into your content team.</p>
+        <div class="cb-footer-social">
+          <a href="https://vimeo.com/cinebody" target="_blank" rel="noopener" aria-label="Vimeo"><svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609C15.9 20.058 13.014 22 10.552 22c-1.52 0-2.808-1.403-3.86-4.21-.703-2.576-1.405-5.152-2.107-7.728-.78-2.808-1.617-4.21-2.514-4.21-.195 0-.878.41-2.047 1.23L0 6.697c1.287-1.13 2.556-2.26 3.807-3.39C5.37 1.96 6.546 1.276 7.33 1.216c1.936-.186 3.128 1.14 3.574 3.975.482 3.059.816 4.96 1.003 5.704.557 2.529 1.17 3.794 1.838 3.794.52 0 1.298-.82 2.338-2.46 1.038-1.64 1.594-2.89 1.668-3.747.148-1.415-.408-2.124-1.668-2.124-.594 0-1.205.136-1.838.406 1.22-3.998 3.553-5.94 6.998-5.828 2.554.074 3.76 1.732 3.734 4.98z"/></svg></a>
+          <a href="http://instagram.com/cinebody" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="http://facebook.com/cinebody" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="cb-footer-col-header">Product</h4>
+        <ul class="cb-footer-links">
+          <li><a href="/software">Software</a></li>
+          <li><a href="/services">Creative Services</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/pointme">Case Studies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="cb-footer-col-header">Resources</h4>
+        <ul class="cb-footer-links">
+          <li><a href="/cinebody-blog">Blog</a></li>
+          <li><a href="/knowledge-base">Knowledge Base</a></li>
+          <li><a href="/patents">Patents</a></li>
+          <li><a href="https://pro.cinebody.com/login" target="_blank" rel="noopener">Login</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="cb-footer-col-header">Company</h4>
+        <ul class="cb-footer-links">
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-service">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="cb-footer-bottom">
+      <span>&copy; 2025 Super 6 LLC d/b/a Cinebody. All rights reserved.</span>
+      <span>Denver, CO</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ Scripts ═══ -->
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function() {
+  var toggle = document.querySelector('#cb-pricing-toggle input');
+  var labels = document.querySelectorAll('.cb-plans-toggle-label');
+  var amounts = document.querySelectorAll('.cb-plans-amount');
+  var billedEls = document.querySelectorAll('.cb-plans-billed');
+  if (!toggle) return;
+  toggle.addEventListener('change', function() {
+    var isMonthly = toggle.checked;
+    var plan = isMonthly ? 'monthly' : 'annual';
+    labels.forEach(function(label) {
+      label.classList.toggle('is-active', label.getAttribute('data-plan') === plan);
+    });
+    amounts.forEach(function(el) {
+      el.textContent = el.getAttribute('data-' + plan);
+    });
+    billedEls.forEach(function(el) {
+      el.textContent = el.getAttribute('data-' + plan);
+    });
+  });
+})();
+</script>
+</body>
+</html>

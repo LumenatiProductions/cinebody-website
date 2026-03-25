@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinebody — Preview: Point.me Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+  </style>
+  <link rel="stylesheet" href="../design-system.css" />
+  <style>
+    /* ── 01-hero ── */
+    .cb-cs-pm-hero { --cb-teal: #00bcf1; --cb-dark: #1a1a1a; --cb-body: #71717a; --cb-yellow: #f5c542; --cb-pink: #f06292; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; padding: 80px 0 40px; position: relative; }
+    .cb-cs-pm-hero-container { max-width: 1400px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2.5rem); display: grid; grid-template-columns: 55% 45%; align-items: center; gap: 48px; }
+    .cb-cs-pm-logos { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
+    .cb-cs-pm-logos img { height: 28px; width: auto; object-fit: contain; }
+    .cb-cs-pm-logos .cb-cs-pm-logo-cb { filter: grayscale(1); opacity: 0.6; }
+    .cb-cs-pm-logos .cb-cs-pm-logo-plus { font-size: 18px; font-weight: 600; color: var(--cb-body); line-height: 1; }
+    .cb-cs-pm-hero h1 { font-size: clamp(2.25rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; margin: 0 0 24px; }
+    .cb-cs-pm-hero h1 .cb-teal { color: var(--cb-teal); display: block; }
+    .cb-cs-pm-hero h1 .cb-dark { color: var(--cb-dark); display: block; }
+    .cb-cs-pm-hero-body { font-size: 16px; line-height: 1.65; color: var(--cb-body); max-width: 500px; margin: 0 0 32px; }
+    .cb-cs-pm-hero-cta { display: inline-block; background: var(--cb-teal); color: #fff; font-size: 14px; font-weight: 600; padding: 14px 32px; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .cb-cs-pm-hero-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0, 188, 241, 0.35); color: #fff; text-decoration: none; }
+    .cb-cs-pm-hero-image-wrap { position: relative; }
+    .cb-cs-pm-hero-image-wrap::before { content: ''; position: absolute; inset: -16px; background: linear-gradient(135deg, rgba(0, 188, 241, 0.12), rgba(240, 98, 146, 0.12)); border-radius: 28px; z-index: 0; }
+    .cb-cs-pm-hero-image-wrap img { display: block; width: 100%; height: auto; border-radius: 20px; position: relative; z-index: 1; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08); transition: transform 0.4s ease; }
+    .cb-cs-pm-hero-image-wrap:hover img { transform: scale(1.02); }
+    .cb-cs-pm-hero-bar { height: 3px; width: 100%; background: linear-gradient(to right, var(--cb-teal) 0%, var(--cb-teal) 33%, var(--cb-yellow) 33%, var(--cb-yellow) 66%, var(--cb-pink) 66%, var(--cb-pink) 100%); margin-top: 0; }
+    .cb-cs-pm-hero-text.cb-reveal { opacity: 0; transform: translateX(-20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .cb-cs-pm-hero-text.cb-reveal.is-visible { opacity: 1; transform: translateX(0); }
+    .cb-cs-pm-hero-image-wrap.cb-reveal { opacity: 0; transform: translateX(20px); transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s; }
+    .cb-cs-pm-hero-image-wrap.cb-reveal.is-visible { opacity: 1; transform: translateX(0); }
+    @media (max-width: 1000px) { .cb-cs-pm-hero-container { grid-template-columns: 1fr; text-align: center; gap: 40px; } .cb-cs-pm-logos { justify-content: center; } .cb-cs-pm-hero-body { margin-left: auto; margin-right: auto; } .cb-cs-pm-hero-image-wrap { max-width: 560px; margin: 0 auto; } }
+    @media (max-width: 600px) { .cb-cs-pm-hero { padding: 48px 0 24px; } .cb-cs-pm-hero-cta { padding: 12px 24px; font-size: 13px; } .cb-cs-pm-hero-container { gap: 32px; } }
+  </style>
+  <style>
+    /* ── 02-content ── */
+    .cb-cs-pm-content { --cb-teal: #00bcf1; --cb-900: #1a1a1a; --cb-500: #71717a; --cb-yellow: #f5c542; --cb-pink: #f06292; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--cb-900); color: #fff; }
+    .cb-cs-pm-header { padding: 80px 0 48px; text-align: center; }
+    .cb-cs-pm-header-inner { max-width: 1400px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2.5rem); }
+    .cb-cs-pm-header h2 { font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin: 0 0 16px; color: #fff; }
+    .cb-cs-pm-header-sub { font-size: 16px; line-height: 1.65; color: var(--cb-500); max-width: 640px; margin: 0 auto; }
+    .cb-cs-pm-hero-video { max-width: 900px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2.5rem) 24px; text-align: center; }
+    .cb-cs-pm-hero-label { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cb-teal); border: 1.5px solid rgba(0, 188, 241, 0.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 16px; }
+    .cb-cs-pm-content .cb-video--hero { position: relative; border-radius: 16px; overflow: hidden; background: #0a0a0a; cursor: pointer; aspect-ratio: 16 / 9; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); }
+    .cb-cs-pm-content .cb-video--hero:hover { transform: translateY(-4px); box-shadow: 0 20px 56px rgba(0, 0, 0, 0.5); }
+    .cb-cs-pm-content .cb-video--hero iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; pointer-events: none; }
+    .cb-cs-pm-content .cb-video--hero .cb-video__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .cb-cs-pm-content .cb-video--hero.is-playing .cb-video__poster { opacity: 0; pointer-events: none; }
+    .cb-cs-pm-content .cb-video--hero .cb-video__play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; background: var(--cb-teal); border-radius: 50%; z-index: 10; pointer-events: none; display: flex; align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 24px rgba(0, 188, 241, 0.4); }
+    .cb-cs-pm-content .cb-video--hero .cb-video__play::after { content: ''; display: block; width: 0; height: 0; border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; transition: all 0.25s ease; }
+    .cb-cs-pm-content .cb-video--hero:hover .cb-video__play { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 8px 32px rgba(0, 188, 241, 0.5); }
+    .cb-cs-pm-content .cb-video--hero.is-playing .cb-video__play { width: 44px; height: 44px; top: auto; left: 20px; bottom: 20px; transform: none; border-radius: 10px; background: rgba(0, 188, 241, 0.85); }
+    .cb-cs-pm-content .cb-video--hero.is-playing .cb-video__play::after { width: 10px; height: 12px; border: none; border-left: 2.5px solid #fff; border-right: 2.5px solid #fff; margin-left: 0; }
+    .cb-cs-pm-hero-desc { font-size: 15px; line-height: 1.6; color: var(--cb-500); max-width: 600px; margin: 20px auto 0; }
+    .cb-cs-pm-tree { max-width: 1400px; margin: 0 auto; padding: 48px clamp(1rem, 3vw, 2.5rem) 80px; position: relative; }
+    .cb-cs-pm-tree-label { text-align: center; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cb-500); margin-bottom: 32px; }
+    .cb-cs-pm-trunk { position: relative; display: flex; flex-direction: column; align-items: center; }
+    .cb-cs-pm-trunk::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 40px; background: var(--cb-teal); opacity: 0.4; }
+    .cb-cs-pm-branch-bar { width: 80%; max-width: 1000px; height: 2px; background: var(--cb-teal); opacity: 0.4; margin-top: 40px; position: relative; }
+    .cb-cs-pm-nodes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; width: 80%; max-width: 1000px; margin: 0 auto; position: relative; }
+    .cb-cs-pm-node { position: relative; text-align: center; }
+    .cb-cs-pm-node::before { content: ''; display: block; width: 2px; height: 24px; background: var(--cb-teal); opacity: 0.4; margin: 0 auto 12px; }
+    .cb-cs-pm-content .cb-video--node { position: relative; border-radius: 12px; overflow: hidden; background: #0a0a0a; cursor: pointer; aspect-ratio: 9 / 16; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); }
+    .cb-cs-pm-content .cb-video--node:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4); }
+    .cb-cs-pm-content .cb-video--node iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; pointer-events: none; }
+    .cb-cs-pm-content .cb-video--node .cb-video__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .cb-cs-pm-content .cb-video--node.is-playing .cb-video__poster { opacity: 0; pointer-events: none; }
+    .cb-cs-pm-content .cb-video--node .cb-video__play { position: absolute; bottom: 12px; left: 12px; width: 40px; height: 40px; background: var(--cb-teal); border-radius: 10px; z-index: 10; pointer-events: none; display: flex; align-items: center; justify-content: center; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); }
+    .cb-cs-pm-content .cb-video--node .cb-video__play::after { content: ''; display: block; width: 0; height: 0; border-left: 9px solid #fff; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin-left: 2px; transition: all 0.25s ease; }
+    .cb-cs-pm-content .cb-video--node:hover .cb-video__play { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0, 188, 241, 0.4); }
+    .cb-cs-pm-content .cb-video--node.is-playing .cb-video__play { width: 32px; height: 32px; background: rgba(0, 188, 241, 0.85); }
+    .cb-cs-pm-content .cb-video--node.is-playing .cb-video__play::after { width: 7px; height: 9px; border: none; border-left: 2px solid #fff; border-right: 2px solid #fff; margin-left: 0; }
+    .cb-cs-pm-node-label { font-size: 13px; font-weight: 700; color: #fff; margin: 12px 0 4px; }
+    .cb-cs-pm-node-desc { font-size: 12px; line-height: 1.5; color: var(--cb-500); margin: 0; }
+    .cb-cs-pm-cta { background: #ffec03; padding: 80px 24px; text-align: center; }
+    .cb-cs-pm-cta-inner { max-width: 800px; margin: 0 auto; }
+    .cb-cs-pm-cta-line1 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; color: var(--cb-900); line-height: 1.25; margin: 0; }
+    .cb-cs-pm-cta-line2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; color: var(--cb-teal); line-height: 1.25; margin: 0 0 40px; }
+    .cb-cs-pm-cta-btn { display: inline-block; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; color: #fff; background: var(--cb-teal); padding: 16px 40px; border-radius: 10px; text-decoration: none; transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25); }
+    .cb-cs-pm-cta-btn:hover { background: #0099c8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 188, 241, 0.35); color: #fff; text-decoration: none; }
+    .cb-cs-pm-header-inner.cb-reveal, .cb-cs-pm-hero-video.cb-reveal, .cb-cs-pm-tree.cb-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .cb-cs-pm-header-inner.cb-reveal.is-visible, .cb-cs-pm-hero-video.cb-reveal.is-visible, .cb-cs-pm-tree.cb-reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 900px) { .cb-cs-pm-nodes { grid-template-columns: repeat(2, 1fr); width: 90%; gap: 20px; } .cb-cs-pm-branch-bar { display: none; } .cb-cs-pm-trunk::before { display: none; } .cb-cs-pm-node::before { display: none; } }
+    @media (max-width: 768px) { .cb-cs-pm-header { padding: 56px 0 36px; } .cb-cs-pm-tree { padding-bottom: 56px; } .cb-cs-pm-cta { padding: 56px 20px; } }
+    @media (max-width: 480px) { .cb-cs-pm-nodes { gap: 16px; } }
+  </style>
+  <style>
+    .cb-footer { position: relative; background: #1a1a1a; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; }
+    .cb-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+    .cb-footer-accent { height: 3px; background: linear-gradient(90deg, #2dd4bf, #facc15, #ec4899); }
+    .cb-footer-inner { max-width: 1400px; margin: 0 auto; padding: 64px 40px 32px; }
+    .cb-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; }
+    .cb-footer-brand-logo { height: 28px; display: block; margin-bottom: 20px; }
+    .cb-footer-brand-text { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; max-width: 280px; margin-bottom: 24px; }
+    .cb-footer-social { display: flex; gap: 16px; align-items: center; }
+    .cb-footer-social a { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); transition: color 250ms ease; }
+    .cb-footer-social a:hover { color: #2dd4bf; }
+    .cb-footer-social a svg { width: 20px; height: 20px; fill: currentColor; }
+    .cb-footer-col-header { color: #fff; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; }
+    .cb-footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .cb-footer-links a { color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none; transition: color 250ms ease; }
+    .cb-footer-links a:hover { color: #2dd4bf; }
+    .cb-footer-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cb-footer-bottom span { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+    @media (max-width: 768px) { .cb-footer-inner { padding: 48px 24px 28px; } .cb-footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+    @media (max-width: 480px) { .cb-footer-inner { padding: 40px 20px 24px; } .cb-footer-grid { grid-template-columns: 1fr; gap: 36px; } .cb-footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<!-- ═══ 01-hero ═══ -->
+<section class="cb-cs-pm-hero">
+  <div class="cb-cs-pm-hero-container">
+    <div class="cb-cs-pm-hero-text cb-reveal">
+      <div class="cb-cs-pm-logos">
+        <img class="cb-cs-pm-logo-cb" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody logo" />
+        <span class="cb-cs-pm-logo-plus">+</span>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752867171283-OBDR5743OW8Q8O26IMIE/PointMe_Logo.png" alt="Point.me logo" />
+      </div>
+      <h1>
+        <span class="cb-teal">One shoot.</span>
+        <span class="cb-dark">Infinite content.</span>
+      </h1>
+      <p class="cb-cs-pm-hero-body">Point.me needed authentic content for CTV, social, and paid ads. Instead of separate productions per channel, they used Cinebody to capture real customer stories once — and turned a single shoot into an entire multi-platform campaign.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cs-pm-hero-cta" target="_blank" rel="noopener">See How It Works</a>
+    </div>
+    <div class="cb-cs-pm-hero-image-wrap cb-reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752867171287-K4PRKG8MEH69WBMDL2WF/Iphone+point.png" alt="Point.me content captured on iPhone with Cinebody" loading="eager" />
+    </div>
+  </div>
+</section>
+<div class="cb-cs-pm-hero-bar" style="--cb-teal:#00bcf1;--cb-yellow:#f5c542;--cb-pink:#f06292;height:3px;width:100%;background:linear-gradient(to right,var(--cb-teal) 0%,var(--cb-teal) 33%,var(--cb-yellow) 33%,var(--cb-yellow) 66%,var(--cb-pink) 66%,var(--cb-pink) 100%);"></div>
+
+<!-- ═══ 02-content ═══ -->
+<div class="cb-cs-pm-content">
+  <div class="cb-cs-pm-header">
+    <div class="cb-cs-pm-header-inner cb-reveal">
+      <h2>One shoot. An entire content ecosystem.</h2>
+      <p class="cb-cs-pm-header-sub">Point.me brought together 70+ real participants for a single Cinebody-powered shoot — and walked away with a hero CTV spot, customer vignettes, social stories, and bite-sized clips for every channel.</p>
+    </div>
+  </div>
+  <div class="cb-cs-pm-hero-video cb-reveal" data-cb-video-group>
+    <div class="cb-cs-pm-hero-label">Hero CTV Commercial</div>
+    <div class="cb-video cb-video--hero" data-vimeo-id="1078357962">
+      <img class="cb-video__poster" src="https://vumbnail.com/1078357962.jpg" alt="Point.me hero CTV commercial" loading="lazy" />
+      <iframe data-src="https://player.vimeo.com/video/1078357962?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+      <div class="cb-video__play"></div>
+    </div>
+    <p class="cb-cs-pm-hero-desc">The flagship spot — real customers sharing real stories about how Point.me changed the way they travel. Built for connected TV and streaming platforms.</p>
+  </div>
+  <div class="cb-cs-pm-tree cb-reveal" data-cb-video-group>
+    <div class="cb-cs-pm-tree-label">Repurposed from one shoot into:</div>
+    <div class="cb-cs-pm-trunk"><div class="cb-cs-pm-branch-bar"></div></div>
+    <div class="cb-cs-pm-nodes">
+      <div class="cb-cs-pm-node">
+        <div class="cb-video cb-video--node" data-vimeo-id="1087419136">
+          <img class="cb-video__poster" src="https://vumbnail.com/1087419136.jpg" alt="Customer Vignette" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1087419136?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <p class="cb-cs-pm-node-label">Customer Vignette</p>
+        <p class="cb-cs-pm-node-desc">In-depth personal story for mid-funnel consideration</p>
+      </div>
+      <div class="cb-cs-pm-node">
+        <div class="cb-video cb-video--node" data-vimeo-id="1087421388">
+          <img class="cb-video__poster" src="https://vumbnail.com/1087421388.jpg" alt="Social Story" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1087421388?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <p class="cb-cs-pm-node-label">Social Story</p>
+        <p class="cb-cs-pm-node-desc">Optimized for Instagram, TikTok, and Reels</p>
+      </div>
+      <div class="cb-cs-pm-node">
+        <div class="cb-video cb-video--node" data-vimeo-id="1087576984">
+          <img class="cb-video__poster" src="https://vumbnail.com/1087576984.jpg" alt="Bite-Sized Clip" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1087576984?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <p class="cb-cs-pm-node-label">Bite-Sized Clip</p>
+        <p class="cb-cs-pm-node-desc">Quick-hit content for paid ads and retargeting</p>
+      </div>
+      <div class="cb-cs-pm-node">
+        <div class="cb-video cb-video--node" data-vimeo-id="1087438401">
+          <img class="cb-video__poster" src="https://vumbnail.com/1087438401.jpg" alt="Bonus Spot" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1087438401?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <p class="cb-cs-pm-node-label">Bonus Spot</p>
+        <p class="cb-cs-pm-node-desc">Extra creative for A/B testing and fresh rotation</p>
+      </div>
+    </div>
+  </div>
+  <section class="cb-cs-pm-cta">
+    <div class="cb-cs-pm-cta-inner cb-reveal">
+      <p class="cb-cs-pm-cta-line1">Want results like Point.me?</p>
+      <p class="cb-cs-pm-cta-line2">Let's build your content ecosystem.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-cs-pm-cta-btn" target="_blank" rel="noopener">Let's Talk</a>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<footer class="cb-footer">
+  <div class="cb-footer-accent"></div>
+  <div class="cb-footer-inner">
+    <div class="cb-footer-grid">
+      <div>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody" class="cb-footer-brand-logo" />
+        <p class="cb-footer-brand-text">The video capture platform that turns your community into your content team.</p>
+        <div class="cb-footer-social">
+          <a href="https://vimeo.com/cinebody" target="_blank" rel="noopener" aria-label="Vimeo"><svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609C15.9 20.058 13.014 22 10.552 22c-1.52 0-2.808-1.403-3.86-4.21-.703-2.576-1.405-5.152-2.107-7.728-.78-2.808-1.617-4.21-2.514-4.21-.195 0-.878.41-2.047 1.23L0 6.697c1.287-1.13 2.556-2.26 3.807-3.39C5.37 1.96 6.546 1.276 7.33 1.216c1.936-.186 3.128 1.14 3.574 3.975.482 3.059.816 4.96 1.003 5.704.557 2.529 1.17 3.794 1.838 3.794.52 0 1.298-.82 2.338-2.46 1.038-1.64 1.594-2.89 1.668-3.747.148-1.415-.408-2.124-1.668-2.124-.594 0-1.205.136-1.838.406 1.22-3.998 3.553-5.94 6.998-5.828 2.554.074 3.76 1.732 3.734 4.98z"/></svg></a>
+          <a href="http://instagram.com/cinebody" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="http://facebook.com/cinebody" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        </div>
+      </div>
+      <div><h4 class="cb-footer-col-header">Product</h4><ul class="cb-footer-links"><li><a href="/software">Software</a></li><li><a href="/services">Creative Services</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/pointme">Case Studies</a></li></ul></div>
+      <div><h4 class="cb-footer-col-header">Resources</h4><ul class="cb-footer-links"><li><a href="/cinebody-blog">Blog</a></li><li><a href="/knowledge-base">Knowledge Base</a></li><li><a href="/patents">Patents</a></li><li><a href="https://pro.cinebody.com/login" target="_blank" rel="noopener">Login</a></li></ul></div>
+      <div><h4 class="cb-footer-col-header">Company</h4><ul class="cb-footer-links"><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-service">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="cb-footer-bottom">
+      <span>&copy; 2025 Super 6 LLC d/b/a Cinebody. All rights reserved.</span>
+      <span>Denver, CO</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="../shared.js"></script>
+</body>
+</html>
