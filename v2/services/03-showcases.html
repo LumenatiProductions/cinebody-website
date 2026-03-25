@@ -1,0 +1,523 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  /* ── Showcase shared variables ── */
+  .cb-sv-showcases {
+    --cb-teal: #00bcf1;
+    --cb-dark: #1a1a1a;
+    --cb-body: #71717a;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* ── Showcase row ── */
+  .cb-sv-row {
+    padding: 80px 0;
+  }
+
+  .cb-sv-row--light {
+    background: #f4f4f5;
+  }
+
+  .cb-sv-row--white {
+    background: #fff;
+  }
+
+  .cb-sv-row-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+    display: grid;
+    align-items: center;
+    gap: 48px;
+  }
+
+  /* Content-left, videos-right */
+  .cb-sv-row-inner--cl {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  /* Videos-left, content-right */
+  .cb-sv-row-inner--vl {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  /* ── Content column ── */
+  .cb-sv-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cb-sv-logo {
+    max-height: 40px;
+    width: auto;
+    object-fit: contain;
+    align-self: flex-start;
+    margin-bottom: 4px;
+  }
+
+  .cb-sv-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--cb-dark);
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .cb-sv-desc {
+    font-size: 1rem;
+    color: var(--cb-body);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 440px;
+  }
+
+  /* ── Video grid ── */
+  .cb-sv-videos {
+    display: grid;
+    gap: 16px;
+  }
+
+  .cb-sv-videos--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .cb-sv-videos--1 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Single horizontal video in a 2fr column — constrain width */
+  .cb-sv-videos--1 .cb-video--horiz {
+    max-width: 100%;
+  }
+
+  /* ── Video card overrides for this block ── */
+  .cb-sv-showcases .cb-video {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0a0a0a;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .cb-sv-showcases .cb-video:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  }
+
+  .cb-sv-showcases .cb-video--vert {
+    aspect-ratio: 9 / 16;
+  }
+
+  .cb-sv-showcases .cb-video--horiz {
+    aspect-ratio: 16 / 9;
+  }
+
+  .cb-sv-showcases .cb-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+
+  .cb-sv-showcases .cb-video__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 5;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cb-sv-showcases .cb-video.is-playing .cb-video__poster {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Play button */
+  .cb-sv-showcases .cb-video__play {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    background: var(--cb-teal);
+    border-radius: 10px;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .cb-sv-showcases .cb-video__play::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 10px solid #fff;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    margin-left: 2px;
+    transition: all 0.25s ease;
+  }
+
+  .cb-sv-showcases .cb-video:hover .cb-video__play {
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.4);
+  }
+
+  .cb-sv-showcases .cb-video.is-playing .cb-video__play {
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 188, 241, 0.85);
+  }
+
+  .cb-sv-showcases .cb-video.is-playing .cb-video__play::after {
+    width: 8px;
+    height: 10px;
+    border: none;
+    border-left: 2.5px solid #fff;
+    border-right: 2.5px solid #fff;
+    margin-left: 0;
+  }
+
+  /* ── CTA Section ── */
+  .cb-sv-cta {
+    background: #ffec03;
+    padding: 80px 24px;
+    text-align: center;
+  }
+
+  .cb-sv-cta-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cb-sv-cta-line1 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--cb-dark);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .cb-sv-cta-line2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--cb-teal);
+    line-height: 1.25;
+    margin: 0 0 40px 0;
+  }
+
+  .cb-sv-cta-btn {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--cb-teal);
+    padding: 16px 40px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+  }
+
+  .cb-sv-cta-btn:hover {
+    background: #0099c8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 188, 241, 0.35);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* ── Reveal animations ── */
+  .cb-sv-row-inner.cb-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cb-sv-row-inner.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .cb-sv-row {
+      padding: 56px 0;
+    }
+
+    .cb-sv-row-inner--cl,
+    .cb-sv-row-inner--vl {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    /* On mobile, content always comes first */
+    .cb-sv-row-inner--vl .cb-sv-videos {
+      order: 2;
+    }
+
+    .cb-sv-row-inner--vl .cb-sv-content {
+      order: 1;
+    }
+
+    .cb-sv-videos--3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cb-sv-logo {
+      align-self: center;
+    }
+
+    .cb-sv-content {
+      text-align: center;
+      align-items: center;
+    }
+
+    .cb-sv-desc {
+      max-width: none;
+    }
+
+    .cb-sv-cta {
+      padding: 56px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cb-sv-videos--3 {
+      gap: 10px;
+    }
+  }
+</style>
+
+<div class="cb-sv-showcases">
+
+  <!-- ═══════════════════════════════════════
+       1. Royal Caribbean — content left, 3 vert right, light bg
+       ═══════════════════════════════════════ -->
+  <section class="cb-sv-row cb-sv-row--light">
+    <div class="cb-sv-row-inner cb-sv-row-inner--cl cb-reveal" data-cb-video-group>
+
+      <div class="cb-sv-content">
+        <img class="cb-sv-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752612044764-HV8GVV2QA08BISZN4AXZ/Royal-Cribbean-logo.png" alt="Royal Caribbean logo" loading="lazy" />
+        <h3 class="cb-sv-title">A constant stream of social content</h3>
+        <p class="cb-sv-desc">Crew members film daily life on board. Our team turns raw moments into a steady stream of social content across the fleet.</p>
+      </div>
+
+      <div class="cb-sv-videos cb-sv-videos--3">
+        <div class="cb-video cb-video--vert" data-vimeo-id="981489599">
+          <img class="cb-video__poster" src="https://vumbnail.com/981489599.jpg" alt="Royal Caribbean video 1" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/981489599?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video cb-video--vert" data-vimeo-id="1065911751">
+          <img class="cb-video__poster" src="https://vumbnail.com/1065911751.jpg" alt="Royal Caribbean video 2" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1065911751?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video cb-video--vert" data-vimeo-id="1065240591">
+          <img class="cb-video__poster" src="https://vumbnail.com/1065240591.jpg" alt="Royal Caribbean video 3" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1065240591?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       2. Altra — 3 vert left, content right, white bg
+       ═══════════════════════════════════════ -->
+  <section class="cb-sv-row cb-sv-row--white">
+    <div class="cb-sv-row-inner cb-sv-row-inner--vl cb-reveal" data-cb-video-group>
+
+      <div class="cb-sv-videos cb-sv-videos--3">
+        <div class="cb-video cb-video--vert" data-vimeo-id="1098260354">
+          <img class="cb-video__poster" src="https://vumbnail.com/1098260354.jpg" alt="Altra video 1" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1098260354?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video cb-video--vert" data-vimeo-id="1092175563">
+          <img class="cb-video__poster" src="https://vumbnail.com/1092175563.jpg" alt="Altra video 2" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1092175563?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video cb-video--vert" data-vimeo-id="1092215288">
+          <img class="cb-video__poster" src="https://vumbnail.com/1092215288.jpg" alt="Altra video 3" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1092215288?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+
+      <div class="cb-sv-content">
+        <img class="cb-sv-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629004054-HX71A4E1K421KGFNT0PC/Altra_running_logo.png" alt="Altra logo" loading="lazy" />
+        <h3 class="cb-sv-title">Activating the community</h3>
+        <p class="cb-sv-desc">Athletes share stories and unboxings. We edit them into content that deepens the bond between brand and running community.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       3. Crocs — content left, 1 horiz right, light bg
+       ═══════════════════════════════════════ -->
+  <section class="cb-sv-row cb-sv-row--light">
+    <div class="cb-sv-row-inner cb-sv-row-inner--cl cb-reveal" data-cb-video-group>
+
+      <div class="cb-sv-content">
+        <img class="cb-sv-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629527759-OGG70YW4VVYL7QJUGQWH/Crocs_wordmark.svg.png" alt="Crocs logo" loading="lazy" />
+        <h3 class="cb-sv-title">Empowering global influencers</h3>
+        <p class="cb-sv-desc">One global activation. Footage collected remotely, repurposed into polished assets for every channel.</p>
+      </div>
+
+      <div class="cb-sv-videos cb-sv-videos--1">
+        <div class="cb-video cb-video--horiz" data-vimeo-id="824853571">
+          <img class="cb-video__poster" src="https://vumbnail.com/824853571.jpg" alt="Crocs video" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/824853571?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       4. Point.me — 1 horiz left, content right, white bg
+       ═══════════════════════════════════════ -->
+  <section class="cb-sv-row cb-sv-row--white">
+    <div class="cb-sv-row-inner cb-sv-row-inner--vl cb-reveal" data-cb-video-group>
+
+      <div class="cb-sv-videos cb-sv-videos--1">
+        <div class="cb-video cb-video--horiz" data-vimeo-id="1078357962">
+          <img class="cb-video__poster" src="https://vumbnail.com/1078357962.jpg" alt="Point.me video" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1078357962?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+
+      <div class="cb-sv-content">
+        <img class="cb-sv-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629603184-0N75S5FV7AKEU5STOVOC/1I88jMGuA5ObZ3LgSCItTrMBtb51693924089177_200x200.png" alt="Point.me logo" loading="lazy" />
+        <h3 class="cb-sv-title">The most authentic CTV ad</h3>
+        <p class="cb-sv-desc">Real customer testimonials captured remotely — creating relatable CTV content that actually connects.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       5. Sploot — content left, 1 horiz right, light bg
+       ═══════════════════════════════════════ -->
+  <section class="cb-sv-row cb-sv-row--light">
+    <div class="cb-sv-row-inner cb-sv-row-inner--cl cb-reveal" data-cb-video-group>
+
+      <div class="cb-sv-content">
+        <img class="cb-sv-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/a04fe31d-5bad-47f7-be2e-0634a7aa8089/Sploot-Horizontal-Full-Color-Rgb-2000px-w-72ppi.png" alt="Sploot logo" loading="lazy" />
+        <h3 class="cb-sv-title">Locally targeted CTV</h3>
+        <p class="cb-sv-desc">Geo-targeted ads from real patrons in Chicago and Denver — driving local awareness and new appointments.</p>
+      </div>
+
+      <div class="cb-sv-videos cb-sv-videos--1">
+        <div class="cb-video cb-video--horiz" data-vimeo-id="1130557367">
+          <img class="cb-video__poster" src="https://vumbnail.com/1130557367.jpg" alt="Sploot video" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1130557367?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       6. Cogent — 3 vert left, content right, white bg
+       ═══════════════════════════════════════ -->
+  <section class="cb-sv-row cb-sv-row--white">
+    <div class="cb-sv-row-inner cb-sv-row-inner--vl cb-reveal" data-cb-video-group>
+
+      <div class="cb-sv-videos cb-sv-videos--3">
+        <div class="cb-video cb-video--vert" data-vimeo-id="1090977594">
+          <img class="cb-video__poster" src="https://vumbnail.com/1090977594.jpg" alt="Cogent video 1" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1090977594?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video cb-video--vert" data-vimeo-id="1090655136">
+          <img class="cb-video__poster" src="https://vumbnail.com/1090655136.jpg" alt="Cogent video 2" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1090655136?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video cb-video--vert" data-vimeo-id="1089063815">
+          <img class="cb-video__poster" src="https://vumbnail.com/1089063815.jpg" alt="Cogent video 3" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1089063815?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+
+      <div class="cb-sv-content">
+        <img class="cb-sv-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/4bfe7c7f-7e13-45ad-97dd-94c06ed463d3/1629489003234.jpg" alt="Cogent logo" loading="lazy" />
+        <h3 class="cb-sv-title">Scaling content for hundreds of events</h3>
+        <p class="cb-sv-desc">From festivals to brand activations, on-site teams capture real moments — fueling authentic video long after the event ends.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       7. Dell — content left, 3 vert right, light bg
+       ═══════════════════════════════════════ -->
+  <section class="cb-sv-row cb-sv-row--light">
+    <div class="cb-sv-row-inner cb-sv-row-inner--cl cb-reveal" data-cb-video-group>
+
+      <div class="cb-sv-content">
+        <img class="cb-sv-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752696389465-KJM0HADL2FMJ1SK8AFQU/dell-2-logo-png-transparent.png" alt="Dell logo" loading="lazy" />
+        <h3 class="cb-sv-title">Elevating employee voices worldwide</h3>
+        <p class="cb-sv-desc">Authentic stories from employees across the globe — building connection, transparency, and a stronger culture.</p>
+      </div>
+
+      <div class="cb-sv-videos cb-sv-videos--3">
+        <div class="cb-video cb-video--vert" data-vimeo-id="1065884285">
+          <img class="cb-video__poster" src="https://vumbnail.com/1065884285.jpg" alt="Dell video 1" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1065884285?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video cb-video--vert" data-vimeo-id="1065886093">
+          <img class="cb-video__poster" src="https://vumbnail.com/1065886093.jpg" alt="Dell video 2" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1065886093?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+        <div class="cb-video cb-video--vert" data-vimeo-id="1065890083">
+          <img class="cb-video__poster" src="https://vumbnail.com/1065890083.jpg" alt="Dell video 3" loading="lazy" />
+          <iframe data-src="https://player.vimeo.com/video/1065890083?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+          <div class="cb-video__play"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CTA Section
+       ═══════════════════════════════════════ -->
+  <section class="cb-sv-cta">
+    <div class="cb-sv-cta-inner cb-reveal">
+      <p class="cb-sv-cta-line1">Ready to see what your community can create?</p>
+      <p class="cb-sv-cta-line2">Talk to our team.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-sv-cta-btn" target="_blank" rel="noopener">Let's Talk</a>
+    </div>
+  </section>
+
+</div>

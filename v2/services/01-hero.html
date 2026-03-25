@@ -1,0 +1,209 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-sv-hero {
+    --cb-teal: #00bcf1;
+    --cb-dark: #1a1a1a;
+    --cb-body: #71717a;
+    --cb-trust: #a1a1aa;
+    --cb-yellow: #f5c542;
+    --cb-pink: #f06292;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fff;
+    padding: 80px 0 40px;
+    position: relative;
+  }
+
+  .cb-sv-hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+    display: grid;
+    grid-template-columns: 55% 45%;
+    align-items: center;
+    gap: 48px;
+  }
+
+  /* Badge */
+  .cb-sv-hero-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cb-teal);
+    border: 1.5px solid var(--cb-teal);
+    border-radius: 100px;
+    padding: 6px 16px;
+    margin-bottom: 24px;
+    line-height: 1;
+  }
+
+  /* Headline */
+  .cb-sv-hero h1 {
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 0 0 24px;
+  }
+
+  .cb-sv-hero h1 .cb-teal {
+    color: var(--cb-teal);
+    display: block;
+  }
+
+  .cb-sv-hero h1 .cb-dark {
+    color: var(--cb-dark);
+    display: block;
+  }
+
+  /* Body */
+  .cb-sv-hero-body {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cb-body);
+    max-width: 500px;
+    margin: 0 0 32px;
+  }
+
+  /* CTA Button */
+  .cb-sv-hero-cta {
+    display: inline-block;
+    background: var(--cb-teal);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 188, 241, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cb-sv-hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 188, 241, 0.35);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* Image column */
+  .cb-sv-hero-image-wrap {
+    position: relative;
+  }
+
+  .cb-sv-hero-image-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    background: linear-gradient(135deg, rgba(0, 188, 241, 0.12), rgba(240, 98, 146, 0.12));
+    border-radius: 28px;
+    z-index: 0;
+  }
+
+  .cb-sv-hero-image-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease;
+  }
+
+  .cb-sv-hero-image-wrap:hover img {
+    transform: scale(1.02);
+  }
+
+  /* Tri-color bar */
+  .cb-sv-hero-bar {
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(to right, var(--cb-teal) 0%, var(--cb-teal) 33%, var(--cb-yellow) 33%, var(--cb-yellow) 66%, var(--cb-pink) 66%, var(--cb-pink) 100%);
+    margin-top: 0;
+  }
+
+  /* Reveal animations */
+  .cb-sv-hero-text.cb-reveal {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cb-sv-hero-text.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .cb-sv-hero-image-wrap.cb-reveal {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+  }
+
+  .cb-sv-hero-image-wrap.cb-reveal.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Responsive: tablet */
+  @media (max-width: 1000px) {
+    .cb-sv-hero-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 40px;
+    }
+
+    .cb-sv-hero-body {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cb-sv-hero-image-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+  }
+
+  /* Responsive: mobile */
+  @media (max-width: 600px) {
+    .cb-sv-hero {
+      padding: 48px 0 24px;
+    }
+
+    .cb-sv-hero-cta {
+      padding: 12px 24px;
+      font-size: 13px;
+    }
+
+    .cb-sv-hero-container {
+      gap: 32px;
+    }
+  }
+</style>
+
+<section class="cb-sv-hero">
+  <div class="cb-sv-hero-container">
+
+    <div class="cb-sv-hero-text cb-reveal">
+      <div class="cb-sv-hero-badge">Creative Services</div>
+      <h1>
+        <span class="cb-teal">We handle the video.</span>
+        <span class="cb-dark">You keep the credit.</span>
+      </h1>
+      <p class="cb-sv-hero-body">From testimonials and CTV to social content and employee spotlights — our creative team helps you create scroll-stopping content that's on brand, on time, and built to perform.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-sv-hero-cta" target="_blank" rel="noopener">Get Started</a>
+    </div>
+
+    <div class="cb-sv-hero-image-wrap cb-reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1767306060316-U1R6SFCSLPPUXPWSWEKE/CB_HowItWorxxx_LB_600.01_00_24_09.Still001.jpg" alt="Person holding a smartphone photographing a crowd at an outdoor water event" loading="eager" />
+    </div>
+
+  </div>
+</section>
+
+<div class="cb-sv-hero-bar" style="--cb-teal:#00bcf1;--cb-yellow:#f5c542;--cb-pink:#f06292;height:3px;width:100%;background:linear-gradient(to right,var(--cb-teal) 0%,var(--cb-teal) 33%,var(--cb-yellow) 33%,var(--cb-yellow) 66%,var(--cb-pink) 66%,var(--cb-pink) 100%);"></div>

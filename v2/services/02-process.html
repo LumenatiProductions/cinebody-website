@@ -1,0 +1,351 @@
+<style>
+  /* Squarespace padding reset */
+  .sqs-block.code-block { padding: 0 !important; }
+  .sqs-block-content { padding: 0 !important; }
+
+  .cb-sv-process {
+    --cb-teal: #00bcf1;
+    --cb-dark: #1a1a1a;
+    --cb-body: #71717a;
+    --cb-yellow: #f5c542;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f4f4f5;
+    padding: 96px 0;
+  }
+
+  .cb-sv-process-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .cb-sv-process-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .cb-sv-process-header h2 {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    color: var(--cb-dark);
+    line-height: 1.15;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .cb-sv-process-header p {
+    font-size: 1.05rem;
+    color: var(--cb-body);
+    line-height: 1.6;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* Timeline grid */
+  .cb-sv-timeline {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  /* Step */
+  .cb-sv-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 0 12px;
+  }
+
+  /* Connector arrow between steps (desktop) */
+  .cb-sv-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 36px;
+    right: -4px;
+    width: 24px;
+    height: 2px;
+    background: #d4d4d8;
+    z-index: 1;
+  }
+
+  .cb-sv-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    right: -8px;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #d4d4d8;
+    border-bottom: 2px solid #d4d4d8;
+    transform: rotate(-45deg);
+    z-index: 2;
+  }
+
+  /* Circle */
+  .cb-sv-step-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #e4e4e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 3;
+    flex-shrink: 0;
+  }
+
+  .cb-sv-step-circle svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--cb-teal);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.35s ease;
+  }
+
+  /* Hover state */
+  .cb-sv-step:hover .cb-sv-step-circle {
+    background: var(--cb-teal);
+    border-color: var(--cb-teal);
+    box-shadow: 0 0 0 4px rgba(245, 197, 66, 0.5), 0 4px 16px rgba(0, 188, 241, 0.3);
+    transform: scale(1.08);
+  }
+
+  .cb-sv-step:hover .cb-sv-step-circle svg {
+    stroke: #fff;
+  }
+
+  /* Step number */
+  .cb-sv-step-num {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cb-teal);
+    margin-bottom: 8px;
+  }
+
+  /* Step title */
+  .cb-sv-step-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cb-dark);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  /* Step description */
+  .cb-sv-step-desc {
+    font-size: 0.875rem;
+    color: var(--cb-body);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 220px;
+  }
+
+  /* Responsive: 3+2 layout */
+  @media (max-width: 1000px) {
+    .cb-sv-timeline {
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 48px;
+    }
+
+    /* Hide connectors that cross rows */
+    .cb-sv-step:nth-child(3)::after,
+    .cb-sv-step:nth-child(3)::before {
+      display: none;
+    }
+
+    /* Center the bottom row (items 4 & 5) */
+    .cb-sv-step:nth-child(4) {
+      grid-column: 1 / 2;
+      margin-left: auto;
+    }
+
+    .cb-sv-step:nth-child(5) {
+      grid-column: 3 / 4;
+      margin-right: auto;
+    }
+
+    /* Shift bottom row to center */
+    .cb-sv-step:nth-child(4) {
+      grid-column: 1;
+      justify-self: end;
+      padding-right: 24px;
+    }
+
+    .cb-sv-step:nth-child(5) {
+      grid-column: 3;
+      justify-self: start;
+      padding-left: 24px;
+    }
+  }
+
+  /* Responsive: vertical stack */
+  @media (max-width: 600px) {
+    .cb-sv-process {
+      padding: 64px 0;
+    }
+
+    .cb-sv-process-header {
+      margin-bottom: 48px;
+    }
+
+    .cb-sv-timeline {
+      grid-template-columns: 1fr;
+      row-gap: 0;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .cb-sv-step {
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 0 0 32px 0;
+      position: relative;
+    }
+
+    /* Vertical connector line */
+    .cb-sv-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 72px;
+      left: 36px;
+      width: 2px;
+      height: calc(100% - 72px);
+      background: #d4d4d8;
+      right: auto;
+    }
+
+    .cb-sv-step:not(:last-child)::before {
+      display: none;
+    }
+
+    .cb-sv-step:nth-child(4),
+    .cb-sv-step:nth-child(5) {
+      grid-column: auto;
+      justify-self: auto;
+      padding-left: 0;
+      padding-right: 0;
+      margin: 0;
+    }
+
+    .cb-sv-step-circle {
+      margin-bottom: 0;
+      min-width: 72px;
+    }
+
+    .cb-sv-step-text {
+      padding-top: 4px;
+    }
+
+    .cb-sv-step-desc {
+      max-width: none;
+    }
+  }
+</style>
+
+<section class="cb-sv-process">
+  <div class="cb-sv-process-container">
+
+    <div class="cb-sv-process-header cb-reveal">
+      <h2>What you get with creative services</h2>
+      <p>From concept to final cut — our team handles every step so you don't have to.</p>
+    </div>
+
+    <div class="cb-sv-timeline cb-stagger">
+
+      <!-- Step 1 -->
+      <div class="cb-sv-step">
+        <div class="cb-sv-step-circle">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+        </div>
+        <div class="cb-sv-step-text">
+          <div class="cb-sv-step-num">Step 1</div>
+          <div class="cb-sv-step-title">Vision & Alignment</div>
+          <p class="cb-sv-step-desc">We align on goals, audience, and creative direction — so every shoot has a purpose.</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="cb-sv-step">
+        <div class="cb-sv-step-circle">
+          <svg viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="cb-sv-step-text">
+          <div class="cb-sv-step-num">Step 2</div>
+          <div class="cb-sv-step-title">Talent & Casting</div>
+          <p class="cb-sv-step-desc">We recruit the right voices from your community — people your audience already trusts.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="cb-sv-step">
+        <div class="cb-sv-step-circle">
+          <svg viewBox="0 0 24 24">
+            <polygon points="23 7 16 12 23 17 23 7"/>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+        </div>
+        <div class="cb-sv-step-text">
+          <div class="cb-sv-step-num">Step 3</div>
+          <div class="cb-sv-step-title">Project Execution</div>
+          <p class="cb-sv-step-desc">Our producers manage the shoot remotely, keeping filmers on-brief and on-schedule.</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="cb-sv-step">
+        <div class="cb-sv-step-circle">
+          <svg viewBox="0 0 24 24">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </div>
+        <div class="cb-sv-step-text">
+          <div class="cb-sv-step-num">Step 4</div>
+          <div class="cb-sv-step-title">Pro Editing</div>
+          <p class="cb-sv-step-desc">Editing starts the moment footage lands — no waiting for hard drives in the mail.</p>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="cb-sv-step">
+        <div class="cb-sv-step-circle">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+          </svg>
+        </div>
+        <div class="cb-sv-step-text">
+          <div class="cb-sv-step-num">Step 5</div>
+          <div class="cb-sv-step-title">Motion GFX & Music</div>
+          <p class="cb-sv-step-desc">Branded graphics and licensed music give every video a polished, professional finish.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
