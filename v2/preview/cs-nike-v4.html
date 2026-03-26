@@ -438,33 +438,99 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ STATS ═══ -->
 <section style="background:#fff;color:#111;padding:80px 0">
   <div class="contain" style="max-width:900px">
-    <div class="reveal" style="max-width:320px;margin:0 auto 56px">
-      <svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
-        <!-- Connection lines -->
-        <line x1="50" y1="120" x2="130" y2="140" stroke="rgba(0,188,241,0.12)" stroke-width="1" stroke-dasharray="4 3"/>
-        <line x1="130" y1="140" x2="190" y2="80" stroke="rgba(0,188,241,0.12)" stroke-width="1" stroke-dasharray="4 3"/>
-        <line x1="190" y1="80" x2="260" y2="70" stroke="rgba(0,188,241,0.12)" stroke-width="1" stroke-dasharray="4 3"/>
-        <line x1="50" y1="120" x2="190" y2="80" stroke="rgba(0,188,241,0.08)" stroke-width="0.8" stroke-dasharray="4 3"/>
-        <line x1="50" y1="120" x2="260" y2="70" stroke="rgba(0,188,241,0.08)" stroke-width="0.8" stroke-dasharray="4 3"/>
-        <line x1="130" y1="140" x2="260" y2="70" stroke="rgba(0,188,241,0.08)" stroke-width="0.8" stroke-dasharray="4 3"/>
-        <!-- LA -->
-        <circle cx="50" cy="120" r="6" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.3)" stroke-width="1"/>
-        <circle cx="50" cy="120" r="3" fill="#00bcf1"/>
-        <text x="50" y="140" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.3)">LA</text>
-        <!-- Austin -->
-        <circle cx="130" cy="140" r="6" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.3)" stroke-width="1"/>
-        <circle cx="130" cy="140" r="3" fill="#00bcf1"/>
-        <text x="130" y="160" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.3)">ATX</text>
-        <!-- Chicago -->
-        <circle cx="190" cy="80" r="6" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.3)" stroke-width="1"/>
-        <circle cx="190" cy="80" r="3" fill="#00bcf1"/>
-        <text x="190" y="70" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.3)">CHI</text>
-        <!-- NYC -->
-        <circle cx="260" cy="70" r="6" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.3)" stroke-width="1"/>
-        <circle cx="260" cy="70" r="3" fill="#00bcf1"/>
-        <text x="260" y="60" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.3)">NYC</text>
-        <!-- Center label -->
-        <text x="150" y="25" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,188,241,0.4)" letter-spacing="0.1em">SIMULTANEOUS CAPTURE</text>
+    <style>
+      .nk-city-pulse { animation: nkCityPulse 2.5s ease-out infinite; }
+      @keyframes nkCityPulse { 0%{r:14;opacity:0.3} 100%{r:30;opacity:0} }
+      .nk-hub-pulse { animation: nkHubPulse 3s ease-out infinite; }
+      @keyframes nkHubPulse { 0%{r:36;opacity:0.2} 100%{r:60;opacity:0} }
+    </style>
+    <div class="reveal" style="max-width:500px;margin:0 auto 32px">
+      <svg viewBox="-20 -10 440 320" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+
+        <!-- Curved paths — arc around the text labels -->
+        <path d="M60,80 Q30,130 170,140" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <path d="M340,80 Q370,130 230,140" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <path d="M60,230 Q30,180 170,160" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <path d="M340,230 Q370,180 230,160" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+        <!-- Particles follow the curved paths -->
+        <circle r="3.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" repeatCount="indefinite" path="M60,80 Q30,130 170,140"/><animate attributeName="opacity" values="0;0.8;0.6;0" dur="2s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1s" repeatCount="indefinite" path="M60,80 Q30,130 170,140"/><animate attributeName="opacity" values="0;0.5;0.3;0" dur="2s" begin="1s" repeatCount="indefinite"/></circle>
+        <circle r="3.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="0.25s" repeatCount="indefinite" path="M340,80 Q370,130 230,140"/><animate attributeName="opacity" values="0;0.8;0.6;0" dur="2s" begin="0.25s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.25s" repeatCount="indefinite" path="M340,80 Q370,130 230,140"/><animate attributeName="opacity" values="0;0.5;0.3;0" dur="2s" begin="1.25s" repeatCount="indefinite"/></circle>
+        <circle r="3.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="0.5s" repeatCount="indefinite" path="M60,230 Q30,180 170,160"/><animate attributeName="opacity" values="0;0.8;0.6;0" dur="2s" begin="0.5s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.5s" repeatCount="indefinite" path="M60,230 Q30,180 170,160"/><animate attributeName="opacity" values="0;0.5;0.3;0" dur="2s" begin="1.5s" repeatCount="indefinite"/></circle>
+        <circle r="3.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="0.75s" repeatCount="indefinite" path="M340,230 Q370,180 230,160"/><animate attributeName="opacity" values="0;0.8;0.6;0" dur="2s" begin="0.75s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.75s" repeatCount="indefinite" path="M340,230 Q370,180 230,160"/><animate attributeName="opacity" values="0;0.5;0.3;0" dur="2s" begin="1.75s" repeatCount="indefinite"/></circle>
+
+        <!-- LA lockup — building on top, name below -->
+        <g>
+          <g transform="translate(60,30)">
+            <rect x="-16" y="-6" width="12" height="22" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-2" y="-14" width="18" height="30" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-14" y="2" width="8" height="5" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="2" y="-8" width="6" height="4" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="9" y="-8" width="6" height="4" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="2" y="2" width="6" height="4" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="9" y="2" width="6" height="4" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+          </g>
+          <text x="60" y="72" text-anchor="middle" font-family="Inter" font-size="15" font-weight="800" fill="rgba(0,0,0,0.7)">Los Angeles</text>
+        </g>
+
+        <!-- Chicago lockup -->
+        <g>
+          <g transform="translate(340,24)">
+            <rect x="-8" y="-16" width="16" height="32" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-16" y="0" width="10" height="16" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="6" y="-6" width="14" height="22" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-5" y="-10" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="1" y="-10" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="-5" y="-4" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="1" y="-4" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <line x1="0" y1="-16" x2="0" y2="-24" stroke="rgba(0,188,241,0.35)" stroke-width="1.5"/>
+          </g>
+          <text x="340" y="72" text-anchor="middle" font-family="Inter" font-size="15" font-weight="800" fill="rgba(0,0,0,0.7)">Chicago</text>
+        </g>
+
+        <!-- Austin lockup -->
+        <g>
+          <g transform="translate(60,228)">
+            <rect x="-16" y="-14" width="32" height="14" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-12" y="-20" width="24" height="8" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <path d="M-8,-20 Q0,-32 8,-20" fill="#fff" stroke="rgba(0,188,241,0.35)" stroke-width="1.5"/>
+            <line x1="0" y1="-32" x2="0" y2="-38" stroke="rgba(0,188,241,0.4)" stroke-width="1.5"/>
+            <rect x="-2.5" y="-10" width="5" height="10" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+          </g>
+          <text x="60" y="250" text-anchor="middle" font-family="Inter" font-size="15" font-weight="800" fill="rgba(0,0,0,0.7)">Austin</text>
+        </g>
+
+        <!-- NYC lockup -->
+        <g>
+          <g transform="translate(340,224)">
+            <rect x="-12" y="-16" width="24" height="18" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-8" y="-26" width="16" height="12" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-4" y="-36" width="8" height="12" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <line x1="0" y1="-36" x2="0" y2="-44" stroke="rgba(0,188,241,0.4)" stroke-width="1.5"/>
+            <rect x="-5" y="-22" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="1" y="-22" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="-2" y="-32" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+          </g>
+          <text x="340" y="250" text-anchor="middle" font-family="Inter" font-size="15" font-weight="800" fill="rgba(0,0,0,0.7)">New York</text>
+        </g>
+
+        <!-- CENTER HUB -->
+        <circle class="nk-hub-pulse" cx="200" cy="150" r="36" fill="none" stroke="rgba(255,200,0,0.3)" stroke-width="1.5"/>
+        <circle class="nk-hub-pulse" cx="200" cy="150" r="36" fill="none" stroke="rgba(255,200,0,0.2)" stroke-width="1.5" style="animation-delay:1.5s"/>
+        <circle cx="200" cy="150" r="36" fill="rgba(255,200,0,0.06)" stroke="rgba(255,200,0,0.25)" stroke-width="2"/>
+        <circle cx="200" cy="150" r="25" fill="rgba(255,200,0,0.1)" stroke="rgba(255,200,0,0.35)" stroke-width="1.5"/>
+        <text x="200" y="147" text-anchor="middle" font-family="Inter" font-size="12" font-weight="800" fill="#00bcf1" letter-spacing="0.05em">CINEBODY</text>
+        <text x="200" y="162" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.35)" letter-spacing="0.08em">DASHBOARD</text>
+
+        <!-- Glow filter -->
+        <defs>
+          <filter id="nkGlow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
       </svg>
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
@@ -515,7 +581,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- ═══ MAP SECTION ═══ -->
-<section class="content-section" style="padding-top:0">
+<section class="content-section">
   <div class="contain">
     <div class="section-head reveal">
       <div class="label">Capture Map</div>
