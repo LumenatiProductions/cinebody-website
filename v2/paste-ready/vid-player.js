@@ -1,14 +1,14 @@
 /* ═══════════════════════════════════════════════
    CINEBODY — Click-to-Play Video Controller
-   Based on proven snap-pitch pattern.
    Requires: Vimeo Player SDK (player.vimeo.com/api/player.js)
 
-   Usage: Add .vid-playable to container with:
-     - <img class="vid-poster" src="..." alt="...">
-     - data-vimeo="VIDEO_ID"
-     - data-vimeo-h="HASH" (optional, for private/unlisted)
-     - data-autoplay (optional — autoplay on desktop, click on mobile)
-     - class vid-playable--h (16:9) or vid-playable--v (9:16)
+   Attributes on .vid-playable:
+     data-vimeo="ID"           — Vimeo video ID (required)
+     data-vimeo-h="HASH"       — hash for private/unlisted videos
+     data-autoplay             — autoplay on desktop, click-to-play on mobile
+     data-autoplay-always      — autoplay on ALL devices including mobile
+     vid-playable--h           — 16:9 aspect
+     vid-playable--v           — 9:16 aspect
    ═══════════════════════════════════════════════ */
 
 (function() {
@@ -17,8 +17,6 @@
   var svgUnmuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
 
   var isMobile = window.innerWidth < 768;
-
-  // Track active unmuted player globally — only one unmuted at a time
   var activePlayer = null;
   var activeBtn = null;
 
@@ -33,10 +31,8 @@
     iframe.allow = 'autoplay';
     iframe.loading = 'lazy';
     container.insertBefore(iframe, container.firstChild);
-
     container.classList.add('playing');
 
-    // Initialize Vimeo Player SDK for mute control
     if (typeof Vimeo !== 'undefined' && Vimeo.Player) {
       container._player = new Vimeo.Player(iframe);
     }
@@ -45,14 +41,23 @@
   document.querySelectorAll('.vid-playable').forEach(function(container) {
     var videoId = container.getAttribute('data-vimeo');
     var hash = container.getAttribute('data-vimeo-h');
-    var shouldAutoplay = container.hasAttribute('data-autoplay');
+    var autoplayDesktop = container.hasAttribute('data-autoplay');
+    var autoplayAlways = container.hasAttribute('data-autoplay-always');
     if (!videoId) return;
 
-    // Add play button (hidden on autoplay desktop)
+    // Determine if this video should autoplay
+    var shouldAutoplay = autoplayAlways || (autoplayDesktop && !isMobile);
+
+    // Add play button
     var playBtn = document.createElement('div');
     playBtn.className = 'vid-play-btn';
     playBtn.innerHTML = playSVG;
     container.appendChild(playBtn);
+
+    // Hide play button if autoplaying
+    if (shouldAutoplay) {
+      playBtn.style.display = 'none';
+    }
 
     // Add mute button
     var muteBtn = document.createElement('button');
@@ -61,9 +66,8 @@
     muteBtn.setAttribute('aria-label', 'Unmute');
     container.appendChild(muteBtn);
 
-    // Desktop autoplay: load immediately when visible
-    if (shouldAutoplay && !isMobile) {
-      playBtn.style.display = 'none';
+    // Autoplay: load when scrolled into view
+    if (shouldAutoplay) {
       var obs = new IntersectionObserver(function(entries) {
         entries.forEach(function(e) {
           if (e.isIntersecting) {
@@ -71,17 +75,17 @@
             obs.unobserve(container);
           }
         });
-      }, { threshold: 0.2 });
+      }, { threshold: 0.15 });
       obs.observe(container);
     }
 
-    // Click to play (always works, primary path on mobile)
+    // Click to play (fallback, always available)
     container.addEventListener('click', function(e) {
       if (e.target.closest('.vid-mute-btn')) return;
       loadVideo(container, videoId, hash);
     });
 
-    // Mute/unmute via Vimeo Player SDK
+    // Mute/unmute
     muteBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       var player = container._player;
