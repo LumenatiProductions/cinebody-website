@@ -1,0 +1,781 @@
+<!-- Cinebody V4 — Services
+     Paste this into a single Code Block on the services page.
+     Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
+
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY V4 — SERVICES PAGE
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+/* ── CURVED SECTION DIVIDERS ── */
+.curve { display: block;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0;
+  margin-top: -2px; margin-bottom: -4px;
+}
+
+.curve svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+@media (max-width: 600px) {
+  .curve svg { height: 80px; }
+}
+
+/* ── CONTAINER ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── SECTION LABEL ── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── SIGNATURE BAR ── */
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+
+/* ── BUTTON ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease); position: relative; isolation: isolate;
+}
+
+.btn-glow {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.btn-glow::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
+}
+
+.btn-glow:hover::before { opacity: 0.7; }
+
+.btn-glow:hover {
+  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+
+.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg { transform: translateX(3px); }
+
+/* ═══════════════════════════
+   HERO
+   ═══════════════════════════ */
+.hero { padding: 160px 0 120px; overflow: hidden; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+
+
+.hero .contain {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 24px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--teal);
+  -webkit-text-fill-color: var(--teal);
+}
+
+.hero-body {
+  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
+}
+
+/* Hero 3x3 video wall */
+.hero-wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 6px;
+  width: 100%;
+}
+
+.wall-cell {
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #111;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.wall-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  transition: background 0.4s ease;
+  z-index: 1;
+}
+
+.wall-cell:hover::after {
+  background: linear-gradient(135deg, rgba(0,188,241,0.15), rgba(235,0,139,0.1), rgba(255,236,3,0.08));
+}
+
+.wall-label {
+  position: absolute; bottom: 8px; left: 8px; z-index: 2;
+  font-family: var(--font); font-size: 9px; font-weight: 600;
+  color: #fff; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  padding: 4px 8px; border-radius: 4px;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.wall-cell:hover .wall-label {
+  opacity: 1; transform: translateY(0);
+}
+
+.wall-cell iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 250%; height: 250%;
+  transform: translate(-50%, -50%);
+  border: none;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════
+   PROCESS
+   ═══════════════════════════ */
+.process {
+  padding: 100px 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%);
+  position: relative;
+}
+
+.process h2 {
+  font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.03em;
+  line-height: 1.1; margin-bottom: 56px;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.process-step {
+  text-align: center;
+  position: relative;
+  padding: 0 12px;
+}
+
+.process-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 28px;
+  right: -2px;
+  width: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--yellow));
+  z-index: 2;
+}
+
+.process-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(0,188,241,0.08);
+  border: 2px solid rgba(0,188,241,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+  font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--teal);
+  transition: all 0.3s var(--ease);
+}
+
+.process-step:hover .process-num {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: #111;
+  transform: scale(1.1);
+  box-shadow: 0 0 24px rgba(255,236,3,0.25);
+}
+
+.process-step h3 {
+  font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; color: var(--text);
+}
+
+.process-step p {
+  font-size: 0.78rem; color: var(--text-dim); line-height: 1.55;
+}
+
+/* ═══════════════════════════
+   SHOWCASE SECTIONS
+   ═══════════════════════════ */
+.showcase {
+  padding: 100px 0;
+  position: relative;
+}
+
+.showcase .contain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.showcase--flip .contain { direction: rtl; }
+.showcase--flip .contain > * { direction: ltr; }
+
+/* Light variant */
+.showcase--light { background: #fff; }
+.showcase--light .showcase-title { color: #111; }
+.showcase--light .showcase-desc { color: #666; }
+.showcase--light .showcase-logo { filter: none; }
+.showcase--light .vid-cell { border-color: #e0e0e0; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+/* Dark variant — teal-navy */
+.showcase--dark { background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%); }
+.showcase--dark .showcase-logo { filter: brightness(10); }
+.showcase--dark .vid-cell { border-color: rgba(255,255,255,0.08); box-shadow: 0 8px 40px rgba(0,0,0,0.3); }
+
+
+/* Pink-navy variant */
+.showcase--pink { background: radial-gradient(ellipse 80% 70% at 80% 20%, rgba(235,0,139,0.1) 0%, transparent 70%), radial-gradient(ellipse 60% 60% at 20% 80%, rgba(255,236,3,0.05) 0%, transparent 70%), linear-gradient(180deg, #1a0a18 0%, #1e0e24 50%, #140a1e 100%); }
+.showcase--pink .showcase-logo { filter: brightness(10); }
+.showcase--pink .showcase-title { color: var(--text); }
+.showcase--pink .showcase-desc { color: var(--text-dim); }
+.showcase--pink .vid-cell { border-color: rgba(255,255,255,0.08); box-shadow: 0 8px 40px rgba(0,0,0,0.3); }
+
+
+.showcase-content { position: relative; z-index: 1; }
+
+.showcase-logo {
+  height: 32px; width: auto; max-width: 160px; margin-bottom: 20px; object-fit: contain;
+}
+/* Per-logo sizing for consistent visual weight */
+.showcase-logo[alt="Royal Caribbean"] { height: 36px; max-width: 180px; }
+.showcase-logo[alt="Altra"] { height: 30px; }
+.showcase-logo[alt="Crocs"] { height: 28px; }
+.showcase-logo[alt="Point.me"] { height: 32px; max-width: 40px; }
+.showcase-logo[alt="Sploot"] { height: 28px; max-width: 140px; }
+.showcase-logo[alt="Cogent World"] { height: 36px; border-radius: 4px; }
+.showcase-logo[alt="Dell"] { height: 32px; }
+
+/* Category intro headers */
+.cat-intro { padding: 80px 0 20px; text-align: center; }
+.cat-intro .contain { max-width: 700px; }
+.cat-intro h2 { font-family: var(--font); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 12px; }
+.cat-intro h2 em { font-style: normal; color: var(--teal); }
+.cat-intro--light h2 { color: #111; }
+.cat-intro--dark h2 { color: var(--text); }
+.cat-intro--pink h2 { color: var(--text); }
+.cat-intro--pink h2 em { color: var(--pink); }
+.cat-intro p { font-size: 0.9rem; line-height: 1.65; max-width: 560px; margin: 0 auto; }
+.cat-intro--light p { color: #666; }
+.cat-intro--dark p { color: var(--text-dim); }
+.cat-intro--pink p { color: var(--text-dim); }
+
+.showcase-title {
+  font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em;
+  line-height: 1.2; margin-bottom: 14px;
+}
+
+.showcase-desc {
+  font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 24px; max-width: 420px;
+}
+
+.showcase-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; font-weight: 600; color: var(--teal);
+  transition: gap 0.3s var(--ease);
+}
+.showcase-link:hover {
+  gap: 12px;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* Video grids */
+.vid-grid-3v {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.vid-cell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.vid-cell--v { padding-bottom: 177%; }
+.vid-cell--h { padding-bottom: 56.25%; }
+
+.vid-cell iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+  pointer-events: none;
+}
+
+.vid-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+  transition: background 0.4s ease;
+  z-index: 1;
+}
+
+.vid-cell:hover::after {
+  background: linear-gradient(135deg, rgba(0,188,241,0.12), rgba(235,0,139,0.08), rgba(255,236,3,0.06));
+}
+
+.vid-cell:hover {
+  transform: translateY(-4px);
+  transition: transform 0.4s var(--ease);
+}
+
+/* Single horizontal video */
+.vid-single-h {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* ═══════════════════════════
+   CTA BAND
+   ═══════════════════════════ */
+.cta-band { background: var(--yellow); padding: 72px 0; text-align: center; overflow: hidden; }
+
+.cta-band h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; color: #111; line-height: 1.2; margin-bottom: 8px; }
+.cta-band p { font-size: 1.05rem; color: #333; margin-bottom: 28px; }
+.cta-band .btn-glow { background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.15); }
+.cta-band .btn-glow:hover { box-shadow: 0 0 40px rgba(0,0,0,0.25); }
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══════════════════════════
+   RESPONSIVE
+   ═══════════════════════════ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 100px 0 80px; }
+  .process-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .process-step:nth-child(3)::after { display: none; }
+  .showcase .contain { grid-template-columns: 1fr; gap: 40px; }
+  .showcase--flip .contain { direction: ltr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 80px 0 60px; }
+  .hero h1 { font-size: 2.25rem; }
+  .hero-wall { gap: 4px; }
+  .wall-cell { border-radius: 6px; }
+  .wall-label { font-size: 7px; padding: 3px 6px; bottom: 4px; left: 4px; }
+  .process-grid { grid-template-columns: 1fr; gap: 28px; }
+  .process-step:not(:last-child)::after { display: none; }
+  .process-step { text-align: left; display: flex; gap: 16px; align-items: flex-start; padding: 0; }
+  .process-num { margin: 0; flex-shrink: 0; }
+  .vid-grid-3v { grid-template-columns: 1fr; max-width: 280px; margin: 0 auto; gap: 12px; }
+  .showcase, .process { padding: 80px 0; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Creative Services</div>
+      <h1>Your content team, <em>without the&nbsp;headcount.</em></h1>
+      <p class="hero-body">From testimonials and CTV to social content and employee spotlights — our creative team handles production from brief to final cut, on brand, on time, and built to&nbsp;perform.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Get Started <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="hero-wall reveal reveal-d2">
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/1896814958-e6c0a34bb7713d13f7753b614896d5fe41ed10a9b4348204550f44843aec0e22-d_640')"><span class="wall-label">Royal Caribbean · Fleet</span><iframe src="https://player.vimeo.com/video/981489599?h=89701ad11c&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2032816480-c57d37ddbcd1b4069810c65e9a339026549fb66876cf3142449f76547a5df8ad-d_640')"><span class="wall-label">Altra · Athletes</span><iframe src="https://player.vimeo.com/video/1098260354?h=9d87d05789&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/824853571.jpg')"><span class="wall-label">Crocs · Influencer</span><iframe src="https://player.vimeo.com/video/824853571?h=a9ef1a15c4&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2008573386-62a057b277e494ff523e8d6bd9f52a8c1f1eaa72870c3068ad635598ef0e4e65-d_640')"><span class="wall-label">Point.me · CTV</span><iframe src="https://player.vimeo.com/video/1078357962?h=ac0da6551d&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640')"><span class="wall-label">Sploot · Testimonial</span><iframe src="https://player.vimeo.com/video/1130557367?h=67815d0119&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640')"><span class="wall-label">Cogent · Events</span><iframe src="https://player.vimeo.com/video/1090977594?h=646a9f78bc&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640')"><span class="wall-label">Dell · Employee</span><iframe src="https://player.vimeo.com/video/1065884285?h=75786524f6&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://vumbnail.com/1061059233.jpg')"><span class="wall-label">RC · Rover</span><iframe src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640')"><span class="wall-label">Lorde · Live</span><iframe src="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section class="process">
+  <div class="contain">
+    <div class="reveal">
+      <div class="label">Our Process</div>
+      <h2>From concept to final&nbsp;cut.</h2>
+    </div>
+    <div class="process-grid reveal reveal-d2">
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <div>
+          <h3>Vision & Alignment</h3>
+          <p>We align on goals, audience, and creative direction — so every shoot has a&nbsp;purpose.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <div>
+          <h3>Talent & Casting</h3>
+          <p>We recruit the right voices from your community — the people your audience&nbsp;trusts.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <div>
+          <h3>Project Execution</h3>
+          <p>Our producers manage the shoot remotely, keeping filmers on-brief and&nbsp;on-schedule.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <div>
+          <h3>Pro Editing</h3>
+          <p>Editing starts the moment footage lands — no waiting for a hard drive in the&nbsp;mail.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">05</div>
+        <div>
+          <h3>Motion GFX & Music</h3>
+          <p>Branded graphics and licensed music give every video a polished, professional&nbsp;finish.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: process → light -->
+<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ SHOWCASE: ROYAL CARIBBEAN (light, content left, 3 vert right) ═══ -->
+<!-- Category: Social Content -->
+<div class="cat-intro cat-intro--light" style="background:#fff;padding-top:60px">
+  <div class="contain reveal">
+    <h2><em>Keep your social feeds full,</em> without burning out your&nbsp;team.</h2>
+    <p>Production timelines shrink from weeks to days when your community is doing the filming. We handle the&nbsp;rest.</p>
+  </div>
+</div>
+
+<section class="showcase showcase--light">
+  <div class="contain">
+    <div class="showcase-content reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752612044764-HV8GVV2QA08BISZN4AXZ/Royal-Cribbean-logo.png" alt="Royal Caribbean" class="showcase-logo">
+      <h3 class="showcase-title">A constant stream of social&nbsp;content.</h3>
+      <p class="showcase-desc">Crew members film daily life on board. Cinebody's team turns raw moments into a steady stream of social content, keeping feeds fresh across the&nbsp;fleet.</p>
+      <a href="/royal-caribbean" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="vid-grid-3v reveal reveal-d2">
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="981489599" data-vimeo-h="89701ad11c" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/1896814958-e6c0a34bb7713d13f7753b614896d5fe41ed10a9b4348204550f44843aec0e22-d_640" alt="Royal Caribbean video 1">
+      </div>
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1065911751" data-vimeo-h="c0f9984c45" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/1993513143-cf6bf57dcf0f8153e3fdd1fcd5a4f5e98dab75cf929dae23c0ab9358b5ee3aaf-d_640" alt="Royal Caribbean video 2">
+      </div>
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1065240591" data-vimeo-h="14347353e0" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/1992708982-5f08d86aabf717a65b413e52d7f4aa2f1fed0e452497ecf9100903f12e99913c-d_640" alt="Royal Caribbean video 3">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → dark-teal -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#041a24"/></svg></div>
+
+<!-- ═══ SHOWCASE: ALTRA (dark, 3 vert left, content right) ═══ -->
+<section class="showcase showcase--dark showcase--flip" style="padding-top:60px">
+  <div class="contain">
+    <div class="showcase-content reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629004054-HX71A4E1K421KGFNT0PC/Altra_running_logo.png" alt="Altra" class="showcase-logo">
+      <h3 class="showcase-title">Activating the community</h3>
+      <p class="showcase-desc">Athletes share stories and unboxings. Cinebody edits them into content that deepens the bond between brand and running&nbsp;community.</p>
+      <a href="#" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="vid-grid-3v reveal reveal-d2">
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098260354" data-vimeo-h="9d87d05789" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2032816480-c57d37ddbcd1b4069810c65e9a339026549fb66876cf3142449f76547a5df8ad-d_640" alt="Altra video 1">
+      </div>
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1092175563" data-vimeo-h="aeeb559c41" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="Altra video 2">
+      </div>
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1092215288" data-vimeo-h="b0766b2779" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2025241323-e06eacd171ff7bf6d1a8c9cf93d3a832638c42f88d0dff5afa4ed3e6df125c32-d_640" alt="Altra video 3">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark-teal → light -->
+<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- Category: CTV & Testimonials -->
+<div class="cat-intro cat-intro--light" style="background:#fff">
+  <div class="contain reveal">
+    <h2><em>CTV ads that feel real.</em> Because they&nbsp;are.</h2>
+    <p>Viewers skip polished ads. They watch real people. Cinebody helps you create testimonial-driven CTV spots that outperform traditional production at a fraction of the&nbsp;cost.</p>
+  </div>
+</div>
+
+<!-- ═══ SHOWCASE: CROCS (light, content left, 1 horiz right) ═══ -->
+<section class="showcase showcase--light">
+  <div class="contain">
+    <div class="showcase-content reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629527759-OGG70YW4VVYL7QJUGQWH/Crocs_wordmark.svg.png" alt="Crocs" class="showcase-logo">
+      <h3 class="showcase-title">Empowering global influencers</h3>
+      <p class="showcase-desc">One global influencer activation. Cinebody collected footage remotely, then repurposed it into polished assets for every&nbsp;channel.</p>
+      <a href="#" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="vid-single-h reveal reveal-d2">
+      <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="824853571" data-vimeo-h="a9ef1a15c4" style="border-radius:12px;overflow:hidden">
+        <img class="vid-poster" src="https://vumbnail.com/824853571.jpg" alt="Crocs video">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → pink-navy -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#1a0a18"/></svg></div>
+
+<!-- ═══ SHOWCASE: POINT.ME (pink-navy, 1 horiz left, content right) ═══ -->
+<section class="showcase showcase--pink showcase--flip" style="padding-top:60px">
+  <div class="contain">
+    <div class="showcase-content reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629603184-0N75S5FV7AKEU5STOVOC/1I88jMGuA5ObZ3LgSCItTrMBtb51693924089177_200x200.png" alt="Point.me" class="showcase-logo">
+      <h3 class="showcase-title">The most authentic CTV ad</h3>
+      <p class="showcase-desc">To prove how simple it is to book flights with points, Point.me needed more than a script, they needed real voices. With Cinebody, they captured true customer testimonials remotely, creating relatable CTV content that actually&nbsp;connects.</p>
+      <a href="/pointme" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="vid-single-h reveal reveal-d2">
+      <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="1078357962" data-vimeo-h="ac0da6551d" style="border-radius:12px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2008573386-62a057b277e494ff523e8d6bd9f52a8c1f1eaa72870c3068ad635598ef0e4e65-d_640" alt="Point.me video">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: pink-navy → light -->
+<div class="curve" style="background:#140a1e"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ SHOWCASE: SPLOOT (light, content left, 1 horiz right) ═══ -->
+<section class="showcase showcase--light" style="padding-top:60px">
+  <div class="contain">
+    <div class="showcase-content reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/a04fe31d-5bad-47f7-be2e-0634a7aa8089/Sploot-Horizontal-Full-Color-Rgb-2000px-w-72ppi.png" alt="Sploot" class="showcase-logo">
+      <h3 class="showcase-title">Locally Targeted</h3>
+      <p class="showcase-desc">Sploot activated local patrons in Chicago and Denver to deliver geo-targeted CTV ads. By leaning into their thousands of positive reviews, they created content that measurably increased local awareness and drove new&nbsp;appointments.</p>
+      <a href="#" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="vid-single-h reveal reveal-d2">
+      <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="1130557367" data-vimeo-h="67815d0119" style="border-radius:12px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640" alt="Sploot video">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → dark-teal -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#041a24"/></svg></div>
+
+<!-- Category: Events -->
+<div class="cat-intro cat-intro--dark" style="background:#041a24">
+  <div class="contain reveal">
+    <h2>Your events deserve more <em>than a single camera&nbsp;crew.</em></h2>
+    <p>Put phones in the hands of attendees, staff, and talent. Cinebody captures every angle, every reaction, then our team edits it into content that extends the life of every&nbsp;event.</p>
+  </div>
+</div>
+
+<!-- ═══ SHOWCASE: COGENT (dark-teal, 3 vert left, content right) ═══ -->
+<section class="showcase showcase--dark showcase--flip">
+  <div class="contain">
+    <div class="showcase-content reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/4bfe7c7f-7e13-45ad-97dd-94c06ed463d3/1629489003234.jpg" alt="Cogent World" class="showcase-logo">
+      <h3 class="showcase-title">Scaling content for hundreds of&nbsp;events</h3>
+      <p class="showcase-desc">From music festivals to brand activations, Cogent World produces hundreds of events across the globe. With Cinebody, they empower on-site teams and talent to capture real, in-the-moment content, fueling a steady stream of authentic video that connects with their community long after the event&nbsp;ends.</p>
+      <a href="#" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="vid-grid-3v reveal reveal-d2">
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1090977594" data-vimeo-h="646a9f78bc" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="Cogent World video 1">
+      </div>
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1090655136" data-vimeo-h="32eda7fecd" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2023308957-b60d46468a140d084beae2f0afac4eacd3bef8e9fdb53c415d2c3e0f518265d1-d_640" alt="Cogent World video 2">
+      </div>
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1089063815" data-vimeo-h="0822c777dc" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2021455319-42166add3b024c990b06a7211474861fd47c47b14a5a982b2d421483d98e09c5-d_640" alt="Cogent World video 3">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark-teal → light -->
+<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- Category: Employee Stories -->
+<div class="cat-intro cat-intro--light" style="background:#fff">
+  <div class="contain reveal">
+    <h2><em>Your employees have stories worth telling.</em> Give them the&nbsp;mic.</h2>
+    <p>Cinebody makes it easy for teams anywhere in the world to film real stories in their own words — building trust with external audiences and strengthening culture from the inside&nbsp;out.</p>
+  </div>
+</div>
+
+<!-- ═══ SHOWCASE: DELL (light, content left, 3 vert right) ═══ -->
+<section class="showcase showcase--light">
+  <div class="contain">
+    <div class="showcase-content reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752696389465-KJM0HADL2FMJ1SK8AFQU/dell-2-logo-png-transparent.png" alt="Dell" class="showcase-logo">
+      <h3 class="showcase-title">Elevating employee voices&nbsp;worldwide</h3>
+      <p class="showcase-desc">Dell uses Cinebody to capture authentic stories from employees and communities across the world to highlight the people behind the innovation. By turning real experiences into high-performing content, Dell builds connection, transparency, and a stronger global&nbsp;culture.</p>
+      <a href="#" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="vid-grid-3v reveal reveal-d2">
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1065884285" data-vimeo-h="75786524f6" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640" alt="Dell video 1">
+      </div>
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1065886093" data-vimeo-h="80404d7365" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/1993482466-f54bae18ca4f73806a7452580ea13be1f84dbba0c1e22c04233f20e333b5d86b-d_640" alt="Dell video 2">
+      </div>
+      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1065890083" data-vimeo-h="8d129ec781" style="border-radius:8px;overflow:hidden">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/1993487178-f18895b0fe981a75970a2204846cba31f47678cfb4c502ef843a7dc3e9dd1ccd-d_640" alt="Dell video 3">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → yellow -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band" style="padding-top:40px">
+  <div class="contain">
+    <h2 class="reveal">Ready to see what your community can&nbsp;create?</h2>
+    <p class="reveal reveal-d1">Talk to our team.</p>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d2">Let's Talk <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+</section>
+
+<!-- curve: yellow → dark -->
+<div class="curve" style="background:#ffec03"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<script>
+// Scroll reveal
+(function(){
+  var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>

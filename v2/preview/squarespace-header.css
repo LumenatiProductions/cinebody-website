@@ -1,0 +1,360 @@
+/* ============================================
+   CINEBODY V4 — SQUARESPACE HEADER + FOOTER
+   Paste into Design > Custom CSS
+   ============================================ */
+
+/* ================================================
+   GLOBAL
+   ================================================ */
+html { scroll-behavior: smooth; }
+.sqs-block-code { padding: 0 !important; margin: 0 !important; }
+
+/* ================================================
+   HEADER — Dark, transparent over hero, solidifies on scroll
+   ================================================ */
+
+/* Base header — transparent, sits over hero */
+.header {
+  background: transparent !important;
+  transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease !important;
+}
+
+/* Scrolled state — glassmorphism dark */
+.header.shrink,
+.header--menu-open {
+  background: rgba(10, 10, 10, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.3) !important;
+}
+
+/* ── Nav Links ── */
+.header-nav-item a {
+  position: relative;
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+  color: rgba(255,255,255,0.7) !important;
+  background-image: none !important;
+  transition: color 0.3s ease !important;
+}
+
+.header-nav-item a:hover {
+  color: #fff !important;
+  background-image: none !important;
+}
+
+/* Animated underline — teal gradient */
+.header-nav-item a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00bcf1, #eb008b);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 1px;
+}
+
+.header-nav-item a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Active page */
+.header-nav-item--active a {
+  color: #fff !important;
+  font-weight: 600 !important;
+  background-image: none !important;
+}
+
+.header-nav-item--active a::after {
+  width: 100%;
+  left: 0;
+  background: #00bcf1;
+}
+
+/* ── Login CTA Button ── */
+.header-actions-action--cta a,
+a.sqs-button-element--secondary[href*="login"] {
+  background: #00bcf1 !important;
+  color: #fff !important;
+  padding: 10px 24px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  background-image: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 0 16px rgba(0,188,241,0.15), 0 2px 6px rgba(0,0,0,0.2) !important;
+  position: relative;
+  isolation: isolate;
+}
+
+.header-actions-action--cta a:hover,
+a.sqs-button-element--secondary[href*="login"]:hover {
+  background: #00bcf1 !important;
+  color: #fff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 30px rgba(0,188,241,0.25), 0 4px 12px rgba(0,0,0,0.3) !important;
+  border: none !important;
+}
+
+/* Glow effect behind button */
+.header-actions-action--cta a::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  z-index: -1;
+  background: linear-gradient(135deg, #00bcf1, #eb008b, #ffec03);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  filter: blur(8px);
+}
+
+.header-actions-action--cta a:hover::before {
+  opacity: 0.5;
+}
+
+/* Remove underline from CTA */
+.header-actions-action--cta a::after {
+  display: none !important;
+}
+
+/* ── Dropdown Menus ── */
+.header-nav-folder-content {
+  background: rgba(10,10,10,0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-top: 2px solid #00bcf1 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+  padding: 8px 0 !important;
+  min-width: 160px !important;
+  margin-top: 8px !important;
+}
+
+.header-nav-folder-item a {
+  color: rgba(255,255,255,0.6) !important;
+  padding: 10px 20px !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  background: transparent !important;
+  background-image: none !important;
+  display: block !important;
+}
+
+.header-nav-folder-item a:hover {
+  color: #fff !important;
+  background: rgba(0,188,241,0.08) !important;
+  padding-left: 24px !important;
+}
+
+.header-nav-folder-item a::after {
+  display: none !important;
+}
+
+/* ── Logo ── */
+.header-title-logo a {
+  transition: opacity 0.3s ease !important;
+}
+
+.header-title-logo a:hover {
+  opacity: 0.8;
+}
+
+/* ── Social Icons in Header ── */
+.header .sqs-svg-icon--social {
+  color: rgba(255,255,255,0.5) !important;
+  transition: all 0.3s ease !important;
+}
+
+.header .sqs-svg-icon--social:hover {
+  color: #00bcf1 !important;
+  transform: translateY(-1px);
+}
+
+/* ── Nav Item Entrance ── */
+@keyframes navSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header-nav-item {
+  animation: navSlideIn 0.4s ease-out both;
+}
+
+.header-nav-item:nth-child(1) { animation-delay: 0.05s; }
+.header-nav-item:nth-child(2) { animation-delay: 0.1s; }
+.header-nav-item:nth-child(3) { animation-delay: 0.15s; }
+.header-nav-item:nth-child(4) { animation-delay: 0.2s; }
+.header-nav-item:nth-child(5) { animation-delay: 0.25s; }
+
+/* ── Mobile Navigation ── */
+@media (max-width: 767px) {
+
+  /* Mobile menu background */
+  .header-menu {
+    background: rgba(10,10,10,0.95) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+  }
+
+  .header-menu-nav-item a {
+    color: rgba(255,255,255,0.7) !important;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    padding: 14px 24px !important;
+    transition: all 0.3s ease !important;
+    border-left: 3px solid transparent;
+  }
+
+  .header-menu-nav-item a:hover {
+    color: #fff !important;
+    background: rgba(0,188,241,0.06) !important;
+    border-left-color: #00bcf1;
+    padding-left: 28px !important;
+  }
+
+  .header-menu-nav-item--active a {
+    color: #00bcf1 !important;
+    font-weight: 600 !important;
+    border-left-color: #00bcf1;
+  }
+
+  /* Mobile Login button */
+  .header-menu-nav-item a[href*="login"] {
+    background: #00bcf1 !important;
+    color: #fff !important;
+    padding: 14px 24px !important;
+    border-radius: 8px !important;
+    margin: 16px 24px !important;
+    text-align: center !important;
+    display: block !important;
+    font-weight: 600 !important;
+    border-left: none !important;
+    box-shadow: 0 0 16px rgba(0,188,241,0.2) !important;
+  }
+
+  /* Hamburger icon color */
+  .header-burger-btn-line {
+    background: #fff !important;
+  }
+}
+
+
+/* ================================================
+   FOOTER — Matches v4 design
+   ================================================ */
+
+/* Sig bar */
+footer.sections::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, #00bcf1 0%, #00bcf1 33.33%, #ffec03 33.33%, #ffec03 66.66%, #eb008b 66.66%);
+}
+
+/* Footer background */
+footer.sections section[data-section-id] {
+  background: #0a0a0a !important;
+  padding-top: 56px !important;
+  padding-bottom: 28px !important;
+}
+
+/* Footer text */
+footer .sqs-block-html p,
+footer .sqs-block-html h1,
+footer .sqs-block-html h2,
+footer .sqs-block-html h3 {
+  color: rgba(255,255,255,0.9) !important;
+}
+
+footer .sqs-block-html h2,
+footer .sqs-block-html h3 {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: rgba(255,255,255,0.5) !important;
+  margin-bottom: 14px !important;
+}
+
+footer .sqs-block-html p {
+  font-size: 0.82rem !important;
+  line-height: 1.6 !important;
+  color: rgba(255,255,255,0.3) !important;
+  max-width: 240px;
+}
+
+/* Footer links */
+footer a {
+  color: rgba(255,255,255,0.3) !important;
+  font-size: 0.82rem !important;
+  transition: all 0.2s ease !important;
+  background-image: none !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+footer a::after {
+  display: none !important;
+}
+
+footer a:hover {
+  background: linear-gradient(135deg, #00bcf1, #eb008b, #ffec03) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  transform: none !important;
+}
+
+/* Footer Login button */
+footer a[href*="login"] {
+  display: none !important;
+}
+
+/* Footer social icons */
+footer .sqs-svg-icon--social {
+  color: rgba(255,255,255,0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+footer .sqs-svg-icon--social:hover {
+  color: #00bcf1 !important;
+}
+
+/* Footer bottom border */
+footer .sqs-block:last-child {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px !important;
+}
+
+/* Mobile footer */
+@media (max-width: 767px) {
+  footer.sections section[data-section-id] {
+    padding-top: 40px !important;
+    padding-bottom: 20px !important;
+  }
+}
+
+
+/* ================================================
+   BUTTON DEFAULTS
+   ================================================ */
+.sqs-block-button-element {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.sqs-block-button-element:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 30px rgba(0,188,241,0.2), 0 4px 12px rgba(0,0,0,0.2) !important;
+}

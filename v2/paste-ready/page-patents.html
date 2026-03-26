@@ -1,0 +1,443 @@
+<!-- Cinebody V4 — Patents
+     Paste this into a single Code Block on the patents page.
+     Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
+
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY V4 — PATENTS PAGE
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+/* ── CURVED SECTION DIVIDERS ── */
+.curve { display: block;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0;
+  margin-top: -2px; margin-bottom: -4px;
+}
+
+.curve svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+@media (max-width: 600px) {
+  .curve svg { height: 80px; }
+}
+
+/* ── CONTAINER ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── SECTION LABEL ── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── SIGNATURE BAR ── */
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+
+/* ═══════════════════════════
+   HERO — centered
+   ═══════════════════════════ */
+.hero {
+  padding: 160px 0 120px;
+  position: relative;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #0a0a0a 0%, #041a24 100%);
+  text-align: center;
+}
+
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-body {
+  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 560px; margin: 0 auto 36px;
+}
+
+/* ═══════════════════════════
+   PATENTS SECTION — light
+   ═══════════════════════════ */
+.patents { background: #fff; color: #111; padding: 100px 0 120px; }
+
+.patents h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 56px;
+  text-align: center;
+  color: #111;
+}
+
+.patent-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.patent-card {
+  background: rgba(255,255,255,0.5);
+  padding: 36px 28px;
+  position: relative;
+  border: 2px solid rgba(0,0,0,0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.5s var(--ease), background 0.5s ease, box-shadow 0.5s var(--ease);
+}
+
+.patent-card:hover {
+  border-color: rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.08);
+}
+
+.patent-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 0;
+  background: rgba(0,0,0,0.02); transition: height 0.4s ease; pointer-events: none;
+}
+
+.patent-card:hover::after { height: 100%; }
+
+.patent-bar { height: 2px; border-radius: 2px; margin-bottom: 28px; }
+.patent-bar--teal { background: var(--teal); }
+.patent-bar--yellow { background: var(--yellow); }
+.patent-bar--pink { background: var(--pink); }
+
+.patent-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.patent-card .patent-subtitle {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  margin-bottom: 24px;
+}
+
+.patent-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.patent-list li {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 16px;
+  background: rgba(0,0,0,0.025);
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.patent-list li .patent-icon {
+  margin-top: 2px;
+}
+
+.patent-list li:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.patent-list li > .patent-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.patent-list li .patent-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.patent-card:nth-child(1) .patent-icon svg { color: var(--teal); }
+.patent-card:nth-child(2) .patent-icon svg { color: var(--yellow); }
+.patent-card:nth-child(3) .patent-icon svg { color: var(--pink); }
+
+.patent-number {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.patent-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.patent-title {
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.patent-desc {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: #888;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .patent-grid { grid-template-columns: 1fr; gap: 20px; max-width: 500px; margin: 0 auto; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 120px 0 80px; }
+  .patents { padding: 60px 0 80px; }
+}
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover { color: var(--teal); }
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+</style>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="hero-eyebrow reveal">Intellectual Property</div>
+    <h1 class="reveal reveal-d1">Protected by <em>patents.</em></h1>
+    <p class="hero-body reveal reveal-d2">The Cinebody platform and other Cinebody products are covered by the following U.S. and International Patents and Patent&nbsp;Applications.</p>
+  </div>
+</section>
+
+<!-- curve: dark → light -->
+<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ PATENTS ═══ -->
+<section class="patents">
+  <div class="contain">
+    <div class="patent-grid">
+
+      <!-- U.S. Patents (Granted) -->
+      <div class="patent-card reveal">
+        <div class="patent-bar patent-bar--teal"></div>
+        <h3>U.S. Patents</h3>
+        <div class="patent-subtitle">Granted</div>
+        <ul class="patent-list">
+          <li>
+            <span class="patent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            <div class="patent-info">
+              <span class="patent-number">U.S. Patent No. 9,824,477</span>
+              <span class="patent-title">Remote Video Capture Direction</span>
+              <span class="patent-desc">Covers the core technology that allows administrators to remotely control camera settings (resolution, FPS, orientation) on a filmer's mobile device through a web-based interface, without requiring an app download.</span>
+            </div>
+          </li>
+          <li>
+            <span class="patent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            <div class="patent-info">
+              <span class="patent-number">U.S. Patent No. 10,410,389</span>
+              <span class="patent-title">Real-Time Video Synchronization</span>
+              <span class="patent-desc">Covers the real-time cloud sync technology that automatically uploads footage from a filmer's device to the administrator's dashboard the moment recording stops, eliminating manual file transfers.</span>
+            </div>
+          </li>
+          <li>
+            <span class="patent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            <div class="patent-info">
+              <span class="patent-number">U.S. Patent No. 9,722,656</span>
+              <span class="patent-title">Guided Shot List Technology</span>
+              <span class="patent-desc">Covers the patented shot list system that delivers creative direction, technical specifications, and guided prompts directly to a filmer's screen during recording, ensuring on-brand content capture at scale.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- U.S. Patent Applications (Pending) -->
+      <div class="patent-card reveal reveal-d1">
+        <div class="patent-bar patent-bar--yellow"></div>
+        <h3>U.S. Patent Applications</h3>
+        <div class="patent-subtitle">Pending</div>
+        <ul class="patent-list">
+          <li>
+            <span class="patent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            <div class="patent-info">
+              <span class="patent-number">Application No. 1516.100.00US</span>
+              <span class="patent-title">Multi-Source Content Aggregation</span>
+              <span class="patent-desc">Methods for collecting and organizing video content from multiple distributed sources into a unified dashboard.</span>
+            </div>
+          </li>
+          <li>
+            <span class="patent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            <div class="patent-info">
+              <span class="patent-number">Application No. 1516.100.01US</span>
+              <span class="patent-title">Browser-Based Camera Control</span>
+              <span class="patent-desc">Systems for controlling device camera functionality through a standard web browser without native app installation.</span>
+            </div>
+          </li>
+          <li>
+            <span class="patent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+            <div class="patent-info">
+              <span class="patent-number">Application No. 1516.100.02US</span>
+              <span class="patent-title">Distributed Production Coordination</span>
+              <span class="patent-desc">Methods for coordinating simultaneous video production across multiple geographic locations through a single platform.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- International Patent Applications -->
+      <div class="patent-card reveal reveal-d2">
+        <div class="patent-bar patent-bar--pink"></div>
+        <h3>International Patents</h3>
+        <div class="patent-subtitle">Applications</div>
+        <ul class="patent-list">
+          <li>
+            <span class="patent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+            <div class="patent-info">
+              <span class="patent-number">Canada — 1516.102.00CA</span>
+              <span class="patent-title">Remote Video Capture Direction (CA)</span>
+              <span class="patent-desc">Extension of U.S. remote video capture direction patents to Canadian jurisdiction.</span>
+            </div>
+          </li>
+          <li>
+            <span class="patent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+            <div class="patent-info">
+              <span class="patent-number">EU — 1516.102.00EU</span>
+              <span class="patent-title">Remote Video Capture Direction (EU)</span>
+              <span class="patent-desc">Extension of U.S. remote video capture direction patents to European Union jurisdiction.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → dark -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<script>
+// Reveal
+(function(){
+  var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>

@@ -1,0 +1,477 @@
+<!-- Cinebody V4 — Case Study — PointMe
+     Paste this into a single Code Block on the cs-pointme page.
+     Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
+
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY CASE STUDY — POINT.ME
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.label {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 20px;
+}
+
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; margin-top: -2px; margin-bottom: -4px; }
+.curve svg { display: block; width: 100%; height: 50px; }
+@media (max-width: 600px) { .curve svg { height: 80px; } }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease); position: relative; isolation: isolate;
+}
+
+.btn-glow {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.btn-glow::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
+}
+
+.btn-glow:hover::before { opacity: 0.7; }
+.btn-glow:hover {
+  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg { transform: translateX(3px); }
+
+/* ═══ HERO ═══ */
+.hero { padding: 160px 0 120px; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+
+
+.hero .contain {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-body {
+  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
+}
+
+.logo-pair {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+}
+.logo-pair img { height: 28px; width: auto; object-fit: contain; }
+.logo-pair img.grayscale { filter: brightness(0) invert(1); opacity: 1; }
+.logo-pair .logo-x { font-size: 18px; font-weight: 300; color: var(--text-muted); }
+
+.hero-visual {
+  position: relative;
+  text-align: center;
+}
+
+.hero-visual .vid-playable { margin: 0 auto; }
+
+/* ═══ TREE STRUCTURE ═══ */
+.tree-section { padding: 100px 0; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%); }
+
+.tree-head { text-align: center; margin-bottom: 64px; }
+
+.tree-head h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px;
+}
+
+.tree-head h2 em { font-style: normal; color: var(--teal); }
+
+.tree-head p {
+  font-size: 0.95rem; color: var(--text-dim); line-height: 1.65; max-width: 560px; margin: 0 auto;
+}
+
+/* Hero CTV video */
+.tree-hero {
+  max-width: 700px; margin: 0 auto 48px;
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--border); box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+}
+
+.tree-hero .vid-wrap { position: relative; padding-bottom: 56.25%; background: #111; }
+.tree-hero .vid-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tree-hero .vid-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+.tree-hero-label {
+  text-align: center; padding: 14px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: var(--surface); border-top: 1px solid var(--border);
+}
+
+/* Branch connector */
+.tree-connector {
+  display: flex; justify-content: center; margin-bottom: 48px; position: relative;
+}
+
+.tree-connector svg { width: 600px; max-width: 100%; height: 80px; }
+
+/* Node grid */
+.tree-nodes {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  max-width: 900px; margin: 0 auto;
+}
+
+.tree-node {
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--border); background: #111;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s ease;
+}
+
+.tree-node:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,188,241,0.08);
+  border-color: var(--border-hover);
+}
+
+.tree-node .vid-wrap { position: relative; padding-bottom: 177.78%; background: #111; }
+.tree-node .vid-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tree-node .vid-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+.tree-node-label {
+  padding: 12px 14px; text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.tree-node-label .node-type {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  margin-bottom: 2px;
+}
+
+.tree-node-label .node-name {
+  font-size: 0.78rem; font-weight: 600; color: var(--text-dim);
+}
+
+/* ═══ CTA BAND ═══ */
+.cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
+.cta-band h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; color: #111; line-height: 1.2; margin-bottom: 28px;
+}
+.cta-band h2 span { color: var(--teal); }
+.cta-band .btn-glow { background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.15); }
+.cta-band .btn-glow:hover { box-shadow: 0 0 40px rgba(0,0,0,0.25); }
+
+/* ═══ FOOTER ═══ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 100px 0 80px; }
+  .tree-nodes { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 80px 0 60px; }
+  .hero h1 { font-size: 2.25rem; }
+  .tree-section, .cta-band { padding: 60px 0; }
+  .tree-nodes { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+<style>
+      .pm-orbit-group { animation: pmOrbit 12s linear infinite; transform-origin: 120px 120px; }
+      @keyframes pmOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      .pm-float-1 { animation: pmFloat1 4s ease-in-out infinite; }
+      .pm-float-2 { animation: pmFloat2 4.5s ease-in-out infinite; }
+      .pm-float-3 { animation: pmFloat3 3.8s ease-in-out infinite; }
+      .pm-float-4 { animation: pmFloat4 4.2s ease-in-out infinite; }
+      @keyframes pmFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(2px,-4px)} }
+      @keyframes pmFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-3px,-3px)} }
+      @keyframes pmFloat3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(3px,3px)} }
+      @keyframes pmFloat4 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-2px,4px)} }
+    </style>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Case Study</div>
+      <div class="logo-pair">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody" class="grayscale">
+        <span class="logo-x">&times;</span>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/182c813c-c6da-4c9c-a4c2-f4f3bb7205e5/PointMe_Logo_alt.png" alt="Point.me" style="height:24px;filter:brightness(0) invert(1);">
+      </div>
+      <h1>One shoot. <em>Infinite content.</em></h1>
+      <p class="hero-body">Point.me turned a single CTV production featuring 70+ real customers into a full multi-platform campaign — hero commercial, social vignettes, branded clips, and bonus content. One shoot. Every platform. No second production&nbsp;needed.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="hero-visual reveal reveal-d2">
+      <div class="vid-playable vid-playable--h" data-vimeo="1078357962" data-vimeo-h="ac0da6551d" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2008573386-62a057b277e494ff523e8d6bd9f52a8c1f1eaa72870c3068ad635598ef0e4e65-d_640" alt="Point.me">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → light -->
+<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ STATS ═══ -->
+<section style="background:#fff;color:#111;padding:80px 0">
+  <div class="contain" style="max-width:900px">
+
+    <!-- Globe Graphic -->
+    <style>
+      .pm-orbit-group { animation: pmOrbit 12s linear infinite; transform-origin: 120px 120px; }
+      @keyframes pmOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      .pm-float-1 { animation: pmFloat1 4s ease-in-out infinite; }
+      .pm-float-2 { animation: pmFloat2 4.5s ease-in-out infinite; }
+      .pm-float-3 { animation: pmFloat3 3.8s ease-in-out infinite; }
+      .pm-float-4 { animation: pmFloat4 4.2s ease-in-out infinite; }
+      @keyframes pmFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(2px,-4px)} }
+      @keyframes pmFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-3px,-3px)} }
+      @keyframes pmFloat3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(3px,3px)} }
+      @keyframes pmFloat4 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-2px,4px)} }
+    </style>
+    <div class="reveal" style="max-width:300px;margin:0 auto 56px">
+      <svg viewBox="0 0 240 244" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+        <!-- Globe -->
+        <circle cx="120" cy="120" r="52" fill="rgba(0,188,241,0.05)"/>
+        <circle cx="120" cy="120" r="52" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="1.4"/>
+        <ellipse cx="120" cy="120" rx="52" ry="18" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
+        <ellipse cx="120" cy="104" rx="46" ry="12" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
+        <ellipse cx="120" cy="136" rx="46" ry="12" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
+        <ellipse cx="120" cy="120" rx="18" ry="52" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
+        <ellipse cx="120" cy="120" rx="38" ry="52" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
+        <!-- Orbit -->
+        <ellipse cx="120" cy="120" rx="72" ry="72" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
+        <!-- Orbiting plane -->
+        <g class="pm-orbit-group">
+          <g transform="translate(120, 48)">
+            <ellipse cx="2" cy="0" rx="16" ry="3" fill="#00bcf1"/>
+            <path d="M16,-2 Q24,0 16,2 Z" fill="#00bcf1"/>
+            <path d="M4,-3 L-2,-16 L-10,-16 L-4,-3 Z" fill="rgba(0,188,241,0.8)"/>
+            <path d="M4,3 L-2,16 L-10,16 L-4,3 Z" fill="rgba(0,188,241,0.8)"/>
+            <path d="M-12,-2.5 L-16,-9 L-20,-9 L-15,-2.5 Z" fill="rgba(0,188,241,0.8)"/>
+            <path d="M-12,2.5 L-16,9 L-20,9 L-15,2.5 Z" fill="rgba(0,188,241,0.8)"/>
+            <rect x="-16" y="-1.2" width="5" height="2.4" rx="0.8" fill="#ffec03"/>
+            <ellipse cx="-2" cy="-7" rx="3" ry="1.5" fill="rgba(0,188,241,0.4)"/>
+            <ellipse cx="-2" cy="7" rx="3" ry="1.5" fill="rgba(0,188,241,0.4)"/>
+            <line x1="-5" y1="-7" x2="-26" y2="-7" stroke="rgba(0,188,241,0.08)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="-5" y1="7" x2="-26" y2="7" stroke="rgba(0,188,241,0.08)" stroke-width="2" stroke-linecap="round"/>
+          </g>
+        </g>
+        <!-- Content cards -->
+        <g class="pm-float-1"><rect x="20" y="30" width="40" height="22" rx="3" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="0.9"/><polygon points="36,36 36,46 44,41" fill="rgba(0,188,241,0.5)"/><text x="40" y="62" text-anchor="middle" font-family="Inter" font-size="7.5" font-weight="700" fill="rgba(0,0,0,0.3)">CTV</text></g>
+        <g class="pm-float-2"><rect x="180" y="36" width="40" height="22" rx="3" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="0.9"/><polygon points="196,42 196,52 204,47" fill="rgba(0,188,241,0.5)"/><text x="200" y="68" text-anchor="middle" font-family="Inter" font-size="7.5" font-weight="700" fill="rgba(0,0,0,0.3)">Social</text></g>
+        <g class="pm-float-3"><rect x="16" y="188" width="48" height="22" rx="3" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="0.9"/><polygon points="36,194 36,204 44,199" fill="rgba(0,188,241,0.5)"/><text x="40" y="220" text-anchor="middle" font-family="Inter" font-size="7.5" font-weight="700" fill="rgba(0,0,0,0.3)">Vignettes</text></g>
+        <g class="pm-float-4"><rect x="180" y="192" width="40" height="22" rx="3" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="0.9"/><polygon points="196,198 196,208 204,203" fill="rgba(0,188,241,0.5)"/><text x="200" y="224" text-anchor="middle" font-family="Inter" font-size="7.5" font-weight="700" fill="rgba(0,0,0,0.3)">Clips</text></g>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">1</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Shoot</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">70+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Real Customers</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">5+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Derivative Assets</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Multi</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Platform</div></div>
+    </div>
+    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">From a single CTV production featuring 70+ real customers, Cinebody's team extracted vignettes, social cuts, clips, and bonus content — maximizing every frame into a full multi-platform&nbsp;campaign.</p>
+  </div>
+</section>
+
+<!-- curve: light → teal-navy -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#041a24"/></svg></div>
+
+<!-- ═══ TREE STRUCTURE ═══ -->
+<section class="tree-section">
+  <div class="contain">
+    <div class="tree-head reveal">
+      <div class="label">Content Tree</div>
+      <h2>One hero spot. <em>Four derivative assets.</em></h2>
+      <p>From a single CTV commercial, Cinebody's team extracted vignettes, social cuts, clips, and bonus content — maximizing every&nbsp;frame.</p>
+    </div>
+
+    <div class="tree-hero reveal reveal-d1">
+      <div class="vid-playable vid-playable--h" data-vimeo="1078357962" data-vimeo-h="ac0da6551d" style="width:100%">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2008573386-62a057b277e494ff523e8d6bd9f52a8c1f1eaa72870c3068ad635598ef0e4e65-d_640" alt="Hero CTV Spot">
+      </div>
+      <div class="tree-hero-label">Hero CTV Commercial</div>
+    </div>
+
+    <!-- Branch SVG -->
+    <div class="tree-connector reveal reveal-d2">
+      <svg viewBox="0 0 600 80" preserveAspectRatio="xMidYMid meet">
+        <line x1="300" y1="0" x2="300" y2="20" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
+        <line x1="300" y1="20" x2="75" y2="20" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
+        <line x1="300" y1="20" x2="525" y2="20" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
+        <line x1="75" y1="20" x2="75" y2="80" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
+        <line x1="225" y1="20" x2="225" y2="80" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
+        <line x1="375" y1="20" x2="375" y2="80" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
+        <line x1="525" y1="20" x2="525" y2="80" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
+        <circle cx="300" cy="4" r="4" fill="var(--teal)" filter="url(#glow)"/>
+        <circle cx="75" cy="76" r="4" fill="var(--teal)" filter="url(#glow)"/>
+        <circle cx="225" cy="76" r="4" fill="var(--teal)" filter="url(#glow)"/>
+        <circle cx="375" cy="76" r="4" fill="var(--teal)" filter="url(#glow)"/>
+        <circle cx="525" cy="76" r="4" fill="var(--teal)" filter="url(#glow)"/>
+        <defs>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Nodes -->
+    <div class="tree-nodes reveal reveal-d3">
+      <div class="tree-node">
+        <div class="vid-playable vid-playable--v" data-vimeo="1087419136" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2019410391-4e42ca3f9ed350b40a02606c3db10f5327ad94eea58fa572c0dade655dfd3c4a-d_640" alt="Vignette"></div>
+        <div class="tree-node-label">
+          <div class="node-type">Derivative</div>
+          <div class="node-name">Vignette</div>
+        </div>
+      </div>
+      <div class="tree-node">
+        <div class="vid-playable vid-playable--v" data-vimeo="1087421388" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2019413084-7db6c5609dd5f149d328bc8ea6f1f137060b087bd74752bf86cacdc76b57f6ad-d_640" alt="Social"></div>
+        <div class="tree-node-label">
+          <div class="node-type">Derivative</div>
+          <div class="node-name">Social</div>
+        </div>
+      </div>
+      <div class="tree-node">
+        <div class="vid-playable vid-playable--v" data-vimeo="1087576984" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2019611648-a6bdc1b8c347c1fed85192125fbe2e96fda414deb4f802faf143dde092dece54-d_640" alt="Clip"></div>
+        <div class="tree-node-label">
+          <div class="node-type">Derivative</div>
+          <div class="node-name">Clip</div>
+        </div>
+      </div>
+      <div class="tree-node">
+        <div class="vid-playable vid-playable--v" data-vimeo="1087438401" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2019435288-9a144453bd98b7e9da4c1647eee0d84e359ec5a5123127483892080752aab951-d_640" alt="Bonus"></div>
+        <div class="tree-node-label">
+          <div class="node-type">Derivative</div>
+          <div class="node-name">Bonus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → yellow -->
+<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="contain">
+    <h2 class="reveal">Want results like Point.me?<br><span>Let's map out your strategy.</span></h2>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+</section>
+
+<!-- curve: yellow → dark -->
+<div class="curve" style="background:#ffec03"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<script>
+// Reveal
+(function(){
+  var o = new IntersectionObserver(function(e){
+    e.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); o.unobserve(e.target); }});
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>

@@ -1,0 +1,120 @@
+/* ═══════════════════════════════════════════════
+   CINEBODY — Click-to-Play Video Pattern
+   Based on proven snap-pitch pattern.
+   Uses Vimeo Player SDK for mute/unmute.
+   ═══════════════════════════════════════════════ */
+
+/* Container — poster visible, iframe hidden until click */
+.vid-playable {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-color: #111;
+}
+
+/* Aspect ratio helpers */
+.vid-playable--h { aspect-ratio: 16/9; }
+.vid-playable--v { aspect-ratio: 9/16; }
+.vid-playable--sq { aspect-ratio: 1/1; }
+
+/* Poster image — fills container, fades on play */
+.vid-playable .vid-poster {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  z-index: 2; transition: opacity 0.5s ease;
+}
+
+.vid-playable.playing .vid-poster {
+  opacity: 0; pointer-events: none;
+}
+
+/* Play button — centered, glows on hover */
+.vid-play-btn {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.vid-playable:hover .vid-play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(0,188,241,0.7);
+  border-color: rgba(0,188,241,0.5);
+  box-shadow: 0 0 30px rgba(0,188,241,0.3);
+}
+
+.vid-play-btn svg {
+  width: 22px; height: 22px;
+  fill: #fff;
+  margin-left: 3px;
+}
+
+.vid-playable.playing .vid-play-btn {
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Iframe — uses ?background=1 so Vimeo shows NO native controls */
+.vid-playable iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; border: none;
+  z-index: 1; opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.vid-playable.playing iframe {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mute/unmute — appears on hover when playing */
+.vid-mute-btn {
+  position: absolute; bottom: 12px; right: 12px; z-index: 5;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0; transition: opacity 0.3s ease, background 0.2s ease;
+  pointer-events: none;
+}
+
+.vid-playable.playing .vid-mute-btn {
+  pointer-events: auto;
+}
+
+.vid-playable.playing:hover .vid-mute-btn {
+  opacity: 1;
+}
+
+.vid-mute-btn:hover {
+  background: rgba(0,188,241,0.5);
+  border-color: rgba(0,188,241,0.4);
+}
+
+.vid-mute-btn svg {
+  width: 16px; height: 16px;
+  stroke: #fff; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Mobile — always show mute btn, slightly smaller play btn */
+@media (max-width: 600px) {
+  .vid-play-btn { width: 52px; height: 52px; }
+  .vid-play-btn svg { width: 18px; height: 18px; }
+  .vid-mute-btn { width: 32px; height: 32px; bottom: 8px; right: 8px; }
+  .vid-mute-btn svg { width: 14px; height: 14px; }
+  .vid-playable.playing .vid-mute-btn { opacity: 0.7; }
+}

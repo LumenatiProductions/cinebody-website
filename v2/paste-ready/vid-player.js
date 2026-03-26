@@ -1,0 +1,112 @@
+/* ═══════════════════════════════════════════════
+   CINEBODY — Click-to-Play Video Controller
+   Based on proven snap-pitch pattern.
+   Requires: Vimeo Player SDK (player.vimeo.com/api/player.js)
+
+   Usage: Add .vid-playable to container with:
+     - <img class="vid-poster" src="..." alt="...">
+     - data-vimeo="VIDEO_ID"
+     - data-vimeo-h="HASH" (optional, for private/unlisted)
+     - data-autoplay (optional — autoplay on desktop, click on mobile)
+     - class vid-playable--h (16:9) or vid-playable--v (9:16)
+   ═══════════════════════════════════════════════ */
+
+(function() {
+  var playSVG = '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';
+  var svgMuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+  var svgUnmuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+
+  var isMobile = window.innerWidth < 768;
+
+  // Track active unmuted player globally — only one unmuted at a time
+  var activePlayer = null;
+  var activeBtn = null;
+
+  function loadVideo(container, videoId, hash) {
+    if (container.classList.contains('playing')) return;
+
+    var src = 'https://player.vimeo.com/video/' + videoId + '?background=1';
+    if (hash) src = 'https://player.vimeo.com/video/' + videoId + '?h=' + hash + '&background=1';
+
+    var iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.allow = 'autoplay';
+    iframe.loading = 'lazy';
+    container.insertBefore(iframe, container.firstChild);
+
+    container.classList.add('playing');
+
+    // Initialize Vimeo Player SDK for mute control
+    if (typeof Vimeo !== 'undefined' && Vimeo.Player) {
+      container._player = new Vimeo.Player(iframe);
+    }
+  }
+
+  document.querySelectorAll('.vid-playable').forEach(function(container) {
+    var videoId = container.getAttribute('data-vimeo');
+    var hash = container.getAttribute('data-vimeo-h');
+    var shouldAutoplay = container.hasAttribute('data-autoplay');
+    if (!videoId) return;
+
+    // Add play button (hidden on autoplay desktop)
+    var playBtn = document.createElement('div');
+    playBtn.className = 'vid-play-btn';
+    playBtn.innerHTML = playSVG;
+    container.appendChild(playBtn);
+
+    // Add mute button
+    var muteBtn = document.createElement('button');
+    muteBtn.className = 'vid-mute-btn';
+    muteBtn.innerHTML = svgMuted;
+    muteBtn.setAttribute('aria-label', 'Unmute');
+    container.appendChild(muteBtn);
+
+    // Desktop autoplay: load immediately when visible
+    if (shouldAutoplay && !isMobile) {
+      playBtn.style.display = 'none';
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            loadVideo(container, videoId, hash);
+            obs.unobserve(container);
+          }
+        });
+      }, { threshold: 0.2 });
+      obs.observe(container);
+    }
+
+    // Click to play (always works, primary path on mobile)
+    container.addEventListener('click', function(e) {
+      if (e.target.closest('.vid-mute-btn')) return;
+      loadVideo(container, videoId, hash);
+    });
+
+    // Mute/unmute via Vimeo Player SDK
+    muteBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var player = container._player;
+      if (!player) return;
+
+      if (activeBtn === muteBtn) {
+        player.setMuted(true);
+        muteBtn.innerHTML = svgMuted;
+        muteBtn.setAttribute('aria-label', 'Unmute');
+        activePlayer = null;
+        activeBtn = null;
+        return;
+      }
+
+      if (activePlayer && activeBtn) {
+        activePlayer.setMuted(true);
+        activeBtn.innerHTML = svgMuted;
+        activeBtn.setAttribute('aria-label', 'Unmute');
+      }
+
+      player.setMuted(false);
+      muteBtn.innerHTML = svgUnmuted;
+      muteBtn.setAttribute('aria-label', 'Mute');
+      activePlayer = player;
+      activeBtn = muteBtn;
+    });
+  });
+})();

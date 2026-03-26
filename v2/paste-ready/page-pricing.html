@@ -1,0 +1,531 @@
+<!-- Cinebody V4 — Pricing
+     Paste this into a single Code Block on the pricing page.
+     Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
+
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY V4 — PRICING PAGE
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+/* ── CURVED SECTION DIVIDERS ── */
+.curve { display: block;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0;
+  margin-top: -2px; margin-bottom: -4px;
+}
+
+.curve svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+@media (max-width: 600px) {
+  .curve svg { height: 80px; }
+}
+
+/* ── CONTAINER ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── SECTION LABEL ── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── SIGNATURE BAR ── */
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+
+/* ── BUTTON ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease); position: relative; isolation: isolate;
+}
+
+.btn-glow {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.btn-glow::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
+}
+
+.btn-glow:hover::before { opacity: 0.7; }
+
+.btn-glow:hover {
+  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+
+.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg { transform: translateX(3px); }
+
+/* ═══════════════════════════
+   HERO — centered text
+   ═══════════════════════════ */
+.hero { padding: 160px 0 100px; position: relative; text-align: center; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-body {
+  font-size: 1.1rem; line-height: 1.7; color: var(--text-dim); max-width: 560px; margin: 0 auto 36px;
+}
+
+/* ═══════════════════════════
+   COMPARE — Services vs Software
+   ═══════════════════════════ */
+.compare { background: #fff; color: #111; padding: 80px 0; }
+
+.compare h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em;
+  text-align: center; margin-bottom: 48px; color: #111;
+}
+
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+.compare-card {
+  background: #f8f8f8; border-radius: 16px; padding: 40px 32px;
+  text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #eee;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.compare-card p { flex-grow: 1; }
+
+.compare-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+}
+
+.compare-card img {
+  width: 140px; height: 140px; border-radius: 50%;
+  object-fit: cover; margin: 0 auto 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.compare-card h3 {
+  font-size: 1.35rem; font-weight: 700; color: var(--teal);
+  margin-bottom: 14px; line-height: 1.25;
+}
+
+.compare-card p {
+  font-size: 0.92rem; color: #666; line-height: 1.65; margin-bottom: 20px;
+  max-width: 380px; margin-left: auto; margin-right: auto;
+}
+
+.compare-price {
+  font-size: 0.95rem; font-weight: 600; color: var(--teal); margin-bottom: 24px;
+}
+
+.compare-btn {
+  display: inline-block; font-family: var(--font); font-size: 0.9rem; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; transition: all 0.3s ease; cursor: pointer;
+}
+
+.compare-btn--primary {
+  background: var(--teal); color: #fff; border: 2px solid var(--teal);
+}
+.compare-btn--primary:hover {
+  background: #009fd4; transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,188,241,0.3);
+}
+
+.compare-btn--outline {
+  background: transparent; color: var(--teal); border: 2px solid var(--teal);
+}
+.compare-btn--outline:hover {
+  background: var(--teal); color: #fff; transform: translateY(-2px);
+}
+
+/* ═══════════════════════════
+   PRICING — original proven design
+   ═══════════════════════════ */
+.cb-pricing * { margin: 0; padding: 0; box-sizing: border-box; }
+.cb-pricing__header { text-align: center; max-width: 800px; margin: 0 auto 12px; }
+.cb-pricing__header h2 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 16px; color: #0d0d0d; }
+.cb-pricing__header p { font-size: clamp(1rem, 2vw, 1.15rem); color: #71717a; line-height: 1.6; max-width: 680px; margin: 0 auto; }
+.cb-pricing__savings { display: block; margin: 20px auto 32px; padding: 10px 24px; background: linear-gradient(135deg, #fefde6 0%, #fdf9b8 100%); border: 1px solid rgba(254,242,71,0.35); border-radius: 100px; width: fit-content; font-size: 0.9rem; font-weight: 500; color: #3f3f46; text-align: center; }
+.cb-pricing__toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 32px; font-size: 0.95rem; font-weight: 500; }
+.cb-pricing__toggle-label { color: #71717a; transition: color 0.3s; cursor: pointer; user-select: none; }
+.cb-pricing__toggle-label--active { color: #0d0d0d; }
+.cb-pricing__toggle { position: relative; width: 52px; height: 28px; background: #c4c4c8; border-radius: 100px; cursor: pointer; transition: background 0.3s; border: none; }
+.cb-pricing__toggle[aria-checked="true"] { background: #07BCF1; }
+.cb-pricing__toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.cb-pricing__toggle[aria-checked="true"]::after { transform: translateX(24px); }
+.cb-pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+.cb-pricing__card { position: relative; background: #fff; border: 1px solid #ededef; border-radius: 16px; padding: 36px 30px 32px; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s; }
+.cb-pricing__card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+.cb-pricing__card--featured { border: 2px solid #07BCF1; box-shadow: 0 12px 32px rgba(7,188,241,0.14); }
+.cb-pricing__card--featured:hover { box-shadow: 0 24px 48px rgba(7,188,241,0.2); }
+.cb-pricing__badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: #07BCF1; color: #fff; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 16px; border-radius: 100px; white-space: nowrap; }
+.cb-pricing__plan-name { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #71717a; margin-bottom: 4px; }
+.cb-pricing__card--featured .cb-pricing__plan-name { color: #07BCF1; }
+.cb-pricing__card--featured .cb-pricing__price-dollar, .cb-pricing__card--featured .cb-pricing__price-amount { color: #07BCF1; }
+.cb-pricing__plan-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; color: #0d0d0d; }
+.cb-pricing__plan-desc { font-size: 0.88rem; color: #71717a; line-height: 1.5; margin-bottom: 24px; min-height: 40px; }
+.cb-pricing__price-wrap { margin-bottom: 24px; }
+.cb-pricing__price { display: flex; align-items: baseline; gap: 4px; }
+.cb-pricing__price-dollar { font-size: 0.95rem; font-weight: 600; position: relative; top: -18px; }
+.cb-pricing__price-amount { font-size: 3rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.cb-pricing__price-period { font-size: 0.88rem; color: #71717a; }
+.cb-pricing__price-billing { font-size: 0.8rem; color: #71717a; margin-top: 4px; }
+.cb-pricing__price-custom { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; color: #0d0d0d; }
+.cb-pricing__price-custom-sub { font-size: 0.88rem; color: #71717a; margin-top: 4px; }
+.cb-pricing__divider { height: 1px; background: #ededef; margin-bottom: 24px; }
+.cb-pricing__features-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #71717a; margin-bottom: 14px; }
+.cb-pricing__features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.cb-pricing__feature { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: #3f3f46; line-height: 1.45; }
+.cb-pricing__feature svg { flex-shrink: 0; margin-top: 2px; }
+.cb-pricing__card--featured .cb-pricing__feature svg path { stroke: #07BCF1; }
+.cb-pricing__feature strong { font-weight: 600; color: #0d0d0d; }
+.cb-pricing__cta { display: block; width: 100%; padding: 14px 24px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-align: center; text-decoration: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); border: none; }
+.cb-pricing__cta--primary { background: #FEF247; color: #0d0d0d; }
+.cb-pricing__cta--primary:hover { background: #f0e53e; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(254,242,71,0.5); }
+.cb-pricing__cta--secondary { background: #07BCF1; color: #fff; }
+.cb-pricing__cta--secondary:hover { background: #0099c8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(7,188,241,0.4); }
+.cb-pricing__cta--outline { background: transparent; color: #0d0d0d; border: 1.5px solid #c4c4c8; }
+.cb-pricing__cta--outline:hover { border-color: #07BCF1; color: #07BCF1; background: #e6f7fd; transform: translateY(-1px); }
+.cb-pricing__footer { text-align: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid #ededef; }
+.cb-pricing__footer p { font-size: 0.9rem; color: #71717a; line-height: 1.6; max-width: 560px; margin: 0 auto; }
+.cb-pricing__footer a { color: #07BCF1; font-weight: 600; text-decoration: none; }
+@media (max-width: 960px) { .cb-pricing__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; gap: 24px; } .cb-pricing__card--featured { order: -1; } .cb-pricing__plan-desc { min-height: unset; } }
+
+/* ═══════════════════════════
+   FAQ
+   ═══════════════════════════ */
+.faq { padding: 120px 0; background: radial-gradient(ellipse 80% 70% at 80% 20%, rgba(235,0,139,0.1) 0%, transparent 70%), radial-gradient(ellipse 60% 60% at 20% 80%, rgba(255,236,3,0.05) 0%, transparent 70%), linear-gradient(180deg, #1a0a18 0%, #1e0e24 50%, #140a1e 100%); position: relative; }
+.faq .contain { max-width: 680px; }
+.faq h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 48px; text-align: center; }
+
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:first-child { border-top: 1px solid var(--border); }
+
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 20px 0; font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+  color: var(--text); text-align: left; transition: color 0.2s ease;
+}
+.faq-q:hover { color: var(--teal); }
+.faq-item.open .faq-q { color: var(--teal); }
+
+.faq-icon { width: 20px; height: 20px; flex-shrink: 0; position: relative; }
+.faq-icon::before, .faq-icon::after {
+  content: ''; position: absolute; background: var(--teal); border-radius: 1px; transition: all 0.3s var(--ease);
+}
+.faq-item.open .faq-icon::before { background: var(--pink); }
+.faq-icon::before { width: 10px; height: 1.5px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.faq-icon::after { width: 1.5px; height: 10px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.faq-item.open .faq-icon::after { transform: translate(-50%,-50%) rotate(90deg); opacity: 0; }
+
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
+.faq-item.open .faq-a { max-height: 250px; }
+.faq-a-inner { padding: 0 0 20px; font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; }
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══════════════════════════
+   RESPONSIVE
+   ═══════════════════════════ */
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .compare-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 100px 0 60px; }
+  .hero h1 { font-size: 2.25rem; }
+  .faq { padding: 80px 0; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Pricing</div>
+      <h1>Real content. <em>Real savings.</em></h1>
+      <p class="hero-body">Whether you run it yourself or bring in our team, Cinebody delivers authentic video at a fraction of traditional production&nbsp;costs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → light -->
+<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ COMPARE — Services vs Software ═══ -->
+<section class="compare" style="padding-top:60px">
+  <div class="contain">
+    <div class="reveal">
+      <div class="label" style="color:var(--teal);text-align:center">Two Ways to Work</div>
+      <h2>Choose the path that fits your&nbsp;team.</h2>
+    </div>
+    <div class="compare-grid reveal reveal-d1">
+      <div class="compare-card">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/39ac2bb5-c3fa-47e8-88bd-ac9e68606e4d/unsplash-image-tUpJSfgkKvo.jpg" alt="Creative Services">
+        <h3>Want a team behind your&nbsp;content?</h3>
+        <p>From strategy to final cut, our producers and editors handle every step. You approve. We deliver. Perfect for teams that need volume, quality, and speed without adding&nbsp;headcount.</p>
+        <div class="compare-price">Contact us for custom pricing</div>
+        <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="compare-btn compare-btn--primary">Talk To Our Team</a>
+      </div>
+      <div class="compare-card">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752690852135-2P56HV9LTN1FF839DFJH/unsplash-image-ab0D6SoBn3w.jpg" alt="Software Platform">
+        <h3>Want to run it yourself?</h3>
+        <p>Cinebody's platform lets you direct shoots remotely and collect footage from anyone, anywhere. Set the specs, send the link, get the&nbsp;clips.</p>
+        <div class="compare-price">Plans start at $250/mo</div>
+        <a href="#plans" class="compare-btn compare-btn--outline">See Plans Below</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING — original proven design ═══ -->
+<div style="background:#fff">
+<div class="cb-pricing" id="plans" style="font-family:'Inter',sans-serif;max-width:1200px;margin:0 auto;padding:40px 24px 60px">
+  <div class="cb-pricing__header">
+    <h2 style="font-family:'Inter',sans-serif">Pick the plan that fits how you&nbsp;work.</h2>
+    <p>Run it yourself or bring in our team. Either way, you're getting real content from real people — at a fraction of traditional production&nbsp;costs.</p>
+  </div>
+  <div class="cb-pricing__savings">Brands using Cinebody typically save 70%+ vs. traditional production</div>
+  <div class="cb-pricing__toggle-wrap">
+    <span class="cb-pricing__toggle-label cb-pricing__toggle-label--active" id="cb-label-annual">Annual</span>
+    <button class="cb-pricing__toggle" role="switch" aria-checked="false" id="cb-toggle"></button>
+    <span class="cb-pricing__toggle-label" id="cb-label-monthly">Monthly</span>
+  </div>
+  <div class="cb-pricing__grid">
+    <div class="cb-pricing__card">
+      <div class="cb-pricing__plan-name">Plus</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For small teams</div>
+      <div class="cb-pricing__plan-desc">Everything you need to start capturing community video on your own.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="250" data-monthly="350">250</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">What's included</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>1 Team</strong> with 2 admin seats</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>25 GB</strong> cloud storage</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Unlimited filmers</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Patented shot list technology</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Photo capture + real-time sync</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Email & FAQ support</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--outline">Get Started</a>
+    </div>
+    <div class="cb-pricing__card cb-pricing__card--featured">
+      <div class="cb-pricing__badge">Most Popular</div>
+      <div class="cb-pricing__plan-name">Pro</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For growing brands</div>
+      <div class="cb-pricing__plan-desc">Scale content across multiple projects with more storage and dedicated support.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="500" data-monthly="650">500</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">Everything in Plus, and</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Multiple teams</strong> as you grow</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>5 admin seats</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>100 GB</strong> cloud storage</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Dedicated support</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SSO integration</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom legal + API access</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--secondary">Book a Demo</a>
+    </div>
+    <div class="cb-pricing__card">
+      <div class="cb-pricing__plan-name">Enterprise</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For large organizations</div>
+      <div class="cb-pricing__plan-desc">Custom-built for your team's needs — storage, seats, security, and support.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price-custom" style="font-family:'Inter',sans-serif">Let's scope it together.</div>
+        <div class="cb-pricing__price-custom-sub">Custom pricing based on your needs</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">Everything in Pro, and</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Custom teams, admins & storage</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Concierge support</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Advanced security & encryption</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom integrations (DAM, Drive)</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Strategic Producer</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom legal document signing</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--primary">Talk to Our Team</a>
+    </div>
+  </div>
+  <div class="cb-pricing__footer"><p>Don't have an editing team? Pair any plan with our <a href="/services">creative services</a> for end-to-end production.</p></div>
+</div>
+</div>
+
+<!-- curve: light → dark -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#1a0a18"/></svg></div>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq">
+  <div class="contain">
+    <h2 class="reveal">Frequently asked&nbsp;questions</h2>
+    <div class="reveal reveal-d1">
+      <div class="faq-item"><button class="faq-q">How much does Cinebody cost?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Software plans start at $250/month billed annually. Creative services are custom-quoted based on your content needs. Most brands save 70%+ compared to traditional video production.</div></div></div>
+      <div class="faq-item"><button class="faq-q">What's the difference between software and services?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">The software subscription gives you the platform — you direct shoots, collect footage, and edit with your own team. Creative services add our producers and editors who handle everything from strategy to final cut. You can use either standalone or pair them together.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Can I switch plans later?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Yes. You can upgrade or downgrade at any time. If you start with Plus and need more storage or seats, upgrading to Pro is seamless. Enterprise plans are custom-scoped to fit your exact needs.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Is there a free trial?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">We offer personalized demos where you can see the platform in action with your own use case. Book a call with our team and we'll walk you through exactly how Cinebody fits your workflow.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Do I need creative services to use the software?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">No. The software is fully standalone. Many brands use it with their own editing teams. Creative services are an optional add-on for teams that want end-to-end production without hiring.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Reveal
+(function(){
+  var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+// Pricing toggle
+(function(){
+  var toggle=document.getElementById('cb-toggle');if(!toggle)return;
+  var la=document.getElementById('cb-label-annual'),lm=document.getElementById('cb-label-monthly');
+  var amounts=document.querySelectorAll('.cb-pricing__price-amount');
+  var billings=document.querySelectorAll('.cb-pricing__price-billing');
+  function update(m){
+    toggle.setAttribute('aria-checked',m);
+    if(la)la.classList.toggle('cb-pricing__toggle-label--active',!m);
+    if(lm)lm.classList.toggle('cb-pricing__toggle-label--active',m);
+    amounts.forEach(function(el){el.textContent=m?el.dataset.monthly:el.dataset.annual;});
+    billings.forEach(function(el){el.textContent=m?el.dataset.monthly:el.dataset.annual;});
+  }
+  toggle.addEventListener('click',function(){update(toggle.getAttribute('aria-checked')!=='true');});
+  if(la)la.addEventListener('click',function(){update(false);});
+  if(lm)lm.addEventListener('click',function(){update(true);});
+})();
+
+// FAQ
+document.querySelectorAll('.faq-q').forEach(function(b){
+  b.addEventListener('click',function(){
+    var item=this.closest('.faq-item'),was=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+    if(!was)item.classList.add('open');
+  });
+});
+</script>

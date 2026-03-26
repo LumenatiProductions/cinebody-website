@@ -1,0 +1,870 @@
+<!-- Cinebody V4 — Case Study — Nike
+     Paste this into a single Code Block on the cs-nike page.
+     Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
+
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY CASE STUDY — NIKE
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+body > * { position: relative; z-index: 1; }
+
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.label {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 20px;
+}
+
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; margin-top: -2px; margin-bottom: -4px; }
+.curve svg { display: block; width: 100%; height: 50px; }
+@media (max-width: 600px) { .curve svg { height: 80px; } }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease); position: relative; isolation: isolate;
+}
+.btn-glow {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+.btn-glow::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
+}
+.btn-glow:hover::before { opacity: 0.7; }
+.btn-glow:hover {
+  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg { transform: translateX(3px); }
+
+/* ═══ HERO ═══ */
+.hero { padding: 160px 0 120px; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+
+
+.hero .contain {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-body {
+  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
+}
+
+.logo-pair { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+.logo-pair img { height: 28px; width: auto; object-fit: contain; }
+.logo-pair img.grayscale { filter: brightness(0) invert(1); opacity: 1; }
+.logo-pair .logo-x { font-size: 18px; font-weight: 300; color: var(--text-muted); }
+
+.hero-visual {
+  position: relative;
+  text-align: center;
+}
+
+.hero-visual .vid-playable { margin: 0 auto; }
+
+/* ═══ CONTENT SECTIONS ═══ */
+.content-section {
+  padding: 100px 0; position: relative;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%);
+}
+
+.section-head { text-align: center; margin-bottom: 48px; }
+
+.section-head h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px;
+}
+.section-head h2 em { font-style: normal; color: var(--teal); }
+.section-head p {
+  font-size: 0.95rem; color: var(--text-dim); line-height: 1.65; max-width: 560px; margin: 0 auto;
+}
+
+/* Video card */
+.vid-card {
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2); background: #111;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.vid-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,188,241,0.08);
+}
+.vid-card .vid-wrap { position: relative; background: #111; }
+.vid-card .vid-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vid-card .vid-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.vid-wrap--h { padding-bottom: 56.25%; }
+.vid-wrap--v { padding-bottom: 177.78%; }
+
+/* 2x2 Grid */
+.grid-2x2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  max-width: 900px; margin: 0 auto;
+}
+
+/* Horizontal pair */
+.horiz-pair {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  max-width: 900px; margin: 0 auto;
+}
+
+/* Vertical pair */
+.vert-pair {
+  display: flex; gap: 16px; justify-content: center;
+  max-width: 480px; margin: 0 auto;
+}
+.vert-pair .vid-card { flex: 1; max-width: 230px; }
+
+/* Map section */
+/* ═══ TILE MAP ═══ */
+.cb-map-viewer {
+  position: relative; width: 100%; max-width: 1000px; margin: 0 auto;
+  border-radius: 16px; overflow: hidden; background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.06); aspect-ratio: 2/1;
+}
+
+.cb-map-tiles {
+  display: grid; width: 100%; height: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.cb-map-tiles img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.cb-dot-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
+
+.cb-map-dot {
+  position: absolute; transform: translate(-50%,-50%) scale(0); z-index: 3;
+  cursor: pointer; transition: opacity .35s, filter .35s;
+}
+
+.cb-map-dot.entered { animation: cbDotIn .5s cubic-bezier(.22,1,.36,1) forwards; }
+.cb-map-dot:nth-child(1) { animation-delay: .15s; }
+.cb-map-dot:nth-child(2) { animation-delay: .3s; }
+.cb-map-dot:nth-child(3) { animation-delay: .45s; }
+.cb-map-dot:nth-child(4) { animation-delay: .6s; }
+@keyframes cbDotIn { 0%{transform:translate(-50%,-50%) scale(0);opacity:0} 60%{transform:translate(-50%,-50%) scale(1.3);opacity:1} 100%{transform:translate(-50%,-50%) scale(1);opacity:1} }
+
+.cb-map-dot-inner {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--teal); border: 2px solid rgba(0,0,0,.5);
+  box-shadow: 0 0 10px rgba(0,188,241,.6);
+  transition: all .35s;
+}
+
+.cb-map-dot.highlighted .cb-map-dot-inner {
+  width: 16px; height: 16px; background: #fff;
+  box-shadow: 0 0 20px rgba(255,255,255,.8), 0 0 40px rgba(0,188,241,.5);
+}
+
+.cb-map-dot.dimmed { opacity: .2; }
+
+.cb-map-dot .cb-pulse {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--teal);
+}
+
+.cb-map-dot.entered .cb-pulse { animation: cbPulse 2.5s ease-out infinite; }
+.cb-map-dot.entered .cb-pulse2 { animation: cbPulse 2.5s ease-out 1.2s infinite; }
+@keyframes cbPulse { 0%{width:12px;height:12px;opacity:.6}100%{width:50px;height:50px;opacity:0} }
+
+.cb-map-dot-label {
+  position: absolute; white-space: nowrap; font-size: 11px; font-weight: 700;
+  color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.7);
+  letter-spacing: .02em; pointer-events: none;
+  transition: opacity .35s;
+}
+
+.cb-map-dot-label.above { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); }
+.cb-map-dot-label.below { top: calc(100% + 10px); left: 50%; transform: translateX(-50%); }
+
+/* Connection lines overlay */
+.cb-conn-layer {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+  pointer-events: none;
+}
+.cb-conn-layer path {
+  fill: none; stroke: rgba(0,188,241,.12); stroke-width: .5;
+  stroke-dasharray: 4 4; animation: cbDash 20s linear infinite;
+}
+@keyframes cbDash { to { stroke-dashoffset: -200; } }
+
+/* Hub dot — Your Dashboard */
+.cb-hub {
+  position: absolute; transform: translate(-50%,-50%); z-index: 4;
+}
+
+.cb-hub-inner {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--yellow); border: 2px solid rgba(0,0,0,.4);
+  box-shadow: 0 0 16px rgba(255,236,3,.4), 0 0 40px rgba(255,236,3,.15);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.cb-hub-icon { width: 12px; height: 12px; }
+
+.cb-hub .cb-pulse { border-color: var(--yellow); }
+.cb-hub.entered .cb-pulse { animation: cbPulseY 3s ease-out infinite; }
+.cb-hub.entered .cb-pulse2 { animation: cbPulseY 3s ease-out 1.5s infinite; }
+@keyframes cbPulseY { 0%{width:24px;height:24px;opacity:.5}100%{width:80px;height:80px;opacity:0} }
+
+.cb-hub-label {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  white-space: nowrap; font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--yellow); text-shadow: 0 1px 4px rgba(0,0,0,.9);
+}
+
+/* Live counter on hub */
+.cb-hub-counter {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 14px; font-weight: 700; color: #fff;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,236,3,.2); padding: 4px 12px; border-radius: 8px;
+  white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .5s;
+}
+.cb-hub-counter.vis { opacity: 1; }
+.cb-hub-counter span { color: var(--yellow); }
+
+/* Footage stream particles — GPU composited */
+.cb-stream-particle {
+  position: absolute; left: 0; top: 0; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--teal); z-index: 3;
+  box-shadow: 0 0 8px rgba(0,188,241,.7);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Stat bar below map */
+.cb-map-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: rgba(255,255,255,.06); border-radius: 12px; overflow: hidden;
+  max-width: 1000px; margin: 24px auto 0;
+}
+
+.cb-map-stat {
+  background: rgba(255,255,255,.02); backdrop-filter: blur(12px);
+  padding: 24px 16px; text-align: center;
+  transition: background .3s ease;
+}
+
+.cb-map-stat:hover { background: rgba(255,255,255,.04); }
+
+.cb-map-stat-city {
+  font-family: var(--font); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.cb-map-stat-num {
+  font-size: 1.5rem; font-weight: 700; color: var(--teal);
+  letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px;
+}
+
+.cb-map-stat-label {
+  font-family: var(--font); font-size: 9px; font-weight: 500;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em;
+}
+
+.cb-map-legend {
+  display: flex; justify-content: center; gap: 36px; margin-top: 24px;
+  font-family: var(--font); font-size: 14px; font-weight: 500; color: var(--text-dim);
+}
+
+.cb-map-legend span { display: flex; align-items: center; gap: 10px; }
+.cb-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.cb-legend-dot--teal { background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,.4); }
+.cb-legend-dot--yellow { background: var(--yellow); box-shadow: 0 0 8px rgba(255,236,3,.4); }
+
+/* ═══ LIGHT SECTION ═══ */
+.content-section--light { background: #fff; color: #111; }
+.content-section--light .section-head h2 { color: #111; }
+.content-section--light .section-head h2 em { color: var(--teal); }
+.content-section--light .section-head p { color: #666; }
+.content-section--light .vid-card { border-color: #e0e0e0; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+/* ═══ CTA BAND ═══ */
+.cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
+.cta-band h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; color: #111; line-height: 1.2; margin-bottom: 28px;
+}
+.cta-band h2 span { color: var(--teal); }
+.cta-band .btn-glow { background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.15); }
+.cta-band .btn-glow:hover { box-shadow: 0 0 40px rgba(0,0,0,0.25); }
+
+/* ═══ FOOTER ═══ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 100px 0 80px; }
+  .grid-2x2, .horiz-pair { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 80px 0 60px; }
+  .hero h1 { font-size: 2.25rem; }
+  .content-section, .cta-band { padding: 60px 0; }
+  .vert-pair .vid-card { max-width: 160px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+<style>
+      .nk-city-pulse { animation: nkCityPulse 2.5s ease-out infinite; }
+      @keyframes nkCityPulse { 0%{r:14;opacity:0.3} 100%{r:30;opacity:0} }
+      .nk-hub-pulse { animation: nkHubPulse 3s ease-out infinite; }
+      @keyframes nkHubPulse { 0%{r:36;opacity:0.2} 100%{r:60;opacity:0} }
+    </style>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Case Study</div>
+      <div class="logo-pair">
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody" class="grayscale">
+        <span class="logo-x">&times;</span>
+        <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/b72f46ef-17b5-4efa-80e1-4bf2c18d681a/60-609637_nike-logo-png-white.png" alt="Nike" style="height:30px">
+      </div>
+      <h1>Real people. Real runs. <em>Real content at scale.</em></h1>
+      <p class="hero-body">Nike used Cinebody to capture authentic run club content across four cities simultaneously — no production crews, no freelancers. Just real runners, guided by Cinebody's patented shot list technology, delivering on-brand content in real&nbsp;time.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="hero-visual reveal reveal-d2">
+      <div class="vid-playable vid-playable--h" data-vimeo="265928299" data-vimeo-h="10ec2810ff" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/696061055-cd34ca440798414c8d191af42901cde8208bcb11564388245cd9e462f14bb719-d_640" alt="Nike Run Club">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → light -->
+<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ STATS ═══ -->
+<section style="background:#fff;color:#111;padding:80px 0">
+  <div class="contain" style="max-width:900px">
+    <style>
+      .nk-city-pulse { animation: nkCityPulse 2.5s ease-out infinite; }
+      @keyframes nkCityPulse { 0%{r:14;opacity:0.3} 100%{r:30;opacity:0} }
+      .nk-hub-pulse { animation: nkHubPulse 3s ease-out infinite; }
+      @keyframes nkHubPulse { 0%{r:36;opacity:0.2} 100%{r:60;opacity:0} }
+    </style>
+    <div class="reveal" style="max-width:500px;margin:0 auto 32px">
+      <svg viewBox="-20 -10 440 320" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+
+        <!-- Curved paths — arc around the text labels -->
+        <path d="M60,80 Q30,130 170,140" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <path d="M340,80 Q370,130 230,140" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <path d="M60,230 Q30,180 170,160" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <path d="M340,230 Q370,180 230,160" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+        <!-- Particles follow the curved paths -->
+        <circle r="3.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" repeatCount="indefinite" path="M60,80 Q30,130 170,140"/><animate attributeName="opacity" values="0;0.8;0.6;0" dur="2s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1s" repeatCount="indefinite" path="M60,80 Q30,130 170,140"/><animate attributeName="opacity" values="0;0.5;0.3;0" dur="2s" begin="1s" repeatCount="indefinite"/></circle>
+        <circle r="3.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="0.25s" repeatCount="indefinite" path="M340,80 Q370,130 230,140"/><animate attributeName="opacity" values="0;0.8;0.6;0" dur="2s" begin="0.25s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.25s" repeatCount="indefinite" path="M340,80 Q370,130 230,140"/><animate attributeName="opacity" values="0;0.5;0.3;0" dur="2s" begin="1.25s" repeatCount="indefinite"/></circle>
+        <circle r="3.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="0.5s" repeatCount="indefinite" path="M60,230 Q30,180 170,160"/><animate attributeName="opacity" values="0;0.8;0.6;0" dur="2s" begin="0.5s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.5s" repeatCount="indefinite" path="M60,230 Q30,180 170,160"/><animate attributeName="opacity" values="0;0.5;0.3;0" dur="2s" begin="1.5s" repeatCount="indefinite"/></circle>
+        <circle r="3.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="0.75s" repeatCount="indefinite" path="M340,230 Q370,180 230,160"/><animate attributeName="opacity" values="0;0.8;0.6;0" dur="2s" begin="0.75s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.75s" repeatCount="indefinite" path="M340,230 Q370,180 230,160"/><animate attributeName="opacity" values="0;0.5;0.3;0" dur="2s" begin="1.75s" repeatCount="indefinite"/></circle>
+
+        <!-- LA lockup — building on top, name below -->
+        <g>
+          <g transform="translate(60,30)">
+            <rect x="-16" y="-6" width="12" height="22" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-2" y="-14" width="18" height="30" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-14" y="2" width="8" height="5" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="2" y="-8" width="6" height="4" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="9" y="-8" width="6" height="4" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="2" y="2" width="6" height="4" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="9" y="2" width="6" height="4" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+          </g>
+          <text x="60" y="72" text-anchor="middle" font-family="Inter" font-size="15" font-weight="800" fill="rgba(0,0,0,0.7)">Los Angeles</text>
+        </g>
+
+        <!-- Chicago lockup -->
+        <g>
+          <g transform="translate(340,24)">
+            <rect x="-8" y="-16" width="16" height="32" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-16" y="0" width="10" height="16" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="6" y="-6" width="14" height="22" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-5" y="-10" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="1" y="-10" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="-5" y="-4" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="1" y="-4" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <line x1="0" y1="-16" x2="0" y2="-24" stroke="rgba(0,188,241,0.35)" stroke-width="1.5"/>
+          </g>
+          <text x="340" y="72" text-anchor="middle" font-family="Inter" font-size="15" font-weight="800" fill="rgba(0,0,0,0.7)">Chicago</text>
+        </g>
+
+        <!-- Austin lockup -->
+        <g>
+          <g transform="translate(60,228)">
+            <rect x="-16" y="-14" width="32" height="14" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-12" y="-20" width="24" height="8" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <path d="M-8,-20 Q0,-32 8,-20" fill="#fff" stroke="rgba(0,188,241,0.35)" stroke-width="1.5"/>
+            <line x1="0" y1="-32" x2="0" y2="-38" stroke="rgba(0,188,241,0.4)" stroke-width="1.5"/>
+            <rect x="-2.5" y="-10" width="5" height="10" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+          </g>
+          <text x="60" y="250" text-anchor="middle" font-family="Inter" font-size="15" font-weight="800" fill="rgba(0,0,0,0.7)">Austin</text>
+        </g>
+
+        <!-- NYC lockup -->
+        <g>
+          <g transform="translate(340,224)">
+            <rect x="-12" y="-16" width="24" height="18" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-8" y="-26" width="16" height="12" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <rect x="-4" y="-36" width="8" height="12" rx="1" fill="#fff" stroke="rgba(0,188,241,0.3)" stroke-width="1.5"/>
+            <line x1="0" y1="-36" x2="0" y2="-44" stroke="rgba(0,188,241,0.4)" stroke-width="1.5"/>
+            <rect x="-5" y="-22" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="1" y="-22" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+            <rect x="-2" y="-32" width="4" height="3" rx="0.5" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.25)" stroke-width="0.8"/>
+          </g>
+          <text x="340" y="250" text-anchor="middle" font-family="Inter" font-size="15" font-weight="800" fill="rgba(0,0,0,0.7)">New York</text>
+        </g>
+
+        <!-- CENTER HUB -->
+        <circle class="nk-hub-pulse" cx="200" cy="150" r="36" fill="none" stroke="rgba(255,200,0,0.3)" stroke-width="1.5"/>
+        <circle class="nk-hub-pulse" cx="200" cy="150" r="36" fill="none" stroke="rgba(255,200,0,0.2)" stroke-width="1.5" style="animation-delay:1.5s"/>
+        <circle cx="200" cy="150" r="36" fill="rgba(255,200,0,0.06)" stroke="rgba(255,200,0,0.25)" stroke-width="2"/>
+        <circle cx="200" cy="150" r="25" fill="rgba(255,200,0,0.1)" stroke="rgba(255,200,0,0.35)" stroke-width="1.5"/>
+        <text x="200" y="147" text-anchor="middle" font-family="Inter" font-size="12" font-weight="800" fill="#00bcf1" letter-spacing="0.05em">CINEBODY</text>
+        <text x="200" y="162" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.35)" letter-spacing="0.08em">DASHBOARD</text>
+
+        <!-- Glow filter -->
+        <defs>
+          <filter id="nkGlow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+      </svg>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">4</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Cities</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">1</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Weekend</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100%</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On Brand</div></div>
+    </div>
+    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">Nike activated run clubs in LA, Austin, Chicago, and NYC — all filming simultaneously through Cinebody. Every clip synced to one dashboard in real&nbsp;time.</p>
+  </div>
+</section>
+
+<!-- curve: light → teal-navy -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#041a24"/></svg></div>
+
+<!-- ═══ NATIONWIDE SYNC — 2x2 Grid ═══ -->
+<section class="content-section">
+  <div class="contain">
+    <div class="section-head reveal">
+      <div class="label">Nationwide Sync</div>
+      <h2>Four cities. One weekend. <em>Zero crews.</em></h2>
+      <p>Nike activated run clubs in LA, Austin, Chicago, and NYC — all filming simultaneously through Cinebody. Every clip synced to one dashboard in real&nbsp;time.</p>
+    </div>
+
+    <div class="grid-2x2 reveal reveal-d1">
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--h" data-vimeo="210955565" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/210955565.jpg" alt="LA Run Club">
+        </div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--h" data-vimeo="210956522" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/210956522.jpg" alt="Austin Run Club">
+        </div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--h" data-vimeo="210956382" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/210956382.jpg" alt="Chicago Run Club">
+        </div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--h" data-vimeo="210956225" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/210956225.jpg" alt="NYC Run Club">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAP SECTION ═══ -->
+<section class="content-section">
+  <div class="contain">
+    <div class="section-head reveal">
+      <div class="label">Capture Map</div>
+      <h2>Coast to coast. <em>One platform.</em></h2>
+    </div>
+
+    <div class="reveal reveal-d1">
+      <div class="cb-map-viewer" id="nikeMap">
+        <!-- Tiles + dots filled by JS -->
+      </div>
+      <div class="cb-map-stats">
+        <div class="cb-map-stat"><div class="cb-map-stat-city">Los Angeles</div><div class="cb-map-stat-num" id="stat-la">0</div><div class="cb-map-stat-label">clips synced</div></div>
+        <div class="cb-map-stat"><div class="cb-map-stat-city">Austin</div><div class="cb-map-stat-num" id="stat-austin">0</div><div class="cb-map-stat-label">clips synced</div></div>
+        <div class="cb-map-stat"><div class="cb-map-stat-city">Chicago</div><div class="cb-map-stat-num" id="stat-chicago">0</div><div class="cb-map-stat-label">clips synced</div></div>
+        <div class="cb-map-stat"><div class="cb-map-stat-city">New York</div><div class="cb-map-stat-num" id="stat-nyc">0</div><div class="cb-map-stat-label">clips synced</div></div>
+      </div>
+      <div class="cb-map-legend">
+        <span><div class="cb-legend-dot cb-legend-dot--teal"></div>Run club filming location</span>
+        <span><div class="cb-legend-dot cb-legend-dot--yellow"></div>Your dashboard — anywhere</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → light -->
+<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ POP-UP POWER ═══ -->
+<section class="content-section content-section--light" style="padding-top:60px">
+  <div class="contain">
+    <div class="section-head reveal">
+      <div class="label">Pop-Up Power</div>
+      <h2>Event content. <em>Captured instantly.</em></h2>
+      <p>Nike pop-up events became instant content factories. Runners filmed their experience through Cinebody — no crew required, every frame on&nbsp;brand.</p>
+    </div>
+
+    <div class="horiz-pair reveal reveal-d1">
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--h" data-vimeo="265928299" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/265928299.jpg" alt="Pop-Up 1">
+        </div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--h" data-vimeo="214760772" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/214760772.jpg" alt="Pop-Up 2">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → teal-navy -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#041a24"/></svg></div>
+
+<!-- ═══ INFLUENCER IGNITION ═══ -->
+<section class="content-section" style="padding-top:60px">
+  <div class="contain">
+    <div class="section-head reveal">
+      <div class="label">Influencer Ignition</div>
+      <h2>Real runners. <em>Real influence.</em></h2>
+      <p>Cinebody empowered Nike's community influencers to capture vertical content that felt native to social — authentic, energetic, on&nbsp;brand.</p>
+    </div>
+
+    <div class="vert-pair reveal reveal-d1">
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--v" data-vimeo="329885560" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/329885560.jpg" alt="Influencer 1">
+        </div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--v" data-vimeo="329885498" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/329885498.jpg" alt="Influencer 2">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → yellow -->
+<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="contain">
+    <h2 class="reveal">Want authentic content from every city?<br><span>Let's build your playbook.</span></h2>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+</section>
+
+<!-- curve: yellow → dark -->
+<div class="curve" style="background:#ffec03"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<script>
+// Reveal
+(function(){
+  var o = new IntersectionObserver(function(e){
+    e.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); o.unobserve(e.target); }});
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+// Nike Capture Map — CartoDB tiles + Mercator dots + footage streams + live counter
+(function(){
+  var cities = [
+    { id:'la',      lat:34.0522, lng:-118.2437, label:'Los Angeles', labelPos:'below', speed:1800 },
+    { id:'austin',  lat:30.2672, lng:-97.7431,  label:'Austin',      labelPos:'below', speed:2800 },
+    { id:'chicago', lat:41.8781, lng:-87.6298,  label:'Chicago',     labelPos:'above', speed:1200 },
+    { id:'nyc',     lat:40.7128, lng:-74.0060,  label:'New York',    labelPos:'above', speed:900 }
+  ];
+
+  var hub = { lat:39.7392, lng:-104.9903 };
+  var z=4, xS=2, xE=5, yS=5, yE=6;
+  var totalClips = 0;
+  var cityCounts = { la:0, austin:0, chicago:0, nyc:0 };
+
+  function toGrid(lat, lng) {
+    var n = Math.pow(2, z);
+    var xT = (lng + 180) / 360 * n;
+    var latR = lat * Math.PI / 180;
+    var yT = (1 - Math.log(Math.tan(latR) + 1 / Math.cos(latR)) / Math.PI) / 2 * n;
+    return {
+      left: ((xT - xS) / (xE - xS + 1) * 100).toFixed(2) + '%',
+      top:  ((yT - yS) / (yE - yS + 1) * 100).toFixed(2) + '%'
+    };
+  }
+
+  var viewer = document.getElementById('nikeMap');
+  if (!viewer) return;
+
+  // Tiles
+  var tilesHTML = '<div class="cb-map-tiles">';
+  for (var y = yS; y <= yE; y++) {
+    for (var x = xS; x <= xE; x++) {
+      tilesHTML += '<img src="https://basemaps.cartocdn.com/dark_nolabels/' + z + '/' + x + '/' + y + '@2x.png" alt="">';
+    }
+  }
+  tilesHTML += '</div>';
+
+  var hubPos = toGrid(hub.lat, hub.lng);
+  var hx = parseFloat(hubPos.left), hy = parseFloat(hubPos.top);
+  var cityPositions = [];
+
+  // Connection lines
+  var connHTML = '<svg class="cb-conn-layer" viewBox="0 0 100 100" preserveAspectRatio="none">';
+  cities.forEach(function(c) {
+    var pos = toGrid(c.lat, c.lng);
+    cityPositions.push(pos);
+    var cx1 = parseFloat(pos.left), cy1 = parseFloat(pos.top);
+    var midX = (cx1 + hx) / 2;
+    var midY = Math.min(cy1, hy) - Math.abs(cx1 - hx) * 0.1;
+    connHTML += '<path d="M' + cx1 + ' ' + cy1 + ' Q' + midX + ' ' + midY + ' ' + hx + ' ' + hy + '"/>';
+  });
+  connHTML += '</svg>';
+
+  // Dots
+  var dotsHTML = '<div class="cb-dot-layer">';
+  cities.forEach(function(c, i) {
+    var pos = cityPositions[i];
+    dotsHTML += '<div class="cb-map-dot" data-city="' + c.id + '" style="left:' + pos.left + ';top:' + pos.top + '">';
+    dotsHTML += '<div class="cb-map-dot-inner"></div>';
+    dotsHTML += '<div class="cb-pulse"></div>';
+    dotsHTML += '<div class="cb-pulse cb-pulse2"></div>';
+    dotsHTML += '<div class="cb-map-dot-label ' + c.labelPos + '">' + c.label + '</div>';
+    dotsHTML += '</div>';
+  });
+
+  // Hub
+  dotsHTML += '<div class="cb-hub cb-map-dot" style="left:' + hubPos.left + ';top:' + hubPos.top + '">';
+  dotsHTML += '<div class="cb-hub-inner"><svg class="cb-hub-icon" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>';
+  dotsHTML += '<div class="cb-pulse"></div>';
+  dotsHTML += '<div class="cb-pulse cb-pulse2"></div>';
+  dotsHTML += '<div class="cb-hub-counter" id="hubCounter"><span>0</span> clips synced</div>';
+  dotsHTML += '<div class="cb-hub-label">Your Dashboard</div>';
+  dotsHTML += '</div>';
+  dotsHTML += '</div>';
+
+  viewer.innerHTML = tilesHTML + connHTML + dotsHTML;
+
+  var counterEl = document.getElementById('hubCounter');
+  var counterNum = counterEl ? counterEl.querySelector('span') : null;
+
+  function bumpCount(cityId) {
+    totalClips++;
+    cityCounts[cityId]++;
+    if (counterNum) counterNum.textContent = totalClips;
+    var statEl = document.getElementById('stat-' + cityId);
+    if (statEl) statEl.textContent = cityCounts[cityId];
+  }
+
+  // Animate on visible
+  var mapObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        viewer.querySelectorAll('.cb-map-dot').forEach(function(d) { d.classList.add('entered'); });
+        if (counterEl) setTimeout(function() { counterEl.classList.add('vis'); }, 600);
+        startStreams();
+        mapObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  mapObs.observe(viewer);
+
+  // Smooth quadratic bezier point
+  function bezier(t, p0, p1, p2) {
+    var mt = 1 - t;
+    return mt * mt * p0 + 2 * mt * t * p1 + t * t * p2;
+  }
+
+  // Smooth easeInOutCubic
+  function ease(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function startStreams() {
+    var vw = viewer.offsetWidth;
+    var vh = viewer.offsetHeight;
+
+    cities.forEach(function(c, i) {
+      var fromPos = cityPositions[i];
+      var sent = 0;
+
+      var sx = parseFloat(fromPos.left) / 100 * vw;
+      var sy = parseFloat(fromPos.top) / 100 * vh;
+      var ex = hx / 100 * vw;
+      var ey = hy / 100 * vh;
+      // Control point — arc upward
+      var cpx = (sx + ex) / 2;
+      var cpy = Math.min(sy, ey) - Math.abs(sx - ex) * 0.15;
+
+      function sendParticle() {
+        var p = document.createElement('div');
+        p.className = 'cb-stream-particle';
+        p.style.opacity = '0';
+        viewer.appendChild(p);
+
+        var dur = 1800 + Math.random() * 600;
+        var startTime = performance.now();
+        var counted = false;
+
+        function tick(now) {
+          var elapsed = now - startTime;
+          var t = Math.min(elapsed / dur, 1);
+          var et = ease(t);
+
+          var x = bezier(et, sx, cpx, ex);
+          var y = bezier(et, sy, cpy, ey);
+
+          var opacity = t < 0.08 ? t / 0.08 : t > 0.9 ? (1 - t) / 0.1 : 1;
+
+          p.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+          p.style.opacity = (opacity * 0.9).toFixed(2);
+
+          if (t > 0.88 && !counted) {
+            counted = true;
+            bumpCount(c.id);
+          }
+
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            p.remove();
+          }
+        }
+
+        requestAnimationFrame(tick);
+
+        // Each city has its own cadence
+        var nextDelay = c.speed + Math.random() * c.speed * 0.5;
+        setTimeout(sendParticle, nextDelay);
+      }
+
+      setTimeout(sendParticle, 800 + i * 400);
+    });
+  }
+})();
+</script>

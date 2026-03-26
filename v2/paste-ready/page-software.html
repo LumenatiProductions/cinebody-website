@@ -1,0 +1,824 @@
+<!-- Cinebody V4 — Software
+     Paste this into a single Code Block on the software page.
+     Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
+
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY V4 — SOFTWARE PAGE
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+/* ── CURVED SECTION DIVIDERS ── */
+.curve { display: block;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0;
+  margin-top: -2px; margin-bottom: -4px;
+}
+
+.curve svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+@media (max-width: 600px) {
+  .curve svg { height: 80px; }
+}
+
+/* ── CONTAINER ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── SECTION LABEL — monospace ── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── SIGNATURE BAR ── */
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+
+/* ── BUTTON — gradient border glow ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease); position: relative; isolation: isolate;
+}
+
+.btn-glow {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.btn-glow::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
+}
+
+.btn-glow:hover::before { opacity: 0.7; }
+
+.btn-glow:hover {
+  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+
+.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg { transform: translateX(3px); }
+
+/* Ghost button */
+.btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border); padding: 12px 28px;
+  transition: all 0.3s var(--ease);
+}
+
+.btn-ghost:hover {
+  border-color: var(--teal); color: var(--teal);
+  box-shadow: 0 0 20px rgba(0,188,241,0.08);
+}
+
+/* ═══════════════════════════
+   HERO
+   ═══════════════════════════ */
+.hero { padding: 160px 0 120px; overflow: hidden; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+
+
+.hero .contain {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-body {
+  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
+}
+
+.hero-trust { font-size: 12px; color: var(--text-muted); margin-top: 20px; font-family: var(--mono); letter-spacing: 0.02em; }
+
+/* Video wall — 3x3 grid */
+.hero-wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 6px;
+  width: 100%;
+}
+
+.wall-cell {
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #111;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.wall-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  transition: background 0.4s ease;
+  z-index: 1;
+}
+
+.wall-cell:hover::after {
+  background: linear-gradient(135deg, rgba(0,188,241,0.15), rgba(235,0,139,0.1), rgba(255,236,3,0.08));
+}
+
+.wall-label {
+  position: absolute; bottom: 8px; left: 8px; z-index: 2;
+  font-family: var(--font); font-size: 9px; font-weight: 600;
+  color: #fff; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  padding: 4px 8px; border-radius: 4px;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.wall-cell:hover .wall-label {
+  opacity: 1; transform: translateY(0);
+}
+
+.wall-cell iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 250%; height: 250%;
+  transform: translate(-50%, -50%);
+  border: none;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════
+   HOW IT WORKS
+   ═══════════════════════════ */
+.how { padding: 120px 0; position: relative; }
+
+.how h2 {
+  font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.03em;
+  line-height: 1.1; margin-bottom: 64px; text-align: center; color: #111;
+}
+
+.steps {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative;
+  margin-bottom: 56px;
+}
+
+/* Connecting line */
+.steps::before {
+  content: ''; position: absolute; top: 28px; left: calc(16.66% + 14px); right: calc(16.66% + 14px);
+  height: 2px; background: #e0e0e0;
+  z-index: 0;
+}
+
+.step {
+  text-align: center; position: relative; z-index: 1;
+  padding: 0 20px;
+}
+
+.step-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #fff; border: 2px solid rgba(0,188,241,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px; font-family: var(--mono); font-size: 18px;
+  font-weight: 500; color: var(--teal); position: relative; z-index: 2;
+  transition: all 0.4s var(--ease);
+}
+
+.step:hover .step-num {
+  background: #e0f5fd; border-color: var(--teal);
+  box-shadow: 0 0 24px rgba(0,188,241,0.15);
+  transform: scale(1.08);
+}
+
+.step h3 {
+  font-size: 1rem; font-weight: 700; margin-bottom: 10px;
+  letter-spacing: -0.01em; color: #111;
+}
+
+.step p {
+  font-size: 0.85rem; color: #666; line-height: 1.6;
+  max-width: 280px; margin: 0 auto;
+}
+
+.how-cta { text-align: center; }
+
+/* ═══════════════════════════
+   CROSS-SELL CARD
+   ═══════════════════════════ */
+.cross-sell { padding: 0 0 80px; position: relative; background: #fff; }
+
+.cross-card {
+  background: #111; color: #fff;
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+  padding: 48px; max-width: 640px; margin: 0 auto;
+  align-items: center; transition: border-color 0.4s ease;
+  overflow: hidden; position: relative;
+}
+
+.cross-card::before {
+  content: ''; position: absolute; top: -40%; right: -30%; width: 800px; height: 800px;
+  background: var(--pink); border-radius: 50%; filter: blur(200px); opacity: 0.04;
+  pointer-events: none;
+}
+
+.cross-card:hover { border-color: var(--border-hover); }
+
+.cross-card h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700;
+  letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 14px;
+}
+
+.cross-card .label { margin-bottom: 16px; }
+
+.cross-body {
+  font-size: 0.9rem; color: var(--text-dim); line-height: 1.7;
+  margin-bottom: 28px; max-width: 420px;
+}
+
+.check-list {
+  list-style: none; display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 32px;
+}
+
+.check-list li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.88rem; font-weight: 500; color: var(--text);
+}
+
+.check-list li svg {
+  width: 18px; height: 18px; flex-shrink: 0;
+  stroke: var(--teal); fill: none; stroke-width: 2;
+}
+
+/* ═══════════════════════════
+   PRICING — original proven design
+   ═══════════════════════════ */
+.cb-pricing * { margin: 0; padding: 0; box-sizing: border-box; }
+.cb-pricing__header { text-align: center; max-width: 800px; margin: 0 auto 12px; }
+.cb-pricing__header h2 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 16px; color: #fff; }
+.cb-pricing__header p { font-size: clamp(1rem, 2vw, 1.15rem); color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 680px; margin: 0 auto; }
+.cb-pricing__savings { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 20px auto 32px; padding: 8px 20px; background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15); border-radius: 100px; width: fit-content; font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--teal); text-align: center; text-transform: uppercase; letter-spacing: 0.08em; }
+.cb-pricing__toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 32px; font-size: 0.95rem; font-weight: 500; }
+.cb-pricing__toggle-label { color: rgba(255,255,255,0.4); transition: color 0.3s; cursor: pointer; user-select: none; }
+.cb-pricing__toggle-label--active { color: #fff; }
+.cb-pricing__toggle { position: relative; width: 52px; height: 28px; background: #c4c4c8; border-radius: 100px; cursor: pointer; transition: background 0.3s; border: none; }
+.cb-pricing__toggle[aria-checked="true"] { background: #07BCF1; }
+.cb-pricing__toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.cb-pricing__toggle[aria-checked="true"]::after { transform: translateX(24px); }
+.cb-pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.cb-pricing__card { position: relative; background: #fff; border: 1px solid #ededef; border-radius: 16px; padding: 36px 30px 32px; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s; display: flex; flex-direction: column; }
+.cb-pricing__features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; flex-grow: 1; }
+.cb-pricing__card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+.cb-pricing__card--featured { border: 2px solid #07BCF1; box-shadow: 0 12px 32px rgba(7,188,241,0.14); }
+.cb-pricing__card--featured:hover { box-shadow: 0 24px 48px rgba(7,188,241,0.2); }
+.cb-pricing__badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: #07BCF1; color: #fff; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 16px; border-radius: 100px; white-space: nowrap; }
+.cb-pricing__plan-name { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #71717a; margin-bottom: 4px; }
+.cb-pricing__card--featured .cb-pricing__plan-name { color: #07BCF1; }
+.cb-pricing__card--featured .cb-pricing__price-dollar, .cb-pricing__card--featured .cb-pricing__price-amount { color: #07BCF1; }
+.cb-pricing__plan-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; color: #0d0d0d; }
+.cb-pricing__plan-desc { font-size: 0.88rem; color: #52525b; line-height: 1.5; margin-bottom: 24px; min-height: 40px; }
+.cb-pricing__price-wrap { margin-bottom: 24px; }
+.cb-pricing__price { display: flex; align-items: baseline; gap: 4px; }
+.cb-pricing__price-dollar { font-size: 0.95rem; font-weight: 600; position: relative; top: -18px; color: #0d0d0d; }
+.cb-pricing__price-amount { font-size: 3rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #0d0d0d; }
+.cb-pricing__price-period { font-size: 0.88rem; color: #3f3f46; }
+.cb-pricing__price-billing { font-size: 0.8rem; color: #3f3f46; margin-top: 4px; }
+.cb-pricing__price-custom { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; color: #0d0d0d; }
+.cb-pricing__price-custom-sub { font-size: 0.88rem; color: #71717a; margin-top: 4px; }
+.cb-pricing__divider { height: 1px; background: #ededef; margin-bottom: 24px; }
+.cb-pricing__features-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #71717a; margin-bottom: 14px; }
+.cb-pricing__feature { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: #3f3f46; line-height: 1.45; }
+.cb-pricing__feature svg { flex-shrink: 0; margin-top: 2px; }
+.cb-pricing__card--featured .cb-pricing__feature svg path { stroke: #07BCF1; }
+.cb-pricing__feature strong { font-weight: 600; color: #0d0d0d; }
+.cb-pricing__cta { display: block; width: 100%; padding: 14px 24px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-align: center; text-decoration: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); border: none; }
+.cb-pricing__cta--primary { background: #FEF247; color: #0d0d0d; }
+.cb-pricing__cta--primary:hover { background: #f0e53e; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(254,242,71,0.5); }
+.cb-pricing__cta--secondary { background: #07BCF1; color: #fff; }
+.cb-pricing__cta--secondary:hover { background: #0099c8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(7,188,241,0.4); }
+.cb-pricing__cta--outline { background: transparent; color: #0d0d0d; border: 1.5px solid #c4c4c8; }
+.cb-pricing__cta--outline:hover { border-color: #07BCF1; color: #07BCF1; background: #e6f7fd; transform: translateY(-1px); }
+.cb-pricing__footer { text-align: center; margin-top: 40px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.1); }
+.cb-pricing__footer p { font-size: 1.1rem; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 600px; margin: 0 auto; }
+.cb-pricing__footer a { color: #07BCF1; font-weight: 600; text-decoration: none; }
+@media (max-width: 960px) { .cb-pricing__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; gap: 24px; } .cb-pricing__card--featured { order: -1; } .cb-pricing__plan-desc { min-height: unset; } }
+
+/* ═══════════════════════════
+   CASE STUDY TEASER
+   ═══════════════════════════ */
+.teaser { padding: 100px 0; position: relative; }
+.teaser--light { background: #fff; }
+.teaser--light h3, .teaser--light h3 em { color: #111; }
+.teaser--light h3 em { color: var(--teal); }
+.teaser--light .teaser-desc { color: #666; }
+.teaser--light .teaser-badge-name { color: #999; }
+.teaser--light .teaser-stat-label { color: #999; }
+.teaser--light .teaser-stat-pipe { background: #e0e0e0; }
+.teaser--light .teaser-vid { border-color: #e0e0e0; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+
+.teaser .contain {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+}
+
+.teaser-badge { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+
+.teaser-badge-tag {
+  font-family: var(--font); font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--bg); background: var(--yellow); padding: 4px 10px; border-radius: 4px;
+}
+
+.teaser-badge-name { font-family: var(--font); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+
+.teaser h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -0.025em;
+  line-height: 1.15; margin-bottom: 14px;
+}
+
+.teaser h3 em { font-style: normal; color: var(--teal); }
+
+.teaser-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 24px; max-width: 420px; }
+
+.teaser-stats { display: flex; gap: 20px; margin-bottom: 24px; }
+
+.teaser-stat { text-align: center; }
+.teaser-stat-num { font-size: 1.25rem; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 3px; }
+.teaser-stat-label { font-family: var(--font); font-size: 9px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.teaser-stat-pipe { width: 1px; background: var(--border); align-self: stretch; }
+
+.teaser-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; font-weight: 600; color: var(--teal);
+  transition: gap 0.3s var(--ease);
+}
+.teaser-link:hover {
+  gap: 12px;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.teaser-visual { position: relative; }
+
+.teaser-vid {
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3); position: relative; z-index: 1;
+}
+
+.teaser-vid iframe { display: block; width: 100%; border: none; }
+.teaser-vid--h iframe { aspect-ratio: 16/9; }
+.teaser-vid--v iframe { aspect-ratio: 9/16; }
+
+.teaser-vid-pair { display: flex; gap: 12px; justify-content: center; position: relative; z-index: 1; }
+.teaser-vid-pair .teaser-vid { flex: 1; max-width: 200px; }
+
+.teaser-accent {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100%; height: 100%; z-index: 0; opacity: 0.5; pointer-events: none;
+}
+
+/* Ecosystem tree SVG */
+.t-trunk { fill: none; stroke: rgba(0,188,241,0.2); stroke-width: 2; }
+.t-branch { fill: none; stroke: rgba(0,188,241,0.15); stroke-width: 1.2; }
+.t-leaf { fill: rgba(0,188,241,0.15); }
+.t-leaf-pulse { fill: none; stroke: var(--teal); stroke-width: 1; opacity: 0; animation: t-ping 2.5s ease-out infinite; }
+@keyframes t-ping { 0% { r: 3; opacity: 0.5; } 100% { r: 16; opacity: 0; } }
+
+/* ═══════════════════════════
+   FAQ
+   ═══════════════════════════ */
+.faq { padding: 120px 0; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%); }
+.faq .contain { max-width: 680px; }
+.faq h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 48px; text-align: center; }
+
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:first-child { border-top: 1px solid var(--border); }
+
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 20px 0; font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+  color: var(--text); text-align: left; transition: color 0.2s ease;
+}
+.faq-q:hover { color: var(--teal); }
+.faq-item.open .faq-q { color: var(--teal); }
+
+.faq-icon { width: 20px; height: 20px; flex-shrink: 0; position: relative; }
+.faq-icon::before, .faq-icon::after {
+  content: ''; position: absolute; background: var(--teal); border-radius: 1px; transition: all 0.3s var(--ease);
+}
+.faq-item.open .faq-icon::before { background: var(--pink); }
+.faq-icon::before { width: 10px; height: 1.5px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.faq-icon::after { width: 1.5px; height: 10px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.faq-item.open .faq-icon::after { transform: translate(-50%,-50%) rotate(90deg); opacity: 0; }
+
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
+.faq-item.open .faq-a { max-height: 250px; }
+.faq-a-inner { padding: 0 0 20px; font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; }
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══════════════════════════
+   RESPONSIVE
+   ═══════════════════════════ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 100px 0 80px; }
+  .cross-card { grid-template-columns: 1fr; padding: 40px; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .teaser .contain { grid-template-columns: 1fr; gap: 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .hero-wall { gap: 6px; }
+  .wall-cell { background-size: cover; background-position: center; }
+  .steps { grid-template-columns: 1fr; gap: 40px; }
+  .steps::before { display: none; }
+  .check-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 80px 0 60px; }
+  .hero h1 { font-size: 2.25rem; }
+  .hero-wall { aspect-ratio: auto; }
+  .wall-cell { border-radius: 6px; }
+  .wall-label { font-size: 7px; padding: 3px 6px; bottom: 4px; left: 4px; }
+  .how, .cross-sell, .faq { padding: 80px 0; }
+  .pricing { padding: 80px 0; }
+  .cross-card { padding: 28px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Video Capture Platform</div>
+      <h1>Make <em>anyone</em> part of your content&nbsp;crew.</h1>
+      <p class="hero-body">Send a link. Set your shot list. Get footage back in real time — from employees, customers, or fans, anywhere in the world. No app download. No production&nbsp;crew.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
+    </div>
+    <div class="hero-wall reveal reveal-d2">
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2038638655-4ef78cd2bf72975d8e802116dbfb44252b5b797a7ec267b4c2138960b71ec95c-d_640')"><span class="wall-label">Sparkle · Creator</span><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2008573386-62a057b277e494ff523e8d6bd9f52a8c1f1eaa72870c3068ad635598ef0e4e65-d_640')"><span class="wall-label">Point.me · CTV</span><iframe src="https://player.vimeo.com/video/1078357962?h=ac0da6551d&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640')"><span class="wall-label">RC · Rover</span><iframe src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/696061055-cd34ca440798414c8d191af42901cde8208bcb11564388245cd9e462f14bb719-d_640')"><span class="wall-label">Nike · Run Club</span><iframe src="https://player.vimeo.com/video/265928299?h=10ec2810ff&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640')"><span class="wall-label">Altra · Athlete</span><iframe src="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/1993482466-f54bae18ca4f73806a7452580ea13be1f84dbba0c1e22c04233f20e333b5d86b-d_640')"><span class="wall-label">Dell · Employee</span><iframe src="https://player.vimeo.com/video/1065886093?h=80404d7365&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/1896814958-e6c0a34bb7713d13f7753b614896d5fe41ed10a9b4348204550f44843aec0e22-d_640')"><span class="wall-label">RC · Fleet</span><iframe src="https://player.vimeo.com/video/981489599?h=89701ad11c&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640')"><span class="wall-label">Sploot · CTV</span><iframe src="https://player.vimeo.com/video/1130557367?h=67815d0119&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640')"><span class="wall-label">Cogent · Events</span><iframe src="https://player.vimeo.com/video/1090977594?h=646a9f78bc&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<!-- curve: dark → light -->
+<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<section class="how" style="background:#fff;color:#111">
+  <div class="contain">
+    <div class="reveal" style="text-align:center">
+      <div class="label">How It Works</div>
+      <h2>Three steps. Zero&nbsp;friction.</h2>
+    </div>
+    <div class="steps reveal reveal-d1">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Onboard your filmers</h3>
+        <p>Share a link or QR code. No app download required — they're filming in seconds from any phone&nbsp;browser.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Direct from anywhere</h3>
+        <p>Your shot list controls FPS, resolution, orientation, and creative direction — remotely, in real&nbsp;time.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Get footage instantly</h3>
+        <p>The moment they stop recording, footage syncs to your cloud dashboard. No uploads, no file&nbsp;transfers.</p>
+      </div>
+    </div>
+    <div class="how-cta reveal reveal-d2">
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Demo the Platform <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CROSS-SELL ═══ -->
+<section class="cross-sell">
+  <div class="contain">
+    <div class="cross-card reveal">
+      <div>
+        <div class="label">Creative Services</div>
+        <h3>Don't have an editing team? We&nbsp;do.</h3>
+        <p class="cross-body">Pair the software with Cinebody's in-house creative team. We handle strategy, editing, and delivery so you get polished content without hiring a single&nbsp;freelancer.</p>
+        <ul class="check-list">
+          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Strategy</li>
+          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Editing</li>
+          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Motion Graphics</li>
+          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Strategic Producer</li>
+        </ul>
+        <a href="/services" class="btn btn-ghost">Explore Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → dark -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ PRICING — using original proven design ═══ -->
+<div class="cb-pricing" style="font-family:'Inter',sans-serif;max-width:1200px;margin:0 auto;padding:60px 24px 60px">
+  <div class="cb-pricing__header">
+    <h2 style="font-family:'Inter',sans-serif">Pick the plan that fits how you&nbsp;work.</h2>
+    <p>Run it yourself or bring in our team. Either way, you're getting real content from real people — at a fraction of traditional production&nbsp;costs.</p>
+  </div>
+  <div class="cb-pricing__savings">Brands using Cinebody typically save 70%+ vs. traditional production</div>
+  <div class="cb-pricing__toggle-wrap">
+    <span class="cb-pricing__toggle-label cb-pricing__toggle-label--active" id="cb-label-annual">Annual</span>
+    <button class="cb-pricing__toggle" role="switch" aria-checked="false" id="cb-toggle"></button>
+    <span class="cb-pricing__toggle-label" id="cb-label-monthly">Monthly</span>
+  </div>
+  <div class="cb-pricing__grid">
+    <div class="cb-pricing__card">
+      <div class="cb-pricing__plan-name">Plus</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For small teams</div>
+      <div class="cb-pricing__plan-desc">Everything you need to start capturing community video on your own.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="250" data-monthly="350">250</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">What's included</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>1 Team</strong> with 2 admin seats</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>25 GB</strong> cloud storage</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Unlimited filmers</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Patented shot list technology</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Photo capture + real-time sync</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Email & FAQ support</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--outline">Get Started</a>
+    </div>
+    <div class="cb-pricing__card cb-pricing__card--featured">
+      <div class="cb-pricing__badge">Most Popular</div>
+      <div class="cb-pricing__plan-name">Pro</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For growing brands</div>
+      <div class="cb-pricing__plan-desc">Scale content across multiple projects with more storage and dedicated support.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="500" data-monthly="650">500</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">Everything in Plus, and</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Multiple teams</strong> as you grow</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>5 admin seats</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>100 GB</strong> cloud storage</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Dedicated support</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SSO integration</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom legal + API access</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--secondary">Book a Demo</a>
+    </div>
+    <div class="cb-pricing__card">
+      <div class="cb-pricing__plan-name">Enterprise</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For large organizations</div>
+      <div class="cb-pricing__plan-desc">Custom-built for your team's needs — storage, seats, security, and support.</div>
+      <div class="cb-pricing__price-wrap">
+        <div class="cb-pricing__price-custom" style="font-family:'Inter',sans-serif">Let's scope it together.</div>
+        <div class="cb-pricing__price-custom-sub">Custom pricing based on your needs</div>
+      </div>
+      <div class="cb-pricing__divider"></div>
+      <div class="cb-pricing__features-label">Everything in Pro, and</div>
+      <ul class="cb-pricing__features">
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Custom teams, admins & storage</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Concierge support</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Advanced security & encryption</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom integrations (DAM, Drive)</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Strategic Producer</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom legal document signing</span></li>
+      </ul>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="cb-pricing__cta cb-pricing__cta--primary">Talk to Our Team</a>
+    </div>
+  </div>
+  <div class="cb-pricing__footer"><p>Don't have an editing team? Pair any plan with our <a href="/services">creative services</a> for end-to-end production.</p></div>
+</div>
+
+<!-- curve: dark → light -->
+<div class="curve" style="background:#0a0a0a"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ TEASER: GEORGIA-PACIFIC ═══ -->
+<section class="teaser teaser--light" style="padding-top:60px">
+  <div class="contain">
+    <div class="reveal">
+      <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">Georgia-Pacific</span></div>
+      <h3><em>Multiple brands. One platform.</em><br>Authentic content at&nbsp;scale.</h3>
+      <p class="teaser-desc">Georgia-Pacific needed real product content across Sparkle, Vanity Fair, and Innovia — without spinning up separate productions for each brand. With Cinebody, they recruited real customers to capture demos, testimonials, and everyday&nbsp;moments.</p>
+      <div class="teaser-stats">
+        <div class="teaser-stat"><div class="teaser-stat-num">3</div><div class="teaser-stat-label">Brands</div></div><div class="teaser-stat-pipe"></div>
+        <div class="teaser-stat"><div class="teaser-stat-num">1</div><div class="teaser-stat-label">Platform</div></div><div class="teaser-stat-pipe"></div>
+        <div class="teaser-stat"><div class="teaser-stat-num">100%</div><div class="teaser-stat-label">Authentic</div></div><div class="teaser-stat-pipe"></div>
+        <div class="teaser-stat"><div class="teaser-stat-num">0</div><div class="teaser-stat-label">Crews</div></div>
+      </div>
+      <a href="/georgia-pacific" class="teaser-link">See the full story <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="teaser-visual reveal reveal-d2">
+      <div class="teaser-vid-pair">
+        <div class="teaser-vid teaser-vid--v"><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+        <div class="teaser-vid teaser-vid--v"><iframe src="https://player.vimeo.com/video/1041247977?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      </div>
+      <!-- Ecosystem tree SVG accent -->
+      <svg class="teaser-accent" viewBox="0 0 300 300">
+        <line class="t-trunk" x1="150" y1="280" x2="150" y2="120"/>
+        <line class="t-branch" x1="150" y1="180" x2="90" y2="140"/>
+        <line class="t-branch" x1="150" y1="180" x2="210" y2="140"/>
+        <line class="t-branch" x1="150" y1="150" x2="80" y2="100"/>
+        <line class="t-branch" x1="150" y1="150" x2="220" y2="100"/>
+        <line class="t-branch" x1="150" y1="120" x2="120" y2="70"/>
+        <line class="t-branch" x1="150" y1="120" x2="180" y2="70"/>
+        <circle class="t-leaf" cx="90" cy="140" r="8"/>
+        <circle class="t-leaf" cx="210" cy="140" r="8"/>
+        <circle class="t-leaf" cx="80" cy="100" r="10"/>
+        <circle class="t-leaf" cx="220" cy="100" r="10"/>
+        <circle class="t-leaf" cx="120" cy="70" r="7"/>
+        <circle class="t-leaf" cx="180" cy="70" r="7"/>
+        <circle class="t-leaf" cx="150" cy="110" r="12"/>
+        <circle class="t-leaf-pulse" cx="80" cy="100" r="3" style="animation-delay:0s"/>
+        <circle class="t-leaf-pulse" cx="220" cy="100" r="3" style="animation-delay:0.8s"/>
+        <circle class="t-leaf-pulse" cx="150" cy="110" r="3" style="animation-delay:1.6s"/>
+        <text x="90" y="158" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family="Inter">Sparkle</text>
+        <text x="210" y="158" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family="Inter">Vanity Fair</text>
+        <text x="150" y="128" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family="Inter">Innovia</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → dark (FAQ) -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#041a24"/></svg></div>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq">
+  <div class="contain">
+    <h2 class="reveal">Frequently asked&nbsp;questions</h2>
+    <div class="reveal reveal-d1">
+      <div class="faq-item"><button class="faq-q">Do filmers need to download an app?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">No. Cinebody works as a web app — filmers access it through a link or QR code. No downloads, no app store, no friction. They're filming within seconds on any mobile browser.</div></div></div>
+      <div class="faq-item"><button class="faq-q">How does the shot list work?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">You build a shot list in the dashboard that controls exactly what filmers capture — including resolution, FPS, orientation, and creative prompts. Filmers see guided instructions on their screen as they record. You get the footage you actually need.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Can I use the software without creative services?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Absolutely. The software subscription is fully standalone — you direct shoots, collect footage, and edit with your own team. Creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution.</div></div></div>
+      <div class="faq-item"><button class="faq-q">What video quality can I expect?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Cinebody captures up to 4K resolution at configurable frame rates. Our patented technology controls the camera settings remotely, so you get broadcast-quality footage from any smartphone — not shaky selfie videos.</div></div></div>
+      <div class="faq-item"><button class="faq-q">How quickly do I get the footage?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Instantly. The moment a filmer stops recording, footage begins syncing to your cloud dashboard. No waiting for uploads, no file transfer services, no chasing down content. It's there when you need it.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Reveal
+(function(){
+  var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+// Pricing toggle
+(function(){
+  var toggle=document.getElementById('cb-toggle');if(!toggle)return;
+  var la=document.getElementById('cb-label-annual'),lm=document.getElementById('cb-label-monthly');
+  var amounts=document.querySelectorAll('.cb-pricing__price-amount');
+  var billings=document.querySelectorAll('.cb-pricing__price-billing');
+  function update(m){
+    toggle.setAttribute('aria-checked',m);
+    if(la)la.classList.toggle('cb-pricing__toggle-label--active',!m);
+    if(lm)lm.classList.toggle('cb-pricing__toggle-label--active',m);
+    amounts.forEach(function(el){el.textContent=m?el.dataset.monthly:el.dataset.annual;});
+    billings.forEach(function(el){el.textContent=m?el.dataset.monthly:el.dataset.annual;});
+  }
+  toggle.addEventListener('click',function(){update(toggle.getAttribute('aria-checked')!=='true');});
+  if(la)la.addEventListener('click',function(){update(false);});
+  if(lm)lm.addEventListener('click',function(){update(true);});
+})();
+
+// FAQ
+document.querySelectorAll('.faq-q').forEach(function(b){
+  b.addEventListener('click',function(){
+    var item=this.closest('.faq-item'),was=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+    if(!was)item.classList.add('open');
+  });
+});
+
+</script>
