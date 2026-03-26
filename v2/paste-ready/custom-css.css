@@ -8,6 +8,34 @@
    ================================================ */
 html { scroll-behavior: smooth; }
 .sqs-block-code { padding: 0 !important; margin: 0 !important; }
+.sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
+
+/* Curves — flatten on mobile, kill gap lines */
+@media (max-width: 768px) {
+  .curve { height: 25px !important; overflow: hidden; margin-top: -2px !important; margin-bottom: -2px !important; position: relative; z-index: 2; }
+  .curve svg { height: 25px !important; display: block !important; }
+}
+
+/* Kill any stray borders/lines between sections on mobile */
+@media (max-width: 768px) {
+  .sqs-block-code section,
+  .sqs-block-code div {
+    border: none !important;
+    outline: none !important;
+  }
+}
+
+/* Hide decorative accent SVGs on mobile */
+@media (max-width: 768px) {
+  .teaser-accent { display: none !important; }
+}
+
+/* Kill Squarespace's native footer section wrapper styles */
+#footer-sections { margin-top: 0 !important; background: #0a0a0a !important; }
+#footer-sections > section { padding: 0 !important; min-height: 0 !important; background: #0a0a0a !important; }
+#footer-sections > section::before { display: none !important; }
+#footer-sections .section-background { display: none !important; }
+body { background: #0a0a0a !important; }
 
 /* ================================================
    HEADER — Dark, transparent over hero, solidifies on scroll
@@ -20,11 +48,8 @@ html { scroll-behavior: smooth; }
 }
 
 /* Scrolled state — glassmorphism dark */
-.header.shrink,
-.header--menu-open {
-  background: rgba(10, 10, 10, 0.85) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
+.header.shrink {
+  background: rgba(10, 10, 10, 0.95) !important;
   box-shadow: 0 1px 0 rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.3) !important;
 }
 
@@ -127,6 +152,36 @@ a.sqs-button-element--secondary[href*="login"]:hover {
 }
 
 /* ── Dropdown Menus ── */
+/* Resources folder — replace text with info icon */
+.header-nav-item--folder .header-nav-folder-title-text {
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+.header-nav-item--folder .header-nav-folder-title-text::before {
+  content: '' !important;
+  display: inline-block !important;
+  width: 22px !important;
+  height: 22px !important;
+  font-size: 22px !important;
+  line-height: 22px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='%2300bcf1'%3E%3Ccircle cx='5' cy='12' r='2'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='19' cy='12' r='2'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  vertical-align: middle !important;
+  position: relative !important;
+  top: -3px !important;
+}
+.header-nav-item--folder:hover .header-nav-folder-title-text::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Ccircle cx='5' cy='12' r='2'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='19' cy='12' r='2'/%3E%3C/svg%3E") !important;
+}
+/* Hide the dropdown chevron on desktop */
+@media (min-width: 769px) {
+  .header-nav-item--folder .header-dropdown-icon,
+  .header-nav-item--folder svg {
+    display: none !important;
+  }
+}
+
 .header-nav-folder-content {
   background: rgba(10,10,10,0.92) !important;
   backdrop-filter: blur(20px) !important;
@@ -135,15 +190,16 @@ a.sqs-button-element--secondary[href*="login"]:hover {
   border-top: 2px solid #00bcf1 !important;
   border-radius: 8px !important;
   box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
-  padding: 8px 0 !important;
-  min-width: 160px !important;
-  margin-top: 8px !important;
+  padding: 6px 0 !important;
+  min-width: 120px !important;
+  margin-top: 0 !important;
+  padding-top: 10px !important;
 }
 
 .header-nav-folder-item a {
   color: rgba(255,255,255,0.6) !important;
-  padding: 10px 20px !important;
-  font-size: 0.85rem !important;
+  padding: 6px 16px !important;
+  font-size: 0.78rem !important;
   font-weight: 500 !important;
   transition: all 0.2s ease !important;
   background: transparent !important;
@@ -170,15 +226,12 @@ a.sqs-button-element--secondary[href*="login"]:hover {
   opacity: 0.8;
 }
 
-/* ── Social Icons in Header ── */
+/* ── Hide Social Icons from Header — they're in the footer ── */
+.header .header-actions-action--social,
+.header .social-icon-link,
+.header .sqs-svg-icon--wrapper,
 .header .sqs-svg-icon--social {
-  color: rgba(255,255,255,0.5) !important;
-  transition: all 0.3s ease !important;
-}
-
-.header .sqs-svg-icon--social:hover {
-  color: #00bcf1 !important;
-  transform: translateY(-1px);
+  display: none !important;
 }
 
 /* ── Nav Item Entrance ── */
@@ -198,55 +251,17 @@ a.sqs-button-element--secondary[href*="login"]:hover {
 .header-nav-item:nth-child(5) { animation-delay: 0.25s; }
 
 /* ── Mobile Navigation ── */
-@media (max-width: 767px) {
+.header-menu-bg { background: #000 !important; }
+.site-wrapper .header-menu .header-menu-nav a:not(.btn) { color: #fff !important; }
 
-  /* Mobile menu background */
-  .header-menu {
-    background: rgba(10,10,10,0.95) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-  }
-
-  .header-menu-nav-item a {
-    color: rgba(255,255,255,0.7) !important;
-    font-size: 1.1rem !important;
-    font-weight: 500 !important;
-    padding: 14px 24px !important;
-    transition: all 0.3s ease !important;
-    border-left: 3px solid transparent;
-  }
-
-  .header-menu-nav-item a:hover {
-    color: #fff !important;
-    background: rgba(0,188,241,0.06) !important;
-    border-left-color: #00bcf1;
-    padding-left: 28px !important;
-  }
-
-  .header-menu-nav-item--active a {
-    color: #00bcf1 !important;
-    font-weight: 600 !important;
-    border-left-color: #00bcf1;
-  }
-
-  /* Mobile Login button */
-  .header-menu-nav-item a[href*="login"] {
-    background: #00bcf1 !important;
-    color: #fff !important;
-    padding: 14px 24px !important;
-    border-radius: 8px !important;
-    margin: 16px 24px !important;
-    text-align: center !important;
-    display: block !important;
-    font-weight: 600 !important;
-    border-left: none !important;
-    box-shadow: 0 0 16px rgba(0,188,241,0.2) !important;
-  }
-
-  /* Hamburger icon color */
-  .header-burger-btn-line {
-    background: #fff !important;
-  }
+/* Resources folder on mobile — smaller, dimmer */
+.header-menu-nav-folder .header-menu-nav-folder-title,
+.header-menu-nav-folder .header-menu-nav-folder-title span {
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,0.4) !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
 }
 
 
@@ -254,17 +269,16 @@ a.sqs-button-element--secondary[href*="login"]:hover {
    FOOTER — Matches v4 design
    ================================================ */
 
-/* Sig bar */
-footer.sections::before {
-  content: '';
-  display: block;
-  height: 3px;
-  background: linear-gradient(90deg, #00bcf1 0%, #00bcf1 33.33%, #ffec03 33.33%, #ffec03 66.66%, #eb008b 66.66%);
-}
+/* Sig bar — rendered by global-footer.html Code Block, not CSS */
 
 /* Footer background */
-footer.sections section[data-section-id] {
+footer.sections,
+footer.sections section[data-section-id],
+#footer-sections,
+#footer-sections > section {
   background: #0a0a0a !important;
+}
+footer.sections section[data-section-id] {
   padding-top: 56px !important;
   padding-bottom: 28px !important;
 }
@@ -284,20 +298,20 @@ footer .sqs-block-html h3 {
   font-weight: 500 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.1em !important;
-  color: rgba(255,255,255,0.5) !important;
+  color: rgba(255,255,255,0.65) !important;
   margin-bottom: 14px !important;
 }
 
 footer .sqs-block-html p {
   font-size: 0.82rem !important;
   line-height: 1.6 !important;
-  color: rgba(255,255,255,0.3) !important;
+  color: rgba(255,255,255,0.5) !important;
   max-width: 240px;
 }
 
 /* Footer links */
 footer a {
-  color: rgba(255,255,255,0.3) !important;
+  color: rgba(255,255,255,0.5) !important;
   font-size: 0.82rem !important;
   transition: all 0.2s ease !important;
   background-image: none !important;
@@ -332,6 +346,14 @@ footer .sqs-svg-icon--social:hover {
   color: #00bcf1 !important;
 }
 
+/* Footer mobile — stacked centered */
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; text-align: center !important; }
+  .footer-brand { display: flex; flex-direction: column; align-items: center; }
+  .footer-brand p { max-width: 100% !important; }
+  .footer-bottom { flex-direction: column !important; gap: 6px !important; text-align: center !important; }
+}
+
 /* Footer bottom border */
 footer .sqs-block:last-child {
   border-top: 1px solid rgba(255,255,255,0.1);
@@ -357,4 +379,255 @@ footer .sqs-block:last-child {
 .sqs-block-button-element:hover {
   transform: translateY(-2px) !important;
   box-shadow: 0 0 30px rgba(0,188,241,0.2), 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+
+/* ================================================
+   BLOG — List (.blog-side-by-side) + Detail
+   Selectors from inspecting live SS markup:
+   - .blog-side-by-side-wrapper (list container)
+   - article.hentry.blog-item (each post)
+   - .blog-image-wrapper (thumbnail section)
+   - .blog-item-text (text column)
+   - h1.blog-title (post title)
+   - .blog-excerpt / .blog-excerpt-wrapper (excerpt)
+   - a.blog-more-link (Read More)
+   - .blog-meta-section (date/author)
+   ================================================ */
+
+/* Blog page background — override the white-bold theme inline */
+body.collection-type-blog [data-section-theme="white-bold"] {
+  --paragraphMediumColor: rgba(255,255,255,0.5);
+  --paragraphLargeColor: rgba(255,255,255,0.65);
+  --headingLargeColor: #fff;
+  --headingMediumColor: #fff;
+  --headingSmallColor: #fff;
+  --linkColor: #00bcf1;
+  --tweak-blog-side-by-side-list-excerpt-color: rgba(255,255,255,0.5);
+  --tweak-summary-block-read-more-color-on-background: #00bcf1;
+  background-color: #0a0a0a !important;
+}
+body.collection-type-blog .page-section,
+body.collection-type-blog .section-border,
+body.collection-type-blog .content-wrapper,
+body.collection-type-blog .collection-content-wrapper,
+body.collection-type-blog .blog-side-by-side {
+  background-color: #0a0a0a !important;
+  border-color: #0a0a0a !important;
+}
+
+/* Blog list container */
+.blog-side-by-side-wrapper {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 40px clamp(1rem, 3vw, 2.5rem) 80px !important;
+}
+
+/* Each blog post article */
+article.hentry.blog-item {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  margin-bottom: 32px !important;
+  padding: 0 !important;
+}
+
+/* Blog thumbnails */
+.blog-image-wrapper img,
+section.blog-image-wrapper img {
+  border-radius: 12px !important;
+  object-fit: cover !important;
+}
+
+/* Blog title (h1.blog-title) */
+h1.blog-title,
+h1.blog-title a {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.03em !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  background-image: none !important;
+  transition: color 0.3s ease !important;
+}
+
+h1.blog-title a:hover {
+  color: #00bcf1 !important;
+}
+
+/* Blog excerpt */
+.blog-excerpt,
+.blog-excerpt-wrapper,
+.blog-excerpt-wrapper p,
+.blog-excerpt p {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 1.7 !important;
+  color: rgba(255,255,255,0.5) !important;
+}
+
+/* Blog meta (date, author, categories) */
+.blog-meta-section,
+.blog-meta-section * {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(255,255,255,0.35) !important;
+}
+
+/* Read More link */
+a.blog-more-link {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: #00bcf1 !important;
+  text-decoration: none !important;
+  background-image: none !important;
+  border-bottom: none !important;
+  padding-bottom: 2px !important;
+  transition: all 0.3s ease !important;
+}
+
+a.blog-more-link:hover {
+  color: #fff !important;
+}
+
+/* Kill SS default underlines on blog links */
+.blog-item-text a,
+.blog-item-text a::after {
+  background-image: none !important;
+  text-decoration: none !important;
+}
+
+/* Blog detail / single post */
+.blog-item-content-wrapper,
+.blog-item-inner-wrapper,
+article.hentry {
+  background: #0a0a0a !important;
+}
+
+.blog-item-title h1,
+article.hentry h1.blog-title {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  color: #fff !important;
+}
+
+.blog-item-content p,
+.blog-item-text p {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  color: rgba(255,255,255,0.65) !important;
+}
+
+.blog-item-content h2,
+.blog-item-content h3 {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: #fff !important;
+}
+
+.blog-item-content a {
+  color: #00bcf1 !important;
+  text-decoration: none !important;
+  background-image: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.blog-item-content a:hover {
+  color: #fff !important;
+}
+
+/* Blog pagination */
+.blog-pagination a {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  color: rgba(255,255,255,0.5) !important;
+  background-image: none !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+.blog-pagination a:hover {
+  color: #00bcf1 !important;
+}
+
+/* Blog category nav / tags */
+.blog-categories-list a,
+.blog-tag-link {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(255,255,255,0.4) !important;
+  background-image: none !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+.blog-categories-list a:hover,
+.blog-tag-link:hover {
+  color: #00bcf1 !important;
+}
+
+/* ============================================
+   VID-PLAYER — Click-to-Play Video Pattern
+   ============================================ */
+.vid-playable {
+  position: relative; cursor: pointer; overflow: hidden;
+  border-radius: 12px; background-size: cover;
+  background-position: center; background-color: #111;
+}
+.vid-playable--h { aspect-ratio: 16/9; }
+.vid-playable--v { aspect-ratio: 9/16; }
+.vid-playable--sq { aspect-ratio: 1/1; }
+.vid-playable .vid-poster {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  z-index: 2; transition: opacity 0.5s ease;
+}
+.vid-playable.playing .vid-poster {
+  position: absolute; inset: 0; height: 100%;
+}
+.vid-playable.playing .vid-poster { opacity: 0; pointer-events: none; }
+.vid-play-btn {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 3; width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); border: 2px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none;
+}
+.vid-playable:hover .vid-play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(0,188,241,0.7); border-color: rgba(0,188,241,0.5);
+  box-shadow: 0 0 30px rgba(0,188,241,0.3);
+}
+.vid-play-btn svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+.vid-playable.playing .vid-play-btn { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.vid-playable iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+  z-index: 1; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+}
+.vid-playable.playing iframe { opacity: 1; pointer-events: auto; }
+.vid-mute-btn {
+  position: absolute; bottom: 12px; right: 12px; z-index: 5;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  opacity: 0; transition: opacity 0.3s ease, background 0.2s ease; pointer-events: none;
+}
+.vid-playable.playing .vid-mute-btn { pointer-events: auto; }
+.vid-playable.playing:hover .vid-mute-btn { opacity: 1; }
+.vid-mute-btn:hover { background: rgba(0,188,241,0.5); border-color: rgba(0,188,241,0.4); }
+.vid-mute-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 600px) {
+  .vid-play-btn { width: 52px; height: 52px; }
+  .vid-play-btn svg { width: 18px; height: 18px; }
+  .vid-mute-btn { width: 32px; height: 32px; bottom: 8px; right: 8px; }
+  .vid-mute-btn svg { width: 14px; height: 14px; }
+  .vid-playable.playing .vid-mute-btn { opacity: 0.7; }
 }

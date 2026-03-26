@@ -290,15 +290,15 @@ body > * { position: relative; z-index: 1; }
    SHOWCASE SECTIONS
    ═══════════════════════════ */
 .showcase {
-  padding: 80px 0;
+  padding: 100px 0;
   position: relative;
 }
 
 .showcase .contain {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 56px;
+  align-items: center;
 }
 
 .showcase--flip .contain { direction: rtl; }
@@ -328,19 +328,19 @@ body > * { position: relative; z-index: 1; }
 .showcase-content { position: relative; z-index: 1; }
 
 .showcase-logo {
-  height: 40px; width: auto; max-width: 200px; margin-bottom: 20px; object-fit: contain;
+  height: 32px; width: auto; max-width: 160px; margin-bottom: 20px; object-fit: contain;
 }
 /* Per-logo sizing for consistent visual weight */
-.showcase-logo[alt="Royal Caribbean"] { height: 66px; max-width: 280px; }
-.showcase-logo[alt="Altra"] { height: 24px; }
-.showcase-logo[alt="Crocs"] { height: 16px; }
-.showcase-logo[alt="Point.me"] { height: 110px; max-width: 200px; filter: brightness(0) invert(1) !important; object-fit: cover; object-position: center; clip-path: inset(30% 0 30% 0); margin-bottom: -20px; }
-.showcase-logo[alt="Sploot"] { height: 24px; max-width: 160px; }
-.showcase-logo[alt="Cogent World"] { height: 44px; border-radius: 4px; filter: brightness(1.5) !important; }
-.showcase-logo[alt="Dell"] { height: 63px; }
+.showcase-logo[alt="Royal Caribbean"] { height: 65px; max-width: 280px; }
+.showcase-logo[alt="Altra"] { height: 30px; }
+.showcase-logo[alt="Crocs"] { height: 24px; }
+.showcase-logo[alt="Point.me"] { height: 96px; max-width: 120px; filter: brightness(0) invert(1) !important; }
+.showcase-logo[alt="Sploot"] { height: 24px; max-width: 140px; }
+.showcase-logo[alt="Cogent World"] { height: 50px; border-radius: 6px; filter: none !important; }
+.showcase-logo[alt="Dell"] { height: 58px; }
 
 /* Category intro headers */
-.cat-intro { padding: 60px 0 10px; text-align: center; }
+.cat-intro { padding: 80px 0 20px; text-align: center; }
 .cat-intro .contain { max-width: 700px; }
 .cat-intro h2 { font-family: var(--font); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 12px; }
 .cat-intro h2 em { font-style: normal; color: var(--teal); }
