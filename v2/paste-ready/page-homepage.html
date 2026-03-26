@@ -907,8 +907,195 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
-<!-- curve: dark → yellow -->
-<div class="curve" style="background:#0f1218"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+<!-- curve: dark → white (live events) -->
+<div class="curve" style="background:#0f1218"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ LIVE EVENTS ═══ -->
+<style>
+.le-section{background:#fff;color:#111;padding:60px 0 80px;}
+.le-section .contain{max-width:900px;}
+.le-hero{display:flex;align-items:center;justify-content:center;gap:32px;max-width:600px;margin:0 auto 56px;}
+.le-lorde{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:9/16;width:180px;flex-shrink:0;box-shadow:0 12px 40px rgba(0,0,0,0.18);cursor:pointer;transition:transform 0.4s ease,box-shadow 0.4s ease;}
+.le-amphitheater{display:block;width:100%;max-width:340px;height:auto;flex-shrink:1;}
+.le-lorde:hover{transform:scale(1.03) translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.22);}
+.le-lorde iframe,.le-lorde img{position:absolute;top:0;left:0;width:100%;height:100%;border:none;object-fit:cover;}
+.le-lorde img{z-index:1;transition:opacity 0.4s ease;}
+.le-lorde.le-playing img{opacity:0;pointer-events:none;}
+.le-lorde-tag{position:absolute;top:10px;left:10px;font-size:0.55rem;font-weight:700;color:#fff;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);padding:3px 9px;border-radius:5px;z-index:4;text-transform:uppercase;letter-spacing:0.06em;pointer-events:none;}
+.le-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;background:rgba(0,188,241,0.9);border-radius:50%;z-index:5;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 16px rgba(0,0,0,0.3);}
+.le-play::after{content:'';border-left:14px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px;}
+.le-play:hover{transform:translate(-50%,-50%) scale(1.1);background:#00bcf1;}
+.le-playing .le-play{display:none;}
+.le-mute{position:absolute;bottom:10px;right:10px;width:32px;height:32px;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);border:none;border-radius:8px;z-index:5;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;padding:0;}
+.le-mute svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;}
+.le-playing .le-mute{opacity:1;}
+.le-lorde:hover .le-mute{opacity:1;}
+.le-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden;}
+.le-stat{background:#fff;padding:36px 20px;text-align:center;}
+.le-stat-num{font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px;}
+.le-stat-label{font-family:var(--font);font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em;}
+.le-desc{font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center;}
+.le-pills{display:flex;gap:8px;justify-content:center;margin-top:24px;flex-wrap:wrap;}
+.le-pill{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#999;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);padding:5px 13px;border-radius:100px;}
+.le-shows{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+.le-card{border-radius:12px;overflow:hidden;border:1px solid #e8e8e8;transition:all 0.35s ease;}
+.le-card:hover{border-color:rgba(0,188,241,0.3);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+.le-card-vid{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden;cursor:pointer;}
+.le-card-vid iframe,.le-card-vid img{position:absolute;top:0;left:0;width:100%;height:100%;border:none;object-fit:cover;}
+.le-card-vid img{z-index:1;transition:opacity 0.4s ease;}
+.le-card-vid.le-playing img{opacity:0;pointer-events:none;}
+.le-card-vid .le-play{width:40px;height:40px;}
+.le-card-vid .le-play::after{border-left-width:10px;border-top-width:6px;border-bottom-width:6px;margin-left:2px;}
+.le-card-vid .le-mute{bottom:6px;right:6px;width:28px;height:28px;}
+.le-card-vid .le-mute svg{width:14px;height:14px;}
+.le-card-info{padding:10px 14px;}
+.le-card-artist{font-size:0.9rem;font-weight:800;color:#111;margin:0 0 2px;transition:color 0.3s ease;}
+.le-card:hover .le-card-artist{color:#00bcf1;}
+.le-card-detail{font-size:0.8rem;color:#888;margin:0;line-height:1.45;}
+@media(max-width:768px){
+  .le-stats{grid-template-columns:repeat(2,1fr);}
+  .le-shows{grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto;margin-top:48px;}
+  .le-hero{flex-direction:column;gap:24px;}
+  .le-lorde{width:160px;}
+  .le-amphitheater{max-width:240px;}
+}
+</style>
+
+<section class="le-section">
+  <div class="contain">
+    <div class="le-hero reveal">
+      <div class="le-lorde" data-le-vimeo="1129595346" data-le-h="755f92d893">
+        <span class="le-lorde-tag">Lorde · Greek Theatre</span>
+        <img src="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640" alt="Lorde at Greek Theatre" loading="lazy"/>
+        <div class="le-play"></div>
+        <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+      </div>
+      <svg class="le-amphitheater" viewBox="0 0 240 170" preserveAspectRatio="xMidYMid meet">
+        <ellipse cx="120" cy="140" rx="50" ry="20" fill="none" stroke="rgba(0,188,241,0.06)" stroke-width="0.8"/>
+        <ellipse cx="120" cy="140" rx="80" ry="35" fill="none" stroke="rgba(0,188,241,0.06)" stroke-width="0.8"/>
+        <ellipse cx="120" cy="140" rx="110" ry="50" fill="none" stroke="rgba(0,188,241,0.06)" stroke-width="0.8"/>
+        <path d="M85,140 A35,35 0 0,1 155,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
+        <path d="M65,140 A55,55 0 0,1 175,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
+        <path d="M45,140 A75,75 0 0,1 195,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
+        <path d="M25,140 A95,95 0 0,1 215,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
+        <path d="M8,140 A112,112 0 0,1 232,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
+        <line x1="120" y1="140" x2="120" y2="30" stroke="rgba(0,188,241,0.03)" stroke-width="0.8"/>
+        <line x1="120" y1="140" x2="38" y2="68" stroke="rgba(0,188,241,0.03)" stroke-width="0.8"/>
+        <line x1="120" y1="140" x2="202" y2="68" stroke="rgba(0,188,241,0.03)" stroke-width="0.8"/>
+        <rect x="80" y="145" width="80" height="20" rx="4" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="1"/>
+        <text x="120" y="158" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,188,241,0.4)" letter-spacing="0.18em">STAGE</text>
+        <text x="48" y="100" text-anchor="middle" transform="rotate(-30, 48, 100)" font-family="Inter" font-size="5.5" font-weight="600" fill="rgba(0,0,0,0.08)" letter-spacing="0.06em">SEC A</text>
+        <text x="120" y="72" text-anchor="middle" font-family="Inter" font-size="5.5" font-weight="600" fill="rgba(0,0,0,0.08)" letter-spacing="0.06em">SEC B</text>
+        <text x="192" y="100" text-anchor="middle" transform="rotate(30, 192, 100)" font-family="Inter" font-size="5.5" font-weight="600" fill="rgba(0,0,0,0.08)" letter-spacing="0.06em">SEC C</text>
+        <g><circle cx="100" cy="118" r="8" fill="rgba(0,188,241,0.06)"/><circle cx="100" cy="118" r="4" fill="#00bcf1" opacity="0.7"/><circle cx="100" cy="118" r="4" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="4;14;4" dur="4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="120" cy="115" r="8" fill="rgba(0,188,241,0.06)"/><circle cx="120" cy="115" r="4" fill="#00bcf1" opacity="0.7"/><circle cx="120" cy="115" r="4" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="4;14;4" dur="4s" begin="0.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="0.5s" repeatCount="indefinite"/></circle><path d="M125,110 A7,7 0 0,1 125,120" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" repeatCount="indefinite"/></path><path d="M129,107 A11,11 0 0,1 129,123" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="0.4s" repeatCount="indefinite"/></path></g>
+        <g><circle cx="140" cy="118" r="8" fill="rgba(0,188,241,0.06)"/><circle cx="140" cy="118" r="4" fill="#00bcf1" opacity="0.7"/><circle cx="140" cy="118" r="4" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="4;14;4" dur="4s" begin="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="78" cy="109" r="7" fill="rgba(0,188,241,0.05)"/><circle cx="78" cy="109" r="3.5" fill="#00bcf1" opacity="0.6"/><circle cx="78" cy="109" r="3.5" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="3.5;12;3.5" dur="4s" begin="0.3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="0.3s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="108" cy="98" r="7" fill="rgba(0,188,241,0.05)"/><circle cx="108" cy="98" r="3.5" fill="#00bcf1" opacity="0.6"/><circle cx="108" cy="98" r="3.5" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="3.5;12;3.5" dur="4s" begin="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="0.8s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="142" cy="96" r="7" fill="rgba(0,188,241,0.05)"/><circle cx="142" cy="96" r="3.5" fill="#00bcf1" opacity="0.6"/><circle cx="142" cy="96" r="3.5" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="3.5;12;3.5" dur="4s" begin="1.3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="1.3s" repeatCount="indefinite"/></circle><path d="M147,91 A7,7 0 0,1 147,101" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="0.8s" repeatCount="indefinite"/></path><path d="M151,88 A11,11 0 0,1 151,104" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="1.2s" repeatCount="indefinite"/></path></g>
+        <g><circle cx="165" cy="106" r="7" fill="rgba(0,188,241,0.05)"/><circle cx="165" cy="106" r="3.5" fill="#00bcf1" opacity="0.6"/><circle cx="165" cy="106" r="3.5" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="3.5;12;3.5" dur="4s" begin="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="1.8s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="56" cy="102" r="6" fill="rgba(0,188,241,0.04)"/><circle cx="56" cy="102" r="3" fill="#00bcf1" opacity="0.5"/><circle cx="56" cy="102" r="3" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="3;10;3" dur="4s" begin="0.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="0.6s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="92" cy="82" r="6" fill="rgba(0,188,241,0.04)"/><circle cx="92" cy="82" r="3" fill="#00bcf1" opacity="0.5"/><circle cx="92" cy="82" r="3" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="3;10;3" dur="4s" begin="1.1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1.1s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="155" cy="80" r="6" fill="rgba(0,188,241,0.04)"/><circle cx="155" cy="80" r="3" fill="#00bcf1" opacity="0.5"/><circle cx="155" cy="80" r="3" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="3;10;3" dur="4s" begin="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1.6s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="186" cy="94" r="6" fill="rgba(0,188,241,0.04)"/><circle cx="186" cy="94" r="3" fill="#00bcf1" opacity="0.5"/><circle cx="186" cy="94" r="3" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="3;10;3" dur="4s" begin="2.1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="2.1s" repeatCount="indefinite"/></circle><path d="M191,89 A7,7 0 0,1 191,99" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="1.6s" repeatCount="indefinite"/></path></g>
+        <g><circle cx="38" cy="88" r="5" fill="rgba(0,188,241,0.03)"/><circle cx="38" cy="88" r="2.5" fill="#00bcf1" opacity="0.4"/><circle cx="38" cy="88" r="2.5" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="2.5;8;2.5" dur="4s" begin="0.9s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="0.9s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="120" cy="56" r="5" fill="rgba(0,188,241,0.03)"/><circle cx="120" cy="56" r="2.5" fill="#00bcf1" opacity="0.4"/><circle cx="120" cy="56" r="2.5" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="2.5;8;2.5" dur="4s" begin="1.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1.4s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="200" cy="83" r="5" fill="rgba(0,188,241,0.03)"/><circle cx="200" cy="83" r="2.5" fill="#00bcf1" opacity="0.4"/><circle cx="200" cy="83" r="2.5" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="2.5;8;2.5" dur="4s" begin="1.9s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1.9s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="18" cy="82" r="4" fill="rgba(0,188,241,0.02)"/><circle cx="18" cy="82" r="2" fill="#00bcf1" opacity="0.35"/><circle cx="18" cy="82" r="2" fill="none" stroke="#00bcf1" stroke-width="0.6" opacity="0"><animate attributeName="r" values="2;7;2" dur="4s" begin="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="1.2s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="74" cy="46" r="4" fill="rgba(0,188,241,0.02)"/><circle cx="74" cy="46" r="2" fill="#00bcf1" opacity="0.35"/><circle cx="74" cy="46" r="2" fill="none" stroke="#00bcf1" stroke-width="0.6" opacity="0"><animate attributeName="r" values="2;7;2" dur="4s" begin="1.7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="1.7s" repeatCount="indefinite"/></circle><path d="M79,41 A7,7 0 0,1 79,51" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="2s" repeatCount="indefinite"/></path><path d="M83,38 A11,11 0 0,1 83,54" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="2.4s" repeatCount="indefinite"/></path></g>
+        <g><circle cx="168" cy="44" r="4" fill="rgba(0,188,241,0.02)"/><circle cx="168" cy="44" r="2" fill="#00bcf1" opacity="0.35"/><circle cx="168" cy="44" r="2" fill="none" stroke="#00bcf1" stroke-width="0.6" opacity="0"><animate attributeName="r" values="2;7;2" dur="4s" begin="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="2.2s" repeatCount="indefinite"/></circle></g>
+        <g><circle cx="222" cy="76" r="4" fill="rgba(0,188,241,0.02)"/><circle cx="222" cy="76" r="2" fill="#00bcf1" opacity="0.35"/><circle cx="222" cy="76" r="2" fill="none" stroke="#00bcf1" stroke-width="0.6" opacity="0"><animate attributeName="r" values="2;7;2" dur="4s" begin="2.7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="2.7s" repeatCount="indefinite"/></circle></g>
+      </svg>
+    </div>
+    <div class="le-stats reveal">
+      <div class="le-stat"><div class="le-stat-num">1000s</div><div class="le-stat-label">of POVs</div></div>
+      <div class="le-stat"><div class="le-stat-num">Every</div><div class="le-stat-label">Angle</div></div>
+      <div class="le-stat"><div class="le-stat-num">0</div><div class="le-stat-label">Crews</div></div>
+      <div class="le-stat"><div class="le-stat-num">100%</div><div class="le-stat-label">Authentic</div></div>
+    </div>
+    <p class="le-desc reveal reveal-d1">From pit to nosebleeds, Cinebody captures thousands of authentic perspectives — simultaneously, on brand, zero production teams.</p>
+    <div class="le-pills reveal reveal-d1">
+      <span class="le-pill">Lorde</span>
+      <span class="le-pill">ODESZA</span>
+      <span class="le-pill">Slash</span>
+      <span class="le-pill">OneRepublic</span>
+    </div>
+    <div class="le-shows reveal reveal-d2">
+      <div class="le-card">
+        <div class="le-card-vid" data-le-vimeo="262743643">
+          <img src="https://i.vimeocdn.com/video/692092104-6fa3f069345627eee20cdde4d6b705d4f6136bc0b78baa6058ae331486cfb76d-d_640" alt="ODESZA" loading="lazy"/>
+          <div class="le-play"></div>
+          <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        </div>
+        <div class="le-card-info"><p class="le-card-artist">ODESZA</p><p class="le-card-detail">Fan-captured moments across the entire venue</p></div>
+      </div>
+      <div class="le-card">
+        <div class="le-card-vid" data-le-vimeo="353710547">
+          <img src="https://i.vimeocdn.com/video/805992773-c18e58d76ff6eefc410135eec21517cfe2d903a8a6176f64af3c79771a18c2c2-d_640" alt="Slash" loading="lazy"/>
+          <div class="le-play"></div>
+          <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        </div>
+        <div class="le-card-info"><p class="le-card-artist">Slash</p><p class="le-card-detail">Every angle, every riff — no crew required</p></div>
+      </div>
+      <div class="le-card">
+        <div class="le-card-vid" data-le-vimeo="407155650" data-le-h="b4ff6b0493">
+          <img src="https://vumbnail.com/407155650.jpg" alt="OneRepublic" loading="lazy"/>
+          <div class="le-play"></div>
+          <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        </div>
+        <div class="le-card-info"><p class="le-card-artist">OneRepublic</p><p class="le-card-detail">Thousands of perspectives, one platform</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var isMobile = window.innerWidth < 768;
+  var mutedSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+  var unmutedSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+  var activePlayer = null, activeMuteBtn = null;
+  function initVideo(container) {
+    var id = container.getAttribute('data-le-vimeo');
+    var h = container.getAttribute('data-le-h');
+    if (!id) return;
+    var playBtn = container.querySelector('.le-play');
+    var muteBtn = container.querySelector('.le-mute');
+    var player = null;
+    function loadAndPlay() {
+      if (container.classList.contains('le-playing')) return;
+      var src = 'https://player.vimeo.com/video/' + id + '?background=1';
+      if (h) src = 'https://player.vimeo.com/video/' + id + '?h=' + h + '&background=1';
+      var iframe = document.createElement('iframe');
+      iframe.src = src; iframe.allow = 'autoplay'; iframe.loading = 'lazy';
+      iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+      container.insertBefore(iframe, container.firstChild);
+      container.classList.add('le-playing');
+      player = new Vimeo.Player(iframe);
+      player.setVolume(0);
+    }
+    if (!isMobile) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) { loadAndPlay(); obs.unobserve(container); } });
+      }, { threshold: 0.15 });
+      obs.observe(container);
+    }
+    if (playBtn) { playBtn.addEventListener('click', function(e) { e.stopPropagation(); loadAndPlay(); }); }
+    container.addEventListener('click', function(e) { if (e.target.closest('.le-mute')) return; loadAndPlay(); });
+    if (muteBtn) {
+      muteBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); if (!player) return;
+        if (activeMuteBtn === muteBtn) { player.setVolume(0); muteBtn.innerHTML = mutedSvg; activePlayer = null; activeMuteBtn = null; }
+        else { if (activePlayer && activeMuteBtn) { activePlayer.setVolume(0); activeMuteBtn.innerHTML = mutedSvg; } player.setVolume(1); muteBtn.innerHTML = unmutedSvg; activePlayer = player; activeMuteBtn = muteBtn; }
+      });
+    }
+  }
+  document.querySelectorAll('[data-le-vimeo]').forEach(initVideo);
+})();
+</script>
+
+<!-- curve: white → yellow -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
 
 <!-- ═══ CTA ═══ -->
 <section class="cta-band" style="padding-top:40px">

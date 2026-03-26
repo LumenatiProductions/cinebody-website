@@ -23,8 +23,9 @@
   function loadVideo(container, videoId, hash) {
     if (container.classList.contains('playing')) return;
 
-    var src = 'https://player.vimeo.com/video/' + videoId + '?background=1';
-    if (hash) src = 'https://player.vimeo.com/video/' + videoId + '?h=' + hash + '&background=1';
+    var base = 'https://player.vimeo.com/video/' + videoId;
+    var params = hash ? '?h=' + hash + '&' : '?';
+    var src = base + params + 'autoplay=1&loop=1&muted=1&byline=0&title=0&portrait=0';
 
     var iframe = document.createElement('iframe');
     iframe.src = src;
