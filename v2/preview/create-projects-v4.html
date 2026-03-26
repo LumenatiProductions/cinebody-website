@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody — How to Create & Manage a Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY V4 — CREATE & MANAGE A PROJECT
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+/* ── CURVED SECTION DIVIDERS ── */
+.curve { display: block;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0;
+  margin-top: -2px; margin-bottom: -4px;
+}
+
+.curve svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+@media (max-width: 600px) {
+  .curve svg { height: 80px; }
+}
+
+/* ── CONTAINER ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── SECTION LABEL ── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── SIGNATURE BAR ── */
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+
+/* ═══════════════════════════
+   HERO
+   ═══════════════════════════ */
+.hero {
+  padding: 160px 0 120px;
+  position: relative;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #0a0a0a 0%, #041a24 100%);
+  text-align: center;
+}
+
+
+.hero .contain { position: relative; z-index: 2; }
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero .subtitle {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--text-dim);
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════
+   VIDEO + CHAPTERS — WHITE SECTION
+   ═══════════════════════════ */
+.content-section {
+  padding: 100px 0 120px;
+  background: #fff;
+  position: relative;
+}
+
+/* Video Placeholder */
+.vid-placeholder {
+  max-width: 800px;
+  margin: 0 auto 72px;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+}
+
+.vid-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0,188,241,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.vid-play-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.vid-play-icon svg {
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  margin-left: 3px;
+}
+
+.vid-placeholder-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  position: relative;
+  z-index: 1;
+}
+
+/* Chapter Cards */
+.chapters-heading {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+  text-align: center;
+  margin-top: 56px;
+  margin-bottom: 40px;
+}
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.chapter-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  padding: 36px 28px 32px;
+  position: relative;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.chapter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.chapter-num {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(0,188,241,0.08);
+  border: 2px solid rgba(0,188,241,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+.chapter-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.chapter-card p {
+  font-size: 0.88rem;
+  color: rgba(0,0,0,0.55);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════
+   NEXT STEPS
+   ═══════════════════════════ */
+.next-steps {
+  max-width: 960px;
+  margin: 72px auto 0;
+  padding-top: 56px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.next-steps h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.next-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+}
+
+.next-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--teal);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.3s var(--ease), opacity 0.2s ease;
+}
+
+.next-link:hover {
+  gap: 10px;
+  opacity: 0.8;
+}
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══════════════════════════
+   RESPONSIVE
+   ═══════════════════════════ */
+@media (max-width: 1000px) {
+  .tutorial-split { grid-template-columns: 1fr; gap: 40px; }
+  .tutorial-vid .vid-playable { position: static !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 100px 0 80px; }
+  .hero h1 { font-size: 2.25rem; }
+  .content-section { padding: 60px 0 80px; }
+  .next-links { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+</style>
+<link rel="stylesheet" href="vid-player.css">
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="label reveal">Knowledge Base</div>
+    <h1 class="reveal reveal-d1">Create & manage <em>a project.</em></h1>
+    <p class="subtitle reveal reveal-d2">Watch the Cinebody Onboarding Demo to learn how to set up your account, create a project, and manage&nbsp;it.</p>
+  </div>
+</section>
+
+<!-- curve: dark hero → white content -->
+<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ VIDEO + CHAPTERS ═══ -->
+<section class="content-section">
+  <div class="contain">
+
+    <div class="vid-playable vid-playable--h reveal" data-vimeo="727902342" data-vimeo-h="d3a6f812ef" id="onboarding-video" style="border-radius:16px;border:1px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,0.08);overflow:hidden;max-width:720px;margin:0 auto">
+      <img class="vid-poster" src="https://i.vimeocdn.com/video/2068314136-5ac8ce121f062ff484f940d6cf25383bb4791ae39261837980eae81d7ac9127b-d_640" alt="Cinebody Onboarding Demo">
+    </div>
+
+    <h2 class="chapters-heading reveal">What you'll learn</h2>
+    <div class="chapter-grid">
+      <div class="chapter-card reveal reveal-d1">
+        <div class="chapter-num">01</div>
+        <h3>Account Backend</h3>
+        <p>Learn how to configure your organization settings, manage team members, and set&nbsp;permissions.</p>
+      </div>
+      <div class="chapter-card reveal reveal-d2">
+        <div class="chapter-num">02</div>
+        <h3>Creating a Project</h3>
+        <p>Set up a new project with shot lists, creative direction, and filmer&nbsp;invitations.</p>
+      </div>
+      <div class="chapter-card reveal reveal-d3">
+        <div class="chapter-num">03</div>
+        <h3>Managing a Project</h3>
+        <p>Monitor incoming footage, review clips, and manage your content&nbsp;pipeline.</p>
+      </div>
+    </div>
+
+    <div class="next-steps reveal">
+      <h3>Need more help?</h3>
+      <div class="next-links">
+        <a href="/knowledge-base" class="next-link">Visit the Knowledge Base &rarr;</a>
+        <a href="mailto:support@cinebody.com" class="next-link">Email support &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- curve: white content → dark footer -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="sig-bar" style="margin-bottom:0"></div>
+  <div class="contain" style="padding-top:56px">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody"/><p>The video capture platform that turns your community into your content team.</p></div>
+      <div class="footer-col"><h4>Product</h4><a href="/software">Software</a><a href="/services">Creative Services</a><a href="/pricing">Pricing</a><a href="/pointme">Case Studies</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/cinebody-blog">Blog</a><a href="/knowledge-base">Knowledge Base</a><a href="/patents">Patents</a><a href="https://pro.cinebody.com/login">Login</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-service">Terms of Service</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 Super 6 LLC d/b/a Cinebody.</span><span>Denver, CO</span></div>
+  </div>
+</footer>
+
+<script>
+// Reveal
+(function(){
+  var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="vid-player.js"></script>
+</body>
+</html>

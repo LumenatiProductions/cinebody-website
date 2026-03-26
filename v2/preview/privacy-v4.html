@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody — Privacy Policy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY V4 — PRIVACY POLICY PAGE
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+/* ── CURVED SECTION DIVIDERS ── */
+.curve { display: block;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0;
+  margin-top: -2px; margin-bottom: -4px;
+}
+
+.curve svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+@media (max-width: 600px) {
+  .curve svg { height: 80px; }
+}
+
+/* ── CONTAINER ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── SECTION LABEL ── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── SIGNATURE BAR ── */
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+
+/* ═══════════════════════════
+   HERO — SHORT / CENTERED
+   ═══════════════════════════ */
+.hero {
+  padding: 140px 0 80px;
+  position: relative;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #0a0a0a 0%, #041a24 100%);
+  text-align: center;
+}
+
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 20px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-size: 1rem; color: var(--text-dim); font-family: var(--mono); font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════
+   POLICY CONTENT — WHITE BG
+   ═══════════════════════════ */
+.policy-content {
+  background: #fff;
+  padding: 80px 0 100px;
+  position: relative;
+}
+
+.policy-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+/* ── TABLE OF CONTENTS ── */
+.toc {
+  background: #f6f8fa;
+  border: 1px solid #e8ecf0;
+  border-radius: 12px;
+  padding: 32px 36px;
+  margin-bottom: 56px;
+}
+
+.toc-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+  padding: 0;
+  margin: 0;
+}
+
+.toc ol li {
+  counter-increment: toc;
+  margin-bottom: 8px;
+}
+
+.toc ol li a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  padding: 6px 0;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+
+.toc ol li a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--teal);
+  min-width: 24px;
+}
+
+.toc ol li a:hover {
+  color: #00bcf1;
+}
+
+/* ── INTRO TEXT ── */
+.policy-intro {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.75;
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid #e8ecf0;
+}
+
+.policy-intro p { margin-bottom: 16px; }
+.policy-intro p:last-child { margin-bottom: 0; }
+
+.policy-intro ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.policy-intro ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: #555;
+}
+
+.policy-intro ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.policy-intro .definition {
+  font-style: italic;
+  color: #666;
+  font-size: 14px;
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: #f6f8fa;
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+}
+
+/* ── POLICY SECTIONS ── */
+.policy-section {
+  padding: 48px 0;
+  border-bottom: 1px solid #e8ecf0;
+}
+
+.policy-section:last-child {
+  border-bottom: none;
+}
+
+.policy-section:nth-child(even) {
+  background: #fafafa;
+  margin-left: calc(-1 * clamp(1.25rem, 4vw, 3rem));
+  margin-right: calc(-1 * clamp(1.25rem, 4vw, 3rem));
+  padding-left: clamp(1.25rem, 4vw, 3rem);
+  padding-right: clamp(1.25rem, 4vw, 3rem);
+  border-radius: 12px;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--teal);
+  min-width: 28px;
+}
+
+.section-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.section-summary {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: rgba(0,188,241,0.04);
+  border-left: 3px solid rgba(0,188,241,0.3);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+.section-body {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.75;
+}
+
+.section-body p {
+  margin-bottom: 20px;
+}
+
+.section-body p:last-child {
+  margin-bottom: 0;
+}
+
+.section-body h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111;
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.section-body a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.section-body a:hover {
+  color: var(--pink);
+}
+
+.section-body .caps-note {
+  font-size: 14px;
+  line-height: 1.7;
+  background: #f6f8fa;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-top: 16px;
+  color: #555;
+}
+
+/* ── CONTACT BLOCK ── */
+.contact-block {
+  background: #f6f8fa;
+  border: 1px solid #e8ecf0;
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-top: 16px;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.8;
+}
+
+.contact-block strong {
+  display: block;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══════════════════════════
+   RESPONSIVE
+   ═══════════════════════════ */
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 120px 0 60px; }
+  .policy-content { padding: 60px 0 80px; }
+  .toc { padding: 24px 28px; }
+  .section-header h2 { font-size: 20px; }
+  .policy-section:nth-child(even) {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 100px 0 48px; }
+  .hero h1 { font-size: 2.25rem; }
+  .toc { padding: 20px 20px; }
+  .toc ol li a { font-size: 14px; }
+  .section-header { flex-direction: column; gap: 4px; }
+  .section-header h2 { font-size: 19px; }
+  .section-body { font-size: 15px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="hero-eyebrow reveal">Legal</div>
+    <h1 class="reveal reveal-d1">Privacy <em>Policy</em></h1>
+    <p class="hero-sub reveal reveal-d2">Last updated April 2025</p>
+  </div>
+</section>
+
+<!-- curve: dark → white -->
+<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffffff"/></svg></div>
+
+<!-- ═══ POLICY CONTENT ═══ -->
+<section class="policy-content">
+  <div class="policy-inner">
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc reveal">
+      <div class="toc-title">Table of Contents</div>
+      <ol>
+        <li><a href="#section-1">Information We Collect</a></li>
+        <li><a href="#section-2">Our Uses of Information</a></li>
+        <li><a href="#section-3">Sharing and Disclosure of Information</a></li>
+        <li><a href="#section-4">Choices</a></li>
+        <li><a href="#section-5">Children's Privacy</a></li>
+        <li><a href="#section-6">International Users</a></li>
+        <li><a href="#section-7">Third Party Links and Platforms</a></li>
+        <li><a href="#section-8">How We Protect Your Personal Information</a></li>
+        <li><a href="#section-9">Contact Info</a></li>
+      </ol>
+    </div>
+
+    <!-- INTRO -->
+    <div class="policy-intro reveal">
+      <p>This document outlines the information that Super 6 LLC d/b/a Cinebody ("Cinebody", "we", or "us") collects from you, or if you represent an entity or other organization, that entity or organization (in either case, "you," or "your") and what we do with it. By using any Cinebody websites (including Cinebody.com and the customer portal) or accessing or using any Cinebody products, software licenses or services (collectively, the "Service"), including when you access the Service through mobile devices, you agree to this Privacy Policy. IF YOU DO NOT AGREE TO THIS POLICY, PLEASE DO NOT ACCESS OR USE ANY SERVICES.</p>
+
+      <p>Cinebody reserves the right, at any time, to modify this Privacy Policy. If we make revisions that change the way we collect, use, or share personal information, we will post those changes in this Privacy Policy. You should review this Privacy Policy periodically so that you keep up to date on our most current policies and practices. We will note the effective date of the latest version of our Privacy Policy at the end of this Privacy Policy. Your continued use of the Services following posting of changes constitutes your acceptance of such changes.</p>
+
+      <p>This Privacy Policy informs you about:</p>
+
+      <ul>
+        <li>the personal information we collect and how we collect it;</li>
+        <li>how we use and disclose the personal information;</li>
+        <li>how we protect your personal information;</li>
+        <li>our practices regarding the information of children;</li>
+        <li>third party data practices;</li>
+        <li>your choices about the personal information we store about you; and</li>
+        <li>how you can contact us with any questions or concerns.</li>
+      </ul>
+
+      <div class="definition">"personal information" means information that identifies, relates to, describes, is capable of being associated with, or could reasonably be linked to, directly or indirectly, a particular consumer or household.</div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="policy-section reveal" id="section-1">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Information We Collect</h2>
+      </div>
+      <div class="section-summary">We collect various types of personal information to deliver and improve our services, from contact details and payment info to video content and browsing data.</div>
+      <div class="section-body">
+        <p>We collect some or all of the following personal information about you:</p>
+
+        <h3>Contact Information</h3>
+        <p>Full name, email address, phone number, home address, mobile phone number and shipping address. Our mobile app may request access to your photos, videos, Wi-Fi network name and product serial number.</p>
+
+        <h3>Social Media Information</h3>
+        <p>Such as your Facebook Connect credentials (and information that you authorize Facebook to share with us). If you authorize Facebook Connect, the plug-in allows us access to your friends' contact information.</p>
+
+        <h3>Financial Information</h3>
+        <p>If you are paying for Cinebody products or service and submit a payment form we or our third party partners may collect your payment card information and billing information. Note that Cinebody uses a third-party service provider for the processing of credit card payments (although we may agree to submit your credit card information to the provider on your behalf, upon your request). The identity of the provider will be made known to you during the payment process, and we strongly encourage you to read and understand that provider's privacy practices.</p>
+
+        <h3>Other User Information</h3>
+        <p>Such as your login ID and password. You also have the option to upload your head shot and other information about you if you so choose.</p>
+
+        <h3>Demographic Information</h3>
+        <p>Demographic information including gender, zip code and age.</p>
+
+        <h3>Video Content and other User Generated Content</h3>
+        <p>Video clips that you or your project teammates transmit through the Service in connection with promoting a brand, which might capture a person's name and likeness or a company's logos. We collect all content contained in any video, comment or other submission that you or your team upload or post through the Service.</p>
+
+        <h3>Browsing Information</h3>
+        <p>Browsing history, search history, aggregate user data, preferences, information on your interaction with a website, application, or advertisement.</p>
+
+        <h3>Device and Technical Information</h3>
+        <p>Such information may include IP address, profile information, technical session information, browser type, information about your computer, hardware, software, or mobile device, including a device identifier, device battery and storage information navigational data including log files, server logs, clickstream data, and other data such as your location, where enabled, and language preference. User IP addresses are recorded for security and monitoring purposes. If you arrived at our website via a link from another webpage, we may receive aggregate or otherwise anonymous statistical information about your visit to our site. We also may collect certain geo-location information.</p>
+
+        <h3>Cookies</h3>
+        <p>Cinebody uses cookies to store website visitors' preferences and to record session information, such as pages visited, interactions with website features, time spent on the website, shopping cart items, language preference, intended shipping region, and purchase behavior. We do not link the information we store in cookies to any personal information you submit to us.</p>
+
+        <h3>Web Beacons</h3>
+        <p>Web Beacons are tiny graphics with a unique identifier, similar in function to cookies, and are used to track the online movements of Web users. In contrast to cookies, which are stored on a user's computer hard drive, clear gifs are embedded invisibly on Web pages and are about the size of the period at the end of this sentence. We do not tie the information gathered by clear gifs to our customers' personal information. One or more of our third party advertising partners employ a software technology called web beacons, that help us better manage content on our site by informing us what content is effective.</p>
+
+        <h3>Ad Servers, Third Party Advertising and Website Analytics</h3>
+        <p>We may work with website analytics and advertising partners, such as Google or Doubleclick, to deliver Cinebody advertisements on third party publisher websites, and these partners may set cookies on your computer's web browser. These cookies allow our partners to recognize your computer so that the ad server can show you Cinebody advertisements elsewhere on the Internet, and so that our analytics software can measure your engagement and interactions while using Cinebody.com. In this way, ad servers may compile anonymous, non-personal information about where you, or others who are using your computer, saw our advertisements, whether or not you interacted with our advertisements, and actions performed on subsequent visits to Cinebody.com. This information allows an ad network to deliver targeted advertisements that they believe will be of most interest to you, and it allows Cinebody to optimize the performance of our advertising campaigns and the usability of our website. In other words, we use analytics data in concert with data about our online ads. By doing so, we can understand how anonymous users interacted with our website after seeing our ads. For more information about these advertising services and how to opt out, please see the "Choice" section below.</p>
+
+        <h3>Mobile Software Applications</h3>
+        <p>When you use a Cinebody mobile application we may automatically receive certain information about your mobile device and use of the application, including a device identifier, operating system, version and other information about your mobile device as well as time spent in different portions of the Cinebody mobile application. We monitor customer software usage to help us develop the design and layout of the mobile application and to improve the content to better match the interests of our users. We may also collect different types of information about your location, including general information (e.g., IP address, zip code) and more specific information (e.g., GPS-based functionality on mobile devices used to access the Service), and may use that information to customize the Service. If you access the Service through a mobile device and you do not want your device to provide us with location-tracking information, you can disable the GPS or other location-tracking functions on your device, provided your device allows you to do this. See your device manufacturer's instructions for further details.</p>
+
+        <h3>Information from Other Sources</h3>
+        <p>Cinebody may receive information about you from third parties, such as commerce partners, marketers, social network services and other parties that we may use to supplement the information that we collect directly from you. Cinebody may allow third parties to collect non-personal information by way of cookies, web beacons from the site, although Cinebody does not enable third parties to collect any personal information directly from the Service for their own promotional purposes. This Privacy Policy covers the use of cookies by Cinebody and relevant ad serving, website feature, and analytics partners, and does not cover the use of cookies by 3rd party advertisers. We may also use flash cookies, also known as "local shared objects," on our site. Flash cookies operate differently than browser cookies and cannot be removed or blocked via web browser settings.</p>
+
+        <h3>Other Ways</h3>
+        <p>Finally, we may collect additional information from or about you in other ways not specifically described herein. For example, we may collect information related to your contact with our customer support team or store results when you respond to a survey. If you submit a resume or other document to us, we will collect that. We want to provide a safe and secure user experience, so therefore, before permitting you to use our Service, we may require additional information from you in order to verify your identity or manage risk and compliance throughout our relationship. We may also obtain information about you from third parties for purposes of identity verification and fraud prevention.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="policy-section reveal" id="section-2">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Our Uses of Information</h2>
+      </div>
+      <div class="section-summary">We use collected information to operate and improve our services, optimize advertising, fulfill orders, and enhance the overall customer experience.</div>
+      <div class="section-body">
+        <p>We may use your personal information: to operate and improve our site and Services; to confirm that you are an actual person and not a bot; to facilitate the creation of and secure your account on our network and identify you as a user in our system; to respond to any questions or concerns that you may have; to send you marketing, promotional communications, upgrades and special offers related to our services and for other marketing purposes of ours or our third party companies; for market research, analytical purposes, project planning, and product development; to better understand your needs and provide you with more personalized Services; and to fulfill other legitimate purposes permitted by applicable law.</p>
+
+        <p>Cinebody may use personal information to improve performance of our Service, to understand how users interact with our website after seeing Cinebody advertisements, to identify and retarget advertisements to past website visitors, and to optimize the performance of our advertising campaigns. Cinebody may use personal information to enable the purchase and fulfillment of Cinebody products and services, and to improve the overall Cinebody customer and product experience. Cinebody may also use personal information in providing the Service, including but not limited to newsletters, special offers, and service announcements.</p>
+
+        <p>We may use your personal information for purposes including the provision and improvement of our products and services, troubleshooting bugs, tracking usage and providing content for referring traffic sources. We monitor customer traffic patterns and site usage to help us develop the design and layout of the site, to improve the content of our website to better match the interests of our website users; and to help protect against fraud. We use cookies and other technological information for various purposes such as ensuring that visitors are not repeatedly offered the same advertisements, to tailor website content and newsletter communications according to visitor preferences, to serve online advertisements based on past visits to the website, and to inform and optimize website performance and online advertising campaigns.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="policy-section reveal" id="section-3">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Sharing and Disclosure of Information</h2>
+      </div>
+      <div class="section-summary">We share your information with collaborators, service providers, and partners as needed to deliver our services, and may disclose it in connection with legal obligations or business transactions.</div>
+      <div class="section-body">
+        <p>Cinebody shares your personal information in the following ways, and we may also share it in other ways upon your consent where such consent is required.</p>
+
+        <h3>User Database</h3>
+        <p>We maintain a user database that allows users to find each other for purposes of collaborating together on marketing campaigns and we may share your information with other users in that database. We limit the amount of personal information searchable on the user database to that information that is reasonably needed for users to invite and communicate with one another. Also note that users may invite unregistered users to register for the Service and collaborate on a project via email, in which case your email may appear in the directory with "pending" status.</p>
+
+        <h3>User-Generated Content</h3>
+        <p>You are solely responsible for ensuring that your video uploads and other user-generated content are lawful and appropriate for the Service, particularly insofar as they capture the name and likeness of natural persons or capture company logos. We may share such information with our partners and clients. Such content is unencrypted public information that may be accessed and stored by us, and there should be no expectation of privacy or confidentiality in such content. This content can be viewed, downloaded and used by other users depending on the privacy settings applicable to your account. If you submit your content to us, we may publish it on the Cinebody website or applications along with certain personal information identifying you, e.g., your first and last name or your username, when we have your consent. For more information relating to the terms governing your user generated content, please see our Terms of Service.</p>
+
+        <h3>Customer Testimonials</h3>
+        <p>At times, we may share customer testimonials on our website which may contain personal information. We will obtain your consent via email and/or opt-in methods prior to posting your name, city, or stated activity/interest along with any testimonial.</p>
+
+        <h3>Third-Party Service Providers</h3>
+        <p>We may use third-party service providers to offer or facilitate services on our behalf, such as a credit card processing company to bill you for product purchases, and an email service provider to send out emails on our behalf. When you order any products or services from Cinebody, we will share your personal information as necessary for our third-party service providers to provide the applicable product or service to you on our behalf.</p>
+
+        <h3>Business Transactions</h3>
+        <p>Information that we collect, including your personal information and non-personal information, is considered a business asset. As a result, if we go out of business, enter bankruptcy, or if we are acquired as a result of a transaction such as a merger, acquisition or sale of some or all of our assets, your information may be disclosed or transferred to a third party acquirer in connection with the transaction.</p>
+
+        <h3>Legal Compliance</h3>
+        <p>We reserve the right to access and disclose your personal information when we believe in good faith that such disclosure is necessary to: (a) enforce legal rights and comply with the law; (b) comply with an order from a government entity or other competent authority, (c) prevent or address potential or actual injury or interference with our rights, property, operations, users or others who may be harmed or may suffer loss or damage; (d) protect our rights, prevent fraud and/or comply with judicial proceeding, court order, or legal process served on Cinebody.</p>
+
+        <h3>Partner or Client Offerings</h3>
+        <p>We may promote events, promotions, or any other product or service offerings of our third party partners or our clients. Unless expressly stated otherwise, we are not responsible for any distribution or fulfillment of any promotions, and you should look to our third party partners for all questions regarding such promotions. The personal information (including any video or other user generated content) that you submit through an event, promotion, or other product or service offering may be combined and transmitted with your account information. Third party partners or clients may collection information directly from you, which may be combined with personal information disclosed by us. If you decide to request, enter into, or participate in an event, promotion, or other product or service offering that is offered by us and identified as a joint effort with a third-party partner or client, the information that you provide may be shared with us and with that identified third party.</p>
+
+        <h3>Social Networking</h3>
+        <p>The Services may offer you the ability to share your personal information through a social networking website (e.g., Facebook), using such site's integrated tools (e.g., Facebook "Like" button). The use of such integrated tools enables you to share personal information about yourself with other individuals or the public, depending on the settings that you have established with such social networking site. For more information about the purpose and scope of data collection and use in connection with such social networking site or a site's integrated tools, please visit the privacy policies of the entities that provide these social networking sites.</p>
+
+        <h3>Non-Personal Information</h3>
+        <p>Cinebody may de-identify information collected by the Service or via other means so that the information does not identify you. Our use and disclosure of aggregated, anonymized, and other non-personal information is not subject to any restrictions under this Privacy Policy, and we may use and disclose it to others without limitation for any purpose.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="policy-section reveal" id="section-4">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2>Choices</h2>
+      </div>
+      <div class="section-summary">You can update your personal information, opt out of promotional communications, and request deletion of your data through the channels described below.</div>
+      <div class="section-body">
+        <p>We rely on you to update and correct the personal information contained in your account. Note that we may keep historical information in our backup files as permitted by law. If our Services do not permit you to update or correct certain personal information, please contact us as described below.</p>
+
+        <p>We provide you the opportunity to "opt-out" of having your personal information used for promotional purposes, when we ask for this information. The option to opt-out of our newsletters and related email promotions is included at the bottom of the applicable communication. To opt out of any other data collection practices set forth in this Privacy Policy, please contact <a href="mailto:info@cinebody.com">info@cinebody.com</a>. If you decide not to receive promotional e-mails, we may still send you service-related communications, such as those about your account, to fulfill orders for products and service you have requested, or deliver notifications directly to you through the Service.</p>
+
+        <p>Some web browsers and devices permit you to broadcast a preference that you not be "tracked" online. At this time we do not modify your experience based upon whether such a signal is broadcast.</p>
+
+        <h3>Behavioral-Based Advertising</h3>
+        <p>We participate in behavioral-based advertising. This means that a third party may use technology (e.g., a cookie) to collect information about your use of our Services so that we can provide advertising about products and services tailored to your interest. That advertising may appear either on our Services, or on other websites. If you wish to limit third parties' collection of information about your use of our Services, you can opt-out of such at the Digital Advertising Alliance in the US, the Digital Advertising Alliance of Canada in Canada, or the European Digital Advertising Alliance in Europe.</p>
+
+        <div class="caps-note">PLEASE NOTE THAT OPTING OUT OF BEHAVIORAL ADVERTISING DOES NOT MEAN THAT YOU WILL NOT RECEIVE ADVERTISING WHILE USING THE PLATFORM. IT WILL, HOWEVER, EXCLUDE YOU FROM INTEREST-BASED ADVERTISING CONDUCTED THROUGH PARTICIPATING NETWORKS, AS PROVIDED BY THEIR POLICIES AND CHOICE MECHANISMS.</div>
+
+        <h3>Right to Be Forgotten</h3>
+        <p>Typically, we retain your personal information for the period necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. You may, however, request that we delete your personal information by contacting us at <a href="mailto:info@cinebody.com">info@cinebody.com</a> or by contacting support in the user's profile. We will grant a request to delete information as required by law, but you should note that in many situations we must keep your personal information to comply with our legal obligations, resolve disputes, enforce our agreements, or for another one of our business purposes. Except as provided above, we will delete, aggregate, or de-identify all of your personal information as described in this subsection within the timeframes required by law.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="policy-section reveal" id="section-5">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2>Children's Privacy</h2>
+      </div>
+      <div class="section-summary">Our services are not intended for children under 13, and we do not knowingly collect their personal information.</div>
+      <div class="section-body">
+        <p>Cinebody's Service are intended for general audiences and not for children under the age of 13. We do not knowingly collect personal information from children under the age of 13 and if we become aware of such collection, we will take reasonable steps to delete any such information as soon as practicable.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="policy-section reveal" id="section-6">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2>International Users</h2>
+      </div>
+      <div class="section-summary">Cinebody operates primarily in the United States, and your data may be transferred to and processed in the US and other countries.</div>
+      <div class="section-body">
+        <p>Cinebody operates primarily in the United States and, as a result, the information we collect may be stored in the United States. Your personal information may be transferred to, used, processed or held by Cinebody in the United States and in other countries, including countries outside of your country of residence, and used for the purposes set out in this Privacy Policy.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="policy-section reveal" id="section-7">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2>Third Party Links and Platforms</h2>
+      </div>
+      <div class="section-summary">Our service may contain links to third-party websites and platforms whose privacy practices are beyond our control.</div>
+      <div class="section-body">
+        <p>Cinebody's Service may contain links to or features from other websites. This Privacy Policy covers the privacy practices by Cinebody, and does not cover the privacy practices of third party websites or features. Cinebody is not responsible for the privacy policies and/or practices of third parties. When linking to another Site or using a third party service, you should read the privacy policy on that site or service.</p>
+
+        <p>If you connect to a third party network, platform, or service through the Service, you are authorizing us to collect, store, and use in accordance with this Privacy Policy any and all information that you agreed the social network or other third party platform could provide to Cinebody based on your settings on the third party social network or platform. Your agreement takes place when you connect with the third party network, platform, or service via our Service, and/or when you connect with one of our applications through one of these services.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="policy-section reveal" id="section-8">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2>How We Protect Your Personal Information</h2>
+      </div>
+      <div class="section-summary">We implement reasonable administrative, technical, and physical safeguards to protect your data, though no security system is completely impenetrable.</div>
+      <div class="section-body">
+        <p>The security of your Personal Information is important to us. We have implemented reasonable administrative, technical, and physical security measures designed to protect against the unauthorized access, destruction or alteration of your information. Despite such efforts, however, please understand that no security measures are completely impenetrable. Have a security concern? Email <a href="mailto:Travis@cinebody.com">Travis@cinebody.com</a> and we'll address it as soon as possible.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="policy-section reveal" id="section-9">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2>Contact Info</h2>
+      </div>
+      <div class="section-summary">For any questions about this Privacy Policy, reach out to our privacy compliance team at the address below.</div>
+      <div class="section-body">
+        <div class="contact-block">
+          <strong>Cinebody</strong>
+          Attn: Privacy Compliance<br>
+          3839 Jackson St.<br>
+          Denver, CO 80205 USA<br><br>
+          <a href="mailto:info@cinebody.com">info@cinebody.com</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- curve: white → dark -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="sig-bar" style="margin-bottom:0"></div>
+  <div class="contain" style="padding-top:56px">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody"/><p>The video capture platform that turns your community into your content team.</p></div>
+      <div class="footer-col"><h4>Product</h4><a href="/software">Software</a><a href="/services">Creative Services</a><a href="/pricing">Pricing</a><a href="/pointme">Case Studies</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/cinebody-blog">Blog</a><a href="/knowledge-base">Knowledge Base</a><a href="/patents">Patents</a><a href="https://pro.cinebody.com/login">Login</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-service">Terms of Service</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 Super 6 LLC d/b/a Cinebody.</span><span>Denver, CO</span></div>
+  </div>
+</footer>
+
+<script>
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+// Reveal on scroll
+(function(){
+  var o = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('vis');
+        o.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
+})();
+
+// Smooth scroll for TOC links
+document.querySelectorAll('.toc a').forEach(function(link){
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    var target = document.querySelector(this.getAttribute('href'));
+    if(target){
+      var offset = 40;
+      var y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>

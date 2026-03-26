@@ -34,33 +34,30 @@
 - **Stats:** Recount on hover, gradient shimmer
 - **Labels:** Inter (NOT JetBrains Mono — Scott didn't like the monospace)
 
-## What Needs Work
+## What's Been Fixed (latest pass)
 
-### Software Page (`v2/preview/software-v4.html`)
-- Hero needs to match homepage exactly (same 3x3 wall, same sizing)
-- How It Works should be on LIGHT background (original site was mostly white)
-- Cross-sell card needs dark bg on light section (currently broken)
-- Pricing table: use the ORIGINAL `cb-pricing__` CSS from `blocks/stats-bar.html` or the code Scott pasted — it's proven and works
-- Missing: Georgia-Pacific case study teaser with ecosystem SVG
-- Section rhythm should match original cinebody.com/software
+### Software Page (`v2/preview/software-v4.html`) — DONE
+- Hero wall CSS fixed (grid-auto-rows: 1fr for uniform squares)
+- Cross-sell card centered (margin: 0 auto)
+- Added GP case study teaser with ecosystem tree SVG accent between pricing & FAQ
+- Removed dead legacy pricing toggle code + unused legacy pricing CSS
+- Section rhythm: dark hero → white How It Works → white cross-sell → white pricing → dark GP teaser → dark FAQ
 
-### Services Page (`v2/preview/services-v4.html`)
-- Headline updated: "Your content team, without the headcount."
-- Category headers added (Social, CTV, Events, Employee)
-- Hero needs same 3x3 wall as homepage
-- Text clipping on italic gradient headline — fixed to use solid teal color instead
-- 7 brand showcases present but need to match homepage visual quality
+### Services Page (`v2/preview/services-v4.html`) — DONE
+- Hero wall CSS fixed (grid-auto-rows: 1fr)
+- Headline, category headers, 7 brand showcases, proper dark/light alternation all good
 
-### Pricing Page
-- Agent timed out. Needs to be built.
-- Use the original pricing table CSS (Scott pasted the full code)
-- Add a compare section (Services vs Software) above the pricing cards
+### Pricing Page (`v2/preview/pricing-v4.html`) — BUILT NEW
+- Dark hero (centered text, aurora glows, no video wall)
+- White compare section (Services vs Software cards with images)
+- Original cb-pricing__ pricing table with annual/monthly toggle
+- Dark FAQ with pricing-specific questions
+- Full footer with sig bar
 
-### Case Study Pages (4 files in v2/preview/)
-- RC, Point.me, Nike, GP — all built but are walls of black
-- Need to match homepage rhythm (dark/light alternating)
-- MUST keep the distinctive SVG graphics (globe, ship, map, ecosystem tree, amphitheater)
-- These SVGs exist in the original blocks at `blocks/case-study-*.html` and `blocks/case-studies/`
+### Case Study Pages — RHYTHM FIXED
+- All 4 (RC, Point.me, Nike, GP) now have white stats section after dark hero
+- Pattern: dark hero → curve → white stats → curve → dark content → yellow CTA → dark footer
+- SVG graphics preserved (tabs, tree structure, map, carousel)
 
 ## Critical Rules
 1. **homepage-v4.html IS the design system** — copy its exact CSS
@@ -76,12 +73,13 @@
 v2/
 ├── preview/
 │   ├── homepage-v4.html    ← APPROVED TEMPLATE
-│   ├── software-v4.html    ← WIP, needs fixes
-│   ├── services-v4.html    ← WIP, has category headers
-│   ├── cs-rc-v4.html       ← needs rhythm fixes
-│   ├── cs-pointme-v4.html  ← needs rhythm fixes
-│   ├── cs-nike-v4.html     ← needs rhythm fixes
-│   └── cs-gp-v4.html       ← needs rhythm fixes
+│   ├── software-v4.html    ← FIXED
+│   ├── services-v4.html    ← FIXED
+│   ├── pricing-v4.html     ← NEW
+│   ├── cs-rc-v4.html       ← FIXED
+│   ├── cs-pointme-v4.html  ← FIXED
+│   ├── cs-nike-v4.html     ← FIXED
+│   └── cs-gp-v4.html       ← FIXED
 ├── design-system.css        ← older, homepage-v4 is newer
 ├── shared.js                ← older, homepage-v4 has inline JS
 └── (block directories from earlier attempts — ignore)

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinebody — Terms of Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY V4 — TERMS OF SERVICE
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+body > * { position: relative; z-index: 1; }
+
+/* ── CURVED SECTION DIVIDERS ── */
+.curve { display: block;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0;
+  margin-top: -2px; margin-bottom: -4px;
+}
+
+.curve svg {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+.curve--flip svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 600px) {
+  .curve svg { height: 80px; }
+}
+
+/* ── CONTAINER ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── SECTION LABEL ── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── SIGNATURE BAR ── */
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+
+/* ═══════════════════════════
+   HERO — short, centered
+   ═══════════════════════════ */
+.hero { padding: 160px 0 100px; position: relative; text-align: center; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-body {
+  font-size: 1.1rem; line-height: 1.7; color: var(--text-dim); max-width: 560px; margin: 0 auto 0;
+}
+
+/* ═══════════════════════════
+   TERMS CONTENT — white section
+   ═══════════════════════════ */
+.terms-content {
+  background: #fff;
+  color: #333;
+  padding: 80px 0 100px;
+  margin-bottom: -2px;
+}
+
+.terms-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* Table of Contents */
+.terms-toc {
+  background: #f6f8fa;
+  border-radius: 12px;
+  padding: 36px 40px;
+  margin-bottom: 56px;
+  border: 1px solid #e8eaed;
+}
+
+.terms-toc h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.terms-toc ol {
+  list-style: none;
+  counter-reset: toc-counter;
+  padding: 0;
+}
+
+.terms-toc > ol > li {
+  margin-bottom: 8px;
+}
+
+.terms-toc ol ol {
+  margin-top: 6px;
+  margin-left: 20px;
+}
+
+.terms-toc ol ol li {
+  margin-bottom: 4px;
+}
+
+.terms-toc a {
+  color: #555;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.terms-toc a:hover {
+  color: var(--teal);
+}
+
+.toc-part-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  margin-top: 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.toc-part-label--pink {
+  color: var(--pink);
+}
+
+/* Part Headers */
+.part-header {
+  margin: 64px 0 40px;
+  padding: 28px 32px;
+  border-radius: 12px;
+  background: #f6f8fa;
+  position: relative;
+  overflow: hidden;
+}
+
+.part-header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--teal);
+}
+
+.part-header--pink::before {
+  background: var(--pink);
+}
+
+.part-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.part-header p {
+  font-size: 0.88rem;
+  color: #888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Section Headings */
+.terms-section {
+  margin-bottom: 48px;
+  scroll-margin-top: 32px;
+}
+
+.terms-section h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--teal);
+  flex-shrink: 0;
+}
+
+.terms-section h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin: 24px 0 10px;
+}
+
+.terms-section p {
+  margin-bottom: 14px;
+}
+
+.terms-section ul, .terms-section ol {
+  margin: 12px 0 16px 24px;
+}
+
+.terms-section li {
+  margin-bottom: 6px;
+}
+
+/* Warning/Notice blocks */
+.terms-warning {
+  background: #fef9e7;
+  border: 1px solid #f5e6a3;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #5a4a00;
+  line-height: 1.6;
+}
+
+.terms-notice {
+  background: #f0f7ff;
+  border: 1px solid #cce0f5;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.9rem;
+  color: #1a4a7a;
+  line-height: 1.6;
+}
+
+/* Introduction */
+.terms-intro {
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #e8eaed;
+}
+
+.terms-intro h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 16px;
+}
+
+/* Effective date */
+.terms-meta {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══════════════════════════
+   RESPONSIVE
+   ═══════════════════════════ */
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .terms-toc { padding: 28px 24px; }
+  .part-header { padding: 24px 24px; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 100px 0 60px; }
+  .hero h1 { font-size: 2.25rem; }
+  .terms-content { padding: 48px 0 64px; }
+  .terms-toc { padding: 24px 20px; }
+  .part-header { padding: 20px 20px; margin: 48px 0 32px; }
+  .part-header h2 { font-size: 1.25rem; }
+  .terms-section h3 { font-size: 1.05rem; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Legal</div>
+    </div>
+    <h1 class="reveal reveal-d1">Terms of <em>Service</em></h1>
+    <p class="hero-body reveal reveal-d2">Super 6 LLC d/b/a Cinebody</p>
+  </div>
+</section>
+
+<!-- ═══ CURVE: dark → white ═══ -->
+<div class="curve" style="background:#041a24">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none">
+    <path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffffff"/>
+  </svg>
+</div>
+
+<!-- ═══ TERMS CONTENT ═══ -->
+<section class="terms-content">
+  <div class="terms-inner">
+
+    <p class="terms-meta reveal">Last Updated: March 2026</p>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="terms-toc reveal">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#introduction">Introduction</a></li>
+      </ol>
+      <span class="toc-part-label">Part A — Registered Users</span>
+      <ol>
+        <li><a href="#a1">Eligibility</a></li>
+        <li><a href="#a2">Platform Overview</a></li>
+        <li><a href="#a3">Platform User Types</a></li>
+        <li><a href="#a4">Registration</a></li>
+        <li><a href="#a5">Access Rights</a></li>
+        <li><a href="#a6">Specific User Terms</a></li>
+        <li><a href="#a7">Content</a></li>
+        <li><a href="#a8">Public Shoots</a></li>
+        <li><a href="#a9">Publicity; User Database</a></li>
+        <li><a href="#a10">No Responsibility for Content or Incentives</a></li>
+        <li><a href="#a11">Customer Accounts</a></li>
+        <li><a href="#a12">Monitoring of Content</a></li>
+      </ol>
+      <span class="toc-part-label toc-part-label--pink">Part B — All Users</span>
+      <ol>
+        <li><a href="#b1">Access Rights</a></li>
+        <li><a href="#b2">Disclaimer of Warranty</a></li>
+        <li><a href="#b3">Privacy</a></li>
+        <li><a href="#b4">Third Party Content</a></li>
+        <li><a href="#b5">Suspension and Termination</a></li>
+        <li><a href="#b6">Availability</a></li>
+        <li><a href="#b7">Trademarks</a></li>
+        <li><a href="#b8">External Links</a></li>
+        <li><a href="#b9">Rules of Conduct</a></li>
+        <li><a href="#b10">Proprietary Protection</a></li>
+        <li><a href="#b11">DMCA Claims</a></li>
+        <li><a href="#b12">Limitation of Liability</a></li>
+        <li><a href="#b13">Indemnification</a></li>
+        <li><a href="#b14">Mandatory Dispute Resolution / Arbitration</a></li>
+        <li><a href="#b15">General</a></li>
+      </ol>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div class="terms-intro reveal" id="introduction">
+      <h2>Introduction</h2>
+      <p>Welcome to <strong>Cinebody</strong> (the "Site"), owned and operated by Super 6 LLC d/b/a Cinebody ("Cinebody," "we," "us," or "our"). The Site includes the website located at cinebody.com and all associated subdomains, the Cinebody mobile application, the Cinebody platform and dashboard, and all related services, features, content, and functionality offered on or through the foregoing (collectively, the "Site").</p>
+      <p>By accessing or using the Site, you ("User," "you," or "your") agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you must not access or use the Site. These Terms constitute a legally binding agreement between you and Cinebody.</p>
+      <div class="terms-warning">IMPORTANT NOTICE: THESE TERMS CONTAIN A MANDATORY ARBITRATION PROVISION AND A CLASS ACTION WAIVER. BY AGREEING TO THESE TERMS, YOU AGREE THAT ANY DISPUTES WILL BE RESOLVED THROUGH BINDING INDIVIDUAL ARBITRATION AND YOU WAIVE YOUR RIGHT TO PARTICIPATE IN A CLASS ACTION LAWSUIT OR CLASS-WIDE ARBITRATION. PLEASE READ SECTION B.14 CAREFULLY.</div>
+      <p>We reserve the right to modify these Terms at any time. Changes will be effective upon posting to the Site. Your continued use of the Site after any such modification constitutes your acceptance of the updated Terms. We encourage you to review these Terms periodically.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         PART A — REGISTERED USERS
+         ═══════════════════════════════════════ -->
+    <div class="part-header reveal" id="part-a">
+      <h2>Part A — Registered Users</h2>
+      <p>The following terms apply specifically to users who create an account on the Cinebody platform.</p>
+    </div>
+
+    <!-- A.1 Eligibility -->
+    <div class="terms-section reveal" id="a1">
+      <h3><span class="section-num">A.1</span> Eligibility</h3>
+      <p>You must be at least eighteen (18) years of age to register for an account on the Site. By creating an account, you represent and warrant that you are at least 18 years old and have the legal capacity to enter into these Terms. If you are registering on behalf of an entity, you represent and warrant that you have the authority to bind that entity to these Terms.</p>
+      <p>Cinebody reserves the right to refuse registration to any person or entity at its sole discretion, and to revoke access at any time for violation of these Terms or applicable law.</p>
+    </div>
+
+    <!-- A.2 Platform Overview -->
+    <div class="terms-section reveal" id="a2">
+      <h3><span class="section-num">A.2</span> Platform Overview</h3>
+      <p>Cinebody provides a cloud-based video capture and content management platform that enables organizations ("Customers") to collect, manage, and distribute user-generated video content from distributed contributors ("Filmers"). The platform includes tools for creating and managing video capture campaigns ("Shoots"), providing creative direction, reviewing and approving submissions, and exporting finished content.</p>
+      <p>Cinebody does not guarantee any particular outcome, result, or level of content quality from use of the platform. The quality and volume of content produced through the platform will vary based on multiple factors, including but not limited to the number of participants, creative direction provided, and engagement strategies employed by the Customer.</p>
+    </div>
+
+    <!-- A.3 Platform User Types -->
+    <div class="terms-section reveal" id="a3">
+      <h3><span class="section-num">A.3</span> Platform User Types</h3>
+      <p>The Cinebody platform supports the following user types:</p>
+      <h4>Admins</h4>
+      <p><strong>"Admins"</strong> are users who have been authorized by a Customer to access the Cinebody dashboard and management tools. Admins may create and manage Shoots, review and approve content, invite Filmers, manage team members, export content, and perform other administrative functions as permitted by their account tier and role permissions.</p>
+      <h4>Filmers</h4>
+      <p><strong>"Filmers"</strong> are users who participate in Shoots by capturing and submitting video content through the Cinebody mobile application. Filmers may be internal employees, contractors, brand ambassadors, customers, fans, or other individuals invited or permitted to contribute content to a Shoot.</p>
+    </div>
+
+    <!-- A.4 Registration -->
+    <div class="terms-section reveal" id="a4">
+      <h3><span class="section-num">A.4</span> Registration</h3>
+      <p>To access certain features of the Site, you must register for an account. When registering, you agree to provide accurate, current, and complete information, and to update such information as necessary to maintain its accuracy. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+      <p>You agree to immediately notify Cinebody of any unauthorized use of your account or any other breach of security. Cinebody shall not be liable for any loss or damage arising from your failure to safeguard your account credentials.</p>
+      <p>You may not create an account using a false identity, impersonate any person or entity, or use another person's account without authorization. Cinebody reserves the right to suspend or terminate any account that violates these provisions.</p>
+    </div>
+
+    <!-- A.5 Access Rights -->
+    <div class="terms-section reveal" id="a5">
+      <h3><span class="section-num">A.5</span> Access Rights</h3>
+      <p>Subject to your compliance with these Terms, Cinebody grants you a limited, non-exclusive, non-transferable, revocable license to access and use the Site and platform features available to your account type and subscription tier. This license is for your personal or internal business use only, as applicable.</p>
+      <p>You may not sublicense, resell, distribute, or make the platform available to any third party except as expressly authorized by Cinebody in writing. Any unauthorized use of the Site or platform automatically terminates the license granted herein.</p>
+    </div>
+
+    <!-- A.6 Specific User Terms -->
+    <div class="terms-section reveal" id="a6">
+      <h3><span class="section-num">A.6</span> Specific User Terms</h3>
+
+      <h4>6.1 Admin Terms</h4>
+      <p>As an Admin, you acknowledge and agree that:</p>
+      <ul>
+        <li>You are responsible for all content created, uploaded, managed, and distributed through your admin account, including content submitted by Filmers participating in your Shoots.</li>
+        <li>You will use the platform and its tools only for lawful purposes and in accordance with all applicable laws and regulations.</li>
+        <li>You are responsible for the creative direction, instructions, and incentives you provide to Filmers, and you will ensure that such direction does not encourage Filmers to engage in illegal, dangerous, or otherwise harmful activities.</li>
+        <li>You will comply with all applicable laws regarding the collection, storage, and use of personal data from Filmers and other users who interact with your Shoots.</li>
+        <li>You are solely responsible for obtaining any necessary rights, releases, or permissions required for your use of content captured through the platform, including talent releases, location permits, and music licenses.</li>
+        <li>You will not use the platform to collect content that infringes the intellectual property rights, privacy rights, or other rights of any third party.</li>
+      </ul>
+
+      <h4>6.2 Filmer Terms</h4>
+      <p>As a Filmer, you acknowledge and agree that:</p>
+      <ul>
+        <li>You grant the Customer who created or manages the Shoot (and their designees) a worldwide, perpetual, irrevocable, royalty-free license to use, reproduce, modify, distribute, publicly display, publicly perform, and create derivative works from all content you submit through the platform.</li>
+        <li>You represent and warrant that you own or have all necessary rights to the content you submit, and that your content does not infringe the intellectual property rights, privacy rights, or other rights of any third party.</li>
+        <li>You are responsible for your own safety when capturing content. Cinebody is not responsible for any injury, damage, or loss you may sustain while filming.</li>
+        <li>You agree to follow the creative direction and guidelines provided for each Shoot, and to comply with all applicable laws when capturing content.</li>
+        <li>Any incentives or compensation offered in connection with a Shoot are provided by the Customer, not Cinebody, and Cinebody bears no responsibility for the fulfillment of such incentives.</li>
+      </ul>
+    </div>
+
+    <!-- A.7 Content -->
+    <div class="terms-section reveal" id="a7">
+      <h3><span class="section-num">A.7</span> Content</h3>
+      <p>All content uploaded, submitted, or otherwise made available through the Site by users ("User Content") remains the intellectual property of the respective content creator, subject to the licenses granted herein. By submitting User Content to the Site, you grant Cinebody a non-exclusive, worldwide, royalty-free license to host, store, reproduce, and display such content as necessary to operate and provide the platform services.</p>
+      <p>You acknowledge that Cinebody may use anonymized, aggregated data derived from your use of the platform for product improvement, analytics, and marketing purposes, provided that such data does not identify you or any individual personally.</p>
+      <p>Cinebody does not claim ownership of User Content. However, you understand and agree that Cinebody may need to process, transcode, and store your content as part of the platform's functionality.</p>
+    </div>
+
+    <!-- A.8 Public Shoots -->
+    <div class="terms-section reveal" id="a8">
+      <h3><span class="section-num">A.8</span> Public Shoots</h3>
+      <p>Certain Shoots may be designated as "Public Shoots" by the Customer. Public Shoots are open to any registered Filmer and may be discoverable through the Cinebody mobile application or other channels. By participating in a Public Shoot, you agree to the specific terms and creative direction associated with that Shoot, in addition to these Terms.</p>
+      <p>Cinebody does not endorse or guarantee the legitimacy, safety, or quality of any Public Shoot. Participation in Public Shoots is at your own risk. Cinebody reserves the right to remove or restrict any Public Shoot at its sole discretion.</p>
+    </div>
+
+    <!-- A.9 Publicity; User Database -->
+    <div class="terms-section reveal" id="a9">
+      <h3><span class="section-num">A.9</span> Publicity; User Database</h3>
+      <p>By creating an account on the Site, you consent to Cinebody including your name, profile information, and general usage statistics in aggregated, anonymized databases for internal analytics and platform improvement purposes. Cinebody will not sell your personal information to third parties.</p>
+      <p>Customers who use the platform may access information about Filmers who participate in their Shoots, including usernames, profile details, and submission history within that Customer's Shoots. Customers agree to use such information only in accordance with applicable data protection laws and Cinebody's Privacy Policy.</p>
+    </div>
+
+    <!-- A.10 No Responsibility for Content or Incentives -->
+    <div class="terms-section reveal" id="a10">
+      <h3><span class="section-num">A.10</span> No Responsibility for Content or Incentives</h3>
+      <p>Cinebody is a technology platform provider and does not produce, direct, or control User Content. Cinebody does not review, approve, or endorse any User Content before it is submitted to a Customer's Shoot, unless specifically engaged to do so through a separate services agreement.</p>
+      <p>Cinebody is not responsible for any incentives, compensation, prizes, or other benefits offered by Customers to Filmers in connection with Shoots. Any disputes regarding incentives are between the Customer and the Filmer, and Cinebody shall have no liability in connection therewith.</p>
+      <div class="terms-notice">Cinebody provides the platform as a tool for content capture and management. The nature, quality, legality, and appropriateness of all User Content are the sole responsibility of the users who create and submit such content.</div>
+    </div>
+
+    <!-- A.11 Customer Accounts -->
+    <div class="terms-section reveal" id="a11">
+      <h3><span class="section-num">A.11</span> Customer Accounts</h3>
+
+      <h4>Subscriptions</h4>
+      <p>Access to certain Cinebody platform features requires a paid subscription. Subscription plans, features, and pricing are described on the Cinebody pricing page and may be updated from time to time. By subscribing, you agree to pay the applicable fees for your selected plan in accordance with the billing terms presented at the time of purchase.</p>
+
+      <h4>Auto-Renewal</h4>
+      <p>All subscription plans automatically renew at the end of each billing cycle (monthly or annually, as applicable) unless you cancel your subscription before the renewal date. You authorize Cinebody to charge the payment method on file for each renewal period at the then-current rate.</p>
+      <div class="terms-warning">YOUR SUBSCRIPTION WILL AUTOMATICALLY RENEW AND YOUR PAYMENT METHOD WILL BE CHARGED AT THE BEGINNING OF EACH RENEWAL PERIOD UNLESS YOU CANCEL BEFORE THE RENEWAL DATE.</div>
+
+      <h4>Pricing</h4>
+      <p>Cinebody reserves the right to modify subscription pricing at any time. Price changes for existing subscribers will take effect at the start of the next billing cycle following notice of the change. Continued use of the platform after a price change constitutes acceptance of the new pricing.</p>
+
+      <h4>Storage</h4>
+      <p>Each subscription plan includes a specified amount of cloud storage for video content and related assets. If your usage exceeds the storage allocation for your plan, Cinebody may charge overage fees, restrict uploads, or require you to upgrade to a higher plan tier. Storage usage and limits are visible in the admin dashboard.</p>
+
+      <h4>Cancellation</h4>
+      <p>You may cancel your subscription at any time through your account settings or by contacting Cinebody at info@cinebody.com. Cancellation will take effect at the end of the current billing period, and you will retain access to paid features until that date. No refunds or credits will be issued for partial billing periods.</p>
+      <p>Upon cancellation or expiration of a subscription, Cinebody may retain your stored content for a period of thirty (30) days, after which content may be permanently deleted. It is your responsibility to export any content you wish to retain before your subscription ends.</p>
+    </div>
+
+    <!-- A.12 Monitoring of Content -->
+    <div class="terms-section reveal" id="a12">
+      <h3><span class="section-num">A.12</span> Monitoring of Content</h3>
+      <p>Cinebody reserves the right, but has no obligation, to monitor, review, or remove any User Content at its sole discretion. Cinebody may take action against content that violates these Terms, applicable law, or Cinebody's content guidelines, including but not limited to removing content, suspending accounts, or reporting violations to law enforcement.</p>
+      <p>If you become aware of any content on the Site that you believe violates these Terms or applicable law, please contact us at info@cinebody.com.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         PART B — ALL USERS
+         ═══════════════════════════════════════ -->
+    <div class="part-header part-header--pink reveal" id="part-b">
+      <h2>Part B — All Users</h2>
+      <p>The following terms apply to all users of the Site, whether or not registered.</p>
+    </div>
+
+    <!-- B.1 Access Rights -->
+    <div class="terms-section reveal" id="b1">
+      <h3><span class="section-num">B.1</span> Access Rights</h3>
+      <p>Subject to your compliance with these Terms, Cinebody grants you a limited, non-exclusive, non-transferable, revocable right to access and view the Site for your personal, non-commercial use. This right does not include the right to collect, aggregate, copy, duplicate, display, or create derivative works from the Site or its content, except as expressly authorized.</p>
+      <p>You may not use any automated system, including but not limited to robots, spiders, scrapers, or offline readers, to access the Site for any purpose without Cinebody's prior written consent.</p>
+    </div>
+
+    <!-- B.2 Disclaimer of Warranty -->
+    <div class="terms-section reveal" id="b2">
+      <h3><span class="section-num">B.2</span> Disclaimer of Warranty</h3>
+      <div class="terms-warning">THE SITE AND ALL CONTENT, SERVICES, AND FEATURES AVAILABLE THROUGH THE SITE ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, CINEBODY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND TITLE.</div>
+      <p>Cinebody does not warrant that the Site will be uninterrupted, error-free, secure, or free of viruses or other harmful components. Cinebody does not warrant the accuracy, completeness, or reliability of any content available through the Site. Your use of the Site is at your sole risk.</p>
+    </div>
+
+    <!-- B.3 Privacy -->
+    <div class="terms-section reveal" id="b3">
+      <h3><span class="section-num">B.3</span> Privacy</h3>
+      <p>Your use of the Site is subject to Cinebody's Privacy Policy, which is incorporated into these Terms by reference. Please review the Privacy Policy carefully to understand our practices regarding the collection, use, and disclosure of your personal information.</p>
+      <p>By using the Site, you consent to the collection and use of your information as described in the Privacy Policy. If you do not agree to the Privacy Policy, you must not use the Site.</p>
+    </div>
+
+    <!-- B.4 Third Party Content -->
+    <div class="terms-section reveal" id="b4">
+      <h3><span class="section-num">B.4</span> Third Party Content</h3>
+      <p>The Site may display, include, or make available content, data, information, applications, or materials from third parties ("Third Party Content"). Cinebody does not control, endorse, or assume responsibility for any Third Party Content, including the accuracy, completeness, timeliness, validity, legality, or quality thereof.</p>
+      <p>You acknowledge and agree that Cinebody shall not be responsible or liable, directly or indirectly, for any damage or loss caused by or in connection with the use of or reliance on any Third Party Content.</p>
+    </div>
+
+    <!-- B.5 Suspension and Termination -->
+    <div class="terms-section reveal" id="b5">
+      <h3><span class="section-num">B.5</span> Suspension and Termination</h3>
+      <p>Cinebody may, in its sole discretion and without prior notice, suspend or terminate your access to the Site or any part thereof for any reason, including but not limited to violation of these Terms, suspected fraudulent or illegal activity, extended periods of inactivity, or requests by law enforcement or government agencies.</p>
+      <p>Upon termination, your right to use the Site will immediately cease. Cinebody shall not be liable to you or any third party for any termination of your access to the Site. All provisions of these Terms that by their nature should survive termination shall survive, including without limitation ownership provisions, warranty disclaimers, indemnification, and limitations of liability.</p>
+    </div>
+
+    <!-- B.6 Availability -->
+    <div class="terms-section reveal" id="b6">
+      <h3><span class="section-num">B.6</span> Availability</h3>
+      <p>Cinebody makes no guarantees regarding the availability or uptime of the Site. The Site may be temporarily unavailable due to maintenance, updates, server issues, or circumstances beyond Cinebody's control. Cinebody reserves the right to modify, suspend, or discontinue any part of the Site at any time without notice or liability.</p>
+    </div>
+
+    <!-- B.7 Trademarks -->
+    <div class="terms-section reveal" id="b7">
+      <h3><span class="section-num">B.7</span> Trademarks</h3>
+      <p>"Cinebody," the Cinebody logo, and all related names, logos, product and service names, designs, and slogans are trademarks of Super 6 LLC or its affiliates. You may not use such marks without the prior written permission of Cinebody. All other names, logos, product and service names, designs, and slogans on the Site are the trademarks of their respective owners.</p>
+    </div>
+
+    <!-- B.8 External Links -->
+    <div class="terms-section reveal" id="b8">
+      <h3><span class="section-num">B.8</span> External Links</h3>
+      <p>The Site may contain links to third-party websites or resources. These links are provided solely for your convenience. Cinebody has no control over the content, privacy policies, or practices of third-party websites and assumes no responsibility therefor. Your access to and use of third-party websites is at your own risk and subject to the terms and conditions of such websites.</p>
+    </div>
+
+    <!-- B.9 Rules of Conduct -->
+    <div class="terms-section reveal" id="b9">
+      <h3><span class="section-num">B.9</span> Rules of Conduct</h3>
+      <p>When using the Site, you agree not to:</p>
+      <ul>
+        <li>Use the Site for any unlawful purpose or in violation of any applicable local, state, national, or international law or regulation.</li>
+        <li>Upload, post, or transmit any content that is defamatory, obscene, abusive, invasive of privacy, hateful, or otherwise objectionable.</li>
+        <li>Impersonate any person or entity, or falsely state or otherwise misrepresent your affiliation with a person or entity.</li>
+        <li>Interfere with, disrupt, or create an undue burden on the Site, servers, or networks connected to the Site.</li>
+        <li>Attempt to gain unauthorized access to any part of the Site, other accounts, computer systems, or networks connected to the Site.</li>
+        <li>Use any device, software, or routine to interfere with the proper functioning of the Site, or attempt to probe, scan, or test the vulnerability of any system or network.</li>
+        <li>Harvest, collect, or store personal data about other users without their express consent.</li>
+        <li>Use the Site to distribute unsolicited commercial communications (spam).</li>
+        <li>Reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Site or any part thereof.</li>
+        <li>Remove, alter, or obscure any copyright, trademark, or other proprietary rights notice on the Site.</li>
+      </ul>
+    </div>
+
+    <!-- B.10 Proprietary Protection -->
+    <div class="terms-section reveal" id="b10">
+      <h3><span class="section-num">B.10</span> Proprietary Protection</h3>
+      <p>The Site, including all content, features, functionality, software, text, displays, images, video, audio, design, and the selection and arrangement thereof, is owned by Cinebody, its licensors, or other providers, and is protected by United States and international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+      <p>Nothing in these Terms grants you any right, title, or interest in or to the Site or any content therein, other than the limited access rights expressly set forth herein. All rights not expressly granted are reserved by Cinebody.</p>
+    </div>
+
+    <!-- B.11 DMCA Claims -->
+    <div class="terms-section reveal" id="b11">
+      <h3><span class="section-num">B.11</span> DMCA Claims</h3>
+      <p>Cinebody respects the intellectual property rights of others and expects users of the Site to do the same. If you believe that any content on the Site infringes your copyright, you may submit a notification pursuant to the Digital Millennium Copyright Act ("DMCA") by providing the following information in writing to our designated agent:</p>
+      <ol>
+        <li>A physical or electronic signature of a person authorized to act on behalf of the owner of the copyright interest.</li>
+        <li>A description of the copyrighted work that you claim has been infringed.</li>
+        <li>A description of where the material you claim is infringing is located on the Site, with sufficient detail to allow Cinebody to locate it.</li>
+        <li>Your address, telephone number, and email address.</li>
+        <li>A statement that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law.</li>
+        <li>A statement, made under penalty of perjury, that the information in your notification is accurate and that you are the copyright owner or authorized to act on the copyright owner's behalf.</li>
+      </ol>
+      <p>Our designated DMCA agent can be reached at:</p>
+      <div class="terms-notice">
+        <strong>DMCA Agent</strong><br>
+        Super 6 LLC d/b/a Cinebody<br>
+        3839 N Jackson Street<br>
+        Denver, CO 80205<br>
+        Email: info@cinebody.com
+      </div>
+    </div>
+
+    <!-- B.12 Limitation of Liability -->
+    <div class="terms-section reveal" id="b12">
+      <h3><span class="section-num">B.12</span> Limitation of Liability</h3>
+      <div class="terms-warning">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL CINEBODY, ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, AFFILIATES, SUCCESSORS, OR ASSIGNS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR IN CONNECTION WITH YOUR ACCESS TO OR USE OF (OR INABILITY TO ACCESS OR USE) THE SITE, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), STATUTE, OR ANY OTHER LEGAL THEORY, EVEN IF CINEBODY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</div>
+      <p>In no event shall Cinebody's total aggregate liability to you for all claims arising out of or relating to your use of the Site exceed the greater of (a) the amounts you have paid to Cinebody in the twelve (12) months preceding the event giving rise to the claim, or (b) one hundred dollars ($100.00).</p>
+      <p>Some jurisdictions do not allow the exclusion or limitation of certain warranties or liability for incidental or consequential damages, so some of the above limitations may not apply to you. In such cases, Cinebody's liability shall be limited to the fullest extent permitted by applicable law.</p>
+    </div>
+
+    <!-- B.13 Indemnification -->
+    <div class="terms-section reveal" id="b13">
+      <h3><span class="section-num">B.13</span> Indemnification</h3>
+      <p>You agree to defend, indemnify, and hold harmless Cinebody, its officers, directors, employees, agents, affiliates, successors, and assigns from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from or related to: (a) your use of and access to the Site; (b) your violation of any provision of these Terms; (c) your violation of any third-party right, including any intellectual property, privacy, or proprietary right; (d) any claim that your User Content caused damage to a third party; or (e) any negligent or wrongful act or omission by you.</p>
+      <p>This defense and indemnification obligation will survive these Terms and your use of the Site.</p>
+    </div>
+
+    <!-- B.14 Mandatory Dispute Resolution / Arbitration -->
+    <div class="terms-section reveal" id="b14">
+      <h3><span class="section-num">B.14</span> Mandatory Dispute Resolution / Arbitration</h3>
+      <div class="terms-warning">PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS, INCLUDING YOUR RIGHT TO FILE A LAWSUIT IN COURT.</div>
+      <p><strong>Agreement to Arbitrate.</strong> You and Cinebody agree that any dispute, claim, or controversy arising out of or relating to these Terms or your use of the Site (collectively, "Disputes") will be resolved exclusively through final and binding individual arbitration, rather than in court, except that either party may bring individual claims in small claims court if such claims qualify.</p>
+      <p><strong>Arbitration Rules.</strong> Arbitration shall be conducted by the American Arbitration Association ("AAA") under its Consumer Arbitration Rules then in effect. The arbitration will be conducted in Denver, Colorado, unless you and Cinebody agree to a different location. The arbitrator's decision shall be final and binding and may be entered as a judgment in any court of competent jurisdiction.</p>
+      <p><strong>Class Action Waiver.</strong> You and Cinebody agree that each party may bring Disputes only in an individual capacity and not as a plaintiff or class member in any purported class, consolidated, or representative proceeding. The arbitrator may not consolidate more than one person's claims and may not preside over any form of class or representative proceeding.</p>
+      <p><strong>Opt-Out.</strong> You may opt out of this arbitration provision by sending written notice to Cinebody at info@cinebody.com within thirty (30) days of first accepting these Terms. Your notice must include your name, address, and a clear statement that you wish to opt out of the arbitration provision.</p>
+      <p><strong>Severability.</strong> If any part of this arbitration provision is found to be invalid or unenforceable, the remaining portions shall continue in full force and effect. If a court determines that the class action waiver is unenforceable, the entirety of this arbitration provision shall be null and void, and the parties agree to submit Disputes to the exclusive jurisdiction of the state and federal courts located in Denver, Colorado.</p>
+    </div>
+
+    <!-- B.15 General -->
+    <div class="terms-section reveal" id="b15">
+      <h3><span class="section-num">B.15</span> General</h3>
+
+      <h4>Independent Contractors</h4>
+      <p>Nothing in these Terms shall be construed to create a joint venture, partnership, franchise, or agency relationship between you and Cinebody. Neither party has the authority to bind the other or incur obligations on the other's behalf.</p>
+
+      <h4>Enforcement</h4>
+      <p>Cinebody's failure to enforce any right or provision of these Terms shall not constitute a waiver of such right or provision. If any provision of these Terms is found by a court of competent jurisdiction to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.</p>
+
+      <h4>Force Majeure</h4>
+      <p>Cinebody shall not be liable for any delay or failure in performance resulting from causes beyond its reasonable control, including but not limited to acts of God, war, terrorism, riots, natural disasters, epidemics, government actions, labor disputes, power failures, internet disruptions, or equipment failures.</p>
+
+      <h4>Waiver</h4>
+      <p>No waiver of any provision of these Terms shall be deemed a further or continuing waiver of such provision or any other provision. Any waiver must be in writing and signed by the waiving party to be effective.</p>
+
+      <h4>Entire Agreement</h4>
+      <p>These Terms, together with the Privacy Policy and any other legal notices or agreements published by Cinebody on the Site, constitute the entire agreement between you and Cinebody regarding the Site and supersede all prior or contemporaneous communications, whether oral or written, between you and Cinebody.</p>
+
+      <h4>Amendment</h4>
+      <p>Cinebody reserves the right to amend these Terms at any time by posting the amended Terms on the Site. Your continued use of the Site following the posting of amended Terms constitutes your acceptance of such amendments. Material changes will be noted by updating the "Last Updated" date at the top of these Terms.</p>
+
+      <h4>Contact</h4>
+      <p>If you have any questions about these Terms, please contact us at:</p>
+      <div class="terms-notice">
+        <strong>Super 6 LLC d/b/a Cinebody</strong><br>
+        3839 N Jackson Street<br>
+        Denver, CO 80205<br>
+        Email: info@cinebody.com
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- curve: white → dark -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="sig-bar" style="margin-bottom:0"></div>
+  <div class="contain" style="padding-top:56px">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png" alt="Cinebody"/><p>The video capture platform that turns your community into your content team.</p></div>
+      <div class="footer-col"><h4>Product</h4><a href="/software">Software</a><a href="/services">Creative Services</a><a href="/pricing">Pricing</a><a href="/pointme">Case Studies</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/cinebody-blog">Blog</a><a href="/knowledge-base">Knowledge Base</a><a href="/patents">Patents</a><a href="https://pro.cinebody.com/login">Login</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-service">Terms of Service</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 Super 6 LLC d/b/a Cinebody.</span><span>Denver, CO</span></div>
+  </div>
+</footer>
+
+<script>
+/* ── Scroll Progress ── */
+const bar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (window.scrollY / h * 100) + '%';
+}, { passive: true });
+
+/* ── Reveal on Scroll ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

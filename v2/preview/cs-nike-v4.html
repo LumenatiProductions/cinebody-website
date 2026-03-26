@@ -64,9 +64,9 @@ body > * { position: relative; z-index: 1; }
   text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 20px;
 }
 
-.curve { position: relative; z-index: 3; width: 100%; line-height: 0; margin-top: -1px; }
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; margin-top: -2px; margin-bottom: -4px; }
 .curve svg { display: block; width: 100%; height: 50px; }
-@media (max-width: 600px) { .curve svg { height: 30px; } }
+@media (max-width: 600px) { .curve svg { height: 80px; } }
 
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
@@ -92,22 +92,8 @@ body > * { position: relative; z-index: 1; }
 .btn-glow:hover svg { transform: translateX(3px); }
 
 /* ═══ HERO ═══ */
-.hero { padding: 160px 0 120px; overflow: hidden; position: relative; }
+.hero { padding: 160px 0 120px; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
 
-.hero::before {
-  content: ''; position: absolute; top: -20%; right: -15%; width: 700px; height: 700px;
-  background: var(--teal); border-radius: 50%; filter: blur(140px); opacity: 0.12;
-  pointer-events: none; animation: hero-glow 18s ease-in-out infinite alternate;
-}
-.hero::after {
-  content: ''; position: absolute; bottom: -30%; left: -10%; width: 500px; height: 500px;
-  background: var(--pink); border-radius: 50%; filter: blur(140px); opacity: 0.06;
-  pointer-events: none; animation: hero-glow 22s ease-in-out infinite alternate-reverse;
-}
-@keyframes hero-glow {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(30px, -20px); }
-}
 
 .hero .contain {
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
@@ -140,26 +126,23 @@ body > * { position: relative; z-index: 1; }
 
 .logo-pair { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
 .logo-pair img { height: 28px; width: auto; object-fit: contain; }
-.logo-pair img.grayscale { filter: grayscale(1) brightness(2); opacity: 0.7; }
+.logo-pair img.grayscale { filter: brightness(0) invert(1); opacity: 1; }
 .logo-pair .logo-x { font-size: 18px; font-weight: 300; color: var(--text-muted); }
 
 .hero-visual {
-  position: relative; border-radius: var(--radius); overflow: hidden;
-  border: 1px solid var(--border); box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  position: relative;
+  text-align: center;
 }
-.hero-visual .vid-wrap { position: relative; padding-bottom: 56.25%; background: #111; }
-.hero-visual .vid-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hero-visual .vid-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+.hero-visual .vid-playable { margin: 0 auto; }
 
 /* ═══ CONTENT SECTIONS ═══ */
 .content-section {
-  padding: 100px 0; position: relative; overflow: hidden;
-}
-
-.content-section::before {
-  content: ''; position: absolute; top: 10%; right: -15%; width: 500px; height: 500px;
-  background: var(--teal); border-radius: 50%; filter: blur(160px); opacity: 0.05;
-  pointer-events: none;
+  padding: 100px 0; position: relative;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%);
 }
 
 .section-head { text-align: center; margin-bottom: 48px; }
@@ -204,16 +187,170 @@ body > * { position: relative; z-index: 1; }
 /* Vertical pair */
 .vert-pair {
   display: flex; gap: 16px; justify-content: center;
-  max-width: 500px; margin: 0 auto;
+  max-width: 480px; margin: 0 auto;
 }
 .vert-pair .vid-card { flex: 1; max-width: 230px; }
 
 /* Map section */
-.map-wrap {
-  max-width: 700px; margin: 0 auto; position: relative;
+/* ═══ TILE MAP ═══ */
+.cb-map-viewer {
+  position: relative; width: 100%; max-width: 1000px; margin: 0 auto;
+  border-radius: 16px; overflow: hidden; background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.06); aspect-ratio: 2/1;
 }
 
-.map-wrap svg { width: 100%; height: auto; }
+.cb-map-tiles {
+  display: grid; width: 100%; height: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.cb-map-tiles img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.cb-dot-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
+
+.cb-map-dot {
+  position: absolute; transform: translate(-50%,-50%) scale(0); z-index: 3;
+  cursor: pointer; transition: opacity .35s, filter .35s;
+}
+
+.cb-map-dot.entered { animation: cbDotIn .5s cubic-bezier(.22,1,.36,1) forwards; }
+.cb-map-dot:nth-child(1) { animation-delay: .15s; }
+.cb-map-dot:nth-child(2) { animation-delay: .3s; }
+.cb-map-dot:nth-child(3) { animation-delay: .45s; }
+.cb-map-dot:nth-child(4) { animation-delay: .6s; }
+@keyframes cbDotIn { 0%{transform:translate(-50%,-50%) scale(0);opacity:0} 60%{transform:translate(-50%,-50%) scale(1.3);opacity:1} 100%{transform:translate(-50%,-50%) scale(1);opacity:1} }
+
+.cb-map-dot-inner {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--teal); border: 2px solid rgba(0,0,0,.5);
+  box-shadow: 0 0 10px rgba(0,188,241,.6);
+  transition: all .35s;
+}
+
+.cb-map-dot.highlighted .cb-map-dot-inner {
+  width: 16px; height: 16px; background: #fff;
+  box-shadow: 0 0 20px rgba(255,255,255,.8), 0 0 40px rgba(0,188,241,.5);
+}
+
+.cb-map-dot.dimmed { opacity: .2; }
+
+.cb-map-dot .cb-pulse {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--teal);
+}
+
+.cb-map-dot.entered .cb-pulse { animation: cbPulse 2.5s ease-out infinite; }
+.cb-map-dot.entered .cb-pulse2 { animation: cbPulse 2.5s ease-out 1.2s infinite; }
+@keyframes cbPulse { 0%{width:12px;height:12px;opacity:.6}100%{width:50px;height:50px;opacity:0} }
+
+.cb-map-dot-label {
+  position: absolute; white-space: nowrap; font-size: 11px; font-weight: 700;
+  color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.7);
+  letter-spacing: .02em; pointer-events: none;
+  transition: opacity .35s;
+}
+
+.cb-map-dot-label.above { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); }
+.cb-map-dot-label.below { top: calc(100% + 10px); left: 50%; transform: translateX(-50%); }
+
+/* Connection lines overlay */
+.cb-conn-layer {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+  pointer-events: none;
+}
+.cb-conn-layer path {
+  fill: none; stroke: rgba(0,188,241,.12); stroke-width: .5;
+  stroke-dasharray: 4 4; animation: cbDash 20s linear infinite;
+}
+@keyframes cbDash { to { stroke-dashoffset: -200; } }
+
+/* Hub dot — Your Dashboard */
+.cb-hub {
+  position: absolute; transform: translate(-50%,-50%); z-index: 4;
+}
+
+.cb-hub-inner {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--yellow); border: 2px solid rgba(0,0,0,.4);
+  box-shadow: 0 0 16px rgba(255,236,3,.4), 0 0 40px rgba(255,236,3,.15);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.cb-hub-icon { width: 12px; height: 12px; }
+
+.cb-hub .cb-pulse { border-color: var(--yellow); }
+.cb-hub.entered .cb-pulse { animation: cbPulseY 3s ease-out infinite; }
+.cb-hub.entered .cb-pulse2 { animation: cbPulseY 3s ease-out 1.5s infinite; }
+@keyframes cbPulseY { 0%{width:24px;height:24px;opacity:.5}100%{width:80px;height:80px;opacity:0} }
+
+.cb-hub-label {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  white-space: nowrap; font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--yellow); text-shadow: 0 1px 4px rgba(0,0,0,.9);
+}
+
+/* Live counter on hub */
+.cb-hub-counter {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 14px; font-weight: 700; color: #fff;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,236,3,.2); padding: 4px 12px; border-radius: 8px;
+  white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .5s;
+}
+.cb-hub-counter.vis { opacity: 1; }
+.cb-hub-counter span { color: var(--yellow); }
+
+/* Footage stream particles — GPU composited */
+.cb-stream-particle {
+  position: absolute; left: 0; top: 0; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--teal); z-index: 3;
+  box-shadow: 0 0 8px rgba(0,188,241,.7);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Stat bar below map */
+.cb-map-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: rgba(255,255,255,.06); border-radius: 12px; overflow: hidden;
+  max-width: 1000px; margin: 24px auto 0;
+}
+
+.cb-map-stat {
+  background: rgba(255,255,255,.02); backdrop-filter: blur(12px);
+  padding: 24px 16px; text-align: center;
+  transition: background .3s ease;
+}
+
+.cb-map-stat:hover { background: rgba(255,255,255,.04); }
+
+.cb-map-stat-city {
+  font-family: var(--font); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.cb-map-stat-num {
+  font-size: 1.5rem; font-weight: 700; color: var(--teal);
+  letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px;
+}
+
+.cb-map-stat-label {
+  font-family: var(--font); font-size: 9px; font-weight: 500;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em;
+}
+
+.cb-map-legend {
+  display: flex; justify-content: center; gap: 36px; margin-top: 24px;
+  font-family: var(--font); font-size: 14px; font-weight: 500; color: var(--text-dim);
+}
+
+.cb-map-legend span { display: flex; align-items: center; gap: 10px; }
+.cb-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.cb-legend-dot--teal { background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,.4); }
+.cb-legend-dot--yellow { background: var(--yellow); box-shadow: 0 0 8px rgba(255,236,3,.4); }
 
 /* ═══ LIGHT SECTION ═══ */
 .content-section--light { background: #fff; color: #111; }
@@ -233,11 +370,7 @@ body > * { position: relative; z-index: 1; }
 .cta-band .btn-glow:hover { box-shadow: 0 0 40px rgba(0,0,0,0.25); }
 
 /* ═══ FOOTER ═══ */
-.footer { border-top: 1px solid var(--border); padding: 56px 0 28px; position: relative; overflow: hidden; }
-.footer::after {
-  content: ''; position: absolute; bottom: -30%; right: -10%; width: 400px; height: 400px;
-  background: var(--teal); border-radius: 50%; filter: blur(140px); opacity: 0.03; pointer-events: none;
-}
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-brand img { height: 22px; margin-bottom: 14px; }
 .footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
@@ -249,13 +382,6 @@ body > * { position: relative; z-index: 1; }
 }
 .footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
 
-/* Map SVG styles */
-.map-dot { fill: var(--teal); filter: drop-shadow(0 0 4px rgba(0,188,241,0.5)); }
-.map-pulse { fill: none; stroke: var(--teal); stroke-width: 1; opacity: 0; animation: map-ping 2.5s ease-out infinite; }
-@keyframes map-ping { 0% { r: 3; opacity: 0.5; } 100% { r: 16; opacity: 0; } }
-.map-conn { stroke: rgba(0,188,241,0.1); stroke-width: 0.8; stroke-dasharray: 4 4; fill: none; animation: map-dash 15s linear infinite; }
-@keyframes map-dash { to { stroke-dashoffset: -100; } }
-.map-land { fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.08); stroke-width: 0.5; }
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 1000px) {
@@ -278,6 +404,7 @@ body > * { position: relative; z-index: 1; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 </style>
+<link rel="stylesheet" href="vid-player.css">
 </head>
 <body>
 
@@ -294,20 +421,64 @@ body > * { position: relative; z-index: 1; }
         <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/b72f46ef-17b5-4efa-80e1-4bf2c18d681a/60-609637_nike-logo-png-white.png" alt="Nike" style="height:30px">
       </div>
       <h1>Real people. Real runs. <em>Real content at scale.</em></h1>
-      <p class="hero-body">Nike used Cinebody to capture authentic run club content across four cities simultaneously — no production crews, no freelancers. Just real runners, guided by Cinebody's patented shot list technology, delivering on-brand content in real time.</p>
+      <p class="hero-body">Nike used Cinebody to capture authentic run club content across four cities simultaneously — no production crews, no freelancers. Just real runners, guided by Cinebody's patented shot list technology, delivering on-brand content in real&nbsp;time.</p>
       <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
     <div class="hero-visual reveal reveal-d2">
-      <div class="vid-wrap vid-wrap--h">
-        <img src="https://vumbnail.com/265928299.jpg" alt="Nike hero" loading="lazy">
-        <iframe src="https://player.vimeo.com/video/265928299?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+      <div class="vid-playable vid-playable--h" data-vimeo="265928299" data-vimeo-h="10ec2810ff" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/696061055-cd34ca440798414c8d191af42901cde8208bcb11564388245cd9e462f14bb719-d_640" alt="Nike Run Club">
       </div>
     </div>
   </div>
 </section>
 
-<!-- curve: dark → dark -->
-<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+<!-- curve: dark → light -->
+<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ STATS ═══ -->
+<section style="background:#fff;color:#111;padding:80px 0">
+  <div class="contain" style="max-width:900px">
+    <div class="reveal" style="max-width:320px;margin:0 auto 56px">
+      <svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+        <!-- Connection lines -->
+        <line x1="50" y1="120" x2="130" y2="140" stroke="rgba(0,188,241,0.12)" stroke-width="1" stroke-dasharray="4 3"/>
+        <line x1="130" y1="140" x2="190" y2="80" stroke="rgba(0,188,241,0.12)" stroke-width="1" stroke-dasharray="4 3"/>
+        <line x1="190" y1="80" x2="260" y2="70" stroke="rgba(0,188,241,0.12)" stroke-width="1" stroke-dasharray="4 3"/>
+        <line x1="50" y1="120" x2="190" y2="80" stroke="rgba(0,188,241,0.08)" stroke-width="0.8" stroke-dasharray="4 3"/>
+        <line x1="50" y1="120" x2="260" y2="70" stroke="rgba(0,188,241,0.08)" stroke-width="0.8" stroke-dasharray="4 3"/>
+        <line x1="130" y1="140" x2="260" y2="70" stroke="rgba(0,188,241,0.08)" stroke-width="0.8" stroke-dasharray="4 3"/>
+        <!-- LA -->
+        <circle cx="50" cy="120" r="6" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.3)" stroke-width="1"/>
+        <circle cx="50" cy="120" r="3" fill="#00bcf1"/>
+        <text x="50" y="140" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.3)">LA</text>
+        <!-- Austin -->
+        <circle cx="130" cy="140" r="6" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.3)" stroke-width="1"/>
+        <circle cx="130" cy="140" r="3" fill="#00bcf1"/>
+        <text x="130" y="160" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.3)">ATX</text>
+        <!-- Chicago -->
+        <circle cx="190" cy="80" r="6" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.3)" stroke-width="1"/>
+        <circle cx="190" cy="80" r="3" fill="#00bcf1"/>
+        <text x="190" y="70" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.3)">CHI</text>
+        <!-- NYC -->
+        <circle cx="260" cy="70" r="6" fill="rgba(0,188,241,0.15)" stroke="rgba(0,188,241,0.3)" stroke-width="1"/>
+        <circle cx="260" cy="70" r="3" fill="#00bcf1"/>
+        <text x="260" y="60" text-anchor="middle" font-family="Inter" font-size="8" font-weight="700" fill="rgba(0,0,0,0.3)">NYC</text>
+        <!-- Center label -->
+        <text x="150" y="25" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,188,241,0.4)" letter-spacing="0.1em">SIMULTANEOUS CAPTURE</text>
+      </svg>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">4</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Cities</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">1</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Weekend</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100%</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On Brand</div></div>
+    </div>
+    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">Nike activated run clubs in LA, Austin, Chicago, and NYC — all filming simultaneously through Cinebody. Every clip synced to one dashboard in real&nbsp;time.</p>
+  </div>
+</section>
+
+<!-- curve: light → teal-navy -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#041a24"/></svg></div>
 
 <!-- ═══ NATIONWIDE SYNC — 2x2 Grid ═══ -->
 <section class="content-section">
@@ -315,32 +486,28 @@ body > * { position: relative; z-index: 1; }
     <div class="section-head reveal">
       <div class="label">Nationwide Sync</div>
       <h2>Four cities. One weekend. <em>Zero crews.</em></h2>
-      <p>Nike activated run clubs in LA, Austin, Chicago, and NYC — all filming simultaneously through Cinebody. Every clip synced to one dashboard in real time.</p>
+      <p>Nike activated run clubs in LA, Austin, Chicago, and NYC — all filming simultaneously through Cinebody. Every clip synced to one dashboard in real&nbsp;time.</p>
     </div>
 
     <div class="grid-2x2 reveal reveal-d1">
       <div class="vid-card">
-        <div class="vid-wrap vid-wrap--h">
-          <img src="https://vumbnail.com/210955565.jpg" alt="LA Run Club" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/210955565?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--h" data-vimeo="210955565" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/210955565.jpg" alt="LA Run Club">
         </div>
       </div>
       <div class="vid-card">
-        <div class="vid-wrap vid-wrap--h">
-          <img src="https://vumbnail.com/210956522.jpg" alt="Austin Run Club" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/210956522?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--h" data-vimeo="210956522" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/210956522.jpg" alt="Austin Run Club">
         </div>
       </div>
       <div class="vid-card">
-        <div class="vid-wrap vid-wrap--h">
-          <img src="https://vumbnail.com/210956382.jpg" alt="Chicago Run Club" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/210956382?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--h" data-vimeo="210956382" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/210956382.jpg" alt="Chicago Run Club">
         </div>
       </div>
       <div class="vid-card">
-        <div class="vid-wrap vid-wrap--h">
-          <img src="https://vumbnail.com/210956225.jpg" alt="NYC Run Club" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/210956225?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--h" data-vimeo="210956225" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/210956225.jpg" alt="NYC Run Club">
         </div>
       </div>
     </div>
@@ -355,48 +522,26 @@ body > * { position: relative; z-index: 1; }
       <h2>Coast to coast. <em>One platform.</em></h2>
     </div>
 
-    <div class="map-wrap reveal reveal-d1">
-      <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet">
-        <!-- Simplified US outline -->
-        <path class="map-land" d="M120,180 L180,160 L250,150 L320,140 L400,135 L480,130 L550,140 L620,160 L680,180 L700,220 L690,260 L670,300 L640,330 L600,350 L550,360 L500,355 L450,340 L400,330 L350,340 L300,360 L250,370 L200,360 L160,330 L130,290 L115,250 L110,220 Z"/>
-        <!-- Connection lines -->
-        <line class="map-conn" x1="175" y1="295" x2="370" y2="310"/>
-        <line class="map-conn" x1="370" y1="310" x2="475" y2="220"/>
-        <line class="map-conn" x1="475" y1="220" x2="620" y2="195"/>
-        <line class="map-conn" x1="175" y1="295" x2="475" y2="220"/>
-        <line class="map-conn" x1="175" y1="295" x2="620" y2="195"/>
-        <line class="map-conn" x1="370" y1="310" x2="620" y2="195"/>
-        <!-- LA -->
-        <g>
-          <circle class="map-pulse" cx="175" cy="295" r="3"/>
-          <circle class="map-dot" cx="175" cy="295" r="5"/>
-          <text x="175" y="320" text-anchor="middle" font-size="11" font-weight="700" fill="rgba(255,255,255,0.35)" font-family="Inter">Los Angeles</text>
-        </g>
-        <!-- Austin -->
-        <g>
-          <circle class="map-pulse" cx="370" cy="310" r="3" style="animation-delay:.6s"/>
-          <circle class="map-dot" cx="370" cy="310" r="5"/>
-          <text x="370" y="335" text-anchor="middle" font-size="11" font-weight="700" fill="rgba(255,255,255,0.35)" font-family="Inter">Austin</text>
-        </g>
-        <!-- Chicago -->
-        <g>
-          <circle class="map-pulse" cx="475" cy="220" r="3" style="animation-delay:1.2s"/>
-          <circle class="map-dot" cx="475" cy="220" r="5"/>
-          <text x="475" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="rgba(255,255,255,0.35)" font-family="Inter">Chicago</text>
-        </g>
-        <!-- NYC -->
-        <g>
-          <circle class="map-pulse" cx="620" cy="195" r="3" style="animation-delay:1.8s"/>
-          <circle class="map-dot" cx="620" cy="195" r="5"/>
-          <text x="620" y="185" text-anchor="middle" font-size="11" font-weight="700" fill="rgba(255,255,255,0.35)" font-family="Inter">New York</text>
-        </g>
-      </svg>
+    <div class="reveal reveal-d1">
+      <div class="cb-map-viewer" id="nikeMap">
+        <!-- Tiles + dots filled by JS -->
+      </div>
+      <div class="cb-map-stats">
+        <div class="cb-map-stat"><div class="cb-map-stat-city">Los Angeles</div><div class="cb-map-stat-num" id="stat-la">0</div><div class="cb-map-stat-label">clips synced</div></div>
+        <div class="cb-map-stat"><div class="cb-map-stat-city">Austin</div><div class="cb-map-stat-num" id="stat-austin">0</div><div class="cb-map-stat-label">clips synced</div></div>
+        <div class="cb-map-stat"><div class="cb-map-stat-city">Chicago</div><div class="cb-map-stat-num" id="stat-chicago">0</div><div class="cb-map-stat-label">clips synced</div></div>
+        <div class="cb-map-stat"><div class="cb-map-stat-city">New York</div><div class="cb-map-stat-num" id="stat-nyc">0</div><div class="cb-map-stat-label">clips synced</div></div>
+      </div>
+      <div class="cb-map-legend">
+        <span><div class="cb-legend-dot cb-legend-dot--teal"></div>Run club filming location</span>
+        <span><div class="cb-legend-dot cb-legend-dot--yellow"></div>Your dashboard — anywhere</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- curve: dark → light -->
-<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ POP-UP POWER ═══ -->
 <section class="content-section content-section--light" style="padding-top:60px">
@@ -404,28 +549,26 @@ body > * { position: relative; z-index: 1; }
     <div class="section-head reveal">
       <div class="label">Pop-Up Power</div>
       <h2>Event content. <em>Captured instantly.</em></h2>
-      <p>Nike pop-up events became instant content factories. Runners filmed their experience through Cinebody — no crew required, every frame on brand.</p>
+      <p>Nike pop-up events became instant content factories. Runners filmed their experience through Cinebody — no crew required, every frame on&nbsp;brand.</p>
     </div>
 
     <div class="horiz-pair reveal reveal-d1">
       <div class="vid-card">
-        <div class="vid-wrap vid-wrap--h">
-          <img src="https://vumbnail.com/265928299.jpg" alt="Pop-Up 1" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/265928299?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--h" data-vimeo="265928299" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/265928299.jpg" alt="Pop-Up 1">
         </div>
       </div>
       <div class="vid-card">
-        <div class="vid-wrap vid-wrap--h">
-          <img src="https://vumbnail.com/214760772.jpg" alt="Pop-Up 2" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/214760772?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--h" data-vimeo="214760772" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/214760772.jpg" alt="Pop-Up 2">
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- curve: light → dark -->
-<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+<!-- curve: light → teal-navy -->
+<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#041a24"/></svg></div>
 
 <!-- ═══ INFLUENCER IGNITION ═══ -->
 <section class="content-section" style="padding-top:60px">
@@ -433,20 +576,18 @@ body > * { position: relative; z-index: 1; }
     <div class="section-head reveal">
       <div class="label">Influencer Ignition</div>
       <h2>Real runners. <em>Real influence.</em></h2>
-      <p>Cinebody empowered Nike's community influencers to capture vertical content that felt native to social — authentic, energetic, on brand.</p>
+      <p>Cinebody empowered Nike's community influencers to capture vertical content that felt native to social — authentic, energetic, on&nbsp;brand.</p>
     </div>
 
     <div class="vert-pair reveal reveal-d1">
       <div class="vid-card">
-        <div class="vid-wrap vid-wrap--v">
-          <img src="https://vumbnail.com/329885560.jpg" alt="Influencer 1" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/329885560?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--v" data-vimeo="329885560" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/329885560.jpg" alt="Influencer 1">
         </div>
       </div>
       <div class="vid-card">
-        <div class="vid-wrap vid-wrap--v">
-          <img src="https://vumbnail.com/329885498.jpg" alt="Influencer 2" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/329885498?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--v" data-vimeo="329885498" style="width:100%">
+          <img class="vid-poster" src="https://vumbnail.com/329885498.jpg" alt="Influencer 2">
         </div>
       </div>
     </div>
@@ -454,7 +595,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark → yellow -->
-<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
 
 <!-- ═══ CTA BAND ═══ -->
 <section class="cta-band">
@@ -465,7 +606,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: yellow → dark -->
-<div class="curve"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+<div class="curve" style="background:#ffec03"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="footer">
@@ -500,6 +641,183 @@ body > * { position: relative; z-index: 1; }
     bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }, { passive: true });
 })();
+
+// Nike Capture Map — CartoDB tiles + Mercator dots + footage streams + live counter
+(function(){
+  var cities = [
+    { id:'la',      lat:34.0522, lng:-118.2437, label:'Los Angeles', labelPos:'below', speed:1800 },
+    { id:'austin',  lat:30.2672, lng:-97.7431,  label:'Austin',      labelPos:'below', speed:2800 },
+    { id:'chicago', lat:41.8781, lng:-87.6298,  label:'Chicago',     labelPos:'above', speed:1200 },
+    { id:'nyc',     lat:40.7128, lng:-74.0060,  label:'New York',    labelPos:'above', speed:900 }
+  ];
+
+  var hub = { lat:39.7392, lng:-104.9903 };
+  var z=4, xS=2, xE=5, yS=5, yE=6;
+  var totalClips = 0;
+  var cityCounts = { la:0, austin:0, chicago:0, nyc:0 };
+
+  function toGrid(lat, lng) {
+    var n = Math.pow(2, z);
+    var xT = (lng + 180) / 360 * n;
+    var latR = lat * Math.PI / 180;
+    var yT = (1 - Math.log(Math.tan(latR) + 1 / Math.cos(latR)) / Math.PI) / 2 * n;
+    return {
+      left: ((xT - xS) / (xE - xS + 1) * 100).toFixed(2) + '%',
+      top:  ((yT - yS) / (yE - yS + 1) * 100).toFixed(2) + '%'
+    };
+  }
+
+  var viewer = document.getElementById('nikeMap');
+  if (!viewer) return;
+
+  // Tiles
+  var tilesHTML = '<div class="cb-map-tiles">';
+  for (var y = yS; y <= yE; y++) {
+    for (var x = xS; x <= xE; x++) {
+      tilesHTML += '<img src="https://basemaps.cartocdn.com/dark_nolabels/' + z + '/' + x + '/' + y + '@2x.png" alt="">';
+    }
+  }
+  tilesHTML += '</div>';
+
+  var hubPos = toGrid(hub.lat, hub.lng);
+  var hx = parseFloat(hubPos.left), hy = parseFloat(hubPos.top);
+  var cityPositions = [];
+
+  // Connection lines
+  var connHTML = '<svg class="cb-conn-layer" viewBox="0 0 100 100" preserveAspectRatio="none">';
+  cities.forEach(function(c) {
+    var pos = toGrid(c.lat, c.lng);
+    cityPositions.push(pos);
+    var cx1 = parseFloat(pos.left), cy1 = parseFloat(pos.top);
+    var midX = (cx1 + hx) / 2;
+    var midY = Math.min(cy1, hy) - Math.abs(cx1 - hx) * 0.1;
+    connHTML += '<path d="M' + cx1 + ' ' + cy1 + ' Q' + midX + ' ' + midY + ' ' + hx + ' ' + hy + '"/>';
+  });
+  connHTML += '</svg>';
+
+  // Dots
+  var dotsHTML = '<div class="cb-dot-layer">';
+  cities.forEach(function(c, i) {
+    var pos = cityPositions[i];
+    dotsHTML += '<div class="cb-map-dot" data-city="' + c.id + '" style="left:' + pos.left + ';top:' + pos.top + '">';
+    dotsHTML += '<div class="cb-map-dot-inner"></div>';
+    dotsHTML += '<div class="cb-pulse"></div>';
+    dotsHTML += '<div class="cb-pulse cb-pulse2"></div>';
+    dotsHTML += '<div class="cb-map-dot-label ' + c.labelPos + '">' + c.label + '</div>';
+    dotsHTML += '</div>';
+  });
+
+  // Hub
+  dotsHTML += '<div class="cb-hub cb-map-dot" style="left:' + hubPos.left + ';top:' + hubPos.top + '">';
+  dotsHTML += '<div class="cb-hub-inner"><svg class="cb-hub-icon" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>';
+  dotsHTML += '<div class="cb-pulse"></div>';
+  dotsHTML += '<div class="cb-pulse cb-pulse2"></div>';
+  dotsHTML += '<div class="cb-hub-counter" id="hubCounter"><span>0</span> clips synced</div>';
+  dotsHTML += '<div class="cb-hub-label">Your Dashboard</div>';
+  dotsHTML += '</div>';
+  dotsHTML += '</div>';
+
+  viewer.innerHTML = tilesHTML + connHTML + dotsHTML;
+
+  var counterEl = document.getElementById('hubCounter');
+  var counterNum = counterEl ? counterEl.querySelector('span') : null;
+
+  function bumpCount(cityId) {
+    totalClips++;
+    cityCounts[cityId]++;
+    if (counterNum) counterNum.textContent = totalClips;
+    var statEl = document.getElementById('stat-' + cityId);
+    if (statEl) statEl.textContent = cityCounts[cityId];
+  }
+
+  // Animate on visible
+  var mapObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        viewer.querySelectorAll('.cb-map-dot').forEach(function(d) { d.classList.add('entered'); });
+        if (counterEl) setTimeout(function() { counterEl.classList.add('vis'); }, 600);
+        startStreams();
+        mapObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  mapObs.observe(viewer);
+
+  // Smooth quadratic bezier point
+  function bezier(t, p0, p1, p2) {
+    var mt = 1 - t;
+    return mt * mt * p0 + 2 * mt * t * p1 + t * t * p2;
+  }
+
+  // Smooth easeInOutCubic
+  function ease(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function startStreams() {
+    var vw = viewer.offsetWidth;
+    var vh = viewer.offsetHeight;
+
+    cities.forEach(function(c, i) {
+      var fromPos = cityPositions[i];
+      var sent = 0;
+
+      var sx = parseFloat(fromPos.left) / 100 * vw;
+      var sy = parseFloat(fromPos.top) / 100 * vh;
+      var ex = hx / 100 * vw;
+      var ey = hy / 100 * vh;
+      // Control point — arc upward
+      var cpx = (sx + ex) / 2;
+      var cpy = Math.min(sy, ey) - Math.abs(sx - ex) * 0.15;
+
+      function sendParticle() {
+        var p = document.createElement('div');
+        p.className = 'cb-stream-particle';
+        p.style.opacity = '0';
+        viewer.appendChild(p);
+
+        var dur = 1800 + Math.random() * 600;
+        var startTime = performance.now();
+        var counted = false;
+
+        function tick(now) {
+          var elapsed = now - startTime;
+          var t = Math.min(elapsed / dur, 1);
+          var et = ease(t);
+
+          var x = bezier(et, sx, cpx, ex);
+          var y = bezier(et, sy, cpy, ey);
+
+          var opacity = t < 0.08 ? t / 0.08 : t > 0.9 ? (1 - t) / 0.1 : 1;
+
+          p.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+          p.style.opacity = (opacity * 0.9).toFixed(2);
+
+          if (t > 0.88 && !counted) {
+            counted = true;
+            bumpCount(c.id);
+          }
+
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            p.remove();
+          }
+        }
+
+        requestAnimationFrame(tick);
+
+        // Each city has its own cadence
+        var nextDelay = c.speed + Math.random() * c.speed * 0.5;
+        setTimeout(sendParticle, nextDelay);
+      }
+
+      setTimeout(sendParticle, 800 + i * 400);
+    });
+  }
+})();
 </script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="vid-player.js"></script>
 </body>
 </html>
