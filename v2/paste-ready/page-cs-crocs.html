@@ -125,11 +125,7 @@ body > * { position: relative; z-index: 1; }
 .logo-pair img.grayscale { filter: brightness(0) invert(1); opacity: 1; }
 .logo-pair .logo-x { font-size: 18px; font-weight: 300; color: var(--text-muted); }
 
-.hero-visual {
-  position: relative;
-  text-align: center;
-}
-
+.hero-visual { position: relative; text-align: center; }
 .hero-visual .vid-playable { margin: 0 auto; }
 
 /* ═══ CONTENT SECTIONS ═══ */
@@ -166,7 +162,45 @@ body > * { position: relative; z-index: 1; }
 .vid-card .vid-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .vid-card .vid-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 .vid-wrap--h { padding-bottom: 56.25%; }
-.vid-wrap--v { padding-bottom: 177.78%; }
+
+.vid-label {
+  padding: 10px 12px; text-align: center;
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim);
+}
+
+/* Light section */
+.content-section--light { background: #fff; color: #111; }
+.content-section--light .section-head h2 { color: #111 !important; }
+.content-section--light .section-head h2 em { color: var(--teal) !important; }
+.content-section--light .section-head p { color: #666; }
+
+/* Photo gallery — masonry-ish grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.photo-grid img {
+  width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
+  transition: transform 0.4s var(--ease);
+  cursor: pointer;
+}
+
+.photo-grid img:hover { transform: scale(1.03); }
+
+/* Span certain images */
+.photo-grid .photo-wide { grid-column: span 2; }
+.photo-grid .photo-tall { grid-row: span 2; }
+
+/* Video pair */
+.vid-pair {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  max-width: 900px; margin: 0 auto;
+}
 
 /* ═══ CTA BAND ═══ */
 .cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
@@ -195,6 +229,8 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 1000px) {
   .hero .contain { grid-template-columns: 1fr; gap: 48px; }
   .hero { padding: 60px 0 80px; }
+  .photo-grid { grid-template-columns: repeat(3, 1fr); }
+  .vid-pair { grid-template-columns: 1fr; max-width: 600px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -202,6 +238,9 @@ body > * { position: relative; z-index: 1; }
   .hero { padding: 40px 0 60px; }
   .hero h1 { font-size: 2.25rem; }
   .content-section, .cta-band { padding: 60px 0; }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .photo-grid .photo-wide { grid-column: span 2; }
+  .photo-grid .photo-tall { grid-row: span 1; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
 }
@@ -223,15 +262,21 @@ body > * { position: relative; z-index: 1; }
         <span class="logo-x">&times;</span>
         <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629527759-OGG70YW4VVYL7QJUGQWH/Crocs_wordmark.svg.png" alt="Crocs" style="height:24px;filter:brightness(0) invert(1)">
       </div>
-      <h1>One global activation. <em>Every channel covered.</em></h1>
-      <p class="hero-body">Crocs launched a global influencer activation powered by Cinebody. Footage was collected remotely from creators worldwide, then repurposed into polished assets for every channel — social, web, and paid&nbsp;media.</p>
+      <h1>Sustainability, <em>captured&nbsp;authentically.</em></h1>
+      <p class="hero-body">Crocs committed to becoming carbon neutral by 2030. Cinebody powered the unboxing content that brought this sustainability story to life — real people, real reactions, zero production crews. Part of a larger ESG campaign blending professional and community-captured&nbsp;video.</p>
       <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
     <div class="hero-visual reveal reveal-d2">
-      <div class="vid-card" style="max-width:560px;margin:0 auto">
-        <div class="vid-playable vid-playable--h" data-vimeo="824853571" data-vimeo-h="a9ef1a15c4">
-          <img class="vid-poster" src="https://vumbnail.com/824853571.jpg" alt="Crocs Global Campaign">
-        </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/1651718979662-D0JW7VJS4J3DIO51U06L/Crocs_3572+Jasmine68_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/80dffb9f-04a0-4a91-bf76-2d638199d377/Crocs_2801+Group_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/1651719571601-M2R8YGMBK7Q4XDCBHCLJ/Crocs_1377%2BAdiel_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/cf82e342-f07c-4d07-a6b8-03079097fd87/Crocs_1299+Adiel_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/03e1e50a-05b3-4936-94bf-3b9a4a37d851/Crocs_2031+Group_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/1651719876399-OTPTFCAMLURDZVOZ04BX/Crocs_4390%2BAudrey_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/1651719859801-IBLQF7NBL3751RN58K99/Crocs_3757%2BPiper_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/1651719746077-J2ECL549R26C3HN77HA3/Crocs_2628%2BTerrell_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/62720db143177302aa290128/0f33cd36-296e-497e-8235-7ba3e7d3b655/Crocs_3892+Piper_.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
       </div>
     </div>
   </div>
@@ -243,35 +288,92 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ STATS ═══ -->
 <section style="background:#fff;color:#111;padding:80px 0">
   <div class="contain" style="max-width:900px">
+
+    <!-- Campaign Distribution Graphic -->
+    <div class="reveal" style="max-width:420px;margin:0 auto 48px">
+      <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+
+        <!-- Lines from center to channels -->
+        <g stroke="rgba(0,188,241,0.1)" stroke-width="1.5" fill="none">
+          <line x1="200" y1="95" x2="60" y2="35"/>
+          <line x1="200" y1="95" x2="155" y2="30"/>
+          <line x1="200" y1="95" x2="250" y2="30"/>
+          <line x1="200" y1="95" x2="340" y2="35"/>
+          <line x1="200" y1="95" x2="55" y2="130"/>
+          <line x1="200" y1="95" x2="345" y2="130"/>
+          <line x1="200" y1="95" x2="115" y2="185"/>
+          <line x1="200" y1="95" x2="285" y2="185"/>
+        </g>
+
+        <!-- Particles outward from center -->
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" repeatCount="indefinite" path="M200,95 L60,35"/><animate attributeName="opacity" values="0;0.5;0" dur="2s" repeatCount="indefinite"/></circle>
+        <circle r="2" fill="#eb008b" opacity="0"><animateMotion dur="2.2s" begin="0.3s" repeatCount="indefinite" path="M200,95 L250,30"/><animate attributeName="opacity" values="0;0.4;0" dur="2.2s" begin="0.3s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M200,95 L345,130"/><animate attributeName="opacity" values="0;0.5;0" dur="1.8s" begin="0.6s" repeatCount="indefinite"/></circle>
+        <circle r="2" fill="#ffec03" opacity="0"><animateMotion dur="2.1s" begin="0.9s" repeatCount="indefinite" path="M200,95 L115,185"/><animate attributeName="opacity" values="0;0.45;0" dur="2.1s" begin="0.9s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.2s" repeatCount="indefinite" path="M200,95 L155,30"/><animate attributeName="opacity" values="0;0.5;0" dur="2s" begin="1.2s" repeatCount="indefinite"/></circle>
+        <circle r="2" fill="#eb008b" opacity="0"><animateMotion dur="1.9s" begin="1.5s" repeatCount="indefinite" path="M200,95 L55,130"/><animate attributeName="opacity" values="0;0.4;0" dur="1.9s" begin="1.5s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#ffec03" opacity="0"><animateMotion dur="2.3s" begin="0.4s" repeatCount="indefinite" path="M200,95 L340,35"/><animate attributeName="opacity" values="0;0.45;0" dur="2.3s" begin="0.4s" repeatCount="indefinite"/></circle>
+        <circle r="2" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.8s" repeatCount="indefinite" path="M200,95 L285,185"/><animate attributeName="opacity" values="0;0.5;0" dur="2s" begin="1.8s" repeatCount="indefinite"/></circle>
+
+        <!-- Channel nodes -->
+        <g><circle cx="60" cy="35" r="16" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.18)" stroke-width="1"/><text x="60" y="38" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,0,0,0.35)">Social</text></g>
+        <g><circle cx="155" cy="30" r="16" fill="rgba(235,0,139,0.05)" stroke="rgba(235,0,139,0.15)" stroke-width="1"/><text x="155" y="33" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,0,0,0.35)">CTV</text></g>
+        <g><circle cx="250" cy="30" r="16" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.18)" stroke-width="1"/><text x="250" y="33" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,0,0,0.35)">Web</text></g>
+        <g><circle cx="340" cy="35" r="16" fill="rgba(255,236,3,0.08)" stroke="rgba(255,236,3,0.2)" stroke-width="1"/><text x="340" y="38" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,0,0,0.35)">Paid</text></g>
+        <g><circle cx="55" cy="130" r="16" fill="rgba(235,0,139,0.05)" stroke="rgba(235,0,139,0.15)" stroke-width="1"/><text x="55" y="133" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,0,0,0.35)">Email</text></g>
+        <g><circle cx="345" cy="130" r="16" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.18)" stroke-width="1"/><text x="345" y="133" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,0,0,0.35)">PR</text></g>
+        <g><circle cx="115" cy="185" r="16" fill="rgba(255,236,3,0.08)" stroke="rgba(255,236,3,0.2)" stroke-width="1"/><text x="115" y="188" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,0,0,0.35)">Events</text></g>
+        <g><circle cx="285" cy="185" r="16" fill="rgba(235,0,139,0.05)" stroke="rgba(235,0,139,0.15)" stroke-width="1"/><text x="285" y="188" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,0,0,0.35)">Retail</text></g>
+
+        <!-- Center hub -->
+        <circle cx="200" cy="95" r="34" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="2"/>
+        <circle cx="200" cy="95" r="24" fill="rgba(0,188,241,0.04)" stroke="rgba(0,188,241,0.12)" stroke-width="1"/>
+        <text x="200" y="90" text-anchor="middle" font-family="Inter" font-size="9" font-weight="800" fill="#00bcf1" letter-spacing="0.04em">ONE</text>
+        <text x="200" y="103" text-anchor="middle" font-family="Inter" font-size="8" font-weight="600" fill="rgba(0,0,0,0.35)">Campaign</text>
+
+        <!-- Pulse on center -->
+        <circle cx="200" cy="95" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="1">
+          <animate attributeName="r" values="34;52" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;0" dur="3s" repeatCount="indefinite"/>
+        </circle>
+
+      </svg>
+    </div>
+
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">2030</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Carbon Neutral</div></div>
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Global</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Reach</div></div>
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Multi</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Channel</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100%</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On Brand</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100%</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Authentic</div></div>
     </div>
-    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">Crocs empowered influencers across the globe to capture content through Cinebody — one activation, footage collected remotely, repurposed into polished assets for every&nbsp;channel.</p>
+    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">Crocs used Cinebody to capture authentic unboxing content as part of their carbon neutral commitment campaign — real reactions from real people, blended with professional ESG production for a multi-channel&nbsp;rollout.</p>
   </div>
 </section>
 
 <!-- curve: light → teal-navy -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
 
-<!-- ═══ INFLUENCER ACTIVATION SECTION ═══ -->
+<!-- ═══ THE CAMPAIGN — Two Videos ═══ -->
 <section class="content-section">
   <div class="contain">
     <div class="section-head reveal">
-      <div class="label">Influencer Activation</div>
-      <h2>Global creators. <em>One platform.</em></h2>
-      <p>Crocs activated influencers worldwide to capture authentic content — no travel budgets, no production crews. Cinebody's shot list technology ensured every clip came back on-brand and production-ready.</p>
+      <div class="label">The Campaign</div>
+      <h2>Two perspectives. <em>One mission.</em></h2>
+      <p>Cinebody's community-captured unboxing content paired with professional ESG production — authentic reactions meet cinematic storytelling for Crocs' sustainability&nbsp;commitment.</p>
     </div>
 
-    <div class="reveal reveal-d1" style="max-width:700px;margin:0 auto">
+    <div class="vid-pair reveal reveal-d1">
       <div class="vid-card">
-        <div class="label" style="padding:16px 20px 0;margin-bottom:8px">Global Influencer Campaign</div>
-        <div class="vid-wrap vid-wrap--h">
-          <img src="https://vumbnail.com/824853571.jpg" alt="Crocs Global Influencer Campaign" loading="lazy">
-          <iframe src="https://player.vimeo.com/video/824853571?h=a9ef1a15c4&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe>
+        <div class="vid-playable vid-playable--h" data-vimeo="824853571" data-vimeo-h="a9ef1a15c4" style="width:100%">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/1666973722-68b75d887497a1f6f76fa1ae4435c08c9a84a9758050cc0d171de425e04de3e0-d_640" alt="Crocs Unboxing">
         </div>
+        <div class="vid-label">Cinebody · Unboxing</div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--h" data-vimeo="591683639" style="width:100%">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/1461671127-931f91c77e98d4e25952bd27bb5008b2fa66122766d6c29f3e57b21c421a8b98-d_640" alt="Crocs ESG">
+        </div>
+        <div class="vid-label">Pro Production · ESG Campaign</div>
       </div>
     </div>
   </div>
@@ -283,7 +385,7 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ CTA BAND ═══ -->
 <section class="cta-band">
   <div class="contain">
-    <h2 class="reveal">Want to scale influencer content globally?<br><span>Let's build your playbook.</span></h2>
+    <h2 class="reveal">Want authentic content for your next campaign?<br><span>Let's build your playbook.</span></h2>
     <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   </div>
 </section>
@@ -293,12 +395,10 @@ body > * { position: relative; z-index: 1; }
 
 <script>
 // Reveal
-(function(){
-  var o = new IntersectionObserver(function(e){
-    e.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); o.unobserve(e.target); }});
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
-})();
+var revealObs = new IntersectionObserver(function(e){
+  e.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); revealObs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(function(el){ revealObs.observe(el); });
 
 // Scroll progress bar
 (function(){
