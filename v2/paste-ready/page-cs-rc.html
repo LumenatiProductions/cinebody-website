@@ -71,10 +71,9 @@ body > * { position: relative; z-index: 1; }
 }
 
 /* ── CURVED DIVIDERS ── */
-.curve { position: relative; z-index: 3; width: 100%; line-height: 0; margin-top: -2px; margin-bottom: -4px; }
-.curve svg { display: block; width: 100%; height: 50px; }
-.curve--flip svg { transform: rotate(180deg); }
-@media (max-width: 600px) { .curve svg { height: 80px; } }
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; font-size: 0; margin-top: -10px; margin-bottom: -10px; background: none !important; }
+.curve svg { display: block; width: 100%; height: 70px; }
+@media (max-width: 600px) { .curve svg { height: 90px; } }
 
 /* ── BUTTON ── */
 .btn {
@@ -374,7 +373,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark → light -->
-<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ STATS ═══ -->
 <section class="stats-light">
@@ -435,7 +434,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: light → pink-navy -->
-<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#1a0a18"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
 
 <!-- ═══ TABBED SHOWCASE ═══ -->
 <section class="showcase">
@@ -506,7 +505,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark → yellow -->
-<div class="curve" style="background:#140a1e"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#140a1e"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
 <!-- ═══ CTA BAND ═══ -->
 <section class="cta-band">
@@ -517,7 +516,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: yellow → dark -->
-<div class="curve" style="background:#ffec03"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <script>
 // Tabs

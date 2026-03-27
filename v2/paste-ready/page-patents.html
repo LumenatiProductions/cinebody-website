@@ -43,22 +43,23 @@ a { color: inherit; text-decoration: none; }
 body > * { position: relative; z-index: 1; }
 
 /* ── CURVED SECTION DIVIDERS ── */
-.curve { display: block;
+.curve {
   position: relative;
   z-index: 3;
   width: 100%;
   line-height: 0;
-  margin-top: -2px; margin-bottom: -4px;
+  font-size: 0;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  background: none !important;
 }
-
 .curve svg {
   display: block;
   width: 100%;
-  height: 50px;
+  height: 70px;
 }
-
 @media (max-width: 600px) {
-  .curve svg { height: 80px; }
+  .curve svg { height: 90px; }
 }
 
 /* ── CONTAINER ── */
@@ -318,7 +319,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark → light -->
-<div class="curve" style="background:#041a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ PATENTS ═══ -->
 <section class="patents">
@@ -421,7 +422,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: light → dark -->
-<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <script>
 // Reveal

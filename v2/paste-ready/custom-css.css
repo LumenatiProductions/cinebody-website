@@ -11,28 +11,24 @@ html { scroll-behavior: smooth; }
 .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
 
 
-/* Curves — fix sub-pixel gaps */
-.curve { position: relative; z-index: 2; line-height: 0 !important; font-size: 0 !important; }
-.curve svg { display: block !important; }
-
-@media (max-width: 768px) {
-  .curve { overflow: hidden; }
-  .curve svg { height: 25px !important; }
+/* Curves — self-contained SVGs, no seams */
+.curve {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  line-height: 0 !important;
+  font-size: 0 !important;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  background: none !important;
 }
-
-/* Curves — flatten on mobile */
-@media (max-width: 768px) {
-  .curve { height: 25px !important; overflow: hidden; }
-  .curve svg { height: 25px !important; }
+.curve svg {
+  display: block !important;
+  width: 100%;
+  height: 70px;
 }
-
-/* Kill any stray borders/lines between sections on mobile */
-@media (max-width: 768px) {
-  .sqs-block-code section,
-  .sqs-block-code div {
-    border: none !important;
-    outline: none !important;
-  }
+@media (max-width: 600px) {
+  .curve svg { height: 90px !important; }
 }
 
 /* Hide decorative accent SVGs on mobile */

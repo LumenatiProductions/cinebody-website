@@ -45,33 +45,24 @@ body > * { position: relative; z-index: 1; }
 
 /* (dot grid removed — replaced by per-section gradients) */
 
-/* ── CURVED SECTION DIVIDERS — "smile" arcs ── */
+/* ── CURVED SECTION DIVIDERS ── */
 .curve {
   position: relative;
   z-index: 3;
   width: 100%;
   line-height: 0;
-  margin-top: -1px;
+  font-size: 0;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  background: none !important;
 }
-
-/* Safari seam fix — every section and curve overlaps upward */
-.teaser, .cases, .services, .faq, .le-section, .cta-band, .stats,
-.curve {
-  margin-top: -1px;
-}
-
 .curve svg {
   display: block;
   width: 100%;
-  height: 50px;
+  height: 70px;
 }
-
-.curve--flip svg {
-  transform: rotate(180deg);
-}
-
 @media (max-width: 600px) {
-  .curve svg { height: 80px; }
+  .curve svg { height: 90px; }
 }
 
 /* ── CONTAINER ── */
@@ -771,7 +762,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark → light -->
-<div class="curve" style="background:#0a0a0a"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ TEASER: POINT.ME ═══ -->
 <section class="teaser teaser--light" style="padding-top:60px">
@@ -796,7 +787,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: light → dark (Why pink-navy) -->
-<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#1a0a18"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
 
 <!-- ═══ WHY ═══ -->
 <section class="why">
@@ -816,7 +807,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark (Why) → light -->
-<div class="curve" style="background:#140a1e"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#140a1e"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ CASE STUDIES ═══ -->
 <section class="cases" style="padding-top:60px">
@@ -842,7 +833,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: light → dark -->
-<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 
 <!-- ═══ TEASER: ROYAL CARIBBEAN ═══ -->
@@ -870,7 +861,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark (RC teaser) → light -->
-<div class="curve" style="background:#0f1218"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fafafa"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1218"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fafafa"/></svg></div>
 
 <!-- ═══ SERVICES ═══ -->
 <section class="services" style="padding-top:60px">
@@ -885,7 +876,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: light → dark (Nike teaser) -->
-<div class="curve" style="background:#fafafa"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fafafa"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <!-- ═══ TEASER: NIKE ═══ -->
 <section class="teaser teaser--glow-teal">
@@ -916,7 +907,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark → white (live events) -->
-<div class="curve" style="background:#0f1218"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#fff"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1218"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ LIVE EVENTS ═══ -->
 <style>
@@ -1103,7 +1094,7 @@ body > * { position: relative; z-index: 1; }
 </script>
 
 <!-- curve: white → yellow -->
-<div class="curve" style="background:#fff"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#ffec03"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
 <!-- ═══ CTA ═══ -->
 <section class="cta-band" style="padding-top:40px">
@@ -1132,7 +1123,7 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: FAQ dark → footer dark -->
-<div class="curve" style="background:#0f1a24"><svg viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <script>
