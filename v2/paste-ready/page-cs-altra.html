@@ -252,13 +252,13 @@ body > * { position: relative; z-index: 1; }
     <div class="hero-visual reveal reveal-d2">
       <div class="hero-vid-pair">
         <div class="vid-card">
-          <div class="vid-playable vid-playable--v" data-vimeo="1098260354" data-vimeo-h="9d87d05789">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098260354" data-vimeo-h="9d87d05789" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
             <img class="vid-poster" src="https://i.vimeocdn.com/video/2032816480-c57d37ddbcd1b4069810c65e9a339026549fb66876cf3142449f76547a5df8ad-d_640" alt="Altra Athlete">
           </div>
         </div>
         <div class="vid-card">
-          <div class="vid-playable vid-playable--v" data-vimeo="1092175563" data-vimeo-h="aeeb559c41">
-            <img class="vid-poster" src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="Altra Trail Run">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098257734" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2032813086-8837140421a33dd5066513d68f4fb447b171bee2a24da90e8272894746d40293-d_640" alt="Altra Unboxing">
           </div>
         </div>
       </div>
@@ -272,6 +272,73 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ STATS ═══ -->
 <section style="background:#fff;color:#111;padding:80px 0">
   <div class="contain" style="max-width:900px">
+
+    <!-- Phone Filming Runner Graphic -->
+    <div class="reveal" style="max-width:400px;margin:0 auto 48px">
+      <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+
+        <!-- Ground line -->
+        <line x1="40" y1="170" x2="360" y2="170" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>
+
+        <!-- Runner (right side, in motion) -->
+        <g transform="translate(280,108)">
+          <!-- Head -->
+          <circle cx="0" cy="0" r="8" fill="rgba(0,188,241,0.12)" stroke="rgba(0,188,241,0.25)" stroke-width="1.5"/>
+          <!-- Torso -->
+          <line x1="0" y1="8" x2="-4" y2="30" stroke="rgba(0,188,241,0.25)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Arms (running pose) -->
+          <line x1="-2" y1="14" x2="10" y2="8" stroke="rgba(0,188,241,0.2)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-2" y1="14" x2="-14" y2="22" stroke="rgba(0,188,241,0.2)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Legs (stride) -->
+          <line x1="-4" y1="30" x2="12" y2="50" stroke="rgba(0,188,241,0.25)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="12" y1="50" x2="18" y2="60" stroke="rgba(0,188,241,0.2)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-4" y1="30" x2="-18" y2="52" stroke="rgba(0,188,241,0.25)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="-18" y1="52" x2="-22" y2="60" stroke="rgba(0,188,241,0.2)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Motion lines -->
+          <line x1="-28" y1="5" x2="-38" y2="5" stroke="rgba(0,188,241,0.1)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="-26" y1="15" x2="-40" y2="15" stroke="rgba(0,188,241,0.08)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="-24" y1="25" x2="-36" y2="25" stroke="rgba(0,188,241,0.06)" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+
+        <!-- iPhone (left-center, angled toward runner) -->
+        <g transform="translate(130,95) rotate(-8)">
+          <!-- Phone body -->
+          <rect x="-22" y="-38" width="44" height="76" rx="8" fill="rgba(0,0,0,0.04)" stroke="rgba(0,188,241,0.2)" stroke-width="2"/>
+          <!-- Screen -->
+          <rect x="-18" y="-32" width="36" height="58" rx="4" fill="rgba(0,188,241,0.04)" stroke="rgba(0,188,241,0.1)" stroke-width="1"/>
+          <!-- Camera notch -->
+          <rect x="-6" y="-36" width="12" height="3" rx="1.5" fill="rgba(0,0,0,0.06)"/>
+          <!-- Record dot -->
+          <circle cx="12" cy="-27" r="3" fill="#eb008b" opacity="0.5">
+            <animate attributeName="opacity" values="0.5;0.2;0.5" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Runner silhouette on screen (tiny) -->
+          <circle cx="2" cy="-12" r="3" fill="rgba(0,188,241,0.15)"/>
+          <line x1="2" y1="-9" x2="0" y2="0" stroke="rgba(0,188,241,0.12)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="5" y2="8" stroke="rgba(0,188,241,0.1)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-5" y2="9" stroke="rgba(0,188,241,0.1)" stroke-width="1" stroke-linecap="round"/>
+        </g>
+
+        <!-- Broadcast signal from phone toward runner -->
+        <g transform="translate(175,90)">
+          <path d="M0,0 A20,20 0 0,1 0,20" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.2">
+            <animate attributeName="opacity" values="0;0.3;0" dur="2s" repeatCount="indefinite"/>
+          </path>
+          <path d="M6,-4 A28,28 0 0,1 6,24" fill="none" stroke="rgba(0,188,241,0.08)" stroke-width="1.2">
+            <animate attributeName="opacity" values="0;0.25;0" dur="2s" begin="0.4s" repeatCount="indefinite"/>
+          </path>
+          <path d="M12,-8 A36,36 0 0,1 12,28" fill="none" stroke="rgba(0,188,241,0.06)" stroke-width="1.2">
+            <animate attributeName="opacity" values="0;0.2;0" dur="2s" begin="0.8s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- Small text labels -->
+        <text x="130" y="185" text-anchor="middle" font-family="Inter" font-size="8" font-weight="600" fill="rgba(0,0,0,0.25)">Cinebody App</text>
+        <text x="280" y="185" text-anchor="middle" font-family="Inter" font-size="8" font-weight="600" fill="rgba(0,0,0,0.25)">Altra Athlete</text>
+
+      </svg>
+    </div>
+
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Athletes</div></div>
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
@@ -294,24 +361,52 @@ body > * { position: relative; z-index: 1; }
       <p>Altra's community of runners film their authentic experiences — unboxings, race prep, trail adventures — deepening the bond between brand and running&nbsp;community.</p>
     </div>
 
-    <div class="vert-trio reveal reveal-d1">
+    <!-- Row 1: 4 videos -->
+    <div class="vert-trio reveal reveal-d1" style="max-width:860px">
       <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1098260354" data-vimeo-h="9d87d05789">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2032816480-c57d37ddbcd1b4069810c65e9a339026549fb66876cf3142449f76547a5df8ad-d_640" alt="Athlete Story">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098260354">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/2032816480-c57d37ddbcd1b4069810c65e9a339026549fb66876cf3142449f76547a5df8ad-d_640" alt="">
         </div>
-        <div class="vid-label">Athlete Story</div>
+        <div class="vid-label">This Is Your Sign</div>
       </div>
       <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1092175563" data-vimeo-h="aeeb559c41">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="Trail Run">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1092175563">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="">
         </div>
-        <div class="vid-label">Trail Run</div>
+        <div class="vid-label">Anita · Experience Flow</div>
       </div>
       <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1092215288" data-vimeo-h="b0766b2779">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2025241323-e06eacd171ff7bf6d1a8c9cf93d3a832638c42f88d0dff5afa4ed3e6df125c32-d_640" alt="Unboxing">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098249641">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/2032802299-6267332af7aebfe21fb0a2e896010204f8cf5703e6ef354013d5e0aa6a15171d-d_640" alt="">
         </div>
-        <div class="vid-label">Unboxing</div>
+        <div class="vid-label">Experience Flow 2</div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098257734">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/2032813086-8837140421a33dd5066513d68f4fb447b171bee2a24da90e8272894746d40293-d_640" alt="">
+        </div>
+        <div class="vid-label">Unboxing · Anita</div>
+      </div>
+    </div>
+    <!-- Row 2: 3 videos -->
+    <div class="vert-trio reveal" style="margin-top:16px;max-width:660px">
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098235507">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/2032783907-b5603c2929348119ecc4e53013ae934f7d88f8a792470c3e03b180f660bf08fc-d_640" alt="">
+        </div>
+        <div class="vid-label">Sit Down · Flow 2</div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098260340">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/2032816426-2bd294f76d0109ae55a2f01a2f67f3325e0126d4415fbda82d1d6b62464938e4-d_640" alt="">
+        </div>
+        <div class="vid-label">Just Wanted To Show You</div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098552283">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/2033210122-db39d7f73ab8025bbeaeeaf1b1f875e299a3fab67ffa52a47a6ab9d98d46f562-d_640" alt="">
+        </div>
+        <div class="vid-label">Aaron · Unboxing</div>
       </div>
     </div>
   </div>
