@@ -54,6 +54,12 @@ body > * { position: relative; z-index: 1; }
   margin-top: -1px;
 }
 
+/* Safari seam fix — every section and curve overlaps upward */
+.teaser, .cases, .services, .faq, .le-section, .cta-band, .stats,
+.curve {
+  margin-top: -1px;
+}
+
 .curve svg {
   display: block;
   width: 100%;
@@ -131,7 +137,7 @@ body > * { position: relative; z-index: 1; }
 /* ═══════════════════════════
    HERO
    ═══════════════════════════ */
-.hero { padding: 160px 0 120px; overflow: hidden; position: relative; background: linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+.hero { padding: 100px 0 120px; overflow: hidden; position: relative; background: linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
 
 /* Hero aurora — teal top-right, pink bottom-left */
 .hero::before {
@@ -290,7 +296,7 @@ body > * { position: relative; z-index: 1; }
 /* ═══════════════════════════
    STATS — glassmorphism
    ═══════════════════════════ */
-.stats { padding: 80px 0; }
+.stats { padding: 80px 0; background: #0a0a0a; }
 
 .stats-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
@@ -692,7 +698,7 @@ body > * { position: relative; z-index: 1; }
    ═══════════════════════════ */
 @media (max-width: 1000px) {
   .hero .contain { grid-template-columns: 1fr; gap: 48px; }
-  .hero { padding: 100px 0 80px; }
+  .hero { padding: 60px 0 80px; }
   .stats-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
   .cases-grid { grid-template-columns: repeat(2, 1fr); }
   .svc-grid { grid-template-columns: 1fr; }
@@ -702,7 +708,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 @media (max-width: 600px) {
-  .hero { padding: 80px 0 60px; }
+  .hero { padding: 40px 0 60px; }
   .hero h1 { font-size: 2.25rem; }
   .hero-wall { gap: 4px; }
   .wall-cell { border-radius: 6px; }
@@ -783,7 +789,7 @@ body > * { position: relative; z-index: 1; }
       <a href="/pointme" class="teaser-link">See the full story <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
     <div class="teaser-visual reveal reveal-d2">
-      <div class="teaser-vid teaser-vid--h"><iframe src="https://player.vimeo.com/video/1078357962?h=ac0da6551d&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="vid-playable vid-playable--h teaser-vid" data-autoplay data-vimeo="1078357962" data-vimeo-h="ac0da6551d"><img class="vid-poster" src="https://i.vimeocdn.com/video/2008573386-62a057b277e494ff523e8d6bd9f52a8c1f1eaa72870c3068ad635598ef0e4e65-d_640" alt="Point.me"></div>
       <svg class="teaser-accent" viewBox="0 0 300 300"><circle class="t-globe-ring" cx="150" cy="150" r="55"/><ellipse class="t-globe-grid" cx="150" cy="150" rx="55" ry="18"/><ellipse class="t-globe-grid" cx="150" cy="150" rx="18" ry="55"/><circle class="t-orbit" cx="150" cy="150" r="85"/><g class="t-orbit-dot"><circle cx="150" cy="65" r="3"/></g></svg>
     </div>
   </div>
@@ -856,10 +862,9 @@ body > * { position: relative; z-index: 1; }
     </div>
     <div class="teaser-visual reveal reveal-d2">
       <div class="teaser-vid-pair">
-        <div class="teaser-vid teaser-vid--v"><iframe src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-        <div class="teaser-vid teaser-vid--v"><iframe src="https://player.vimeo.com/video/1005975033?h=77f1627015&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+        <div class="vid-playable vid-playable--v teaser-vid" data-autoplay data-vimeo="1061059233"><img class="vid-poster" src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" alt="Royal Caribbean"></div>
+        <div class="vid-playable vid-playable--v teaser-vid" data-autoplay data-vimeo="1005975033" data-vimeo-h="77f1627015"><img class="vid-poster" src="https://i.vimeocdn.com/video/1922627137-0775e0312b2116704194c99037d883c5b777d63952a59041299f895ffdc5be02-d_640" alt="Royal Caribbean"></div>
       </div>
-      <svg class="teaser-accent" viewBox="0 0 300 200"><path class="t-wave" d="M0,140 Q40,130 80,140 Q120,150 160,140 Q200,130 240,140 Q280,150 300,140"/><path class="t-wave" d="M0,150 Q40,140 80,150 Q120,160 160,150 Q200,140 240,150 Q280,160 300,150" style="animation-delay:-1.5s"/></svg>
     </div>
   </div>
 </section>
@@ -898,7 +903,7 @@ body > * { position: relative; z-index: 1; }
       <a href="/nike" class="teaser-link">See the full story <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
     <div class="teaser-visual reveal reveal-d2">
-      <div class="teaser-vid teaser-vid--h"><iframe src="https://player.vimeo.com/video/265928299?h=10ec2810ff&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+      <div class="vid-playable vid-playable--h teaser-vid" data-autoplay data-vimeo="265928299" data-vimeo-h="10ec2810ff"><img class="vid-poster" src="https://i.vimeocdn.com/video/696061055-cd34ca440798414c8d191af42901cde8208bcb11564388245cd9e462f14bb719-d_640" alt="Nike"></div>
       <svg class="teaser-accent" viewBox="0 0 533 354">
         <line class="t-conn" x1="72" y1="210" x2="248" y2="255"/><line class="t-conn" x1="248" y1="255" x2="340" y2="125"/><line class="t-conn" x1="340" y1="125" x2="478" y2="112"/><line class="t-conn" x1="72" y1="210" x2="340" y2="125"/><line class="t-conn" x1="72" y1="210" x2="478" y2="112"/>
         <g><circle class="t-pulse" cx="72" cy="210" r="3"/><circle class="t-dot" cx="72" cy="210" r="3"/><text x="72" y="230" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family="Inter">LA</text></g>
@@ -1042,7 +1047,7 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="le-card">
         <div class="le-card-vid" data-le-vimeo="407155650" data-le-h="b4ff6b0493">
-          <img src="https://vumbnail.com/407155650.jpg" alt="OneRepublic" loading="lazy"/>
+          <img src="https://i.vimeocdn.com/video/877727163-1f6c5b0ccad1b8fd7f15f46745326a9f98dbb42c3bc00e5a86f474a538be29c1-d_640" alt="OneRepublic" loading="lazy"/>
           <div class="le-play"></div>
           <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
         </div>

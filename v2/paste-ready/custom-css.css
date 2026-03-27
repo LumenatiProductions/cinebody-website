@@ -10,10 +10,20 @@ html { scroll-behavior: smooth; }
 .sqs-block-code { padding: 0 !important; margin: 0 !important; }
 .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
 
-/* Curves — flatten on mobile, kill gap lines */
+
+/* Curves — fix sub-pixel gaps */
+.curve { position: relative; z-index: 2; line-height: 0 !important; font-size: 0 !important; }
+.curve svg { display: block !important; }
+
 @media (max-width: 768px) {
-  .curve { height: 25px !important; overflow: hidden; margin-top: -2px !important; margin-bottom: -2px !important; position: relative; z-index: 2; }
-  .curve svg { height: 25px !important; display: block !important; }
+  .curve { overflow: hidden; }
+  .curve svg { height: 25px !important; }
+}
+
+/* Curves — flatten on mobile */
+@media (max-width: 768px) {
+  .curve { height: 25px !important; overflow: hidden; }
+  .curve svg { height: 25px !important; }
 }
 
 /* Kill any stray borders/lines between sections on mobile */
@@ -43,8 +53,11 @@ body { background: #0a0a0a !important; }
 
 /* Base header — transparent, sits over hero */
 .header {
-  background: transparent !important;
-  transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease !important;
+  background: rgba(10, 10, 10, 0) !important;
+  transition: background 0.4s ease, box-shadow 0.4s ease !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: background, box-shadow;
 }
 
 /* Scrolled state — glassmorphism dark */
@@ -383,37 +396,7 @@ footer .sqs-block:last-child {
 
 /* ================================================
    BLOG — List (.blog-side-by-side) + Detail
-   Selectors from inspecting live SS markup:
-   - .blog-side-by-side-wrapper (list container)
-   - article.hentry.blog-item (each post)
-   - .blog-image-wrapper (thumbnail section)
-   - .blog-item-text (text column)
-   - h1.blog-title (post title)
-   - .blog-excerpt / .blog-excerpt-wrapper (excerpt)
-   - a.blog-more-link (Read More)
-   - .blog-meta-section (date/author)
    ================================================ */
-
-/* Blog page background — override the white-bold theme inline */
-body.collection-type-blog [data-section-theme="white-bold"] {
-  --paragraphMediumColor: rgba(255,255,255,0.5);
-  --paragraphLargeColor: rgba(255,255,255,0.65);
-  --headingLargeColor: #fff;
-  --headingMediumColor: #fff;
-  --headingSmallColor: #fff;
-  --linkColor: #00bcf1;
-  --tweak-blog-side-by-side-list-excerpt-color: rgba(255,255,255,0.5);
-  --tweak-summary-block-read-more-color-on-background: #00bcf1;
-  background-color: #0a0a0a !important;
-}
-body.collection-type-blog .page-section,
-body.collection-type-blog .section-border,
-body.collection-type-blog .content-wrapper,
-body.collection-type-blog .collection-content-wrapper,
-body.collection-type-blog .blog-side-by-side {
-  background-color: #0a0a0a !important;
-  border-color: #0a0a0a !important;
-}
 
 /* Blog list container */
 .blog-side-by-side-wrapper {

@@ -8,6 +8,7 @@
   var svgUnmuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
 
   var isMobile = window.innerWidth < 768;
+  var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   var activePlayer = null;
   var activeBtn = null;
 
@@ -34,24 +35,28 @@
     var autoplayDesktop = container.hasAttribute('data-autoplay');
     var autoplayAlways = container.hasAttribute('data-autoplay-always');
     if (!videoId) return;
-    var shouldAutoplay = autoplayAlways || (autoplayDesktop && !isMobile);
 
-    // Play button — only show on mobile for non-always-autoplay videos
-    if (!shouldAutoplay) {
-      var playBtn = document.createElement('div');
-      playBtn.className = 'vid-play-btn';
-      playBtn.innerHTML = playSVG;
-      container.appendChild(playBtn);
+    // Safari gets click-to-play like mobile — no autoplay attempts
+    var shouldAutoplay = !isSafari && !isMobile && (autoplayAlways || autoplayDesktop);
+
+    // Always add play button (hidden during autoplay, visible otherwise)
+    var playBtn = document.createElement('div');
+    playBtn.className = 'vid-play-btn';
+    playBtn.innerHTML = playSVG;
+    container.appendChild(playBtn);
+    if (shouldAutoplay) {
+      playBtn.style.opacity = '0';
+      playBtn.style.pointerEvents = 'none';
     }
 
-    // Mute button — only add, hidden by default, shown on hover when playing
+    // Mute button
     var muteBtn = document.createElement('button');
     muteBtn.className = 'vid-mute-btn';
     muteBtn.innerHTML = svgMuted;
     muteBtn.setAttribute('aria-label', 'Unmute');
     container.appendChild(muteBtn);
 
-    // Desktop autoplay: load when scrolled into view
+    // Desktop autoplay (Chrome/Firefox only): load when scrolled into view
     if (shouldAutoplay) {
       var obs = new IntersectionObserver(function(entries) {
         entries.forEach(function(e) {
@@ -61,10 +66,12 @@
       obs.observe(container);
     }
 
-    // Click to play (mobile primary, desktop fallback)
+    // Click to play — primary on Safari/mobile, fallback on Chrome/Firefox
     container.addEventListener('click', function(e) {
       if (e.target.closest('.vid-mute-btn')) return;
       loadVideo(container, videoId, hash);
+      playBtn.style.opacity = '0';
+      playBtn.style.pointerEvents = 'none';
     });
 
     // Mute/unmute toggle
