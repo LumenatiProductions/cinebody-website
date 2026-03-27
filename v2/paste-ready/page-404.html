@@ -1,0 +1,626 @@
+<!-- Cinebody V4 — 404 Page
+     Paste this into a single Code Block on the 404 page.
+     Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
+
+<style>
+:root {
+  --teal: #00bcf1;
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── FULL-SCREEN CONTAINER ── */
+.four04 {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  overflow: hidden;
+  padding: 40px 20px;
+}
+
+/* ── CANVAS — particle field ── */
+.four04-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ── AURORA BLOBS ── */
+.four04::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -15%;
+  width: 900px;
+  height: 900px;
+  background: var(--teal);
+  border-radius: 50%;
+  filter: blur(200px);
+  opacity: 0.1;
+  animation: auroraA 20s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.four04::after {
+  content: '';
+  position: absolute;
+  bottom: -25%;
+  left: -15%;
+  width: 700px;
+  height: 700px;
+  background: var(--pink);
+  border-radius: 50%;
+  filter: blur(200px);
+  opacity: 0.08;
+  animation: auroraB 25s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes auroraA {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, 40px) scale(1.1); }
+  100% { transform: translate(40px, -30px) scale(0.95); }
+}
+
+@keyframes auroraB {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, -30px) scale(1.15); }
+  100% { transform: translate(-40px, 50px) scale(0.9); }
+}
+
+/* ── SCAN LINES — VHS feel ── */
+.four04-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  animation: scanMove 8s linear infinite;
+}
+
+@keyframes scanMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* ── HORIZONTAL GLITCH BAND ── */
+.four04-glitch-band {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--teal) 20%, var(--pink) 50%, var(--yellow) 80%, transparent 100%);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation: glitchBand 6s ease-in-out infinite;
+}
+
+@keyframes glitchBand {
+  0%, 85%, 100% { opacity: 0; top: 30%; }
+  87% { opacity: 0.8; top: 30%; }
+  88% { opacity: 0; top: 30%; }
+  90% { opacity: 0.6; top: 55%; }
+  91% { opacity: 0; top: 55%; }
+  93% { opacity: 0.9; top: 70%; }
+  94% { opacity: 0; top: 70%; }
+}
+
+/* ── CONTENT WRAPPER ── */
+.four04-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 680px;
+}
+
+/* ── SIGNAL LOST LABEL ── */
+.four04-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--pink);
+  background: rgba(235,0,139,0.08);
+  border: 1px solid rgba(235,0,139,0.2);
+  padding: 8px 20px;
+  border-radius: 100px;
+  margin-bottom: 40px;
+  animation: labelPulse 3s ease-in-out infinite;
+}
+
+.four04-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 10px rgba(235,0,139,0.6);
+  animation: dotBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes labelPulse {
+  0%, 100% { border-color: rgba(235,0,139,0.2); }
+  50% { border-color: rgba(235,0,139,0.4); }
+}
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── GIANT 404 — glitch text ── */
+.four04-number {
+  font-family: var(--font);
+  font-size: clamp(8rem, 20vw, 16rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  margin-bottom: 24px;
+  position: relative;
+  color: transparent;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 40%, var(--pink) 70%, var(--yellow) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: numberShift 12s ease-in-out infinite;
+}
+
+@keyframes numberShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.four04-number { background-size: 200% 200%; }
+
+/* Glitch layers */
+.four04-number::before,
+.four04-number::after {
+  content: '404';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  -webkit-text-fill-color: transparent;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+  overflow: hidden;
+}
+
+.four04-number::before {
+  animation: glitchTop 3s ease-in-out infinite;
+  clip-path: inset(0 0 65% 0);
+}
+
+.four04-number::after {
+  animation: glitchBottom 3.5s ease-in-out infinite;
+  clip-path: inset(65% 0 0 0);
+}
+
+@keyframes glitchTop {
+  0%, 90%, 100% { transform: translate(0, 0); }
+  92% { transform: translate(-8px, -2px); }
+  94% { transform: translate(5px, 1px); }
+  96% { transform: translate(-3px, 0); }
+}
+
+@keyframes glitchBottom {
+  0%, 88%, 100% { transform: translate(0, 0); }
+  90% { transform: translate(6px, 2px); }
+  92% { transform: translate(-10px, -1px); }
+  95% { transform: translate(4px, 0); }
+}
+
+/* ── HEADING ── */
+.four04-heading {
+  font-family: var(--font);
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+/* ── BODY TEXT ── */
+.four04-body {
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  max-width: 440px;
+  margin: 0 auto 40px;
+}
+
+/* ── BUTTONS ── */
+.four04-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.four04-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  isolation: isolate;
+  text-decoration: none;
+}
+
+.four04-btn--primary {
+  background: var(--teal);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.four04-btn--primary::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  filter: blur(8px);
+}
+
+.four04-btn--primary:hover::before { opacity: 0.7; }
+
+.four04-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.four04-btn--ghost {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-dim);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.four04-btn--ghost:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border-color: rgba(0,188,241,0.3);
+  transform: translateY(-2px);
+}
+
+.four04-btn svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3s var(--ease);
+}
+
+.four04-btn--primary:hover svg { transform: translateX(3px); }
+.four04-btn--ghost:hover svg { transform: translateX(-3px); }
+
+/* ── ERROR CODE FOOTER ── */
+.four04-meta {
+  margin-top: 60px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+}
+
+.four04-meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+
+/* ── SIGNATURE BAR ── */
+.four04-sig {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%);
+  z-index: 4;
+}
+
+/* ── FLOATING FRAGMENTS — broken video frames ── */
+.four04-fragment {
+  position: absolute;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+  opacity: 0;
+  animation: fragmentFloat 20s ease-in-out infinite;
+}
+
+.four04-fragment:nth-child(1) {
+  width: 120px; height: 68px;
+  top: 12%; left: 8%;
+  animation-delay: 0s;
+  border-color: rgba(0,188,241,0.08);
+}
+
+.four04-fragment:nth-child(2) {
+  width: 80px; height: 80px;
+  top: 18%; right: 12%;
+  animation-delay: -4s;
+  border-color: rgba(235,0,139,0.08);
+}
+
+.four04-fragment:nth-child(3) {
+  width: 100px; height: 56px;
+  bottom: 20%; left: 15%;
+  animation-delay: -8s;
+  border-color: rgba(255,236,3,0.08);
+}
+
+.four04-fragment:nth-child(4) {
+  width: 60px; height: 60px;
+  bottom: 25%; right: 10%;
+  animation-delay: -12s;
+  border-color: rgba(0,188,241,0.08);
+}
+
+.four04-fragment:nth-child(5) {
+  width: 140px; height: 78px;
+  top: 40%; left: 3%;
+  animation-delay: -16s;
+  border-color: rgba(235,0,139,0.06);
+}
+
+.four04-fragment:nth-child(6) {
+  width: 90px; height: 50px;
+  top: 35%; right: 5%;
+  animation-delay: -6s;
+  border-color: rgba(255,236,3,0.06);
+}
+
+@keyframes fragmentFloat {
+  0%, 100% { opacity: 0; transform: translateY(20px) rotate(0deg); }
+  10% { opacity: 0.4; }
+  50% { opacity: 0.6; transform: translateY(-15px) rotate(2deg); }
+  90% { opacity: 0.4; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .four04 { padding: 80px 20px 40px; }
+  .four04-number {
+    font-size: 6rem;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  /* Kill glitch layers on mobile — they cause the color block overflow */
+  .four04-number::before,
+  .four04-number::after { display: none; }
+  .four04-heading { font-size: 1.3rem; }
+  .four04-body { font-size: 0.9rem; margin-bottom: 32px; }
+  .four04-actions { flex-direction: column; align-items: center; }
+  .four04-btn { width: 100%; max-width: 280px; justify-content: center; padding: 12px 24px; font-size: 13px; }
+  .four04-fragment { display: none; }
+  .four04-meta { flex-direction: column; gap: 6px; }
+  .four04-meta-dot { display: none; }
+  .four04-label { font-size: 9px; padding: 6px 14px; margin-bottom: 28px; }
+  .four04-scanlines { display: none; }
+}
+</style>
+
+<section class="four04">
+  <canvas class="four04-canvas" id="four04Canvas"></canvas>
+
+  <div class="four04-scanlines"></div>
+  <div class="four04-glitch-band"></div>
+
+  <!-- Floating broken frame fragments -->
+  <div class="four04-fragment"></div>
+  <div class="four04-fragment"></div>
+  <div class="four04-fragment"></div>
+  <div class="four04-fragment"></div>
+  <div class="four04-fragment"></div>
+  <div class="four04-fragment"></div>
+
+  <div class="four04-content">
+    <div class="four04-label">Signal Lost</div>
+
+    <div class="four04-number" aria-label="404">404</div>
+
+    <h1 class="four04-heading">This content didn't make the cut.</h1>
+    <p class="four04-body">
+      The page you're looking for has been moved, deleted, or never existed.
+      Let's get you back to something worth watching.
+    </p>
+
+    <div class="four04-actions">
+      <a href="/" class="four04-btn four04-btn--primary">
+        Back to Home
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="/services" class="four04-btn four04-btn--ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="12 19 5 12 12 5"/><line x1="19" y1="12" x2="5" y2="12"/></svg>
+        View Services
+      </a>
+    </div>
+
+    <div class="four04-meta">
+      <span>Error 404</span>
+      <span class="four04-meta-dot"></span>
+      <span>Page Not Found</span>
+      <span class="four04-meta-dot"></span>
+      <span>cinebody.com</span>
+    </div>
+  </div>
+
+  <div class="four04-sig"></div>
+</section>
+
+<script>
+(function() {
+  var canvas = document.getElementById('four04Canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var w, h, particles = [], mouse = { x: -1000, y: -1000 };
+
+  var colors = [
+    { r: 0, g: 188, b: 241 },   // teal
+    { r: 235, g: 0, b: 139 },   // pink
+    { r: 255, g: 236, b: 3 },   // yellow
+    { r: 255, g: 255, b: 255 }  // white
+  ];
+
+  function resize() {
+    w = canvas.parentElement.clientWidth;
+    h = canvas.parentElement.clientHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function createParticle() {
+    var c = colors[Math.floor(Math.random() * colors.length)];
+    return {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      size: Math.random() * 2 + 0.5,
+      alpha: Math.random() * 0.4 + 0.1,
+      color: c,
+      pulse: Math.random() * Math.PI * 2,
+      pulseSpeed: Math.random() * 0.02 + 0.005
+    };
+  }
+
+  function init() {
+    resize();
+    particles = [];
+    var count = Math.min(Math.floor((w * h) / 8000), 150);
+    for (var i = 0; i < count; i++) particles.push(createParticle());
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.pulse += p.pulseSpeed;
+
+      // Wrap around edges
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
+
+      // Mouse repulsion
+      var dx = p.x - mouse.x;
+      var dy = p.y - mouse.y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 150) {
+        var force = (150 - dist) / 150;
+        p.vx += (dx / dist) * force * 0.3;
+        p.vy += (dy / dist) * force * 0.3;
+      }
+
+      // Damping
+      p.vx *= 0.99;
+      p.vy *= 0.99;
+
+      var a = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
+
+      // Glow
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(' + p.color.r + ',' + p.color.g + ',' + p.color.b + ',' + (a * 0.15) + ')';
+      ctx.fill();
+
+      // Core
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(' + p.color.r + ',' + p.color.g + ',' + p.color.b + ',' + a + ')';
+      ctx.fill();
+
+      // Draw connections
+      for (var j = i + 1; j < particles.length; j++) {
+        var p2 = particles[j];
+        var ddx = p.x - p2.x;
+        var ddy = p.y - p2.y;
+        var d = Math.sqrt(ddx * ddx + ddy * ddy);
+        if (d < 120) {
+          var lineAlpha = (1 - d / 120) * 0.08;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = 'rgba(' + p.color.r + ',' + p.color.g + ',' + p.color.b + ',' + lineAlpha + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  canvas.parentElement.addEventListener('mousemove', function(e) {
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  canvas.parentElement.addEventListener('mouseleave', function() {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+
+  window.addEventListener('resize', function() {
+    resize();
+  });
+
+  init();
+  draw();
+})();
+</script>
