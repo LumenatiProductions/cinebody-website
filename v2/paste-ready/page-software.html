@@ -175,60 +175,57 @@ body > * { position: relative; z-index: 1; }
 
 .hero-trust { font-size: 12px; color: var(--text-muted); margin-top: 20px; font-family: var(--mono); letter-spacing: 0.02em; }
 
-/* Video wall — 3x3 grid */
-.hero-wall {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 1fr;
-  gap: 6px;
-  width: 100%;
-}
-
-.wall-cell {
-  position: relative;
-  padding-bottom: 100%;
+/* Vertical video scroller */
+.hero-scroller {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+  max-height: 600px;
   overflow: hidden;
-  border-radius: 8px;
+  justify-content: center;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+.hero-scroller-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  will-change: transform;
+}
+
+.scroll-up .hero-scroller-col { animation: scrollUp 40s linear infinite; }
+.scroll-down .hero-scroller-col { animation: scrollDown 45s linear infinite; }
+
+@keyframes scrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+@keyframes scrollDown { 0% { transform: translateY(-50%); } 100% { transform: translateY(0); } }
+
+.hero-scroller-col .scr-card {
+  flex-shrink: 0;
+  width: 145px;
+  aspect-ratio: 9/16;
+  border-radius: 12px;
+  overflow: hidden;
   background: #111;
-  background-size: cover;
-  background-position: center;
-  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative;
 }
 
-.wall-cell::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.2);
-  transition: background 0.4s ease;
-  z-index: 1;
+.scr-card img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
 }
 
-.wall-cell:hover::after {
-  background: linear-gradient(135deg, rgba(0,188,241,0.15), rgba(235,0,139,0.1), rgba(255,236,3,0.08));
+.scr-card iframe {
+  position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px);
+  border: none; pointer-events: none; z-index: 1;
 }
 
-.wall-label {
-  position: absolute; bottom: 8px; left: 8px; z-index: 2;
-  font-family: var(--font); font-size: 9px; font-weight: 600;
-  color: #fff; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-  padding: 4px 8px; border-radius: 4px;
-  opacity: 0; transform: translateY(4px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+.scr-label {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 5px 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  font-family: var(--mono); font-size: 7px; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.06em;
-}
-
-.wall-cell:hover .wall-label {
-  opacity: 1; transform: translateY(0);
-}
-
-.wall-cell iframe {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 250%; height: 250%;
-  transform: translate(-50%, -50%);
-  border: none;
-  pointer-events: none;
+  color: rgba(255,255,255,0.6); z-index: 3;
 }
 
 /* ═══════════════════════════
@@ -526,8 +523,9 @@ body > * { position: relative; z-index: 1; }
 }
 
 @media (max-width: 768px) {
-  .hero-wall { gap: 6px; }
-  .wall-cell { background-size: cover; background-position: center; }
+  .hero-scroller { height: 400px; gap: 8px; }
+  .hero-scroller-col .scr-card { width: 120px; border-radius: 10px; }
+  .hero-scroller-col { gap: 8px; }
   .steps { grid-template-columns: 1fr; gap: 40px; }
   .steps::before { display: none; }
   .check-list { grid-template-columns: 1fr; }
@@ -536,9 +534,17 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 600px) {
   .hero { padding: 40px 0 60px; }
   .hero h1 { font-size: 2.25rem; }
-  .hero-wall { aspect-ratio: auto; }
-  .wall-cell { border-radius: 6px; }
-  .wall-label { font-size: 7px; padding: 3px 6px; bottom: 4px; left: 4px; }
+  .hero-scroller {
+    height: 380px; gap: 6px;
+    width: 100vw;
+    margin-left: calc(-1 * clamp(1.25rem, 4vw, 3rem));
+    margin-right: calc(-1 * clamp(1.25rem, 4vw, 3rem));
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  .hero-scroller-col .scr-card { width: calc((100vw - 24px) / 3); border-radius: 10px; }
+  .hero-scroller-col { gap: 6px; }
+  .scr-label { font-size: 6px; padding: 4px 6px; }
   .how, .cross-sell, .faq { padding: 80px 0; }
   .pricing { padding: 80px 0; }
   .cross-card { padding: 28px; }
@@ -563,16 +569,49 @@ body > * { position: relative; z-index: 1; }
       <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
     </div>
-    <div class="hero-wall reveal reveal-d2">
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2038638655-4ef78cd2bf72975d8e802116dbfb44252b5b797a7ec267b4c2138960b71ec95c-d_640')"><span class="wall-label">Sparkle · Creator</span><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2008573386-62a057b277e494ff523e8d6bd9f52a8c1f1eaa72870c3068ad635598ef0e4e65-d_640')"><span class="wall-label">Point.me · CTV</span><iframe src="https://player.vimeo.com/video/1078357962?h=ac0da6551d&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640')"><span class="wall-label">RC · Rover</span><iframe src="https://player.vimeo.com/video/1061059233?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/696061055-cd34ca440798414c8d191af42901cde8208bcb11564388245cd9e462f14bb719-d_640')"><span class="wall-label">Nike · Run Club</span><iframe src="https://player.vimeo.com/video/265928299?h=10ec2810ff&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640')"><span class="wall-label">Altra · Athlete</span><iframe src="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/1993482466-f54bae18ca4f73806a7452580ea13be1f84dbba0c1e22c04233f20e333b5d86b-d_640')"><span class="wall-label">Dell · Employee</span><iframe src="https://player.vimeo.com/video/1065886093?h=80404d7365&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/1896814958-e6c0a34bb7713d13f7753b614896d5fe41ed10a9b4348204550f44843aec0e22-d_640')"><span class="wall-label">RC · Fleet</span><iframe src="https://player.vimeo.com/video/981489599?h=89701ad11c&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640')"><span class="wall-label">Sploot · CTV</span><iframe src="https://player.vimeo.com/video/1130557367?h=67815d0119&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
-      <div class="wall-cell" style="background-image:url('https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640')"><span class="wall-label">Cogent · Events</span><iframe src="https://player.vimeo.com/video/1090977594?h=646a9f78bc&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0" allow="autoplay" loading="lazy"></iframe></div>
+    <div class="hero-scroller reveal reveal-d2">
+      <div class="scroll-up">
+        <div class="hero-scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Outside Lands</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1065884285?h=75786524f6&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Employee</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Altra · Athlete</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072989645?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Besame</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Lorde · Live</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Outside Lands</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1065884285?h=75786524f6&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Employee</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Altra · Athlete</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072989645?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Besame</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Lorde · Live</div></div>
+        </div>
+      </div>
+      <div class="scroll-down">
+        <div class="hero-scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1061059233?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">RC · Rover</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1145001262?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Modelo CFB</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1131472355?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Jose</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2038638655-4ef78cd2bf72975d8e802116dbfb44252b5b797a7ec267b4c2138960b71ec95c-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Sparkle · Creator</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454811?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · USOS</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1061059233?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">RC · Rover</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1145001262?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Modelo CFB</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1131472355?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Jose</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2038638655-4ef78cd2bf72975d8e802116dbfb44252b5b797a7ec267b4c2138960b71ec95c-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Sparkle · Creator</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454811?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · USOS</div></div>
+        </div>
+      </div>
+      <div class="scroll-up">
+        <div class="hero-scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Suenos</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2060423790-aeb2c1b4bfa75cf8c4b9ae8a43261c8a7b95c09e2e2826e809345c5cff4fd9f3-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1119837195?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Abhishek</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · La Onda</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1983601027-f4595d307ed320fb1d7c7f830f927efa36c34b538d0e5d53248c0ec6aa9a4305-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1057614300?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · HBCU</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · BottleRock</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Suenos</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2060423790-aeb2c1b4bfa75cf8c4b9ae8a43261c8a7b95c09e2e2826e809345c5cff4fd9f3-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1119837195?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Abhishek</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · La Onda</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1983601027-f4595d307ed320fb1d7c7f830f927efa36c34b538d0e5d53248c0ec6aa9a4305-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1057614300?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · HBCU</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · BottleRock</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
