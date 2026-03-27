@@ -125,19 +125,14 @@ body > * { position: relative; z-index: 1; }
 .logo-pair img.grayscale { filter: brightness(0) invert(1); opacity: 1; }
 .logo-pair .logo-x { font-size: 18px; font-weight: 300; color: var(--text-muted); }
 
-.hero-visual {
-  position: relative;
-  text-align: center;
-}
-
+.hero-visual { position: relative; text-align: center; }
 .hero-visual .vid-playable { margin: 0 auto; }
 
-.hero-vid-trio {
-  display: flex; gap: 12px; justify-content: center;
-  max-width: 480px; margin: 0 auto;
+.hero-vid-pair {
+  display: flex; gap: 16px; justify-content: center;
+  max-width: 500px; margin: 0 auto;
 }
-
-.hero-vid-trio .vid-card { flex: 1; max-width: 150px; }
+.hero-vid-pair .vid-card { flex: 1; max-width: 240px; }
 
 /* ═══ CONTENT SECTIONS ═══ */
 .content-section {
@@ -146,6 +141,13 @@ body > * { position: relative; z-index: 1; }
     radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%),
     radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%),
     linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%);
+}
+
+.content-section--pink {
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 40%, rgba(235,0,139,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,188,241,0.05) 0%, transparent 70%),
+    linear-gradient(180deg, #1a0a18 0%, #140a1e 50%, #0f1a24 100%);
 }
 
 .section-head { text-align: center; margin-bottom: 48px; }
@@ -181,10 +183,77 @@ body > * { position: relative; z-index: 1; }
   max-width: 660px; margin: 0 auto;
 }
 .vid-trio .vid-card { flex: 1; max-width: 200px; }
-.vid-trio .vid-label {
+.vid-label {
   padding: 10px 12px; text-align: center;
   font-family: var(--mono); font-size: 10px; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim);
+}
+
+/* Horizontal pair */
+.horiz-pair {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  max-width: 900px; margin: 0 auto;
+}
+
+/* 2x2 Grid */
+.grid-2x2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  max-width: 900px; margin: 0 auto;
+}
+
+/* ═══ TABS ═══ */
+.tabs {
+  display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap;
+}
+
+.tab-btn {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 100px;
+  padding: 10px 22px; cursor: pointer;
+  transition: all 0.3s var(--ease);
+}
+
+.tab-btn:hover {
+  color: var(--text); border-color: var(--border-hover);
+  background: var(--surface-hover);
+}
+
+.tab-btn.active {
+  color: #fff; background: rgba(0,188,241,0.12);
+  border-color: rgba(0,188,241,0.3);
+  box-shadow: 0 0 12px rgba(0,188,241,0.1);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ═══ LIGHT SECTION ═══ */
+.content-section--light { background: #fff; color: #111; }
+.content-section--light .section-head h2 { color: #111 !important; }
+.content-section--light .section-head h2 em { color: var(--teal) !important; }
+.content-section--light .section-head p { color: #666; }
+.content-section--light .vid-card { border-color: #e0e0e0; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+/* ═══ PROGRAM COUNTER ═══ */
+.program-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border-radius: 12px; overflow: hidden;
+  max-width: 800px; margin: 0 auto 48px;
+}
+.program-stat {
+  background: rgba(255,255,255,0.02); padding: 28px 16px; text-align: center;
+  transition: background 0.3s ease;
+}
+.program-stat:hover { background: rgba(255,255,255,0.04); }
+.program-stat-num {
+  font-size: 2rem; font-weight: 800; color: var(--teal);
+  letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px;
+}
+.program-stat-label {
+  font-family: var(--mono); font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted);
 }
 
 /* ═══ CTA BAND ═══ */
@@ -214,6 +283,8 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 1000px) {
   .hero .contain { grid-template-columns: 1fr; gap: 48px; }
   .hero { padding: 60px 0 80px; }
+  .grid-2x2, .horiz-pair { grid-template-columns: 1fr; }
+  .program-stats { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -222,7 +293,10 @@ body > * { position: relative; z-index: 1; }
   .hero h1 { font-size: 2.25rem; }
   .content-section, .cta-band { padding: 60px 0; }
   .vid-trio .vid-card { max-width: 160px; }
-  .hero-vid-trio .vid-card { max-width: 120px; }
+  .hero-vid-pair .vid-card { max-width: 160px; }
+  .program-stats { grid-template-columns: repeat(2, 1fr); }
+  .tabs { gap: 6px; }
+  .tab-btn { padding: 8px 14px; font-size: 10px; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
 }
@@ -244,25 +318,20 @@ body > * { position: relative; z-index: 1; }
         <span class="logo-x">&times;</span>
         <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752696389465-KJM0HADL2FMJ1SK8AFQU/dell-2-logo-png-transparent.png" alt="Dell" style="height:40px;filter:brightness(0) invert(1)">
       </div>
-      <h1>The people behind the innovation. <em>In their own&nbsp;words.</em></h1>
-      <p class="hero-body">Dell uses Cinebody to capture authentic stories from employees and communities across the world — highlighting the people behind the innovation. By turning real experiences into high-performing content, Dell builds connection, transparency, and a stronger global&nbsp;culture.</p>
+      <h1>Five programs. One platform.<br><em>A global content engine.</em></h1>
+      <p class="hero-body">Dell Technologies runs multiple content programs through Cinebody — from employee spotlights to HBCU events to international recruitment campaigns. No production crews. No outsourced talent. Just real people across the globe, guided by Cinebody's patented shot list&nbsp;technology.</p>
       <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
     <div class="hero-visual reveal reveal-d2">
-      <div class="hero-vid-trio">
+      <div class="hero-vid-pair">
         <div class="vid-card">
-          <div class="vid-playable vid-playable--v" data-vimeo="1065884285" data-vimeo-h="75786524f6">
-            <img class="vid-poster" src="https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640" alt="Dell Employee Story">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1111765405" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2074301104-64b512d0c27a0b3275cee7a45c89a6f2599bb867f417f1a8737d72cd58762bfa-d_640" alt="Behind the Badge — Teresa">
           </div>
         </div>
         <div class="vid-card">
-          <div class="vid-playable vid-playable--v" data-vimeo="1065886093" data-vimeo-h="80404d7365">
-            <img class="vid-poster" src="https://i.vimeocdn.com/video/1993482466-f54bae18ca4f73806a7452580ea13be1f84dbba0c1e22c04233f20e333b5d86b-d_640" alt="Dell Innovation Lab">
-          </div>
-        </div>
-        <div class="vid-card">
-          <div class="vid-playable vid-playable--v" data-vimeo="1065890083" data-vimeo-h="8d129ec781">
-            <img class="vid-poster" src="https://i.vimeocdn.com/video/1993487178-f18895b0fe981a75970a2204846cba31f47678cfb4c502ef843a7dc3e9dd1ccd-d_640" alt="Dell Community Voice">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1142601055" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2090419638-f91bd59c6a9d9a4c2d2ca69e736a2ef262eab9c796c3a54595c5314865e26cb1-d_640" alt="Behind the Badge — Ashtin">
           </div>
         </div>
       </div>
@@ -276,58 +345,354 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ STATS ═══ -->
 <section style="background:#fff;color:#111;padding:80px 0">
   <div class="contain" style="max-width:900px">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Global</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Workforce</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Always</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100%</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Authentic</div></div>
+
+    <!-- Global Network Graphic -->
+    <div class="reveal" style="max-width:500px;margin:0 auto 48px">
+      <svg viewBox="0 0 500 280" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+        <defs>
+          <filter id="nodeGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- Connection lines (dashed, animated) -->
+        <g stroke="rgba(0,188,241,0.15)" stroke-width="1" stroke-dasharray="4 3" fill="none">
+          <line x1="80" y1="60" x2="250" y2="140"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="420" y1="50" x2="250" y2="140"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="60" y1="180" x2="250" y2="140"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="440" y1="200" x2="250" y2="140"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="150" y1="240" x2="250" y2="140"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="370" y1="250" x2="250" y2="140"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="170" y1="30" x2="250" y2="140"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="350" y1="120" x2="250" y2="140"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="3s" repeatCount="indefinite"/></line>
+        </g>
+
+        <!-- Particles flowing toward center -->
+        <circle r="3" fill="#00bcf1" opacity="0"><animateMotion dur="2s" repeatCount="indefinite" path="M80,60 L250,140"/><animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2.2s" begin="0.3s" repeatCount="indefinite" path="M420,50 L250,140"/><animate attributeName="opacity" values="0;0.6;0" dur="2.2s" begin="0.3s" repeatCount="indefinite"/></circle>
+        <circle r="3" fill="#00bcf1" opacity="0"><animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M60,180 L250,140"/><animate attributeName="opacity" values="0;0.7;0" dur="1.8s" begin="0.6s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2.4s" begin="0.9s" repeatCount="indefinite" path="M440,200 L250,140"/><animate attributeName="opacity" values="0;0.8;0" dur="2.4s" begin="0.9s" repeatCount="indefinite"/></circle>
+        <circle r="3" fill="#00bcf1" opacity="0"><animateMotion dur="2s" begin="1.2s" repeatCount="indefinite" path="M150,240 L250,140"/><animate attributeName="opacity" values="0;0.6;0" dur="2s" begin="1.2s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="2.1s" begin="0.5s" repeatCount="indefinite" path="M370,250 L250,140"/><animate attributeName="opacity" values="0;0.7;0" dur="2.1s" begin="0.5s" repeatCount="indefinite"/></circle>
+        <circle r="2" fill="#00bcf1" opacity="0"><animateMotion dur="1.9s" begin="0.2s" repeatCount="indefinite" path="M170,30 L250,140"/><animate attributeName="opacity" values="0;0.5;0" dur="1.9s" begin="0.2s" repeatCount="indefinite"/></circle>
+        <circle r="2.5" fill="#00bcf1" opacity="0"><animateMotion dur="1.6s" begin="0.8s" repeatCount="indefinite" path="M350,120 L250,140"/><animate attributeName="opacity" values="0;0.6;0" dur="1.6s" begin="0.8s" repeatCount="indefinite"/></circle>
+
+        <!-- Outer nodes — global community -->
+        <g filter="url(#nodeGlow)">
+          <!-- Person icons at each node -->
+          <g transform="translate(80,60)">
+            <circle r="16" fill="rgba(0,188,241,0.08)" stroke="rgba(0,188,241,0.25)" stroke-width="1"/>
+            <circle cx="0" cy="-3" r="4" fill="rgba(0,188,241,0.5)"/>
+            <path d="M-6,7 Q0,2 6,7" stroke="rgba(0,188,241,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text y="28" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,0,0,0.4)">India</text>
+          </g>
+          <g transform="translate(420,50)">
+            <circle r="16" fill="rgba(0,188,241,0.08)" stroke="rgba(0,188,241,0.25)" stroke-width="1"/>
+            <circle cx="0" cy="-3" r="4" fill="rgba(0,188,241,0.5)"/>
+            <path d="M-6,7 Q0,2 6,7" stroke="rgba(0,188,241,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text y="28" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,0,0,0.4)">Panama</text>
+          </g>
+          <g transform="translate(60,180)">
+            <circle r="16" fill="rgba(0,188,241,0.08)" stroke="rgba(0,188,241,0.25)" stroke-width="1"/>
+            <circle cx="0" cy="-3" r="4" fill="rgba(0,188,241,0.5)"/>
+            <path d="M-6,7 Q0,2 6,7" stroke="rgba(0,188,241,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text y="28" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,0,0,0.4)">Germany</text>
+          </g>
+          <g transform="translate(440,200)">
+            <circle r="16" fill="rgba(0,188,241,0.08)" stroke="rgba(0,188,241,0.25)" stroke-width="1"/>
+            <circle cx="0" cy="-3" r="4" fill="rgba(0,188,241,0.5)"/>
+            <path d="M-6,7 Q0,2 6,7" stroke="rgba(0,188,241,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text y="28" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,0,0,0.4)">Mexico</text>
+          </g>
+          <g transform="translate(150,240)">
+            <circle r="14" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="1"/>
+            <circle cx="0" cy="-3" r="3.5" fill="rgba(0,188,241,0.4)"/>
+            <path d="M-5,6 Q0,2 5,6" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text y="26" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,0,0,0.35)">HBCU</text>
+          </g>
+          <g transform="translate(370,250)">
+            <circle r="14" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="1"/>
+            <circle cx="0" cy="-3" r="3.5" fill="rgba(0,188,241,0.4)"/>
+            <path d="M-5,6 Q0,2 5,6" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text y="26" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,0,0,0.35)">HSI</text>
+          </g>
+          <g transform="translate(170,30)">
+            <circle r="14" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="1"/>
+            <circle cx="0" cy="-3" r="3.5" fill="rgba(0,188,241,0.4)"/>
+            <path d="M-5,6 Q0,2 5,6" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text y="26" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,0,0,0.35)">Denver</text>
+          </g>
+          <g transform="translate(350,120)">
+            <circle r="14" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="1"/>
+            <circle cx="0" cy="-3" r="3.5" fill="rgba(0,188,241,0.4)"/>
+            <path d="M-5,6 Q0,2 5,6" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text y="26" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="rgba(0,0,0,0.35)">Austin</text>
+          </g>
+        </g>
+
+        <!-- Center hub — Cinebody Dashboard -->
+        <circle cx="250" cy="140" r="32" fill="rgba(255,236,3,0.06)" stroke="rgba(255,236,3,0.25)" stroke-width="1.5">
+          <animate attributeName="r" values="32;35;32" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="250" cy="140" r="22" fill="rgba(255,236,3,0.1)" stroke="rgba(255,236,3,0.35)" stroke-width="1"/>
+        <text x="250" y="137" text-anchor="middle" font-family="Inter" font-size="10" font-weight="800" fill="#00bcf1" letter-spacing="0.04em">CINEBODY</text>
+        <text x="250" y="150" text-anchor="middle" font-family="Inter" font-size="7" font-weight="600" fill="rgba(0,0,0,0.35)" letter-spacing="0.08em">DASHBOARD</text>
+
+        <!-- Pulse rings on hub -->
+        <circle cx="250" cy="140" fill="none" stroke="rgba(255,236,3,0.2)" stroke-width="1">
+          <animate attributeName="r" values="32;55" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.4;0" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="250" cy="140" fill="none" stroke="rgba(255,236,3,0.15)" stroke-width="1">
+          <animate attributeName="r" values="32;55" dur="2.5s" begin="1.25s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;0" dur="2.5s" begin="1.25s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
     </div>
-    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">Dell employees across the globe share their authentic stories through Cinebody — building connection, transparency, and a stronger culture without a single production&nbsp;crew.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">5</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Programs</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Videos</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Global</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Reach</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
+    </div>
+    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">Dell Technologies runs employee spotlights, university outreach, international recruitment, workplace culture, and community programs — all powered by Cinebody. Over 100 videos produced. Zero production&nbsp;crews.</p>
   </div>
 </section>
 
 <!-- curve: light → teal-navy -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
 
-<!-- ═══ EMPLOYEE VOICES SECTION ═══ -->
+<!-- ═══ TABBED PROGRAMS SHOWCASE ═══ -->
 <section class="content-section">
   <div class="contain">
     <div class="section-head reveal">
-      <div class="label">Employee Voices</div>
-      <h2>Real employees. <em>Real stories.</em></h2>
-      <p>Dell's global workforce captures authentic stories through Cinebody — from innovation labs to community events. No scripts, no production crews. Just real people sharing real&nbsp;experiences.</p>
+      <div class="label">Content Programs</div>
+      <h2>Five programs. <em>One platform.</em></h2>
+      <p>From employee spotlights to global recruitment — Dell runs it all through&nbsp;Cinebody.</p>
     </div>
 
-    <div class="vid-trio reveal reveal-d1">
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1065884285" data-vimeo-h="75786524f6">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640" alt="Employee Story">
-        </div>
-        <div class="vid-label">Employee Story</div>
+    <div class="tabs reveal reveal-d1">
+      <button class="tab-btn active" data-tab="life">Day in the Life</button>
+      <button class="tab-btn" data-tab="badge">Behind the Badge</button>
+      <button class="tab-btn" data-tab="hbcu">HBCU &amp; Diversity</button>
+      <button class="tab-btn" data-tab="global">Global Recruitment</button>
+      <button class="tab-btn" data-tab="community">Community</button>
+    </div>
+
+    <!-- ── Behind the Badge ── -->
+    <div class="tab-panel" id="tab-badge">
+      <div class="section-head" style="margin-bottom:32px">
+        <p>Dell's flagship employee spotlight series. Real employees share what it means to work at Dell — in their own words, from their own&nbsp;communities.</p>
       </div>
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1065886093" data-vimeo-h="80404d7365">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/1993482466-f54bae18ca4f73806a7452580ea13be1f84dbba0c1e22c04233f20e333b5d86b-d_640" alt="Innovation Lab">
+      <div class="vid-trio reveal reveal-d2">
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1111765405">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2074301104-64b512d0c27a0b3275cee7a45c89a6f2599bb867f417f1a8737d72cd58762bfa-d_640" alt="Teresa">
+          </div>
+          <div class="vid-label">Teresa</div>
         </div>
-        <div class="vid-label">Innovation Lab</div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1131472355">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" alt="Jose">
+          </div>
+          <div class="vid-label">Jose</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1142601055">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2090419638-f91bd59c6a9d9a4c2d2ca69e736a2ef262eab9c796c3a54595c5314865e26cb1-d_640" alt="Ashtin">
+          </div>
+          <div class="vid-label">Ashtin</div>
+        </div>
       </div>
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1065890083" data-vimeo-h="8d129ec781">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/1993487178-f18895b0fe981a75970a2204846cba31f47678cfb4c502ef843a7dc3e9dd1ccd-d_640" alt="Community Voice">
+      <div style="margin-top:24px">
+        <div class="vid-trio reveal">
+          <div class="vid-card">
+            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1152885226">
+              <img class="vid-poster" src="https://i.vimeocdn.com/video/2104637187-8db0f74b1b48ab33013e63e3ce83853b8ff4c489dc24a0c57df50926feb33536-d_640" alt="Allan">
+            </div>
+            <div class="vid-label">Allan</div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1162300426">
+              <img class="vid-poster" src="https://i.vimeocdn.com/video/2118022092-bb449ab6d4fb5d41bec8e2d99f1a30960487a25618ed6db26f23de7efc2d5591-d_640" alt="Bethany">
+            </div>
+            <div class="vid-label">Bethany</div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1170443739">
+              <img class="vid-poster" src="https://i.vimeocdn.com/video/2129569531-e8a359ce81c18194371e8769258a5dffa5acc090f5b5e439537e6c109ea019af-d_640" alt="Claudia">
+            </div>
+            <div class="vid-label">Claudia</div>
+          </div>
         </div>
-        <div class="vid-label">Community Voice</div>
+      </div>
+    </div>
+
+    <!-- ── Day in the Life ── -->
+    <div class="tab-panel active" id="tab-life">
+      <div class="section-head" style="margin-bottom:32px">
+        <p>Workplace culture content that shows — not tells — what it's like to work at Dell. Office tours, day-in-the-life stories, and authentic moments from&nbsp;inside.</p>
+      </div>
+      <div class="vid-trio reveal reveal-d2">
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="873720928">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1737354962-e98a1b12cc9c1ec3d8768d9c928a502e274dab25eb6c83b08855620160fbcc3c-d_640" alt="Hopkinton Office Tour">
+          </div>
+          <div class="vid-label">Hopkinton Office Tour</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="910069095">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1793854134-e52a399420563724365cf6e411604ec362876aa7f7459c3d975362ff7d63a5ae-d_640" alt="Day in the Life">
+          </div>
+          <div class="vid-label">Day in the Life</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1119837195">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2060423790-aeb2c1b4bfa75cf8c4b9ae8a43261c8a7b95c09e2e2826e809345c5cff4fd9f3-d_640" alt="Day in the Life — Abhishek">
+          </div>
+          <div class="vid-label">Abhishek Mehra</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HBCU & Diversity ── -->
+    <div class="tab-panel" id="tab-hbcu">
+      <div class="section-head" style="margin-bottom:32px">
+        <p>Dell's commitment to diversity pipeline programs — HBCU Battle of the Brains, HSI alumni stories, and StemAspire India. Real participants, real&nbsp;impact.</p>
+      </div>
+      <div class="vid-trio reveal reveal-d2">
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="933347744">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1831765364-f14666d49ec8e4256934ff7d755764da66d001245478b7efa193b15cc2934679-d_640" alt="HBCU Battle of the Brains">
+          </div>
+          <div class="vid-label">HBCU Battle of the Brains</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1057614300">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1983601027-f4595d307ed320fb1d7c7f830f927efa36c34b538d0e5d53248c0ec6aa9a4305-d_640" alt="HBCU Event Teaser">
+          </div>
+          <div class="vid-label">Pre-Event Teaser</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1022625764">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1941613265-fd7d852dc99978716d8293ca40bcbcbad6e4a17510f9584a7316abe6a726ac5c-d_640" alt="HSI Alumni Story">
+          </div>
+          <div class="vid-label">HSI Alumni Story</div>
+        </div>
+      </div>
+      <div style="margin-top:24px;max-width:440px;margin-left:auto;margin-right:auto">
+        <div class="horiz-pair reveal" style="grid-template-columns:1fr">
+          <div class="vid-card">
+            <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="949537419">
+              <img class="vid-poster" src="https://i.vimeocdn.com/video/1857510799-42eb5175fdc37e61412989556931b44fc24a062332d36a5a9975ef93421d5444-d_640" alt="StemAspire India">
+            </div>
+            <div class="vid-label">StemAspire India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Global Recruitment ── -->
+    <div class="tab-panel" id="tab-global">
+      <div class="section-head" style="margin-bottom:32px">
+        <p>Localized recruitment content from Dell offices worldwide — Panama, Mexico, Germany, and beyond. Authentic hiring stories in native&nbsp;languages.</p>
+      </div>
+      <div class="vid-trio reveal reveal-d2">
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1125536474">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2067708995-3ab459c121f75fa1e9470f5a21640de6679e10cfd1b7f5f7006540ddc681e739-d_640" alt="Panama">
+          </div>
+          <div class="vid-label">Panama</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1130288077">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2073921611-ad19fdc1e2226de4c459331c24fa47684eef7d0c4892a3ae5a2ce8e08c6fcd10-d_640" alt="Mexico">
+          </div>
+          <div class="vid-label">Mexico</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="957803760">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1869763406-0d9191839ccb71fcbfd79ac86fbe5e5c51b0d75f1cb70c926f626c82f508e848-d_640" alt="Resume Tips Panama">
+          </div>
+          <div class="vid-label">Resume Tips</div>
+        </div>
+      </div>
+      <div style="margin-top:24px;max-width:440px;margin-left:auto;margin-right:auto">
+        <div class="horiz-pair reveal" style="grid-template-columns:1fr">
+          <div class="vid-card">
+            <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="983171339">
+              <img class="vid-poster" src="https://i.vimeocdn.com/video/1898568891-2d7fda52011b115b399ddbb87d7b808d23691c16a64ed155537aca5292b0526a-d_640" alt="Germany">
+            </div>
+            <div class="vid-label">Recruitment — Germany</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Community ── -->
+    <div class="tab-panel" id="tab-community">
+      <div class="section-head" style="margin-bottom:32px">
+        <p>Beyond the office — Dell captures community impact stories, giving programs, and initiatives that show the company's values in&nbsp;action.</p>
+      </div>
+      <div class="vid-trio reveal reveal-d2">
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1107810567">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2044915199-2db05cb4ab14893ecf4c58335dc4918c3a8f6f29cab1a43b384f8b308080ecf7-d_640" alt="Charlie's Animal Rescue">
+          </div>
+          <div class="vid-label">Animal Rescue</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1033233173">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1954312090-e4ee08b07cf8a6cb66d90c30058878508e3c58085e9a5960666170ec520ca5ce-d_640" alt="Giving Week">
+          </div>
+          <div class="vid-label">Giving Week</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1082577898">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2013593998-d53b6659d31ec9eca2806cfe396924dec41d0c1343055614f7d06fb53b785e42-d_640" alt="How Do You AI?">
+          </div>
+          <div class="vid-label">How Do You AI?</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- curve: dark → yellow -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+<!-- curve: dark → light -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ SUPPLY CHAIN & WHY DELL — Light Section ═══ -->
+<section class="content-section content-section--light" style="padding-top:60px">
+  <div class="contain">
+    <div class="section-head reveal">
+      <div class="label">Employer Brand</div>
+      <h2>Why Dell? <em>Let them tell you.</em></h2>
+      <p>Beyond recruitment campaigns, Dell uses Cinebody to capture the stories that make people want to stay — supply chain excellence, career growth, and culture from&nbsp;within.</p>
+    </div>
+
+    <div style="display:flex;gap:16px;justify-content:center;max-width:440px;margin:0 auto" class="reveal reveal-d1">
+      <div class="vid-card" style="flex:1;max-width:200px;border-color:#e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,0.08)">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1044697604">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/1968137753-8c482648b7ba4dbc4db180635219f063b18342869beb1472e267fe307c48306c-d_640" alt="Why Dell? 1">
+        </div>
+        <div class="vid-label" style="color:#999">Why Dell?</div>
+      </div>
+      <div class="vid-card" style="flex:1;max-width:200px;border-color:#e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,0.08)">
+        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1122853331">
+          <img class="vid-poster" src="https://i.vimeocdn.com/video/2064339976-359aaff378e439ac9355235e6e22963b1672adc5c58367534518c3ea780072ca-d_640" alt="Supply Chain Excellence">
+        </div>
+        <div class="vid-label" style="color:#999">Supply Chain Excellence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → yellow -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
 <!-- ═══ CTA BAND ═══ -->
 <section class="cta-band">
   <div class="contain">
-    <h2 class="reveal">Want your employees telling your story?<br><span>Let's build your content engine.</span></h2>
+    <h2 class="reveal">Want a multi-program content engine?<br><span>Let's build yours.</span></h2>
     <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   </div>
 </section>
@@ -336,13 +701,26 @@ body > * { position: relative; z-index: 1; }
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <script>
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    var panel = document.getElementById('tab-' + btn.dataset.tab);
+    panel.classList.add('active');
+    // Trigger reveal for newly visible elements
+    panel.querySelectorAll('.reveal:not(.vis)').forEach(function(el){
+      revealObs.observe(el);
+    });
+  });
+});
+
 // Reveal
-(function(){
-  var o = new IntersectionObserver(function(e){
-    e.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); o.unobserve(e.target); }});
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
-})();
+var revealObs = new IntersectionObserver(function(e){
+  e.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); revealObs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(function(el){ revealObs.observe(el); });
 
 // Scroll progress bar
 (function(){
@@ -355,3 +733,4 @@ body > * { position: relative; z-index: 1; }
   }, { passive: true });
 })();
 </script>
+
