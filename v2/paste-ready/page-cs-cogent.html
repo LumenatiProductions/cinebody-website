@@ -133,12 +133,36 @@ body > * { position: relative; z-index: 1; }
 
 .hero-visual .vid-playable { margin: 0 auto; }
 
-.hero-vid-trio {
-  display: flex; gap: 12px; justify-content: center;
-  max-width: 480px; margin: 0 auto;
+.hero-vid-pair {
+  display: flex; gap: 16px; justify-content: center;
+  max-width: 500px; margin: 0 auto;
 }
+.hero-vid-pair .vid-card { flex: 1; max-width: 240px; }
 
-.hero-vid-trio .vid-card { flex: 1; max-width: 150px; }
+/* Festival grid */
+.fest-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 16px; max-width: 1100px; margin: 0 auto;
+}
+.fest-grid .vid-card { max-width: none; }
+
+/* Video marquee scroller */
+.vid-marquee-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
+.vid-marquee-row { display: flex; margin-bottom: 14px; }
+.vid-marquee-row:last-child { margin-bottom: 0; }
+.vid-marquee-track { display: flex; gap: 14px; will-change: transform; }
+.marquee-left .vid-marquee-track { animation: marqL 50s linear infinite; }
+.marquee-right .vid-marquee-track { animation: marqR 50s linear infinite; }
+@keyframes marqL { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes marqR { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+.marq-card { flex-shrink: 0; width: 140px; aspect-ratio: 9/16; border-radius: 14px; overflow: hidden; background: #111; border: 1px solid var(--border); position: relative; }
+.marq-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.marq-card iframe { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); border: none; pointer-events: none; z-index: 1; }
+.marq-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 8px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: var(--mono); font-size: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.6); z-index: 3; }
+.marq-mute { position: absolute; bottom: 22px; right: 6px; z-index: 4; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(0,188,241,0.2); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: opacity 0.3s ease, background 0.2s ease; pointer-events: auto; }
+.marq-card:hover .marq-mute { opacity: 1; }
+.marq-mute:hover { background: rgba(0,188,241,0.4); }
+.marq-mute svg { width: 14px; height: 14px; }
 
 /* ═══ CONTENT SECTIONS ═══ */
 .content-section {
@@ -214,6 +238,8 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 1000px) {
   .hero .contain { grid-template-columns: 1fr; gap: 48px; }
   .hero { padding: 60px 0 80px; }
+  .fest-grid { grid-template-columns: repeat(3, 1fr); }
+  .marq-card { width: 120px; border-radius: 12px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -221,8 +247,11 @@ body > * { position: relative; z-index: 1; }
   .hero { padding: 40px 0 60px; }
   .hero h1 { font-size: 2.25rem; }
   .content-section, .cta-band { padding: 60px 0; }
-  .vid-trio .vid-card { max-width: 160px; }
-  .hero-vid-trio .vid-card { max-width: 120px; }
+  .fest-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .marq-card { width: 100px; border-radius: 10px; }
+  .vid-marquee-track { gap: 10px; }
+  .vid-marquee-row { margin-bottom: 10px; }
+  .hero-vid-pair .vid-card { max-width: 160px; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
 }
@@ -244,25 +273,20 @@ body > * { position: relative; z-index: 1; }
         <span class="logo-x">&times;</span>
         <img src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/4bfe7c7f-7e13-45ad-97dd-94c06ed463d3/1629489003234.jpg" alt="Cogent World" style="height:50px;border-radius:6px">
       </div>
-      <h1>Hundreds of events. <em>One content platform.</em></h1>
-      <p class="hero-body">From music festivals to brand activations, Cogent World produces hundreds of events across the globe. With Cinebody, they empower on-site teams and talent to capture real, in-the-moment content — fueling a steady stream of authentic video that connects with their community long after the event ends.</p>
+      <h1>Every festival. <em>One platform.</em></h1>
+      <p class="hero-body">Cogent World produces hundreds of events across the globe. With Cinebody, on-site teams and talent capture real, in-the-moment content — fueling a steady stream of authentic video that connects with audiences long after the last&nbsp;encore.</p>
       <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
     <div class="hero-visual reveal reveal-d2">
-      <div class="hero-vid-trio">
+      <div class="hero-vid-pair">
         <div class="vid-card">
-          <div class="vid-playable vid-playable--v" data-vimeo="1090977594" data-vimeo-h="646a9f78bc">
-            <img class="vid-poster" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="Festival Capture">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1087531124" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="BottleRock Festival">
           </div>
         </div>
         <div class="vid-card">
-          <div class="vid-playable vid-playable--v" data-vimeo="1090655136" data-vimeo-h="32eda7fecd">
-            <img class="vid-poster" src="https://i.vimeocdn.com/video/2023308957-b60d46468a140d084beae2f0afac4eacd3bef8e9fdb53c415d2c3e0f518265d1-d_640" alt="Brand Activation">
-          </div>
-        </div>
-        <div class="vid-card">
-          <div class="vid-playable vid-playable--v" data-vimeo="1089063815" data-vimeo-h="0822c777dc">
-            <img class="vid-poster" src="https://i.vimeocdn.com/video/2021455319-42166add3b024c990b06a7211474861fd47c47b14a5a982b2d421483d98e09c5-d_640" alt="Live Event">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1111454370" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="Outside Lands">
           </div>
         </div>
       </div>
@@ -454,45 +478,69 @@ body > * { position: relative; z-index: 1; }
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100s</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Events</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">11</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Festivals</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">15+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Videos</div></div>
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Global</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Scale</div></div>
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Always</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On</div></div>
     </div>
-    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">Cogent World deploys Cinebody at events around the globe. On-site teams capture real moments through guided shot lists — fueling authentic video content long after each event ends.</p>
+    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">From BottleRock to Outside Lands, Cogent World deploys Cinebody at festivals across the country. On-site teams capture real moments through guided shot lists — fueling authentic content long after each event&nbsp;ends.</p>
   </div>
 </section>
 
 <!-- curve: light → teal-navy -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
 
-<!-- ═══ EVENT CAPTURE SECTION ═══ -->
+<!-- ═══ FESTIVAL GALLERY ═══ -->
 <section class="content-section">
   <div class="contain">
     <div class="section-head reveal">
-      <div class="label">Event Capture</div>
-      <h2>Real moments. <em>Captured at scale.</em></h2>
-      <p>From festivals to brand activations, Cogent's on-site teams capture authentic, in-the-moment content — powered by Cinebody's shot list technology and real-time sync.</p>
+      <div class="label">Festival Gallery</div>
+      <h2>Every stage. <em>Every crowd. Every moment.</em></h2>
+      <p>15 videos across 11 festivals — all captured by on-site teams through Cinebody. No production crews, no outsourced&nbsp;talent.</p>
     </div>
 
-    <div class="vid-trio reveal reveal-d1">
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1090977594" data-vimeo-h="646a9f78bc">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="Festival Capture">
+    <div class="vid-marquee-wrap reveal reveal-d1">
+      <!-- Row 1: scrolls left -->
+      <div class="vid-marquee-row marquee-left">
+        <div class="vid-marquee-track">
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">BottleRock</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside Lands</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Suenos</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2023646073-6f1603d6e41f2f03abe6a3ab6b8ca1ab67eb75bcbcec9b403088faae5188b511-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090934200?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">La Onda</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072796654?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Tartuga</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2024815845-f9150976e3c159250bde4165c5fd3356a2f755409b183081e782d6bb1b826b87-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1091870084?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">GoPro Mtn</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2060903069-45e0a3be65f2284c0fcd5c0dcadacb7dbcc9e425b5d8d25b8f4e09a89c5c8407-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1120210852?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">SeaHearNow</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1145001262?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Modelo CFB</div></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">BottleRock</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside Lands</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Suenos</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2023646073-6f1603d6e41f2f03abe6a3ab6b8ca1ab67eb75bcbcec9b403088faae5188b511-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090934200?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">La Onda</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072796654?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Tartuga</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2024815845-f9150976e3c159250bde4165c5fd3356a2f755409b183081e782d6bb1b826b87-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1091870084?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">GoPro Mtn</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2060903069-45e0a3be65f2284c0fcd5c0dcadacb7dbcc9e425b5d8d25b8f4e09a89c5c8407-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1120210852?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">SeaHearNow</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1145001262?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Modelo CFB</div></div>
         </div>
-        <div class="vid-label">Festival Capture</div>
       </div>
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1090655136" data-vimeo-h="32eda7fecd">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2023308957-b60d46468a140d084beae2f0afac4eacd3bef8e9fdb53c415d2c3e0f518265d1-d_640" alt="Brand Activation">
+      <!-- Row 2: scrolls right -->
+      <div class="vid-marquee-row marquee-right">
+        <div class="vid-marquee-track">
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2020007198-3cdc6a76e05179e00e8eea92d8ca8018261d4d8d2e7652e07d01792e67d07609-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087899210?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">BottleRock II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2051400191-35687d0be2c936f11437b5b114343681a32fc9022ad0f73b84eca0fb3d4c28ae-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1113004416?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside Lands II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">La Onda II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072989645?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Besame Mucho</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2022328844-96d0f0f9239d7cf1e6e6e0379e16e132e3e91ca2c7d9b2f86f4e793907647532-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1089838824?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454811?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">USOS</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2051414231-6ad89051e74b1fe620b11021f550dfda2425308ef41b8408d56ba742766fbe17-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1113015969?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">USOS II</div></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2020007198-3cdc6a76e05179e00e8eea92d8ca8018261d4d8d2e7652e07d01792e67d07609-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087899210?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">BottleRock II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2051400191-35687d0be2c936f11437b5b114343681a32fc9022ad0f73b84eca0fb3d4c28ae-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1113004416?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside Lands II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">La Onda II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072989645?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Besame Mucho</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2022328844-96d0f0f9239d7cf1e6e6e0379e16e132e3e91ca2c7d9b2f86f4e793907647532-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1089838824?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454811?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">USOS</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2051414231-6ad89051e74b1fe620b11021f550dfda2425308ef41b8408d56ba742766fbe17-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1113015969?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">USOS II</div></div>
         </div>
-        <div class="vid-label">Brand Activation</div>
-      </div>
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--v" data-vimeo="1089063815" data-vimeo-h="0822c777dc">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2021455319-42166add3b024c990b06a7211474861fd47c47b14a5a982b2d421483d98e09c5-d_640" alt="Live Event">
-        </div>
-        <div class="vid-label">Live Event</div>
       </div>
     </div>
   </div>
@@ -504,7 +552,7 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ CTA BAND ═══ -->
 <section class="cta-band">
   <div class="contain">
-    <h2 class="reveal">Want event content at global scale?<br><span>Let's build your playbook.</span></h2>
+    <h2 class="reveal">Want event content at festival scale?<br><span>Let's build your playbook.</span></h2>
     <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   </div>
 </section>
@@ -531,4 +579,52 @@ body > * { position: relative; z-index: 1; }
     bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }, { passive: true });
 })();
+
+// Marquee pause when off-screen
+(function(){
+  var wrap = document.querySelector('.vid-marquee-wrap');
+  if (!wrap) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      wrap.querySelectorAll('.vid-marquee-track').forEach(function(t) {
+        t.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
+      });
+    });
+  }, { threshold: 0 });
+  obs.observe(wrap);
+
+  // Mute/unmute
+  var svgMuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+  var svgUnmuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+  var activePlayer = null;
+  var activeBtn = null;
+
+  wrap.addEventListener('click', function(e) {
+    var btn = e.target.closest('.marq-mute');
+    if (!btn) return;
+    var card = btn.closest('.marq-card');
+    var iframe = card.querySelector('iframe');
+    if (!iframe || typeof Vimeo === 'undefined') return;
+    var player = new Vimeo.Player(iframe);
+
+    if (activeBtn === btn) {
+      player.setMuted(true);
+      btn.innerHTML = svgMuted;
+      btn.setAttribute('aria-label', 'Unmute');
+      wrap.querySelectorAll('.vid-marquee-track').forEach(function(t) { t.style.animationPlayState = 'running'; });
+      activePlayer = null; activeBtn = null; return;
+    }
+    if (activePlayer && activeBtn) {
+      activePlayer.setMuted(true);
+      activeBtn.innerHTML = svgMuted;
+      activeBtn.setAttribute('aria-label', 'Unmute');
+    }
+    player.setMuted(false);
+    btn.innerHTML = svgUnmuted;
+    btn.setAttribute('aria-label', 'Mute');
+    wrap.querySelectorAll('.vid-marquee-track').forEach(function(t) { t.style.animationPlayState = 'paused'; });
+    activePlayer = player; activeBtn = btn;
+  });
+})();
 </script>
+<script src="https://player.vimeo.com/api/player.js"></script>
