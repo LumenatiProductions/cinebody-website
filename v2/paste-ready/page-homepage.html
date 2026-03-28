@@ -542,12 +542,21 @@ body > * { position: relative; z-index: 1; }
 .case-card:nth-child(2) .case-tint { background: linear-gradient(135deg, rgba(235,0,139,0.1) 0%, transparent 100%); }
 .case-card:nth-child(3) .case-tint { background: linear-gradient(135deg, rgba(255,236,3,0.08) 0%, transparent 100%); }
 .case-card:nth-child(4) .case-tint { background: linear-gradient(135deg, rgba(0,188,241,0.1) 0%, transparent 100%); }
+.case-card:nth-child(5) .case-tint { background: linear-gradient(135deg, rgba(235,0,139,0.08) 0%, transparent 100%); }
+.case-card:nth-child(6) .case-tint { background: linear-gradient(135deg, rgba(255,236,3,0.1) 0%, transparent 100%); }
+.case-card:nth-child(7) .case-tint { background: linear-gradient(135deg, rgba(0,188,241,0.1) 0%, transparent 100%); }
+.case-card:nth-child(8) .case-tint { background: linear-gradient(135deg, rgba(235,0,139,0.1) 0%, transparent 100%); }
 
 .case-card:hover .case-tint { opacity: 0; }
 .case-card .case-ct { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 16px; z-index: 2; }
 .case-card .case-logo { height: 24px; width: auto; max-width: 120px; object-fit: contain; filter: brightness(0) invert(1); margin-bottom: 10px; opacity: 0.9; }
 .case-card:nth-child(3) .case-logo { height: 30px; }
 .case-card:nth-child(4) .case-logo { height: 32px; max-width: 140px; }
+.case-card:nth-child(5) .case-logo { height: 52px; }
+.case-card:nth-child(6) .case-logo { height: 21px; }
+.case-card:nth-child(7) .case-bg { object-position: calc(65% - 20px) center; }
+.case-card:nth-child(7) .case-logo { height: 24px; max-width: 140px; }
+.case-card:nth-child(8) .case-logo { height: 32px; border-radius: 6px; filter: none !important; }
 .case-card .case-name { font-family: var(--font); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
 .case-card .case-stat { font-family: var(--font); font-size: 10px; font-weight: 600; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
 .case-card .case-desc { font-size: 0.8rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
@@ -712,6 +721,7 @@ body > * { position: relative; z-index: 1; }
   .why-grid { grid-template-columns: 1fr; }
   .cases-grid { grid-template-columns: 1fr; }
   .case-card { aspect-ratio: 4/3; }
+  .case-card:nth-child(6) .case-bg { object-position: center 20%; }
   .teaser, .why, .cases, .services, .faq { padding: 80px 0; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
@@ -863,8 +873,11 @@ body > * { position: relative; z-index: 1; }
       <a href="/royal-caribbean" class="case-card"><img class="case-bg" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/b76de59f-310a-4b26-a7e3-651359614dfd/Screenshot+2025-07-15+at+9.03.36%E2%80%AFAM.png" alt="Royal Caribbean"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/068c9dcb-e657-4362-9f5c-21916890e158/RCI_Brand_Logo_2-Line_Horiz_White.webp" alt="Royal Caribbean"/><div class="case-name">Royal Caribbean</div><div class="case-stat">Entire Fleet · Always On</div><div class="case-desc">Crew became the content team.</div></div></a>
       <a href="/nike" class="case-card"><img class="case-bg" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/c7a826f6-08ea-4cea-8b21-929cba3c1c98/Screenshot+2025-07-20+at+4.55.19%E2%80%AFPM.png" alt="Nike"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/b72f46ef-17b5-4efa-80e1-4bf2c18d681a/60-609637_nike-logo-png-white.png" alt="Nike"/><div class="case-name">Nike</div><div class="case-stat">4 Cities · 1 Weekend</div><div class="case-desc">Nationwide run club content at scale.</div></div></a>
       <a href="/georgia-pacific" class="case-card"><img class="case-bg" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/040f2cd8-5aad-4f5f-bcc3-6adc732d7ca4/Paper-Plate-Dinosaur-Craft.aShadeOfTeal-3.webp" alt="Georgia-Pacific"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/ac7b8ca0-3f0a-4096-8a0d-69fc16fcf032/444-4440410_gp-bug-color-georgia-pacific-logo-white-clipart.png" alt="Georgia-Pacific"/><div class="case-name">Georgia-Pacific</div><div class="case-stat">3 Brands · 1 Platform</div><div class="case-desc">Authentic video across consumer brands.</div></div></a>
+      <a href="/dell" class="case-card"><img class="case-bg" src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" alt="Dell"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752696389465-KJM0HADL2FMJ1SK8AFQU/dell-2-logo-png-transparent.png" alt="Dell"/><div class="case-name">Dell Technologies</div><div class="case-stat">5 Programs · Global</div><div class="case-desc">A global content engine, zero production crews.</div></div></a>
+      <a href="/altra" class="case-card"><img class="case-bg" src="https://i.vimeocdn.com/video/2025241323-e06eacd171ff7bf6d1a8c9cf93d3a832638c42f88d0dff5afa4ed3e6df125c32-d_640" alt="Altra"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/1752629004054-HX71A4E1K421KGFNT0PC/Altra_running_logo.png" alt="Altra"/><div class="case-name">Altra Running</div><div class="case-stat">∞ Athletes · Always On</div><div class="case-desc">Athletes tell the story. Cinebody captures it.</div></div></a>
+      <a href="/sploot" class="case-card"><img class="case-bg" src="https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640" alt="Sploot"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/a04fe31d-5bad-47f7-be2e-0634a7aa8089/Sploot-Horizontal-Full-Color-Rgb-2000px-w-72ppi.png" alt="Sploot"/><div class="case-name">Sploot Veterinary Care</div><div class="case-stat">1 Shoot · 6 Deliverables</div><div class="case-desc">Geo-targeted CTV from real patrons.</div></div></a>
+      <a href="/cogent" class="case-card"><img class="case-bg" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="Cogent World"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/4bfe7c7f-7e13-45ad-97dd-94c06ed463d3/1629489003234.jpg" alt="Cogent World"/><div class="case-name">Cogent World</div><div class="case-stat">11 Festivals · Always On</div><div class="case-desc">In-the-moment content from every event.</div></div></a>
     </div>
-    <a href="/pointme" class="cases-more reveal reveal-d2">View all case studies <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 
     <!-- Testimonial -->
     <div class="testi-wrap reveal reveal-d3">
