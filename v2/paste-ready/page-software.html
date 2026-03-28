@@ -137,7 +137,7 @@ body > * { position: relative; z-index: 1; }
 /* ═══════════════════════════
    HERO
    ═══════════════════════════ */
-.hero { padding: 100px 0 120px; overflow: hidden; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+.hero { padding: 100px 0 120px; overflow-x: clip; overflow-y: visible; position: relative; z-index: 4; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
 
 
 .hero .contain {
@@ -179,8 +179,9 @@ body > * { position: relative; z-index: 1; }
 .hero-scroller {
   display: flex;
   gap: 10px;
-  height: 100%;
-  max-height: 600px;
+  height: 820px;
+  margin-top: -100px;
+  margin-bottom: -120px;
   overflow: hidden;
   justify-content: center;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
@@ -516,6 +517,7 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 1000px) {
   .hero .contain { grid-template-columns: 1fr; gap: 48px; }
   .hero { padding: 60px 0 80px; }
+  .hero-scroller { margin-top: 0; margin-bottom: -80px; }
   .cross-card { grid-template-columns: 1fr; padding: 40px; }
   .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
   .teaser .contain { grid-template-columns: 1fr; gap: 40px; }
@@ -523,7 +525,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 @media (max-width: 768px) {
-  .hero-scroller { height: 400px; gap: 8px; }
+  .hero-scroller { gap: 8px; }
   .hero-scroller-col .scr-card { width: 120px; border-radius: 10px; }
   .hero-scroller-col { gap: 8px; }
   .steps { grid-template-columns: 1fr; gap: 40px; }
@@ -535,7 +537,8 @@ body > * { position: relative; z-index: 1; }
   .hero { padding: 40px 0 60px; }
   .hero h1 { font-size: 2.25rem; }
   .hero-scroller {
-    height: 380px; gap: 6px;
+    gap: 6px;
+    margin-top: 0; margin-bottom: -60px;
     width: 100vw;
     margin-left: calc(-1 * clamp(1.25rem, 4vw, 3rem));
     margin-right: calc(-1 * clamp(1.25rem, 4vw, 3rem));
