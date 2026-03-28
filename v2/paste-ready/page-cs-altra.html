@@ -273,74 +273,62 @@ body > * { position: relative; z-index: 1; }
 <section style="background:#fff;color:#111;padding:80px 0">
   <div class="contain" style="max-width:900px">
 
-    <!-- Phone Filming Runner Graphic -->
-    <div class="reveal" style="max-width:400px;margin:0 auto 48px">
-      <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+    <!-- Neighborhood Run Loop with Capture Points -->
+    <div class="reveal" style="max-width:440px;margin:0 auto 48px">
+      <svg viewBox="0 0 440 280" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
 
-        <!-- Ground line -->
-        <line x1="40" y1="170" x2="360" y2="170" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>
-
-        <!-- Runner (right side, in motion) -->
-        <g transform="translate(280,108)">
-          <!-- Head -->
-          <circle cx="0" cy="0" r="8" fill="rgba(0,188,241,0.12)" stroke="rgba(0,188,241,0.25)" stroke-width="1.5"/>
-          <!-- Torso -->
-          <line x1="0" y1="8" x2="-4" y2="30" stroke="rgba(0,188,241,0.25)" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- Arms (running pose) -->
-          <line x1="-2" y1="14" x2="10" y2="8" stroke="rgba(0,188,241,0.2)" stroke-width="2" stroke-linecap="round"/>
-          <line x1="-2" y1="14" x2="-14" y2="22" stroke="rgba(0,188,241,0.2)" stroke-width="2" stroke-linecap="round"/>
-          <!-- Legs (stride) -->
-          <line x1="-4" y1="30" x2="12" y2="50" stroke="rgba(0,188,241,0.25)" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="12" y1="50" x2="18" y2="60" stroke="rgba(0,188,241,0.2)" stroke-width="2" stroke-linecap="round"/>
-          <line x1="-4" y1="30" x2="-18" y2="52" stroke="rgba(0,188,241,0.25)" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="-18" y1="52" x2="-22" y2="60" stroke="rgba(0,188,241,0.2)" stroke-width="2" stroke-linecap="round"/>
-          <!-- Motion lines -->
-          <line x1="-28" y1="5" x2="-38" y2="5" stroke="rgba(0,188,241,0.1)" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="-26" y1="15" x2="-40" y2="15" stroke="rgba(0,188,241,0.08)" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="-24" y1="25" x2="-36" y2="25" stroke="rgba(0,188,241,0.06)" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Neighborhood streets (subtle grid) -->
+        <g stroke="rgba(0,0,0,0.03)" stroke-width="1">
+          <line x1="70" y1="0" x2="70" y2="280"/><line x1="150" y1="0" x2="150" y2="280"/>
+          <line x1="230" y1="0" x2="230" y2="280"/><line x1="310" y1="0" x2="310" y2="280"/>
+          <line x1="390" y1="0" x2="390" y2="280"/>
+          <line x1="0" y1="50" x2="440" y2="50"/><line x1="0" y1="110" x2="440" y2="110"/>
+          <line x1="0" y1="170" x2="440" y2="170"/><line x1="0" y1="230" x2="440" y2="230"/>
         </g>
 
-        <!-- iPhone (left-center, angled toward runner) -->
-        <g transform="translate(130,95) rotate(-8)">
-          <!-- Phone body -->
-          <rect x="-22" y="-38" width="44" height="76" rx="8" fill="rgba(0,0,0,0.04)" stroke="rgba(0,188,241,0.2)" stroke-width="2"/>
-          <!-- Screen -->
-          <rect x="-18" y="-32" width="36" height="58" rx="4" fill="rgba(0,188,241,0.04)" stroke="rgba(0,188,241,0.1)" stroke-width="1"/>
-          <!-- Camera notch -->
-          <rect x="-6" y="-36" width="12" height="3" rx="1.5" fill="rgba(0,0,0,0.06)"/>
-          <!-- Record dot -->
-          <circle cx="12" cy="-27" r="3" fill="#eb008b" opacity="0.5">
-            <animate attributeName="opacity" values="0.5;0.2;0.5" dur="1.5s" repeatCount="indefinite"/>
-          </circle>
-          <!-- Runner silhouette on screen (tiny) -->
-          <circle cx="2" cy="-12" r="3" fill="rgba(0,188,241,0.15)"/>
-          <line x1="2" y1="-9" x2="0" y2="0" stroke="rgba(0,188,241,0.12)" stroke-width="1.2" stroke-linecap="round"/>
-          <line x1="0" y1="0" x2="5" y2="8" stroke="rgba(0,188,241,0.1)" stroke-width="1" stroke-linecap="round"/>
-          <line x1="0" y1="0" x2="-5" y2="9" stroke="rgba(0,188,241,0.1)" stroke-width="1" stroke-linecap="round"/>
-        </g>
+        <!-- Blocks -->
+        <rect x="75" y="55" width="70" height="50" rx="3" fill="rgba(0,0,0,0.015)"/>
+        <rect x="155" y="55" width="70" height="50" rx="3" fill="rgba(0,0,0,0.02)"/>
+        <rect x="235" y="55" width="70" height="50" rx="3" fill="rgba(0,0,0,0.015)"/>
+        <rect x="315" y="55" width="70" height="50" rx="3" fill="rgba(0,0,0,0.02)"/>
+        <rect x="75" y="115" width="70" height="50" rx="3" fill="rgba(0,0,0,0.02)"/>
+        <rect x="155" y="115" width="70" height="50" rx="3" fill="rgba(0,0,0,0.015)"/>
+        <rect x="235" y="115" width="70" height="50" rx="3" fill="rgba(0,0,0,0.02)"/>
+        <rect x="315" y="115" width="70" height="50" rx="3" fill="rgba(0,0,0,0.015)"/>
+        <rect x="75" y="175" width="70" height="50" rx="3" fill="rgba(0,0,0,0.015)"/>
+        <rect x="155" y="175" width="70" height="50" rx="3" fill="rgba(0,0,0,0.02)"/>
+        <rect x="235" y="175" width="70" height="50" rx="3" fill="rgba(0,0,0,0.015)"/>
+        <rect x="315" y="175" width="70" height="50" rx="3" fill="rgba(0,0,0,0.02)"/>
 
-        <!-- Broadcast signal from phone toward runner -->
-        <g transform="translate(175,90)">
-          <path d="M0,0 A20,20 0 0,1 0,20" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="1.2">
-            <animate attributeName="opacity" values="0;0.3;0" dur="2s" repeatCount="indefinite"/>
-          </path>
-          <path d="M6,-4 A28,28 0 0,1 6,24" fill="none" stroke="rgba(0,188,241,0.08)" stroke-width="1.2">
-            <animate attributeName="opacity" values="0;0.25;0" dur="2s" begin="0.4s" repeatCount="indefinite"/>
-          </path>
-          <path d="M12,-8 A36,36 0 0,1 12,28" fill="none" stroke="rgba(0,188,241,0.06)" stroke-width="1.2">
-            <animate attributeName="opacity" values="0;0.2;0" dur="2s" begin="0.8s" repeatCount="indefinite"/>
-          </path>
-        </g>
+        <!-- Run route — organic path, turning at different intersections -->
+        <path id="runPath" d="M70,230 L70,170 L150,170 L150,110 L70,110 L70,50 L150,50 L230,50 L230,110 L310,110 L310,50 L390,50 L390,110 L390,170 L310,170 L310,230 L230,230 L150,230 L70,230"
+          fill="none" stroke="#00bcf1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.12"/>
+        <path d="M70,230 L70,170 L150,170 L150,110 L70,110 L70,50 L150,50 L230,50 L230,110 L310,110 L310,50 L390,50 L390,110 L390,170 L310,170 L310,230 L230,230 L150,230 L70,230"
+          fill="none" stroke="#00bcf1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
 
-        <!-- Small text labels -->
-        <text x="130" y="185" text-anchor="middle" font-family="Inter" font-size="8" font-weight="600" fill="rgba(0,0,0,0.25)">Cinebody App</text>
-        <text x="280" y="185" text-anchor="middle" font-family="Inter" font-size="8" font-weight="600" fill="rgba(0,0,0,0.25)">Altra Athlete</text>
+        <!-- Runner dot (positioned by JS) -->
+        <circle id="runnerDot" cx="70" cy="230" r="5" fill="#00bcf1" opacity="0.8"/>
+
+        <!-- Capture points — yellow dots (pulse rings added by JS on arrival) -->
+        <circle cx="70" cy="230" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
+        <circle cx="150" cy="170" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
+        <circle cx="70" cy="50" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
+        <circle cx="230" cy="50" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
+        <circle cx="390" cy="50" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
+        <circle cx="390" cy="170" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
+        <circle cx="230" cy="230" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
+
+        <!-- Burst container (rings injected here by JS) -->
+        <g id="burstLayer"></g>
+
+        <!-- "7 clips captured" -->
+        <text x="220" y="270" text-anchor="middle" font-family="Inter" font-size="8" font-weight="600" fill="rgba(0,188,241,0.35)" letter-spacing="0.08em">7 CLIPS · 1 RUN · 0 CREWS</text>
 
       </svg>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Athletes</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">&#8734;</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Athletes</div></div>
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Always</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On</div></div>
       <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100%</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On Brand</div></div>
@@ -444,5 +432,106 @@ body > * { position: relative; z-index: 1; }
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }, { passive: true });
+})();
+
+// Runner animation with pause + burst at capture points
+(function(){
+  var svg = document.querySelector('#runnerDot');
+  if (!svg) return;
+  var path = document.querySelector('#runPath');
+  if (!path) return;
+  var totalLen = path.getTotalLength();
+  var burstLayer = document.getElementById('burstLayer');
+  var ns = 'http://www.w3.org/2000/svg';
+
+  // Capture points as fraction of path length
+  var cpCoords = [[70,230],[150,170],[70,50],[230,50],[390,50],[390,170],[230,230]];
+  var cpDists = [];
+  // Find closest point on path for each capture point
+  cpCoords.forEach(function(cp) {
+    var best = 0, bestD = 9999;
+    for (var i = 0; i <= 200; i++) {
+      var t = (i / 200) * totalLen;
+      var pt = path.getPointAtLength(t);
+      var d = Math.hypot(pt.x - cp[0], pt.y - cp[1]);
+      if (d < bestD) { bestD = d; best = t; }
+    }
+    cpDists.push(best / totalLen);
+  });
+
+  var speed = 0.0008; // fraction per frame (~35s loop)
+  var progress = 0;
+  var paused = false;
+  var pauseTimer = 0;
+  var pauseDur = 60; // frames to pause (~1s at 60fps)
+  var nextCP = 0;
+
+  function burst(cx, cy) {
+    for (var i = 0; i < 2; i++) {
+      var ring = document.createElementNS(ns, 'circle');
+      ring.setAttribute('cx', cx);
+      ring.setAttribute('cy', cy);
+      ring.setAttribute('r', '5');
+      ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', '#ffec03');
+      ring.setAttribute('stroke-width', '1.5');
+      ring.setAttribute('opacity', '0.6');
+      burstLayer.appendChild(ring);
+      (function(el, delay) {
+        var frame = -delay;
+        function anim() {
+          frame++;
+          if (frame < 0) { requestAnimationFrame(anim); return; }
+          var t = frame / 40;
+          if (t > 1) { el.remove(); return; }
+          el.setAttribute('r', 5 + t * 18);
+          el.setAttribute('opacity', (0.6 * (1 - t)).toFixed(2));
+          requestAnimationFrame(anim);
+        }
+        requestAnimationFrame(anim);
+      })(ring, i * 12);
+    }
+  }
+
+  function tick() {
+    if (paused) {
+      pauseTimer--;
+      if (pauseTimer <= 0) { paused = false; nextCP++; if (nextCP >= cpDists.length) nextCP = 0; }
+      requestAnimationFrame(tick);
+      return;
+    }
+
+    progress += speed;
+    if (progress >= 1) progress -= 1;
+
+    var pt = path.getPointAtLength(progress * totalLen);
+    svg.setAttribute('cx', pt.x);
+    svg.setAttribute('cy', pt.y);
+
+    // Check if we hit the next capture point
+    if (nextCP < cpDists.length) {
+      var diff = progress - cpDists[nextCP];
+      if (diff > 0 && diff < speed * 3) {
+        paused = true;
+        pauseTimer = pauseDur;
+        var cp = cpCoords[nextCP];
+        burst(cp[0], cp[1]);
+      }
+    }
+    // Handle wrap-around for CP0
+    if (nextCP === 0 && progress > 0.95) {
+      // Let it wrap
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  // Start when visible
+  var mapObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { requestAnimationFrame(tick); mapObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.2 });
+  mapObs.observe(path.closest('svg'));
 })();
 </script>
