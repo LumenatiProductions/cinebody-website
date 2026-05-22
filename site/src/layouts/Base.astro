@@ -1,5 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import footerHtml from '../fragments/_footer.html?raw';
 import '../styles/global.css';
 
@@ -214,8 +216,8 @@ const siteSchema = {
       })();
     </script>
 
-    <!-- Vercel Web Analytics + Speed Insights (served by Vercel in production) -->
-    <script defer src="/_vercel/insights/script.js"></script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <!-- Vercel Web Analytics + Speed Insights -->
+    <Analytics />
+    <SpeedInsights />
   </body>
 </html>
