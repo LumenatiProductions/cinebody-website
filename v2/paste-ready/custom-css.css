@@ -1,5 +1,5 @@
 /* ============================================
-   CINEBODY V4 — SQUARESPACE HEADER + FOOTER
+   CINEBODY V4, SQUARESPACE HEADER + FOOTER
    Paste into Design > Custom CSS
    ============================================ */
 
@@ -11,7 +11,7 @@ html { scroll-behavior: smooth; }
 .sqs-block-code .sqs-block-content { padding: 0 !important; margin: 0 !important; }
 
 
-/* Curves — self-contained SVGs, no seams */
+/* Curves, self-contained SVGs, no seams */
 .curve {
   position: relative;
   z-index: 3;
@@ -44,10 +44,10 @@ html { scroll-behavior: smooth; }
 body { background: #0a0a0a !important; }
 
 /* ================================================
-   HEADER — Dark, transparent over hero, solidifies on scroll
+   HEADER, Dark, transparent over hero, solidifies on scroll
    ================================================ */
 
-/* Base header — transparent, sits over hero */
+/* Base header, transparent, sits over hero */
 .header {
   background: rgba(10, 10, 10, 0) !important;
   transition: background 0.4s ease, box-shadow 0.4s ease !important;
@@ -56,7 +56,7 @@ body { background: #0a0a0a !important; }
   will-change: background, box-shadow;
 }
 
-/* Scrolled state — glassmorphism dark */
+/* Scrolled state, glassmorphism dark */
 .header.shrink {
   background: rgba(10, 10, 10, 0.95) !important;
   box-shadow: 0 1px 0 rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.3) !important;
@@ -79,7 +79,7 @@ body { background: #0a0a0a !important; }
   background-image: none !important;
 }
 
-/* Animated underline — teal gradient */
+/* Animated underline, teal gradient */
 .header-nav-item a::after {
   content: '';
   position: absolute;
@@ -161,7 +161,7 @@ a.sqs-button-element--secondary[href*="login"]:hover {
 }
 
 /* ── Dropdown Menus ── */
-/* Resources folder — replace text with info icon */
+/* Resources folder, replace text with info icon */
 .header-nav-item--folder .header-nav-folder-title-text {
   font-size: 0 !important;
   line-height: 0 !important;
@@ -235,7 +235,7 @@ a.sqs-button-element--secondary[href*="login"]:hover {
   opacity: 0.8;
 }
 
-/* ── Hide Social Icons from Header — they're in the footer ── */
+/* ── Hide Social Icons from Header, they're in the footer ── */
 .header .header-actions-action--social,
 .header .social-icon-link,
 .header .sqs-svg-icon--wrapper,
@@ -263,7 +263,7 @@ a.sqs-button-element--secondary[href*="login"]:hover {
 .header-menu-bg { background: #000 !important; }
 .site-wrapper .header-menu .header-menu-nav a:not(.btn) { color: #fff !important; }
 
-/* Resources folder on mobile — smaller, dimmer */
+/* Resources folder on mobile, smaller, dimmer */
 .header-menu-nav-folder .header-menu-nav-folder-title,
 .header-menu-nav-folder .header-menu-nav-folder-title span {
   font-size: 0.85rem !important;
@@ -275,10 +275,10 @@ a.sqs-button-element--secondary[href*="login"]:hover {
 
 
 /* ================================================
-   FOOTER — Matches v4 design
+   FOOTER, Matches v4 design
    ================================================ */
 
-/* Sig bar — rendered by global-footer.html Code Block, not CSS */
+/* Sig bar, rendered by global-footer.html Code Block, not CSS */
 
 /* Footer background */
 footer.sections,
@@ -355,7 +355,7 @@ footer .sqs-svg-icon--social:hover {
   color: #00bcf1 !important;
 }
 
-/* Footer base — custom footer code block */
+/* Footer base, custom footer code block */
 .footer { border-top: none; padding: 56px 0 28px; position: relative; background: #0a0a0a; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-brand img { height: 22px; margin-bottom: 14px; }
@@ -370,7 +370,7 @@ footer .sqs-svg-icon--social:hover {
 .sig-bar { height: 3px; background: linear-gradient(90deg, #00bcf1 0%, #00bcf1 33.33%, #ffec03 33.33%, #ffec03 66.66%, #eb008b 66.66%); }
 .contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 
-/* Footer mobile — stacked centered */
+/* Footer mobile, stacked centered */
 @media (max-width: 768px) {
   .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; text-align: center !important; }
   .footer-brand { display: flex; flex-direction: column; align-items: center; }
@@ -406,7 +406,7 @@ footer .sqs-block:last-child {
 }
 
 /* ================================================
-   BLOG — List (.blog-side-by-side) + Detail
+   BLOG, List (.blog-side-by-side) + Detail
    ================================================ */
 
 /* Blog list container */
@@ -567,7 +567,7 @@ article.hentry h1.blog-title {
 }
 
 /* ============================================
-   VID-PLAYER — Click-to-Play Video Pattern
+   VID-PLAYER, Click-to-Play Video Pattern
    ============================================ */
 .vid-playable {
   position: relative; cursor: pointer; overflow: hidden;

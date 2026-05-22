@@ -13,7 +13,10 @@
     "sync": "npm run prep && npm run gen"
   },
   "dependencies": {
-    "astro": "^5.6.0",
-    "@astrojs/sitemap": "^3.2.1"
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.6.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

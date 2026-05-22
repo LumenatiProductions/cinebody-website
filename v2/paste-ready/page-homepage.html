@@ -1,10 +1,10 @@
-<!-- Cinebody V4 — Homepage
+<!-- Cinebody V4, Homepage
      Paste this into a single Code Block on the homepage page.
      Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
 
 <style>
 /* ═══════════════════════════════════════════════
-   CINEBODY V4 — PREMIUM DARK AURORA DESIGN
+   CINEBODY V4, PREMIUM DARK AURORA DESIGN
    ═══════════════════════════════════════════════ */
 
 :root {
@@ -43,7 +43,7 @@ a { color: inherit; text-decoration: none; }
 /* ── Subtle per-section aurora (not fixed/global) ── */
 body > * { position: relative; z-index: 1; }
 
-/* (dot grid removed — replaced by per-section gradients) */
+/* (dot grid removed, replaced by per-section gradients) */
 
 /* ── CURVED SECTION DIVIDERS ── */
 .curve {
@@ -68,7 +68,7 @@ body > * { position: relative; z-index: 1; }
 /* ── CONTAINER ── */
 .contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 
-/* ── SECTION LABEL — monospace ── */
+/* ── SECTION LABEL, monospace ── */
 .label {
   font-family: var(--mono);
   font-size: 11px;
@@ -96,7 +96,7 @@ body > * { position: relative; z-index: 1; }
 /* ── SIGNATURE BAR ── */
 .sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
 
-/* ── BUTTON — gradient border glow ── */
+/* ── BUTTON, gradient border glow ── */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--font); font-size: 14px; font-weight: 600;
@@ -130,7 +130,7 @@ body > * { position: relative; z-index: 1; }
    ═══════════════════════════ */
 .hero { padding: 100px 0 120px; overflow-x: clip; overflow-y: visible; position: relative; background: linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
 
-/* Hero aurora — teal top-right, pink bottom-left */
+/* Hero aurora, teal top-right, pink bottom-left */
 .hero::before {
   content: ''; position: absolute; top: -30%; right: -25%; width: 1100px; height: 1100px;
   background: var(--teal); border-radius: 50%; filter: blur(200px); opacity: 0.12;
@@ -183,7 +183,7 @@ body > * { position: relative; z-index: 1; }
 
 .hero-trust { font-size: 12px; color: var(--text-muted); margin-top: 20px; font-family: var(--mono); letter-spacing: 0.02em; }
 
-/* Vertical video scroller — 3 columns scrolling up/down */
+/* Vertical video scroller, 3 columns scrolling up/down */
 .hero-scroller {
   display: flex;
   gap: 10px;
@@ -292,7 +292,7 @@ body > * { position: relative; z-index: 1; }
 @keyframes logos-scroll { to { transform: translateX(-50%); } }
 
 /* ═══════════════════════════
-   STATS — glassmorphism
+   STATS, glassmorphism
    ═══════════════════════════ */
 .stats { padding: 80px 0; background: #0a0a0a; }
 
@@ -326,7 +326,7 @@ body > * { position: relative; z-index: 1; }
    ═══════════════════════════ */
 .teaser { padding: 100px 0; background: #0a0a0a; position: relative; }
 
-/* Baked aurora backgrounds — no pseudo-elements, fills edge to edge */
+/* Baked aurora backgrounds, no pseudo-elements, fills edge to edge */
 .teaser--glow-pink {
   background:
     radial-gradient(ellipse 80% 70% at 80% 30%, rgba(235,0,139,0.1) 0%, transparent 70%),
@@ -410,7 +410,7 @@ body > * { position: relative; z-index: 1; }
 .teaser-vid-pair { display: flex; gap: 12px; justify-content: center; }
 .teaser-vid-pair .teaser-vid { flex: 1; max-width: 200px; }
 
-/* Accent SVGs — contained, behind the video */
+/* Accent SVGs, contained, behind the video */
 .teaser-accent {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: 100%; height: 100%; z-index: 0; opacity: 0.5; pointer-events: none;
@@ -505,7 +505,7 @@ body > * { position: relative; z-index: 1; }
 .why-card p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; }
 
 /* ═══════════════════════════
-   CASE STUDY CARDS — light
+   CASE STUDY CARDS, light
    ═══════════════════════════ */
 .cases { background: #fff; color: #111; padding: 120px 0; }
 
@@ -532,7 +532,7 @@ body > * { position: relative; z-index: 1; }
   background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.08) 100%);
 }
 
-/* Color tint overlay — fades away on hover */
+/* Color tint overlay, fades away on hover */
 .case-card .case-tint {
   position: absolute; inset: 0; z-index: 1;
   transition: opacity 0.5s ease;
@@ -571,7 +571,7 @@ body > * { position: relative; z-index: 1; }
 /* ═══════════════════════════
    TESTIMONIAL
    ═══════════════════════════ */
-/* Testimonial — inside case studies white section */
+/* Testimonial, inside case studies white section */
 .testi-wrap {
   max-width: 680px; margin: 64px auto 0; padding-top: 48px;
   border-top: 1px solid #e0e0e0; text-align: center;
@@ -595,7 +595,7 @@ body > * { position: relative; z-index: 1; }
 .testi-role { font-size: 0.75rem; color: #999; }
 
 /* ═══════════════════════════
-   SERVICES — light
+   SERVICES, light
    ═══════════════════════════ */
 .services { background: #fafafa; color: #111; padding: 120px 0; }
 
@@ -634,7 +634,7 @@ body > * { position: relative; z-index: 1; }
 .svc-card ul li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
 
 /* ═══════════════════════════
-   CTA BAND — yellow
+   CTA BAND, yellow
    ═══════════════════════════ */
 .cta-band { background: var(--yellow); padding: 72px 0 0; text-align: center; overflow: hidden; }
 
@@ -743,7 +743,7 @@ body > * { position: relative; z-index: 1; }
     <div class="reveal">
       <div class="hero-eyebrow">Video Platform + Creative Services</div>
       <h1>Your customers are <em>your best creators.</em></h1>
-      <p class="hero-body">Cinebody is the only platform that lets you capture real video from real people — at scale, on brand, and without a single production&nbsp;crew.</p>
+      <p class="hero-body">Cinebody is the only platform that lets you capture real video from real people, at scale, on brand, and without a single production&nbsp;crew.</p>
       <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
     </div>
@@ -825,7 +825,7 @@ body > * { position: relative; z-index: 1; }
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">point.me</span></div>
       <h3><em>One shoot. Every platform.</em><br>No second production&nbsp;needed.</h3>
-      <p class="teaser-desc">Point.me turned one CTV spot featuring 70+ real customers into a full multi-platform campaign — hero commercial, social vignettes, and branded clips from a single&nbsp;production.</p>
+      <p class="teaser-desc">Point.me turned one CTV spot featuring 70+ real customers into a full multi-platform campaign, hero commercial, social vignettes, and branded clips from a single&nbsp;production.</p>
       <div class="teaser-stats">
         <div class="teaser-stat"><div class="teaser-stat-num">1</div><div class="teaser-stat-label">Shoot</div></div><div class="teaser-stat-pipe"></div>
         <div class="teaser-stat"><div class="teaser-stat-num">70+</div><div class="teaser-stat-label">Customers</div></div><div class="teaser-stat-pipe"></div>
@@ -850,13 +850,13 @@ body > * { position: relative; z-index: 1; }
     <div class="reveal">
       <div class="label">Why Cinebody</div>
       <h2>Not another UGC marketplace. Something actually&nbsp;different.</h2>
-      <p class="why-sub">Other platforms match you with paid creators pretending to be fans. Cinebody activates your real community — guided by patented&nbsp;technology.</p>
+      <p class="why-sub">Other platforms match you with paid creators pretending to be fans. Cinebody activates your real community, guided by patented&nbsp;technology.</p>
     </div>
     <div class="why-grid reveal reveal-d2">
-      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Real people, not actors</h3><p>Your actual community films for you — customers, employees,&nbsp;fans.</p></div>
+      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Real people, not actors</h3><p>Your actual community films for you, customers, employees,&nbsp;fans.</p></div>
       <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><h3>Directed, not chaotic</h3><p>Patented shot list tech controls FPS, resolution, and creative direction&nbsp;remotely.</p></div>
       <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><h3>Platform + services</h3><p>Use the software standalone or pair with our team for end-to-end&nbsp;production.</p></div>
-      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3>Always-on, not one-off</h3><p>Build a content engine with annual subscriptions — not a one-time&nbsp;project.</p></div>
+      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3>Always-on, not one-off</h3><p>Build a content engine with annual subscriptions, not a one-time&nbsp;project.</p></div>
     </div>
   </div>
 </section>
@@ -900,7 +900,7 @@ body > * { position: relative; z-index: 1; }
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">Royal Caribbean</span></div>
       <h3><em>No crews flown in.</em><br>The crew became the content&nbsp;team.</h3>
-      <p class="teaser-desc">Royal Caribbean turned their ship crews into an always-on content engine — capturing waterslides, dining, entertainment, and Rover the&nbsp;dog.</p>
+      <p class="teaser-desc">Royal Caribbean turned their ship crews into an always-on content engine, capturing waterslides, dining, entertainment, and Rover the&nbsp;dog.</p>
       <div class="teaser-stats">
         <div class="teaser-stat"><div class="teaser-stat-num">Entire</div><div class="teaser-stat-label">Fleet</div></div><div class="teaser-stat-pipe"></div>
         <div class="teaser-stat"><div class="teaser-stat-num">0</div><div class="teaser-stat-label">Crews</div></div><div class="teaser-stat-pipe"></div>
@@ -926,9 +926,9 @@ body > * { position: relative; z-index: 1; }
   <div class="contain">
     <div class="reveal"><div class="label">Creative Services</div><h2>Content plans built for&nbsp;scale.</h2></div>
     <div class="svc-grid reveal reveal-d2">
-      <div class="svc-card"><div class="svc-bar svc-bar--teal"></div><h3>Testimonials</h3><p>Your happiest customers on camera — guided by shot lists, filmed on their phone, delivered in real&nbsp;time.</p><ul><li>Remote capture</li><li>Guided prompts</li><li>Pro editing</li></ul></div>
+      <div class="svc-card"><div class="svc-bar svc-bar--teal"></div><h3>Testimonials</h3><p>Your happiest customers on camera, guided by shot lists, filmed on their phone, delivered in real&nbsp;time.</p><ul><li>Remote capture</li><li>Guided prompts</li><li>Pro editing</li></ul></div>
       <div class="svc-card"><div class="svc-bar svc-bar--yellow"></div><h3>Event Content</h3><p>Deploy unlimited filmers at every event. Walk away with a library of authentic&nbsp;footage.</p><ul><li>Unlimited filmers</li><li>Real-time sync</li><li>Quick-turn edits</li></ul></div>
-      <div class="svc-card"><div class="svc-bar svc-bar--pink"></div><h3>Social Content</h3><p>A steady pipeline of community-created content for organic and paid — no freelancer&nbsp;briefs.</p><ul><li>Always-on engine</li><li>Platform-optimized</li><li>Motion graphics</li></ul></div>
+      <div class="svc-card"><div class="svc-bar svc-bar--pink"></div><h3>Social Content</h3><p>A steady pipeline of community-created content for organic and paid, no freelancer&nbsp;briefs.</p><ul><li>Always-on engine</li><li>Platform-optimized</li><li>Motion graphics</li></ul></div>
     </div>
   </div>
 </section>
@@ -942,7 +942,7 @@ body > * { position: relative; z-index: 1; }
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">Nike</span></div>
       <h3><em>Four cities. One weekend.</em><br>Zero production&nbsp;crews.</h3>
-      <p class="teaser-desc">Nike used Cinebody to capture authentic run club content across the country — simultaneously, on brand, at&nbsp;scale.</p>
+      <p class="teaser-desc">Nike used Cinebody to capture authentic run club content across the country, simultaneously, on brand, at&nbsp;scale.</p>
       <div class="teaser-stats">
         <div class="teaser-stat"><div class="teaser-stat-num">4</div><div class="teaser-stat-label">Cities</div></div><div class="teaser-stat-pipe"></div>
         <div class="teaser-stat"><div class="teaser-stat-num">0</div><div class="teaser-stat-label">Crews</div></div><div class="teaser-stat-pipe"></div>
@@ -1070,7 +1070,7 @@ body > * { position: relative; z-index: 1; }
       <div class="le-stat"><div class="le-stat-num">0</div><div class="le-stat-label">Crews</div></div>
       <div class="le-stat"><div class="le-stat-num">100%</div><div class="le-stat-label">Authentic</div></div>
     </div>
-    <p class="le-desc reveal reveal-d1">From pit to nosebleeds, Cinebody captures thousands of authentic perspectives — simultaneously, on brand, zero production teams.</p>
+    <p class="le-desc reveal reveal-d1">From pit to nosebleeds, Cinebody captures thousands of authentic perspectives, simultaneously, on brand, zero production teams.</p>
     <div class="le-pills reveal reveal-d1">
       <span class="le-pill">Lorde</span>
       <span class="le-pill">ODESZA</span>
@@ -1092,7 +1092,7 @@ body > * { position: relative; z-index: 1; }
           <div class="le-play"></div>
           <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
         </div>
-        <div class="le-card-info"><p class="le-card-artist">Slash</p><p class="le-card-detail">Every angle, every riff — no crew required</p></div>
+        <div class="le-card-info"><p class="le-card-artist">Slash</p><p class="le-card-detail">Every angle, every riff, no crew required</p></div>
       </div>
       <div class="le-card">
         <div class="le-card-vid" data-le-vimeo="407155650" data-le-h="b4ff6b0493">
@@ -1172,9 +1172,9 @@ body > * { position: relative; z-index: 1; }
     <h2 class="reveal">Frequently asked&nbsp;questions</h2>
     <div class="reveal reveal-d1">
       <div class="faq-item"><button class="faq-q">What exactly is Cinebody?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Cinebody is a patented video capture platform that lets you collect professional-quality footage from anyone, anywhere. You set the shot list, resolution, and creative direction. They film on their phone. Footage syncs to your dashboard in real time.</div></div></div>
-      <div class="faq-item"><button class="faq-q">How is this different from UGC marketplaces?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">UGC marketplaces match you with paid creators who pretend to be customers. Cinebody activates your actual community — the people who already know and love your brand. The result is genuinely authentic content, not performed.</div></div></div>
-      <div class="faq-item"><button class="faq-q">Do filmers need to download an app?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">No. Cinebody works as a web app — filmers access it through a link or QR code. No downloads, no friction. They're filming within seconds.</div></div></div>
-      <div class="faq-item"><button class="faq-q">Can I use it without creative services?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Absolutely. The software subscription is standalone — you direct shoots, collect footage, and edit in-house. Our creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution.</div></div></div>
+      <div class="faq-item"><button class="faq-q">How is this different from UGC marketplaces?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">UGC marketplaces match you with paid creators who pretend to be customers. Cinebody activates your actual community, the people who already know and love your brand. The result is genuinely authentic content, not performed.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Do filmers need to download an app?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">No. Cinebody works as a web app, filmers access it through a link or QR code. No downloads, no friction. They're filming within seconds.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Can I use it without creative services?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Absolutely. The software subscription is standalone, you direct shoots, collect footage, and edit in-house. Our creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution.</div></div></div>
       <div class="faq-item"><button class="faq-q">How much does it cost?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Software plans start at $250/month billed annually. Creative services are custom-quoted. Most brands save 70%+ compared to traditional video production.</div></div></div>
     </div>
   </div>
@@ -1185,7 +1185,7 @@ body > * { position: relative; z-index: 1; }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <script>
-// Logos — individually sized for consistent visual weight
+// Logos, individually sized for consistent visual weight
 (function(){
   // Sorted: alternating wide/narrow, icon/wordmark for visual balance
   var logos = [

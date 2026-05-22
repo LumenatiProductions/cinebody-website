@@ -1,5 +1,5 @@
 /* ============================================
-   CINEBODY V4 — SQUARESPACE HEADER + FOOTER
+   CINEBODY V4, SQUARESPACE HEADER + FOOTER
    Paste into Design > Custom CSS
    ============================================ */
 
@@ -10,16 +10,16 @@ html { scroll-behavior: smooth; }
 .sqs-block-code { padding: 0 !important; margin: 0 !important; }
 
 /* ================================================
-   HEADER — Dark, transparent over hero, solidifies on scroll
+   HEADER, Dark, transparent over hero, solidifies on scroll
    ================================================ */
 
-/* Base header — transparent, sits over hero */
+/* Base header, transparent, sits over hero */
 .header {
   background: transparent !important;
   transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease !important;
 }
 
-/* Scrolled state — glassmorphism dark */
+/* Scrolled state, glassmorphism dark */
 .header.shrink,
 .header--menu-open {
   background: rgba(10, 10, 10, 0.85) !important;
@@ -45,7 +45,7 @@ html { scroll-behavior: smooth; }
   background-image: none !important;
 }
 
-/* Animated underline — teal gradient */
+/* Animated underline, teal gradient */
 .header-nav-item a::after {
   content: '';
   position: absolute;
@@ -251,7 +251,7 @@ a.sqs-button-element--secondary[href*="login"]:hover {
 
 
 /* ================================================
-   FOOTER — Matches v4 design
+   FOOTER, Matches v4 design
    ================================================ */
 
 /* Sig bar */

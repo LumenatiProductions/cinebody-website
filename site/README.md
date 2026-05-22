@@ -1,7 +1,7 @@
-# Cinebody — Standalone Site (Astro → Vercel)
+# Cinebody, Standalone Site (Astro → Vercel)
 
 The cinebody.com site, rebuilt to run on Vercel instead of Squarespace.
-It reuses the existing V4 design system verbatim — each page's hand-authored
+It reuses the existing V4 design system verbatim, each page's hand-authored
 HTML/CSS is preserved exactly and wrapped in a shared Astro layout that adds a
 real navigation header, the shared footer, and the video controller (all of
 which Squarespace used to provide).

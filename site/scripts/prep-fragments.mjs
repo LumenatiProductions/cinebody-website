@@ -7,6 +7,12 @@ import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
+import sharp from 'sharp';
+import { stripEmDash } from './strip-emdash.mjs';
+
+// Raster images above this size get re-encoded to WebP (capped at 1600px wide).
+const WEBP_THRESHOLD = 120 * 1024;
+const RASTER_RE = /\.(png|jpe?g)$/i;
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const SRC = path.resolve(ROOT, '../v2/paste-ready');
@@ -60,24 +66,39 @@ async function main() {
   ).join('\n');
   const urls = [...new Set(allText.match(SQSP_RE) || [])].filter((u) => u.length > 60); // drop the truncated stub
 
-  // 2. Download each, build url -> /assets/local map
+  // 2. Download each, build url -> /assets/local map. Heavy rasters become WebP.
   const map = new Map();
   let ok = 0, fail = 0;
   for (const url of urls) {
     const local = localNameFor(url);
+    const webpLocal = local.replace(RASTER_RE, '.webp');
     const dest = path.join(ASSET_OUT, local);
-    map.set(url, `/assets/${local}`);
-    if (existsSync(dest)) { ok++; continue; }
+    const webpDest = path.join(ASSET_OUT, webpLocal);
+
+    // Idempotent: reuse whichever variant already exists.
+    if (existsSync(webpDest)) { map.set(url, `/assets/${webpLocal}`); ok++; continue; }
+    if (existsSync(dest)) { map.set(url, `/assets/${local}`); ok++; continue; }
+
     try {
       const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const buf = Buffer.from(await res.arrayBuffer());
-      await writeFile(dest, buf);
+      if (RASTER_RE.test(local) && buf.length > WEBP_THRESHOLD) {
+        const out = await sharp(buf)
+          .resize({ width: 1600, withoutEnlargement: true })
+          .webp({ quality: 80 })
+          .toBuffer();
+        await writeFile(webpDest, out);
+        map.set(url, `/assets/${webpLocal}`);
+        console.log(`  webp ${webpLocal}  (${(buf.length / 1024).toFixed(0)}kb -> ${(out.length / 1024).toFixed(0)}kb)`);
+      } else {
+        await writeFile(dest, buf);
+        map.set(url, `/assets/${local}`);
+        console.log(`  ok   ${local}  (${(buf.length / 1024).toFixed(0)}kb)`);
+      }
       ok++;
-      console.log(`  ok  ${local}  (${(buf.length / 1024).toFixed(0)}kb)`);
     } catch (e) {
       fail++;
-      map.delete(url); // leave original URL in place if download failed
       console.log(`  FAIL ${url} -> ${e.message}`);
     }
   }
@@ -118,7 +139,12 @@ async function main() {
       for (const [from, to] of ctaReplacements) html = html.split(from).join(to);
       // suffix array now holds full local paths; drop the CDN prefix concatenation
       html = html.split("img.src='" + CTA_PREFIX + "'+s").join('img.src=s');
+      // Defer the 30 hero-scroller background videos: src -> data-src so they
+      // load after first paint / when near view (loader lives in Base.astro),
+      // letting the poster thumbnails win the initial render.
+      html = html.split('<iframe src="https://player.vimeo.com/video/').join('<iframe data-src="https://player.vimeo.com/video/');
     }
+    html = stripEmDash(html, { html: true });
     await writeFile(path.join(FRAG_OUT, outName), html);
     console.log(`  frag ${srcName} -> ${outName}`);
   }
@@ -126,6 +152,7 @@ async function main() {
   // 4. Emit the rewritten global footer for the layout to consume
   let footer = await readFile(path.join(SRC, 'global-footer.html'), 'utf8');
   for (const [url, local] of map) footer = footer.split(url).join(local);
+  footer = stripEmDash(footer, { html: true });
   await writeFile(path.join(FRAG_OUT, '_footer.html'), footer);
   console.log('  frag global-footer.html -> _footer.html');
 }

@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 
 const siteName = 'Cinebody';
-const fullTitle = title ? `${title} — ${siteName}` : `${siteName} — Your community is your content team`;
+const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Your community is your content team`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || Astro.site.href;
 const ogImage = new URL(image, Astro.site).href;
 ---
@@ -150,6 +150,31 @@ const ogImage = new URL(image, Astro.site).href;
             activePlayer = player; activeBtn = muteBtn;
           });
         });
+      })();
+    </script>
+
+    <!-- Deferred loader for background-video iframes (e.g. the homepage hero
+         scroller): swap data-src -> src only once near the viewport, and only
+         after first paint, so poster thumbnails render first. -->
+    <script is:inline>
+      (function () {
+        var lazies = document.querySelectorAll('iframe[data-src]');
+        if (!lazies.length || !('IntersectionObserver' in window)) {
+          lazies.forEach(function (f) { if (f.dataset.src) { f.src = f.dataset.src; f.removeAttribute('data-src'); } });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var f = e.target;
+            if (f.dataset.src) { f.src = f.dataset.src; f.removeAttribute('data-src'); }
+            io.unobserve(f);
+          });
+        }, { rootMargin: '200px' });
+        var start = function () { lazies.forEach(function (f) { io.observe(f); }); };
+        var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 200); };
+        if (document.readyState === 'complete') idle(start);
+        else window.addEventListener('load', function () { idle(start); });
       })();
     </script>
   </body>

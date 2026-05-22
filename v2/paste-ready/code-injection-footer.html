@@ -1,4 +1,4 @@
-<!-- Cinebody V4 — Shared Scripts
+<!-- Cinebody V4, Shared Scripts
      Squarespace > Settings > Advanced > Code Injection > Footer -->
 <script src="https://player.vimeo.com/api/player.js"></script>
 <script>
@@ -36,7 +36,7 @@
     var autoplayAlways = container.hasAttribute('data-autoplay-always');
     if (!videoId) return;
 
-    // Safari gets click-to-play like mobile — no autoplay attempts
+    // Safari gets click-to-play like mobile, no autoplay attempts
     var shouldAutoplay = !isSafari && !isMobile && (autoplayAlways || autoplayDesktop);
 
     // Always add play button (hidden during autoplay, visible otherwise)
@@ -66,7 +66,7 @@
       obs.observe(container);
     }
 
-    // Click to play — primary on Safari/mobile, fallback on Chrome/Firefox
+    // Click to play, primary on Safari/mobile, fallback on Chrome/Firefox
     container.addEventListener('click', function(e) {
       if (e.target.closest('.vid-mute-btn')) return;
       loadVideo(container, videoId, hash);

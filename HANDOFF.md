@@ -1,4 +1,4 @@
-# Cinebody Website Redesign — Handoff
+# Cinebody Website Redesign, Handoff
 
 ## Repo
 - **GitHub:** LumenatiProductions/cinebody-website
@@ -7,7 +7,7 @@
 
 ## What's Done & Approved
 
-### Homepage (GOOD — use as template for everything)
+### Homepage (GOOD, use as template for everything)
 - **File:** `v2/preview/homepage-v4.html`
 - Scott approved this design. It's the source of truth.
 - Dark hero with 3x3 video wall, aurora glows, pill badge eyebrow
@@ -32,40 +32,40 @@
 - **Buttons:** .btn-glow with gradient fill hover (teal→pink→yellow behind, blurred)
 - **Links:** Gradient text on hover (teal→pink→yellow)
 - **Stats:** Recount on hover, gradient shimmer
-- **Labels:** Inter (NOT JetBrains Mono — Scott didn't like the monospace)
+- **Labels:** Inter (NOT JetBrains Mono, Scott didn't like the monospace)
 
 ## What's Been Fixed (latest pass)
 
-### Software Page (`v2/preview/software-v4.html`) — DONE
+### Software Page (`v2/preview/software-v4.html`), DONE
 - Hero wall CSS fixed (grid-auto-rows: 1fr for uniform squares)
 - Cross-sell card centered (margin: 0 auto)
 - Added GP case study teaser with ecosystem tree SVG accent between pricing & FAQ
 - Removed dead legacy pricing toggle code + unused legacy pricing CSS
 - Section rhythm: dark hero → white How It Works → white cross-sell → white pricing → dark GP teaser → dark FAQ
 
-### Services Page (`v2/preview/services-v4.html`) — DONE
+### Services Page (`v2/preview/services-v4.html`), DONE
 - Hero wall CSS fixed (grid-auto-rows: 1fr)
 - Headline, category headers, 7 brand showcases, proper dark/light alternation all good
 
-### Pricing Page (`v2/preview/pricing-v4.html`) — BUILT NEW
+### Pricing Page (`v2/preview/pricing-v4.html`), BUILT NEW
 - Dark hero (centered text, aurora glows, no video wall)
 - White compare section (Services vs Software cards with images)
 - Original cb-pricing__ pricing table with annual/monthly toggle
 - Dark FAQ with pricing-specific questions
 - Full footer with sig bar
 
-### Case Study Pages — RHYTHM FIXED
+### Case Study Pages, RHYTHM FIXED
 - All 4 (RC, Point.me, Nike, GP) now have white stats section after dark hero
 - Pattern: dark hero → curve → white stats → curve → dark content → yellow CTA → dark footer
 - SVG graphics preserved (tabs, tree structure, map, carousel)
 
 ## Critical Rules
-1. **homepage-v4.html IS the design system** — copy its exact CSS
-2. **Original blocks ARE the content** — don't rewrite, don't remove graphics
-3. **Alternate dark/light** with curved dividers — match homepage rhythm
-4. **Same hero layout** on every page — same grid, same wall, same padding
+1. **homepage-v4.html IS the design system**, copy its exact CSS
+2. **Original blocks ARE the content**, don't rewrite, don't remove graphics
+3. **Alternate dark/light** with curved dividers, match homepage rhythm
+4. **Same hero layout** on every page, same grid, same wall, same padding
 5. **Use original pricing CSS** (cb-pricing__ classes)
-6. **One page at a time** — don't batch generate with agents
+6. **One page at a time**, don't batch generate with agents
 7. **The original site cinebody.com shows the correct content structure**
 
 ## File Structure
@@ -82,7 +82,7 @@ v2/
 │   └── cs-gp-v4.html       ← FIXED
 ├── design-system.css        ← older, homepage-v4 is newer
 ├── shared.js                ← older, homepage-v4 has inline JS
-└── (block directories from earlier attempts — ignore)
+└── (block directories from earlier attempts, ignore)
 ```
 
 ## Key URLs
@@ -94,7 +94,7 @@ v2/
 - Vimeo: vimeo.com/cinebody
 
 ## Scott's Preferences
-- Poppy, welcoming, accessible — not dramatic
+- Poppy, welcoming, accessible, not dramatic
 - Likes the homepage auroras, video wall, curved dividers, gradient hovers
 - Doesn't like JetBrains Mono for labels (use Inter)
 - Doesn't like walls of black

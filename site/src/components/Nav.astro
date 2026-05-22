@@ -3,12 +3,20 @@
 // `active` matches a nav item key to flag the current page.
 const { active } = Astro.props;
 
-const links = [
-  { key: 'software', label: 'Software', href: '/software' },
-  { key: 'services', label: 'Services', href: '/services' },
-  { key: 'pricing', label: 'Pricing', href: '/pricing' },
-  { key: 'knowledge-base', label: 'Knowledge Base', href: '/knowledge-base' },
+const caseStudies = [
+  { label: 'Royal Caribbean', href: '/royal-caribbean' },
+  { label: 'Point.me', href: '/pointme' },
+  { label: 'Nike', href: '/nike' },
+  { label: 'Dell', href: '/dell' },
+  { label: 'Georgia-Pacific', href: '/georgia-pacific' },
+  { label: 'Altra', href: '/altra' },
+  { label: 'Cogent', href: '/cogent' },
+  { label: 'Crocs', href: '/crocs' },
+  { label: 'Sploot', href: '/sploot' },
 ];
+const csKeys = caseStudies.map((c) => c.href.slice(1));
+const workActive = csKeys.includes(active);
+
 const LOGIN_URL = 'https://pro.cinebody.com/login';
 const LOGO = '/assets/5b29f7e3-cb_white.png';
 ---
@@ -31,11 +39,31 @@ const LOGO = '/assets/5b29f7e3-cb_white.png';
 
     <div class="site-nav__menu" id="navMenu">
       <ul class="site-nav__links">
-        {links.map((l) => (
-          <li>
-            <a href={l.href} aria-current={active === l.key ? 'page' : undefined}>{l.label}</a>
-          </li>
-        ))}
+        <li><a href="/software" aria-current={active === 'software' ? 'page' : undefined}>Software</a></li>
+        <li><a href="/services" aria-current={active === 'services' ? 'page' : undefined}>Services</a></li>
+
+        <li class="site-nav__item--menu">
+          <button
+            class="site-nav__disclosure"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-current={workActive ? 'page' : undefined}
+          >
+            Work
+            <svg class="site-nav__chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="site-nav__dropdown" role="menu">
+            <span class="site-nav__dropdown-label">Case Studies</span>
+            <div class="site-nav__dropdown-grid">
+              {caseStudies.map((c) => (
+                <a href={c.href} role="menuitem" aria-current={active === c.href.slice(1) ? 'page' : undefined}>{c.label}</a>
+              ))}
+            </div>
+          </div>
+        </li>
+
+        <li><a href="/pricing" aria-current={active === 'pricing' ? 'page' : undefined}>Pricing</a></li>
+        <li><a href="/knowledge-base" aria-current={active === 'knowledge-base' ? 'page' : undefined}>Knowledge Base</a></li>
       </ul>
       <a class="site-nav__cta" href={LOGIN_URL}>Log in</a>
     </div>
@@ -47,6 +75,12 @@ const LOGO = '/assets/5b29f7e3-cb_white.png';
     var nav = document.getElementById('siteNav');
     var toggle = document.getElementById('navToggle');
     if (!nav || !toggle) return;
+
+    function closeMenu() {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
 
     // Glass-dark on scroll
     var onScroll = function () {
@@ -62,21 +96,37 @@ const LOGO = '/assets/5b29f7e3-cb_white.png';
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       document.body.style.overflow = open ? 'hidden' : '';
     });
-    // Close menu when a link is tapped
+
+    // "Work" disclosure (click toggles; CSS handles desktop hover/focus)
+    var disclosure = nav.querySelector('.site-nav__disclosure');
+    if (disclosure) {
+      disclosure.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = disclosure.getAttribute('aria-expanded') === 'true';
+        disclosure.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+    }
+
+    // Close everything when a link is tapped
     nav.querySelectorAll('.site-nav__menu a').forEach(function (a) {
       a.addEventListener('click', function () {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        if (disclosure) disclosure.setAttribute('aria-expanded', 'false');
+        closeMenu();
       });
     });
+
+    // Close on outside click (desktop dropdown)
+    document.addEventListener('click', function (e) {
+      if (disclosure && !e.target.closest('.site-nav__item--menu')) {
+        disclosure.setAttribute('aria-expanded', 'false');
+      }
+    });
+
     // Close on Escape
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && nav.classList.contains('open')) {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
+      if (e.key !== 'Escape') return;
+      if (disclosure) disclosure.setAttribute('aria-expanded', 'false');
+      if (nav.classList.contains('open')) closeMenu();
     });
   })();
 </script>

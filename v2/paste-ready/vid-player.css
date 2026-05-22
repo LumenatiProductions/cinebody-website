@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════
-   CINEBODY — Click-to-Play Video Pattern
+   CINEBODY, Click-to-Play Video Pattern
    Based on proven snap-pitch pattern.
    Uses Vimeo Player SDK for mute/unmute.
    ═══════════════════════════════════════════════ */
 
-/* Container — poster visible, iframe hidden until click */
+/* Container, poster visible, iframe hidden until click */
 .vid-playable {
   position: relative;
   cursor: pointer;
@@ -20,7 +20,7 @@
 .vid-playable--v { aspect-ratio: 9/16; }
 .vid-playable--sq { aspect-ratio: 1/1; }
 
-/* Poster image — fills container, fades on play */
+/* Poster image, fills container, fades on play */
 .vid-playable .vid-poster {
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover;
@@ -31,7 +31,7 @@
   opacity: 0; pointer-events: none;
 }
 
-/* Play button — centered, glows on hover */
+/* Play button, centered, glows on hover */
 .vid-play-btn {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
@@ -64,7 +64,7 @@
   transition: opacity 0.3s ease;
 }
 
-/* Iframe — uses ?background=1 so Vimeo shows NO native controls */
+/* Iframe, uses ?background=1 so Vimeo shows NO native controls */
 .vid-playable iframe {
   position: absolute; inset: 0;
   width: 100%; height: 100%; border: none;
@@ -78,7 +78,7 @@
   pointer-events: auto;
 }
 
-/* Mute/unmute — appears on hover when playing */
+/* Mute/unmute, appears on hover when playing */
 .vid-mute-btn {
   position: absolute; bottom: 12px; right: 12px; z-index: 5;
   width: 36px; height: 36px; border-radius: 50%;
@@ -110,7 +110,7 @@
   stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
 }
 
-/* Mobile — always show mute btn, slightly smaller play btn */
+/* Mobile, always show mute btn, slightly smaller play btn */
 @media (max-width: 600px) {
   .vid-play-btn { width: 52px; height: 52px; }
   .vid-play-btn svg { width: 18px; height: 18px; }

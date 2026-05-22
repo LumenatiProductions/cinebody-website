@@ -45,7 +45,7 @@
   --cb-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --cb-font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Type Scale — fluid, desktop-first */
+  /* Type Scale, fluid, desktop-first */
   --cb-text-xs: 0.75rem;    /* 12px */
   --cb-text-sm: 0.875rem;   /* 14px */
   --cb-text-base: 1rem;     /* 16px */
@@ -458,7 +458,7 @@ html {
   box-shadow: var(--cb-shadow-teal-lg);
 }
 
-/* Playing state — pause icon */
+/* Playing state, pause icon */
 .cb-video.is-playing .cb-video__play {
   width: 36px;
   height: 36px;

@@ -75,7 +75,7 @@
     margin-bottom: 0;
   }
 
-  /* ── Videos (Right) — 2 vertical side by side ── */
+  /* ── Videos (Right), 2 vertical side by side ── */
   .cb-spark-videos {
     display: flex;
     gap: 20px;
@@ -196,7 +196,7 @@
         <p class="cb-spark-text">The result was a library of creator-driven content that outperformed studio shoots on every metric. Authentic demos, honest testimonials, and real-world use cases gave Sparkle a voice that connected with audiences across social, digital, and retail media channels.</p>
       </div>
 
-      <!-- Videos (Right) — 2 vertical side by side -->
+      <!-- Videos (Right), 2 vertical side by side -->
       <div class="cb-spark-videos">
         <div class="cb-spark-video-card" data-vimeo-id="1091854157">
           <iframe src="https://player.vimeo.com/video/1091854157?background=1&autopause=0&muted=1&loop=1" allow="autoplay"></iframe>
@@ -243,7 +243,7 @@
       if (!player) return;
 
       if (card.classList.contains('cb-spark-playing')) {
-        // Currently playing with audio — pause and mute
+        // Currently playing with audio, pause and mute
         player.setVolume(0);
         player.pause();
         card.classList.remove('cb-spark-playing');

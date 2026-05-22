@@ -464,7 +464,7 @@
       if (!player) return;
 
       if (card.classList.contains('cb-vf-playing')) {
-        // Currently playing with audio — pause and mute
+        // Currently playing with audio, pause and mute
         player.setVolume(0);
         player.pause();
         card.classList.remove('cb-vf-playing');

@@ -1,14 +1,14 @@
 /* ═══════════════════════════════════════════════
-   CINEBODY — Click-to-Play Video Controller
+   CINEBODY, Click-to-Play Video Controller
    Requires: Vimeo Player SDK (player.vimeo.com/api/player.js)
 
    Attributes on .vid-playable:
-     data-vimeo="ID"           — Vimeo video ID (required)
-     data-vimeo-h="HASH"       — hash for private/unlisted videos
-     data-autoplay             — autoplay on desktop, click-to-play on mobile
-     data-autoplay-always      — autoplay on ALL devices including mobile
-     vid-playable--h           — 16:9 aspect
-     vid-playable--v           — 9:16 aspect
+     data-vimeo="ID", Vimeo video ID (required)
+     data-vimeo-h="HASH", hash for private/unlisted videos
+     data-autoplay, autoplay on desktop, click-to-play on mobile
+     data-autoplay-always, autoplay on ALL devices including mobile
+     vid-playable--h, 16:9 aspect
+     vid-playable--v, 9:16 aspect
    ═══════════════════════════════════════════════ */
 
 (function() {

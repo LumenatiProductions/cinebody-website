@@ -1,7 +1,8 @@
-// Generates src/pages/*.astro — each is a thin wrapper that injects the
+// Generates src/pages/*.astro, each is a thin wrapper that injects the
 // matching fragment into the Base layout. Re-runnable; overwrites pages.
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { stripEmDash } from './strip-emdash.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(ROOT, 'src/pages');
@@ -9,7 +10,7 @@ const OUT = path.join(ROOT, 'src/pages');
 // route file (no ext) -> { fragment, title, active, description, noindex }
 const pages = [
   { route: 'index', fragment: 'homepage', active: 'home',
-    description: 'Cinebody is the video capture platform that turns your community into your content team. Direct authentic UGC at scale — from anyone, anywhere.' },
+    description: 'Cinebody is the video capture platform that turns your community into your content team. Direct authentic UGC at scale, from anyone, anywhere.' },
   { route: 'software', fragment: 'software', title: 'Software', active: 'software',
     description: 'The Cinebody platform: send a creative brief, and your people capture pro-quality vertical video on their phones. Review, manage, and publish at scale.' },
   { route: 'services', fragment: 'services', title: 'Creative Services', active: 'services',
@@ -17,7 +18,7 @@ const pages = [
   { route: 'pricing', fragment: 'pricing', title: 'Pricing', active: 'pricing',
     description: 'Simple plans for the Cinebody software platform and creative services. Find the right fit for your team and start capturing authentic video.' },
   { route: 'royal-caribbean', fragment: 'royal-caribbean', title: 'Royal Caribbean Case Study',
-    description: 'How Royal Caribbean used Cinebody to capture authentic guest and crew stories at sea — turning real moments into scroll-stopping brand content.' },
+    description: 'How Royal Caribbean used Cinebody to capture authentic guest and crew stories at sea, turning real moments into scroll-stopping brand content.' },
   { route: 'pointme', fragment: 'pointme', title: 'Point.me Case Study',
     description: 'How Point.me used Cinebody to produce a steady stream of customer and expert video that drives signups and trust.' },
   { route: 'nike', fragment: 'nike', title: 'Nike Case Study',
@@ -54,7 +55,7 @@ function astro({ fragment, title, active, description, noindex }) {
   const props = [];
   if (title) props.push(`title="${title}"`);
   if (active) props.push(`active="${active}"`);
-  if (description) props.push(`description="${description.replace(/"/g, '&quot;')}"`);
+  if (description) props.push(`description="${stripEmDash(description).replace(/"/g, '&quot;')}"`);
   if (noindex) props.push('noindex={true}');
   return `---
 import Base from '../layouts/Base.astro';
