@@ -143,6 +143,14 @@ async function main() {
       // load after first paint / when near view (loader lives in Base.astro),
       // letting the poster thumbnails win the initial render.
       html = html.split('<iframe src="https://player.vimeo.com/video/').join('<iframe title="Cinebody customer video" data-src="https://player.vimeo.com/video/');
+      // Responsive hero thumbnails: the cards render ~300px on desktop but ~33vw
+      // on mobile, so give the browser smaller Vimeo sizes to choose from. Keeps
+      // the 640px source for desktop/retina (no quality change there); phones
+      // pull a 320/480px file instead. Vimeo serves these via the -d_NNN suffix.
+      html = html.replace(
+        /<img src="(https:\/\/i\.vimeocdn\.com\/video\/[^"]+?)-d_640"/g,
+        (m, b) => `<img src="${b}-d_640" srcset="${b}-d_320 320w, ${b}-d_480 480w, ${b}-d_640 640w" sizes="(max-width: 767px) 33vw, 300px" decoding="async"`
+      );
     }
     html = stripEmDash(html, { html: true });
     await writeFile(path.join(FRAG_OUT, outName), html);
