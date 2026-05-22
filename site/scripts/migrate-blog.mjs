@@ -10,6 +10,7 @@ import path from 'node:path';
 import { parse } from 'node-html-parser';
 import sharp from 'sharp';
 import { stripEmDash } from './strip-emdash.mjs';
+import { makeHero, makeCard, makeSource, parseFocal } from './blog-crop.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(ROOT, 'src/content/blog');
@@ -79,20 +80,29 @@ async function saveImg(url, destNoExt) {
   } catch { return ''; }
 }
 
-// Featured image: Squarespace focal points are all default-center, so use
-// sharp's attention strategy to smart-crop toward the salient subject. Produces
-// a 16:9 hero and a 16:10 card derivative so neither view cuts the subject off.
-async function saveFeatured(url, dir) {
+// Featured image: save the resized original (source.webp) so crops can be
+// re-derived later, plus a 16:9 hero and 16:10 card. Squarespace focal points
+// are all default-center, so we smart-crop (sharp attention) unless a manual
+// `focal` override is provided, in which case we crop to that point.
+async function saveFeatured(url, dir, focal) {
   try {
     const res = await fetch(url, UA);
     if (!res.ok) return {};
     const buf = Buffer.from(await res.arrayBuffer());
     if (/\.svg($|\?)/i.test(url)) { await writeFile(path.join(dir, 'hero.svg'), buf); return { hero: 'hero.svg', card: 'hero.svg' }; }
-    const pos = sharp.strategy.attention;
-    await sharp(buf).resize(1280, 720, { fit: 'cover', position: pos }).webp({ quality: 82 }).toFile(path.join(dir, 'hero.webp'));
-    await sharp(buf).resize(800, 500, { fit: 'cover', position: pos }).webp({ quality: 82 }).toFile(path.join(dir, 'card.webp'));
+    await writeFile(path.join(dir, 'source.webp'), await makeSource(buf));
+    await writeFile(path.join(dir, 'hero.webp'), await makeHero(buf, focal));
+    await writeFile(path.join(dir, 'card.webp'), await makeCard(buf, focal));
     return { hero: 'hero.webp', card: 'card.webp' };
   } catch { return {}; }
+}
+
+// Preserve a manual `focal:` override from an existing post file across re-pulls.
+async function existingFocal(slug) {
+  const p = path.join(OUT, `${slug}.md`);
+  if (!existsSync(p)) return null;
+  const m = (await readFile(p, 'utf8')).match(/^focal:\s*(.+)$/m);
+  return m ? m[1].replace(/['"]/g, '').trim() : null;
 }
 
 async function allItems() {
@@ -117,10 +127,12 @@ async function main() {
     const dir = path.join(IMG_OUT, slug);
     await mkdir(dir, { recursive: true });
 
-    // featured image -> smart-cropped 16:9 hero + 16:10 card
+    // featured image -> source + smart-cropped 16:9 hero + 16:10 card
+    // (honoring a preserved manual focal override, if any)
+    const focalStr = await existingFocal(slug);
     let hero = '', card = '';
     if (it.assetUrl) {
-      const r = await saveFeatured(it.assetUrl, dir);
+      const r = await saveFeatured(it.assetUrl, dir, parseFocal(focalStr));
       if (r.hero) { hero = `/blog/${slug}/${r.hero}`; card = `/blog/${slug}/${r.card}`; }
     }
 
@@ -144,6 +156,7 @@ async function main() {
       `author: ${JSON.stringify((it.author && it.author.displayName) || 'Cinebody')}`,
       hero ? `heroImage: ${JSON.stringify(hero)}` : null,
       card ? `cardImage: ${JSON.stringify(card)}` : null,
+      focalStr ? `focal: ${JSON.stringify(focalStr)}` : null,
       '---',
       '',
     ].filter((l) => l !== null).join('\n');

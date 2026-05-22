@@ -10,7 +10,9 @@
     "astro": "astro",
     "prep": "node scripts/prep-fragments.mjs",
     "gen": "node scripts/gen-pages.mjs",
-    "sync": "npm run prep && npm run gen"
+    "sync": "npm run prep && npm run gen",
+    "blog": "node scripts/migrate-blog.mjs",
+    "blog:recrop": "node scripts/recrop-blog.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",

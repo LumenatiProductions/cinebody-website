@@ -10,6 +10,9 @@ const blog = defineCollection({
     author: z.string().default('Cinebody'),
     heroImage: z.string().optional(),
     cardImage: z.string().optional(),
+    // Manual crop focal point "x y" (0..1, e.g. "0.5 0.3"). Applied by
+    // scripts/recrop-blog.mjs; omit to use the default smart crop.
+    focal: z.string().optional(),
   }),
 });
 

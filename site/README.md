@@ -80,9 +80,32 @@ npm run build && npm run preview   # test the production build
 3. Framework preset: **Astro** (auto-detected). Build `astro build`, output `dist`.
 4. Deploy. Add the custom domain once you're ready to cut over from Squarespace.
 
+## Blog
+
+The blog lives in an Astro content collection at `src/content/blog/*.md`
+(`/cinebody-blog` index + `/cinebody-blog/{slug}` posts, design in
+`src/styles/blog.css`). Images are self-hosted as WebP in `public/blog/{slug}/`.
+
+- `npm run blog` re-pulls all posts from the live Squarespace blog (cleans HTML,
+  self-hosts images, strips em dashes). It preserves any manual `focal:` you've set.
+- To write a new post, add a Markdown file with the same frontmatter shape.
+
+### Image focal points
+
+Featured images are smart-cropped (sharp "attention") into a 16:9 hero and a
+16:10 card. If one crops poorly, add a manual focal point to that post's
+frontmatter and re-crop:
+
+```yaml
+focal: "0.45 0.45"   # x y, 0..1 — left/right, top/bottom. "0.5 0.5" = center
+```
+
+```bash
+npm run blog:recrop   # re-crops only posts that set `focal`, from public/blog/<slug>/source.webp
+```
+
 ## Notes
 
 - Vimeo videos/thumbnails, Calendly, and map tiles remain on their own CDNs
   (they're not tied to the Squarespace account; videos stream from Vimeo).
-- `/cinebody-blog` (footer link) still points at the Squarespace blog and is not
-  part of this build yet.
+- The Squarespace blog can be retired once the domain moves to Vercel.
