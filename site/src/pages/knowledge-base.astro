@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../fragments/knowledge-base.html?raw';
+---
+<Base title="Knowledge Base" active="knowledge-base" description="Guides, answers, and best practices for getting the most out of Cinebody.">
+  <Fragment set:html={body} />
+</Base>

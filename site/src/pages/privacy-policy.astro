@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../fragments/privacy-policy.html?raw';
+---
+<Base title="Privacy Policy" description="How Cinebody collects, uses, and protects your information.">
+  <Fragment set:html={body} />
+</Base>

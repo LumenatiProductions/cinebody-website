@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../fragments/services.html?raw';
+---
+<Base title="Creative Services" active="services" description="Your content team, without the headcount. Cinebody Creative Services handles strategy, direction, and editing so you ship great video, fast.">
+  <Fragment set:html={body} />
+</Base>

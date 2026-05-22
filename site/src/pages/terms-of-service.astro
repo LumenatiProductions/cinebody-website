@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../fragments/terms-of-service.html?raw';
+---
+<Base title="Terms of Service" description="The terms that govern your use of Cinebody.">
+  <Fragment set:html={body} />
+</Base>

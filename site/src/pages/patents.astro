@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../fragments/patents.html?raw';
+---
+<Base title="Patents" description="Cinebody patent information.">
+  <Fragment set:html={body} />
+</Base>

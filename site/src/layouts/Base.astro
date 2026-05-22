@@ -1,0 +1,156 @@
+---
+import Nav from '../components/Nav.astro';
+import footerHtml from '../fragments/_footer.html?raw';
+import '../styles/global.css';
+
+const {
+  title,
+  description = 'Cinebody is the video capture platform that turns your community into your content team. Direct authentic UGC at scale.',
+  active,
+  image = '/cinebody-icon.png',
+  noindex = false,
+} = Astro.props;
+
+const siteName = 'Cinebody';
+const fullTitle = title ? `${title} — ${siteName}` : `${siteName} — Your community is your content team`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || Astro.site.href;
+const ogImage = new URL(image, Astro.site).href;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="/cinebody-icon.png" />
+    <link rel="apple-touch-icon" href="/cinebody-icon.png" />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Speeds up the first video / thumbnail fetches -->
+    <link rel="preconnect" href="https://player.vimeo.com" />
+    <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin />
+  </head>
+  <body>
+    <Nav active={active} />
+
+    <main id="content">
+      <slot />
+    </main>
+
+    <Fragment set:html={footerHtml} />
+
+    <!-- Vimeo SDK + the shared click-to-play / autoplay video controller -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script is:inline>
+      (function () {
+        var playSVG = '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';
+        var svgMuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+        var svgUnmuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+
+        var isMobile = window.innerWidth < 768;
+        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        var activePlayer = null;
+        var activeBtn = null;
+
+        function loadVideo(container, videoId, hash) {
+          if (container.classList.contains('playing')) return;
+          var base = 'https://player.vimeo.com/video/' + videoId;
+          var src = hash ? base + '?h=' + hash + '&background=1' : base + '?background=1';
+          var iframe = document.createElement('iframe');
+          iframe.src = src;
+          iframe.allow = 'autoplay';
+          iframe.loading = 'lazy';
+          container.insertBefore(iframe, container.firstChild);
+          container.classList.add('playing');
+          if (typeof Vimeo !== 'undefined' && Vimeo.Player) {
+            container._player = new Vimeo.Player(iframe);
+          }
+        }
+
+        document.querySelectorAll('.vid-playable').forEach(function (container) {
+          var videoId = container.getAttribute('data-vimeo');
+          var hash = container.getAttribute('data-vimeo-h');
+          var autoplayDesktop = container.hasAttribute('data-autoplay');
+          var autoplayAlways = container.hasAttribute('data-autoplay-always');
+          if (!videoId) return;
+
+          var shouldAutoplay = !isSafari && !isMobile && (autoplayAlways || autoplayDesktop);
+
+          var playBtn = document.createElement('div');
+          playBtn.className = 'vid-play-btn';
+          playBtn.innerHTML = playSVG;
+          container.appendChild(playBtn);
+          if (shouldAutoplay) {
+            playBtn.style.opacity = '0';
+            playBtn.style.pointerEvents = 'none';
+          }
+
+          var muteBtn = document.createElement('button');
+          muteBtn.className = 'vid-mute-btn';
+          muteBtn.innerHTML = svgMuted;
+          muteBtn.setAttribute('aria-label', 'Unmute');
+          container.appendChild(muteBtn);
+
+          if (shouldAutoplay) {
+            var obs = new IntersectionObserver(function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) { loadVideo(container, videoId, hash); obs.unobserve(container); }
+              });
+            }, { threshold: 0.15 });
+            obs.observe(container);
+          }
+
+          container.addEventListener('click', function (e) {
+            if (e.target.closest('.vid-mute-btn')) return;
+            loadVideo(container, videoId, hash);
+            playBtn.style.opacity = '0';
+            playBtn.style.pointerEvents = 'none';
+          });
+
+          muteBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var player = container._player;
+            if (!player) return;
+            if (activeBtn === muteBtn) {
+              player.setVolume(0); muteBtn.innerHTML = svgMuted; muteBtn.setAttribute('aria-label', 'Unmute');
+              activePlayer = null; activeBtn = null; return;
+            }
+            if (activePlayer && activeBtn) {
+              activePlayer.setVolume(0); activeBtn.innerHTML = svgMuted; activeBtn.setAttribute('aria-label', 'Unmute');
+            }
+            player.setVolume(1); muteBtn.innerHTML = svgUnmuted; muteBtn.setAttribute('aria-label', 'Mute');
+            activePlayer = player; activeBtn = muteBtn;
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../fragments/404.html?raw';
+---
+<Base title="Page Not Found" description="The page you're looking for can't be found." noindex={true}>
+  <Fragment set:html={body} />
+</Base>

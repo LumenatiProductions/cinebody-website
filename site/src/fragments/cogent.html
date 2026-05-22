@@ -1,0 +1,630 @@
+<!-- Cinebody V4 — Case Study — Cogent World
+     Paste this into a single Code Block on the cs-cogent page.
+     Requires: Code Injection (header + footer), Custom CSS, Global Footer -->
+
+<style>
+/* ═══════════════════════════════════════════════
+   CINEBODY CASE STUDY — COGENT WORLD
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --teal-dim: rgba(0,188,241,0.6);
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(0,188,241,0.2);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+body > * { position: relative; z-index: 1; }
+
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--pink));
+  z-index: 9999; transition: none;
+}
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+.sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.label {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 20px;
+}
+
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; font-size: 0; margin-top: -10px; margin-bottom: -10px; background: none !important; }
+.curve svg { display: block; width: 100%; height: 70px; }
+@media (max-width: 600px) { .curve svg { height: 90px; } }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease); position: relative; isolation: isolate;
+}
+.btn-glow {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+.btn-glow::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
+}
+.btn-glow:hover::before { opacity: 0.7; }
+.btn-glow:hover {
+  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg { transform: translateX(3px); }
+
+/* ═══ HERO ═══ */
+.hero { padding: 100px 0 120px; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+
+
+.hero .contain {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+  background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 28px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5);
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
+  color: #fff !important;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent !important;
+}
+.hero-body {
+  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
+}
+
+.logo-pair { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+.logo-pair img { height: 28px; width: auto; object-fit: contain; }
+.logo-pair img.grayscale { filter: brightness(0) invert(1); opacity: 1; }
+.logo-pair .logo-x { font-size: 18px; font-weight: 300; color: var(--text-muted); }
+
+.hero-visual {
+  position: relative;
+  text-align: center;
+}
+
+.hero-visual .vid-playable { margin: 0 auto; }
+
+.hero-vid-pair {
+  display: flex; gap: 16px; justify-content: center;
+  max-width: 500px; margin: 0 auto;
+}
+.hero-vid-pair .vid-card { flex: 1; max-width: 240px; }
+
+/* Festival grid */
+.fest-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 16px; max-width: 1100px; margin: 0 auto;
+}
+.fest-grid .vid-card { max-width: none; }
+
+/* Video marquee scroller */
+.vid-marquee-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
+.vid-marquee-row { display: flex; margin-bottom: 14px; }
+.vid-marquee-row:last-child { margin-bottom: 0; }
+.vid-marquee-track { display: flex; gap: 14px; will-change: transform; }
+.marquee-left .vid-marquee-track { animation: marqL 50s linear infinite; }
+.marquee-right .vid-marquee-track { animation: marqR 50s linear infinite; }
+@keyframes marqL { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes marqR { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+.marq-card { flex-shrink: 0; width: 140px; aspect-ratio: 9/16; border-radius: 14px; overflow: hidden; background: #111; border: 1px solid var(--border); position: relative; }
+.marq-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.marq-card iframe { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); border: none; pointer-events: none; z-index: 1; }
+.marq-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 8px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: var(--mono); font-size: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.6); z-index: 3; }
+.marq-mute { position: absolute; bottom: 22px; right: 6px; z-index: 4; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(0,188,241,0.2); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: opacity 0.3s ease, background 0.2s ease; pointer-events: auto; }
+.marq-card:hover .marq-mute { opacity: 1; }
+.marq-mute:hover { background: rgba(0,188,241,0.4); }
+.marq-mute svg { width: 14px; height: 14px; }
+
+/* ═══ CONTENT SECTIONS ═══ */
+.content-section {
+  padding: 100px 0; position: relative;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%);
+}
+
+.section-head { text-align: center; margin-bottom: 48px; }
+
+.section-head h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px; color: #fff !important;
+}
+.section-head h2 em { font-style: normal; color: var(--teal) !important; }
+.section-head p {
+  font-size: 0.95rem; color: var(--text-dim); line-height: 1.65; max-width: 560px; margin: 0 auto;
+}
+
+/* Video card */
+.vid-card {
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2); background: #111;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.vid-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,188,241,0.08);
+}
+.vid-card .vid-wrap { position: relative; background: #111; }
+.vid-card .vid-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vid-card .vid-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.vid-wrap--h { padding-bottom: 56.25%; }
+.vid-wrap--v { padding-bottom: 177.78%; }
+
+/* Vertical video trio */
+.vid-trio {
+  display: flex; gap: 16px; justify-content: center;
+}
+.vid-trio .vid-card { flex: 1; max-width: 200px; }
+.vid-trio .vid-label {
+  padding: 10px 12px; text-align: center;
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim);
+}
+
+/* ═══ CTA BAND ═══ */
+.cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
+.cta-band h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; color: #111 !important; line-height: 1.2; margin-bottom: 28px;
+}
+.cta-band h2 span { color: var(--teal) !important; }
+.cta-band .btn-glow { background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.15); }
+.cta-band .btn-glow:hover { box-shadow: 0 0 40px rgba(0,0,0,0.25); }
+
+/* ═══ FOOTER ═══ */
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand img { height: 22px; margin-bottom: 14px; }
+.footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; max-width: 240px; }
+.footer-col h4 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; transition: color 0.2s ease; }
+.footer-col a:hover {
+  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 60px 0 80px; }
+  .fest-grid { grid-template-columns: repeat(3, 1fr); }
+  .marq-card { width: 120px; border-radius: 12px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 40px 0 60px; }
+  .hero h1 { font-size: 2.25rem; }
+  .content-section, .cta-band { padding: 60px 0; }
+  .fest-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .marq-card { width: 100px; border-radius: 10px; }
+  .vid-marquee-track { gap: 10px; }
+  .vid-marquee-row { margin-bottom: 10px; }
+  .hero-vid-pair .vid-card { max-width: 160px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Case Study</div>
+      <div class="logo-pair">
+        <img src="/assets/5b29f7e3-cb_white.png" alt="Cinebody" class="grayscale">
+        <span class="logo-x">&times;</span>
+        <img src="/assets/2bc61a05-1629489003234.jpg" alt="Cogent World" style="height:50px;border-radius:6px">
+      </div>
+      <h1>Every festival. <em>One platform.</em></h1>
+      <p class="hero-body">Cogent World produces hundreds of events across the globe. With Cinebody, on-site teams and talent capture real, in-the-moment content — fueling a steady stream of authentic video that connects with audiences long after the last&nbsp;encore.</p>
+      <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="hero-visual reveal reveal-d2">
+      <div class="hero-vid-pair">
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1087531124" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="BottleRock Festival">
+          </div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1111454370" style="border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="Outside Lands">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → light -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ STATS ═══ -->
+<section style="background:#fff;color:#111;padding:80px 0">
+  <div class="contain" style="max-width:900px">
+
+    <!-- Festival Scene Graphic -->
+    <style>
+      @keyframes fwSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes walkR { 0%,100% { transform: translateX(0); } 50% { transform: translateX(12px); } }
+      @keyframes walkL { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-10px); } }
+      @keyframes walkR2 { 0%,100% { transform: translateX(0); } 50% { transform: translateX(16px); } }
+      @keyframes walkL2 { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-14px); } }
+      @keyframes sway { 0%,100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+      @keyframes swayL { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-3px); } }
+      @keyframes stgL1 { 0% { transform:rotate(-8deg); opacity:0.07; } 50% { transform:rotate(8deg); opacity:0.16; } 100% { transform:rotate(-8deg); opacity:0.07; } }
+      @keyframes stgL2 { 0% { transform:rotate(6deg); opacity:0.05; } 50% { transform:rotate(-6deg); opacity:0.14; } 100% { transform:rotate(6deg); opacity:0.05; } }
+      @keyframes stgL3 { 0% { transform:rotate(8deg); opacity:0.06; } 50% { transform:rotate(-8deg); opacity:0.18; } 100% { transform:rotate(8deg); opacity:0.06; } }
+    </style>
+    <div class="reveal" style="max-width:580px;margin:0 auto 48px">
+      <svg viewBox="0 0 580 240" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+
+        <!-- Ground -->
+        <line x1="0" y1="200" x2="580" y2="200" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+
+        <!-- ── STAGE (center, background — raised platform) ── -->
+        <!-- Stage platform (raised — bottom at y=200, top at y=160) -->
+        <rect x="180" y="160" width="160" height="40" rx="3" fill="rgba(0,0,0,0.05)"/>
+        <!-- Screen/backdrop -->
+        <rect x="190" y="82" width="140" height="78" rx="4" fill="rgba(10,10,40,0.05)" stroke="rgba(0,188,241,0.1)" stroke-width="1"/>
+        <!-- Truss -->
+        <rect x="178" y="72" width="164" height="10" rx="2" fill="rgba(0,0,0,0.04)"/>
+        <rect x="180" y="82" width="4" height="78" fill="rgba(0,0,0,0.03)"/>
+        <rect x="336" y="82" width="4" height="78" fill="rgba(0,0,0,0.03)"/>
+        <!-- Light beams (soft triangular with blur) -->
+        <defs>
+          <filter id="beamBlur"><feGaussianBlur stdDeviation="6"/></filter>
+        </defs>
+        <polygon points="210,82 170,168 210,168" fill="#00bcf1" filter="url(#beamBlur)" style="transform-origin:210px 82px;animation:stgL1 4s ease-in-out infinite"/>
+        <polygon points="260,82 230,168 290,168" fill="#eb008b" filter="url(#beamBlur)" style="transform-origin:260px 82px;animation:stgL2 5s ease-in-out infinite 0.5s"/>
+        <polygon points="310,82 310,168 350,168" fill="#ffec03" filter="url(#beamBlur)" style="transform-origin:310px 82px;animation:stgL3 4.5s ease-in-out infinite 1s"/>
+        <!-- Light fixtures -->
+        <circle cx="210" cy="78" r="4" fill="rgba(0,188,241,0.12)"/><circle cx="210" cy="78" r="2" fill="#00bcf1" opacity="0.3"/>
+        <circle cx="260" cy="77" r="5" fill="rgba(235,0,139,0.1)"/><circle cx="260" cy="77" r="2.5" fill="#eb008b" opacity="0.2"/>
+        <circle cx="310" cy="78" r="4" fill="rgba(255,236,3,0.12)"/><circle cx="310" cy="78" r="2" fill="#ffec03" opacity="0.3"/>
+        <!-- Speakers -->
+        <rect x="166" y="172" width="16" height="16" rx="2" fill="rgba(0,0,0,0.06)"/>
+        <rect x="166" y="158" width="16" height="15" rx="2" fill="rgba(0,0,0,0.04)"/>
+        <rect x="338" y="172" width="16" height="16" rx="2" fill="rgba(0,0,0,0.06)"/>
+        <rect x="338" y="158" width="16" height="15" rx="2" fill="rgba(0,0,0,0.04)"/>
+
+        <!-- ── FERRIS WHEEL (right, spinning) ── -->
+        <!-- Legs (static, beefier) -->
+        <line x1="500" y1="158" x2="478" y2="200" stroke="rgba(0,188,241,0.12)" stroke-width="3.5"/>
+        <line x1="500" y1="158" x2="522" y2="200" stroke="rgba(0,188,241,0.12)" stroke-width="3.5"/>
+        <line x1="486" y1="183" x2="514" y2="183" stroke="rgba(0,188,241,0.08)" stroke-width="2"/>
+        <!-- Base platform -->
+        <rect x="474" y="197" width="52" height="3" rx="1.5" fill="rgba(0,188,241,0.06)"/>
+        <!-- Spinning part -->
+        <g style="transform-origin:500px 105px;animation:fwSpin 28s linear infinite">
+          <!-- Outer rim -->
+          <circle cx="500" cy="105" r="52" fill="none" stroke="rgba(0,188,241,0.12)" stroke-width="3"/>
+          <!-- Inner decorative ring -->
+          <circle cx="500" cy="105" r="44" fill="none" stroke="rgba(0,188,241,0.05)" stroke-width="1" stroke-dasharray="3 5"/>
+          <!-- Spokes -->
+          <line x1="500" y1="53" x2="500" y2="157" stroke="rgba(0,188,241,0.08)" stroke-width="1.5"/>
+          <line x1="448" y1="105" x2="552" y2="105" stroke="rgba(0,188,241,0.08)" stroke-width="1.5"/>
+          <line x1="463" y1="68" x2="537" y2="142" stroke="rgba(0,188,241,0.06)" stroke-width="1.2"/>
+          <line x1="537" y1="68" x2="463" y2="142" stroke="rgba(0,188,241,0.06)" stroke-width="1.2"/>
+          <!-- Colored gondolas (bigger, bolder) -->
+          <g transform="translate(496,47)"><rect width="8" height="10" rx="3" fill="#00bcf1" opacity="0.25"/><rect x="1" y="1" width="6" height="4" rx="1.5" fill="#00bcf1" opacity="0.12"/></g>
+          <g transform="translate(496,153)"><rect width="8" height="10" rx="3" fill="#eb008b" opacity="0.2"/><rect x="1" y="1" width="6" height="4" rx="1.5" fill="#eb008b" opacity="0.1"/></g>
+          <g transform="translate(442,100)"><rect width="8" height="10" rx="3" fill="#ffec03" opacity="0.22"/><rect x="1" y="1" width="6" height="4" rx="1.5" fill="#ffec03" opacity="0.1"/></g>
+          <g transform="translate(550,100)"><rect width="8" height="10" rx="3" fill="#00bcf1" opacity="0.2"/><rect x="1" y="1" width="6" height="4" rx="1.5" fill="#00bcf1" opacity="0.1"/></g>
+          <g transform="translate(458,63)"><rect width="7" height="9" rx="2.5" fill="#eb008b" opacity="0.16"/></g>
+          <g transform="translate(533,63)"><rect width="7" height="9" rx="2.5" fill="#ffec03" opacity="0.16"/></g>
+          <g transform="translate(458,138)"><rect width="7" height="9" rx="2.5" fill="#00bcf1" opacity="0.14"/></g>
+          <g transform="translate(533,138)"><rect width="7" height="9" rx="2.5" fill="#eb008b" opacity="0.14"/></g>
+        </g>
+        <!-- Hub (static, bolder) -->
+        <circle cx="500" cy="105" r="8" fill="rgba(0,188,241,0.08)" stroke="rgba(0,188,241,0.15)" stroke-width="2"/>
+        <circle cx="500" cy="105" r="3" fill="rgba(0,188,241,0.2)"/>
+
+        <!-- ── VENDOR TENTS (spread across, flat canopy) ── -->
+        <!-- Tent 1 — far left -->
+        <g opacity="0.065">
+          <rect x="18" y="162" width="44" height="4" rx="1" fill="#000"/>
+          <line x1="20" y1="166" x2="20" y2="200" stroke="#000" stroke-width="1.5"/>
+          <line x1="60" y1="166" x2="60" y2="200" stroke="#000" stroke-width="1.5"/>
+          <path d="M16,162 L40,154 L64,162" fill="none" stroke="#000" stroke-width="1"/>
+        </g>
+        <rect x="26" y="170" width="22" height="7" rx="1.5" fill="rgba(0,188,241,0.3)" opacity="0.5"/>
+        <!-- Tent 2 — left of stage -->
+        <g opacity="0.055">
+          <rect x="90" y="158" width="50" height="4" rx="1" fill="#000"/>
+          <line x1="93" y1="162" x2="93" y2="200" stroke="#000" stroke-width="1.5"/>
+          <line x1="137" y1="162" x2="137" y2="200" stroke="#000" stroke-width="1.5"/>
+          <path d="M88,158 L115,149 L142,158" fill="none" stroke="#000" stroke-width="1"/>
+        </g>
+        <rect x="100" y="166" width="28" height="7" rx="1.5" fill="rgba(235,0,139,0.3)" opacity="0.4"/>
+        <!-- Tent 3 — right of stage -->
+        <g opacity="0.05">
+          <rect x="370" y="160" width="45" height="3.5" rx="1" fill="#000"/>
+          <line x1="373" y1="163.5" x2="373" y2="200" stroke="#000" stroke-width="1.3"/>
+          <line x1="412" y1="163.5" x2="412" y2="200" stroke="#000" stroke-width="1.3"/>
+          <path d="M368,160 L392,152 L417,160" fill="none" stroke="#000" stroke-width="0.8"/>
+        </g>
+        <rect x="378" y="168" width="24" height="6" rx="1.5" fill="rgba(255,236,3,0.3)" opacity="0.4"/>
+        <!-- Tent 4 — far right near wheel -->
+        <g opacity="0.04">
+          <rect x="435" y="165" width="32" height="3" rx="1" fill="#000"/>
+          <line x1="437" y1="168" x2="437" y2="200" stroke="#000" stroke-width="1"/>
+          <line x1="465" y1="168" x2="465" y2="200" stroke="#000" stroke-width="1"/>
+          <path d="M433,165 L451,159 L469,165" fill="none" stroke="#000" stroke-width="0.7"/>
+        </g>
+        <rect x="440" y="171" width="18" height="5" rx="1" fill="rgba(0,188,241,0.25)" opacity="0.35"/>
+
+        <!-- ── PEOPLE (side view, below stage platform) ── -->
+        <!-- Stage platform bottom is y=200. People stand on ground y=200. -->
+        <!-- Heads at ~y=183, bodies y=187 to y=199. People IN FRONT of stage -->
+        <!-- are between x=180..340 but their feet are on y=200, below the stage. -->
+        <!-- Larger = closer to viewer. Smaller = further from viewer. -->
+
+        <!-- ── CROWD — heads/bodies can overlap stage face, feet at y=200+ ── -->
+
+        <!-- Front row (large, heads around y=190, feet at y=218) -->
+        <g style="animation:sway 3s ease-in-out infinite" opacity="0.55"><circle cx="190" cy="190" r="3.5" fill="#00bcf1"/><rect x="187" y="194.5" width="6" height="14" rx="3" fill="#00bcf1"/></g>
+        <g style="animation:swayL 2.8s ease-in-out infinite 0.3s" opacity="0.5"><circle cx="208" cy="191" r="3.5" fill="#00bcf1"/><rect x="205" y="195.5" width="6" height="13" rx="3" fill="#00bcf1"/></g>
+        <!-- FILMER (bright pulse from head) -->
+        <g style="animation:sway 3.2s ease-in-out infinite 0.6s" opacity="0.8"><circle cx="226" cy="189" r="3.5" fill="#00bcf1"/><rect x="223" y="193.5" width="6" height="14" rx="3" fill="#00bcf1"/><circle cx="226" cy="189" fill="none" stroke="#00bcf1" stroke-width="1.2"><animate attributeName="r" values="4;16" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0" dur="2.5s" repeatCount="indefinite"/></circle><circle cx="226" cy="189" fill="none" stroke="#00bcf1" stroke-width="0.8"><animate attributeName="r" values="4;16" dur="2.5s" begin="1.25s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.4;0" dur="2.5s" begin="1.25s" repeatCount="indefinite"/></circle></g>
+        <g style="animation:sway 2.6s ease-in-out infinite 1s" opacity="0.5"><circle cx="248" cy="192" r="3.5" fill="#00bcf1"/><rect x="245" y="196.5" width="6" height="12" rx="3" fill="#00bcf1"/></g>
+        <g style="animation:swayL 3s ease-in-out infinite 0.5s" opacity="0.55"><circle cx="265" cy="190" r="3.5" fill="#00bcf1"/><rect x="262" y="194.5" width="6" height="14" rx="3" fill="#00bcf1"/></g>
+        <!-- FILMER -->
+        <g style="animation:sway 2.9s ease-in-out infinite 1.2s" opacity="0.8"><circle cx="285" cy="189" r="3.5" fill="#00bcf1"/><rect x="282" y="193.5" width="6" height="14" rx="3" fill="#00bcf1"/><circle cx="285" cy="189" fill="none" stroke="#00bcf1" stroke-width="1.2"><animate attributeName="r" values="4;16" dur="2.5s" begin="0.7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0" dur="2.5s" begin="0.7s" repeatCount="indefinite"/></circle><circle cx="285" cy="189" fill="none" stroke="#00bcf1" stroke-width="0.8"><animate attributeName="r" values="4;16" dur="2.5s" begin="1.95s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.4;0" dur="2.5s" begin="1.95s" repeatCount="indefinite"/></circle></g>
+        <g style="animation:swayL 2.7s ease-in-out infinite 0.8s" opacity="0.5"><circle cx="305" cy="191" r="3.5" fill="#00bcf1"/><rect x="302" y="195.5" width="6" height="13" rx="3" fill="#00bcf1"/></g>
+        <g style="animation:sway 3.1s ease-in-out infinite 1.5s" opacity="0.55"><circle cx="325" cy="190" r="3.5" fill="#00bcf1"/><rect x="322" y="194.5" width="6" height="14" rx="3" fill="#00bcf1"/></g>
+
+        <!-- Walking people in front -->
+        <g style="animation:walkR 6s ease-in-out infinite" opacity="0.4"><circle cx="345" cy="192" r="3" fill="#00bcf1"/><rect x="342.5" y="196" width="5" height="12" rx="2.5" fill="#00bcf1"/></g>
+        <g style="animation:walkL2 8s ease-in-out infinite 2s" opacity="0.35"><circle cx="175" cy="193" r="3" fill="#00bcf1"/><rect x="172.5" y="197" width="5" height="11" rx="2.5" fill="#00bcf1"/></g>
+
+        <!-- Mid row (smaller = further, swaying) -->
+        <g style="animation:swayL 2.5s ease-in-out infinite 0.2s" opacity="0.35"><circle cx="200" cy="194" r="2.5" fill="#00bcf1"/><rect x="198" y="197.5" width="4" height="10" rx="2" fill="#00bcf1"/></g>
+        <g style="animation:sway 2.8s ease-in-out infinite 0.9s" opacity="0.35"><circle cx="220" cy="195" r="2.5" fill="#00bcf1"/><rect x="218" y="198.5" width="4" height="9" rx="2" fill="#00bcf1"/></g>
+        <!-- FILMER -->
+        <g style="animation:swayL 3s ease-in-out infinite 0.4s" opacity="0.6"><circle cx="242" cy="193" r="2.5" fill="#00bcf1"/><rect x="240" y="196.5" width="4" height="10" rx="2" fill="#00bcf1"/><circle cx="242" cy="193" fill="none" stroke="#00bcf1" stroke-width="1"><animate attributeName="r" values="2.5;12" dur="3s" begin="1.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.55;0" dur="3s" begin="1.4s" repeatCount="indefinite"/></circle></g>
+        <g style="animation:sway 2.6s ease-in-out infinite 1.1s" opacity="0.3"><circle cx="262" cy="195" r="2.5" fill="#00bcf1"/><rect x="260" y="198.5" width="4" height="9" rx="2" fill="#00bcf1"/></g>
+        <g style="animation:swayL 2.9s ease-in-out infinite 0.7s" opacity="0.35"><circle cx="280" cy="194" r="2.5" fill="#00bcf1"/><rect x="278" y="197.5" width="4" height="10" rx="2" fill="#00bcf1"/></g>
+        <g style="animation:sway 2.7s ease-in-out infinite 1.3s" opacity="0.3"><circle cx="300" cy="195" r="2.5" fill="#00bcf1"/><rect x="298" y="198.5" width="4" height="9" rx="2" fill="#00bcf1"/></g>
+        <!-- Walking through mid crowd -->
+        <g style="animation:walkR2 9s ease-in-out infinite 1s" opacity="0.25"><circle cx="315" cy="195" r="2.5" fill="#00bcf1"/><rect x="313" y="198.5" width="4" height="9" rx="2" fill="#00bcf1"/></g>
+
+        <!-- ── TENT CROWDS ── -->
+        <!-- Tent 1 -->
+        <g style="animation:sway 3s ease-in-out infinite 0.5s" opacity="0.3"><circle cx="32" cy="188" r="2.5" fill="#00bcf1"/><rect x="30" y="191.5" width="4" height="8" rx="2" fill="#00bcf1"/></g>
+        <g style="animation:walkL 7s ease-in-out infinite 1s" opacity="0.25"><circle cx="52" cy="189" r="2.5" fill="#00bcf1"/><rect x="50" y="192.5" width="4" height="7" rx="2" fill="#00bcf1"/></g>
+        <!-- FILMER at tent 1 -->
+        <g opacity="0.6"><circle cx="70" cy="187" r="2.5" fill="#00bcf1"/><rect x="68" y="190.5" width="4" height="9" rx="2" fill="#00bcf1"/><circle cx="70" cy="187" fill="none" stroke="#00bcf1" stroke-width="1"><animate attributeName="r" values="2.5;12" dur="3s" begin="0.3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.55;0" dur="3s" begin="0.3s" repeatCount="indefinite"/></circle></g>
+        <g style="animation:walkR 10s ease-in-out infinite 4s" opacity="0.2"><circle cx="45" cy="190" r="2" fill="#00bcf1"/><rect x="43.5" y="193" width="3" height="7" rx="1.5" fill="#00bcf1"/></g>
+
+        <!-- Tent 2 -->
+        <g style="animation:swayL 2.8s ease-in-out infinite" opacity="0.3"><circle cx="103" cy="188" r="2.5" fill="#00bcf1"/><rect x="101" y="191.5" width="4" height="8" rx="2" fill="#00bcf1"/></g>
+        <g style="animation:walkR 8s ease-in-out infinite 3s" opacity="0.25"><circle cx="125" cy="189" r="2.5" fill="#00bcf1"/><rect x="123" y="192.5" width="4" height="7" rx="2" fill="#00bcf1"/></g>
+        <g style="animation:sway 3.2s ease-in-out infinite 1s" opacity="0.2"><circle cx="140" cy="189" r="2" fill="#00bcf1"/><rect x="138.5" y="192" width="3" height="7" rx="1.5" fill="#00bcf1"/></g>
+
+        <!-- Tent 3 -->
+        <g style="animation:walkL 7s ease-in-out infinite 2s" opacity="0.25"><circle cx="385" cy="189" r="2.5" fill="#00bcf1"/><rect x="383" y="192.5" width="4" height="7" rx="2" fill="#00bcf1"/></g>
+        <g style="animation:sway 2.6s ease-in-out infinite 0.8s" opacity="0.3"><circle cx="398" cy="188" r="2.5" fill="#00bcf1"/><rect x="396" y="191.5" width="4" height="8" rx="2" fill="#00bcf1"/></g>
+        <!-- FILMER at tent 3 -->
+        <g opacity="0.6"><circle cx="415" cy="187" r="2.5" fill="#00bcf1"/><rect x="413" y="190.5" width="4" height="9" rx="2" fill="#00bcf1"/><circle cx="415" cy="187" fill="none" stroke="#00bcf1" stroke-width="1"><animate attributeName="r" values="2.5;12" dur="3s" begin="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.55;0" dur="3s" begin="1.8s" repeatCount="indefinite"/></circle></g>
+
+        <!-- Tent 4 / ferris wheel area -->
+        <g style="animation:walkR 9s ease-in-out infinite 1.5s" opacity="0.2"><circle cx="448" cy="190" r="2" fill="#00bcf1"/><rect x="446.5" y="193" width="3" height="7" rx="1.5" fill="#00bcf1"/></g>
+        <g style="animation:walkL2 11s ease-in-out infinite 3s" opacity="0.2"><circle cx="475" cy="189" r="2.5" fill="#00bcf1"/><rect x="473" y="192.5" width="4" height="7" rx="2" fill="#00bcf1"/></g>
+        <g style="animation:sway 2.5s ease-in-out infinite 0.6s" opacity="0.25"><circle cx="495" cy="190" r="2" fill="#00bcf1"/><rect x="493.5" y="193" width="3" height="7" rx="1.5" fill="#00bcf1"/></g>
+        <!-- FILMER at ferris wheel -->
+        <g opacity="0.55"><circle cx="520" cy="187" r="2.5" fill="#00bcf1"/><rect x="518" y="190.5" width="4" height="9" rx="2" fill="#00bcf1"/><circle cx="520" cy="187" fill="none" stroke="#00bcf1" stroke-width="1"><animate attributeName="r" values="2.5;12" dur="3s" begin="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.55;0" dur="3s" begin="2.2s" repeatCount="indefinite"/></circle></g>
+        <g style="animation:walkL 8s ease-in-out infinite 5s" opacity="0.2"><circle cx="545" cy="190" r="2" fill="#00bcf1"/><rect x="543.5" y="193" width="3" height="7" rx="1.5" fill="#00bcf1"/></g>
+
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">11</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Festivals</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">15+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Videos</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
+      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Always</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On</div></div>
+    </div>
+    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">From BottleRock to Outside Lands, Cogent World deploys Cinebody at festivals across the country. On-site teams capture real moments through guided shot lists — fueling authentic content long after each event&nbsp;ends.</p>
+  </div>
+</section>
+
+<!-- curve: light → teal-navy -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
+
+<!-- ═══ FESTIVAL GALLERY ═══ -->
+<section class="content-section">
+  <div class="contain">
+    <div class="section-head reveal">
+      <div class="label">Festival Gallery</div>
+      <h2>Every stage. <em>Every crowd. Every moment.</em></h2>
+      <p>15 videos across 11 festivals — all captured by on-site teams through Cinebody. No production crews, no outsourced&nbsp;talent.</p>
+    </div>
+
+    <div class="vid-marquee-wrap reveal reveal-d1">
+      <!-- Row 1: scrolls left -->
+      <div class="vid-marquee-row marquee-left">
+        <div class="vid-marquee-track">
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">BottleRock</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside Lands</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Suenos</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2023646073-6f1603d6e41f2f03abe6a3ab6b8ca1ab67eb75bcbcec9b403088faae5188b511-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090934200?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">La Onda</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072796654?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Tartuga</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2024815845-f9150976e3c159250bde4165c5fd3356a2f755409b183081e782d6bb1b826b87-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1091870084?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">GoPro Mtn</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2060903069-45e0a3be65f2284c0fcd5c0dcadacb7dbcc9e425b5d8d25b8f4e09a89c5c8407-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1120210852?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">SeaHearNow</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1145001262?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Modelo CFB</div></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">BottleRock</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside Lands</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Suenos</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2023646073-6f1603d6e41f2f03abe6a3ab6b8ca1ab67eb75bcbcec9b403088faae5188b511-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090934200?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">La Onda</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072796654?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Tartuga</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2024815845-f9150976e3c159250bde4165c5fd3356a2f755409b183081e782d6bb1b826b87-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1091870084?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">GoPro Mtn</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2060903069-45e0a3be65f2284c0fcd5c0dcadacb7dbcc9e425b5d8d25b8f4e09a89c5c8407-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1120210852?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">SeaHearNow</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1145001262?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Modelo CFB</div></div>
+        </div>
+      </div>
+      <!-- Row 2: scrolls right -->
+      <div class="vid-marquee-row marquee-right">
+        <div class="vid-marquee-track">
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2020007198-3cdc6a76e05179e00e8eea92d8ca8018261d4d8d2e7652e07d01792e67d07609-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087899210?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">BottleRock II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2051400191-35687d0be2c936f11437b5b114343681a32fc9022ad0f73b84eca0fb3d4c28ae-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1113004416?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside Lands II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">La Onda II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072989645?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Besame Mucho</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2022328844-96d0f0f9239d7cf1e6e6e0379e16e132e3e91ca2c7d9b2f86f4e793907647532-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1089838824?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454811?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">USOS</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2051414231-6ad89051e74b1fe620b11021f550dfda2425308ef41b8408d56ba742766fbe17-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1113015969?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">USOS II</div></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2020007198-3cdc6a76e05179e00e8eea92d8ca8018261d4d8d2e7652e07d01792e67d07609-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087899210?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">BottleRock II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2051400191-35687d0be2c936f11437b5b114343681a32fc9022ad0f73b84eca0fb3d4c28ae-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1113004416?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside Lands II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">La Onda II</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072989645?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Besame Mucho</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2022328844-96d0f0f9239d7cf1e6e6e0379e16e132e3e91ca2c7d9b2f86f4e793907647532-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1089838824?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">Outside</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454811?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">USOS</div></div>
+          <div class="marq-card"><img class="marq-poster" src="https://i.vimeocdn.com/video/2051414231-6ad89051e74b1fe620b11021f550dfda2425308ef41b8408d56ba742766fbe17-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1113015969?background=1" allow="autoplay" loading="lazy"></iframe><button class="marq-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><div class="marq-label">USOS II</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → yellow -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="contain">
+    <h2 class="reveal">Want event content at festival scale?<br><span>Let's build your playbook.</span></h2>
+    <a href="https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+</section>
+
+<!-- curve: yellow → dark -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<script>
+// Reveal
+(function(){
+  var o = new IntersectionObserver(function(e){
+    e.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); o.unobserve(e.target); }});
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+// Marquee pause when off-screen
+(function(){
+  var wrap = document.querySelector('.vid-marquee-wrap');
+  if (!wrap) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      wrap.querySelectorAll('.vid-marquee-track').forEach(function(t) {
+        t.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
+      });
+    });
+  }, { threshold: 0 });
+  obs.observe(wrap);
+
+  // Mute/unmute
+  var svgMuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+  var svgUnmuted = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+  var activePlayer = null;
+  var activeBtn = null;
+
+  wrap.addEventListener('click', function(e) {
+    var btn = e.target.closest('.marq-mute');
+    if (!btn) return;
+    var card = btn.closest('.marq-card');
+    var iframe = card.querySelector('iframe');
+    if (!iframe || typeof Vimeo === 'undefined') return;
+    var player = new Vimeo.Player(iframe);
+
+    if (activeBtn === btn) {
+      player.setMuted(true);
+      btn.innerHTML = svgMuted;
+      btn.setAttribute('aria-label', 'Unmute');
+      wrap.querySelectorAll('.vid-marquee-track').forEach(function(t) { t.style.animationPlayState = 'running'; });
+      activePlayer = null; activeBtn = null; return;
+    }
+    if (activePlayer && activeBtn) {
+      activePlayer.setMuted(true);
+      activeBtn.innerHTML = svgMuted;
+      activeBtn.setAttribute('aria-label', 'Unmute');
+    }
+    player.setMuted(false);
+    btn.innerHTML = svgUnmuted;
+    btn.setAttribute('aria-label', 'Mute');
+    wrap.querySelectorAll('.vid-marquee-track').forEach(function(t) { t.style.animationPlayState = 'paused'; });
+    activePlayer = player; activeBtn = btn;
+  });
+})();
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>

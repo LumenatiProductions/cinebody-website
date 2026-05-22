@@ -1,0 +1,82 @@
+---
+// Rebuilt site navigation (Squarespace provided this natively before).
+// `active` matches a nav item key to flag the current page.
+const { active } = Astro.props;
+
+const links = [
+  { key: 'software', label: 'Software', href: '/software' },
+  { key: 'services', label: 'Services', href: '/services' },
+  { key: 'pricing', label: 'Pricing', href: '/pricing' },
+  { key: 'knowledge-base', label: 'Knowledge Base', href: '/knowledge-base' },
+];
+const LOGIN_URL = 'https://pro.cinebody.com/login';
+const LOGO = '/assets/5b29f7e3-cb_white.png';
+---
+
+<nav class="site-nav" id="siteNav" aria-label="Primary">
+  <div class="site-nav__inner">
+    <a class="site-nav__logo" href="/" aria-label="Cinebody home">
+      <img src={LOGO} alt="Cinebody" width="110" height="22" />
+    </a>
+
+    <button
+      class="site-nav__toggle"
+      id="navToggle"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="navMenu"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="site-nav__menu" id="navMenu">
+      <ul class="site-nav__links">
+        {links.map((l) => (
+          <li>
+            <a href={l.href} aria-current={active === l.key ? 'page' : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+      <a class="site-nav__cta" href={LOGIN_URL}>Log in</a>
+    </div>
+  </div>
+</nav>
+
+<script is:inline>
+  (function () {
+    var nav = document.getElementById('siteNav');
+    var toggle = document.getElementById('navToggle');
+    if (!nav || !toggle) return;
+
+    // Glass-dark on scroll
+    var onScroll = function () {
+      if (window.pageYOffset > 24) nav.classList.add('shrink');
+      else nav.classList.remove('shrink');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Mobile menu
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    // Close menu when a link is tapped
+    nav.querySelectorAll('.site-nav__menu a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
+</script>

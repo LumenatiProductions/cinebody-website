@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../fragments/software.html?raw';
+---
+<Base title="Software" active="software" description="The Cinebody platform: send a creative brief, and your people capture pro-quality vertical video on their phones. Review, manage, and publish at scale.">
+  <Fragment set:html={body} />
+</Base>

@@ -1,0 +1,19 @@
+{
+  "name": "cinebody-website",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "prep": "node scripts/prep-fragments.mjs",
+    "gen": "node scripts/gen-pages.mjs",
+    "sync": "npm run prep && npm run gen"
+  },
+  "dependencies": {
+    "astro": "^5.6.0",
+    "@astrojs/sitemap": "^3.2.1"
+  }
+}
