@@ -4,6 +4,7 @@ description: "The current innovation heading our way is called Time-of-Flight (T
 pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/with-time-of-flight-the-iphone-looks-set-to-rule-the-content-world/hero.webp"
+cardImage: "/blog/with-time-of-flight-the-iphone-looks-set-to-rule-the-content-world/card.webp"
 ---
 <p>If these articles about the awesomeness of Apple’s iPhone are getting a little repetitive, there’s a reason for that. Apple keeps on making the iPhone better and better, and if you’re in the content creation business, you need to know about it.&nbsp;</p>
 <p>The current innovation heading our way is called Time-of-Flight (ToF). Once again, it’s not that Apple’s brightest minds have spent years locked away in labs creating this technology. It’s existed for many years now. What Apple has done, like they always do, is seize on the opportunity to put this incredible technology into a consumer product. And it is going to once again put Apple’s iPhone way ahead of the pack for years to come.&nbsp;</p>

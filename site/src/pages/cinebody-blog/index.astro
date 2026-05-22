@@ -26,8 +26,8 @@ const fmt = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric
     <div class="blog-grid">
       {posts.map((post) => (
         <a class="blog-card" href={`/cinebody-blog/${post.id}`}>
-          {post.data.heroImage && (
-            <img class="blog-card__img" src={post.data.heroImage} alt="" loading="lazy" decoding="async" />
+          {(post.data.cardImage || post.data.heroImage) && (
+            <img class="blog-card__img" src={post.data.cardImage || post.data.heroImage} alt="" loading="lazy" decoding="async" />
           )}
           <div class="blog-card__body">
             <div class="blog-card__meta">{fmt(post.data.pubDate)} &middot; {post.data.author}</div>

@@ -4,6 +4,7 @@ description: "Every creative brief, marketing convention, and daily blog is abuz
 pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/how-to-engage-micro-amp-nano-influencers-in-5-easy-steps/hero.webp"
+cardImage: "/blog/how-to-engage-micro-amp-nano-influencers-in-5-easy-steps/card.webp"
 ---
 <p>In the ever-evolving world of branding, it has become crucial to adopt innovative strategies that can cut through the noise. From personalized campaigns to disruptive tactics, native advertising to mobile-first approaches, staying ahead of the curve is paramount. And now, the buzzword is "influencers." Every creative brief, marketing convention, and daily blog is abuzz with influencer tactics and methodologies. While most brands focus on the mega influencers, there is significant value in targeting micro and nano influencers who have a smaller but highly engaged following.</p>
 <h3><strong>Understanding Micro and Nano Influencers</strong></h3>

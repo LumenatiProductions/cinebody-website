@@ -4,6 +4,7 @@ description: "The lesson here: TikTok is only going to get bigger and reach more
 pubDate: 2019-05-28
 author: "Scott McDonald"
 heroImage: "/blog/wtf-is-tiktok-and-why-should-i-care/hero.webp"
+cardImage: "/blog/wtf-is-tiktok-and-why-should-i-care/card.webp"
 ---
 <img src="/blog/wtf-is-tiktok-and-why-should-i-care/img-1.webp" alt="">
  

@@ -4,6 +4,7 @@ description: "Shot lists -- it’s one of many crucial elements to any productio
 pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/what-is-a-shot-list-and-how-do-i-write-one-for-a-ugc-campaign/hero.webp"
+cardImage: "/blog/what-is-a-shot-list-and-how-do-i-write-one-for-a-ugc-campaign/card.webp"
 ---
 <p>Shot lists -- it’s <a href="https://www.cinebody.com/4-things-you-should-know-before-managing-your-first-cinebody-project">one of many crucial elements</a> to any production. if you’re running any kind of UGC campaign, you’ll need one. And a good one at that, though what’s considered “good” depends on the type of campaign you’re looking to run. But at the end of the day, the shot list is your key to success, because without it you’re relying on pure luck and the filming skills of a community that might have never shot a thing.</p>
 <p>For traditional productions, with the whole crew, fancy lighting set-ups, etc., the shot list is the heart and soul of the entire operation. It means nothing is left to chance: all you have to do is make sure every shot is captured, and you’ve got all the material you need to form a compelling and cohesive edit -- guaranteed. The same theory applies to UGC campaigns.</p>

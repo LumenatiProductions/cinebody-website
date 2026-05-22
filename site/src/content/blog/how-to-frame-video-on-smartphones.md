@@ -4,6 +4,7 @@ description: "Everyone has the ability to film on their smartphone, but knowing 
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/how-to-frame-video-on-smartphones/hero.webp"
+cardImage: "/blog/how-to-frame-video-on-smartphones/card.webp"
 ---
 <figure>
  

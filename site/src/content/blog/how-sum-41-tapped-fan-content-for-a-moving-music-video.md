@@ -4,6 +4,7 @@ description: "Combining professional footage with fan-made content is a great wa
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/how-sum-41-tapped-fan-content-for-a-moving-music-video/hero.webp"
+cardImage: "/blog/how-sum-41-tapped-fan-content-for-a-moving-music-video/card.webp"
 ---
 <p>You’ve no doubt heard (and possibly rocked out to) Sum 41’s iconic party anthem “<a href="https://www.youtube.com/watch?v=CMX2lPum_pg">Fat Lip.</a>” Mixing elements of skate punk, nu-metal, and good old-fashioned pop, Sum 41 is not exactly a band that follows convention. Knowing that Sum 41, their director John Asher, and their management company Patriot Management, wanted to take a different approach to the music video for “Catching Fire,” Sum 41’s 2021 hit which deals heavily in themes of mental health and suicide. What better way to maximize an edit's impact than by incorporating real footage from fans who have dealt with such themes and experiences?</p>
 <h3><strong>The idea: Mix fan content with professionally-shot footage</strong></h3>

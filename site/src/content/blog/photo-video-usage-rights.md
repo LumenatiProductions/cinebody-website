@@ -4,6 +4,7 @@ description: "Learn the key factors of video and photo usage rights for advertis
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/photo-video-usage-rights/hero.webp"
+cardImage: "/blog/photo-video-usage-rights/card.webp"
 ---
 <figure>
  

@@ -4,6 +4,7 @@ description: "Filming b-roll isn’t remotely difficult once you understand what
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/five-tips-for-great-b-roll-filming/hero.webp"
+cardImage: "/blog/five-tips-for-great-b-roll-filming/card.webp"
 ---
 <p>You know how to set up your camera. You’ve got the microphone figured out. And you know where to send your footage when you’ve finished recording. So you’re all pumped and ready to help with this remote video production…until you see the shotlist and an abstract, mystical term called ‘b<a href="https://docs.google.com/document/d/1B8YyHvSA0zNsnbJ5O5nMAtmgCiPDlXEP_aVfPnduMgA/edit">-roll</a>’.</p>
 <p><br>First things first: don’t panic. B-roll is simply the collection of shots that support your main scenes: think wide landscapes to establish where the action takes place, close-ups of inanimate objects, or any of the other types of shots you’ll see on any TV show or movie. Just pay attention next time you settle down on the couch.</p>

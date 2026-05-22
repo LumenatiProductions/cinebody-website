@@ -4,6 +4,7 @@ description: "This is the future of content creation. A virtual video village th
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/introducing-the-next-generation-of-the-video-village/hero.webp"
+cardImage: "/blog/introducing-the-next-generation-of-the-video-village/card.webp"
 ---
 <p>Once upon a time, the only person who saw what was being filmed was the camera operator. Even the director had to wait until the dailies were ready to view, and had to put his or her trust in the person behind the camera.</p>
 <p>Those days are gone. And if you’ve ever been on set you’ll know all too well that the “video village” is where you’ll find the director on every shot. This is where a large monitor is set up, tapping directly into the camera feed to show the filmmakers just what is being captured.</p>

@@ -4,6 +4,7 @@ description: "Nano influencers, who typically have 1,000 to 10,000 followers, of
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/the-top-5-platforms-to-find-nano-influencers/hero.webp"
+cardImage: "/blog/the-top-5-platforms-to-find-nano-influencers/card.webp"
 ---
 <p>In today's digital marketing landscape, leveraging the power of nano influencers can be a game-changer for brands seeking authentic engagement and a more personal connection with their audience. Their reach allows for Nano influencers, who typically have 1,000 to 10,000 followers, offer high engagement rates and a closer relationship with their audience compared to larger influencers. Here are the top 5 platforms to find nano influencers and boost your content strategy.</p>
 

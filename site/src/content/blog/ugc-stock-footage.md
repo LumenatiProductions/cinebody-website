@@ -4,6 +4,7 @@ description: "Ever trawled a stock library looking for something unique? Good lu
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/ugc-stock-footage/hero.webp"
+cardImage: "/blog/ugc-stock-footage/card.webp"
 ---
 <figure>
  

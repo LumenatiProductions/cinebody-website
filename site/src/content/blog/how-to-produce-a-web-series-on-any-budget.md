@@ -4,6 +4,7 @@ description: "By embracing User-Directed Content and with just the latest smartp
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/how-to-produce-a-web-series-on-any-budget/hero.webp"
+cardImage: "/blog/how-to-produce-a-web-series-on-any-budget/card.webp"
 ---
 <p>What do Lin-Manuel Miranda, Jada Pinkett Smith, Elizabeth Olsen, and Zach Galifianakis have in common? (Other than, of course, being movie stars).&nbsp;</p>
 <p>They’ve all appeared in&nbsp;<a href="https://www.marieclaire.com/culture/a22873988/best-web-series/">popular web series</a>, and they’re just the tip of the iceberg. An iceberg that has been growing at a rapid pace due to the restrictions placed on traditional film crews and video production companies during the COVID-19 pandemic.&nbsp;</p>

@@ -63,9 +63,7 @@ function cleanBody(html, imgs) {
   return out;
 }
 
-// Download an image and convert it to WebP (SVGs are kept as-is). Returns the
-// chosen file extension (e.g. ".webp"/".svg") or "" on failure. `destNoExt` is
-// the destination path without an extension.
+// Download an inline image and convert it to WebP (SVGs kept as-is, not cropped).
 async function saveImg(url, destNoExt) {
   const isSvg = /\.svg($|\?)/i.test(url);
   const dest = destNoExt + (isSvg ? '.svg' : '.webp');
@@ -79,6 +77,22 @@ async function saveImg(url, destNoExt) {
     await writeFile(dest, out);
     return '.webp';
   } catch { return ''; }
+}
+
+// Featured image: Squarespace focal points are all default-center, so use
+// sharp's attention strategy to smart-crop toward the salient subject. Produces
+// a 16:9 hero and a 16:10 card derivative so neither view cuts the subject off.
+async function saveFeatured(url, dir) {
+  try {
+    const res = await fetch(url, UA);
+    if (!res.ok) return {};
+    const buf = Buffer.from(await res.arrayBuffer());
+    if (/\.svg($|\?)/i.test(url)) { await writeFile(path.join(dir, 'hero.svg'), buf); return { hero: 'hero.svg', card: 'hero.svg' }; }
+    const pos = sharp.strategy.attention;
+    await sharp(buf).resize(1280, 720, { fit: 'cover', position: pos }).webp({ quality: 82 }).toFile(path.join(dir, 'hero.webp'));
+    await sharp(buf).resize(800, 500, { fit: 'cover', position: pos }).webp({ quality: 82 }).toFile(path.join(dir, 'card.webp'));
+    return { hero: 'hero.webp', card: 'card.webp' };
+  } catch { return {}; }
 }
 
 async function allItems() {
@@ -103,11 +117,11 @@ async function main() {
     const dir = path.join(IMG_OUT, slug);
     await mkdir(dir, { recursive: true });
 
-    // featured image (-> WebP)
-    let hero = '';
+    // featured image -> smart-cropped 16:9 hero + 16:10 card
+    let hero = '', card = '';
     if (it.assetUrl) {
-      const e = await saveImg(it.assetUrl, path.join(dir, 'hero'));
-      if (e) hero = `/blog/${slug}/hero${e}`;
+      const r = await saveFeatured(it.assetUrl, dir);
+      if (r.hero) { hero = `/blog/${slug}/${r.hero}`; card = `/blog/${slug}/${r.card}`; }
     }
 
     // body: clean + collect inline images, download (-> WebP) + rewrite
@@ -129,6 +143,7 @@ async function main() {
       `pubDate: ${new Date(it.publishOn).toISOString().slice(0, 10)}`,
       `author: ${JSON.stringify((it.author && it.author.displayName) || 'Cinebody')}`,
       hero ? `heroImage: ${JSON.stringify(hero)}` : null,
+      card ? `cardImage: ${JSON.stringify(card)}` : null,
       '---',
       '',
     ].filter((l) => l !== null).join('\n');

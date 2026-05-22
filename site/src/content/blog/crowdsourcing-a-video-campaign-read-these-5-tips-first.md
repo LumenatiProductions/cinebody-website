@@ -4,6 +4,7 @@ description: "Crowdsourcing is essentially looking to the masses for the solutio
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/crowdsourcing-a-video-campaign-read-these-5-tips-first/hero.webp"
+cardImage: "/blog/crowdsourcing-a-video-campaign-read-these-5-tips-first/card.webp"
 ---
 <p>Unless you’ve been living on Mars (if so…you should really be doing the talk shows), you’ll be very familiar with terms like crowdworking, crowdfunding, and crowdsourcing video.</p>
 <p>Essentially, it’s looking to the masses for the solution to your problem, be it the gig economy, fundraising projects, or in the case of this article, capturing video for your crowdsourced campaign. It can be a cost-effective way to get a lot of footage in a short amount of time, and brands as large as&nbsp;<a href="https://www.cmo.com/features/articles/2016/7/20/how-crowdsourced-video-is-changing-brand-storytelling.html#gs.xd7yfo"><strong>Adidas</strong></a>,&nbsp;<a href="https://www.foap.com/blog/best-crowdsourced-facebook-and-instagram-campaigns-to-learn-from-in-2018"><strong>Toyota</strong></a>, and&nbsp;<a href="https://www.foap.com/blog/best-crowdsourced-facebook-and-instagram-campaigns-to-learn-from-in-2018"><strong>MAC Cosmetics</strong></a>&nbsp;have used it in high-profile campaigns involving crowdsourced campaigns. But it’s important to note that not all crowdsourcing resources are created equal.<br></p>

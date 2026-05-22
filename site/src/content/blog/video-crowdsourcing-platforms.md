@@ -4,6 +4,7 @@ description: "Whether you're a brand aiming to create compelling content, or a f
 pubDate: 2019-05-28
 author: "Scott McDonald"
 heroImage: "/blog/video-crowdsourcing-platforms/hero.webp"
+cardImage: "/blog/video-crowdsourcing-platforms/card.webp"
 ---
 <p>If it isn’t obvious already, we live in an age of non-stop video content. Everywhere you look online, there’s video. In fact, an average of 2,500 new videos are uploaded to YouTube every minute…yes, every minute.</p>
 <p>And in this era where video content reigns supreme, crowdsourcing platforms have quickly become the unsung heroes democratizing the filmmaking process. By connecting brands with a global talent pool, these platforms have altered the landscape of video production, offering fresh perspectives and innovative narratives. </p>

@@ -4,6 +4,7 @@ description: "This method of production doesn’t require truckloads of equipmen
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/the-ultimate-guide-to-video-production/hero.webp"
+cardImage: "/blog/the-ultimate-guide-to-video-production/card.webp"
 ---
 <figure>
  

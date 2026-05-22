@@ -4,6 +4,7 @@ description: "We created a five-step process that ensures iPhone interview gold 
 pubDate: 2019-05-28
 author: "Scott McDonald"
 heroImage: "/blog/5-steps-to-recording-interviews-iphone/hero.webp"
+cardImage: "/blog/5-steps-to-recording-interviews-iphone/card.webp"
 ---
 <p><strong><em>RECORDING AN IPHONE INTERVIEW IS AS EASY AS A,B,C…</em></strong></p>
 <p><br>When it comes to recording interviews, there’s no hard and fast rule on how to do it right. Some like high-end productions, film crews, and a well-dressed set. Others just grab their subject, point and shoot (we’re lookin’ at you, <a href="https://www.youtube.com/watch?v=aHkYC4tqeQk">Billy Eichner</a>). But in this <a href="https://www.cinebody.com/cinebody-blog/the-ultimate-guide-to-video-production">new remote video production revolution</a> being led by smartphones, mobile apps, and 5G speeds, there are definitely some tried-and-trusted steps to success that you can take to get a great result every time.&nbsp;</p>

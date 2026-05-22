@@ -4,6 +4,7 @@ description: "See how Crocs is using remote, cloud production strategies to conn
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/influencer-marketing-in-your-content-strategy/hero.webp"
+cardImage: "/blog/influencer-marketing-in-your-content-strategy/card.webp"
 ---
 <figure>
  

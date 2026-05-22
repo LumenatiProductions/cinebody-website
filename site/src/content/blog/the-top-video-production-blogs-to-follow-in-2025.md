@@ -4,6 +4,7 @@ description: "There’s no better way to stay in the know with all things video 
 pubDate: 2025-07-18
 author: "Scott McDonald"
 heroImage: "/blog/the-top-video-production-blogs-to-follow-in-2025/hero.webp"
+cardImage: "/blog/the-top-video-production-blogs-to-follow-in-2025/card.webp"
 ---
 <h4><strong>Stay Up on the Trends</strong></h4>
 <p>The world of video production is more dynamic now than it has ever been. Besides the writers &amp; actors strikes that have halted all new television and movie production, the advancement in technologies are astonishing. It goes without saying, staying up to date with these latest trends, techniques, and technologies is crucial.&nbsp;</p>

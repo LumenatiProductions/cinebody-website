@@ -4,6 +4,7 @@ description: "You know the aphorism. You’ve probably used it yourself when you
 pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/why-lo-fi-content-should-be-part-of-your-video-content-plan/hero.webp"
+cardImage: "/blog/why-lo-fi-content-should-be-part-of-your-video-content-plan/card.webp"
 ---
 <p><strong><em>“Perfect is the enemy of good.”</em></strong></p>
 
