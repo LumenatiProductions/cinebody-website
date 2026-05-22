@@ -151,6 +151,13 @@ async function main() {
         /<img src="(https:\/\/i\.vimeocdn\.com\/video\/[^"]+?)-d_640"/g,
         (m, b) => `<img src="${b}-d_640" srcset="${b}-d_320 320w, ${b}-d_480 480w, ${b}-d_640 640w" sizes="(max-width: 767px) 33vw, 300px" decoding="async"`
       );
+      // The first thumbnail in each of the 3 columns sits at the top of the
+      // scroller (the mobile fold) and is the LCP candidate. Lazy-loading
+      // deprioritizes it, so make just those three eager + high priority.
+      html = html.replace(
+        /(<div class="hero-scroller-col">[\s\S]*?<div class="scr-card"><img [\s\S]*?)loading="lazy"/g,
+        '$1loading="eager" fetchpriority="high"'
+      );
     }
     html = stripEmDash(html, { html: true });
     await writeFile(path.join(FRAG_OUT, outName), html);
