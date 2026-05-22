@@ -35,6 +35,41 @@ const siteSchema = {
   name: 'Cinebody',
   url: 'https://www.cinebody.com',
 };
+
+const publisher = { '@type': 'Organization', name: 'Cinebody', url: 'https://www.cinebody.com' };
+// Per-page entity schema, keyed by the nav `active` value.
+const entitySchemas = {
+  software: {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Cinebody',
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: 'Web',
+    url: 'https://www.cinebody.com/software',
+    description:
+      'A video capture platform: send a creative brief and your community films pro-quality vertical video on their phones, then review, manage, and publish at scale. No app download.',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      price: '250',
+      priceSpecification: { '@type': 'UnitPriceSpecification', price: '250', priceCurrency: 'USD', unitText: 'MONTH' },
+      description: 'Software plans start at $250/month, billed annually.',
+    },
+    publisher,
+  },
+  services: {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Cinebody Creative Services',
+    serviceType: 'Video creative services',
+    url: 'https://www.cinebody.com/services',
+    description:
+      'Strategy, creative direction, and editing for community-captured video. Your content team without the headcount.',
+    provider: publisher,
+    areaServed: 'US',
+  },
+};
+const pageSchema = entitySchemas[active];
 ---
 
 <!DOCTYPE html>
@@ -77,6 +112,7 @@ const siteSchema = {
 
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+    {pageSchema && <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />}
   </head>
   <body>
     <a href="#content" class="skip-link">Skip to content</a>
