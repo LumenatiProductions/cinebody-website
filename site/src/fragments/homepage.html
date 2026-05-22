@@ -350,8 +350,8 @@ body > * { position: relative; z-index: 1; }
 
 /* Light variant */
 .teaser--light { background: #fff; }
-.teaser--light h3, .teaser--light h3 em { color: #111; }
-.teaser--light h3 em { color: var(--teal); }
+.teaser--light h2, .teaser--light h2 em { color: #111; }
+.teaser--light h2 em { color: var(--teal); }
 .teaser--light .teaser-desc { color: #666; }
 .teaser--light .teaser-stat-label { color: #999; }
 .teaser--light .teaser-stat-pipe { background: #e0e0e0; }
@@ -369,12 +369,12 @@ body > * { position: relative; z-index: 1; }
 .teaser-badge-name { font-family: var(--font); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
 .teaser--light .teaser-badge-name { color: #999; }
 
-.teaser h3 {
+.teaser h2 {
   font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -0.025em;
   line-height: 1.15; margin-bottom: 14px;
 }
 
-.teaser h3 em { font-style: normal; color: var(--teal); }
+.teaser h2 em { font-style: normal; color: var(--teal); }
 
 .teaser-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 24px; max-width: 420px; }
 
@@ -824,7 +824,7 @@ body > * { position: relative; z-index: 1; }
   <div class="contain">
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">point.me</span></div>
-      <h3><em>One shoot. Every platform.</em><br>No second production&nbsp;needed.</h3>
+      <h2><em>One shoot. Every platform.</em><br>No second production&nbsp;needed.</h2>
       <p class="teaser-desc">Point.me turned one CTV spot featuring 70+ real customers into a full multi-platform campaign, hero commercial, social vignettes, and branded clips from a single&nbsp;production.</p>
       <div class="teaser-stats">
         <div class="teaser-stat"><div class="teaser-stat-num">1</div><div class="teaser-stat-label">Shoot</div></div><div class="teaser-stat-pipe"></div>
@@ -899,7 +899,7 @@ body > * { position: relative; z-index: 1; }
   <div class="contain">
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">Royal Caribbean</span></div>
-      <h3><em>No crews flown in.</em><br>The crew became the content&nbsp;team.</h3>
+      <h2><em>No crews flown in.</em><br>The crew became the content&nbsp;team.</h2>
       <p class="teaser-desc">Royal Caribbean turned their ship crews into an always-on content engine, capturing waterslides, dining, entertainment, and Rover the&nbsp;dog.</p>
       <div class="teaser-stats">
         <div class="teaser-stat"><div class="teaser-stat-num">Entire</div><div class="teaser-stat-label">Fleet</div></div><div class="teaser-stat-pipe"></div>
@@ -941,7 +941,7 @@ body > * { position: relative; z-index: 1; }
   <div class="contain">
     <div class="reveal">
       <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">Nike</span></div>
-      <h3><em>Four cities. One weekend.</em><br>Zero production&nbsp;crews.</h3>
+      <h2><em>Four cities. One weekend.</em><br>Zero production&nbsp;crews.</h2>
       <p class="teaser-desc">Nike used Cinebody to capture authentic run club content across the country, simultaneously, on brand, at&nbsp;scale.</p>
       <div class="teaser-stats">
         <div class="teaser-stat"><div class="teaser-stat-num">4</div><div class="teaser-stat-label">Cities</div></div><div class="teaser-stat-pipe"></div>
@@ -1202,7 +1202,7 @@ body > * { position: relative; z-index: 1; }
     { src: '/assets/b1e36654-pngimg.com-snapchat_PNG41.png', id: 'snap' }
   ];
   var t = document.getElementById('logoTrack');
-  for(var i=0;i<4;i++) logos.forEach(function(l){ var img=document.createElement('img'); img.src=l.src; img.dataset.logo=l.id; img.loading='lazy'; img.draggable=false; t.appendChild(img); });
+  for(var i=0;i<4;i++) logos.forEach(function(l){ var img=document.createElement('img'); img.src=l.src; img.dataset.logo=l.id; img.loading='lazy'; img.draggable=false; img.alt=''; t.appendChild(img); });
 })();
 
 // CTA marquee

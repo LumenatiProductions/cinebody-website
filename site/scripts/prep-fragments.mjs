@@ -158,6 +158,14 @@ async function main() {
         /(<div class="hero-scroller-col">[\s\S]*?<div class="scr-card"><img [\s\S]*?)loading="lazy"/g,
         '$1loading="eager" fetchpriority="high"'
       );
+      // a11y: the logo marquee images are built in JS without an alt attribute.
+      // Mark them decorative (the brands are named in the visible "Trusted by" line).
+      html = html.split('img.draggable=false; t.appendChild(img);').join("img.draggable=false; img.alt=''; t.appendChild(img);");
+      // a11y heading order: the case-study teaser headline is <h3><em> right after
+      // the hero <h1> (skips h2). Promote it to <h2>, and rename its CSS selectors
+      // so the look is unchanged. (<h3><em> is unique to teasers.)
+      html = html.replace(/<h3><em>([\s\S]*?)<\/h3>/g, '<h2><em>$1</h2>');
+      html = html.split('.teaser--light h3').join('.teaser--light h2').split('.teaser h3').join('.teaser h2');
     }
     html = stripEmDash(html, { html: true });
     await writeFile(path.join(FRAG_OUT, outName), html);
