@@ -7,7 +7,7 @@ const {
   title,
   description = 'Cinebody is the video capture platform that turns your community into your content team. Direct authentic UGC at scale.',
   active,
-  image = '/cinebody-icon.png',
+  image = '/og.png',
   noindex = false,
 } = Astro.props;
 
@@ -15,6 +15,24 @@ const siteName = 'Cinebody';
 const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Your community is your content team`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || Astro.site.href;
 const ogImage = new URL(image, Astro.site).href;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Cinebody',
+  legalName: 'Super 6 LLC',
+  url: 'https://www.cinebody.com',
+  logo: 'https://www.cinebody.com/cinebody-icon.png',
+  description,
+  address: { '@type': 'PostalAddress', addressLocality: 'Denver', addressRegion: 'CO', addressCountry: 'US' },
+  sameAs: ['https://vimeo.com/cinebody', 'https://instagram.com/cinebody', 'https://facebook.com/cinebody'],
+};
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Cinebody',
+  url: 'https://www.cinebody.com',
+};
 ---
 
 <!DOCTYPE html>
@@ -39,6 +57,8 @@ const ogImage = new URL(image, Astro.site).href;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -46,19 +66,19 @@ const ogImage = new URL(image, Astro.site).href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Self-hosted variable font (no render-blocking third-party request) -->
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Speeds up the first video / thumbnail fetches -->
+    <!-- Vimeo player domains (SDK + iframes load lazily on interaction/scroll) -->
     <link rel="preconnect" href="https://player.vimeo.com" />
     <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
   </head>
   <body>
+    <a href="#content" class="skip-link">Skip to content</a>
+
     <Nav active={active} />
 
     <main id="content">
@@ -67,8 +87,9 @@ const ogImage = new URL(image, Astro.site).href;
 
     <Fragment set:html={footerHtml} />
 
-    <!-- Vimeo SDK + the shared click-to-play / autoplay video controller -->
-    <script src="https://player.vimeo.com/api/player.js"></script>
+    <!-- Click-to-play / autoplay video controller. The Vimeo SDK is loaded
+         lazily, only when a video actually plays, so it never weighs on the
+         initial load of any page. -->
     <script is:inline>
       (function () {
         var playSVG = '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';
@@ -77,22 +98,33 @@ const ogImage = new URL(image, Astro.site).href;
 
         var isMobile = window.innerWidth < 768;
         var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        var activePlayer = null;
-        var activeBtn = null;
+        var activePlayer = null, activeBtn = null, sdkPromise = null;
+
+        function loadSDK() {
+          if (sdkPromise) return sdkPromise;
+          sdkPromise = new Promise(function (resolve) {
+            var s = document.createElement('script');
+            s.src = 'https://player.vimeo.com/api/player.js';
+            s.onload = resolve;
+            document.head.appendChild(s);
+          });
+          return sdkPromise;
+        }
 
         function loadVideo(container, videoId, hash) {
           if (container.classList.contains('playing')) return;
           var base = 'https://player.vimeo.com/video/' + videoId;
-          var src = hash ? base + '?h=' + hash + '&background=1' : base + '?background=1';
+          var src = (hash ? base + '?h=' + hash + '&background=1' : base + '?background=1') + '&dnt=1';
           var iframe = document.createElement('iframe');
           iframe.src = src;
           iframe.allow = 'autoplay';
           iframe.loading = 'lazy';
+          iframe.title = container.getAttribute('data-title') || 'Cinebody customer video';
           container.insertBefore(iframe, container.firstChild);
           container.classList.add('playing');
-          if (typeof Vimeo !== 'undefined' && Vimeo.Player) {
-            container._player = new Vimeo.Player(iframe);
-          }
+          loadSDK().then(function () {
+            if (window.Vimeo && Vimeo.Player) container._player = new Vimeo.Player(iframe);
+          });
         }
 
         document.querySelectorAll('.vid-playable').forEach(function (container) {
@@ -153,29 +185,37 @@ const ogImage = new URL(image, Astro.site).href;
       })();
     </script>
 
-    <!-- Deferred loader for background-video iframes (e.g. the homepage hero
-         scroller): swap data-src -> src only once near the viewport, and only
-         after first paint, so poster thumbnails render first. -->
+    <!-- Homepage hero scroller: poster thumbnails carry the visual. On mobile or
+         with reduced-motion we never stream the background videos at all; on
+         desktop we only stream the cards currently in view and unload them once
+         they scroll out, so the page never pulls tens of MB of video up front. -->
     <script is:inline>
       (function () {
-        var lazies = document.querySelectorAll('iframe[data-src]');
-        if (!lazies.length || !('IntersectionObserver' in window)) {
-          lazies.forEach(function (f) { if (f.dataset.src) { f.src = f.dataset.src; f.removeAttribute('data-src'); } });
-          return;
-        }
+        var iframes = Array.prototype.slice.call(document.querySelectorAll('.scr-card iframe[data-src]'));
+        if (!iframes.length) return;
+        var noVideo =
+          window.matchMedia('(max-width: 767px)').matches ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+          !('IntersectionObserver' in window);
+        if (noVideo) return;
+        function withDnt(u) { return u + (u.indexOf('?') > -1 ? '&' : '?') + 'dnt=1'; }
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) {
-            if (!e.isIntersecting) return;
             var f = e.target;
-            if (f.dataset.src) { f.src = f.dataset.src; f.removeAttribute('data-src'); }
-            io.unobserve(f);
+            if (e.isIntersecting) {
+              if (!f.getAttribute('src')) { f.title = 'Cinebody customer video'; f.setAttribute('src', withDnt(f.dataset.src)); }
+            } else if (f.getAttribute('src')) {
+              f.removeAttribute('src'); // revert to poster, stop the stream
+            }
           });
-        }, { rootMargin: '200px' });
-        var start = function () { lazies.forEach(function (f) { io.observe(f); }); };
-        var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 200); };
-        if (document.readyState === 'complete') idle(start);
-        else window.addEventListener('load', function () { idle(start); });
+        }, { threshold: 0.2 });
+        var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 300); };
+        idle(function () { iframes.forEach(function (f) { io.observe(f); }); });
       })();
     </script>
+
+    <!-- Vercel Web Analytics + Speed Insights (served by Vercel in production) -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
   </body>
 </html>

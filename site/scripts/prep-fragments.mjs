@@ -142,7 +142,7 @@ async function main() {
       // Defer the 30 hero-scroller background videos: src -> data-src so they
       // load after first paint / when near view (loader lives in Base.astro),
       // letting the poster thumbnails win the initial render.
-      html = html.split('<iframe src="https://player.vimeo.com/video/').join('<iframe data-src="https://player.vimeo.com/video/');
+      html = html.split('<iframe src="https://player.vimeo.com/video/').join('<iframe title="Cinebody customer video" data-src="https://player.vimeo.com/video/');
     }
     html = stripEmDash(html, { html: true });
     await writeFile(path.join(FRAG_OUT, outName), html);
