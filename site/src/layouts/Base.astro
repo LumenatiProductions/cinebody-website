@@ -106,9 +106,12 @@ const pageSchema = entitySchemas[active];
     <!-- Self-hosted variable font (no render-blocking third-party request) -->
     <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Vimeo player domains (SDK + iframes load lazily on interaction/scroll) -->
+    <!-- Vimeo player. Loaded deferred (after parse, before interaction) so it
+         doesn't block render but is available globally for the page video
+         scripts that several fragments rely on. -->
     <link rel="preconnect" href="https://player.vimeo.com" />
     <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin />
+    <script src="https://player.vimeo.com/api/player.js" defer></script>
 
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
@@ -125,9 +128,7 @@ const pageSchema = entitySchemas[active];
 
     <Fragment set:html={footerHtml} />
 
-    <!-- Click-to-play / autoplay video controller. The Vimeo SDK is loaded
-         lazily, only when a video actually plays, so it never weighs on the
-         initial load of any page. -->
+    <!-- Click-to-play / autoplay video controller for .vid-playable elements. -->
     <script is:inline>
       (function () {
         var playSVG = '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';
@@ -136,18 +137,7 @@ const pageSchema = entitySchemas[active];
 
         var isMobile = window.innerWidth < 768;
         var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        var activePlayer = null, activeBtn = null, sdkPromise = null;
-
-        function loadSDK() {
-          if (sdkPromise) return sdkPromise;
-          sdkPromise = new Promise(function (resolve) {
-            var s = document.createElement('script');
-            s.src = 'https://player.vimeo.com/api/player.js';
-            s.onload = resolve;
-            document.head.appendChild(s);
-          });
-          return sdkPromise;
-        }
+        var activePlayer = null, activeBtn = null;
 
         function loadVideo(container, videoId, hash) {
           if (container.classList.contains('playing')) return;
@@ -160,9 +150,7 @@ const pageSchema = entitySchemas[active];
           iframe.title = container.getAttribute('data-title') || 'Cinebody customer video';
           container.insertBefore(iframe, container.firstChild);
           container.classList.add('playing');
-          loadSDK().then(function () {
-            if (window.Vimeo && Vimeo.Player) container._player = new Vimeo.Player(iframe);
-          });
+          if (window.Vimeo && Vimeo.Player) container._player = new Vimeo.Player(iframe);
         }
 
         document.querySelectorAll('.vid-playable').forEach(function (container) {
