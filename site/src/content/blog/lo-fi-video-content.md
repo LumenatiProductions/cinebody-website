@@ -5,6 +5,7 @@ pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/lo-fi-video-content/hero.webp"
 cardImage: "/blog/lo-fi-video-content/card.webp"
+focal: "0.5 0.5"
 ---
 <p><a href="https://www.cinebody.com/cinebody-blog/category/iPhone+Video+Production">iPhone Video Production</a><a href="https://www.cinebody.com/cinebody-blog/category/Filming+Tips">Filming Tips</a></p>
 <h4><strong>Getting to Grips With The Future of Video Production</strong></h4>
