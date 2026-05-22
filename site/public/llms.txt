@@ -1,0 +1,29 @@
+# Cinebody
+
+> Cinebody is the video capture platform that turns your community into your content team. Brands send a creative brief, and their employees, customers, and fans capture pro-quality vertical video on their phones, guided by patented shot-list technology. Teams then review, manage, and publish that video at scale. Optional Creative Services add strategy, direction, and editing, so a brand gets a steady stream of authentic video without a traditional production crew. Cinebody is made by Super 6 LLC and based in Denver, CO.
+
+## Core pages
+- [Software](https://www.cinebody.com/software): The platform. Send a link, set a shot list, and get pro-quality vertical video back from real people anywhere, with no app download and no production crew.
+- [Creative Services](https://www.cinebody.com/services): Your content team without the headcount. Cinebody handles strategy, creative direction, and editing.
+- [Pricing](https://www.cinebody.com/pricing): Plans for the software platform and for creative services.
+- [Knowledge Base](https://www.cinebody.com/knowledge-base): Guides, answers, and best practices for using Cinebody.
+
+## Case studies
+- [Royal Caribbean](https://www.cinebody.com/royal-caribbean): Turned onboard crew across the fleet into an always-on content engine, no production crews flown in.
+- [Point.me](https://www.cinebody.com/pointme): One shoot produced a connected-TV spot plus a full multi-platform campaign featuring 70+ real customers.
+- [Nike](https://www.cinebody.com/nike): Captured authentic athlete and community video at the speed of culture.
+- [Dell](https://www.cinebody.com/dell): Scaled authentic employee and event video across teams and geographies.
+- [Georgia-Pacific](https://www.cinebody.com/georgia-pacific): Captured employee stories and brand video across a distributed workforce.
+- [Altra](https://www.cinebody.com/altra): Captured athlete stories on the trail and turned them into a season of content.
+- [Cogent](https://www.cinebody.com/cogent): Captured real festival and event footage and produced a marquee brand film.
+- [Crocs](https://www.cinebody.com/crocs): Ran a high-volume campaign of authentic creator and customer video.
+- [Sploot](https://www.cinebody.com/sploot): Shot once and produced a connected-TV spot plus a full set of social cutdowns.
+
+## Company
+- [Privacy Policy](https://www.cinebody.com/privacy-policy)
+- [Terms of Service](https://www.cinebody.com/terms-of-service)
+- [Patents](https://www.cinebody.com/patents)
+
+## Notes
+- Login for existing customers is at https://pro.cinebody.com/login
+- Demos are booked via the "Book a Demo" links throughout the site.

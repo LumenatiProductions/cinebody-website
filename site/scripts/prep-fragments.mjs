@@ -55,6 +55,23 @@ function localNameFor(url) {
   return `${hash}-${base}`;
 }
 
+// Build FAQPage JSON-LD from a page's FAQ accordion markup (.faq-q / .faq-a-inner)
+// so answer engines + Google can read the Q&A as structured data.
+function faqSchema(html) {
+  const items = [];
+  const re = /class="faq-q">([\s\S]*?)<span class="faq-icon">[\s\S]*?<div class="faq-a-inner">([\s\S]*?)<\/div>/g;
+  const strip = (s) => s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  let m;
+  while ((m = re.exec(html))) {
+    const q = strip(m[1]), a = strip(m[2]);
+    if (q && a) items.push({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } });
+  }
+  if (items.length < 2) return '';
+  return '\n<script type="application/ld+json">' +
+    JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items }) +
+    '</script>\n';
+}
+
 async function main() {
   await mkdir(FRAG_OUT, { recursive: true });
   await mkdir(ASSET_OUT, { recursive: true });
@@ -168,6 +185,7 @@ async function main() {
       html = html.split('.teaser--light h3').join('.teaser--light h2').split('.teaser h3').join('.teaser h2');
     }
     html = stripEmDash(html, { html: true });
+    html += faqSchema(html); // appends FAQPage JSON-LD on pages that have an FAQ
     await writeFile(path.join(FRAG_OUT, outName), html);
     console.log(`  frag ${srcName} -> ${outName}`);
   }
