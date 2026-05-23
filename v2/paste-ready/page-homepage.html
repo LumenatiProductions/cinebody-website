@@ -246,7 +246,8 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 600px) {
   .hero-scroller {
     gap: 6px;
-    margin-top: 0; margin-bottom: -60px;
+    margin-top: 0; margin-bottom: 0;
+    height: 520px;
     width: 100vw;
     margin-left: calc(-1 * clamp(1.25rem, 4vw, 3rem));
     margin-right: calc(-1 * clamp(1.25rem, 4vw, 3rem));
@@ -704,9 +705,9 @@ body > * { position: relative; z-index: 1; }
    RESPONSIVE
    ═══════════════════════════ */
 @media (max-width: 1000px) {
-  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
-  .hero { padding: 60px 0 80px; }
-  .hero-scroller { margin-top: 0; margin-bottom: -80px; }
+  .hero .contain { grid-template-columns: 1fr; gap: 40px; }
+  .hero { padding: 96px 0 80px; }
+  .hero-scroller { order: -1; margin-top: 0; margin-bottom: 0; height: 620px; }
   .stats-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
   .cases-grid { grid-template-columns: repeat(2, 1fr); }
   .svc-grid { grid-template-columns: 1fr; }
@@ -716,7 +717,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 @media (max-width: 600px) {
-  .hero { padding: 40px 0 60px; }
+  .hero { padding: 88px 0 64px; }
   .hero h1 { font-size: 2.25rem; }
   .why-grid { grid-template-columns: 1fr; }
   .cases-grid { grid-template-columns: 1fr; }
