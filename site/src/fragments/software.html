@@ -339,13 +339,6 @@ body > * { position: relative; z-index: 1; }
 .cb-pricing__header h2 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 16px; color: #fff !important; }
 .cb-pricing__header p { font-size: clamp(1rem, 2vw, 1.15rem); color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 680px; margin: 0 auto; }
 .cb-pricing__savings { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 20px auto 32px; padding: 8px 20px; background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15); border-radius: 100px; width: fit-content; font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--teal); text-align: center; text-transform: uppercase; letter-spacing: 0.08em; }
-.cb-pricing__toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 32px; font-size: 0.95rem; font-weight: 500; }
-.cb-pricing__toggle-label { color: rgba(255,255,255,0.4); transition: color 0.3s; cursor: pointer; user-select: none; }
-.cb-pricing__toggle-label--active { color: #fff; }
-.cb-pricing__toggle { position: relative; width: 52px; height: 28px; background: #c4c4c8; border-radius: 100px; cursor: pointer; transition: background 0.3s; border: none; }
-.cb-pricing__toggle[aria-checked="true"] { background: #07BCF1; }
-.cb-pricing__toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
-.cb-pricing__toggle[aria-checked="true"]::after { transform: translateX(24px); }
 .cb-pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
 .cb-pricing__card { position: relative; background: #fff; border: 1px solid #ededef; border-radius: 16px; padding: 36px 30px 32px; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s; display: flex; flex-direction: column; }
 .cb-pricing__features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; flex-grow: 1; }
@@ -682,19 +675,14 @@ body > * { position: relative; z-index: 1; }
     <p>Run it yourself or bring in our team. Either way, you're getting real content from real people, at a fraction of traditional production&nbsp;costs.</p>
   </div>
   <div class="cb-pricing__savings">Brands using Cinebody typically save 70%+ vs. traditional production</div>
-  <div class="cb-pricing__toggle-wrap">
-    <span class="cb-pricing__toggle-label cb-pricing__toggle-label--active" id="cb-label-annual">Annual</span>
-    <button class="cb-pricing__toggle" role="switch" aria-checked="false" id="cb-toggle"></button>
-    <span class="cb-pricing__toggle-label" id="cb-label-monthly">Monthly</span>
-  </div>
   <div class="cb-pricing__grid">
     <div class="cb-pricing__card">
       <div class="cb-pricing__plan-name">Plus</div>
       <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For small teams</div>
       <div class="cb-pricing__plan-desc">Everything you need to start capturing community video on your own.</div>
       <div class="cb-pricing__price-wrap">
-        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="250" data-monthly="350">250</span><span class="cb-pricing__price-period">/mo</span></div>
-        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount">250</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing">Billed annually</div>
       </div>
       <div class="cb-pricing__divider"></div>
       <div class="cb-pricing__features-label">What's included</div>
@@ -714,8 +702,8 @@ body > * { position: relative; z-index: 1; }
       <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For growing brands</div>
       <div class="cb-pricing__plan-desc">Scale content across multiple projects with more storage and dedicated support.</div>
       <div class="cb-pricing__price-wrap">
-        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="500" data-monthly="650">500</span><span class="cb-pricing__price-period">/mo</span></div>
-        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed monthly">Billed annually</div>
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount">500</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing">Billed annually</div>
       </div>
       <div class="cb-pricing__divider"></div>
       <div class="cb-pricing__features-label">Everything in Plus, and</div>
@@ -836,24 +824,6 @@ body > * { position: relative; z-index: 1; }
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }, { passive: true });
-})();
-
-// Pricing toggle
-(function(){
-  var toggle=document.getElementById('cb-toggle');if(!toggle)return;
-  var la=document.getElementById('cb-label-annual'),lm=document.getElementById('cb-label-monthly');
-  var amounts=document.querySelectorAll('.cb-pricing__price-amount');
-  var billings=document.querySelectorAll('.cb-pricing__price-billing');
-  function update(m){
-    toggle.setAttribute('aria-checked',m);
-    if(la)la.classList.toggle('cb-pricing__toggle-label--active',!m);
-    if(lm)lm.classList.toggle('cb-pricing__toggle-label--active',m);
-    amounts.forEach(function(el){el.textContent=m?el.dataset.monthly:el.dataset.annual;});
-    billings.forEach(function(el){el.textContent=m?el.dataset.monthly:el.dataset.annual;});
-  }
-  toggle.addEventListener('click',function(){update(toggle.getAttribute('aria-checked')!=='true');});
-  if(la)la.addEventListener('click',function(){update(false);});
-  if(lm)lm.addEventListener('click',function(){update(true);});
 })();
 
 // FAQ
