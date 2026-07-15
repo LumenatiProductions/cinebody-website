@@ -10,6 +10,10 @@ export default defineConfig({
     format: 'directory', // /software/index.html -> served at /software
     inlineStylesheets: 'auto',
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/boeing'),
+    }),
+  ],
   compressHTML: true,
 });

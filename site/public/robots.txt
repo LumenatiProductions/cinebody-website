@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /boeing
 
 Sitemap: https://www.cinebody.com/sitemap-index.xml

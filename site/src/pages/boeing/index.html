@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Boeing × Cinebody — What's Possible Next</title>
+  <link rel="icon" href="/cinebody-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+
+/* ═══════════════════════════════════════════════
+   BOEING × CINEBODY MICROSITE
+   Design system matching Cinebody V4
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.1);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ── UTILITIES ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.label { font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 16px; }
+
+/* ── SCROLL PROGRESS ── */
+.scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--teal), var(--pink)); z-index: 9999; transition: none; }
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font); font-size: 14px; font-weight: 600; padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s var(--ease); position: relative; isolation: isolate; text-decoration: none; }
+.btn-teal { background: var(--teal); color: #fff; box-shadow: 0 0 20px rgba(0,188,241,0.15); }
+.btn-teal:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,188,241,0.3); }
+.btn-dark { background: #111; color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+.btn-dark:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,0,0,0.35); }
+.btn svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+
+/* ── CURVED DIVIDERS ── */
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; font-size: 0; margin-top: -10px; margin-bottom: -10px; background: none !important; }
+.curve svg { display: block; width: 100%; height: 70px; }
+@media (max-width: 600px) { .curve svg { height: 90px; } }
+
+/* ══════════════════════════════════
+   HERO
+   ══════════════════════════════════ */
+.hero {
+  padding: 80px 0 120px;
+  position: relative;
+  background: linear-gradient(180deg, #0a0a0a 0%, #041a24 100%);
+  overflow-x: clip;
+}
+.hero::before {
+  content: ''; position: absolute; top: -20%; right: -20%; width: 900px; height: 900px;
+  background: var(--teal); border-radius: 50%; filter: blur(200px); opacity: 0.1; pointer-events: none;
+  animation: hglow 18s ease-in-out infinite alternate;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -20%; left: -15%; width: 700px; height: 700px;
+  background: var(--pink); border-radius: 50%; filter: blur(200px); opacity: 0.05; pointer-events: none;
+  animation: hglow 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes hglow { 0% { transform: translate(0,0); } 100% { transform: translate(20px,-15px); } }
+
+.hero .contain { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--teal); background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 24px;
+}
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5); }
+
+.hero h1 { font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; color: #fff; }
+.hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+.hero-body { font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 32px; }
+.hero-note { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top: 16px; letter-spacing: 0.02em; }
+
+/* Hero 3-column scrolling video strip */
+.hero-scroller {
+  display: flex; gap: 10px; height: 780px;
+  margin-top: -80px; margin-bottom: -120px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.scroller-col { display: flex; flex-direction: column; gap: 10px; will-change: transform; }
+.scroll-up   .scroller-col { animation: scrollUp 40s linear infinite; }
+.scroll-down .scroller-col { animation: scrollDown 44s linear infinite; }
+@keyframes scrollUp   { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+@keyframes scrollDown { 0% { transform: translateY(-50%); } 100% { transform: translateY(0); } }
+
+.scr-card { flex-shrink: 0; width: 145px; aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; background: #111; border: 1px solid rgba(255,255,255,0.08); position: relative; }
+.scr-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.scr-card iframe { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); border: none; pointer-events: none; z-index: 1; }
+.scr-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 5px 8px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: var(--mono); font-size: 7px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.6); z-index: 3; }
+
+/* ══════════════════════════════════
+   BRIDGE (light — "where you are →")
+   ══════════════════════════════════ */
+.bridge { background: #fff; padding: 80px 0; }
+.bridge .contain { max-width: 820px; }
+
+.bridge-tag { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; background: var(--teal); padding: 4px 12px; border-radius: 4px; margin-bottom: 20px; }
+
+.bridge h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 16px; color: #111; }
+
+.bridge-body { font-size: 1rem; color: #555; line-height: 1.7; margin-bottom: 40px; max-width: 640px; }
+
+.bridge-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.bridge-item { display: flex; align-items: flex-start; gap: 14px; background: #f7f7f7; border: 1px solid #ebebeb; border-radius: 12px; padding: 20px; }
+
+.bridge-item-num { font-family: var(--mono); font-size: 22px; font-weight: 800; color: var(--teal); line-height: 1; flex-shrink: 0; }
+
+.bridge-item-copy h4 { font-size: 0.88rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+.bridge-item-copy p  { font-size: 0.78rem; color: #777; line-height: 1.5; }
+
+/* ══════════════════════════════════
+   PILLAR SECTIONS (dark)
+   ══════════════════════════════════ */
+.pillar { padding: 100px 0; position: relative; }
+
+.pillar--teal {
+  background:
+    radial-gradient(ellipse 80% 70% at 85% 20%, rgba(0,188,241,0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 15% 80%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%);
+}
+
+.pillar--pink {
+  background:
+    radial-gradient(ellipse 80% 70% at 20% 30%, rgba(235,0,139,0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 80% 70%, rgba(0,188,241,0.06) 0%, transparent 70%),
+    linear-gradient(180deg, #1a0a18 0%, #140a1e 50%, #0f1a24 100%);
+}
+
+.pillar--light { background: #fff; }
+
+.pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.pillar-grid--flip { direction: rtl; }
+.pillar-grid--flip > * { direction: ltr; }
+
+.pillar-num { font-family: var(--mono); font-size: 10px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+.pillar-num--dark { color: #bbb; }
+
+.pillar-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #0a0a0a; background: var(--yellow); padding: 4px 11px; border-radius: 4px; margin-bottom: 16px; }
+
+.pillar h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 14px; color: #fff; }
+.pillar h2 em { font-style: normal; color: var(--teal); }
+
+.pillar--light h2 { color: #111; }
+.pillar--light h2 em { color: var(--teal); }
+
+.pillar-body { font-size: 0.9rem; line-height: 1.65; color: var(--text-dim); margin-bottom: 24px; max-width: 420px; }
+.pillar--light .pillar-body { color: #666; }
+
+.pillar-stats { display: flex; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+.pillar-stat-num { font-size: 1.2rem; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 3px; }
+.pillar-stat-label { font-size: 9px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.pillar--light .pillar-stat-label { color: #999; }
+.pillar-stat-pipe { width: 1px; background: var(--border); align-self: stretch; }
+.pillar--light .pillar-stat-pipe { background: #e0e0e0; }
+
+.service-note { display: flex; align-items: flex-start; gap: 12px; background: rgba(0,188,241,0.06); border: 1px solid rgba(0,188,241,0.15); border-radius: 8px; padding: 14px 18px; margin-top: 20px; }
+.service-note-icon { width: 16px; height: 16px; stroke: var(--teal); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 2px; }
+.service-note-text { font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; }
+.service-note-text strong { color: var(--teal); font-weight: 600; }
+.pillar--light .service-note { background: rgba(0,188,241,0.04); border-color: rgba(0,188,241,0.12); }
+.pillar--light .service-note-text { color: #666; }
+
+/* ── VIDEO CARDS ── */
+.vid-pair { display: flex; gap: 14px; justify-content: center; }
+.vid-pair .vid-block { flex: 1; max-width: 220px; }
+
+.vid-block { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: #111; position: relative; }
+.vid-block--v { aspect-ratio: 9/16; }
+.vid-block--h { aspect-ratio: 16/9; }
+.vid-block img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: opacity 0.5s; }
+.vid-block iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 0; }
+.vid-block.loaded img { opacity: 0; }
+.vid-block--light { border-color: #e0e0e0; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+.vid-caption { text-align: center; margin-top: 12px; font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.pillar--light .vid-caption { color: #bbb; }
+
+/* ── EVENT MARQUEE (inside light section) ── */
+.evt-marquee-wrap {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  margin-top: 56px;
+}
+.evt-row { overflow: hidden; margin-bottom: 12px; }
+.evt-row:last-child { margin-bottom: 0; }
+.evt-track { display: flex; gap: 12px; width: max-content; }
+.evt-track--l { animation: marqL 48s linear infinite; }
+.evt-track--r { animation: marqR 50s linear infinite; }
+@keyframes marqL { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes marqR { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+.evt-card { flex-shrink: 0; width: 138px; aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; background: #111; border: 1px solid rgba(0,0,0,0.06); position: relative; }
+.evt-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: opacity 0.5s; }
+.evt-card iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 0; }
+.evt-card.loaded img { opacity: 0; }
+.evt-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 5px 8px; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); font-family: var(--mono); font-size: 7px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.75); z-index: 3; }
+
+/* ══════════════════════════════════
+   SERVICES (light)
+   ══════════════════════════════════ */
+.services { background: #fafafa; padding: 100px 0; }
+
+.services-head { margin-bottom: 48px; }
+.services-head h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #111; max-width: 480px; line-height: 1.2; }
+.services-head p { font-size: 0.9rem; color: #666; line-height: 1.65; max-width: 560px; margin-top: 12px; }
+
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.svc-card { background: #fff; border: 2px solid rgba(0,0,0,0.05); border-radius: 16px; padding: 36px 28px; transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.svc-card:hover { border-color: rgba(0,0,0,0.1); box-shadow: 0 20px 48px rgba(0,0,0,0.07); }
+
+.svc-bar { height: 2px; border-radius: 2px; margin-bottom: 24px; }
+.svc-bar--teal   { background: var(--teal); }
+.svc-bar--yellow { background: var(--yellow); }
+.svc-bar--pink   { background: var(--pink); }
+
+.svc-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: #111; }
+.svc-card p  { font-size: 0.83rem; color: #666; line-height: 1.6; margin-bottom: 20px; }
+.svc-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.svc-card ul li { font-size: 0.78rem; color: #888; display: flex; align-items: center; gap: 8px; }
+.svc-card ul li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+/* ══════════════════════════════════
+   CTA BAND (yellow)
+   ══════════════════════════════════ */
+.cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
+.cta-band h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; color: #111; line-height: 1.2; margin-bottom: 16px; }
+.cta-band h2 span { color: var(--teal); }
+.cta-band p { font-size: 0.9rem; color: #444; margin-bottom: 32px; }
+
+/* ══════════════════════════════════
+   FOOTER
+   ══════════════════════════════════ */
+.footer { background: var(--bg); padding: 40px 0 28px; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.footer-logo { height: 18px; filter: brightness(0) invert(1); opacity: 0.4; }
+.footer-br { font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.footer-legal { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
+
+/* ══════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 60px 0 80px; }
+  .hero-scroller { margin-top: 0; margin-bottom: -60px; }
+  .pillar-grid, .pillar-grid--flip { grid-template-columns: 1fr; direction: ltr; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .bridge-three { grid-template-columns: 1fr; gap: 12px; }
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.25rem; }
+  .pillar { padding: 64px 0; }
+  .services { padding: 64px 0; }
+  .vid-pair .vid-block { max-width: 160px; }
+  .scr-card { width: 115px; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+
+/* ── PER-VIDEO MUTE BUTTON ── */
+.vp-mute {
+  position:absolute; bottom:10px; right:8px; z-index:4;
+  width:28px; height:28px; border-radius:50%; border:none;
+  background:rgba(0,0,0,0.5); cursor:pointer; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  transition:background 0.2s;
+}
+.vp-mute:hover { background:rgba(0,0,0,0.8); }
+.vp-mute svg { width:13px; height:13px; display:block; }
+.evt-card .vp-mute { bottom:28px; right:7px; width:26px; height:26px; }
+.evt-marquee-wrap:hover .evt-track { animation-play-state:paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+  </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">Boeing × Cinebody · Confidential Brief</div>
+      <h1>Your team builds<br>extraordinary things.<br><em>Now let them tell the story.</em></h1>
+      <p class="hero-body">You've used Cinebody for years and proven the model. This is the playbook for what comes next: three programs that transform your global workforce into a steady, always-on content engine.</p>
+      <p class="hero-note">Trusted by Dell, Royal Caribbean, Nike, Siemens &amp; 100+ enterprise brands</p>
+    </div>
+
+    <!-- 3-column scrolling video strip -->
+    <div class="hero-scroller reveal reveal-d2">
+
+      <!-- Column 1: scrolls UP -->
+      <div class="scroll-up">
+        <div class="scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2074301104-64b512d0c27a0b3275cee7a45c89a6f2599bb867f417f1a8737d72cd58762bfa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1111765405?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Employee Story</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1930241712-ba32780c8bb73375c91446fd6b422f567f660d770250da8b04ac663879b907dc-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1012467060?h=39cf8e54c8&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Social Content</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1793854134-e52a399420563724365cf6e411604ec362876aa7f7459c3d975362ff7d63a5ae-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/910069095?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Day in the Life</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1131472355?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Behind the Badge</div></div>
+          <!-- loop duplicates -->
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2074301104-64b512d0c27a0b3275cee7a45c89a6f2599bb867f417f1a8737d72cd58762bfa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1111765405?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Employee Story</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1930241712-ba32780c8bb73375c91446fd6b422f567f660d770250da8b04ac663879b907dc-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1012467060?h=39cf8e54c8&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Social Content</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1793854134-e52a399420563724365cf6e411604ec362876aa7f7459c3d975362ff7d63a5ae-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/910069095?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Day in the Life</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1131472355?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Behind the Badge</div></div>
+        </div>
+      </div>
+
+      <!-- Column 2: scrolls DOWN -->
+      <div class="scroll-down">
+        <div class="scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1061059233?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Social Content</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2090419638-f91bd59c6a9d9a4c2d2ca69e736a2ef262eab9c796c3a54595c5314865e26cb1-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1142601055?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Behind the Badge</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1831765364-f14666d49ec8e4256934ff7d755764da66d001245478b7efa193b15cc2934679-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/933347744?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Diversity Program</div></div>
+          <!-- loop duplicates -->
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1061059233?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Social Content</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2090419638-f91bd59c6a9d9a4c2d2ca69e736a2ef262eab9c796c3a54595c5314865e26cb1-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1142601055?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Behind the Badge</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1831765364-f14666d49ec8e4256934ff7d755764da66d001245478b7efa193b15cc2934679-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/933347744?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Diversity Program</div></div>
+        </div>
+      </div>
+
+      <!-- Column 3: scrolls UP -->
+      <div class="scroll-up">
+        <div class="scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1993482466-f54bae18ca4f73806a7452580ea13be1f84dbba0c1e22c04233f20e333b5d86b-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1065886093?h=80404d7365&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Employee Spotlight</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1072796654?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Coverage</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1922627137-0775e0312b2116704194c99037d883c5b777d63952a59041299f895ffdc5be02-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1005975033?h=77f1627015&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Social Content</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Coverage</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Live Event</div></div>
+          <!-- loop duplicates -->
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1993482466-f54bae18ca4f73806a7452580ea13be1f84dbba0c1e22c04233f20e333b5d86b-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1065886093?h=80404d7365&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Employee Spotlight</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1072796654?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Coverage</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1922627137-0775e0312b2116704194c99037d883c5b777d63952a59041299f895ffdc5be02-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1005975033?h=77f1627015&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Social Content</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Event Coverage</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Live Event</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: dark → light ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ BRIDGE ═══ -->
+<section class="bridge">
+  <div class="contain">
+    <div class="reveal">
+      <div class="bridge-tag">Where you are → where you could be</div>
+      <h2>You've proven the platform works.<br>Here's what the best brands do next.</h2>
+      <p class="bridge-body">Boeing already captures content for rocket launches, and some internal programs — that's the foundation. What Dell, Royal Caribbean, and Cogent World have discovered is that a single program is just the start. Three distinct programs, run together, create a content engine that scales across your entire organization, every division, every event, every channel.</p>
+      <div class="bridge-three">
+        <div class="bridge-item">
+          <div class="bridge-item-num">01</div>
+          <div class="bridge-item-copy">
+            <h4>Employee Stories at Scale</h4>
+            <p>Turn individual spotlights into a full employer brand program, spanning every division globally.</p>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-item-num">02</div>
+          <div class="bridge-item-copy">
+            <h4>Event &amp; Airshow Coverage</h4>
+            <p>From Farnborough to supplier summits, capture every moment without flying a single crew.</p>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-item-num">03</div>
+          <div class="bridge-item-copy">
+            <h4>Innovation &amp; Milestones</h4>
+            <p>Celebrate aviation milestones, innovation stories, and the public face of Boeing across social and internal channels.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: light → dark teal ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
+
+<!-- ═══ PILLAR 1: EMPLOYEE STORIES ═══ -->
+<section class="pillar pillar--teal">
+  <div class="contain">
+    <div class="pillar-grid reveal">
+
+      <!-- Copy: LEFT -->
+      <div>
+        <div class="pillar-num">Program 01 of 03</div>
+        <div class="pillar-tag">Employee Stories</div>
+        <h2><em>Your employees are Boeing's most credible spokespeople.</em> Most go unheard.</h2>
+        <p class="pillar-body">Dell runs five Cinebody programs across their global workforce: Behind the Badge, Day in the Life, HBCU outreach, international recruitment, and community impact. Over 100 videos produced. Zero production crews dispatched. Boeing has 170,000+ employees spanning dozens of divisions and countries. That's an untapped storytelling engine.</p>
+        <div class="pillar-stats">
+          <div>
+            <div class="pillar-stat-num">170K+</div>
+            <div class="pillar-stat-label">Boeing employees</div>
+          </div>
+          <div class="pillar-stat-pipe"></div>
+          <div>
+            <div class="pillar-stat-num">5+</div>
+            <div class="pillar-stat-label">Program types</div>
+          </div>
+          <div class="pillar-stat-pipe"></div>
+          <div>
+            <div class="pillar-stat-num">0</div>
+            <div class="pillar-stat-label">Crews needed</div>
+          </div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.6;margin-bottom:16px">
+          <strong style="color:var(--text)">Use cases for Boeing:</strong> Employer brand, recruitment content, STEM outreach, manufacturing pride, "Why Boeing" series, global office spotlights, diversity &amp; inclusion programs, CSR stories.
+        </p>
+        <div class="service-note">
+          <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <div class="service-note-text"><strong>The Cinebody Creative Services Team handles:</strong> Shot list creation, prompt writing, remote capture direction, professional editing, motion graphics, and brand-compliant delivery. Your team just films.</div>
+        </div>
+      </div>
+
+      <!-- Visual: RIGHT -->
+      <div>
+        <div class="vid-pair">
+          <div class="vid-block vid-block--v" data-vimeo="1111765405">
+            <img src="https://i.vimeocdn.com/video/2074301104-64b512d0c27a0b3275cee7a45c89a6f2599bb867f417f1a8737d72cd58762bfa-d_640" alt="Dell employee — Teresa" loading="lazy">
+          </div>
+          <div class="vid-block vid-block--v" data-vimeo="1142601055">
+            <img src="https://i.vimeocdn.com/video/2090419638-f91bd59c6a9d9a4c2d2ca69e736a2ef262eab9c796c3a54595c5314865e26cb1-d_640" alt="Dell employee — Ashtin" loading="lazy">
+          </div>
+        </div>
+        <p class="vid-caption">Dell "Behind the Badge" — real employees, zero crews</p>
+
+        <!-- Supporting stat strip -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-top:20px">
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--teal);margin-bottom:3px">5</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Programs</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--teal);margin-bottom:3px">100+</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Videos</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Global</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Reach</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px">
+          <img src="/assets/02f77588-dell-2-logo-png-transparent.png" alt="Dell Technologies" style="height:16px;filter:brightness(0) invert(1);opacity:0.65" loading="lazy">
+          <span style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">powered by Cinebody</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: dark teal → light ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ PILLAR 2: EVENT COVERAGE (LIGHT) ═══ -->
+<section class="pillar pillar--light" style="padding-top:60px">
+  <div class="contain">
+
+    <!-- Centered copy block -->
+    <div style="max-width:700px;margin:0 auto 8px" class="reveal">
+      <div class="pillar-num pillar-num--dark">Program 02 of 03</div>
+      <div class="pillar-tag">Event &amp; Airshow Coverage</div>
+      <h2 style="color:#111;font-size:clamp(1.6rem,3vw,2.2rem)"><em>From Farnborough to every internal summit.</em> Every moment. Never missed.</h2>
+      <p class="pillar-body" style="color:#555;max-width:600px">Cogent World deploys Cinebody at 11 major events a year: zero crews, instant sync, polished recaps. Boeing attends hundreds of industry events annually: air shows, trade conferences, supplier summits, graduation ceremonies, factory openings. Deploy Cinebody, capture everything from every angle, and walk away with edited content the same day.</p>
+      <div class="pillar-stats">
+        <div>
+          <div class="pillar-stat-num">Paris · Farnborough · Dubai</div>
+          <div class="pillar-stat-label" style="color:#999">Major airshows</div>
+        </div>
+        <div class="pillar-stat-pipe" style="background:#e0e0e0"></div>
+        <div>
+          <div class="pillar-stat-num">Same Day</div>
+          <div class="pillar-stat-label" style="color:#999">Content turnaround</div>
+        </div>
+        <div class="pillar-stat-pipe" style="background:#e0e0e0"></div>
+        <div>
+          <div class="pillar-stat-num">0</div>
+          <div class="pillar-stat-label" style="color:#999">Crews required</div>
+        </div>
+      </div>
+      <p style="font-size:0.82rem;color:#666;line-height:1.6;margin-bottom:14px">
+        <strong style="color:#333">Use cases for Boeing:</strong> Airshow booth and flight demo coverage, supplier conference recaps, employee milestone events, plant tours, graduation day, team-building programs, innovation showcases.
+      </p>
+      <div class="service-note" style="background:rgba(0,188,241,0.04);border-color:rgba(0,188,241,0.12)">
+        <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <div class="service-note-text" style="color:#666"><strong style="color:var(--teal)">The Cinebody Creative Services Team handles:</strong> Pre-event shot list builds, remote direction during the event, quality review on the day, and 48-hour branded recap delivery. Ready for social, press, and internal channels.</div>
+      </div>
+    </div>
+
+    <!-- Full-width event video marquee -->
+    <div class="evt-marquee-wrap reveal reveal-d1">
+
+      <!-- Row 1: scrolls left -->
+      <div class="evt-row">
+        <div class="evt-track evt-track--l">
+          <div class="evt-card" data-vimeo="1087531124"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" loading="lazy" alt=""/><div class="evt-card-label">BottleRock</div></div>
+          <div class="evt-card" data-vimeo="1111454370"><img src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" loading="lazy" alt=""/><div class="evt-card-label">Outside Lands</div></div>
+          <div class="evt-card" data-vimeo="1088876642"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" loading="lazy" alt=""/><div class="evt-card-label">Suenos</div></div>
+          <div class="evt-card" data-vimeo="1072796654"><img src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" loading="lazy" alt=""/><div class="evt-card-label">Tartuga</div></div>
+          <div class="evt-card" data-vimeo="1091870084"><img src="https://i.vimeocdn.com/video/2024815845-f9150976e3c159250bde4165c5fd3356a2f755409b183081e782d6bb1b826b87-d_640" loading="lazy" alt=""/><div class="evt-card-label">GoPro Mountain</div></div>
+          <div class="evt-card" data-vimeo="1120210852"><img src="https://i.vimeocdn.com/video/2060903069-45e0a3be65f2284c0fcd5c0dcadacb7dbcc9e425b5d8d25b8f4e09a89c5c8407-d_640" loading="lazy" alt=""/><div class="evt-card-label">Sea Hear Now</div></div>
+          <div class="evt-card" data-vimeo="1145001262"><img src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" loading="lazy" alt=""/><div class="evt-card-label">Modelo CFB</div></div>
+          <!-- duplicates -->
+          <div class="evt-card" data-vimeo="1087531124"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" loading="lazy" alt=""/><div class="evt-card-label">BottleRock</div></div>
+          <div class="evt-card" data-vimeo="1111454370"><img src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" loading="lazy" alt=""/><div class="evt-card-label">Outside Lands</div></div>
+          <div class="evt-card" data-vimeo="1088876642"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" loading="lazy" alt=""/><div class="evt-card-label">Suenos</div></div>
+          <div class="evt-card" data-vimeo="1072796654"><img src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" loading="lazy" alt=""/><div class="evt-card-label">Tartuga</div></div>
+          <div class="evt-card" data-vimeo="1091870084"><img src="https://i.vimeocdn.com/video/2024815845-f9150976e3c159250bde4165c5fd3356a2f755409b183081e782d6bb1b826b87-d_640" loading="lazy" alt=""/><div class="evt-card-label">GoPro Mountain</div></div>
+          <div class="evt-card" data-vimeo="1120210852"><img src="https://i.vimeocdn.com/video/2060903069-45e0a3be65f2284c0fcd5c0dcadacb7dbcc9e425b5d8d25b8f4e09a89c5c8407-d_640" loading="lazy" alt=""/><div class="evt-card-label">Sea Hear Now</div></div>
+          <div class="evt-card" data-vimeo="1145001262"><img src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" loading="lazy" alt=""/><div class="evt-card-label">Modelo CFB</div></div>
+        </div>
+      </div>
+
+      <!-- Row 2: scrolls right -->
+      <div class="evt-row">
+        <div class="evt-track evt-track--r">
+          <div class="evt-card" data-vimeo="1087899210"><img src="https://i.vimeocdn.com/video/2020007198-3cdc6a76e05179e00e8eea92d8ca8018261d4d8d2e7652e07d01792e67d07609-d_640" loading="lazy" alt=""/><div class="evt-card-label">BottleRock II</div></div>
+          <div class="evt-card" data-vimeo="1113004416"><img src="https://i.vimeocdn.com/video/2051400191-35687d0be2c936f11437b5b114343681a32fc9022ad0f73b84eca0fb3d4c28ae-d_640" loading="lazy" alt=""/><div class="evt-card-label">Outside Lands II</div></div>
+          <div class="evt-card" data-vimeo="1090977594"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" loading="lazy" alt=""/><div class="evt-card-label">La Onda</div></div>
+          <div class="evt-card" data-vimeo="1072989645"><img src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" loading="lazy" alt=""/><div class="evt-card-label">Besame Mucho</div></div>
+          <div class="evt-card" data-vimeo="1089838824"><img src="https://i.vimeocdn.com/video/2022328844-96d0f0f9239d7cf1e6e6e0379e16e132e3e91ca2c7d9b2f86f4e793907647532-d_640" loading="lazy" alt=""/><div class="evt-card-label">Outside</div></div>
+          <div class="evt-card" data-vimeo="1111454811"><img src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" loading="lazy" alt=""/><div class="evt-card-label">USOS</div></div>
+          <div class="evt-card" data-vimeo="1090934200"><img src="https://i.vimeocdn.com/video/2023646073-6f1603d6e41f2f03abe6a3ab6b8ca1ab67eb75bcbcec9b403088faae5188b511-d_640" loading="lazy" alt=""/><div class="evt-card-label">La Onda II</div></div>
+          <!-- duplicates -->
+          <div class="evt-card" data-vimeo="1087899210"><img src="https://i.vimeocdn.com/video/2020007198-3cdc6a76e05179e00e8eea92d8ca8018261d4d8d2e7652e07d01792e67d07609-d_640" loading="lazy" alt=""/><div class="evt-card-label">BottleRock II</div></div>
+          <div class="evt-card" data-vimeo="1113004416"><img src="https://i.vimeocdn.com/video/2051400191-35687d0be2c936f11437b5b114343681a32fc9022ad0f73b84eca0fb3d4c28ae-d_640" loading="lazy" alt=""/><div class="evt-card-label">Outside Lands II</div></div>
+          <div class="evt-card" data-vimeo="1090977594"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" loading="lazy" alt=""/><div class="evt-card-label">La Onda</div></div>
+          <div class="evt-card" data-vimeo="1072989645"><img src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" loading="lazy" alt=""/><div class="evt-card-label">Besame Mucho</div></div>
+          <div class="evt-card" data-vimeo="1089838824"><img src="https://i.vimeocdn.com/video/2022328844-96d0f0f9239d7cf1e6e6e0379e16e132e3e91ca2c7d9b2f86f4e793907647532-d_640" loading="lazy" alt=""/><div class="evt-card-label">Outside</div></div>
+          <div class="evt-card" data-vimeo="1111454811"><img src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" loading="lazy" alt=""/><div class="evt-card-label">USOS</div></div>
+          <div class="evt-card" data-vimeo="1090934200"><img src="https://i.vimeocdn.com/video/2023646073-6f1603d6e41f2f03abe6a3ab6b8ca1ab67eb75bcbcec9b403088faae5188b511-d_640" loading="lazy" alt=""/><div class="evt-card-label">La Onda II</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:20px">
+      <span style="font-family:var(--font);font-size:13px;font-weight:800;color:#444;letter-spacing:-0.01em">COGENT WORLD</span>
+      <span style="font-family:var(--mono);font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:0.08em">11 events · 15+ videos · 0 crews · powered by Cinebody</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CURVE: light → dark pink ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
+
+<!-- ═══ PILLAR 3: ALWAYS-ON SOCIAL ═══ -->
+<section class="pillar pillar--pink">
+  <div class="contain">
+    <div class="pillar-grid pillar-grid--flip reveal">
+
+      <!-- Copy: RIGHT (first in DOM, appears RIGHT due to RTL) -->
+      <div>
+        <div class="pillar-num">Program 03 of 03</div>
+        <div class="pillar-tag">Innovation &amp; Milestones</div>
+        <h2>Every innovation is a story. <em>Every employee, a creator.</em></h2>
+        <p class="pillar-body">Royal Caribbean turned their entire ship crew into an always-on content machine, capturing life across every vessel in the fleet with zero crews flown in. Boeing has the same opportunity across public-facing moments: first flight celebrations, design milestone announcements, airshow achievements, community programs, heritage moments. Real employees, guided capture, branded output. A steady pipeline of authentic content that tells Boeing's story to the world.</p>
+        <div class="pillar-stats">
+          <div>
+            <div class="pillar-stat-num">Entire fleet</div>
+            <div class="pillar-stat-label">Every ship, every day</div>
+          </div>
+          <div class="pillar-stat-pipe"></div>
+          <div>
+            <div class="pillar-stat-num">0 Crews</div>
+            <div class="pillar-stat-label">Flown in</div>
+          </div>
+          <div class="pillar-stat-pipe"></div>
+          <div>
+            <div class="pillar-stat-num">Always on</div>
+            <div class="pillar-stat-label">100% on brand</div>
+          </div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.6;margin-bottom:16px">
+          <strong style="color:var(--text)">Use cases for Boeing:</strong> Aviation milestone celebrations, innovation announcements and reveals, airshow highlights, STEM outreach programs, sustainability and community impact stories, heritage and history spotlights, career and culture content.
+        </p>
+        <div class="service-note">
+          <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <div class="service-note-text"><strong>The Cinebody Creative Services Team handles:</strong> Monthly content calendars, ongoing capture programs, motion graphics and brand lockups, and platform-optimized packages for LinkedIn, internal screens, and paid media. Delivered month after month.</div>
+        </div>
+      </div>
+
+      <!-- Visual: LEFT (second in DOM, appears LEFT due to RTL) -->
+      <div>
+        <div class="vid-pair">
+          <div class="vid-block vid-block--v" data-vimeo="1061059233">
+            <img src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" alt="Royal Caribbean — crew content" loading="lazy">
+          </div>
+          <div class="vid-block vid-block--v" data-vimeo="1005975033" data-vimeo-h="77f1627015">
+            <img src="https://i.vimeocdn.com/video/1922627137-0775e0312b2116704194c99037d883c5b777d63952a59041299f895ffdc5be02-d_640" alt="Royal Caribbean — Rover" loading="lazy">
+          </div>
+        </div>
+        <p class="vid-caption">Royal Caribbean — crew-captured, always-on</p>
+
+        <!-- RC stat strip -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-top:20px">
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Entire</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Fleet</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">0</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Crews</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Always</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">On</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px">
+          <img src="/assets/de31bd3b-RCI_Brand_Logo_2-Line_Horiz_White.webp" alt="Royal Caribbean" style="height:22px;opacity:0.7" loading="lazy">
+          <span style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">powered by Cinebody</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: dark pink → light ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#140a1e"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fafafa"/></svg></div>
+
+<!-- ═══ SERVICES ═══ -->
+<section class="services" style="padding-top:60px">
+  <div class="contain">
+    <div class="services-head reveal">
+      <div class="label">Cinebody Creative Services</div>
+      <h2>You know the platform.<br>We're here when you need us.</h2>
+      <p>Cinebody's Creative Services team knows the platform inside and out. Whether you need strategic guidance, creative direction, or hands-on production support, step in as much or as little as makes sense for your team.</p>
+    </div>
+    <div class="svc-grid reveal reveal-d1">
+
+      <div class="svc-card">
+        <div class="svc-bar svc-bar--teal"></div>
+        <h3>Content Strategy &amp; Program Design</h3>
+        <p>Cinebody maps your use cases to specific programs, writes every shot list and prompt, designs your content calendar, and builds the internal rollout plan.</p>
+        <ul>
+          <li>Use case &amp; program mapping</li>
+          <li>Shot list &amp; prompt creation</li>
+          <li>Content calendar design</li>
+          <li>Internal launch support</li>
+          <li>KPI &amp; measurement framework</li>
+        </ul>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-bar svc-bar--yellow"></div>
+        <h3>Capture &amp; Production Support</h3>
+        <p>Remote creative direction during every capture, real-time quality review, and on-site production support for airshows and major events.</p>
+        <ul>
+          <li>Remote capture direction</li>
+          <li>Real-time quality review</li>
+          <li>On-site event support</li>
+          <li>Unlimited filmers deployed</li>
+          <li>Same-day content sync</li>
+        </ul>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-bar svc-bar--pink"></div>
+        <h3>Edit, Brand &amp; Distribute</h3>
+        <p>Professional editing, Boeing-branded motion graphics, subtitles, and platform-optimized packaging for LinkedIn, your intranet, internal screens, or paid media.</p>
+        <ul>
+          <li>Quick-turn editing</li>
+          <li>Branded motion graphics</li>
+          <li>Platform-specific formatting</li>
+          <li>Monthly content packages</li>
+          <li>Distribution strategy</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: light → yellow ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fafafa"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="contain">
+    <h2 class="reveal">Ready to build Boeing's<br><span>content engine?</span></h2>
+    <p class="reveal reveal-d1">Three programs. One platform. Executed with your team or our creative support. We hope this helped spark some ideas.</p>
+  </div>
+</section>
+
+<!-- ═══ CURVE: yellow → dark ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-inner">
+      <img class="footer-logo" src="/assets/5b29f7e3-cb_white.png" alt="Cinebody">
+      <div class="footer-br">Cinebody Creative Services</div>
+      <div class="footer-legal">Confidential · Boeing × Cinebody · 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+// ── Scroll reveal ──
+(function(){
+  var o = new IntersectionObserver(function(e){
+    e.forEach(function(el){ if(el.isIntersecting){ el.target.classList.add('vis'); o.unobserve(el.target); }});
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
+})();
+
+// ── Scroll progress bar ──
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function(){
+    var st = window.pageYOffset;
+    var dh = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (dh > 0 ? (st / dh) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+// ── Autoplay vid-block and evt-card videos on scroll into view ──
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      if (el.classList.contains('loaded')) return;
+      var id = el.dataset.vimeo;
+      var h  = el.dataset.vimeoH;
+      if (!id) return;
+      // controls=0 hides UI but keeps full API access for volume control
+      var src;
+      if (h) {
+        src = 'https://player.vimeo.com/video/' + id + '?h=' + h + '&controls=0&autoplay=1&loop=1&muted=1&autopause=0';
+      } else {
+        src = 'https://player.vimeo.com/video/' + id + '?controls=0&autoplay=1&loop=1&muted=1&autopause=0';
+      }
+      var iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.allow = 'autoplay';
+      iframe.loading = 'lazy';
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;z-index:0;';
+      el.appendChild(iframe);
+      el.classList.add('loaded');
+      obs.unobserve(el);
+      if (typeof Vimeo !== 'undefined') {
+        (function(card, ifr){
+          var player = new Vimeo.Player(ifr);
+          var isMuted = true;
+          var btn = document.createElement('button');
+          btn.className = 'vp-mute';
+          btn.setAttribute('aria-label', 'Toggle audio');
+          btn.innerHTML =
+            '<svg class="ic-m" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>' +
+            '<svg class="ic-u" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+          btn.addEventListener('click', function(ev){
+            ev.stopPropagation();
+            isMuted = !isMuted;
+            player.setVolume(isMuted ? 0 : 1).catch(function(){});
+            btn.querySelector('.ic-m').style.display = isMuted ? '' : 'none';
+            btn.querySelector('.ic-u').style.display = isMuted ? 'none' : '';
+          });
+          card.appendChild(btn);
+        }(el, iframe));
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.vid-block[data-vimeo], .evt-card[data-vimeo]').forEach(function(el){
+    obs.observe(el);
+  });
+})();
+
+</script>
+
+</body>
+</html>
