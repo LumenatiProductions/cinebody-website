@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { title, description, pubDate, author, heroImage } = post.data;
 const fmt = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-const CALENDLY = 'https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody';
+const CALENDLY = 'https://calendly.com/gavin-cinebody/cinebody-intro2';
 ---
 
 <Base title={title} description={description} image={heroImage || '/og.png'}>

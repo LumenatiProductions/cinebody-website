@@ -86,7 +86,7 @@ v2/
 ```
 
 ## Key URLs
-- Calendly (all CTAs): https://calendly.com/tyler-cinebody/creating-high-quality-ugc-with-cinebody
+- Calendly (all CTAs): https://calendly.com/gavin-cinebody/cinebody-intro2
 - Logo (white): https://images.squarespace-cdn.com/content/v1/68752bed553a097656efd4e1/2886fba6-1049-443f-90c9-28d4ff6bf9c7/cb_white.png
 - Icon: https://images.squarespace-cdn.com/content/68752bed553a097656efd4e1/9da6d1b5-d46d-4623-ae15-d4723266cbb2/cinebody_icon.png
 - Wordmark: https://images.squarespace-cdn.com/content/68752bed553a097656efd4e1/27ef5dd7-3767-463e-ab20-297c5ce88942/cinebody_wordmark.png
