@@ -1,0 +1,14 @@
+{
+  "manifest_version": 1,
+  "product": "Cinebody Website",
+  "repo": "Murder-Dog/cinebody-website",
+  "maturity": "production",
+  "stack": {
+    "stage_split": false,
+    "mobile_ota": false,
+    "ai_features": false,
+    "paid_apis": false,
+    "external_api_clients": false
+  },
+  "maturity_set": { "by": ["Travis", "Scott"], "date": "2026-07-28", "where": "product brief (mature, shipped, maintained — the live public site of a company with paying customers)" }
+}

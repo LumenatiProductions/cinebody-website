@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "mission-control": {
+      "type": "http",
+      "url": "http://127.0.0.1:3333/api/mcp",
+      "headers": {
+        "X-MC-Identity": "${MC_IDENTITY:-}"
+      }
+    },
+    "dog-memory": {
+      "type": "stdio",
+      "command": "${HOME}/.local/bin/mempalace-mcp",
+      "args": ["--palace", "${HOME}/.mempalace/mission-control-palace"]
+    }
+  }
+}
