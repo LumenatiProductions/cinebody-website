@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /boeing
 Disallow: /giin
+Disallow: /gilead-cds
 
 Sitemap: https://www.cinebody.com/sitemap-index.xml

@@ -12,7 +12,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/boeing') && !page.includes('/giin'),
+      filter: (page) => !page.includes('/boeing') && !page.includes('/giin') && !page.includes('/gilead-cds'),
     }),
   ],
   compressHTML: true,
