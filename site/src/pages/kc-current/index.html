@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>KC Current × Cinebody · Playoff UGC Pitch</title>
+<meta name="description" content="Four UGC concepts capturing what it feels like to be part of KC Current.">
+
+<!-- Favicon (same as cinebody.com root) -->
+<link rel="icon" type="image/png" href="/cinebody-icon.png">
+<link rel="apple-touch-icon" href="/cinebody-icon.png">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Share card / Open Graph (same image as cinebody.com root) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cinebody">
+<meta property="og:title" content="KC Current × Cinebody · Playoff UGC Pitch">
+<meta property="og:description" content="Four UGC concepts capturing what it feels like to be part of KC Current.">
+<meta property="og:url" content="https://www.cinebody.com/kc-current">
+<meta property="og:image" content="https://www.cinebody.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KC Current × Cinebody · Playoff UGC Pitch">
+<meta name="twitter:description" content="Four UGC concepts capturing what it feels like to be part of KC Current.">
+<meta name="twitter:image" content="https://www.cinebody.com/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════
+   KC CURRENT × CINEBODY MICROSITE
+   Design system matching Cinebody V4
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --teal: #00bcf1;
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.1);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ── UTILITIES ── */
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.label { font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 16px; }
+
+/* ── SCROLL PROGRESS ── */
+.scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--teal), var(--pink)); z-index: 9999; transition: none; }
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font); font-size: 14px; font-weight: 600; padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s var(--ease); position: relative; isolation: isolate; text-decoration: none; }
+.btn-teal { background: var(--teal); color: #fff; box-shadow: 0 0 20px rgba(0,188,241,0.15); }
+.btn-teal:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,188,241,0.3); }
+.btn-dark { background: #111; color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+.btn-dark:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,0,0,0.35); }
+.btn svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+
+/* ── CURVED DIVIDERS ── */
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; font-size: 0; margin-top: -10px; margin-bottom: -10px; background: none !important; }
+.curve svg { display: block; width: 100%; height: 70px; }
+@media (max-width: 600px) { .curve svg { height: 90px; } }
+
+/* ══════════════════════════════════
+   HERO
+   ══════════════════════════════════ */
+.hero {
+  padding: 80px 0 120px;
+  position: relative;
+  background: linear-gradient(180deg, #0a0a0a 0%, #041a24 100%);
+  overflow-x: clip;
+}
+.hero::before {
+  content: ''; position: absolute; top: -20%; right: -20%; width: 900px; height: 900px;
+  background: var(--teal); border-radius: 50%; filter: blur(200px); opacity: 0.1; pointer-events: none;
+  animation: hglow 18s ease-in-out infinite alternate;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -20%; left: -15%; width: 700px; height: 700px;
+  background: var(--pink); border-radius: 50%; filter: blur(200px); opacity: 0.05; pointer-events: none;
+  animation: hglow 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes hglow { 0% { transform: translate(0,0); } 100% { transform: translate(20px,-15px); } }
+
+.hero .contain { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--teal); background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15);
+  padding: 8px 18px; border-radius: 100px; margin-bottom: 24px;
+}
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5); }
+
+.hero h1 { font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; color: #fff; }
+.hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+.hero-body { font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 32px; }
+.hero-note { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top: 16px; letter-spacing: 0.02em; }
+
+/* Hero 3-column scrolling video strip */
+.hero-scroller {
+  display: flex; gap: 10px; height: 780px;
+  margin-top: -80px; margin-bottom: -120px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.scroller-col { display: flex; flex-direction: column; gap: 10px; will-change: transform; }
+.scroll-up   .scroller-col { animation: scrollUp 40s linear infinite; }
+.scroll-down .scroller-col { animation: scrollDown 44s linear infinite; }
+@keyframes scrollUp   { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+@keyframes scrollDown { 0% { transform: translateY(-50%); } 100% { transform: translateY(0); } }
+
+.scr-card { flex-shrink: 0; width: 145px; aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; background: #111; border: 1px solid rgba(255,255,255,0.08); position: relative; }
+.scr-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.scr-card iframe { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); border: none; pointer-events: none; z-index: 1; }
+.scr-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 5px 8px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: var(--mono); font-size: 7px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.6); z-index: 3; }
+
+/* ══════════════════════════════════
+   BRIDGE (light, the thesis)
+   ══════════════════════════════════ */
+.bridge { background: #fff; padding: 80px 0; }
+.bridge .contain { max-width: 900px; }
+
+.bridge-tag { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; background: var(--teal); padding: 4px 12px; border-radius: 4px; margin-bottom: 20px; }
+
+.bridge h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 16px; color: #111; }
+
+.bridge-body { font-size: 1rem; color: #555; line-height: 1.7; margin-bottom: 40px; max-width: 700px; }
+
+.bridge-four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+.bridge-item { display: flex; align-items: flex-start; gap: 12px; background: #f7f7f7; border: 1px solid #ebebeb; border-radius: 12px; padding: 20px 18px; }
+
+.bridge-item-num { font-family: var(--mono); font-size: 20px; font-weight: 800; color: var(--teal); line-height: 1; flex-shrink: 0; }
+
+.bridge-item-copy h4 { font-size: 0.85rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+.bridge-item-copy p  { font-size: 0.76rem; color: #777; line-height: 1.5; }
+
+/* ══════════════════════════════════
+   PILLAR SECTIONS
+   ══════════════════════════════════ */
+.pillar { padding: 100px 0; position: relative; }
+
+.pillar--teal {
+  background:
+    radial-gradient(ellipse 80% 70% at 85% 20%, rgba(0,188,241,0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 15% 80%, rgba(255,236,3,0.04) 0%, transparent 70%),
+    linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%);
+}
+
+.pillar--pink {
+  background:
+    radial-gradient(ellipse 80% 70% at 20% 30%, rgba(235,0,139,0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 80% 70%, rgba(0,188,241,0.06) 0%, transparent 70%),
+    linear-gradient(180deg, #1a0a18 0%, #140a1e 50%, #0f1a24 100%);
+}
+
+.pillar--light { background: #fff; }
+.pillar--gray  { background: #fafafa; }
+
+.pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.pillar-grid--flip { direction: rtl; }
+.pillar-grid--flip > * { direction: ltr; }
+
+.pillar-num { font-family: var(--mono); font-size: 10px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+.pillar-num--dark { color: #bbb; }
+
+.pillar-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #0a0a0a; background: var(--yellow); padding: 4px 11px; border-radius: 4px; margin-bottom: 16px; }
+
+.pillar h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 14px; color: #fff; }
+.pillar h2 em { font-style: normal; color: var(--teal); }
+
+.pillar--light h2 { color: #111; }
+.pillar--light h2 em { color: var(--teal); }
+
+.pillar-body { font-size: 0.9rem; line-height: 1.65; color: var(--text-dim); margin-bottom: 24px; max-width: 420px; }
+.pillar--light .pillar-body { color: #666; }
+
+.pillar-stats { display: flex; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+.pillar-stat-num { font-size: 1.2rem; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 3px; }
+.pillar-stat-label { font-size: 9px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.pillar--light .pillar-stat-label { color: #999; }
+.pillar-stat-pipe { width: 1px; background: var(--border); align-self: stretch; }
+.pillar--light .pillar-stat-pipe { background: #e0e0e0; }
+
+/* ── OUTPUTS LIST ── */
+.outputs { margin-bottom: 22px; max-width: 440px; }
+.outputs-head { font-family: var(--mono); font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 10px; }
+.pillar--light .outputs-head { color: #aaa; }
+.outputs ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.outputs li { font-size: 0.83rem; color: var(--text-dim); line-height: 1.5; position: relative; padding-left: 16px; }
+.pillar--light .outputs li { color: #666; }
+.outputs li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--teal); }
+.outputs li strong { color: var(--text); font-weight: 600; }
+.pillar--light .outputs li strong { color: #333; }
+
+.service-note { display: flex; align-items: flex-start; gap: 12px; background: rgba(0,188,241,0.06); border: 1px solid rgba(0,188,241,0.15); border-radius: 8px; padding: 14px 18px; margin-top: 20px; }
+.service-note-icon { width: 16px; height: 16px; stroke: var(--teal); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 2px; }
+.service-note-text { font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; }
+.service-note-text strong { color: var(--teal); font-weight: 600; }
+.pillar--light .service-note { background: rgba(0,188,241,0.04); border-color: rgba(0,188,241,0.12); }
+.pillar--light .service-note-text { color: #666; }
+
+/* ── VIDEO CARDS ── */
+.vid-pair { display: flex; gap: 14px; justify-content: center; align-items: flex-start; }
+.vid-pair > div { flex: 1; max-width: 220px; }
+.vid-solo { max-width: 260px; margin: 0 auto; }
+.vid-wide { max-width: 460px; margin: 0 auto; }
+
+.vid-block { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: #111; position: relative; }
+.vid-block--v { aspect-ratio: 9/16; }
+.vid-block--h { aspect-ratio: 16/9; }
+.vid-block img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: opacity 0.5s; }
+.vid-block iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 0; }
+.vid-block.loaded img { opacity: 0; }
+.vid-block--light { border-color: #e0e0e0; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+.vid-caption { text-align: center; margin-top: 12px; font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.pillar--light .vid-caption { color: #bbb; }
+
+
+/* ══════════════════════════════════
+   ROADMAP (dark)
+   ══════════════════════════════════ */
+.roadmap {
+  padding: 100px 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(0,188,241,0.08) 0%, transparent 70%),
+    linear-gradient(180deg, #0a0a0a 0%, #041a24 100%);
+}
+.roadmap-head { text-align: center; max-width: 620px; margin: 0 auto; }
+.roadmap-head h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #fff; line-height: 1.2; margin-bottom: 14px; }
+.roadmap-head h2 em { font-style: normal; color: var(--teal); }
+.roadmap-head p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.65; margin: 0 auto; }
+
+/* ══════════════════════════════════
+   SERVICES (light)
+   ══════════════════════════════════ */
+.services { background: #fafafa; padding: 100px 0; }
+
+.services-head { margin-bottom: 48px; }
+.services-head h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #111; max-width: 480px; line-height: 1.2; }
+.services-head p { font-size: 0.9rem; color: #666; line-height: 1.65; max-width: 560px; margin-top: 12px; }
+
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.svc-card { background: #fff; border: 2px solid rgba(0,0,0,0.05); border-radius: 16px; padding: 36px 28px; transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.svc-card:hover { border-color: rgba(0,0,0,0.1); box-shadow: 0 20px 48px rgba(0,0,0,0.07); }
+
+.svc-bar { height: 2px; border-radius: 2px; margin-bottom: 24px; }
+.svc-bar--teal   { background: var(--teal); }
+.svc-bar--yellow { background: var(--yellow); }
+.svc-bar--pink   { background: var(--pink); }
+
+.svc-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: #111; }
+.svc-card p  { font-size: 0.83rem; color: #666; line-height: 1.6; margin-bottom: 20px; }
+.svc-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.svc-card ul li { font-size: 0.78rem; color: #888; display: flex; align-items: center; gap: 8px; }
+.svc-card ul li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+/* ══════════════════════════════════
+   CTA BAND (yellow)
+   ══════════════════════════════════ */
+.cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
+.cta-band h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; color: #111; line-height: 1.2; margin-bottom: 16px; }
+.cta-band h2 span { color: var(--teal); }
+.cta-band p { font-size: 0.9rem; color: #444; margin-bottom: 32px; }
+
+/* ══════════════════════════════════
+   FOOTER
+   ══════════════════════════════════ */
+.footer { background: var(--bg); padding: 40px 0 28px; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.footer-logo { height: 18px; filter: brightness(0) invert(1); opacity: 0.4; }
+.footer-br { font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.footer-legal { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
+
+/* ══════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════ */
+@media (max-width: 1000px) {
+  .hero .contain { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 60px 0 80px; }
+  .hero-scroller { margin-top: 0; margin-bottom: -60px; }
+  .pillar-grid, .pillar-grid--flip { grid-template-columns: 1fr; direction: ltr; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .bridge-four { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.25rem; }
+  .pillar { padding: 64px 0; }
+  .services, .roadmap { padding: 64px 0; }
+  .vid-pair > div { max-width: 160px; }
+  .scr-card { width: 115px; }
+  .bridge-four { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+
+/* ── PER-VIDEO MUTE BUTTON ── */
+.vp-mute {
+  position:absolute; bottom:10px; right:8px; z-index:4;
+  width:28px; height:28px; border-radius:50%; border:none;
+  background:rgba(0,0,0,0.5); cursor:pointer; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  transition:background 0.2s;
+}
+.vp-mute:hover { background:rgba(0,0,0,0.8); }
+.vp-mute svg { width:13px; height:13px; display:block; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain">
+    <div class="reveal">
+      <div class="hero-eyebrow">KC Current × Cinebody · Playoff Pitch</div>
+      <h1>It's not about<br>the match.<br><em>It's about being there.</em></h1>
+      <p class="hero-body">Four strategic UGC concepts built around one idea: experience over sport. Not highlights, not broadcast. The human, unscripted layer around KC Current. The jersey going on at home. The tailgate. The walk into CPKC. The roar.</p>
+      <p class="hero-note">Trusted by Royal Caribbean, Dell, Nike, Crocs &amp; 100+ brands</p>
+    </div>
+
+    <!-- 3-column scrolling video strip -->
+    <div class="hero-scroller reveal reveal-d2">
+
+      <!-- Column 1: scrolls UP -->
+      <div class="scroll-up">
+        <div class="scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/709638992-5e77dfb0c9db5021aba4b9a75f48b45b2c23618ea05536babc2863656770860f-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/276983040?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Fan-Captured Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/758061927-46c0788bd10c45d66db64b0dc9eb466203f43afc68917309b1c02ed59515cb28-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/316122333?h=02b42264f1&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Nike Vertical</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1856311549-4051a874dd4e04446c24e998284215b23c9e18e0d3397a329c1afa206cbfc338-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/948907927?h=cac841fbc1&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Player Q&amp;A</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Live Event</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2035926957-647f7656732a8fef63d70b2b069e733403fe7bedf943d2b0a0089cfe646c31aa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1100661757?h=dcd7f46c80&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">My Rotation</div></div>
+          <!-- loop duplicates -->
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/709638992-5e77dfb0c9db5021aba4b9a75f48b45b2c23618ea05536babc2863656770860f-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/276983040?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Fan-Captured Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/758061927-46c0788bd10c45d66db64b0dc9eb466203f43afc68917309b1c02ed59515cb28-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/316122333?h=02b42264f1&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Nike Vertical</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1856311549-4051a874dd4e04446c24e998284215b23c9e18e0d3397a329c1afa206cbfc338-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/948907927?h=cac841fbc1&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Player Q&amp;A</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Live Event</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2035926957-647f7656732a8fef63d70b2b069e733403fe7bedf943d2b0a0089cfe646c31aa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1100661757?h=dcd7f46c80&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">My Rotation</div></div>
+        </div>
+      </div>
+
+      <!-- Column 2: scrolls DOWN -->
+      <div class="scroll-down">
+        <div class="scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2189999480-b484a82c5d9ee526203c66d82d1d39c9140df21d5e17b8ce64026f0e25b253ba-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1218149716?h=46ea97a8ca&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Food Focus</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2038625107-eddbe5bc74a96d3ef3094b3ea79dd232418b38eee38eafa6df67b58765ec5e4f-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/329885560?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">We Are More</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2189999718-3457616ef7f83dc774f9c2bc77e62740ead4ca0838ab57b98e220b3311ae7b69-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1218149930?h=99b7449ac2&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Day Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2060903069-45e0a3be65f2284c0fcd5c0dcadacb7dbcc9e425b5d8d25b8f4e09a89c5c8407-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1120210852?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Crowd Energy</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/709638992-5e77dfb0c9db5021aba4b9a75f48b45b2c23618ea05536babc2863656770860f-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/276983040?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Fan-Captured Recap</div></div>
+          <!-- loop duplicates -->
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2189999480-b484a82c5d9ee526203c66d82d1d39c9140df21d5e17b8ce64026f0e25b253ba-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1218149716?h=46ea97a8ca&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Food Focus</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2038625107-eddbe5bc74a96d3ef3094b3ea79dd232418b38eee38eafa6df67b58765ec5e4f-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/329885560?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">We Are More</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2189999718-3457616ef7f83dc774f9c2bc77e62740ead4ca0838ab57b98e220b3311ae7b69-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1218149930?h=99b7449ac2&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Day Recap</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2060903069-45e0a3be65f2284c0fcd5c0dcadacb7dbcc9e425b5d8d25b8f4e09a89c5c8407-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1120210852?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Crowd Energy</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/709638992-5e77dfb0c9db5021aba4b9a75f48b45b2c23618ea05536babc2863656770860f-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/276983040?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Fan-Captured Recap</div></div>
+        </div>
+      </div>
+
+      <!-- Column 3: scrolls UP -->
+      <div class="scroll-up">
+        <div class="scroller-col">
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1856311549-4051a874dd4e04446c24e998284215b23c9e18e0d3397a329c1afa206cbfc338-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/948907927?h=cac841fbc1&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Player Q&amp;A</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2035926957-647f7656732a8fef63d70b2b069e733403fe7bedf943d2b0a0089cfe646c31aa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1100661757?h=dcd7f46c80&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">My Rotation</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1072796654?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Live Event</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Crowd Energy</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Fan Experience</div></div>
+          <!-- loop duplicates -->
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1856311549-4051a874dd4e04446c24e998284215b23c9e18e0d3397a329c1afa206cbfc338-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/948907927?h=cac841fbc1&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Player Q&amp;A</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2035926957-647f7656732a8fef63d70b2b069e733403fe7bedf943d2b0a0089cfe646c31aa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1100661757?h=dcd7f46c80&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">My Rotation</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2001789249-3036926667164ce15a6ec6e794dd5f0969f66cc4f384aeb5d0c375fd9814b359-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1072796654?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Live Event</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Crowd Energy</div></div>
+          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" loading="lazy" alt=""/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Fan Experience</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: dark → light ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ BRIDGE ═══ -->
+<section class="bridge">
+  <div class="contain">
+    <div class="reveal">
+      <div class="bridge-tag">Experience over sport</div>
+      <h2>You built a studio for the polished story.<br>This is the raw layer that feeds it.</h2>
+      <p class="bridge-body">KC Current Studios is built for the big productions: broadcast, podcasts, produced storytelling. This complements that work, keeping organic and paid social active while the studio captures the bigger endeavors. Four ideas, each built around what it actually <em>feels like</em> to be part of KC Current, and a chance to take the marketing approach into new, more authentic territory.</p>
+      <div class="bridge-four">
+        <div class="bridge-item">
+          <div class="bridge-item-num">01</div>
+          <div class="bridge-item-copy">
+            <h4>Fan Journey Vignettes</h4>
+            <p>Season ticket holders film their full gameday arc, from home prep to final whistle.</p>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-item-num">02</div>
+          <div class="bridge-item-copy">
+            <h4>Fan-Sourced UGC Contest</h4>
+            <p>Your channels, your audience, a shot list and a VIP prize. High-volume content in return.</p>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-item-num">03</div>
+          <div class="bridge-item-copy">
+            <h4>Current Landing Series</h4>
+            <p>Document the destination, not just the match. Evergreen, year-round, not playoff-only.</p>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-item-num">04</div>
+          <div class="bridge-item-copy">
+            <h4>Player Insight Series</h4>
+            <p>Lightweight recurring player content, scoped to whatever access you can unlock.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: light → dark teal ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
+
+<!-- ═══ CONCEPT 1: FAN JOURNEY VIGNETTES ═══ -->
+<section class="pillar pillar--teal">
+  <div class="contain">
+    <div class="pillar-grid reveal">
+
+      <!-- Copy: LEFT -->
+      <div>
+        <div class="pillar-num">Concept 01 of 04</div>
+        <div class="pillar-tag">Fan Journey Vignettes</div>
+        <h2><em>Three to five season ticket holders.</em> One gameday each. Start to finish.</h2>
+        <p class="pillar-body">Recruit season ticket holders per game and capture their full gameday arc: the jersey going on at home, the drive in, the tailgate, the walk into CPKC, the noise. Cinebody builds the shot list and directs remotely; they film on the phone already in their pocket. Sideline passes, autographed gear, or a next-game VIP upgrade for the featured fans keep quality high. No crews, no camera-shy strangers, no staged moments.</p>
+        <div class="outputs">
+          <div class="outputs-head">What you get</div>
+          <ul>
+            <li><strong>Individual hero vignettes</strong> per fan, story-driven and intimate</li>
+            <li><strong>24-hour quick-turn recap</strong> compiling every fan's game</li>
+            <li><strong>Evergreen b-roll bank</strong> of rituals, tailgate, and atmosphere for next season's promo cycle</li>
+          </ul>
+        </div>
+        <div class="pillar-stats">
+          <div>
+            <div class="pillar-stat-num">3–5</div>
+            <div class="pillar-stat-label">Fans per game</div>
+          </div>
+          <div class="pillar-stat-pipe"></div>
+          <div>
+            <div class="pillar-stat-num">24 hr</div>
+            <div class="pillar-stat-label">Recap turnaround</div>
+          </div>
+          <div class="pillar-stat-pipe"></div>
+          <div>
+            <div class="pillar-stat-num">0</div>
+            <div class="pillar-stat-label">Crews needed</div>
+          </div>
+        </div>
+        <div class="service-note">
+          <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <div class="service-note-text"><strong>Scale plan:</strong> Start with one playoff game to prove the model. Recruit new fans each game so the story pool compounds instead of repeating.</div>
+        </div>
+      </div>
+
+      <!-- Visual: RIGHT -->
+      <div>
+        <div class="vid-wide">
+          <div class="vid-block vid-block--h" data-vimeo="232043074">
+            <img src="https://i.vimeocdn.com/video/653003311-dee2926150fcd5192a118d6e54ee0c77074fa1872db8c99dbb086a5ab379a2f6-d_640" alt="Aiden's First Broncos Game, fan journey vignette" loading="lazy">
+          </div>
+          <p class="vid-caption">Denver Broncos spec · "Aiden's First Broncos Game"</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-top:24px">
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Home</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Prep</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Tailgate</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Commute</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--teal);margin-bottom:3px">CPKC</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">In-stadium</div>
+          </div>
+        </div>
+        <p style="text-align:center;font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:14px">The full arc, captured by the person living it</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: dark teal → light ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ CONCEPT 2: FAN-SOURCED UGC CONTEST (LIGHT) ═══ -->
+<section class="pillar pillar--light">
+  <div class="contain">
+    <div class="pillar-grid pillar-grid--flip reveal">
+
+      <!-- Copy: RIGHT (first in DOM, appears RIGHT due to RTL) -->
+      <div>
+        <div class="pillar-num pillar-num--dark">Concept 02 of 04</div>
+        <div class="pillar-tag">Fan-Sourced UGC Contest</div>
+        <h2 style="color:#111"><em>Put your own audience to work.</em> A shot list, a VIP prize, a flood of content.</h2>
+        <p class="pillar-body" style="color:#555">A CTA across KC Current's own channels. Fans film to a Cinebody-built shot list (pregame rituals, the chant, trick shots, pride content) for a shot at a VIP playoff experience. It's fan-as-hero by design: the people who already show up become the ones making the content, and the entry mechanic itself drives engagement before a single asset is cut.</p>
+        <div class="outputs">
+          <div class="outputs-head">What you get</div>
+          <ul>
+            <li><strong>High-volume raw UGC feed</strong> for KC Current's channels, through the playoffs and into next season</li>
+            <li><strong>Quick-turn hype compilation</strong> that's democratized, high-energy, and fan-as-hero</li>
+            <li><strong>The winner's VIP experience</strong> documented as a follow-up piece</li>
+          </ul>
+        </div>
+        <div class="pillar-stats">
+          <div>
+            <div class="pillar-stat-num">Your channels</div>
+            <div class="pillar-stat-label" style="color:#999">Distribution built in</div>
+          </div>
+          <div class="pillar-stat-pipe" style="background:#e0e0e0"></div>
+          <div>
+            <div class="pillar-stat-num">Fan-as-hero</div>
+            <div class="pillar-stat-label" style="color:#999">Creative angle</div>
+          </div>
+          <div class="pillar-stat-pipe" style="background:#e0e0e0"></div>
+          <div>
+            <div class="pillar-stat-num">0</div>
+            <div class="pillar-stat-label" style="color:#999">Crews required</div>
+          </div>
+        </div>
+        <div class="service-note" style="background:rgba(0,188,241,0.04);border-color:rgba(0,188,241,0.12)">
+          <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <div class="service-note-text" style="color:#666"><strong style="color:var(--teal)">Why it matters for the media buy:</strong> This is a paid social engagement play as much as a content play. It puts your own audience to work generating assets for you, so the campaign produces the creative it runs on.</div>
+        </div>
+      </div>
+
+      <!-- Visual: LEFT (second in DOM, appears LEFT due to RTL) -->
+      <div>
+        <div class="vid-solo">
+          <div class="vid-block vid-block--v vid-block--light" data-vimeo="276983040">
+            <img src="https://i.vimeocdn.com/video/709638992-5e77dfb0c9db5021aba4b9a75f48b45b2c23618ea05536babc2863656770860f-d_640" alt="ODESZA at Red Rocks, fan-captured recap" loading="lazy">
+          </div>
+          <p class="vid-caption" style="color:#bbb">ODESZA at Red Rocks · fan-captured recap</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e8e8e8;border-radius:8px;overflow:hidden;margin-top:24px">
+          <div style="background:#fff;padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Film</div>
+            <div style="font-family:var(--mono);font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em">To the shot list</div>
+          </div>
+          <div style="background:#fff;padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Enter</div>
+            <div style="font-family:var(--mono);font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em">For the VIP prize</div>
+          </div>
+          <div style="background:#fff;padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Cut</div>
+            <div style="font-family:var(--mono);font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em">Into the hype reel</div>
+          </div>
+        </div>
+        <p style="text-align:center;font-family:var(--mono);font-size:8px;color:#bbb;text-transform:uppercase;letter-spacing:0.08em;margin-top:14px">Entirely fan-captured · 0 crews</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: light → dark pink ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
+
+<!-- ═══ CONCEPT 3: CURRENT LANDING EXPERIENCE SERIES ═══ -->
+<section class="pillar pillar--pink">
+  <div class="contain">
+    <div class="pillar-grid reveal">
+
+      <!-- Copy: LEFT -->
+      <div>
+        <div class="pillar-num">Concept 03 of 04</div>
+        <div class="pillar-tag">Current Landing Experience Series</div>
+        <h2>Current Landing is a destination. <em>Nobody's filmed it like one.</em></h2>
+        <p class="pillar-body">Document the place, not just the match. A creator or an employee takes a full day at Current Landing end to end: arrival, the shops, the food, the studio, the walk into CPKC Stadium, into the game. Creator-led keeps quality and timing controllable, rather than depending on fan availability the way Concept 01 does.</p>
+        <div class="outputs">
+          <div class="outputs-head">Why it fits</div>
+          <ul>
+            <li><strong>Proves the full-day case.</strong> A KC Current game is a destination, not a 90-minute product</li>
+            <li><strong>Evergreen and year-round.</strong> Works for ticket sales and tourism, not just the playoff window</li>
+            <li><strong>Opens a co-marketing door.</strong> Naturally features Current Landing businesses, which may create sponsorship angles</li>
+          </ul>
+        </div>
+        <div class="pillar-stats">
+          <div>
+            <div class="pillar-stat-num">Full day</div>
+            <div class="pillar-stat-label">Not 90 minutes</div>
+          </div>
+          <div class="pillar-stat-pipe"></div>
+          <div>
+            <div class="pillar-stat-num">Year-round</div>
+            <div class="pillar-stat-label">Evergreen use</div>
+          </div>
+          <div class="pillar-stat-pipe"></div>
+          <div>
+            <div class="pillar-stat-num">Creator-led</div>
+            <div class="pillar-stat-label">Controllable</div>
+          </div>
+        </div>
+        <div class="service-note">
+          <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <div class="service-note-text"><strong>The Cinebody Creative Services Team handles:</strong> Creator recruitment and incentives, the day's shot list and route, remote direction during capture, and edited delivery ready for ticketing, tourism, and social.</div>
+        </div>
+      </div>
+
+      <!-- Visual: RIGHT -->
+      <div>
+        <div class="vid-pair">
+          <div>
+            <div class="vid-block vid-block--v" data-vimeo="1218149716" data-vimeo-h="46ea97a8ca">
+              <img src="https://i.vimeocdn.com/video/2189999480-b484a82c5d9ee526203c66d82d1d39c9140df21d5e17b8ce64026f0e25b253ba-d_640" alt="Rachel Raves, restaurant showcase" loading="lazy">
+            </div>
+            <p class="vid-caption">Rachel Raves · Food Focus</p>
+          </div>
+          <div>
+            <div class="vid-block vid-block--v" data-vimeo="1218149930" data-vimeo-h="99b7449ac2">
+              <img src="https://i.vimeocdn.com/video/2189999718-3457616ef7f83dc774f9c2bc77e62740ead4ca0838ab57b98e220b3311ae7b69-d_640" alt="United Flea Market Denver showcase" loading="lazy">
+            </div>
+            <p class="vid-caption">United Flea Market · Day Recap</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-top:24px">
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Arrive</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">The district</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Explore</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Shops · food</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Enter</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em">Into the game</div>
+          </div>
+        </div>
+        <p style="text-align:center;font-family:var(--mono);font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:14px">Two takes on the Current Landing experience</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: dark pink → light gray ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fafafa"/></svg></div>
+
+<!-- ═══ CONCEPT 4: PLAYER INSIGHT SERIES ═══ -->
+<section class="pillar pillar--light pillar--gray">
+  <div class="contain">
+    <div class="pillar-grid pillar-grid--flip reveal">
+
+      <!-- Copy: RIGHT (first in DOM, appears RIGHT due to RTL) -->
+      <div>
+        <div class="pillar-num pillar-num--dark">Concept 04 of 04</div>
+        <div class="pillar-tag">Player Insight Series</div>
+        <h2 style="color:#111"><em>Recurring player content,</em> scoped to whatever access you can unlock.</h2>
+        <p class="pillar-body" style="color:#555">Lightweight and repeatable. Cadence stays flexible (weekly, bi-weekly, or monthly) and the format scales down or up depending on how much player time is realistically available. Nothing here requires a shoot day.</p>
+        <div class="outputs">
+          <div class="outputs-head">Format options, low to high lift</div>
+          <ul>
+            <li><strong>Rapid-fire Q&amp;A.</strong> Proven format, high shareability, minutes of player time</li>
+            <li><strong>Day-in-the-life / training snippets.</strong> More access, more texture</li>
+            <li><strong>Players reacting to fan UGC</strong> from Concept 02, tying the whole fan campaign back to the team</li>
+          </ul>
+        </div>
+        <div class="service-note" style="background:rgba(0,188,241,0.04);border-color:rgba(0,188,241,0.12)">
+          <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <div class="service-note-text" style="color:#666"><strong style="color:var(--teal)">Note:</strong> Unlike the other concepts, which are more fan and creator-driven, this one involves team and comms buy-in for participation.</div>
+        </div>
+      </div>
+
+      <!-- Visual: LEFT (second in DOM, appears LEFT due to RTL) -->
+      <div>
+        <div class="vid-solo">
+          <div class="vid-block vid-block--v vid-block--light" data-vimeo="948907927" data-vimeo-h="cac841fbc1">
+            <img src="https://i.vimeocdn.com/video/1856311549-4051a874dd4e04446c24e998284215b23c9e18e0d3397a329c1afa206cbfc338-d_640" alt="Royal Caribbean × Fulham FC Women, player Q&amp;A" loading="lazy">
+          </div>
+          <p class="vid-caption" style="color:#bbb">Royal Caribbean × Fulham FC Women · player Q&amp;A</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e8e8e8;border-radius:8px;overflow:hidden;margin-top:24px">
+          <div style="background:#fff;padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Q&amp;A</div>
+            <div style="font-family:var(--mono);font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em">Lowest lift</div>
+          </div>
+          <div style="background:#fff;padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">DITL</div>
+            <div style="font-family:var(--mono);font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em">Mid lift</div>
+          </div>
+          <div style="background:#fff;padding:18px 12px;text-align:center">
+            <div style="font-size:1rem;font-weight:700;color:var(--teal);margin-bottom:3px">Reacts</div>
+            <div style="font-family:var(--mono);font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em">Ties to 02</div>
+          </div>
+        </div>
+        <p style="text-align:center;font-family:var(--mono);font-size:8px;color:#bbb;text-transform:uppercase;letter-spacing:0.08em;margin-top:14px">TikTok-native format · minutes of player time</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: light gray → dark ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fafafa"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ ROADMAP ═══ -->
+<section class="roadmap">
+  <div class="contain">
+    <div class="roadmap-head reveal">
+      <div class="label" style="text-align:center">How we'd sequence it</div>
+      <h2>Let's start with the playoffs,<br><em>and build from there.</em></h2>
+      <p>Concepts 01 and 02 we can move on quickly, with a focus on the upcoming KC Current playoff run. As we execute those, we can expand to Concepts 03 and 04 to focus on content creation beyond the season and ahead of next year's first game.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: dark → light ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fafafa"/></svg></div>
+
+<!-- ═══ SERVICES ═══ -->
+<section class="services" style="padding-top:60px">
+  <div class="contain">
+    <div class="services-head reveal">
+      <div class="label">Cinebody Creative Services</div>
+      <h2>You bring the access.<br>We handle everything else.</h2>
+      <p>Fans and creators film on the phones already in their pockets. Cinebody's Creative Services team does the rest (strategy, direction, editing, and delivery), stepping in as much or as little as makes sense alongside KC Current Studios.</p>
+    </div>
+    <div class="svc-grid reveal reveal-d1">
+
+      <div class="svc-card">
+        <div class="svc-bar svc-bar--teal"></div>
+        <h3>Program Design &amp; Recruitment</h3>
+        <p>Cinebody maps each concept to a run-of-show, writes every shot list and prompt, and handles recruiting and incentivizing the fans and creators who film.</p>
+        <ul>
+          <li>Concept &amp; program mapping</li>
+          <li>Shot list &amp; prompt creation</li>
+          <li>Fan / creator recruitment</li>
+          <li>Contest mechanics &amp; rules</li>
+          <li>KPI &amp; measurement framework</li>
+        </ul>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-bar svc-bar--yellow"></div>
+        <h3>Gameday Capture Support</h3>
+        <p>Remote creative direction throughout the gameday arc, real-time quality review as clips come in, and on-site support for playoff matches when it's worth it.</p>
+        <ul>
+          <li>Remote capture direction</li>
+          <li>Real-time quality review</li>
+          <li>On-site playoff support</li>
+          <li>Unlimited filmers deployed</li>
+          <li>Same-day content sync</li>
+        </ul>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-bar svc-bar--pink"></div>
+        <h3>Edit, Brand &amp; Deliver</h3>
+        <p>Quick-turn editing, KC Current–branded motion graphics, subtitles, and platform-optimized packaging for TikTok, Instagram, paid social, and in-stadium screens.</p>
+        <ul>
+          <li>24-hour recap turnaround</li>
+          <li>Branded motion graphics</li>
+          <li>Platform-specific formatting</li>
+          <li>Evergreen b-roll bank</li>
+          <li>Paid social asset packages</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURVE: light → yellow ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fafafa"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="contain">
+    <h2 class="reveal">Let's capture what it feels like<br><span>to be KC Current.</span></h2>
+    <p class="reveal reveal-d1">Four concepts. One playoff game to prove it. Start small, and let the library compound into next season.</p>
+  </div>
+</section>
+
+<!-- ═══ CURVE: yellow → dark ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="contain">
+    <div class="footer-inner">
+      <img class="footer-logo" src="/assets/5b29f7e3-cb_white.png" alt="Cinebody">
+      <div class="footer-br">Cinebody Creative Services</div>
+      <div class="footer-legal">Confidential · KC Current × Cinebody · 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+// ── Scroll reveal ──
+(function(){
+  var o = new IntersectionObserver(function(e){
+    e.forEach(function(el){ if(el.isIntersecting){ el.target.classList.add('vis'); o.unobserve(el.target); }});
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ o.observe(el); });
+})();
+
+// ── Scroll progress bar ──
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function(){
+    var st = window.pageYOffset;
+    var dh = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (dh > 0 ? (st / dh) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+// ── Autoplay vid-block videos on scroll into view ──
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      if (el.classList.contains('loaded')) return;
+      var id = el.dataset.vimeo;
+      var h  = el.dataset.vimeoH;
+      if (!id) return;
+      // controls=0 hides UI but keeps full API access for volume control
+      var src;
+      if (h) {
+        src = 'https://player.vimeo.com/video/' + id + '?h=' + h + '&controls=0&autoplay=1&loop=1&muted=1&autopause=0';
+      } else {
+        src = 'https://player.vimeo.com/video/' + id + '?controls=0&autoplay=1&loop=1&muted=1&autopause=0';
+      }
+      var iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.allow = 'autoplay';
+      iframe.loading = 'lazy';
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;z-index:0;';
+      el.appendChild(iframe);
+      el.classList.add('loaded');
+      obs.unobserve(el);
+      if (typeof Vimeo !== 'undefined') {
+        (function(card, ifr){
+          var player = new Vimeo.Player(ifr);
+          var isMuted = true;
+          var btn = document.createElement('button');
+          btn.className = 'vp-mute';
+          btn.setAttribute('aria-label', 'Toggle audio');
+          btn.innerHTML =
+            '<svg class="ic-m" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>' +
+            '<svg class="ic-u" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+          btn.addEventListener('click', function(ev){
+            ev.stopPropagation();
+            isMuted = !isMuted;
+            player.setVolume(isMuted ? 0 : 1).catch(function(){});
+            btn.querySelector('.ic-m').style.display = isMuted ? '' : 'none';
+            btn.querySelector('.ic-u').style.display = isMuted ? 'none' : '';
+          });
+          card.appendChild(btn);
+        }(el, iframe));
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.vid-block[data-vimeo]').forEach(function(el){
+    obs.observe(el);
+  });
+})();
+
+</script>
+
+</body>
+</html>

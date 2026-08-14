@@ -3,5 +3,6 @@ Allow: /
 Disallow: /boeing
 Disallow: /giin
 Disallow: /gilead-cds
+Disallow: /kc-current
 
 Sitemap: https://www.cinebody.com/sitemap-index.xml
