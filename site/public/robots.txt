@@ -4,5 +4,6 @@ Disallow: /boeing
 Disallow: /giin
 Disallow: /gilead-cds
 Disallow: /kc-current
+Disallow: /royal-caribbean-renewal
 
 Sitemap: https://www.cinebody.com/sitemap-index.xml
