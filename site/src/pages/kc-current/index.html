@@ -108,6 +108,11 @@ a { color: inherit; text-decoration: none; }
 
 .hero .contain { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 
+.hero-logos { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.hero-logos img { height: 20px; width: auto; }
+.hero-logos img.barnett-logo { height: 26px; }
+.hero-logos span { color: var(--text-muted); font-size: 16px; font-weight: 300; }
+
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;
@@ -119,7 +124,9 @@ a { color: inherit; text-decoration: none; }
 .hero h1 { font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; color: #fff; }
 .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 
-.hero-body { font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 32px; }
+.hero-case { max-width: 500px; margin-bottom: 28px; }
+.hero-case p { font-size: 0.92rem; line-height: 1.65; color: var(--text-dim); }
+.hero-case p + p { margin-top: 14px; }
 .hero-note { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top: 16px; letter-spacing: 0.02em; }
 
 /* Hero 3-column scrolling video strip */
@@ -296,7 +303,9 @@ a { color: inherit; text-decoration: none; }
    ══════════════════════════════════ */
 .footer { background: var(--bg); padding: 40px 0 28px; border-top: 1px solid var(--border); }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.footer-logos { display: flex; align-items: center; gap: 14px; }
 .footer-logo { height: 18px; filter: brightness(0) invert(1); opacity: 0.4; }
+.footer-logo--barnett { height: 22px; }
 .footer-br { font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
 .footer-legal { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
 
@@ -347,9 +356,17 @@ a { color: inherit; text-decoration: none; }
 <section class="hero">
   <div class="contain">
     <div class="reveal">
-      <div class="hero-eyebrow">KC Current × Cinebody · Playoff Pitch</div>
+      <div class="hero-logos">
+        <img src="/assets/5b29f7e3-cb_white.png" alt="Cinebody">
+        <span>+</span>
+        <img class="barnett-logo" src="/assets/f4a8b21c-barnett-brand-co-white.png" alt="Barnett Brand Co.">
+      </div>
+      <div class="hero-eyebrow">Cinebody + Barnett Brand Co. · KC Current Playoff Pitch</div>
       <h1>It's not about<br>the match.<br><em>It's about being there.</em></h1>
-      <p class="hero-body">Four strategic UGC concepts built around one idea: experience over sport. Not highlights, not broadcast. The human, unscripted layer around KC Current. The jersey going on at home. The tailgate. The walk into CPKC. The roar.</p>
+      <div class="hero-case">
+        <p>National research suggests the market for live sports is considerably larger than the market for any individual sport. S&amp;P Global found that over 75% of Americans consider themselves avid sports fans, having attended an NFL, NBA, MLB, or NHL game in the past year, compared to just 12% who consider themselves avid soccer fans. That's an opportunity to open the aperture and expand the addressable market.</p>
+        <p>The Current's growth ceiling shouldn't be determined by the number of people who consider themselves soccer fans. It should be determined by the number of people who want to experience something memorable.</p>
+      </div>
       <p class="hero-note">Trusted by Royal Caribbean, Dell, Nike, Crocs &amp; 100+ brands</p>
     </div>
 
@@ -643,7 +660,7 @@ a { color: inherit; text-decoration: none; }
         </div>
         <div class="service-note">
           <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-          <div class="service-note-text"><strong>The Cinebody Creative Services Team handles:</strong> Creator recruitment and incentives, the day's shot list and route, remote direction during capture, and edited delivery ready for ticketing, tourism, and social.</div>
+          <div class="service-note-text"><strong>The Cinebody + Barnett Brand Co. Creative Services Team handles:</strong> Creator recruitment and incentives, the day's shot list and route, remote direction during capture, and edited delivery ready for ticketing, tourism, and social.</div>
         </div>
       </div>
 
@@ -764,16 +781,16 @@ a { color: inherit; text-decoration: none; }
 <section class="services" style="padding-top:60px">
   <div class="contain">
     <div class="services-head reveal">
-      <div class="label">Cinebody Creative Services</div>
+      <div class="label">Cinebody + Barnett Brand Co. Creative Services</div>
       <h2>You bring the access.<br>We handle everything else.</h2>
-      <p>Fans and creators film on the phones already in their pockets. Cinebody's Creative Services team does the rest (strategy, direction, editing, and delivery), stepping in as much or as little as makes sense alongside KC Current Studios.</p>
+      <p>Fans and creators film on the phones already in their pockets. Cinebody and Barnett Brand Co.'s creative teams do the rest (strategy, direction, editing, and delivery), stepping in as much or as little as makes sense alongside KC Current Studios.</p>
     </div>
     <div class="svc-grid reveal reveal-d1">
 
       <div class="svc-card">
         <div class="svc-bar svc-bar--teal"></div>
         <h3>Program Design &amp; Recruitment</h3>
-        <p>Cinebody maps each concept to a run-of-show, writes every shot list and prompt, and handles recruiting and incentivizing the fans and creators who film.</p>
+        <p>Cinebody and Barnett Brand Co. map each concept to a run-of-show together, write every shot list and prompt, and handle recruiting and incentivizing the fans and creators who film.</p>
         <ul>
           <li>Concept &amp; program mapping</li>
           <li>Shot list &amp; prompt creation</li>
@@ -831,9 +848,12 @@ a { color: inherit; text-decoration: none; }
 <footer class="footer">
   <div class="contain">
     <div class="footer-inner">
-      <img class="footer-logo" src="/assets/5b29f7e3-cb_white.png" alt="Cinebody">
-      <div class="footer-br">Cinebody Creative Services</div>
-      <div class="footer-legal">Confidential · KC Current × Cinebody · 2026</div>
+      <div class="footer-logos">
+        <img class="footer-logo" src="/assets/5b29f7e3-cb_white.png" alt="Cinebody">
+        <img class="footer-logo footer-logo--barnett" src="/assets/f4a8b21c-barnett-brand-co-white.png" alt="Barnett Brand Co.">
+      </div>
+      <div class="footer-br">Cinebody + Barnett Brand Co.</div>
+      <div class="footer-legal">Confidential · KC Current × Cinebody + Barnett Brand Co. · 2026</div>
     </div>
   </div>
 </footer>
