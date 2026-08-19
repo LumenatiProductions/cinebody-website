@@ -193,6 +193,8 @@ a { color: inherit; text-decoration: none; }
 .pillar-grid--flip { direction: rtl; }
 .pillar-grid--flip > * { direction: ltr; }
 .vid-solo { max-width: 260px; margin: 0 auto; }
+.vid-solo .vid-block { aspect-ratio: 9/16; }
+.vid-solo .vid-block--light { border-color: #e0e0e0; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
 .vid-caption { text-align: center; margin-top: 12px; font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
 
 /* ── PROGRAM SHOWCASE (3-up video grid) ── */
@@ -233,6 +235,12 @@ a { color: inherit; text-decoration: none; }
 .rc-tl-body p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
 .rc-source { margin-top: 20px; font-size: 0.78rem; color: var(--text-muted); }
 .rc-source a { color: var(--pink); font-weight: 600; }
+
+/* ── PITCHED CONCEPTS GRID ── */
+.pitch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+.pitch-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.83rem; color: var(--text-dim); line-height: 1.5; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.pitch-num { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--pink); flex-shrink: 0; }
+.pitch-tag { display: block; font-family: var(--mono); font-size: 8px; font-weight: 600; color: var(--pink); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 6px; }
 
 /* ── COST GRID ── */
 .cost-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px; }
@@ -315,24 +323,10 @@ a { color: inherit; text-decoration: none; }
   .scr-card { width: 115px; }
   .bridge-four { grid-template-columns: 1fr; }
   .rc-tl-item { grid-template-columns: 1fr; gap: 6px; }
+  .pitch-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; text-align: center; }
 }
 
-/* ── PLACEHOLDER FLAG ── */
-.flag { display: inline-block; background: rgba(255,236,3,0.08); border: 1px dashed rgba(255,236,3,0.35); color: var(--yellow); font-family: var(--mono); font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 600; }
-.pillar--light .flag, .services .flag { background: rgba(0,188,241,0.06); border-color: rgba(0,188,241,0.3); color: #0a8fbd; }
-
-/* ── VIDEO PLACEHOLDER ── */
-.vid-placeholder {
-  aspect-ratio: 9/16; border-radius: var(--radius);
-  border: 1px dashed rgba(255,255,255,0.22); background: rgba(255,255,255,0.02);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-}
-.vid-placeholder svg { width: 30px; height: 30px; color: var(--text-muted); }
-.vid-placeholder span { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); text-align: center; padding: 0 20px; }
-.pillar--light .vid-placeholder { border-color: rgba(0,0,0,0.15); background: rgba(0,0,0,0.02); }
-.pillar--light .vid-placeholder svg { color: #999; }
-.pillar--light .vid-placeholder span { color: #999; }
 
 /* ── NEXT-STEP PRICE ROW ── */
 .svc-price { margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -441,7 +435,7 @@ a { color: inherit; text-decoration: none; }
     <div class="reveal">
       <div class="bridge-tag">Who We Are</div>
       <h2>The platform, and the team, behind three years of fleet content.</h2>
-      <p class="bridge-body">Cinebody is a patented video capture platform that lets brands collect professional-quality footage from their own people: no production crews flown in, no outsourced talent. A shot list controls exactly what gets filmed, resolution, framing, creative direction, and onboard crew capture it on their own phones. Footage syncs to the dashboard the moment it's recorded. That software is paired with Cinebody's in-house creative services team: producers and editors who turn raw footage into finished, on-brand content, so Royal Caribbean's team never touches a timeline. Since August 2023, that combination has run as a dedicated content engine for the fleet.</p>
+      <p class="bridge-body">Cinebody is a patented video capture platform that lets brands collect professional-quality footage from their own people: no production crews flown in, no outsourced talent. The platform can guide capture directly with a shot list controlling resolution, framing, and creative direction. Royal Caribbean's onboard crew capture on their own phones and use the platform primarily to organize and store that footage, which syncs to the dashboard the moment it's recorded. From there, Cinebody's in-house creative services team, producers and editors who already know the brand, turn raw footage into finished, on-brand content, so Royal Caribbean's team never touches a timeline. Since August 2023, that combination has run as a dedicated content engine for the fleet.</p>
       <div class="bridge-four">
         <div class="bridge-item">
           <div class="num">Aug 2023</div>
@@ -474,7 +468,7 @@ a { color: inherit; text-decoration: none; }
       <div class="pillar-num">The Work</div>
       <div class="pillar-tag">Case Study</div>
       <h2><em>Three programs, one platform,</em> covering the entire fleet.</h2>
-      <p class="pillar-body">Waterslides, dining, entertainment, destinations, the CDOs: all captured by onboard crew, guided by Cinebody's shot-list technology, and turned around by producers and editors who already know the brand. Three programs cover it end to end.</p>
+      <p class="pillar-body">Waterslides, dining, entertainment, destinations, and the fleet's Chief Dog Officers: all captured onboard, organized on Cinebody's platform, and turned around by producers and editors who already know the brand. Three programs cover it end to end, and the CDO program has consistently been the most requested piece of the partnership.</p>
 
       <div class="prog-grid">
         <div class="prog-card">
@@ -491,8 +485,9 @@ a { color: inherit; text-decoration: none; }
             <img src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" alt="Rover Bougie" loading="lazy">
           </div>
           <div class="prog-card-body">
-            <h3>Rover</h3>
-            <p>The fleet's most-loved face. Meet-and-greets and on-deck moments that consistently rank among the best-performing organic content.</p>
+            <div style="font-family:var(--mono);font-size:9px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">Most Requested</div>
+            <h3>Chief Dog Officers</h3>
+            <p>Rover, Skipper, and Sailor: the fleet's onboard CDOs. Meet-and-greets and on-deck moments that consistently rank among the best-performing organic content on the account.</p>
           </div>
         </div>
         <div class="prog-card">
@@ -528,18 +523,17 @@ a { color: inherit; text-decoration: none; }
         <div class="highlight-box">
           <div class="big">292K</div>
           <div class="cap">Engagement views, one clip</div>
-          <p>Details and creative breakdown of this piece to follow. <span class="flag">Placeholder: Sophia to confirm which clip and swap in the embed</span></p>
+          <p>This is the piece: a POV moment from a Royal Caribbean sailing that resonated far beyond a typical organic post.</p>
         </div>
       </div>
 
       <!-- Visual: RIGHT -->
       <div>
         <div class="vid-solo">
-          <div class="vid-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-            <span>Clip to be added</span>
+          <div class="vid-block vid-block--v vid-block--light" data-vimeo="1148687631" data-vimeo-h="e919de1322">
+            <img src="https://i.vimeocdn.com/video/2098977776-321d4abbf0d1d39a01de6315f56032278e58c757a73c71274b80968dc1f9c63e-d_640" alt="POV you're 2 years old swimming in the Caribbean" loading="lazy">
           </div>
-          <p class="vid-caption" style="color:#bbb">292K engagement views · source pending</p>
+          <p class="vid-caption" style="color:#bbb">"POV you're 2 years old swimming in the Caribbean"</p>
         </div>
       </div>
 
@@ -586,7 +580,16 @@ a { color: inherit; text-decoration: none; }
 
       <div class="service-note" style="margin-top:28px">
         <svg class="service-note-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        <div class="service-note-text"><strong>Other opportunities on the table:</strong> <span class="flag">Placeholder: Sophia to add any additional ideas or intel pitched during renewal conversations</span></div>
+        <div class="service-note-text"><strong>Already pitched for this next phase:</strong> seven CDO concepts scoped during renewal conversations, ready to move into production once terms are set.</div>
+      </div>
+      <div class="pitch-grid">
+        <div class="pitch-item"><span class="pitch-num">01</span><div>Dog jobs, one per department across the ship<span class="pitch-tag">Needs handlers to refilm</span></div></div>
+        <div class="pitch-item"><span class="pitch-num">02</span><div>What working on a cruise ship actually looks like, including working hours and scheduled nap hours<span class="pitch-tag">Needs handlers to refilm</span></div></div>
+        <div class="pitch-item"><span class="pitch-num">03</span><div>Rover's birthday wish list</div></div>
+        <div class="pitch-item"><span class="pitch-num">04</span><div>Skipper getting dressed up for port day</div></div>
+        <div class="pitch-item"><span class="pitch-num">05</span><div>Skipper's summer break starter pack</div></div>
+        <div class="pitch-item"><span class="pitch-num">06</span><div>Sailor posing for content</div></div>
+        <div class="pitch-item"><span class="pitch-num">07</span><div>National Dog Day ship takeover</div></div>
       </div>
     </div>
   </div>
