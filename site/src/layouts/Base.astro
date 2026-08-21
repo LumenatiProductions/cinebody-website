@@ -14,7 +14,7 @@ const {
 } = Astro.props;
 
 const siteName = 'Cinebody';
-const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Real people, run by AI`;
+const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Real people film it. AI does the rest.`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || Astro.site.href;
 const ogImage = new URL(image, Astro.site).href;
 

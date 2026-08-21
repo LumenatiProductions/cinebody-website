@@ -6,8 +6,8 @@ Voice: humans-first, specific about what the AI does, subtle on anti-slop, outco
 
 ## 1. Hero
 - Eyebrow: `AUTHENTIC VIDEO PRODUCTION PLATFORM`
-- **H1: Real people, run by AI.**
-- Sub: The everyday video your brand needs, filmed by your people, finished by AI.
+- **H1: Real people film it. AI does the rest.** *(revised 2026-08-21; "Real people, run by AI" read like the people were run by AI)*
+- Sub: The everyday video your brand needs, made by the people who already love you, at the speed your channels demand.
 - Buttons: [Book a Demo] · [See how it works]
 - Trust: Trusted by Nike, Royal Caribbean, Dell, and 100+ brands
 

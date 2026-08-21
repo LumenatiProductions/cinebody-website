@@ -1,7 +1,7 @@
 # Cinebody: Positioning & Marketing-Site Strategy
 
 ## LOCKED DECISIONS (crafting session, 2026-08-20)
-- **Hero line:** "Real people, run by AI."
+- **Hero line:** "Real people film it. AI does the rest." *(revised 2026-08-21 from "Real people, run by AI.", which misread as the people being run by AI)*
 - **Hero subhead:** "The everyday video your brand needs, filmed by your people, finished by AI."
 - **Category label** (nav/meta/what-is-this): "authentic video production platform."
 - **#1 differentiator:** both, layered — real people = the promise, the connected AI pipeline = the proof.
