@@ -231,8 +231,8 @@ body > * { position: relative; z-index: 1; }
 .cb-pricing__header p { font-size: clamp(1rem, 2vw, 1.15rem); color: #71717a; line-height: 1.6; max-width: 680px; margin: 0 auto; }
 .cb-pricing__savings { display: block; margin: 20px auto 32px; padding: 10px 24px; background: linear-gradient(135deg, #fefde6 0%, #fdf9b8 100%); border: 1px solid rgba(254,242,71,0.35); border-radius: 100px; width: fit-content; font-size: 0.9rem; font-weight: 500; color: #3f3f46; text-align: center; }
 .cb-pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-.cb-pricing__card { position: relative; background: #fff; border: 1px solid #ededef; border-radius: 16px; padding: 36px 30px 32px; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s; }
-.cb-pricing__card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+.cb-pricing__card { position: relative; background: #fff; border: 1px solid #ededef; border-radius: 16px; padding: 36px 30px 32px; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1), box-shadow 0.6s cubic-bezier(0.22,1,0.36,1), border-color 0.6s ease; }
+.cb-pricing__card:hover { transform: translateY(-10px) scale(1.01); border-color: rgba(7,188,241,0.55); box-shadow: 0 28px 56px rgba(0,0,0,0.09), 0 0 0 1px rgba(7,188,241,0.12); }
 .cb-pricing__card--featured { border: 2px solid #07BCF1; box-shadow: 0 12px 32px rgba(7,188,241,0.14); }
 .cb-pricing__card--featured:hover { box-shadow: 0 24px 48px rgba(7,188,241,0.2); }
 .cb-pricing__badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: #07BCF1; color: #fff; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 16px; border-radius: 100px; white-space: nowrap; }
