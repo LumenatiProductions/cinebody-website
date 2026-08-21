@@ -1,0 +1,165 @@
+<!-- Cinebody, Work index
+     All case studies in one place. The proof engine. -->
+
+<style>
+:root {
+  --teal: #00bcf1;
+  --yellow: #ffec03;
+  --pink: #eb008b;
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.1);
+  --text: #e8e8e8;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-muted: rgba(255,255,255,0.3);
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'Plus Jakarta Sans', sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; position: relative; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+body > * { position: relative; z-index: 1; }
+
+.curve { position: relative; z-index: 3; width: 100%; line-height: 0; font-size: 0; margin-top: -10px; margin-bottom: -10px; background: none !important; }
+.curve svg { display: block; width: 100%; height: 70px; }
+@media (max-width: 600px) { .curve svg { height: 90px; } }
+
+.contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+.label { font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 20px; }
+
+.scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--teal), var(--pink)); z-index: 9999; transition: none; }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font); font-size: 14px; font-weight: 600; padding: 13px 30px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s var(--ease); position: relative; isolation: isolate; }
+.btn-glow { background: var(--teal); color: #fff; box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3); }
+.btn-glow::before { content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1; background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow)); opacity: 0; transition: opacity 0.5s ease; filter: blur(8px); }
+.btn-glow:hover::before { opacity: 0.7; }
+.btn-glow:hover { box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3); transform: translateY(-2px); }
+.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg { transform: translateX(3px); }
+
+/* ═══ HERO, centered, no wall ═══ */
+.hero { padding: 120px 0 90px; text-align: center; position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 20%, rgba(0,188,241,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 25% 80%, rgba(235,0,139,0.06) 0%, transparent 70%),
+    linear-gradient(180deg, #0a0a0a 0%, #041a24 100%);
+}
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); background: rgba(0,188,241,0.08); border: 1px solid rgba(0,188,241,0.15); padding: 8px 18px; border-radius: 100px; margin-bottom: 28px; }
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5); }
+.hero h1 { font-size: clamp(3.4rem, 6.5vw, 5.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px; color: #fff !important; }
+.hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--teal) 0%, #33d6ff 50%, var(--teal) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-body { font-size: 1.15rem; line-height: 1.65; color: var(--text-dim); max-width: 560px; margin: 0 auto; }
+
+/* ═══ CASES GRID, light ═══ */
+.cases { background: #fff; color: #111; padding: 90px 0 110px; }
+.cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .cases-grid { grid-template-columns: 1fr; } .case-card { aspect-ratio: 4/3; } }
+
+.case-card { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; transition: transform 0.5s var(--ease); }
+.case-card:hover { transform: translateY(-4px); }
+.case-card .case-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+.case-card:hover .case-bg { transform: scale(1.04); }
+.case-card .case-ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.08) 100%); }
+.case-card .case-tint { position: absolute; inset: 0; z-index: 1; transition: opacity 0.5s ease; }
+.case-card:nth-child(3n+1) .case-tint { background: linear-gradient(135deg, rgba(0,188,241,0.12) 0%, transparent 100%); }
+.case-card:nth-child(3n+2) .case-tint { background: linear-gradient(135deg, rgba(235,0,139,0.1) 0%, transparent 100%); }
+.case-card:nth-child(3n) .case-tint { background: linear-gradient(135deg, rgba(255,236,3,0.08) 0%, transparent 100%); }
+.case-card:hover .case-tint { opacity: 0; }
+.case-card .case-ct { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 18px; z-index: 2; }
+.case-card .case-logo { height: 24px; width: auto; max-width: 130px; object-fit: contain; filter: brightness(0) invert(1); margin-bottom: 10px; opacity: 0.9; }
+.case-card:nth-child(3) .case-logo { height: 30px; }
+.case-card:nth-child(4) .case-logo { height: 52px; }
+.case-card:nth-child(5) .case-logo { height: 32px; max-width: 140px; }
+.case-card:nth-child(6) .case-logo { height: 21px; }
+.case-card:nth-child(7) .case-logo { height: 22px; }
+.case-card:nth-child(8) .case-logo { height: 32px; border-radius: 6px; filter: none !important; }
+.case-card:nth-child(9) .case-logo { height: 24px; max-width: 140px; }
+.case-card:nth-child(9) .case-bg { object-position: calc(65% - 20px) center; }
+.case-card .case-name { font-family: var(--font); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+.case-card .case-stat { font-family: var(--font); font-size: 11px; font-weight: 600; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+.case-card .case-desc { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+/* ═══ CTA BAND, yellow ═══ */
+.cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
+.cta-band h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; color: #111 !important; line-height: 1.2; margin-bottom: 28px; }
+.cta-band h2 span { color: var(--teal) !important; }
+.cta-band .btn-glow { background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.15); }
+.cta-band .btn-glow:hover { box-shadow: 0 0 40px rgba(0,0,0,0.25); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+</style>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="contain reveal">
+    <div class="hero-eyebrow">Work</div>
+    <h1>Real people. <em>Real results.</em></h1>
+    <p class="hero-body">The programs brands run on Cinebody, filmed by their own employees, customers, and fans, delivered at&nbsp;scale.</p>
+  </div>
+</section>
+
+<!-- curve: dark → light -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ CASE STUDIES ═══ -->
+<section class="cases">
+  <div class="contain">
+    <div class="cases-grid reveal reveal-d1">
+      <a href="/pointme" class="case-card"><img class="case-bg" src="/assets/15ab1c0a-Screenshot-2025-07-15-at-8.52.47-AM.webp" alt="point.me" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/e57369db-PointMe_Logo_alt.png" alt="point.me"/><div class="case-name">point.me</div><div class="case-stat">1 Shoot &middot; 70+ Customers</div><div class="case-desc">Full multi-platform campaign from one shoot.</div></div></a>
+      <a href="/royal-caribbean" class="case-card"><img class="case-bg" src="/assets/2a8eac3b-Screenshot-2025-07-15-at-9.03.36-AM.webp" alt="Royal Caribbean" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/de31bd3b-RCI_Brand_Logo_2-Line_Horiz_White.webp" alt="Royal Caribbean"/><div class="case-name">Royal Caribbean</div><div class="case-stat">Entire Fleet &middot; Always On</div><div class="case-desc">Crew became the content team.</div></div></a>
+      <a href="/nike" class="case-card"><img class="case-bg" src="/assets/d87edd28-Screenshot-2025-07-20-at-4.55.19-PM.webp" alt="Nike" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/41b18bc0-60-609637_nike-logo-png-white.png" alt="Nike"/><div class="case-name">Nike</div><div class="case-stat">4 Cities &middot; 1 Weekend</div><div class="case-desc">Nationwide run club content at scale.</div></div></a>
+      <a href="/dell" class="case-card"><img class="case-bg" src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" alt="Dell" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/02f77588-dell-2-logo-png-transparent.png" alt="Dell"/><div class="case-name">Dell Technologies</div><div class="case-stat">5 Programs &middot; 100+ Videos</div><div class="case-desc">A global content engine, zero production crews.</div></div></a>
+      <a href="/georgia-pacific" class="case-card"><img class="case-bg" src="/assets/32d46aa7-Paper-Plate-Dinosaur-Craft.aShadeOfTeal-3.webp" alt="Georgia-Pacific" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/52205690-444-4440410_gp-bug-color-georgia-pacific-logo-white-clipart.png" alt="Georgia-Pacific"/><div class="case-name">Georgia-Pacific</div><div class="case-stat">3 Brands &middot; 1 Platform</div><div class="case-desc">Authentic video across consumer brands.</div></div></a>
+      <a href="/altra" class="case-card"><img class="case-bg" src="https://i.vimeocdn.com/video/2025241323-e06eacd171ff7bf6d1a8c9cf93d3a832638c42f88d0dff5afa4ed3e6df125c32-d_640" alt="Altra" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/448c4d68-Altra_running_logo.png" alt="Altra"/><div class="case-name">Altra Running</div><div class="case-stat">&infin; Athletes &middot; Always On</div><div class="case-desc">Athletes tell the story. Cinebody captures it.</div></div></a>
+      <a href="/crocs" class="case-card"><img class="case-bg" src="/assets/4e47bf89-Crocs_2031-Group_.webp" alt="Crocs" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/0eec5de8-Crocs_wordmark.svg.png" alt="Crocs"/><div class="case-name">Crocs</div><div class="case-stat">Global &middot; 8 Channels</div><div class="case-desc">Sustainability, captured authentically.</div></div></a>
+      <a href="/cogent" class="case-card"><img class="case-bg" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="Cogent World" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/2bc61a05-1629489003234.jpg" alt="Cogent World"/><div class="case-name">Cogent World</div><div class="case-stat">11 Festivals &middot; Always On</div><div class="case-desc">In-the-moment content from every event.</div></div></a>
+      <a href="/sploot" class="case-card"><img class="case-bg" src="https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640" alt="Sploot Veterinary Care" loading="lazy"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/ca32b25a-Sploot-Horizontal-Full-Color-Rgb-2000px-w-72ppi.png" alt="Sploot"/><div class="case-name">Sploot Veterinary Care</div><div class="case-stat">1 Shoot &middot; 6 Deliverables</div><div class="case-desc">Geo-targeted CTV from real patrons.</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- curve: light → yellow -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-band">
+  <div class="contain">
+    <h2 class="reveal">Ready to put <span>your people</span> on camera?</h2>
+    <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow reveal reveal-d1">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+</section>
+
+<!-- curve: yellow → dark -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<script>
+// Reveal
+(function(){
+  var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
+})();
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>

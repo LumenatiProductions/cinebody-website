@@ -263,6 +263,10 @@ body > * { position: relative; z-index: 1; }
 .cb-pricing__cta--secondary:hover { background: #0099c8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(7,188,241,0.4); }
 .cb-pricing__cta--outline { background: transparent; color: #0d0d0d; border: 1.5px solid #c4c4c8; }
 .cb-pricing__cta--outline:hover { border-color: #07BCF1; color: #07BCF1; background: #e6f7fd; transform: translateY(-1px); }
+.cb-pricing__toggle { display: flex; justify-content: center; gap: 0; margin: 0 auto 36px; width: fit-content; background: #fff; border: 1px solid #e4e4e7; border-radius: 100px; padding: 4px; }
+.cb-pricing__toggle-btn { font-family: var(--font); font-size: 0.88rem; font-weight: 600; color: #71717a; background: transparent; border: none; border-radius: 100px; padding: 9px 22px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.25s ease, color 0.25s ease; }
+.cb-pricing__toggle-btn.is-active { background: #07BCF1; color: #fff; }
+.cb-pricing__toggle-btn .save { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: #FEF247; color: #0d0d0d; padding: 3px 8px; border-radius: 100px; }
 .cb-pricing__footer { text-align: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid #ededef; }
 .cb-pricing__footer p { font-size: 0.9rem; color: #71717a; line-height: 1.6; max-width: 560px; margin: 0 auto; }
 .cb-pricing__footer a { color: #07BCF1; font-weight: 600; text-decoration: none; }
@@ -389,14 +393,18 @@ body > * { position: relative; z-index: 1; }
     <p>Run it yourself or bring in our team. Either way, you're getting real content from real people, at a fraction of traditional production&nbsp;costs.</p>
   </div>
   <div class="cb-pricing__savings">Brands using Cinebody typically save 70%+ vs. traditional production</div>
+  <div class="cb-pricing__toggle" role="group" aria-label="Billing period">
+    <button type="button" class="cb-pricing__toggle-btn" data-period="monthly" aria-pressed="false">Monthly</button>
+    <button type="button" class="cb-pricing__toggle-btn is-active" data-period="annual" aria-pressed="true">Annual <span class="save">Save 17%</span></button>
+  </div>
   <div class="cb-pricing__grid">
     <div class="cb-pricing__card">
       <div class="cb-pricing__plan-name">Plus</div>
       <div class="cb-pricing__plan-title" style="font-family:'Plus Jakarta Sans',sans-serif">For small teams</div>
       <div class="cb-pricing__plan-desc">Everything you need to start capturing community video on your own.</div>
       <div class="cb-pricing__price-wrap">
-        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount">250</span><span class="cb-pricing__price-period">/mo</span></div>
-        <div class="cb-pricing__price-billing">Billed annually. $300 billed monthly.</div>
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="250" data-monthly="300">250</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed month to month">Billed annually</div>
       </div>
       <div class="cb-pricing__divider"></div>
       <div class="cb-pricing__features-label">What's included</div>
@@ -416,8 +424,8 @@ body > * { position: relative; z-index: 1; }
       <div class="cb-pricing__plan-title" style="font-family:'Plus Jakarta Sans',sans-serif">For growing brands</div>
       <div class="cb-pricing__plan-desc">Scale content across multiple projects with more storage and dedicated support.</div>
       <div class="cb-pricing__price-wrap">
-        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount">500</span><span class="cb-pricing__price-period">/mo</span></div>
-        <div class="cb-pricing__price-billing">Billed annually. $600 billed monthly.</div>
+        <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount" data-annual="500" data-monthly="600">500</span><span class="cb-pricing__price-period">/mo</span></div>
+        <div class="cb-pricing__price-billing" data-annual="Billed annually" data-monthly="Billed month to month">Billed annually</div>
       </div>
       <div class="cb-pricing__divider"></div>
       <div class="cb-pricing__features-label">Everything in Plus, and</div>
@@ -489,6 +497,28 @@ body > * { position: relative; z-index: 1; }
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }, { passive: true });
+})();
+
+// Billing toggle
+(function(){
+  var btns = document.querySelectorAll('.cb-pricing__toggle-btn');
+  if (!btns.length) return;
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var period = btn.dataset.period;
+      btns.forEach(function(b){
+        var on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      document.querySelectorAll('.cb-pricing__price-amount[data-annual]').forEach(function(el){
+        el.textContent = el.dataset[period];
+      });
+      document.querySelectorAll('.cb-pricing__price-billing[data-annual]').forEach(function(el){
+        el.textContent = el.dataset[period];
+      });
+    });
+  });
 })();
 
 // FAQ

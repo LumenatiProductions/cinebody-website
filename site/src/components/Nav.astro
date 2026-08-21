@@ -15,7 +15,7 @@ const caseStudies = [
   { label: 'Sploot', href: '/sploot' },
 ];
 const csKeys = caseStudies.map((c) => c.href.slice(1));
-const workActive = csKeys.includes(active);
+const workActive = active === 'work' || csKeys.includes(active);
 const resourcesActive = ['blog', 'knowledge-base'].includes(active);
 
 const LOGIN_URL = 'https://pro.cinebody.com/login';
@@ -41,7 +41,7 @@ const LOGO = '/assets/5b29f7e3-cb_white.png';
 
     <div class="site-nav__menu" id="navMenu">
       <ul class="site-nav__links">
-        <li><a href="/software" aria-current={active === 'software' ? 'page' : undefined}>Platform</a></li>
+        <li><a href="/platform" aria-current={active === 'platform' ? 'page' : undefined}>Platform</a></li>
 
         <li class="site-nav__item--menu">
           <button
@@ -56,6 +56,7 @@ const LOGO = '/assets/5b29f7e3-cb_white.png';
           <div class="site-nav__dropdown" role="menu">
             <span class="site-nav__dropdown-label">Case Studies</span>
             <div class="site-nav__dropdown-grid">
+              <a href="/work" role="menuitem" aria-current={active === 'work' ? 'page' : undefined}>All Work</a>
               {caseStudies.map((c) => (
                 <a href={c.href} role="menuitem" aria-current={active === c.href.slice(1) ? 'page' : undefined}>{c.label}</a>
               ))}

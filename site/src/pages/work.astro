@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../fragments/work.html?raw';
+---
+<Base title="Work" active="work" description="The programs brands run on Cinebody: Nike, Royal Caribbean, Dell, Point.me, and more. Real people, real stats, real video, at scale.">
+  <Fragment set:html={body} />
+</Base>

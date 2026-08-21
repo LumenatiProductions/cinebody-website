@@ -6,6 +6,9 @@ export default defineConfig({
   site: 'https://www.cinebody.com',
   output: 'static',
   trailingSlash: 'never',
+  redirects: {
+    '/software': '/platform',
+  },
   build: {
     format: 'directory', // /software/index.html -> served at /software
     inlineStylesheets: 'auto',
