@@ -16,8 +16,10 @@ const caseStudies = [
 ];
 const csKeys = caseStudies.map((c) => c.href.slice(1));
 const workActive = csKeys.includes(active);
+const resourcesActive = ['blog', 'knowledge-base'].includes(active);
 
 const LOGIN_URL = 'https://pro.cinebody.com/login';
+const DEMO_URL = 'https://calendly.com/gavin-cinebody/cinebody-intro2';
 const LOGO = '/assets/5b29f7e3-cb_white.png';
 ---
 
@@ -39,8 +41,7 @@ const LOGO = '/assets/5b29f7e3-cb_white.png';
 
     <div class="site-nav__menu" id="navMenu">
       <ul class="site-nav__links">
-        <li><a href="/software" aria-current={active === 'software' ? 'page' : undefined}>Software</a></li>
-        <li><a href="/services" aria-current={active === 'services' ? 'page' : undefined}>Services</a></li>
+        <li><a href="/software" aria-current={active === 'software' ? 'page' : undefined}>Platform</a></li>
 
         <li class="site-nav__item--menu">
           <button
@@ -62,11 +63,32 @@ const LOGO = '/assets/5b29f7e3-cb_white.png';
           </div>
         </li>
 
+        <li><a href="/services" aria-current={active === 'services' ? 'page' : undefined}>Services</a></li>
         <li><a href="/pricing" aria-current={active === 'pricing' ? 'page' : undefined}>Pricing</a></li>
-        <li><a href="/cinebody-blog" aria-current={active === 'blog' ? 'page' : undefined}>Blog</a></li>
-        <li><a href="/knowledge-base" aria-current={active === 'knowledge-base' ? 'page' : undefined}>Knowledge Base</a></li>
+
+        <li class="site-nav__item--menu">
+          <button
+            class="site-nav__disclosure"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-current={resourcesActive ? 'page' : undefined}
+          >
+            Resources
+            <svg class="site-nav__chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="site-nav__dropdown" role="menu">
+            <span class="site-nav__dropdown-label">Resources</span>
+            <div class="site-nav__dropdown-grid">
+              <a href="/cinebody-blog" role="menuitem" aria-current={active === 'blog' ? 'page' : undefined}>Blog</a>
+              <a href="/knowledge-base" role="menuitem" aria-current={active === 'knowledge-base' ? 'page' : undefined}>Knowledge Base</a>
+            </div>
+          </div>
+        </li>
       </ul>
-      <a class="site-nav__cta" href={LOGIN_URL}>Log in</a>
+      <div class="site-nav__actions">
+        <a class="site-nav__login" href={LOGIN_URL}>Log in</a>
+        <a class="site-nav__cta" href={DEMO_URL}>Book a Demo</a>
+      </div>
     </div>
   </div>
 </nav>
@@ -98,35 +120,41 @@ const LOGO = '/assets/5b29f7e3-cb_white.png';
       document.body.style.overflow = open ? 'hidden' : '';
     });
 
-    // "Work" disclosure (click toggles; CSS handles desktop hover/focus)
-    var disclosure = nav.querySelector('.site-nav__disclosure');
-    if (disclosure) {
+    // Disclosures (Work, Resources) — click toggles; CSS handles desktop hover/focus
+    var disclosures = Array.prototype.slice.call(nav.querySelectorAll('.site-nav__disclosure'));
+    function closeDisclosures(except) {
+      disclosures.forEach(function (d) {
+        if (d !== except) d.setAttribute('aria-expanded', 'false');
+      });
+    }
+    disclosures.forEach(function (disclosure) {
       disclosure.addEventListener('click', function (e) {
         e.preventDefault();
         var open = disclosure.getAttribute('aria-expanded') === 'true';
+        closeDisclosures(disclosure);
         disclosure.setAttribute('aria-expanded', open ? 'false' : 'true');
       });
-    }
+    });
 
     // Close everything when a link is tapped
     nav.querySelectorAll('.site-nav__menu a').forEach(function (a) {
       a.addEventListener('click', function () {
-        if (disclosure) disclosure.setAttribute('aria-expanded', 'false');
+        closeDisclosures();
         closeMenu();
       });
     });
 
     // Close on outside click (desktop dropdown)
     document.addEventListener('click', function (e) {
-      if (disclosure && !e.target.closest('.site-nav__item--menu')) {
-        disclosure.setAttribute('aria-expanded', 'false');
+      if (!e.target.closest('.site-nav__item--menu')) {
+        closeDisclosures();
       }
     });
 
     // Close on Escape
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
-      if (disclosure) disclosure.setAttribute('aria-expanded', 'false');
+      closeDisclosures();
       if (nav.classList.contains('open')) closeMenu();
     });
   })();

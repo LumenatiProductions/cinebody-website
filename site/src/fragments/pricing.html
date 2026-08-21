@@ -20,8 +20,8 @@
   --text: #e8e8e8;
   --text-dim: rgba(255,255,255,0.5);
   --text-muted: rgba(255,255,255,0.3);
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'Plus Jakarta Sans', sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 12px;
 }
@@ -142,7 +142,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero h1 {
-  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-size: clamp(3.4rem, 6.5vw, 5.5rem);
   font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
 }
 
@@ -153,7 +153,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero-body {
-  font-size: 1.1rem; line-height: 1.7; color: var(--text-dim); max-width: 560px; margin: 0 auto 36px;
+  font-size: 1.15rem; line-height: 1.65; color: var(--text-dim); max-width: 560px; margin: 0 auto 36px;
 }
 
 /* ═══════════════════════════
@@ -383,29 +383,29 @@ body > * { position: relative; z-index: 1; }
 
 <!-- ═══ PRICING, original proven design ═══ -->
 <div style="background:#fff">
-<div class="cb-pricing" id="plans" style="font-family:'Inter',sans-serif;max-width:1200px;margin:0 auto;padding:40px 24px 60px">
+<div class="cb-pricing" id="plans" style="font-family:'Plus Jakarta Sans',sans-serif;max-width:1200px;margin:0 auto;padding:40px 24px 60px">
   <div class="cb-pricing__header">
-    <h2 style="font-family:'Inter',sans-serif">Pick the plan that fits how you&nbsp;work.</h2>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif">Pick the plan that fits how you&nbsp;work.</h2>
     <p>Run it yourself or bring in our team. Either way, you're getting real content from real people, at a fraction of traditional production&nbsp;costs.</p>
   </div>
   <div class="cb-pricing__savings">Brands using Cinebody typically save 70%+ vs. traditional production</div>
   <div class="cb-pricing__grid">
     <div class="cb-pricing__card">
       <div class="cb-pricing__plan-name">Plus</div>
-      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For small teams</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Plus Jakarta Sans',sans-serif">For small teams</div>
       <div class="cb-pricing__plan-desc">Everything you need to start capturing community video on your own.</div>
       <div class="cb-pricing__price-wrap">
         <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount">250</span><span class="cb-pricing__price-period">/mo</span></div>
-        <div class="cb-pricing__price-billing">Billed annually</div>
+        <div class="cb-pricing__price-billing">Billed annually. $300 billed monthly.</div>
       </div>
       <div class="cb-pricing__divider"></div>
       <div class="cb-pricing__features-label">What's included</div>
       <ul class="cb-pricing__features">
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>1 Team</strong> with 2 admin seats</span></li>
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>25 GB</strong> cloud storage</span></li>
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Unlimited filmers</strong></span></li>
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Patented shot list technology</span></li>
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Photo capture + real-time sync</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Unlimited projects</strong>, 2 admin seats, unlimited filmers</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>AI Rough Cut</strong> auto-editor</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>AI Voice Interviews</strong></span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>AI shot list + clip review</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>100 GB</strong> storage, real-time sync</span></li>
         <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Email & FAQ support</span></li>
       </ul>
       <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="cb-pricing__cta cb-pricing__cta--outline">Get Started</a>
@@ -413,30 +413,30 @@ body > * { position: relative; z-index: 1; }
     <div class="cb-pricing__card cb-pricing__card--featured">
       <div class="cb-pricing__badge">Most Popular</div>
       <div class="cb-pricing__plan-name">Pro</div>
-      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For growing brands</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Plus Jakarta Sans',sans-serif">For growing brands</div>
       <div class="cb-pricing__plan-desc">Scale content across multiple projects with more storage and dedicated support.</div>
       <div class="cb-pricing__price-wrap">
         <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount">500</span><span class="cb-pricing__price-period">/mo</span></div>
-        <div class="cb-pricing__price-billing">Billed annually</div>
+        <div class="cb-pricing__price-billing">Billed annually. $600 billed monthly.</div>
       </div>
       <div class="cb-pricing__divider"></div>
       <div class="cb-pricing__features-label">Everything in Plus, and</div>
       <ul class="cb-pricing__features">
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Multiple teams</strong> as you grow</span></li>
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>5 admin seats</strong></span></li>
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>100 GB</strong> cloud storage</span></li>
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Dedicated support</strong></span></li>
-        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SSO integration</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Post Production clean-up</strong> (stabilize, audio, upscale, reframe)</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Advanced exports</strong> (.prproj, FCPXML, EDL)</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Multiple teams</strong>, 5 admin seats</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>500 GB</strong> cloud storage</span></li>
+        <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dedicated support, premium plugins</span></li>
         <li class="cb-pricing__feature"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.75 9L7.5 12.75L14.25 6" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom legal + API access</span></li>
       </ul>
       <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="cb-pricing__cta cb-pricing__cta--secondary">Book a Demo</a>
     </div>
     <div class="cb-pricing__card">
       <div class="cb-pricing__plan-name">Enterprise</div>
-      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For large organizations</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Plus Jakarta Sans',sans-serif">For large organizations</div>
       <div class="cb-pricing__plan-desc">Custom-built for your team's needs, storage, seats, security, and support.</div>
       <div class="cb-pricing__price-wrap">
-        <div class="cb-pricing__price-custom" style="font-family:'Inter',sans-serif">Let's scope it together.</div>
+        <div class="cb-pricing__price-custom" style="font-family:'Plus Jakarta Sans',sans-serif">Let's scope it together.</div>
         <div class="cb-pricing__price-custom-sub">Custom pricing based on your needs</div>
       </div>
       <div class="cb-pricing__divider"></div>

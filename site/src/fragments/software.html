@@ -20,8 +20,8 @@
   --text: #e8e8e8;
   --text-dim: rgba(255,255,255,0.5);
   --text-muted: rgba(255,255,255,0.3);
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'Plus Jakarta Sans', sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 12px;
 }
@@ -158,7 +158,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero h1 {
-  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-size: clamp(3.4rem, 6.5vw, 5.5rem);
   font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
   color: #fff !important;
 }
@@ -170,7 +170,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero-body {
-  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
+  font-size: 1.15rem; line-height: 1.65; color: var(--text-dim); max-width: 480px; margin-bottom: 36px;
 }
 
 .hero-trust { font-size: 12px; color: var(--text-muted); margin-top: 20px; font-family: var(--mono); letter-spacing: 0.02em; }
@@ -559,9 +559,9 @@ body > * { position: relative; z-index: 1; }
 <section class="hero">
   <div class="contain">
     <div class="reveal">
-      <div class="hero-eyebrow">Video Capture Platform</div>
-      <h1>Make <em>anyone</em> part of your content&nbsp;crew.</h1>
-      <p class="hero-body">Send a link. Set your shot list. Get footage back in real time, from employees, customers, or fans, anywhere in the world. No app download. No production&nbsp;crew.</p>
+      <div class="hero-eyebrow">The Platform</div>
+      <h1>The whole production, <em>run by AI.</em></h1>
+      <p class="hero-body">Every step from brief to finished video, automated and connected. The people are&nbsp;real.</p>
       <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
     </div>
@@ -612,6 +612,203 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
+<!-- ═══ THE CONNECTED PIPELINE (the star) ═══ -->
+<style>
+.pipeline { padding: 92px 0 100px; position: relative; background: linear-gradient(180deg,#0a0a0a 0%,#08131a 100%); overflow: hidden; }
+.pipeline::before { content: ''; position: absolute; top: 10%; left: -12%; width: 640px; height: 640px; background: var(--teal); border-radius: 50%; filter: blur(220px); opacity: 0.06; pointer-events: none; }
+.pipeline::after { content: ''; position: absolute; bottom: 6%; right: -12%; width: 580px; height: 580px; background: var(--pink); border-radius: 50%; filter: blur(220px); opacity: 0.05; pointer-events: none; }
+.pipeline .contain { position: relative; z-index: 1; }
+.pipeline-head { text-align: center; max-width: 700px; margin: 0 auto 76px; }
+.pipeline-head h2 { font-size: clamp(2rem,4vw,2.85rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: #fff !important; margin-bottom: 16px; }
+.pipeline-head p { font-size: 1rem; color: var(--text-dim); line-height: 1.65; }
+.pipe-stage { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px,6vw,80px); align-items: center; margin-bottom: 96px; }
+.pipe-stage.flip { direction: rtl; }
+.pipe-stage.flip > * { direction: ltr; }
+/* connecting spine between stages */
+.pipe-track { position: relative; }
+.pipe-track::before { content: ''; position: absolute; left: 50%; top: -24px; bottom: -8px; width: 2px; margin-left: -1px;
+  background-image: linear-gradient(180deg, var(--teal) 0 7px, transparent 7px 18px); background-size: 2px 18px; background-repeat: repeat-y;
+  opacity: 0.3; animation: pipeflow 2.2s linear infinite;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); }
+@keyframes pipeflow { to { background-position: 0 18px; } }
+.pipe-track .pipe-stage { position: relative; }
+.pipe-track .pipe-stage::after { content: ''; position: absolute; left: 50%; top: 50%; width: 11px; height: 11px; margin: -6px 0 0 -6px; border-radius: 50%;
+  background: #08131a; border: 2px solid var(--teal); box-shadow: 0 0 14px rgba(0,188,241,0.45), 0 0 0 5px rgba(0,188,241,0.1); }
+@media (max-width: 900px) { .pipe-track::before, .pipe-track .pipe-stage::after { display: none; } }
+
+.pipe-num { font-family: var(--mono); font-size: 12px; color: var(--teal); letter-spacing: 0.12em; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+.pipe-num::before { content: ''; width: 30px; height: 1px; background: var(--teal); opacity: 0.4; }
+.pipe-copy h3 { font-size: clamp(1.5rem,2.5vw,2rem); font-weight: 700; letter-spacing: -0.025em; color: #fff; margin-bottom: 16px; }
+.pipe-copy p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.7; max-width: 460px; }
+.pipe-visual { position: relative; }
+.pipe-frame { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 28px 64px rgba(0,0,0,0.5); background: #111; position: relative; }
+.pipe-frame img { display: block; width: 100%; }
+.pipe-frame--phone { max-width: 274px; margin: 0 auto; border-radius: 30px; padding: 6px; border-color: rgba(255,255,255,0.16); }
+.pipe-frame--phone img { border-radius: 24px; }
+.pipe-frame--card { max-width: 380px; margin: 0 auto; }
+.pipe-bar { display: flex; gap: 6px; padding: 11px 14px; background: #141414; border-bottom: 1px solid var(--border); }
+.pipe-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); }
+.pipe-cap { margin-top: 20px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); text-align: center; }
+.pipe-closer { text-align: center; margin-top: 8px; }
+.pipe-closer h3 { font-size: clamp(1.5rem,3vw,2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #fff; line-height: 1.2; }
+.pipe-closer h3 em { font-style: normal; background: linear-gradient(135deg,var(--teal),var(--pink),var(--yellow)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.pipe-closer .pipe-cap { margin-top: 26px; }
+.pipe-outputs { display: flex; gap: 14px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+.pipe-output { width: 150px; aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 14px 34px rgba(0,0,0,0.45); transition: transform .4s var(--ease); }
+.pipe-output:hover { transform: translateY(-4px); }
+.pipe-output img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
+@media (max-width: 600px) { .pipe-output { width: calc((100% - 28px) / 3); } }
+
+/* ── Global organized shoot ── */
+.global { padding: 96px 0; text-align: center; background: #fff; color: #111; position: relative; }
+.global h2 { font-size: clamp(2rem,4vw,2.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: #111 !important; max-width: 680px; margin: 0 auto 16px; }
+.global h2 em { font-style: normal; color: var(--teal); }
+.global p { font-size: 1rem; color: #666; line-height: 1.65; max-width: 560px; margin: 0 auto 44px; }
+.global-stats { display: flex; justify-content: center; gap: 0; flex-wrap: wrap; max-width: 760px; margin: 0 auto; border: 1px solid rgba(0,0,0,0.09); border-radius: var(--radius); overflow: hidden; }
+.global-stat { flex: 1; min-width: 180px; padding: 34px 20px; background: #fafafa; }
+.global-stat + .global-stat { border-left: 1px solid rgba(0,0,0,0.09); }
+.global-stat .n { font-size: 2.25rem; font-weight: 700; color: var(--teal); letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
+.global-stat .l { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #777; }
+@media (max-width: 620px) { .global-stat + .global-stat { border-left: none; border-top: 1px solid rgba(0,0,0,0.09); } .global-stat { min-width: 100%; } }
+
+/* ── Breadth: the full content operation ── */
+.breadth { padding: 100px 0; position: relative; background: linear-gradient(180deg,#0a0a0a 0%,#041a24 100%); }
+.breadth-head { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+.breadth-head h2 { font-size: clamp(2rem,4vw,2.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: #fff !important; margin-bottom: 12px; }
+.breadth-head p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
+.breadth-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border-radius: var(--radius); overflow: hidden; }
+.breadth-cell { background: var(--surface); padding: 30px 24px; transition: background .4s ease; }
+.breadth-cell:hover { background: var(--surface-hover); }
+.bico { width: 34px; height: 34px; border-radius: 9px; background: rgba(0,188,241,0.06); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; transition: background .3s var(--ease); }
+.breadth-cell:hover .bico { background: rgba(0,188,241,0.12); }
+.bico svg { width: 17px; height: 17px; stroke: var(--teal); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.breadth-cell h4 { font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 7px; }
+.breadth-cell p { font-size: 0.8rem; color: var(--text-dim); line-height: 1.5; }
+@media (max-width: 900px) { .breadth-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px) { .breadth-grid { grid-template-columns: 1fr; } }
+</style>
+
+<section class="pipeline" id="pipeline">
+  <div class="contain">
+    <div class="pipeline-head reveal">
+      <div class="label" style="text-align:center;">The connected pipeline</div>
+      <h2>Follow one shoot through the whole pipeline.</h2>
+      <p>Watch a single brief become a finished video, stage by stage. Every step a producer, a director, and an editor used to own, now run by AI, shown with real screens from the product.</p>
+    </div>
+
+    <div class="pipe-track">
+    <!-- Stage 01 -->
+    <div class="pipe-stage reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Stage 01</div>
+        <h3>The brief becomes a shotlist</h3>
+        <p>You give it the goal. It writes the exact shots to get, so everyone films with a plan, not a guess, and it knows a good location from a bad one before a frame is shot.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/img05.jpg" alt="Cinebody writing the shotlist and scouting the location" loading="lazy"></div>
+        <div class="pipe-cap">Shotlist and location, set by the AI</div>
+      </div>
+    </div>
+
+    <!-- Stage 02 -->
+    <div class="pipe-stage flip reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Stage 02</div>
+        <h3>The AI Director coaches every shot, live</h3>
+        <p>Framing, light, steadiness, in real time, on camera. First-take pro footage from anyone, no experience required. When all four checks go green, they nailed it.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/img04.jpg" alt="Cinebody AI Director coaching a shot live on the phone" loading="lazy"></div>
+        <div class="pipe-cap">AI Director · live on-camera coaching</div>
+      </div>
+    </div>
+
+    <!-- Stage 03 -->
+    <div class="pipe-stage reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Stage 03</div>
+        <h3>Every clip is scored as it lands</h3>
+        <p>Light, focus, framing, audio, delivery. The best moments surface and weak takes get flagged on the spot, so quality control happens automatically, the second footage arrives.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--card"><img src="/app-ui/img08.jpg" alt="Cinebody clip review scoring a clip as it lands" loading="lazy"></div>
+        <div class="pipe-cap">AI clip review · scored as it lands</div>
+      </div>
+    </div>
+
+    <!-- Stage 04 -->
+    <div class="pipe-stage flip reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Stage 04</div>
+        <h3>The auto-editor finds the story and cuts it</h3>
+        <p>It reads the transcripts, finds the real narrative in what people actually said, and assembles a finished cut: paced to music, captioned, reframed for vertical.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/img09.jpg" alt="Cinebody auto-editor building a cut from scored footage" loading="lazy"></div>
+        <div class="pipe-cap">Auto-editor · build my cut</div>
+      </div>
+    </div>
+    </div><!-- /pipe-track -->
+
+    <!-- Stage 05 / closer -->
+    <div class="pipe-closer reveal">
+      <div class="pipe-num" style="justify-content:center;">Stage 05</div>
+      <h3>You open a finished video. <em>Real people made it.</em></h3>
+      <div class="pipe-outputs">
+        <div class="pipe-output"><img src="/app-ui/img00.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+        <div class="pipe-output"><img src="/app-ui/img01.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+        <div class="pipe-output"><img src="/app-ui/img02.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+      </div>
+      <div class="pipe-cap">Finished, on-brand cuts, ready to publish or hand to your team to polish</div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → white (global) -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ GLOBAL ORGANIZED SHOOT ═══ -->
+<section class="global">
+  <div class="contain">
+    <div class="reveal">
+      <div class="label" style="text-align:center;">Global organized shoot</div>
+      <h2>Run a global shoot <em>without leaving your desk.</em></h2>
+      <p>One brief, filmers anywhere, all on-brand, all organized, footage back in real time. No crews flown in, no logistics, no lost weekends.</p>
+    </div>
+    <div class="global-stats reveal reveal-d1">
+      <div class="global-stat"><div class="n">160+</div><div class="l">Countries</div></div>
+      <div class="global-stat"><div class="n">5,000+</div><div class="l">Cities</div></div>
+      <div class="global-stat"><div class="n">Real-time</div><div class="l">Footage sync</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: white → dark (breadth) -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- ═══ FULL PLATFORM (breadth) ═══ -->
+<section class="breadth">
+  <div class="contain">
+    <div class="breadth-head reveal">
+      <div class="label" style="text-align:center;">The full platform</div>
+      <h2>Not just an editor. A whole content operation.</h2>
+      <p>The pipeline is the engine. Around it is everything you need to run authentic video at scale.</p>
+    </div>
+    <div class="breadth-grid reveal reveal-d1">
+      <div class="breadth-cell"><div class="bico"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></div><h4>AI Voice Interviews</h4><p>Guided, AI-led interviews that pull real stories out of anyone.</p></div>
+      <div class="breadth-cell"><div class="bico"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><h4>Payments</h4><p>Pay filmers automatically: flat, bounty, or auto-awards.</p></div>
+      <div class="breadth-cell"><div class="bico"><svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.6 1.5-1.5 0-.4-.2-.8-.5-1.1-.3-.3-.5-.7-.5-1.1 0-.9.6-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.9-4.5-8.8-10-8.8z"/></svg></div><h4>Brand Kit</h4><p>Your voice, colors, and covers, applied to everything.</p></div>
+      <div class="breadth-cell"><div class="bico"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><h4>Library</h4><p>Every clip and cut, organized, searchable, reusable.</p></div>
+      <div class="breadth-cell"><div class="bico"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h4>Analytics</h4><p>See what's working across every project and program.</p></div>
+      <div class="breadth-cell"><div class="bico"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></div><h4>Idea Studio</h4><p>A rough idea into a ready-to-send brief in minutes.</p></div>
+      <div class="breadth-cell"><div class="bico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Teams &amp; orgs</h4><p>Run it across offices, brands, and roles.</p></div>
+      <div class="breadth-cell"><div class="bico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h4>Real-time dashboard</h4><p>Footage lands the second someone stops filming.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ HOW IT WORKS ═══ -->
 <!-- curve: dark → light -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
@@ -625,18 +822,18 @@ body > * { position: relative; z-index: 1; }
     <div class="steps reveal reveal-d1">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Onboard your filmers</h3>
-        <p>Share a link or QR code. No app download required, they're filming in seconds from any phone&nbsp;browser.</p>
+        <h3>Send the link</h3>
+        <p>Share a link or QR code. Anyone films from their phone browser in seconds. No app, no experience&nbsp;needed.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Direct from anywhere</h3>
-        <p>Your shot list controls FPS, resolution, orientation, and creative direction, remotely, in real&nbsp;time.</p>
+        <h3>The AI runs the shoot</h3>
+        <p>It briefs each filmer, coaches every shot live, and scores takes as they come in, from anywhere in the&nbsp;world.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h3>Get footage instantly</h3>
-        <p>The moment they stop recording, footage syncs to your cloud dashboard. No uploads, no file&nbsp;transfers.</p>
+        <h3>Open a finished cut</h3>
+        <p>Footage syncs to your dashboard and the AI hands back an edited, captioned video, ready to&nbsp;publish.</p>
       </div>
     </div>
     <div class="how-cta reveal reveal-d2">
@@ -669,16 +866,16 @@ body > * { position: relative; z-index: 1; }
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <!-- ═══ PRICING, using original proven design ═══ -->
-<div class="cb-pricing" style="font-family:'Inter',sans-serif;max-width:1200px;margin:0 auto;padding:60px 24px 60px">
+<div class="cb-pricing" style="font-family:'Plus Jakarta Sans',sans-serif;max-width:1200px;margin:0 auto;padding:60px 24px 60px">
   <div class="cb-pricing__header">
-    <h2 style="font-family:'Inter',sans-serif">Pick the plan that fits how you&nbsp;work.</h2>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif">Pick the plan that fits how you&nbsp;work.</h2>
     <p>Run it yourself or bring in our team. Either way, you're getting real content from real people, at a fraction of traditional production&nbsp;costs.</p>
   </div>
   <div class="cb-pricing__savings">Brands using Cinebody typically save 70%+ vs. traditional production</div>
   <div class="cb-pricing__grid">
     <div class="cb-pricing__card">
       <div class="cb-pricing__plan-name">Plus</div>
-      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For small teams</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Plus Jakarta Sans',sans-serif">For small teams</div>
       <div class="cb-pricing__plan-desc">Everything you need to start capturing community video on your own.</div>
       <div class="cb-pricing__price-wrap">
         <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount">250</span><span class="cb-pricing__price-period">/mo</span></div>
@@ -699,7 +896,7 @@ body > * { position: relative; z-index: 1; }
     <div class="cb-pricing__card cb-pricing__card--featured">
       <div class="cb-pricing__badge">Most Popular</div>
       <div class="cb-pricing__plan-name">Pro</div>
-      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For growing brands</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Plus Jakarta Sans',sans-serif">For growing brands</div>
       <div class="cb-pricing__plan-desc">Scale content across multiple projects with more storage and dedicated support.</div>
       <div class="cb-pricing__price-wrap">
         <div class="cb-pricing__price"><span class="cb-pricing__price-dollar">$</span><span class="cb-pricing__price-amount">500</span><span class="cb-pricing__price-period">/mo</span></div>
@@ -719,10 +916,10 @@ body > * { position: relative; z-index: 1; }
     </div>
     <div class="cb-pricing__card">
       <div class="cb-pricing__plan-name">Enterprise</div>
-      <div class="cb-pricing__plan-title" style="font-family:'Inter',sans-serif">For large organizations</div>
+      <div class="cb-pricing__plan-title" style="font-family:'Plus Jakarta Sans',sans-serif">For large organizations</div>
       <div class="cb-pricing__plan-desc">Custom-built for your team's needs, storage, seats, security, and support.</div>
       <div class="cb-pricing__price-wrap">
-        <div class="cb-pricing__price-custom" style="font-family:'Inter',sans-serif">Let's scope it together.</div>
+        <div class="cb-pricing__price-custom" style="font-family:'Plus Jakarta Sans',sans-serif">Let's scope it together.</div>
         <div class="cb-pricing__price-custom-sub">Custom pricing based on your needs</div>
       </div>
       <div class="cb-pricing__divider"></div>
@@ -783,9 +980,9 @@ body > * { position: relative; z-index: 1; }
         <circle class="t-leaf-pulse" cx="80" cy="100" r="3" style="animation-delay:0s"/>
         <circle class="t-leaf-pulse" cx="220" cy="100" r="3" style="animation-delay:0.8s"/>
         <circle class="t-leaf-pulse" cx="150" cy="110" r="3" style="animation-delay:1.6s"/>
-        <text x="90" y="158" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family="Inter">Sparkle</text>
-        <text x="210" y="158" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family="Inter">Vanity Fair</text>
-        <text x="150" y="128" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family="Inter">Innovia</text>
+        <text x="90" y="158" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family='Plus Jakarta Sans'>Sparkle</text>
+        <text x="210" y="158" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family='Plus Jakarta Sans'>Vanity Fair</text>
+        <text x="150" y="128" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family='Plus Jakarta Sans'>Innovia</text>
       </svg>
     </div>
   </div>

@@ -20,8 +20,8 @@
   --text: #e8e8e8;
   --text-dim: rgba(255,255,255,0.5);
   --text-muted: rgba(255,255,255,0.3);
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'Plus Jakarta Sans', sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 12px;
 }
@@ -125,6 +125,18 @@ body > * { position: relative; z-index: 1; }
 .btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
 .btn-glow:hover svg { transform: translateX(3px); }
 
+/* Secondary / ghost button */
+.btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border); box-shadow: none;
+}
+.btn-ghost:hover {
+  border-color: var(--border-hover); color: #fff;
+  background: rgba(0,188,241,0.06); transform: translateY(-2px);
+}
+
+.hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
 /* ═══════════════════════════
    HERO
    ═══════════════════════════ */
@@ -166,7 +178,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero h1 {
-  font-size: clamp(2.75rem, 5.5vw, 4rem);
+  font-size: clamp(3.4rem, 6.5vw, 5.5rem);
   font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px;
   color: #fff !important;
 }
@@ -178,7 +190,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero-body {
-  font-size: 1rem; line-height: 1.7; color: var(--text-dim); max-width: 440px; margin-bottom: 36px;
+  font-size: 1.15rem; line-height: 1.65; color: var(--text-dim); max-width: 480px; margin-bottom: 36px;
 }
 
 .hero-trust { font-size: 12px; color: var(--text-muted); margin-top: 20px; font-family: var(--mono); letter-spacing: 0.02em; }
@@ -742,10 +754,13 @@ body > * { position: relative; z-index: 1; }
 <section class="hero">
   <div class="contain">
     <div class="reveal">
-      <div class="hero-eyebrow">Video Platform + Creative Services</div>
-      <h1>Your customers are <em>your best creators.</em></h1>
-      <p class="hero-body">Cinebody is the only platform that lets you capture real video from real people, at scale, on brand, and without a single production&nbsp;crew.</p>
-      <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <div class="hero-eyebrow">Authentic Video Production Platform</div>
+      <h1>Real people, <em>run by AI.</em></h1>
+      <p class="hero-body">The everyday video your brand needs, filmed by your people, finished by&nbsp;AI.</p>
+      <div class="hero-actions">
+        <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="#pipeline" class="btn btn-ghost">See how it works</a>
+      </div>
       <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
     </div>
     <div class="hero-scroller reveal reveal-d2">
@@ -805,15 +820,194 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ LOGOS ═══ -->
 <div class="logos"><div class="logos-track" id="logoTrack"></div></div>
 
-<!-- ═══ STATS ═══ -->
+<!-- ═══ THE MECHANIC + CONNECTED PIPELINE ═══ -->
+<style>
+/* ── The mechanic ── */
+.mech { padding: 90px 0 100px; background: #fff; color: #111; position: relative; }
+.mech .contain { text-align: center; }
+.mech h2 { font-size: clamp(2rem,4vw,2.75rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; color: #111 !important; max-width: 660px; margin: 0 auto 16px; }
+.mech h2 em { font-style: normal; color: var(--teal); }
+.mech-sub { font-size: 1rem; color: #666; line-height: 1.65; max-width: 560px; margin: 0 auto 56px; }
+.mech-flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 16px; align-items: stretch; max-width: 940px; margin: 0 auto; }
+.mech-step { background: #fafafa; border: 1px solid rgba(0,0,0,0.07); border-radius: 16px; padding: 34px 24px; transition: border-color .4s var(--ease), transform .4s var(--ease), box-shadow .4s ease; }
+.mech-step:hover { border-color: rgba(0,188,241,0.35); transform: translateY(-3px); box-shadow: 0 16px 36px rgba(0,0,0,0.08); }
+.mech-ico { width: 46px; height: 46px; margin: 0 auto 18px; border-radius: 12px; background: rgba(0,188,241,0.08); display: flex; align-items: center; justify-content: center; transition: background .3s var(--ease); }
+.mech-step:hover .mech-ico { background: rgba(0,188,241,0.14); }
+.mech-ico svg { width: 22px; height: 22px; stroke: var(--teal); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.mech-step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 7px; color: #111; }
+.mech-step p { font-size: 0.82rem; color: #666; line-height: 1.55; }
+.mech-arrow { display: flex; align-items: center; color: var(--teal); opacity: 0.7; font-size: 22px; }
+@media (max-width: 760px) { .mech-flow { grid-template-columns: 1fr; gap: 12px; } .mech-arrow { transform: rotate(90deg); margin: 0 auto; } }
+
+/* ── The connected pipeline (the star) ── */
+.pipeline { padding: 56px 0 104px; position: relative; background: linear-gradient(180deg,#08131a 0%,#0a0a0a 55%); overflow: hidden; }
+.pipeline::before { content: ''; position: absolute; top: 12%; left: -12%; width: 620px; height: 620px; background: var(--teal); border-radius: 50%; filter: blur(220px); opacity: 0.06; pointer-events: none; }
+.pipeline::after { content: ''; position: absolute; bottom: 6%; right: -12%; width: 560px; height: 560px; background: var(--pink); border-radius: 50%; filter: blur(220px); opacity: 0.05; pointer-events: none; }
+.pipeline .contain { position: relative; z-index: 1; }
+.pipeline-head { text-align: center; max-width: 660px; margin: 0 auto 76px; }
+.pipeline-head h2 { font-size: clamp(2rem,4vw,2.75rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; color: #fff !important; margin-bottom: 16px; }
+.pipeline-head p { font-size: 1rem; color: var(--text-dim); line-height: 1.65; }
+.pipe-stage { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px,6vw,80px); align-items: center; margin-bottom: 96px; }
+.pipe-stage.flip { direction: rtl; }
+.pipe-stage.flip > * { direction: ltr; }
+/* connecting spine between stages */
+.pipe-track { position: relative; }
+.pipe-track::before { content: ''; position: absolute; left: 50%; top: -24px; bottom: -8px; width: 2px; margin-left: -1px;
+  background-image: linear-gradient(180deg, var(--teal) 0 7px, transparent 7px 18px); background-size: 2px 18px; background-repeat: repeat-y;
+  opacity: 0.3; animation: pipeflow 2.2s linear infinite;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); }
+@keyframes pipeflow { to { background-position: 0 18px; } }
+.pipe-track .pipe-stage { position: relative; }
+.pipe-track .pipe-stage::after { content: ''; position: absolute; left: 50%; top: 50%; width: 11px; height: 11px; margin: -6px 0 0 -6px; border-radius: 50%;
+  background: #08131a; border: 2px solid var(--teal); box-shadow: 0 0 14px rgba(0,188,241,0.45), 0 0 0 5px rgba(0,188,241,0.1); }
+@media (max-width: 900px) { .pipe-track::before, .pipe-track .pipe-stage::after { display: none; } }
+
+.pipe-num { font-family: var(--mono); font-size: 12px; color: var(--teal); letter-spacing: 0.12em; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+.pipe-num::before { content: ''; width: 30px; height: 1px; background: var(--teal); opacity: 0.4; }
+.pipe-copy h3 { font-size: clamp(1.5rem,2.5vw,2rem); font-weight: 700; letter-spacing: -0.025em; color: #fff; margin-bottom: 16px; }
+.pipe-copy p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.7; max-width: 440px; }
+.pipe-visual { position: relative; }
+.pipe-frame { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 28px 64px rgba(0,0,0,0.5); background: #111; position: relative; }
+.pipe-frame img { display: block; width: 100%; }
+.pipe-frame--phone { max-width: 274px; margin: 0 auto; border-radius: 30px; padding: 6px; border-color: rgba(255,255,255,0.16); }
+.pipe-frame--phone img { border-radius: 24px; }
+.pipe-frame--card { max-width: 380px; margin: 0 auto; }
+.pipe-bar { display: flex; gap: 6px; padding: 11px 14px; background: #141414; border-bottom: 1px solid var(--border); }
+.pipe-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); }
+.pipe-cap { margin-top: 20px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); text-align: center; }
+.pipe-closer { text-align: center; margin-top: 8px; }
+.pipe-closer h3 { font-size: clamp(1.5rem,3vw,2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #fff; line-height: 1.2; }
+.pipe-closer h3 em { font-style: normal; background: linear-gradient(135deg,var(--teal),var(--pink),var(--yellow)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.pipe-closer .pipe-cap { margin-top: 26px; }
+.pipe-outputs { display: flex; gap: 14px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+.pipe-output { width: 148px; aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 14px 34px rgba(0,0,0,0.45); transition: transform .4s var(--ease); }
+.pipe-output:hover { transform: translateY(-4px); }
+.pipe-output img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
+@media (max-width: 600px) { .pipe-output { width: calc((100% - 28px) / 3); } }
+</style>
+
+<!-- curve: dark → white (mechanic) -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<section class="mech">
+  <div class="contain">
+    <div class="reveal">
+      <div class="label" style="text-align:center;">The mechanic</div>
+      <h2>Anyone can film it. <em>The AI makes it good.</em></h2>
+      <p class="mech-sub">Open a link, start shooting. The AI coaches every shot so it comes back usable. No app, no crew, no experience. Footage syncs to your dashboard the moment they&nbsp;stop.</p>
+    </div>
+    <div class="mech-flow reveal reveal-d1">
+      <div class="mech-step">
+        <div class="mech-ico"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <h3>Send the link</h3>
+        <p>Text or QR to anyone. It opens in the phone browser, no app to download.</p>
+      </div>
+      <div class="mech-arrow">&rarr;</div>
+      <div class="mech-step">
+        <div class="mech-ico"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <h3>They film, AI coaches</h3>
+        <p>Live cues for framing, light, and steadiness guide every shot in real time.</p>
+      </div>
+      <div class="mech-arrow">&rarr;</div>
+      <div class="mech-step">
+        <div class="mech-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>You open a finished cut</h3>
+        <p>Footage syncs instantly and the AI hands back a rough cut, not a folder of clips.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: white → dark (pipeline) -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#08131a"/></svg></div>
+
+<section class="pipeline" id="pipeline">
+  <div class="contain">
+    <div class="pipeline-head reveal">
+      <div class="label" style="text-align:center;">The connected pipeline</div>
+      <h2>One system runs your whole production.</h2>
+      <p>A connected pipeline where every step feeds the next: shotlist, director, scoring, edit. Every step a producer, a director, and an editor used to own, now run by AI, with real screens from the actual product.</p>
+    </div>
+
+    <div class="pipe-track">
+    <!-- Stage 01: AI Director -->
+    <div class="pipe-stage reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Stage 01</div>
+        <h3>AI Director</h3>
+        <p>Give it your goal and it writes the shotlist, then coaches every person on camera, live: framing, light, steadiness, and it knows a good location from a bad one. Anyone films a pro-quality shot on the first take.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/img04.jpg" alt="Cinebody AI Director coaching a shot live on the phone" loading="lazy"></div>
+        <div class="pipe-cap">AI Director · live on-camera coaching</div>
+      </div>
+    </div>
+
+    <!-- Stage 02: Clip scoring -->
+    <div class="pipe-stage flip reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Stage 02</div>
+        <h3>Clip scoring</h3>
+        <p>Every clip is transcribed and scored the second it lands: light, focus, framing, audio, delivery. The best moments rise to the top and weak takes get flagged on the spot, so you review the best, not the whole pile.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--card"><img src="/app-ui/img08.jpg" alt="Cinebody clip review scoring a clip as it lands" loading="lazy"></div>
+        <div class="pipe-cap">AI clip review · scored as it lands</div>
+      </div>
+    </div>
+
+    <!-- Stage 03: The auto-editor -->
+    <div class="pipe-stage reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Stage 03</div>
+        <h3>The auto-editor</h3>
+        <p>It reads the transcripts, finds the real story in what people actually said, and cuts a finished, on-brand video: paced to music, captioned, reframed for vertical. You open a video that is nearly done.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/img09.jpg" alt="Cinebody auto-editor building a cut from scored footage" loading="lazy"></div>
+        <div class="pipe-cap">Auto-editor · build my cut</div>
+      </div>
+    </div>
+    </div><!-- /pipe-track -->
+
+    <!-- Closer: the output -->
+    <div class="pipe-closer reveal">
+      <h3>Real people create it. <em>AI runs it end to end.</em></h3>
+      <div class="pipe-outputs">
+        <div class="pipe-output"><img src="/app-ui/img00.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+        <div class="pipe-output"><img src="/app-ui/img01.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+        <div class="pipe-output"><img src="/app-ui/img02.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+      </div>
+      <div class="pipe-cap">Finished, on-brand cuts, ready to publish</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROOF ═══ -->
+<style>
+.stats-head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+.stats-head h2 { font-size: clamp(1.75rem,3.5vw,2.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: #fff !important; margin-bottom: 12px; }
+.stats-head h2 em { font-style: normal; color: var(--teal); }
+.stats-head p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
+.stats-foot { text-align: center; margin-top: 24px; font-size: 0.78rem; color: rgba(255,255,255,0.42); }
+.stats .stat-label { font-size: 12px; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); }
+</style>
 <section class="stats">
   <div class="contain">
-    <div class="stats-grid reveal">
-      <div class="stat"><div class="stat-num" data-count-to="160" data-count-suffix="+">0+</div><div class="stat-label">Countries</div></div>
-      <div class="stat"><div class="stat-num" data-count-to="5000" data-count-suffix="+">0+</div><div class="stat-label">Cities</div></div>
-      <div class="stat"><div class="stat-num" data-count-to="70" data-count-suffix="%">0%</div><div class="stat-label">Cost Savings</div></div>
-      <div class="stat"><div class="stat-num">24hr</div><div class="stat-label">Real-time Sync</div></div>
+    <div class="stats-head reveal">
+      <div class="label" style="text-align:center;">The proof</div>
+      <h2>Real beats polished. <em>It's not close.</em></h2>
+      <p>People trust content made by people. The numbers on authentic, human-made video are lopsided.</p>
     </div>
+    <div class="stats-grid reveal reveal-d1">
+      <div class="stat"><div class="stat-num" data-count-to="7" data-count-suffix="x">0x</div><div class="stat-label">More engagement</div></div>
+      <div class="stat"><div class="stat-num" data-count-to="74" data-count-suffix="%">0%</div><div class="stat-label">Higher conversion</div></div>
+      <div class="stat"><div class="stat-num" data-count-to="90" data-count-suffix="%">0%</div><div class="stat-label">Prefer human-made</div></div>
+      <div class="stat"><div class="stat-num" data-count-to="70" data-count-suffix="%">0%</div><div class="stat-label">Cheaper than studio</div></div>
+    </div>
+    <div class="stats-foot reveal reveal-d2">Category benchmarks for authentic and user-made video. Cinebody's own numbers coming as programs mature.</div>
   </div>
 </section>
 
@@ -845,19 +1039,26 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: light → dark (Why pink-navy) -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
 
-<!-- ═══ WHY ═══ -->
+<!-- ═══ WHO FILMS FOR YOU ═══ -->
+<style>
+.who-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border-radius: var(--radius); overflow: hidden; }
+.who-card { padding: 0 !important; }
+.who-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+.who-body { padding: 26px 24px 30px; }
+.who-card:hover .who-img { filter: saturate(1.1); }
+@media (max-width: 900px) { .who-grid { grid-template-columns: 1fr; } }
+</style>
 <section class="why">
   <div class="contain">
     <div class="reveal">
-      <div class="label">Why Cinebody</div>
-      <h2>Not another UGC marketplace. Something actually&nbsp;different.</h2>
-      <p class="why-sub">Other platforms match you with paid creators pretending to be fans. Cinebody activates your real community, guided by patented&nbsp;technology.</p>
+      <div class="label">Who films for you</div>
+      <h2>Your employees. Your customers. Your&nbsp;fans.</h2>
+      <p class="why-sub">The people who already love you make the most believable content there is. No influencers, no agencies, just the humans who know you&nbsp;best.</p>
     </div>
-    <div class="why-grid reveal reveal-d2">
-      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Real people, not actors</h3><p>Your actual community films for you, customers, employees,&nbsp;fans.</p></div>
-      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><h3>Directed, not chaotic</h3><p>Patented shot list tech controls FPS, resolution, and creative direction&nbsp;remotely.</p></div>
-      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><h3>Platform + services</h3><p>Use the software standalone or pair with our team for end-to-end&nbsp;production.</p></div>
-      <div class="why-card glow-track"><div class="why-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3>Always-on, not one-off</h3><p>Build a content engine with annual subscriptions, not a one-time&nbsp;project.</p></div>
+    <div class="who-grid reveal reveal-d2">
+      <div class="why-card who-card glow-track"><img class="who-img" src="https://i.vimeocdn.com/video/1930241712-ba32780c8bb73375c91446fd6b422f567f660d770250da8b04ac663879b907dc-d_640" alt="Royal Caribbean crew member on camera" loading="lazy"><div class="who-body"><h3>Employees</h3><p>Your team already lives the brand. Employee-made video earns up to 8x the engagement and reaches far past your own&nbsp;channels.</p></div></div>
+      <div class="why-card who-card glow-track"><img class="who-img" src="/assets/15ab1c0a-Screenshot-2025-07-15-at-8.52.47-AM.webp" alt="Real point.me customer on camera" loading="lazy"><div class="who-body"><h3>Customers</h3><p>The people who chose you are your most believable advocates. Nothing on a product page converts like a real customer on&nbsp;camera.</p></div></div>
+      <div class="why-card who-card glow-track"><img class="who-img" src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="Fans filming at Outside Lands festival" loading="lazy"><div class="who-body"><h3>Fans</h3><p>The community that shows up for you films from wherever they are, at every event, launch, and moment as it&nbsp;happens.</p></div></div>
     </div>
   </div>
 </section>
@@ -868,7 +1069,7 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ CASE STUDIES ═══ -->
 <section class="cases" style="padding-top:60px">
   <div class="contain">
-    <div class="reveal"><div class="label">Case Studies</div><h2>See what brands are building with&nbsp;Cinebody</h2></div>
+    <div class="reveal"><div class="label">Case Studies</div><h2>This is what your people can&nbsp;make.</h2></div>
     <div class="cases-grid reveal reveal-d1">
       <a href="/pointme" class="case-card"><img class="case-bg" src="/assets/15ab1c0a-Screenshot-2025-07-15-at-8.52.47-AM.webp" alt="point.me"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/e57369db-PointMe_Logo_alt.png" alt="point.me"/><div class="case-name">point.me</div><div class="case-stat">1 Shoot · 70+ Customers</div><div class="case-desc">Full multi-platform campaign from one shoot.</div></div></a>
       <a href="/royal-caribbean" class="case-card"><img class="case-bg" src="/assets/2a8eac3b-Screenshot-2025-07-15-at-9.03.36-AM.webp" alt="Royal Caribbean"/><div class="case-ov"></div><div class="case-tint"></div><div class="case-ct"><img class="case-logo" src="/assets/de31bd3b-RCI_Brand_Logo_2-Line_Horiz_White.webp" alt="Royal Caribbean"/><div class="case-name">Royal Caribbean</div><div class="case-stat">Entire Fleet · Always On</div><div class="case-desc">Crew became the content team.</div></div></a>
@@ -894,6 +1095,38 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: light → dark -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
+<!-- ═══ FULL PLATFORM (compact strip) ═══ -->
+<style>
+.breadth { padding: 76px 0; position: relative; background: linear-gradient(180deg,#0a0a0a 0%,#0c1016 100%); }
+.breadth-head { text-align: center; max-width: 620px; margin: 0 auto 36px; }
+.breadth-head h2 { font-size: clamp(1.75rem,3.5vw,2.4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; color: #fff !important; margin-bottom: 10px; }
+.breadth-head p { font-size: 0.92rem; color: var(--text-dim); line-height: 1.6; }
+.breadth-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 880px; margin: 0 auto; }
+.bchip { display: inline-flex; align-items: center; gap: 9px; padding: 11px 18px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font-size: 0.85rem; font-weight: 500; color: var(--text-dim); transition: border-color .3s ease, color .3s ease, background .3s ease; }
+.bchip:hover { border-color: var(--border-hover); color: #fff; background: var(--surface-hover); }
+.bchip svg { width: 15px; height: 15px; stroke: var(--teal); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.breadth-more { text-align: center; margin-top: 30px; }
+</style>
+<section class="breadth">
+  <div class="contain">
+    <div class="breadth-head reveal">
+      <div class="label" style="text-align:center;">The full platform</div>
+      <h2>Everything you need to run it at&nbsp;scale.</h2>
+      <p>The pipeline is the engine. Around it is a whole content operation.</p>
+    </div>
+    <div class="breadth-chips reveal reveal-d1">
+      <span class="bchip"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>AI Voice Interviews</span>
+      <span class="bchip"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Payments</span>
+      <span class="bchip"><svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.6 1.5-1.5 0-.4-.2-.8-.5-1.1-.3-.3-.5-.7-.5-1.1 0-.9.6-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.9-4.5-8.8-10-8.8z"/></svg>Brand Kit</span>
+      <span class="bchip"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>Library</span>
+      <span class="bchip"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</span>
+      <span class="bchip"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>Idea Studio</span>
+      <span class="bchip"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Teams &amp; orgs</span>
+      <span class="bchip"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Real-time dashboard</span>
+    </div>
+    <div class="breadth-more reveal reveal-d2"><a href="/software" class="teaser-link">Explore the full platform <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+  </div>
+</section>
 
 <!-- ═══ TEASER: ROYAL CARIBBEAN ═══ -->
 <section class="teaser teaser--flip teaser--glow-pink">
@@ -925,7 +1158,7 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ SERVICES ═══ -->
 <section class="services" style="padding-top:60px">
   <div class="contain">
-    <div class="reveal"><div class="label">Creative Services</div><h2>Content plans built for&nbsp;scale.</h2></div>
+    <div class="reveal"><div class="label">Creative Services</div><h2>Don't have a team? Ours can run it for&nbsp;you.</h2></div>
     <div class="svc-grid reveal reveal-d2">
       <div class="svc-card"><div class="svc-bar svc-bar--teal"></div><h3>Testimonials</h3><p>Your happiest customers on camera, guided by shot lists, filmed on their phone, delivered in real&nbsp;time.</p><ul><li>Remote capture</li><li>Guided prompts</li><li>Pro editing</li></ul></div>
       <div class="svc-card"><div class="svc-bar svc-bar--yellow"></div><h3>Event Content</h3><p>Deploy unlimited filmers at every event. Walk away with a library of authentic&nbsp;footage.</p><ul><li>Unlimited filmers</li><li>Real-time sync</li><li>Quick-turn edits</li></ul></div>
@@ -956,210 +1189,23 @@ body > * { position: relative; z-index: 1; }
       <div class="vid-playable vid-playable--h teaser-vid" data-autoplay data-vimeo="265928299" data-vimeo-h="10ec2810ff"><img class="vid-poster" src="https://i.vimeocdn.com/video/696061055-cd34ca440798414c8d191af42901cde8208bcb11564388245cd9e462f14bb719-d_640" alt="Nike"></div>
       <svg class="teaser-accent" viewBox="0 0 533 354">
         <line class="t-conn" x1="72" y1="210" x2="248" y2="255"/><line class="t-conn" x1="248" y1="255" x2="340" y2="125"/><line class="t-conn" x1="340" y1="125" x2="478" y2="112"/><line class="t-conn" x1="72" y1="210" x2="340" y2="125"/><line class="t-conn" x1="72" y1="210" x2="478" y2="112"/>
-        <g><circle class="t-pulse" cx="72" cy="210" r="3"/><circle class="t-dot" cx="72" cy="210" r="3"/><text x="72" y="230" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family="Inter">LA</text></g>
-        <g><circle class="t-pulse" cx="248" cy="255" r="3" style="animation-delay:.6s"/><circle class="t-dot" cx="248" cy="255" r="3"/><text x="248" y="275" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family="Inter">ATX</text></g>
-        <g><circle class="t-pulse" cx="340" cy="125" r="3" style="animation-delay:1.2s"/><circle class="t-dot" cx="340" cy="125" r="3"/><text x="340" y="115" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family="Inter">CHI</text></g>
-        <g><circle class="t-pulse" cx="478" cy="112" r="3" style="animation-delay:1.8s"/><circle class="t-dot" cx="478" cy="112" r="3"/><text x="478" y="102" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family="Inter">NYC</text></g>
+        <g><circle class="t-pulse" cx="72" cy="210" r="3"/><circle class="t-dot" cx="72" cy="210" r="3"/><text x="72" y="230" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family='Plus Jakarta Sans'>LA</text></g>
+        <g><circle class="t-pulse" cx="248" cy="255" r="3" style="animation-delay:.6s"/><circle class="t-dot" cx="248" cy="255" r="3"/><text x="248" y="275" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family='Plus Jakarta Sans'>ATX</text></g>
+        <g><circle class="t-pulse" cx="340" cy="125" r="3" style="animation-delay:1.2s"/><circle class="t-dot" cx="340" cy="125" r="3"/><text x="340" y="115" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family='Plus Jakarta Sans'>CHI</text></g>
+        <g><circle class="t-pulse" cx="478" cy="112" r="3" style="animation-delay:1.8s"/><circle class="t-dot" cx="478" cy="112" r="3"/><text x="478" y="102" text-anchor="middle" font-size="7" font-weight="600" fill="rgba(255,255,255,0.2)" font-family='Plus Jakarta Sans'>NYC</text></g>
       </svg>
     </div>
   </div>
 </section>
 
-<!-- curve: dark → white (live events) -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1218"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
-<!-- ═══ LIVE EVENTS ═══ -->
-<style>
-.le-section{background:#fff;color:#111;padding:60px 0 80px;}
-.le-section .contain{max-width:900px;}
-.le-hero{display:flex;align-items:center;justify-content:center;gap:32px;max-width:600px;margin:0 auto 56px;}
-.le-lorde{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:9/16;width:180px;flex-shrink:0;box-shadow:0 12px 40px rgba(0,0,0,0.18);cursor:pointer;transition:transform 0.4s ease,box-shadow 0.4s ease;}
-.le-amphitheater{display:block;width:100%;max-width:340px;height:auto;flex-shrink:1;}
-.le-lorde:hover{transform:scale(1.03) translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.22);}
-.le-lorde iframe,.le-lorde img{position:absolute;top:0;left:0;width:100%;height:100%;border:none;object-fit:cover;}
-.le-lorde img{z-index:1;transition:opacity 0.4s ease;}
-.le-lorde.le-playing img{opacity:0;pointer-events:none;}
-.le-lorde-tag{position:absolute;top:10px;left:10px;font-size:0.55rem;font-weight:700;color:#fff;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);padding:3px 9px;border-radius:5px;z-index:4;text-transform:uppercase;letter-spacing:0.06em;pointer-events:none;}
-.le-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;background:rgba(0,188,241,0.9);border-radius:50%;z-index:5;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 16px rgba(0,0,0,0.3);}
-.le-play::after{content:'';border-left:14px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px;}
-.le-play:hover{transform:translate(-50%,-50%) scale(1.1);background:#00bcf1;}
-.le-playing .le-play{display:none;}
-.le-mute{position:absolute;bottom:10px;right:10px;width:32px;height:32px;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);border:none;border-radius:8px;z-index:5;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;padding:0;}
-.le-mute svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;}
-.le-playing .le-mute{opacity:1;}
-.le-lorde:hover .le-mute{opacity:1;}
-.le-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden;}
-.le-stat{background:#fff;padding:36px 20px;text-align:center;}
-.le-stat-num{font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px;}
-.le-stat-label{font-family:var(--font);font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em;}
-.le-desc{font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center;}
-.le-pills{display:flex;gap:8px;justify-content:center;margin-top:24px;flex-wrap:wrap;}
-.le-pill{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#999;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);padding:5px 13px;border-radius:100px;}
-.le-shows{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
-.le-card{border-radius:12px;overflow:hidden;border:1px solid #e8e8e8;transition:all 0.35s ease;}
-.le-card:hover{border-color:rgba(0,188,241,0.3);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
-.le-card-vid{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden;cursor:pointer;}
-.le-card-vid iframe,.le-card-vid img{position:absolute;top:0;left:0;width:100%;height:100%;border:none;object-fit:cover;}
-.le-card-vid img{z-index:1;transition:opacity 0.4s ease;}
-.le-card-vid.le-playing img{opacity:0;pointer-events:none;}
-.le-card-vid .le-play{width:40px;height:40px;}
-.le-card-vid .le-play::after{border-left-width:10px;border-top-width:6px;border-bottom-width:6px;margin-left:2px;}
-.le-card-vid .le-mute{bottom:6px;right:6px;width:28px;height:28px;}
-.le-card-vid .le-mute svg{width:14px;height:14px;}
-.le-card-info{padding:10px 14px;}
-.le-card-artist{font-size:0.9rem;font-weight:800;color:#111;margin:0 0 2px;transition:color 0.3s ease;}
-.le-card:hover .le-card-artist{color:#00bcf1;}
-.le-card-detail{font-size:0.8rem;color:#888;margin:0;line-height:1.45;}
-@media(max-width:768px){
-  .le-stats{grid-template-columns:repeat(2,1fr);}
-  .le-shows{grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto;margin-top:48px;}
-  .le-hero{flex-direction:column;gap:24px;}
-  .le-lorde{width:160px;}
-  .le-amphitheater{max-width:240px;}
-}
-</style>
-
-<section class="le-section">
-  <div class="contain">
-    <div class="le-hero reveal">
-      <div class="le-lorde" data-le-vimeo="1129595346" data-le-h="755f92d893">
-        <span class="le-lorde-tag">Lorde · Greek Theatre</span>
-        <img src="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640" srcset="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_320 320w, https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_480 480w, https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640 640w" sizes="(max-width: 767px) 33vw, 300px" decoding="async" alt="Lorde at Greek Theatre" loading="lazy"/>
-        <div class="le-play"></div>
-        <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
-      </div>
-      <svg class="le-amphitheater" viewBox="0 0 240 170" preserveAspectRatio="xMidYMid meet">
-        <ellipse cx="120" cy="140" rx="50" ry="20" fill="none" stroke="rgba(0,188,241,0.06)" stroke-width="0.8"/>
-        <ellipse cx="120" cy="140" rx="80" ry="35" fill="none" stroke="rgba(0,188,241,0.06)" stroke-width="0.8"/>
-        <ellipse cx="120" cy="140" rx="110" ry="50" fill="none" stroke="rgba(0,188,241,0.06)" stroke-width="0.8"/>
-        <path d="M85,140 A35,35 0 0,1 155,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
-        <path d="M65,140 A55,55 0 0,1 175,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
-        <path d="M45,140 A75,75 0 0,1 195,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
-        <path d="M25,140 A95,95 0 0,1 215,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
-        <path d="M8,140 A112,112 0 0,1 232,140" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="1.2"/>
-        <line x1="120" y1="140" x2="120" y2="30" stroke="rgba(0,188,241,0.03)" stroke-width="0.8"/>
-        <line x1="120" y1="140" x2="38" y2="68" stroke="rgba(0,188,241,0.03)" stroke-width="0.8"/>
-        <line x1="120" y1="140" x2="202" y2="68" stroke="rgba(0,188,241,0.03)" stroke-width="0.8"/>
-        <rect x="80" y="145" width="80" height="20" rx="4" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="1"/>
-        <text x="120" y="158" text-anchor="middle" font-family="Inter" font-size="7" font-weight="700" fill="rgba(0,188,241,0.4)" letter-spacing="0.18em">STAGE</text>
-        <text x="48" y="100" text-anchor="middle" transform="rotate(-30, 48, 100)" font-family="Inter" font-size="5.5" font-weight="600" fill="rgba(0,0,0,0.08)" letter-spacing="0.06em">SEC A</text>
-        <text x="120" y="72" text-anchor="middle" font-family="Inter" font-size="5.5" font-weight="600" fill="rgba(0,0,0,0.08)" letter-spacing="0.06em">SEC B</text>
-        <text x="192" y="100" text-anchor="middle" transform="rotate(30, 192, 100)" font-family="Inter" font-size="5.5" font-weight="600" fill="rgba(0,0,0,0.08)" letter-spacing="0.06em">SEC C</text>
-        <g><circle cx="100" cy="118" r="8" fill="rgba(0,188,241,0.06)"/><circle cx="100" cy="118" r="4" fill="#00bcf1" opacity="0.7"/><circle cx="100" cy="118" r="4" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="4;14;4" dur="4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="120" cy="115" r="8" fill="rgba(0,188,241,0.06)"/><circle cx="120" cy="115" r="4" fill="#00bcf1" opacity="0.7"/><circle cx="120" cy="115" r="4" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="4;14;4" dur="4s" begin="0.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="0.5s" repeatCount="indefinite"/></circle><path d="M125,110 A7,7 0 0,1 125,120" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" repeatCount="indefinite"/></path><path d="M129,107 A11,11 0 0,1 129,123" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="0.4s" repeatCount="indefinite"/></path></g>
-        <g><circle cx="140" cy="118" r="8" fill="rgba(0,188,241,0.06)"/><circle cx="140" cy="118" r="4" fill="#00bcf1" opacity="0.7"/><circle cx="140" cy="118" r="4" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="4;14;4" dur="4s" begin="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="78" cy="109" r="7" fill="rgba(0,188,241,0.05)"/><circle cx="78" cy="109" r="3.5" fill="#00bcf1" opacity="0.6"/><circle cx="78" cy="109" r="3.5" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="3.5;12;3.5" dur="4s" begin="0.3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="0.3s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="108" cy="98" r="7" fill="rgba(0,188,241,0.05)"/><circle cx="108" cy="98" r="3.5" fill="#00bcf1" opacity="0.6"/><circle cx="108" cy="98" r="3.5" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="3.5;12;3.5" dur="4s" begin="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="0.8s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="142" cy="96" r="7" fill="rgba(0,188,241,0.05)"/><circle cx="142" cy="96" r="3.5" fill="#00bcf1" opacity="0.6"/><circle cx="142" cy="96" r="3.5" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="3.5;12;3.5" dur="4s" begin="1.3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="1.3s" repeatCount="indefinite"/></circle><path d="M147,91 A7,7 0 0,1 147,101" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="0.8s" repeatCount="indefinite"/></path><path d="M151,88 A11,11 0 0,1 151,104" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="1.2s" repeatCount="indefinite"/></path></g>
-        <g><circle cx="165" cy="106" r="7" fill="rgba(0,188,241,0.05)"/><circle cx="165" cy="106" r="3.5" fill="#00bcf1" opacity="0.6"/><circle cx="165" cy="106" r="3.5" fill="none" stroke="#00bcf1" stroke-width="1" opacity="0"><animate attributeName="r" values="3.5;12;3.5" dur="4s" begin="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="1.8s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="56" cy="102" r="6" fill="rgba(0,188,241,0.04)"/><circle cx="56" cy="102" r="3" fill="#00bcf1" opacity="0.5"/><circle cx="56" cy="102" r="3" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="3;10;3" dur="4s" begin="0.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="0.6s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="92" cy="82" r="6" fill="rgba(0,188,241,0.04)"/><circle cx="92" cy="82" r="3" fill="#00bcf1" opacity="0.5"/><circle cx="92" cy="82" r="3" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="3;10;3" dur="4s" begin="1.1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1.1s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="155" cy="80" r="6" fill="rgba(0,188,241,0.04)"/><circle cx="155" cy="80" r="3" fill="#00bcf1" opacity="0.5"/><circle cx="155" cy="80" r="3" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="3;10;3" dur="4s" begin="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1.6s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="186" cy="94" r="6" fill="rgba(0,188,241,0.04)"/><circle cx="186" cy="94" r="3" fill="#00bcf1" opacity="0.5"/><circle cx="186" cy="94" r="3" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="3;10;3" dur="4s" begin="2.1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="2.1s" repeatCount="indefinite"/></circle><path d="M191,89 A7,7 0 0,1 191,99" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="1.6s" repeatCount="indefinite"/></path></g>
-        <g><circle cx="38" cy="88" r="5" fill="rgba(0,188,241,0.03)"/><circle cx="38" cy="88" r="2.5" fill="#00bcf1" opacity="0.4"/><circle cx="38" cy="88" r="2.5" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="2.5;8;2.5" dur="4s" begin="0.9s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="0.9s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="120" cy="56" r="5" fill="rgba(0,188,241,0.03)"/><circle cx="120" cy="56" r="2.5" fill="#00bcf1" opacity="0.4"/><circle cx="120" cy="56" r="2.5" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="2.5;8;2.5" dur="4s" begin="1.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1.4s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="200" cy="83" r="5" fill="rgba(0,188,241,0.03)"/><circle cx="200" cy="83" r="2.5" fill="#00bcf1" opacity="0.4"/><circle cx="200" cy="83" r="2.5" fill="none" stroke="#00bcf1" stroke-width="0.8" opacity="0"><animate attributeName="r" values="2.5;8;2.5" dur="4s" begin="1.9s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.2;0;0.2" dur="3s" begin="1.9s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="18" cy="82" r="4" fill="rgba(0,188,241,0.02)"/><circle cx="18" cy="82" r="2" fill="#00bcf1" opacity="0.35"/><circle cx="18" cy="82" r="2" fill="none" stroke="#00bcf1" stroke-width="0.6" opacity="0"><animate attributeName="r" values="2;7;2" dur="4s" begin="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="1.2s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="74" cy="46" r="4" fill="rgba(0,188,241,0.02)"/><circle cx="74" cy="46" r="2" fill="#00bcf1" opacity="0.35"/><circle cx="74" cy="46" r="2" fill="none" stroke="#00bcf1" stroke-width="0.6" opacity="0"><animate attributeName="r" values="2;7;2" dur="4s" begin="1.7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="1.7s" repeatCount="indefinite"/></circle><path d="M79,41 A7,7 0 0,1 79,51" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="2s" repeatCount="indefinite"/></path><path d="M83,38 A11,11 0 0,1 83,54" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.4;0" dur="2.5s" begin="2.4s" repeatCount="indefinite"/></path></g>
-        <g><circle cx="168" cy="44" r="4" fill="rgba(0,188,241,0.02)"/><circle cx="168" cy="44" r="2" fill="#00bcf1" opacity="0.35"/><circle cx="168" cy="44" r="2" fill="none" stroke="#00bcf1" stroke-width="0.6" opacity="0"><animate attributeName="r" values="2;7;2" dur="4s" begin="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="2.2s" repeatCount="indefinite"/></circle></g>
-        <g><circle cx="222" cy="76" r="4" fill="rgba(0,188,241,0.02)"/><circle cx="222" cy="76" r="2" fill="#00bcf1" opacity="0.35"/><circle cx="222" cy="76" r="2" fill="none" stroke="#00bcf1" stroke-width="0.6" opacity="0"><animate attributeName="r" values="2;7;2" dur="4s" begin="2.7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="3s" begin="2.7s" repeatCount="indefinite"/></circle></g>
-      </svg>
-    </div>
-    <div class="le-stats reveal">
-      <div class="le-stat"><div class="le-stat-num">1000s</div><div class="le-stat-label">of POVs</div></div>
-      <div class="le-stat"><div class="le-stat-num">Every</div><div class="le-stat-label">Angle</div></div>
-      <div class="le-stat"><div class="le-stat-num">0</div><div class="le-stat-label">Crews</div></div>
-      <div class="le-stat"><div class="le-stat-num">100%</div><div class="le-stat-label">Authentic</div></div>
-    </div>
-    <p class="le-desc reveal reveal-d1">From pit to nosebleeds, Cinebody captures thousands of authentic perspectives, simultaneously, on brand, zero production teams.</p>
-    <div class="le-pills reveal reveal-d1">
-      <span class="le-pill">Lorde</span>
-      <span class="le-pill">ODESZA</span>
-      <span class="le-pill">Slash</span>
-      <span class="le-pill">OneRepublic</span>
-    </div>
-    <div class="le-shows reveal reveal-d2">
-      <div class="le-card">
-        <div class="le-card-vid" data-le-vimeo="262743643">
-          <img src="https://i.vimeocdn.com/video/692092104-6fa3f069345627eee20cdde4d6b705d4f6136bc0b78baa6058ae331486cfb76d-d_640" srcset="https://i.vimeocdn.com/video/692092104-6fa3f069345627eee20cdde4d6b705d4f6136bc0b78baa6058ae331486cfb76d-d_320 320w, https://i.vimeocdn.com/video/692092104-6fa3f069345627eee20cdde4d6b705d4f6136bc0b78baa6058ae331486cfb76d-d_480 480w, https://i.vimeocdn.com/video/692092104-6fa3f069345627eee20cdde4d6b705d4f6136bc0b78baa6058ae331486cfb76d-d_640 640w" sizes="(max-width: 767px) 33vw, 300px" decoding="async" alt="ODESZA" loading="lazy"/>
-          <div class="le-play"></div>
-          <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
-        </div>
-        <div class="le-card-info"><p class="le-card-artist">ODESZA</p><p class="le-card-detail">Fan-captured moments across the entire venue</p></div>
-      </div>
-      <div class="le-card">
-        <div class="le-card-vid" data-le-vimeo="353710547">
-          <img src="https://i.vimeocdn.com/video/805992773-c18e58d76ff6eefc410135eec21517cfe2d903a8a6176f64af3c79771a18c2c2-d_640" srcset="https://i.vimeocdn.com/video/805992773-c18e58d76ff6eefc410135eec21517cfe2d903a8a6176f64af3c79771a18c2c2-d_320 320w, https://i.vimeocdn.com/video/805992773-c18e58d76ff6eefc410135eec21517cfe2d903a8a6176f64af3c79771a18c2c2-d_480 480w, https://i.vimeocdn.com/video/805992773-c18e58d76ff6eefc410135eec21517cfe2d903a8a6176f64af3c79771a18c2c2-d_640 640w" sizes="(max-width: 767px) 33vw, 300px" decoding="async" alt="Slash" loading="lazy"/>
-          <div class="le-play"></div>
-          <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
-        </div>
-        <div class="le-card-info"><p class="le-card-artist">Slash</p><p class="le-card-detail">Every angle, every riff, no crew required</p></div>
-      </div>
-      <div class="le-card">
-        <div class="le-card-vid" data-le-vimeo="407155650" data-le-h="b4ff6b0493">
-          <img src="https://i.vimeocdn.com/video/877727163-1f6c5b0ccad1b8fd7f15f46745326a9f98dbb42c3bc00e5a86f474a538be29c1-d_640" srcset="https://i.vimeocdn.com/video/877727163-1f6c5b0ccad1b8fd7f15f46745326a9f98dbb42c3bc00e5a86f474a538be29c1-d_320 320w, https://i.vimeocdn.com/video/877727163-1f6c5b0ccad1b8fd7f15f46745326a9f98dbb42c3bc00e5a86f474a538be29c1-d_480 480w, https://i.vimeocdn.com/video/877727163-1f6c5b0ccad1b8fd7f15f46745326a9f98dbb42c3bc00e5a86f474a538be29c1-d_640 640w" sizes="(max-width: 767px) 33vw, 300px" decoding="async" alt="OneRepublic" loading="lazy"/>
-          <div class="le-play"></div>
-          <button class="le-mute" aria-label="Unmute"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
-        </div>
-        <div class="le-card-info"><p class="le-card-artist">OneRepublic</p><p class="le-card-detail">Thousands of perspectives, one platform</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-(function(){
-  var isMobile = window.innerWidth < 768;
-  var mutedSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
-  var unmutedSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
-  var activePlayer = null, activeMuteBtn = null;
-  function initVideo(container) {
-    var id = container.getAttribute('data-le-vimeo');
-    var h = container.getAttribute('data-le-h');
-    if (!id) return;
-    var playBtn = container.querySelector('.le-play');
-    var muteBtn = container.querySelector('.le-mute');
-    var player = null;
-    function loadAndPlay() {
-      if (container.classList.contains('le-playing')) return;
-      var src = 'https://player.vimeo.com/video/' + id + '?background=1';
-      if (h) src = 'https://player.vimeo.com/video/' + id + '?h=' + h + '&background=1';
-      var iframe = document.createElement('iframe');
-      iframe.src = src; iframe.allow = 'autoplay'; iframe.loading = 'lazy';
-      iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
-      container.insertBefore(iframe, container.firstChild);
-      container.classList.add('le-playing');
-      player = new Vimeo.Player(iframe);
-      player.setVolume(0);
-    }
-    if (!isMobile) {
-      var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) { if (e.isIntersecting) { loadAndPlay(); obs.unobserve(container); } });
-      }, { threshold: 0.15 });
-      obs.observe(container);
-    }
-    if (playBtn) { playBtn.addEventListener('click', function(e) { e.stopPropagation(); loadAndPlay(); }); }
-    container.addEventListener('click', function(e) { if (e.target.closest('.le-mute')) return; loadAndPlay(); });
-    if (muteBtn) {
-      muteBtn.addEventListener('click', function(e) {
-        e.stopPropagation(); if (!player) return;
-        if (activeMuteBtn === muteBtn) { player.setVolume(0); muteBtn.innerHTML = mutedSvg; activePlayer = null; activeMuteBtn = null; }
-        else { if (activePlayer && activeMuteBtn) { activePlayer.setVolume(0); activeMuteBtn.innerHTML = mutedSvg; } player.setVolume(1); muteBtn.innerHTML = unmutedSvg; activePlayer = player; activeMuteBtn = muteBtn; }
-      });
-    }
-  }
-  document.querySelectorAll('[data-le-vimeo]').forEach(initVideo);
-})();
-</script>
-
-<!-- curve: white → yellow -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+<!-- curve: dark → yellow -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1218"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
 <!-- ═══ CTA ═══ -->
 <section class="cta-band" style="padding-top:40px">
   <div class="contain">
-    <h2 class="reveal">Want results like these?<br><span>Let's map out your strategy.</span></h2>
-    <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow reveal reveal-d1">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    <h2 class="reveal">See what your people could make<br><span>this week.</span></h2>
+    <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow reveal reveal-d1">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   </div>
   <div class="cta-marquee" style="position:relative">
     <div class="cta-marquee-track" id="ctaTrack"></div>
