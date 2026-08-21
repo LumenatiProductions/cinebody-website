@@ -33,6 +33,34 @@ For the rebuild. Target feel: dark, cinematic, real footage as the hero, bold co
 - Wealth Video Hero (video-hero pattern) — https://motionsites.ai/?prompt=0
 - New Era Bold Hero (bold agency type) — https://motionsites.ai/?prompt=1
 
+## MotionSites library sweep (2026-08-21) — mapped to our pages
+Scott's call: use MotionSites as inspiration across the board. Priority order: Pixel Grid Hover, Arceage Stats, Scroll Marquee, SaaS Pricing Flow.
+
+**Sitewide motion**
+- Scroll Landing Page (pinned scrollytelling; pipeline already uses the pattern) — https://motionsites.ai/?prompt=scroll-landing
+- Scroll Marquee (velocity-reactive marquee; logo strip + CTA marquee upgrade) — https://motionsites.ai/?prompt=scroll-marquee
+- Reveal Hero / Vision Reveal (kinetic heading reveals, both worth study; vision-reveal is FREE) — https://motionsites.ai/?prompt=reveal-hero / ?prompt=vision-reveal
+
+**Work page**
+- Pixel Grid Hover (FREE, case-studies grid hover reveal) — https://motionsites.ai/?prompt=pixel-grid-hover
+- Nike Hover (FREE, card hover) — https://motionsites.ai/?prompt=nike-hover
+- Projects Catalog — https://motionsites.ai/?prompt=projects-catalog
+
+**Proof band**
+- Arceage Stats (FREE, animated stats) — https://motionsites.ai/?prompt=arceage-stats
+- Bento Grid Stats (also breadth-grid candidate) — https://motionsites.ai/?prompt=bento-grid-stats
+- Kova / Arceage Testimonial (parked until real quotes exist) — ?prompt=kova-testimonial / ?prompt=arceage-testimonial
+
+**Pricing**
+- SaaS Pricing Flow — https://motionsites.ai/?prompt=saas-pricing-flow
+- Rocket Pricing (FREE) — https://motionsites.ai/?prompt=rocket-pricing
+- NimBus Pricing — https://motionsites.ai/?prompt=nimbus-pricing
+
+**Platform page**
+- AI Workflow Hero (FREE) — https://motionsites.ai/?prompt=ai-workflow
+- Innovation Summit (phone-video app showcase; pairs w/ Scott's AE phone renders) — https://motionsites.ai/?prompt=innovation-summit
+- AI Assistant App — https://motionsites.ai/?prompt=ai-assistant-app
+
 > Access ALL prompts for stunning animated websites in one click: https://motionsites.ai/unlimited
 
 ---
