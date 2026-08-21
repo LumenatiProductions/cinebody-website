@@ -847,7 +847,7 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 760px) { .mech-flow { grid-template-columns: 1fr; gap: 12px; } .mech-arrow { transform: rotate(90deg); margin: 0 auto; } }
 
 /* ── The connected pipeline (the star) ── */
-.pipeline { padding: 56px 0 104px; position: relative; background: linear-gradient(180deg,#08131a 0%,#0a0a0a 55%); overflow: hidden; }
+.pipeline { padding: 56px 0 104px; position: relative; background: linear-gradient(180deg,#08131a 0%,#0a0a0a 55%); overflow-x: clip; }
 .pipeline::before { content: ''; position: absolute; top: 12%; left: -12%; width: 620px; height: 620px; background: var(--teal); border-radius: 50%; filter: blur(220px); opacity: 0.06; pointer-events: none; }
 .pipeline::after { content: ''; position: absolute; bottom: 6%; right: -12%; width: 560px; height: 560px; background: var(--pink); border-radius: 50%; filter: blur(220px); opacity: 0.05; pointer-events: none; }
 .pipeline .contain { position: relative; z-index: 1; }
@@ -893,7 +893,80 @@ body > * { position: relative; z-index: 1; }
 .pipe-output img { width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
 @media (max-width: 600px) { .pipe-output { width: calc((100% - 28px) / 3); } }
-.pipe-anim { display: block; width: 100%; max-width: 620px; margin: 0 auto; transform: scale(1.8); transform-origin: center; pointer-events: none; }
+/* ── scroll-driven pipeline: pinned wireframe phone stepping through the stages ── */
+.pipe-scroll { height: 340vh; position: relative; }
+.pipe-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.pipe-stickygrid { display: grid; grid-template-columns: 1fr 70px 1fr; gap: 24px; align-items: center; width: 100%; }
+.pipe-copies { position: relative; min-height: 320px; }
+.pipe-copy-block { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); opacity: 0; }
+.pipe-copy-block h3 { font-size: clamp(1.5rem,2.5vw,2rem); font-weight: 700; letter-spacing: -0.025em; color: #fff; margin-bottom: 16px; }
+.pipe-copy-block p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.7; max-width: 440px; }
+.pipe-mini { margin-top: 18px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); }
+.pipe-rail { position: relative; height: 340px; width: 70px; }
+.pipe-rail-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(0,188,241,0.14); border-radius: 2px; }
+.pipe-rail-fill { width: 100%; height: 0; background: linear-gradient(180deg, var(--teal), rgba(0,188,241,0.4)); border-radius: 2px; }
+.pipe-rail-node { position: absolute; left: 50%; width: 11px; height: 11px; margin-left: -6px; border-radius: 50%; background: #08131a; border: 2px solid rgba(0,188,241,0.4); transition: box-shadow .3s ease, border-color .3s ease; }
+.pipe-rail-node[data-n="0"] { top: 6%; } .pipe-rail-node[data-n="1"] { top: 50%; margin-top: -6px; } .pipe-rail-node[data-n="2"] { bottom: 6%; }
+.pipe-rail-node.on { border-color: var(--teal); box-shadow: 0 0 14px rgba(0,188,241,0.5), 0 0 0 5px rgba(0,188,241,0.1); }
+.pipe-phone-slot { display: flex; justify-content: center; }
+.wire-phone { display: block; width: 100%; max-width: 300px; overflow: visible; will-change: transform; }
+.wire-phone text { font-family: var(--font); }
+.wp-sc { opacity: 0; }
+.wp-lab { fill: #00bcf1; font-size: 9px; font-weight: 800; letter-spacing: .14em; }
+.wp-msg { fill: rgba(255,255,255,0.92); font-size: 11.5px; }
+.wp-chip-t { fill: rgba(0,188,241,0.9); font-size: 8.5px; font-weight: 700; letter-spacing: .04em; }
+.wp-m-l { fill: rgba(255,255,255,0.55); font-size: 8.5px; font-weight: 700; letter-spacing: .06em; }
+.wp-score-n { fill: #fff; font-size: 26px; font-weight: 800; }
+.wp-score-s { fill: rgba(0,188,241,0.9); font-size: 8.5px; font-weight: 800; letter-spacing: .14em; }
+/* scene 1 internals keyed to .on */
+.wp-mtn, .wp-water { stroke-dasharray: 700; stroke-dashoffset: 700; }
+.wp-sc.on .wp-mtn { animation: wpDraw 1.6s .1s var(--ease) forwards; }
+.wp-sc.on .wp-water { animation: wpDraw 1.2s .8s var(--ease) forwards; }
+.wp-sun { opacity: 0; } .wp-sc.on .wp-sun { animation: wpIn .8s 1.4s ease forwards; }
+.wp-note { opacity: 0; transform: translateY(10px); transform-box: fill-box; }
+.wp-sc.on .wp-note { animation: wpUp .6s 1.8s var(--ease) forwards; }
+.wp-refl { opacity: 0; }
+.wp-sc.on .wp-refl { animation: wpIn 1s 2.6s ease forwards, wpDrift 7s 3.6s linear infinite; }
+.wp-chip { opacity: 0; transform: translateY(6px); transform-box: fill-box; }
+.wp-sc.on .wp-chip { animation: wpUp .45s var(--ease) forwards; }
+.wp-sc.on .wp-chip:nth-of-type(1) { animation-delay: 2.9s; }
+.wp-sc.on .wp-chip:nth-of-type(2) { animation-delay: 3.1s; }
+.wp-sc.on .wp-chip:nth-of-type(3) { animation-delay: 3.3s; }
+.wp-sc.on .wp-chip:nth-of-type(4) { animation-delay: 3.5s; }
+/* scene 2 internals */
+.wp-m-f { transform: scaleX(0); transform-box: view-box; transform-origin: 118px 0; transition: transform .9s var(--ease); }
+.wp-sc.on .wp-m-f { transform: scaleX(var(--w, 1)); }
+.wp-score-ring { stroke-dashoffset: 239; transition: stroke-dashoffset 1.1s .3s var(--ease); }
+.wp-sc.on .wp-score-ring { stroke-dashoffset: 72; }
+.wp-approved { opacity: 0; transform: translateY(6px); transform-box: fill-box; transition: opacity .5s 1s ease, transform .5s 1s var(--ease); }
+.wp-sc.on .wp-approved { opacity: 1; transform: none; }
+/* scene 3 internals */
+.wp-clip { opacity: 0; transform: translateY(14px); transform-box: fill-box; transition: opacity .4s ease, transform .5s var(--ease); }
+.wp-sc.on .wp-clip { opacity: 1; transform: none; }
+.wp-sc.on .wp-clip:nth-of-type(1) { transition-delay: .15s; } .wp-sc.on .wp-clip:nth-of-type(2) { transition-delay: .27s; }
+.wp-sc.on .wp-clip:nth-of-type(3) { transition-delay: .39s; } .wp-sc.on .wp-clip:nth-of-type(4) { transition-delay: .51s; }
+.wp-sc.on .wp-clip:nth-of-type(5) { transition-delay: .63s; } .wp-sc.on .wp-clip:nth-of-type(6) { transition-delay: .75s; }
+.wp-wave, .wp-caps { opacity: 0; transition: opacity .6s .9s ease; }
+.wp-sc.on .wp-wave, .wp-sc.on .wp-caps { opacity: 1; }
+.wp-build { opacity: 0; transform: translateY(6px); transform-box: fill-box; transition: opacity .5s 1.3s ease, transform .5s 1.3s var(--ease); }
+.wp-sc.on .wp-build { opacity: 1; transform: none; }
+.wp-rec { animation: wpPulse 2.4s ease-in-out infinite; }
+@keyframes wpDraw { to { stroke-dashoffset: 0; } }
+@keyframes wpIn { to { opacity: 1; } }
+@keyframes wpUp { to { opacity: 1; transform: none; } }
+@keyframes wpDrift { to { stroke-dashoffset: -28; } }
+@keyframes wpPulse { 50% { opacity: .5; } }
+/* static fallback (small screens / no JS) */
+@media (max-width: 900px) {
+  .pipe-scroll { height: auto; }
+  .pipe-sticky { position: static; height: auto; display: block; padding: 24px 0; }
+  .pipe-stickygrid { grid-template-columns: 1fr; }
+  .pipe-rail { display: none; }
+  .pipe-copies { min-height: 0; }
+  .pipe-copy-block { position: static; transform: none !important; opacity: 1 !important; margin-bottom: 40px; }
+  .wp-sc { opacity: 1 !important; }
+  #wpSc1, #wpSc2 { display: none; }
+}
 
 </style>
 
@@ -939,50 +1012,118 @@ body > * { position: relative; z-index: 1; }
       <h2>One system runs your whole production.</h2>
       <p>A connected pipeline where every step feeds the next: shotlist, coaching, scoring, edit. Everything a producer, a director, and an editor used to own, running as one&nbsp;system.</p>
     </div>
+  </div>
 
-    <div class="pipe-track">
-    <!-- Stage 01: AI Director -->
-    <div class="pipe-stage reveal">
-      <div class="pipe-copy">
-        <div class="pipe-num">Stage 01</div>
-        <h3>AI Director</h3>
-        <p>Give it your goal and it writes the shotlist, then coaches every person on camera, live: framing, light, steadiness, even whether the location works. First-take pro footage from anyone.</p>
-      </div>
-      <div class="pipe-visual">
-        <video class="pipe-anim" autoplay muted loop playsinline preload="metadata" aria-label="Cinebody AI Director phone mockup">
-          <source src="/app-ui/phone-anim.webm" type="video/webm">
-        </video>
-        <div class="pipe-cap">AI Director &middot; live on-camera coaching</div>
+  <div class="pipe-scroll" id="pipeScroll">
+    <div class="pipe-sticky">
+      <div class="contain pipe-stickygrid">
+        <div class="pipe-copies">
+          <div class="pipe-copy-block" data-stage="0">
+            <div class="pipe-num">Stage 01</div>
+            <h3>AI Director</h3>
+            <p>Give it your goal and it writes the shotlist, then coaches every person on camera, live: framing, light, steadiness, even whether the location works. First-take pro footage from anyone.</p>
+            <div class="pipe-mini">AI Director &middot; live on-camera coaching</div>
+          </div>
+          <div class="pipe-copy-block" data-stage="1">
+            <div class="pipe-num">Stage 02</div>
+            <h3>Clip scoring</h3>
+            <p>Every clip is transcribed and scored the second it lands: light, focus, framing, audio, delivery. The best moments rise to the top and weak takes get flagged on the spot, so you review the best, not the whole pile.</p>
+            <div class="pipe-mini">AI clip review &middot; scored as it lands</div>
+          </div>
+          <div class="pipe-copy-block" data-stage="2">
+            <div class="pipe-num">Stage 03</div>
+            <h3>The auto-editor</h3>
+            <p>It reads the transcripts, finds the real story in what people actually said, and cuts a finished, on-brand video: paced to music, captioned, reframed for vertical. You open a video that is nearly done.</p>
+            <div class="pipe-mini">Auto-editor &middot; build my cut</div>
+          </div>
+        </div>
+
+        <div class="pipe-rail" aria-hidden="true">
+          <div class="pipe-rail-line"><div class="pipe-rail-fill" id="pipeRailFill"></div></div>
+          <div class="pipe-rail-node" data-n="0"></div>
+          <div class="pipe-rail-node" data-n="1"></div>
+          <div class="pipe-rail-node" data-n="2"></div>
+        </div>
+
+        <div class="pipe-phone-slot">
+          <svg class="wire-phone" id="wirePhone" viewBox="0 0 300 640" fill="none" role="img" aria-label="Wireframe phone stepping through the AI pipeline: directing, scoring, editing">
+            <rect x="6" y="6" width="288" height="628" rx="44" stroke="rgba(0,188,241,0.4)" stroke-width="2"/>
+            <rect x="17" y="17" width="266" height="606" rx="34" stroke="rgba(255,255,255,0.09)" stroke-width="1.5"/>
+            <rect x="112" y="32" width="76" height="16" rx="8" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/>
+
+            <!-- scene 1: the director -->
+            <g class="wp-sc" id="wpSc0">
+              <path class="wp-mtn" d="M40 296 L98 196 L138 254 L192 164 L260 296" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linejoin="round"/>
+              <line class="wp-water" x1="40" y1="296" x2="260" y2="296" stroke="rgba(0,188,241,0.55)" stroke-width="2"/>
+              <circle class="wp-sun" cx="224" cy="136" r="15" stroke="rgba(255,236,3,0.55)" stroke-width="2"/>
+              <g class="wp-refl" stroke="rgba(0,188,241,0.38)" stroke-width="2" stroke-dasharray="6 8">
+                <path d="M72 322 h58"/><path d="M152 322 h68"/>
+                <path d="M92 348 h50"/><path d="M168 348 h58"/>
+                <path d="M122 374 h64"/>
+              </g>
+              <g class="wp-note">
+                <rect x="34" y="420" width="232" height="62" rx="14" fill="rgba(10,14,18,0.72)" stroke="rgba(0,188,241,0.35)" stroke-width="1.5"/>
+                <rect x="47" y="436" width="26" height="26" rx="8" fill="rgba(0,188,241,0.14)"/>
+                <g stroke="#00bcf1" stroke-width="1.6" stroke-linecap="round">
+                  <rect x="53" y="445" width="14" height="10" rx="2.5"/>
+                  <path d="M60 445 v-3.5"/><path d="M57 450 h.01"/><path d="M63 450 h.01"/>
+                </g>
+                <text x="84" y="446" class="wp-lab">DIRECTOR</text>
+                <text x="84" y="462" class="wp-msg">The mountains are beautiful.</text>
+                <text x="84" y="476" class="wp-msg">Show more of their reflection.</text>
+              </g>
+              <g class="wp-chip"><rect x="38" y="500" width="54" height="20" rx="10" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/><text x="65" y="513" text-anchor="middle" class="wp-chip-t">&#10003; LIGHT</text></g>
+              <g class="wp-chip"><rect x="96" y="500" width="54" height="20" rx="10" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/><text x="123" y="513" text-anchor="middle" class="wp-chip-t">&#10003; FOCUS</text></g>
+              <g class="wp-chip"><rect x="154" y="500" width="54" height="20" rx="10" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/><text x="181" y="513" text-anchor="middle" class="wp-chip-t">&#10003; STEADY</text></g>
+              <g class="wp-chip"><rect x="212" y="500" width="54" height="20" rx="10" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/><text x="239" y="513" text-anchor="middle" class="wp-chip-t">&#10003; AUDIO</text></g>
+            </g>
+
+            <!-- scene 2: clip scoring -->
+            <g class="wp-sc" id="wpSc1">
+              <circle cx="150" cy="150" r="38" stroke="rgba(0,188,241,0.5)" stroke-width="2"/>
+              <circle class="wp-score-ring" cx="150" cy="150" r="38" stroke="#00bcf1" stroke-width="3" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="72" transform="rotate(-90 150 150)"/>
+              <text x="150" y="146" text-anchor="middle" class="wp-score-n">7</text>
+              <text x="150" y="166" text-anchor="middle" class="wp-score-s">GOOD</text>
+              <g class="wp-meters">
+                <text x="44" y="248" class="wp-m-l">AUDIO</text><line x1="118" y1="244" x2="256" y2="244" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/><line class="wp-m-f" style="--w:0.6" x1="118" y1="244" x2="256" y2="244" stroke="rgba(255,236,3,0.7)" stroke-width="4" stroke-linecap="round"/>
+                <text x="44" y="288" class="wp-m-l">FOCUS</text><line x1="118" y1="284" x2="256" y2="284" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/><line class="wp-m-f" style="--w:0.85" x1="118" y1="284" x2="256" y2="284" stroke="rgba(0,188,241,0.8)" stroke-width="4" stroke-linecap="round"/>
+                <text x="44" y="328" class="wp-m-l">FRAMING</text><line x1="118" y1="324" x2="256" y2="324" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/><line class="wp-m-f" style="--w:0.85" x1="118" y1="324" x2="256" y2="324" stroke="rgba(0,188,241,0.8)" stroke-width="4" stroke-linecap="round"/>
+                <text x="44" y="368" class="wp-m-l">EXPOSURE</text><line x1="118" y1="364" x2="256" y2="364" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/><line class="wp-m-f" style="--w:0.9" x1="118" y1="364" x2="256" y2="364" stroke="rgba(0,188,241,0.8)" stroke-width="4" stroke-linecap="round"/>
+                <text x="44" y="408" class="wp-m-l">STABILITY</text><line x1="118" y1="404" x2="256" y2="404" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/><line class="wp-m-f" style="--w:0.8" x1="118" y1="404" x2="256" y2="404" stroke="rgba(0,188,241,0.8)" stroke-width="4" stroke-linecap="round"/>
+              </g>
+              <g class="wp-approved"><rect x="97" y="448" width="106" height="26" rx="13" stroke="rgba(0,188,241,0.6)" stroke-width="1.5"/><text x="150" y="465" text-anchor="middle" class="wp-chip-t">&#10003; APPROVED</text></g>
+            </g>
+
+            <!-- scene 3: the auto-editor -->
+            <g class="wp-sc" id="wpSc2">
+              <circle cx="150" cy="160" r="32" stroke="rgba(0,188,241,0.5)" stroke-width="2"/>
+              <path d="M141 146 L165 160 L141 174 Z" fill="rgba(0,188,241,0.8)"/>
+              <g class="wp-clips">
+                <rect class="wp-clip" x="44"  y="268" width="32" height="46" rx="6" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                <rect class="wp-clip" x="80"  y="268" width="32" height="46" rx="6" stroke="rgba(0,188,241,0.55)" stroke-width="1.5"/>
+                <rect class="wp-clip" x="116" y="268" width="32" height="46" rx="6" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                <rect class="wp-clip" x="152" y="268" width="32" height="46" rx="6" stroke="rgba(0,188,241,0.55)" stroke-width="1.5"/>
+                <rect class="wp-clip" x="188" y="268" width="32" height="46" rx="6" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                <rect class="wp-clip" x="224" y="268" width="32" height="46" rx="6" stroke="rgba(255,236,3,0.55)" stroke-width="1.5"/>
+              </g>
+              <g stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round" class="wp-wave">
+                <path d="M48 350 v10"/><path d="M60 344 v22"/><path d="M72 348 v14"/><path d="M84 340 v30"/><path d="M96 346 v18"/><path d="M108 350 v10"/><path d="M120 342 v26"/><path d="M132 347 v16"/><path d="M144 344 v22"/><path d="M156 350 v10"/><path d="M168 341 v28"/><path d="M180 347 v16"/><path d="M192 344 v22"/><path d="M204 349 v12"/><path d="M216 343 v24"/><path d="M228 348 v14"/><path d="M240 345 v20"/><path d="M252 350 v10"/>
+              </g>
+              <g class="wp-caps" stroke="rgba(0,188,241,0.45)" stroke-width="3" stroke-linecap="round">
+                <path d="M86 404 h128"/><path d="M108 420 h84"/>
+              </g>
+              <g class="wp-build"><rect x="83" y="448" width="134" height="28" rx="14" stroke="rgba(0,188,241,0.6)" stroke-width="1.5"/><text x="150" y="466" text-anchor="middle" class="wp-chip-t">BUILD MY CUT</text></g>
+            </g>
+
+            <circle cx="150" cy="574" r="25" stroke="rgba(255,255,255,0.85)" stroke-width="3"/>
+            <circle class="wp-rec" cx="150" cy="574" r="15" fill="#eb008b"/>
+          </svg>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Stage 02: Clip scoring -->
-    <div class="pipe-stage flip reveal">
-      <div class="pipe-copy">
-        <div class="pipe-num">Stage 02</div>
-        <h3>Clip scoring</h3>
-        <p>Every clip is transcribed and scored the second it lands: light, focus, framing, audio, delivery. The best moments rise to the top and weak takes get flagged on the spot, so you review the best, not the whole pile.</p>
-      </div>
-      <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--card"><img src="/app-ui/img08.jpg" alt="Cinebody clip review scoring a clip as it lands" loading="lazy"></div>
-        <div class="pipe-cap">AI clip review · scored as it lands</div>
-      </div>
-    </div>
-
-    <!-- Stage 03: The auto-editor -->
-    <div class="pipe-stage reveal">
-      <div class="pipe-copy">
-        <div class="pipe-num">Stage 03</div>
-        <h3>The auto-editor</h3>
-        <p>It reads the transcripts, finds the real story in what people actually said, and cuts a finished, on-brand video: paced to music, captioned, reframed for vertical. You open a video that is nearly done.</p>
-      </div>
-      <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/img09.jpg" alt="Cinebody auto-editor building a cut from scored footage" loading="lazy"></div>
-        <div class="pipe-cap">Auto-editor · build my cut</div>
-      </div>
-    </div>
-    </div><!-- /pipe-track -->
-
+  <div class="contain">
     <!-- Closer: the output -->
     <div class="pipe-closer reveal">
       <h3>Real people create it. <em>AI runs it end to end.</em></h3>
@@ -995,6 +1136,58 @@ body > * { position: relative; z-index: 1; }
     </div>
   </div>
 </section>
+
+<script>
+(function(){
+  var wrap = document.getElementById('pipeScroll');
+  if (!wrap) return;
+  if (window.matchMedia('(max-width: 900px)').matches) { wrap.closest('.pipeline').classList.add('pipe-static'); return; }
+  var phone = document.getElementById('wirePhone');
+  var scenes = [document.getElementById('wpSc0'), document.getElementById('wpSc1'), document.getElementById('wpSc2')];
+  var copies = Array.prototype.slice.call(wrap.querySelectorAll('.pipe-copy-block'));
+  var nodes = Array.prototype.slice.call(wrap.querySelectorAll('.pipe-rail-node'));
+  var fill = document.getElementById('pipeRailFill');
+  var target = 0, smooth = -1, last = performance.now();
+  function onScroll(){
+    var r = wrap.getBoundingClientRect();
+    var total = wrap.offsetHeight - window.innerHeight;
+    target = Math.max(0, Math.min(1, total > 0 ? -r.top / total : 0));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+  function act(i, p){
+    var c = (i + 0.5) / 3;
+    var d = Math.abs(p - c);
+    return Math.max(0, Math.min(1, 1 - Math.max(0, d - 0.05) / 0.11));
+  }
+  function render(p){
+    var pe = Math.max(1/6, Math.min(5/6, p));
+    for (var i = 0; i < 3; i++) {
+      var a = act(i, pe);
+      var c = (i + 0.5) / 3;
+      var dirn = pe < c ? 1 : -1;
+      copies[i].style.opacity = a;
+      copies[i].style.transform = 'translateY(' + ((1 - a) * 26 * dirn) + 'px)';
+      copies[i].style.pointerEvents = a > 0.5 ? 'auto' : 'none';
+      scenes[i].style.opacity = a;
+      scenes[i].classList.toggle('on', a > 0.55);
+      nodes[i].classList.toggle('on', a > 0.55);
+    }
+    phone.style.transform = 'translateY(' + (p * 36 - 18) + 'px) rotate(' + ((p - 0.5) * 3) + 'deg)';
+    fill.style.height = (p * 100) + '%';
+  }
+  function frame(now){
+    var dt = Math.min(64, now - last); last = now;
+    if (smooth < 0) smooth = target;
+    smooth += (target - smooth) * (1 - Math.exp(-dt / 170));
+    if (Math.abs(target - smooth) < 0.0002) smooth = target;
+    render(smooth);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 
 <!-- ═══ PROOF ═══ -->
 <style>
