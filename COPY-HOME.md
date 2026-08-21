@@ -12,7 +12,7 @@ Voice: humans-first, specific about what the AI does, subtle on anti-slop, outco
 - Trust: Trusted by Nike, Royal Caribbean, Dell, and 100+ brands
 
 ## 2. The mechanic
-- **Anyone can film it. The AI makes it good.**
+- **Just a phone and a link. The AI makes it good.** *(revised 2026-08-21; killed the hero echo and the "no experience" framing)*
 - Open a link, start shooting. The AI coaches every shot so it comes back usable. No app, no crew, no experience. Footage syncs to your dashboard the moment they stop.
 - Three beats: `Send the link` · `They film, AI coaches` · `You open a finished cut`
 
