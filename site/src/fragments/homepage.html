@@ -895,11 +895,15 @@ body > * { position: relative; z-index: 1; }
 .pipe-output img, .pipe-output video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pipe-output iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .po-play { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,0.16); transition: opacity .3s ease; }
-.po-play span { width: 54px; height: 54px; border-radius: 50%; background: rgba(8,12,16,0.6); border: 1.5px solid rgba(255,255,255,0.5); backdrop-filter: blur(6px); position: relative; }
+.po-play span { width: 56px; height: 56px; border-radius: 50%; background: var(--teal); position: relative;
+  box-shadow: 0 0 24px rgba(0,188,241,0.45), 0 4px 14px rgba(0,0,0,0.35);
+  transition: transform .3s var(--ease), box-shadow .3s ease; }
+.pipe-output:hover .po-play span { transform: scale(1.08); box-shadow: 0 0 36px rgba(0,188,241,0.65), 0 4px 16px rgba(0,0,0,0.4); }
 .po-play span::after { content: ''; position: absolute; left: 55%; top: 50%; transform: translate(-50%,-50%); border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent #fff; }
 .pipe-output.playing .po-play { opacity: 0; background: rgba(0,0,0,0.08); }
 .pipe-output.playing:hover .po-play, .pipe-output.paused .po-play { opacity: 1; }
-.pipe-output.paused .po-play span::after { border-width: 9px 0 9px 15px; }
+/* playing = pause glyph; paused/idle = play triangle */
+.pipe-output.playing:not(.paused) .po-play span::after { left: 50%; width: 15px; height: 17px; border: 0; border-left: 5px solid #fff; border-right: 5px solid #fff; background: transparent; }
 .po-progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--teal); z-index: 3; transition: width .25s linear; pointer-events: none; }
 .po-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 12px 10px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.85); pointer-events: none; }
 @media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
