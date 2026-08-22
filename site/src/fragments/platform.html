@@ -285,6 +285,15 @@ body > * { position: relative; z-index: 1; }
    CROSS-SELL CARD
    ═══════════════════════════ */
 .cross-sell { padding: 0 0 80px; position: relative; background: #fff; }
+.cross-split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 4vw, 60px); align-items: center; }
+.cross-copy h3 em { font-style: normal; color: var(--teal); }
+.cross-note { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin: 14px 0 24px; max-width: 420px; }
+.cross-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.09); border-radius: 14px; overflow: hidden; }
+.cross-pillar { background: #101014; padding: 24px 26px 26px; }
+.cross-pillar svg { width: 20px; height: 20px; stroke: var(--teal); margin-bottom: 12px; }
+.cross-pillar h4 { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.cross-pillar p { font-size: 0.82rem; color: rgba(255,255,255,0.58); line-height: 1.6; }
+@media (max-width: 900px) { .cross-split { grid-template-columns: 1fr; } }
 
 .cross-card {
   background: #111; color: #fff;
@@ -2542,17 +2551,36 @@ body > * { position: relative; z-index: 1; }
 <section class="cross-sell">
   <div class="contain">
     <div class="cross-card reveal">
-      <div>
-        <div class="label">Creative Services</div>
-        <h3>Don't have an editing team? We&nbsp;do.</h3>
-        <p class="cross-body">Pair the software with Cinebody's in-house creative team. We handle strategy, editing, and delivery so you get polished content without hiring a single&nbsp;freelancer.</p>
-        <ul class="check-list">
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Strategy</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Editing</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Motion Graphics</li>
-          <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Strategic Producer</li>
-        </ul>
-        <a href="/services" class="btn btn-ghost">Explore Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <div class="cross-split">
+        <div class="cross-copy">
+          <div class="label">Creative Services</div>
+          <h3>Want it fully handled? <em>We'll run the whole thing.</em></h3>
+          <p class="cross-body">Some teams run Cinebody themselves. Others want it off their plate entirely. Our creative producers run your whole program on the platform, so you get finished, on-brand video without hiring or managing a thing.</p>
+          <p class="cross-note">Because the AI does the production heavy lifting, our team delivers more, faster, for far less than a traditional agency.</p>
+          <a href="/services" class="btn btn-ghost">Explore Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="cross-pillars">
+          <div class="cross-pillar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>
+            <h4>Strategy</h4>
+            <p>We shape what to make and why, tied to your goals.</p>
+          </div>
+          <div class="cross-pillar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg>
+            <h4>Direction</h4>
+            <p>We build the briefs and shot lists and guide your people on camera.</p>
+          </div>
+          <div class="cross-pillar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="8.1" y1="8.1" x2="20" y2="20"/><line x1="20" y1="4" x2="8.1" y2="15.9"/></svg>
+            <h4>Editing &amp; delivery</h4>
+            <p>Polished, on-brand cuts, ready for every channel.</p>
+          </div>
+          <div class="cross-pillar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <h4>Your producer</h4>
+            <p>One point of contact who owns your program end to end.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2635,57 +2663,8 @@ body > * { position: relative; z-index: 1; }
 </div>
 
 <!-- curve: dark → light -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
-<!-- ═══ TEASER: GEORGIA-PACIFIC ═══ -->
-<section class="teaser teaser--light" style="padding-top:60px">
-  <div class="contain">
-    <div class="reveal">
-      <div class="teaser-badge"><span class="teaser-badge-tag">Case Study</span><span class="teaser-badge-name">Georgia-Pacific</span></div>
-      <h3><em>Multiple brands. One platform.</em><br>Authentic content at&nbsp;scale.</h3>
-      <p class="teaser-desc">Georgia-Pacific needed real product content across Sparkle, Vanity Fair, and Innovia, without spinning up separate productions for each brand. With Cinebody, they recruited real customers to capture demos, testimonials, and everyday&nbsp;moments.</p>
-      <div class="teaser-stats">
-        <div class="teaser-stat"><div class="teaser-stat-num">3</div><div class="teaser-stat-label">Brands</div></div><div class="teaser-stat-pipe"></div>
-        <div class="teaser-stat"><div class="teaser-stat-num">1</div><div class="teaser-stat-label">Platform</div></div><div class="teaser-stat-pipe"></div>
-        <div class="teaser-stat"><div class="teaser-stat-num">100%</div><div class="teaser-stat-label">Authentic</div></div><div class="teaser-stat-pipe"></div>
-        <div class="teaser-stat"><div class="teaser-stat-num">0</div><div class="teaser-stat-label">Crews</div></div>
-      </div>
-      <a href="/georgia-pacific" class="teaser-link">See the full story <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-    </div>
-    <div class="teaser-visual reveal reveal-d2">
-      <div class="teaser-vid-pair">
-        <div class="vid-playable vid-playable--v teaser-vid" data-autoplay data-vimeo="1091854157" data-vimeo-h="26c42f8016"><img class="vid-poster" src="https://i.vimeocdn.com/video/2038638655-4ef78cd2bf72975d8e802116dbfb44252b5b797a7ec267b4c2138960b71ec95c-d_640" alt="Sparkle video"></div>
-        <div class="vid-playable vid-playable--v teaser-vid" data-autoplay data-vimeo="1041247977"><img class="vid-poster" src="https://i.vimeocdn.com/video/2038639193-4e9c5d6a29eda4ba9a7d22802756329cd7fd49e6d7e02ea8957f530b88964181-d_640" alt="Demo video"></div>
-      </div>
-      <!-- Ecosystem tree SVG accent -->
-      <svg class="teaser-accent" viewBox="0 0 300 300">
-        <line class="t-trunk" x1="150" y1="280" x2="150" y2="120"/>
-        <line class="t-branch" x1="150" y1="180" x2="90" y2="140"/>
-        <line class="t-branch" x1="150" y1="180" x2="210" y2="140"/>
-        <line class="t-branch" x1="150" y1="150" x2="80" y2="100"/>
-        <line class="t-branch" x1="150" y1="150" x2="220" y2="100"/>
-        <line class="t-branch" x1="150" y1="120" x2="120" y2="70"/>
-        <line class="t-branch" x1="150" y1="120" x2="180" y2="70"/>
-        <circle class="t-leaf" cx="90" cy="140" r="8"/>
-        <circle class="t-leaf" cx="210" cy="140" r="8"/>
-        <circle class="t-leaf" cx="80" cy="100" r="10"/>
-        <circle class="t-leaf" cx="220" cy="100" r="10"/>
-        <circle class="t-leaf" cx="120" cy="70" r="7"/>
-        <circle class="t-leaf" cx="180" cy="70" r="7"/>
-        <circle class="t-leaf" cx="150" cy="110" r="12"/>
-        <circle class="t-leaf-pulse" cx="80" cy="100" r="3" style="animation-delay:0s"/>
-        <circle class="t-leaf-pulse" cx="220" cy="100" r="3" style="animation-delay:0.8s"/>
-        <circle class="t-leaf-pulse" cx="150" cy="110" r="3" style="animation-delay:1.6s"/>
-        <text x="90" y="158" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family='Plus Jakarta Sans'>Sparkle</text>
-        <text x="210" y="158" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family='Plus Jakarta Sans'>Vanity Fair</text>
-        <text x="150" y="128" text-anchor="middle" font-size="6" font-weight="600" fill="rgba(0,0,0,0.1)" font-family='Plus Jakarta Sans'>Innovia</text>
-      </svg>
-    </div>
-  </div>
-</section>
-
 <!-- curve: light → dark (FAQ) -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
 
 <!-- ═══ FAQ ═══ -->
 <section class="faq">
