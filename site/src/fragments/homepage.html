@@ -1116,17 +1116,22 @@ body > * { position: relative; z-index: 1; }
 })();
 </script>
 
-<!-- curve: dark → plum -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
+<!-- curve: dark → white -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ PAYOFF: the output + the proof, one section ═══ -->
 <style>
-.stats.payoff { padding: 96px 0 90px;
-  background:
-    radial-gradient(ellipse 80% 70% at 82% 16%, rgba(235,0,139,0.10) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 60% at 16% 86%, rgba(255,236,3,0.05) 0%, transparent 70%),
-    linear-gradient(180deg, #1a0a18 0%, #140a1e 100%);
-}
+.stats.payoff { padding: 96px 0 90px; background: #fff; color: #111; }
+.payoff .pipe-closer h3 { color: #111; }
+.payoff .pipe-cap { color: #8a9095; }
+.payoff .stats-head h2 { color: #111 !important; }
+.payoff .stats-head p { color: #666; }
+.payoff .stats-grid { background: rgba(0,0,0,0.08); }
+.stats.payoff .stat { background: #fafbfc; }
+.stats.payoff .stat:hover { background: #f1f4f6; }
+.stats.payoff .stat-label { color: #777; }
+.payoff .stats-foot { color: #9aa0a5; }
+.payoff .pipe-output { border-color: rgba(0,0,0,0.1); box-shadow: 0 14px 34px rgba(0,0,0,0.18); }
 .payoff .pipe-closer { margin-top: 0; }
 .stats-head { text-align: center; max-width: 620px; margin: 76px auto 40px; }
 .stats-head h2 { font-size: clamp(1.5rem,2.6vw,2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: #fff !important; margin-bottom: 10px; }
@@ -1170,8 +1175,8 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
-<!-- curve: plum → dark -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#140a1e"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+<!-- curve: white → dark -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <!-- ═══ FULL PLATFORM (bento) ═══ -->
 <style>
