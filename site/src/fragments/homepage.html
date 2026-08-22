@@ -936,15 +936,15 @@ body > * { position: relative; z-index: 1; }
   background-origin: border-box; background-clip: padding-box, border-box; }
 .ppill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 6px rgba(0,188,241,0.7); }
 /* scene 1: brief → shotlist */
-.pbrief { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; padding: 10px 12px; font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 14px; }
-.pbrief::after { content: ''; width: 1.5px; height: 13px; background: var(--teal); animation: pCaret 1s steps(1) infinite; }
-.pshot { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 9px; padding: 10px 12px; margin-bottom: 8px; opacity: 0; transform: translateY(10px); }
-.pshot-n { font-size: 10px; font-weight: 800; color: var(--teal); letter-spacing: 0.06em; }
-.pshot-t { flex: 1; font-size: 12px; color: rgba(255,255,255,0.85); }
-.pshot-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(0,188,241,0.9); background: rgba(0,188,241,0.1); border-radius: 99px; padding: 3px 8px; }
+.pbrief { display: flex; align-items: center; gap: 2px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 13px 15px; font-size: 13.5px; color: rgba(255,255,255,0.9); margin-bottom: 16px; min-height: 46px; }
+.pbrief::after { content: ''; width: 1.5px; height: 15px; background: var(--teal); animation: pCaret 1s steps(1) infinite; flex-shrink: 0; }
+.pshot { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 14px 15px; margin-bottom: 10px; opacity: 0; transform: translateY(12px) scale(0.98); }
+.pshot-n { font-size: 11px; font-weight: 800; color: var(--teal); letter-spacing: 0.06em; }
+.pshot-t { flex: 1; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.92); }
+.pshot-tag { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(0,188,241,0.9); background: rgba(0,188,241,0.1); border-radius: 99px; padding: 4px 9px; }
 .pscene.on .pshot { animation: pUp .5s var(--ease) forwards; }
-.pscene.on .pshot:nth-of-type(2) { animation-delay: .5s; } .pscene.on .pshot:nth-of-type(3) { animation-delay: .8s; }
-.pscene.on .pshot:nth-of-type(4) { animation-delay: 1.1s; } .pscene.on .pshot:nth-of-type(5) { animation-delay: 1.4s; }
+.pscene.on .pshot:nth-of-type(2) { animation-delay: 2s; } .pscene.on .pshot:nth-of-type(3) { animation-delay: 2.35s; }
+.pscene.on .pshot:nth-of-type(4) { animation-delay: 2.7s; } .pscene.on .pshot:nth-of-type(5) { animation-delay: 3.05s; }
 /* scene 2: live coaching over a capture frame */
 .pframe { position: relative; aspect-ratio: 4/4.4; border-radius: 10px; overflow: hidden; background: linear-gradient(160deg, #14202b 0%, #0e2431 55%, #123040 100%); border: 1px solid rgba(255,255,255,0.08); }
 .pframe-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 33.4% 33.4%; }
@@ -1140,11 +1140,11 @@ body > * { position: relative; z-index: 1; }
             <div class="pscene" data-scene="0">
               <div class="pcard">
                 <div class="pcard-head"><span class="pcard-title">Shotlist</span></div>
-                <div class="pbrief">Spring launch. 30s cut, six filmers, upbeat.</div>
-                <div class="pshot"><span class="pshot-n">01</span><span class="pshot-t">Open on the product in real hands</span><span class="pshot-tag">Wide</span></div>
+                <div class="pbrief"><span id="pbriefT"></span></div>
+                <div class="pshot"><span class="pshot-n">01</span><span class="pshot-t">Product in real hands</span><span class="pshot-tag">Wide</span></div>
                 <div class="pshot"><span class="pshot-n">02</span><span class="pshot-t">Why I keep coming back</span><span class="pshot-tag">Story</span></div>
-                <div class="pshot"><span class="pshot-n">03</span><span class="pshot-t">The detail nobody notices</span><span class="pshot-tag">Close</span></div>
-                <div class="pshot"><span class="pshot-n">04</span><span class="pshot-t">Show us where you use it</span><span class="pshot-tag">B-roll</span></div>
+                <div class="pshot"><span class="pshot-n">03</span><span class="pshot-t">The detail nobody sees</span><span class="pshot-tag">Close</span></div>
+                <div class="pshot"><span class="pshot-n">04</span><span class="pshot-t">Where you use it</span><span class="pshot-tag">B-roll</span></div>
               </div>
             </div>
             <div class="pscene" data-scene="1">
@@ -1226,6 +1226,9 @@ body > * { position: relative; z-index: 1; }
   if (window.matchMedia('(max-width: 900px)').matches) { wrap.closest('.pipeline').classList.add('pipe-static'); return; }
   var scenesWrap = document.getElementById('pipeScenes');
   var scenes = Array.prototype.slice.call(scenesWrap.querySelectorAll('.pscene'));
+  var briefEl = document.getElementById('pbriefT');
+  var BRIEF = 'Spring launch. 30s cut, six filmers, upbeat.';
+  var briefOn = false, briefI = 0, briefTimer = null;
   var copies = Array.prototype.slice.call(wrap.querySelectorAll('.pipe-copy-block'));
   var nodes = Array.prototype.slice.call(wrap.querySelectorAll('.pipe-rail-node'));
   var fill = document.getElementById('pipeRailFill');
@@ -1254,6 +1257,18 @@ body > * { position: relative; z-index: 1; }
       copies[i].style.pointerEvents = a > 0.5 ? 'auto' : 'none';
       copies[i].classList.toggle('on', a > 0.55);
       if (scenes[i]) { scenes[i].style.opacity = a; scenes[i].classList.toggle('on', a > 0.55); }
+      if (i === 0 && briefEl) {
+        var on0 = act(0, pe) > 0.55;
+        if (on0 && !briefOn) {
+          briefOn = true; briefI = 0;
+          briefTimer = setInterval(function(){
+            briefI++; briefEl.textContent = BRIEF.slice(0, briefI);
+            if (briefI >= BRIEF.length) clearInterval(briefTimer);
+          }, 34);
+        } else if (!on0 && briefOn) {
+          briefOn = false; clearInterval(briefTimer); briefEl.textContent = '';
+        }
+      }
       nodes[i].classList.toggle('on', a > 0.55);
     }
     scenesWrap.style.transform = 'translateY(' + (p * 30 - 15) + 'px)';
