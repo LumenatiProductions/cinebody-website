@@ -898,20 +898,20 @@ body > * { position: relative; z-index: 1; }
 /* ── scroll-driven pipeline: pinned wireframe phone stepping through the stages ── */
 .pipe-scroll { height: 340vh; position: relative; }
 .pipe-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
-.pipe-stickygrid { display: grid; grid-template-columns: 1fr 70px 1fr; gap: 24px; align-items: center; width: 100%; }
+.pipe-stickygrid { display: grid; grid-template-columns: minmax(0,1fr) 56px 400px; gap: 28px; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; }
 .pipe-copies { position: relative; min-height: 320px; }
 .pipe-copy-block { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); opacity: 0; }
-.pipe-copy-block h3 { font-size: clamp(1.5rem,2.5vw,2rem); font-weight: 700; letter-spacing: -0.025em; color: #fff; margin-bottom: 16px; }
-.pipe-copy-block p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.7; max-width: 440px; }
+.pipe-copy-block h3 { font-size: clamp(1.9rem,3vw,2.6rem); font-weight: 800; letter-spacing: -0.03em; color: #fff; margin-bottom: 16px; }
+.pipe-copy-block p { font-size: 1.02rem; color: var(--text-dim); line-height: 1.7; max-width: 430px; }
 .pipe-mini { margin-top: 18px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); }
-.pipe-rail { position: relative; height: 340px; width: 70px; }
+.pipe-rail { position: relative; height: 280px; width: 56px; }
 .pipe-rail-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(0,188,241,0.14); border-radius: 2px; }
 .pipe-rail-fill { width: 100%; height: 0; background: linear-gradient(180deg, var(--teal), rgba(0,188,241,0.4)); border-radius: 2px; }
 .pipe-rail-node { position: absolute; left: 50%; width: 11px; height: 11px; margin-left: -6px; border-radius: 50%; background: #08131a; border: 2px solid rgba(0,188,241,0.4); transition: box-shadow .3s ease, border-color .3s ease; }
 .pipe-rail-node[data-n="0"] { top: 6%; } .pipe-rail-node[data-n="1"] { top: 50%; margin-top: -6px; } .pipe-rail-node[data-n="2"] { bottom: 6%; }
 .pipe-rail-node.on { border-color: var(--teal); box-shadow: 0 0 14px rgba(0,188,241,0.5), 0 0 0 5px rgba(0,188,241,0.1); }
 .pipe-phone-slot { display: flex; justify-content: center; }
-.wire-phone { display: block; width: 100%; max-width: 300px; overflow: visible; will-change: transform; }
+.wire-phone { display: block; width: 100%; max-width: 375px; overflow: visible; will-change: transform; }
 .wire-phone text { font-family: var(--font); }
 .wp-sc { opacity: 0; }
 .wp-lab { fill: #00bcf1; font-size: 9px; font-weight: 800; letter-spacing: .14em; }
