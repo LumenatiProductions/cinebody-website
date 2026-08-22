@@ -104,26 +104,36 @@ body > * { position: relative; z-index: 1; }
   transition: all 0.3s var(--ease); position: relative; isolation: isolate;
 }
 
+/* App AI surface: dark pill + the exact brand ring from the web app */
 .btn-glow {
-  background: var(--teal); color: #fff;
-  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
+  background: #151518; color: #fff;
+  border-radius: 9999px;
+  transition: color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
-
-.btn-glow::before {
-  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
-  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
-  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
-}
-
-.btn-glow:hover::before { opacity: 0.7; }
 
 .btn-glow:hover {
-  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 0 20px rgba(235,0,139,0.1);
+  transform: translateY(-1px);
 }
 
-.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
-.btn-glow:hover svg { transform: translateX(3px); }
+.ai-ring {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: visible;
+  filter: blur(0.5px);
+}
+.ai-ring rect {
+  x: 1.25px; y: 1.25px;
+  width: calc(100% - 2.5px); height: calc(100% - 2.5px);
+  ry: 50%;
+  fill: none;
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  stroke-dasharray: 0.0537 2.9463;
+  stroke-dashoffset: var(--o, 0);
+}
+
+.btn-glow svg:not(.ai-ring) { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg:not(.ai-ring) { transform: translateX(3px); }
 
 /* Secondary / ghost button */
 .btn-ghost {
@@ -653,8 +663,7 @@ body > * { position: relative; z-index: 1; }
 
 .cta-band h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; color: #111 !important; line-height: 1.2; margin-bottom: 28px; }
 .cta-band h2 span { color: var(--teal) !important; }
-.cta-band .btn-glow { margin-bottom: 56px; background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.15); }
-.cta-band .btn-glow:hover { box-shadow: 0 0 40px rgba(0,0,0,0.25); }
+.cta-band .btn-glow { margin-bottom: 56px; }
 
 .cta-marquee { display: flex; height: 200px; overflow: hidden; }
 .cta-marquee-track { display: flex; animation: logos-scroll 28s linear infinite; flex-shrink: 0; }
@@ -1475,6 +1484,48 @@ body > * { position: relative; z-index: 1; }
 (function(){
   var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
+})();
+
+// App AI ring on the CTAs: exact arc table + one WAAPI lap per hover (ported from the web app)
+(function(){
+  var TEAL = 'rgb(0,188,241)', YEL = 'rgb(255,236,3)', PINK = 'rgb(235,0,139)';
+  var BLEND_TY = ['rgb(16,191,226)','rgb(52,198,192)','rgb(101,207,147)','rgb(154,217,97)','rgb(203,226,52)','rgb(239,233,18)'];
+  var BLEND_YP = ['rgb(254,221,12)','rgb(251,187,31)','rgb(247,142,57)','rgb(243,94,85)','rgb(239,49,111)','rgb(236,15,130)'];
+  var BLEND_PT = ['rgb(220,12,145)','rgb(187,39,160)','rgb(142,75,179)','rgb(93,113,201)','rgb(48,149,220)','rgb(15,176,235)'];
+  var colors = [];
+  for (var i = 0; i < 9; i++) colors.push(TEAL);
+  colors = colors.concat(BLEND_TY);
+  for (i = 0; i < 18; i++) colors.push(YEL);
+  colors = colors.concat(BLEND_YP);
+  for (i = 0; i < 18; i++) colors.push(PINK);
+  colors = colors.concat(BLEND_PT);
+  for (i = 0; i < 9; i++) colors.push(TEAL);
+  var NS = 'http://www.w3.org/2000/svg';
+  var LAP_MS = 700;
+  document.querySelectorAll('.btn-glow').forEach(function(btn){
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', 'ai-ring');
+    svg.setAttribute('aria-hidden', 'true');
+    colors.forEach(function(c, idx){
+      var r = document.createElementNS(NS, 'rect');
+      r.setAttribute('pathLength', '3');
+      r.setAttribute('stroke', c);
+      r.style.setProperty('--o', String(-(idx * 3 / colors.length)));
+      svg.appendChild(r);
+    });
+    btn.appendChild(svg);
+    btn.addEventListener('mouseenter', function(){
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      svg.querySelectorAll('rect').forEach(function(r){
+        if (r.getAnimations && r.getAnimations().length) return;
+        var base = parseFloat(getComputedStyle(r).getPropertyValue('--o')) || 0;
+        r.animate(
+          [{ strokeDashoffset: base }, { strokeDashoffset: base - 3 }],
+          { duration: LAP_MS, easing: 'ease-in-out' }
+        );
+      });
+    });
+  });
 })();
 
 // Scroll-coupled marquees: parallax offset layered over the CSS loops
