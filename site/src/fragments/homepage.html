@@ -1298,7 +1298,7 @@ body > * { position: relative; z-index: 1; }
     }
     scenesWrap.style.transform = 'translateY(' + (p * 30 - 15) + 'px)';
     if (subjEl) {
-      var q = Math.max(0, Math.min(1, (pe - 0.28) / 0.19));
+      var q = Math.max(0, Math.min(1, (pe - 0.332) / 0.086));
       var qe = q * q * (3 - 2 * q);
       subjEl.style.transform = 'translateX(-50%) scale(' + (0.62 + 0.43 * qe) + ')';
       var di = q < 0.45 ? 0 : q < 0.85 ? 1 : 2;
