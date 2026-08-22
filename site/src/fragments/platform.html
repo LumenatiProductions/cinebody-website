@@ -763,8 +763,10 @@ body > * { position: relative; z-index: 1; }
       <div class="pipe-visual">
         <div class="pipe-pair">
           <div class="pipe-pair-main">
-        <div class="shot-tabs"><button class="shot-tab on" data-img="/app-ui/live/desk-shotlist.jpg" data-alt="A real shot list with plain-language directions">The shot list</button><button class="shot-tab" data-img="/app-ui/live/desk-shoot.jpg" data-alt="The project HQ: filmers, clips, scores">Project HQ</button></div>
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shotlist.jpg" alt="A real shot list with plain-language directions" loading="lazy"></div>
+        <div class="pipe-stack">
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="Project HQ"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shoot.jpg" alt="The project HQ: filmers, clips, scores" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The shot list"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shotlist.jpg" alt="A real shot list with plain-language directions" loading="lazy"></div>
+        </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-project.jpg" alt="The same project in the Cinebody app" loading="lazy"></div>
         </div>
@@ -832,8 +834,10 @@ body > * { position: relative; z-index: 1; }
       <div class="pipe-visual">
         <div class="pipe-pair">
           <div class="pipe-pair-main">
-        <div class="shot-tabs"><button class="shot-tab" data-img="/app-ui/live/desk-library.jpg" data-alt="The library: every clip scored on arrival">The library</button><button class="shot-tab on" data-img="/app-ui/live/desk-clipdetail.jpg" data-alt="A real review: the score and the reasons why">A clip review</button></div>
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
+        <div class="pipe-stack">
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The library"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The library: every clip scored on arrival" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="A clip review"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
+        </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-library.jpg" alt="The library in the Cinebody app" loading="lazy"></div>
         </div>
@@ -897,8 +901,10 @@ body > * { position: relative; z-index: 1; }
         <p>It reads all your footage, tells you the story it found, and one click builds the cut: best takes in order, B-roll over the seams, captions, music. Don't love it? Type a note like "get to the hook faster" and it revises just that.</p>
       </div>
       <div class="pipe-visual">
-        <div class="shot-tabs"><button class="shot-tab" data-img="/app-ui/live/desk-postproduction.jpg" data-alt="The AI reads the footage and writes the story brief">The story it found</button><button class="shot-tab on" data-img="/app-ui/live/desk-postgen.jpg" data-alt="One click later: a finished timeline with captions and music">The timeline it built</button></div>
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
+        <div class="pipe-stack">
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The story it found"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.jpg" alt="The AI reads the footage and writes the story brief" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The timeline it built"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
+        </div>
         <div class="pipe-cap">Auto-Editor · the brief, then the cut</div>
       </div>
     </div>
@@ -918,8 +924,10 @@ body > * { position: relative; z-index: 1; }
         <p>Point it at your website and it drafts your logo, colors, voice, and filming rules. From then on, every shot list, cover, caption, and cut stays on brand automatically.</p>
       </div>
       <div class="pipe-visual">
-        <div class="shot-tabs"><button class="shot-tab on" data-img="/app-ui/live/desk-brandkit.jpg" data-alt="Brand Kit: logo and colors, fetched from your site">Visual identity</button><button class="shot-tab" data-img="/app-ui/live/desk-brandprofile.jpg" data-alt="Brand profile: voice, audience, and filming rules">Brand profile</button></div>
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.jpg" alt="Brand Kit: logo and colors, fetched from your site" loading="lazy"></div>
+        <div class="pipe-stack">
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="Brand profile"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandprofile.jpg" alt="Brand profile: voice, audience, and filming rules" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Visual identity"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.jpg" alt="Brand Kit: logo and colors, fetched from your site" loading="lazy"></div>
+        </div>
         <div class="pipe-cap">Brand Kit · both pages, fetched from your site</div>
       </div>
     </div>
@@ -1197,21 +1205,6 @@ document.querySelectorAll('.faq-q').forEach(function(b){
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do filmers need to download an app?","acceptedAnswer":{"@type":"Answer","text":"No. A link or QR code opens Cinebody right in the phone browser, so anyone is filming in seconds. And for teams that film often, the Cinebody app makes capture even better."}},{"@type":"Question","name":"How does the shot list work?","acceptedAnswer":{"@type":"Answer","text":"You build a shot list in the dashboard that controls exactly what filmers capture, including resolution, FPS, orientation, and creative prompts. Filmers see guided instructions on their screen as they record. You get the footage you actually need."}},{"@type":"Question","name":"Can I use the software without creative services?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. The software subscription is fully standalone, you direct shoots, collect footage, and edit with your own team. Creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution."}},{"@type":"Question","name":"What video quality can I expect?","acceptedAnswer":{"@type":"Answer","text":"Cinebody captures up to 4K resolution at configurable frame rates. Our patented technology controls the camera settings remotely, so you get broadcast-quality footage from any smartphone, not shaky selfie videos."}},{"@type":"Question","name":"How quickly do I get the footage?","acceptedAnswer":{"@type":"Answer","text":"Instantly. The moment a filmer stops recording, footage begins syncing to your cloud dashboard. No waiting for uploads, no file transfer services, no chasing down content. It's there when you need it."}}]}</script>
 <script>
 (function(){
-  document.querySelectorAll('.shot-tabs').forEach(function(tabs){
-    var frameImg = tabs.parentElement.querySelector('.pipe-frame img');
-    tabs.querySelectorAll('.shot-tab').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        tabs.querySelectorAll('.shot-tab').forEach(function(b){ b.classList.remove('on'); });
-        btn.classList.add('on');
-        frameImg.src = btn.dataset.img;
-        frameImg.alt = btn.dataset.alt || '';
-      });
-    });
-  });
-})();
-</script>
-<script>
-(function(){
   var lb = document.createElement('div');
   lb.className = 'shot-lightbox';
   lb.innerHTML = '<button class="shot-lb-arrow shot-lb-prev" aria-label="Previous screen">&#8249;</button>' +
@@ -1260,29 +1253,13 @@ document.querySelectorAll('.faq-q').forEach(function(b){
   document.querySelectorAll('.pipe-visual').forEach(function(v){
     var items = [];
     var capText = (v.querySelector('.pipe-cap') || {}).textContent || '';
-    var tabs = v.querySelector('.shot-tabs');
-    var mainImg = tabs ? tabs.parentElement.querySelector('.pipe-frame img') : null;
-    if (tabs) {
-      tabs.querySelectorAll('.shot-tab').forEach(function(b){
-        items.push({ src: b.dataset.img, label: b.textContent, alt: b.dataset.alt || '' });
-      });
-    }
     v.querySelectorAll('.pipe-frame').forEach(function(f){
       var fi = f.querySelector('img');
       if (!fi) return;
-      if (mainImg && fi === mainImg) { f.dataset.lbTab = '1'; }
-      else {
-        f.dataset.lbIdx = items.length;
-        items.push({ src: fi.getAttribute('src'), label: f.dataset.lb || fi.alt || 'Screen', alt: fi.alt || '' });
-      }
+      f.dataset.lbIdx = items.length;
+      items.push({ src: fi.getAttribute('src'), label: f.dataset.lb || fi.alt || 'Screen', alt: fi.alt || '' });
       f.addEventListener('click', function(){
-        var i = 0;
-        if (f.dataset.lbTab) {
-          var on = tabs.querySelector('.shot-tab.on');
-          i = Array.prototype.indexOf.call(tabs.querySelectorAll('.shot-tab'), on);
-          if (i < 0) i = 0;
-        } else { i = parseInt(f.dataset.lbIdx, 10) || 0; }
-        open(items, capText, i);
+        open(items, capText, parseInt(f.dataset.lbIdx, 10) || 0);
       });
     });
   });
