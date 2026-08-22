@@ -897,8 +897,10 @@ body > * { position: relative; z-index: 1; }
 .po-play { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,0.16); transition: opacity .3s ease; }
 .po-play span { width: 54px; height: 54px; border-radius: 50%; background: rgba(8,12,16,0.6); border: 1.5px solid rgba(255,255,255,0.5); backdrop-filter: blur(6px); position: relative; }
 .po-play span::after { content: ''; position: absolute; left: 55%; top: 50%; transform: translate(-50%,-50%); border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent #fff; }
-.pipe-output.playing .po-play { opacity: 0; }
-.pipe-output.playing:hover .po-play { opacity: 1; }
+.pipe-output.playing .po-play { opacity: 0; background: rgba(0,0,0,0.08); }
+.pipe-output.playing:hover .po-play, .pipe-output.paused .po-play { opacity: 1; }
+.pipe-output.paused .po-play span::after { border-width: 9px 0 9px 15px; }
+.po-progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--teal); z-index: 3; transition: width .25s linear; pointer-events: none; }
 .po-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 12px 10px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.85); pointer-events: none; }
 @media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
 @media (max-width: 600px) { .pipe-output { width: calc((100% - 28px) / 3); } }
@@ -1394,25 +1396,57 @@ body > * { position: relative; z-index: 1; }
   upd();
 })();
 
-// Finished cuts: click builds a Vimeo player with sound, one at a time
+// Finished cuts: chromeless Vimeo + our own controls (play/pause + teal progress)
 (function(){
   var outs = Array.prototype.slice.call(document.querySelectorAll('.pipe-output[data-vimeo]'));
+  function post(o, method, value){
+    var f = o.querySelector('iframe');
+    if (f && f.contentWindow) f.contentWindow.postMessage(JSON.stringify({ method: method, value: value }), '*');
+  }
   function stop(o){
     var f = o.querySelector('iframe');
     if (f) f.remove();
-    o.classList.remove('playing');
+    var pr = o.querySelector('.po-progress');
+    if (pr) pr.remove();
+    o.classList.remove('playing', 'paused');
   }
+  window.addEventListener('message', function(e){
+    if (e.origin.indexOf('vimeo.com') === -1) return;
+    var d;
+    try { d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch (err) { return; }
+    var o = outs.find(function(x){
+      var f = x.querySelector('iframe');
+      return f && f.contentWindow === e.source;
+    });
+    if (!o) return;
+    if (d.event === 'ready') {
+      post(o, 'addEventListener', 'timeupdate');
+      post(o, 'addEventListener', 'ended');
+    } else if (d.event === 'timeupdate' || d.event === 'playProgress') {
+      var pr = o.querySelector('.po-progress');
+      if (pr && d.data) pr.style.width = (d.data.percent * 100) + '%';
+    } else if (d.event === 'ended' || d.event === 'finish') {
+      stop(o);
+    }
+  });
   outs.forEach(function(o){
     o.addEventListener('click', function(){
-      if (o.classList.contains('playing')) return; // Vimeo controls take over
+      if (o.classList.contains('playing')) {
+        if (o.classList.contains('paused')) { post(o, 'play'); o.classList.remove('paused'); }
+        else { post(o, 'pause'); o.classList.add('paused'); }
+        return;
+      }
       outs.forEach(function(x){ if (x !== o) stop(x); });
       var id = o.dataset.vimeo, h = o.dataset.h;
-      var src = 'https://player.vimeo.com/video/' + id + (h ? '?h=' + h + '&' : '?') + 'autoplay=1&title=0&byline=0&portrait=0';
+      var src = 'https://player.vimeo.com/video/' + id + (h ? '?h=' + h + '&' : '?') + 'autoplay=1&controls=0&title=0&byline=0&portrait=0&dnt=1&api=1';
       var f = document.createElement('iframe');
       f.src = src;
       f.allow = 'autoplay; fullscreen';
       f.title = 'Cinebody finished cut';
       o.appendChild(f);
+      var pr = document.createElement('div');
+      pr.className = 'po-progress';
+      o.appendChild(pr);
       o.classList.add('playing');
     });
   });
