@@ -219,6 +219,8 @@ const pageSchema = entitySchemas[active];
       (function () {
         var iframes = Array.prototype.slice.call(document.querySelectorAll('.scr-card iframe[data-src]'));
         if (!iframes.length) return;
+        // Stagger start times so no two cards show the same beat of their loops
+        iframes.forEach(function (f, i) { f.dataset.t = (i % 5) * 6; });
         var noVideo =
           window.matchMedia('(max-width: 767px)').matches ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
@@ -229,7 +231,7 @@ const pageSchema = entitySchemas[active];
           entries.forEach(function (e) {
             var f = e.target;
             if (e.isIntersecting) {
-              if (!f.getAttribute('src')) { f.title = 'Cinebody customer video'; f.setAttribute('src', withDnt(f.dataset.src)); }
+              if (!f.getAttribute('src')) { f.title = 'Cinebody customer video'; f.setAttribute('src', withDnt(f.dataset.src) + '#t=' + f.dataset.t + 's'); }
             } else if (f.getAttribute('src')) {
               f.removeAttribute('src'); // revert to poster, stop the stream
             }
