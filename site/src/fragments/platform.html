@@ -768,6 +768,11 @@ body > * { position: relative; z-index: 1; }
 .tour-reel .tour-sec .pipe-stage { width: 100%; grid-template-columns: 0.68fr 1.32fr; gap: clamp(32px,3.5vw,56px); }
 .tour-reel .tour-sec.is-active { opacity: 1; transform: none; pointer-events: auto; }
 .tour-reel .tour-sec.is-above { transform: translateY(-4.5%); }
+/* eyebrow: numbered label instead of the dash rule */
+.tour-stages { counter-reset: toursec; }
+.tour-sec { counter-increment: toursec; }
+.tour-run .pipe-num { color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.14em; gap: 10px; }
+.tour-run .pipe-num::before { content: counter(toursec, decimal-leading-zero); width: auto; height: auto; background: none; opacity: 1; color: var(--teal); font-weight: 700; }
 /* the screens own the vertical room: height-driven, cropped like tall panels */
 .tour-reel .pipe-visual { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-bottom: 0; }
 .tour-reel .pipe-visual .pipe-cap { margin-top: 26px; }
