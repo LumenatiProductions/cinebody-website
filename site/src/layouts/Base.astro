@@ -243,5 +243,49 @@ const pageSchema = entitySchemas[active];
     <!-- Vercel Web Analytics + Speed Insights -->
     <Analytics />
     <SpeedInsights />
-  </body>
+  <script is:inline>
+// App AI ring on CTAs sitewide (exact port from the web app's AiPillRing)
+(function(){
+  function build(){
+    var TEAL='rgb(0,188,241)', YEL='rgb(255,236,3)', PINK='rgb(235,0,139)';
+    var B1=['rgb(16,191,226)','rgb(52,198,192)','rgb(101,207,147)','rgb(154,217,97)','rgb(203,226,52)','rgb(239,233,18)'];
+    var B2=['rgb(254,221,12)','rgb(251,187,31)','rgb(247,142,57)','rgb(243,94,85)','rgb(239,49,111)','rgb(236,15,130)'];
+    var B3=['rgb(220,12,145)','rgb(187,39,160)','rgb(142,75,179)','rgb(93,113,201)','rgb(48,149,220)','rgb(15,176,235)'];
+    var colors=[]; var i;
+    for(i=0;i<9;i++)colors.push(TEAL);
+    colors=colors.concat(B1);
+    for(i=0;i<18;i++)colors.push(YEL);
+    colors=colors.concat(B2);
+    for(i=0;i<18;i++)colors.push(PINK);
+    colors=colors.concat(B3);
+    for(i=0;i<9;i++)colors.push(TEAL);
+    var NS='http://www.w3.org/2000/svg', LAP=700;
+    document.querySelectorAll('.btn-glow, .site-nav__cta').forEach(function(btn){
+      if(btn.querySelector('.ai-ring'))return;
+      var svg=document.createElementNS(NS,'svg');
+      svg.setAttribute('class','ai-ring');
+      svg.setAttribute('aria-hidden','true');
+      colors.forEach(function(c,idx){
+        var r=document.createElementNS(NS,'rect');
+        r.setAttribute('pathLength','3');
+        r.setAttribute('stroke',c);
+        r.style.setProperty('--o',String(-(idx*3/colors.length)));
+        svg.appendChild(r);
+      });
+      btn.appendChild(svg);
+      btn.addEventListener('mouseenter',function(){
+        if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+        svg.querySelectorAll('rect').forEach(function(r){
+          if(r.getAnimations&&r.getAnimations().length)return;
+          var base=parseFloat(getComputedStyle(r).getPropertyValue('--o'))||0;
+          r.animate([{strokeDashoffset:base},{strokeDashoffset:base-3}],{duration:LAP,easing:'ease-in-out'});
+        });
+      });
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build);
+  else build();
+})();
+</script>
+</body>
 </html>
