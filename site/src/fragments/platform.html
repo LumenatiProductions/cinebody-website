@@ -737,19 +737,21 @@ body > * { position: relative; z-index: 1; }
 .tour-sec .pipe-stage { margin-bottom: 0; }
 /* stage grounding: spotlight behind, contact shadow beneath */
 .tour-sec .pipe-visual { z-index: 0; padding-bottom: 30px; }
-.tour-sec .pipe-visual::before { content: ''; position: absolute; inset: -14% -10%; background: radial-gradient(58% 54% at 50% 44%, rgba(0,188,241,0.09), transparent 70%); z-index: -1; pointer-events: none; }
+.tour-sec .pipe-visual::before { content: ''; position: absolute; inset: -22% -18%; background: radial-gradient(60% 56% at 50% 46%, rgba(0,188,241,0.11), transparent 70%); z-index: -1; pointer-events: none; }
 .tour-sec:nth-child(3n+2) .pipe-visual::before { background: radial-gradient(58% 54% at 50% 44%, rgba(235,0,139,0.07), transparent 70%); }
 .tour-sec:nth-child(3n) .pipe-visual::before { background: radial-gradient(58% 54% at 50% 44%, rgba(255,236,3,0.045), transparent 70%); }
 .tour-sec .pipe-visual::after { content: ''; position: absolute; left: 10%; right: 10%; bottom: 6px; height: 26px; background: radial-gradient(50% 100% at 50% 50%, rgba(0,0,0,0.6), transparent 72%); filter: blur(7px); z-index: -1; }
 @media (max-width: 1100px) { .tour-body { grid-template-columns: 1fr; } .tour-rail { display: none; } }
 
 /* ── Real device chrome ── */
-.pipe-bar { align-items: center; padding: 10px 12px; position: relative; }
-.pipe-bar span { width: 9px; height: 9px; }
+.pipe-bar { align-items: center; padding: 9px 12px; position: relative; }
+.pipe-bar span { width: 8px; height: 8px; }
 .pipe-bar span:nth-child(1) { background: #ff5f57; }
 .pipe-bar span:nth-child(2) { background: #febc2e; }
 .pipe-bar span:nth-child(3) { background: #28c840; }
-.pipe-bar[data-url]::after { content: attr(data-url); position: absolute; left: calc(50% + 16px); top: 50%; transform: translate(-50%,-50%); font-family: var(--mono); font-size: 10px; letter-spacing: 0.02em; color: rgba(255,255,255,0.42); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; padding: 3px 18px; white-space: nowrap; max-width: 58%; overflow: hidden; text-overflow: ellipsis; }
+.pipe-frame--browser { container-type: inline-size; }
+.pipe-bar[data-url]::after { content: attr(data-url); position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); font-family: var(--mono); font-size: 10px; letter-spacing: 0.02em; color: rgba(255,255,255,0.38); background: rgba(255,255,255,0.05); border-radius: 5px; padding: 2px 16px; white-space: nowrap; }
+@container (max-width: 430px) { .pipe-bar[data-url]::after { display: none; } }
 /* the peeking back frame keeps its lights but not the URL pill (it doubles up) */
 .pipe-stack-back .pipe-bar[data-url]::after { display: none; }
 .tour-run .pipe-frame--phone { padding: 7px; border-radius: 36px; background: linear-gradient(150deg,#2e3237,#131417 55%,#1f2126); border: 1px solid rgba(255,255,255,0.22); box-shadow: inset 0 0 0 2px #000, 0 28px 64px rgba(0,0,0,0.5); }
@@ -758,14 +760,35 @@ body > * { position: relative; z-index: 1; }
 .tour-run .pipe-side-phone { border-radius: 27px; padding: 5px; }
 .tour-run .pipe-side-phone img { border-radius: 22px; }
 
-/* ── Reel mode: the tour pins once, sections slide in like a reel ── */
-.tour-reel .tour-body { position: sticky; top: 88px; height: calc(100vh - 112px); align-items: center; }
+/* ── Reel mode: auto-advancing, click-driven. The page scrolls past it. ── */
+.tour-reel .tour-body { align-items: center; }
 .tour-reel .tour-rail { position: static; align-self: center; }
-.tour-reel .tour-stages { position: relative; height: 100%; }
-.tour-reel .tour-sec { position: absolute; inset: 0; display: flex; align-items: center; padding: 0; border-top: none; opacity: 0; transform: translateY(9%); transition: transform .75s var(--ease), opacity .45s ease; pointer-events: none; }
-.tour-reel .tour-sec .pipe-stage { width: 100%; }
+.tour-reel .tour-stages { position: relative; height: clamp(560px, 76vh, 800px); }
+.tour-reel .tour-sec { position: absolute; inset: 0; display: flex; align-items: stretch; padding: 0; border-top: none; opacity: 0; transform: translateY(6%); transition: transform .8s var(--ease), opacity .5s ease; pointer-events: none; }
+.tour-reel .tour-sec .pipe-stage { width: 100%; grid-template-columns: 0.68fr 1.32fr; gap: clamp(32px,3.5vw,56px); }
 .tour-reel .tour-sec.is-active { opacity: 1; transform: none; pointer-events: auto; }
-.tour-reel .tour-sec.is-above { transform: translateY(-7%); }
+.tour-reel .tour-sec.is-above { transform: translateY(-4.5%); }
+/* the screens own the vertical room: height-driven, cropped like tall panels */
+.tour-reel .pipe-visual { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-bottom: 0; }
+.tour-reel .pipe-visual .pipe-cap { margin-top: 26px; }
+.tour-reel .pipe-pair { display: block; position: relative; height: clamp(420px, 54vh, 600px); padding: 0 46px 0 0; }
+.tour-reel .pipe-pair-main { width: 100%; height: 100%; }
+.tour-reel .pipe-pair > .pipe-frame--browser { width: 100%; height: 100%; }
+.tour-reel .pipe-pair .pipe-frame--browser { display: flex; flex-direction: column; }
+.tour-reel .pipe-pair .pipe-frame--browser img { flex: 1; min-height: 0; height: auto; object-fit: cover; object-position: left top; }
+.tour-reel .pipe-stack { height: 100%; padding: 28px 0 0 28px; }
+.tour-reel .pipe-stack-front { height: calc(100% - 28px); }
+.tour-reel .pipe-stack-back { height: calc(100% - 28px); right: 40px; }
+.tour-reel .pipe-side-phone { position: absolute; right: -8px; bottom: -26px; width: clamp(168px, 24%, 210px); height: auto; z-index: 4; box-shadow: inset 0 0 0 2px #000, 0 34px 80px rgba(0,0,0,0.7); }
+/* phone-led sections: phones take the height */
+.tour-reel .pipe-phones { height: clamp(440px, 58vh, 620px); align-items: center; }
+.tour-reel .pipe-phones .pipe-frame--phone { height: 100%; width: auto; max-width: none; }
+.tour-reel .pipe-visual > .pipe-frame--phone { height: clamp(460px, 60vh, 640px); width: auto; max-width: none; margin: 0 auto; }
+/* ghost numeral anchors the dark behind each lockup (echoes the pipeline) */
+.tour-reel .tour-sec::before { content: attr(data-ghost); position: absolute; right: -0.5%; top: 0; font-size: clamp(130px, 15vw, 210px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.8; color: rgba(0,188,241,0.055); z-index: 0; pointer-events: none; }
+/* phones must read as phones: lock the aspect no matter the source frame */
+.tour-run .pipe-frame--phone { aspect-ratio: 9 / 18.6; }
+.tour-run .pipe-frame--phone img { height: 100%; width: 100%; object-fit: cover; }
 </style>
 
 <section class="pipeline tour-run" id="pipeline">
@@ -789,7 +812,7 @@ body > * { position: relative; z-index: 1; }
         <a href="#tour-brandkit">Brand Kit</a>
       </nav>
       <div class="tour-stages">
-      <div class="tour-sec" id="tour-pulse">
+      <div class="tour-sec" id="tour-pulse" data-ghost="01">
 <div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Pulse</div>
@@ -805,7 +828,7 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
       </div>
-      <div class="tour-sec" id="tour-projects">
+      <div class="tour-sec" id="tour-projects" data-ghost="02">
 <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Projects &amp; Idea Studio</div>
@@ -826,7 +849,7 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
       </div>
-      <div class="tour-sec" id="tour-director">
+      <div class="tour-sec" id="tour-director" data-ghost="03">
 <div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">AI Director</div>
@@ -842,7 +865,7 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
       </div>
-      <div class="tour-sec" id="tour-interviews">
+      <div class="tour-sec" id="tour-interviews" data-ghost="04">
 <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">AI Voice Interviews</div>
@@ -855,7 +878,7 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
       </div>
-      <div class="tour-sec" id="tour-messages">
+      <div class="tour-sec" id="tour-messages" data-ghost="05">
 <div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Messages, Directions &amp; Map</div>
@@ -876,7 +899,7 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
       </div>
-      <div class="tour-sec" id="tour-library">
+      <div class="tour-sec" id="tour-library" data-ghost="06">
 <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Library &amp; AI Clip Review</div>
@@ -897,7 +920,7 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
       </div>
-      <div class="tour-sec" id="tour-payouts">
+      <div class="tour-sec" id="tour-payouts" data-ghost="07">
 <div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Payouts</div>
@@ -913,7 +936,7 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
       </div>
-      <div class="tour-sec" id="tour-postprod">
+      <div class="tour-sec" id="tour-postprod" data-ghost="08">
 <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Post Production</div>
@@ -934,7 +957,7 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
       </div>
-      <div class="tour-sec" id="tour-brandkit">
+      <div class="tour-sec" id="tour-brandkit" data-ghost="09">
 <div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Brand Kit</div>
@@ -1191,20 +1214,21 @@ body > * { position: relative; z-index: 1; }
   }, { passive: true });
 })();
 
-// Tour: slot-machine reel on desktop, plain scroll + observer rail elsewhere
+// Tour: a reel that idles through sections until you engage, then click-driven.
+// No scroll hijack: the page scrolls past it like any section.
 (function(){
   var run = document.querySelector('.tour-run');
-  var wrap = document.querySelector('.tour-scroll');
   var secs = Array.prototype.slice.call(document.querySelectorAll('.tour-sec'));
   var links = Array.prototype.slice.call(document.querySelectorAll('.tour-rail a'));
-  if (!run || !wrap || !secs.length) return;
+  if (!run || !secs.length) return;
 
   var mq = window.matchMedia('(min-width: 1100px)');
   var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var enabled = false, active = -1, wrapTop = 0, STEP = 0, ticking = false;
+  var enabled = false, engaged = false, inView = false, active = -1, timer = null;
+  var DWELL = 4200;
 
   function setActive(i){
-    i = Math.max(0, Math.min(secs.length - 1, i));
+    i = ((i % secs.length) + secs.length) % secs.length;
     if (i === active) return;
     active = i;
     secs.forEach(function(s, k){
@@ -1213,58 +1237,57 @@ body > * { position: relative; z-index: 1; }
     });
     links.forEach(function(a, k){ a.classList.toggle('on', k === i); });
   }
-  function measure(){
-    STEP = Math.round(window.innerHeight * 0.62);
-    wrap.style.height = (STEP * secs.length + Math.round(window.innerHeight * 0.55)) + 'px';
-    var r = wrap.getBoundingClientRect();
-    wrapTop = r.top + window.pageYOffset;
+  function startAuto(){
+    if (timer || engaged || !enabled || !inView) return;
+    timer = setInterval(function(){ setActive(active + 1); }, DWELL);
   }
-  function onScroll(){
-    if (!enabled || ticking) return;
-    ticking = true;
-    requestAnimationFrame(function(){
-      ticking = false;
-      setActive(Math.floor((window.pageYOffset - wrapTop + 6) / STEP));
-    });
-  }
+  function stopAuto(){ if (timer) { clearInterval(timer); timer = null; } }
+  function engage(){ engaged = true; stopAuto(); }
+
   function enable(){
     if (enabled) return;
     enabled = true;
     run.classList.add('tour-reel');
-    // reveal-once animations can't retrigger inside the reel; force them visible
     secs.forEach(function(s){
       s.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('vis'); });
     });
-    measure();
     active = -1;
     setActive(0);
-    onScroll();
+    startAuto();
   }
   function disable(){
     if (!enabled) return;
     enabled = false;
+    stopAuto();
     run.classList.remove('tour-reel');
-    wrap.style.height = '';
     secs.forEach(function(s){ s.classList.remove('is-active', 'is-above'); });
     active = -1;
   }
   function decide(){ (mq.matches && !rm.matches) ? enable() : disable(); }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', function(){ if (enabled) { measure(); onScroll(); } });
   mq.addEventListener ? mq.addEventListener('change', decide) : mq.addListener(decide);
   decide();
 
-  // rail: reel mode scrolls to the section's step; stacked mode uses the anchor
+  // idle only while on screen
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      inView = e.isIntersecting;
+      inView ? startAuto() : stopAuto();
+    });
+  }, { threshold: 0.35 }).observe(run);
+
+  // any real interaction with the tour hands over control
+  run.addEventListener('click', engage);
+
   links.forEach(function(a, i){
     a.addEventListener('click', function(e){
       if (!enabled) return;
       e.preventDefault();
-      window.scrollTo({ top: wrapTop + i * STEP + 8, behavior: 'smooth' });
+      engage();
+      setActive(i);
     });
   });
 
-  // stacked-mode rail highlight (observer is a no-op while the reel runs)
+  // stacked-mode rail highlight (mobile / reduced motion)
   var obs = new IntersectionObserver(function(es){
     if (enabled) return;
     es.forEach(function(e){
