@@ -746,11 +746,12 @@ body > * { position: relative; z-index: 1; }
    position:sticky for the rail; overflow-x:clip contains the aurora blobs
    without breaking stickiness. */
 .tour-run { background: linear-gradient(180deg,#0a0a0a 0%,#06131b 60%,#08131a 100%); overflow: visible; overflow-x: clip; }
-.tour-body { display: grid; grid-template-columns: 156px minmax(0,1fr); gap: clamp(24px,4vw,60px); align-items: start; }
-.tour-rail { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 2px; padding-top: 6px; }
-.tour-rail a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.38); text-decoration: none; padding: 8px 0 8px 14px; border-left: 1px solid rgba(255,255,255,0.12); transition: color .25s ease, border-color .25s ease; }
-.tour-rail a:hover { color: rgba(255,255,255,0.75); }
-.tour-rail a.on { color: var(--teal); border-left-color: var(--teal); }
+.tour-body { display: block; }
+.tour-rail { display: none; }
+.tour-reel .tour-rail { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-bottom: clamp(26px, 4vh, 42px); }
+.tour-rail a { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; padding: 7px 12px; border: 1px solid rgba(255,255,255,0.14); border-radius: 99px; white-space: nowrap; transition: all .25s ease; }
+.tour-rail a:hover { color: #fff; border-color: rgba(0,188,241,0.5); }
+.tour-rail a.on { color: #04141c; background: var(--teal); border-color: var(--teal); }
 .tour-sec { position: relative; padding: 88px 0; scroll-margin-top: 90px; }
 .tour-sec:first-child { padding-top: 12px; }
 .tour-sec + .tour-sec { border-top: 1px solid rgba(255,255,255,0.05); }
@@ -761,7 +762,7 @@ body > * { position: relative; z-index: 1; }
 .tour-sec:nth-child(3n+2) .pipe-visual::before { background: radial-gradient(58% 54% at 50% 44%, rgba(235,0,139,0.07), transparent 70%); }
 .tour-sec:nth-child(3n) .pipe-visual::before { background: radial-gradient(58% 54% at 50% 44%, rgba(255,236,3,0.045), transparent 70%); }
 .tour-sec .pipe-visual::after { content: ''; position: absolute; left: 10%; right: 10%; bottom: 6px; height: 26px; background: radial-gradient(50% 100% at 50% 50%, rgba(0,0,0,0.6), transparent 72%); filter: blur(7px); z-index: -1; }
-@media (max-width: 1100px) { .tour-body { grid-template-columns: 1fr; } .tour-rail { display: none; } }
+
 
 /* ── Real device chrome ── */
 .pipe-bar { align-items: center; padding: 9px 12px; position: relative; }
@@ -781,8 +782,6 @@ body > * { position: relative; z-index: 1; }
 .tour-run .pipe-side-phone img { border-radius: 22px; }
 
 /* ── Reel mode: auto-advancing, click-driven. The page scrolls past it. ── */
-.tour-reel .tour-body { align-items: center; }
-.tour-reel .tour-rail { position: static; align-self: center; }
 .tour-reel .tour-stages { position: relative; height: clamp(560px, 76vh, 800px); }
 .tour-reel .tour-sec { position: absolute; inset: 0; display: flex; align-items: stretch; padding: 0; border-top: none; opacity: 0; transform: translateY(6%); transition: transform .8s var(--ease), opacity .5s ease; pointer-events: none; }
 .tour-reel .tour-sec .pipe-stage { width: 100%; grid-template-columns: 0.68fr 1.32fr; gap: clamp(32px,3.5vw,56px); }
