@@ -642,6 +642,8 @@ body > * { position: relative; z-index: 1; }
 .pipe-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); }
 .pipe-cap { margin-top: 20px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); text-align: center; }
 .pipe-stack { position: relative; padding: 26px 0 0 26px; }
+.pipe-duo { position: relative; padding: 0 30px 40px 0; }
+.pipe-duo-phone { position: absolute; right: -6px; bottom: 0; width: 168px; max-width: none; margin: 0; z-index: 2; box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
 .pipe-stack-back { position: absolute; top: 0; left: 0; right: 52px; opacity: 0.55; filter: saturate(0.8); }
 .pipe-stack-front { position: relative; z-index: 2; }
 .feat { padding: 90px 0; overflow: hidden; }
@@ -701,85 +703,85 @@ body > * { position: relative; z-index: 1; }
     <div class="pipeline-head reveal">
       <div class="label" style="text-align:center;">The tour</div>
       <h2>Inside the platform.</h2>
-      <p>What each part of Cinebody actually does, shown with real screens from the product. The homepage tells the story. This is the tour.</p>
+      <p>What each part of Cinebody actually does, in the order you'll use it, shown with real screens from the product. Click any screen to look closer.</p>
     </div>
 
-    <!-- Stage 01 -->
+    <!-- 1. Pulse -->
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
-        <div class="pipe-num">AI Shotlist &amp; Projects</div>
-        <h3>Every project starts with a plan</h3>
-        <p>Tell it what you're making and the shot list writes itself, every shot with plain-language directions anyone can follow. From the same screen you invite filmers, share the link, watch clips land, and see scores update live. One project HQ instead of a producer's spreadsheet.</p>
+        <div class="pipe-num">Pulse</div>
+        <h3>See everything happening, live</h3>
+        <p>One screen with the whole operation: where clips are being filmed right now, how quality is trending, which projects need you, and every filmer conversation. The day starts here.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shoot.jpg" alt="A real Cinebody project: shotlist, filmers, and every clip scored" loading="lazy"></div>
-        <div class="pipe-cap">A real project HQ · the plan, the filmers, the scores</div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.jpg" alt="Pulse: the live overview of every project, clip, and conversation" loading="lazy"></div>
+        <div class="pipe-cap">Pulse · the whole operation on one screen</div>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- curve: dark → white -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
+<!-- 2. Projects -->
 <section class="feat feat--light">
   <div class="contain">
-    <!-- Stage 02 -->
     <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
-        <div class="pipe-num">The Filmer Link</div>
-        <h3>Anyone films from a text</h3>
-        <p>No account, no setup. The link opens right in the phone, shows what to film and what it pays, and the AI Director coaches every shot live: framing, light, steadiness. When every check clears, they nailed it. First-take pro footage from anyone you send it to.</p>
+        <div class="pipe-num">Projects</div>
+        <h3>Every project starts with a plan</h3>
+        <p>Tell it what you're making and the shot list writes itself, with plain directions anyone can follow. Then send the filmer link by text: it opens right in the phone, shows what to film and what it pays, and anyone is capturing in seconds.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/live/phone-filmer.jpg" alt="The filmer link on a phone: shot count, payout, start filming" loading="lazy"></div>
-        <div class="pipe-cap">The filmer link · anyone films from a text</div>
+        <div class="pipe-duo">
+          <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shotlist.jpg" alt="A real shot list: four shots with plain-language directions" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-duo-phone"><img src="/app-ui/live/phone-filmer.jpg" alt="The filmer link on a phone" loading="lazy"></div>
+        </div>
+        <div class="pipe-cap">A real shot list · and the link filmers get</div>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- curve: white → dark -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
+<!-- 3. Library + Clip Review -->
 <section class="feat feat--dark2">
   <div class="contain">
-    <!-- Stage 03 -->
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
-        <div class="pipe-num">AI Clip Review</div>
+        <div class="pipe-num">Library &amp; AI Clip Review</div>
         <h3>Footage that grades itself</h3>
-        <p>Every clip is transcribed and scored the second it arrives: audio, stability, focus, exposure, framing, plus a plain verdict. The best moments surface, weak takes get flagged for a redo, and the whole library stays searchable by what people actually said.</p>
+        <p>Every clip lands transcribed and scored: audio, stability, focus, exposure, framing, plus a plain verdict and what would make it better. Open any clip for the full review, approve it or send it back, and search the whole library by what people actually said.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The Cinebody library: every clip scored the moment it lands" loading="lazy"></div>
-        <div class="pipe-cap">AI Clip Review · every clip scored as it lands</div>
+        <div class="pipe-stack">
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The library: every clip scored on arrival" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A clip review: 6/10 with the reasons why" loading="lazy"></div>
+        </div>
+        <div class="pipe-cap">AI Clip Review · a real score, with the reason why</div>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- curve: dark → white -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
+<!-- 4. Payouts -->
 <section class="feat feat--light">
   <div class="contain">
-    <!-- Stage 04 -->
     <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
-        <div class="pipe-num">Auto-Editor</div>
-        <h3>From a pile of clips to a timeline in one click</h3>
-        <p>It reads all your footage, tells you the story it found, and one click builds the cut: best takes in order, B-roll over the seams, captions, music. Don't love it? Type a note like "get to the hook faster" and it revises just that. Export when it's yours.</p>
+        <div class="pipe-num">Payouts</div>
+        <h3>Pay filmers without the spreadsheet</h3>
+        <p>Fund a project once and pay everyone from one screen: flat rates, bounties, or gift cards. Filmers see what a project pays before they pick up the phone, and payouts go out the moment you approve.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.jpg" alt="Planning the cut: the AI reads the footage and writes the brief" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with cuts, captions, and music" loading="lazy"></div>
-        </div>
-        <div class="pipe-cap">Auto-Editor · one click, a finished timeline</div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-payouts.jpg" alt="Payouts: funded budgets and one-click filmer payments" loading="lazy"></div>
+        <div class="pipe-cap">Payouts · funded budgets, one-click payments</div>
       </div>
     </div>
   </div>
@@ -788,9 +790,9 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: white → dark -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
+<!-- 5. Idea Studio -->
 <section class="feat feat--dark3">
   <div class="contain">
-    <!-- Idea Studio -->
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Idea Studio</div>
@@ -798,11 +800,53 @@ body > * { position: relative; z-index: 1; }
         <p>The AI deals you fresh shoot ideas built on your brand, a few at a time, like cards. Skip the misses, keep a winner, and it becomes a live project with the shot list already started.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-ideastudio.jpg" alt="Idea Studio dealing shoot ideas as a swipe deck" loading="lazy"></div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-ideastudio.jpg" alt="Idea Studio: a dealt idea card, ready to keep or skip" loading="lazy"></div>
         <div class="pipe-cap">Idea Studio · keep one and it becomes a project</div>
       </div>
     </div>
+  </div>
+</section>
 
+<!-- curve: dark → white -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- 6. Post Production -->
+<section class="feat feat--light">
+  <div class="contain">
+    <div class="pipe-stage flip reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Post Production</div>
+        <h3>From a pile of clips to a timeline in one click</h3>
+        <p>It reads all your footage, tells you the story it found, and one click builds the cut: best takes in order, B-roll over the seams, captions, music. Don't love it? Type a note like "get to the hook faster" and it revises just that. Export when it's yours.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-stack">
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.jpg" alt="The AI reads the footage and writes the story brief" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
+        </div>
+        <div class="pipe-cap">Auto-Editor · the story it found, and the timeline it built</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: white → dark -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- 7. Brand Kit -->
+<section class="feat feat--dark3">
+  <div class="contain">
+    <div class="pipe-stage reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Brand Kit</div>
+        <h3>Your brand, learned once</h3>
+        <p>Point it at your website and it drafts your logo, colors, voice, and filming rules. From then on, every cover, caption, and cut stays on brand automatically, across every project.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.jpg" alt="Brand Kit: fetched from your website, applied everywhere" loading="lazy"></div>
+        <div class="pipe-cap">Brand Kit · fetched straight from your site</div>
+      </div>
+    </div>
   </div>
 </section>
 
