@@ -720,17 +720,64 @@ body > * { position: relative; z-index: 1; }
 .breadth-cell p { font-size: 0.8rem; color: var(--text-dim); line-height: 1.5; }
 @media (max-width: 900px) { .breadth-grid { grid-template-columns: repeat(2,1fr); } }
 @media (max-width: 560px) { .breadth-grid { grid-template-columns: 1fr; } }
+
+/* ── Tour: one continuous dark run, guided by a sticky rail ── */
+.tour-run { background: linear-gradient(180deg,#0a0a0a 0%,#06131b 60%,#08131a 100%); }
+.tour-body { display: grid; grid-template-columns: 156px minmax(0,1fr); gap: clamp(24px,4vw,60px); align-items: start; }
+.tour-rail { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 2px; padding-top: 6px; }
+.tour-rail a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.38); text-decoration: none; padding: 8px 0 8px 14px; border-left: 1px solid rgba(255,255,255,0.12); transition: color .25s ease, border-color .25s ease; }
+.tour-rail a:hover { color: rgba(255,255,255,0.75); }
+.tour-rail a.on { color: var(--teal); border-left-color: var(--teal); }
+.tour-sec { position: relative; padding: 88px 0; scroll-margin-top: 90px; }
+.tour-sec:first-child { padding-top: 12px; }
+.tour-sec + .tour-sec { border-top: 1px solid rgba(255,255,255,0.05); }
+.tour-sec .pipe-stage { margin-bottom: 0; }
+/* stage grounding: spotlight behind, contact shadow beneath */
+.tour-sec .pipe-visual { z-index: 0; padding-bottom: 30px; }
+.tour-sec .pipe-visual::before { content: ''; position: absolute; inset: -14% -10%; background: radial-gradient(58% 54% at 50% 44%, rgba(0,188,241,0.09), transparent 70%); z-index: -1; pointer-events: none; }
+.tour-sec:nth-child(3n+2) .pipe-visual::before { background: radial-gradient(58% 54% at 50% 44%, rgba(235,0,139,0.07), transparent 70%); }
+.tour-sec:nth-child(3n) .pipe-visual::before { background: radial-gradient(58% 54% at 50% 44%, rgba(255,236,3,0.045), transparent 70%); }
+.tour-sec .pipe-visual::after { content: ''; position: absolute; left: 10%; right: 10%; bottom: 6px; height: 26px; background: radial-gradient(50% 100% at 50% 50%, rgba(0,0,0,0.6), transparent 72%); filter: blur(7px); z-index: -1; }
+@media (max-width: 1100px) { .tour-body { grid-template-columns: 1fr; } .tour-rail { display: none; } }
+
+/* ── Real device chrome ── */
+.pipe-bar { align-items: center; padding: 10px 12px; position: relative; }
+.pipe-bar span { width: 9px; height: 9px; }
+.pipe-bar span:nth-child(1) { background: #ff5f57; }
+.pipe-bar span:nth-child(2) { background: #febc2e; }
+.pipe-bar span:nth-child(3) { background: #28c840; }
+.pipe-bar[data-url]::after { content: attr(data-url); position: absolute; left: calc(50% + 16px); top: 50%; transform: translate(-50%,-50%); font-family: var(--mono); font-size: 10px; letter-spacing: 0.02em; color: rgba(255,255,255,0.42); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; padding: 3px 18px; white-space: nowrap; max-width: 58%; overflow: hidden; text-overflow: ellipsis; }
+/* the peeking back frame keeps its lights but not the URL pill (it doubles up) */
+.pipe-stack-back .pipe-bar[data-url]::after { display: none; }
+.tour-run .pipe-frame--phone { padding: 7px; border-radius: 36px; background: linear-gradient(150deg,#2e3237,#131417 55%,#1f2126); border: 1px solid rgba(255,255,255,0.22); box-shadow: inset 0 0 0 2px #000, 0 28px 64px rgba(0,0,0,0.5); }
+.tour-run .pipe-frame--phone img { border-radius: 29px; }
+.tour-run .pipe-frame--phone::before { content: ''; position: absolute; top: 4.2%; left: 50%; transform: translateX(-50%); width: 27%; height: 2.5%; min-height: 8px; background: #000; border-radius: 99px; z-index: 3; }
+.tour-run .pipe-side-phone { border-radius: 27px; padding: 5px; }
+.tour-run .pipe-side-phone img { border-radius: 22px; }
 </style>
 
-<section class="pipeline" id="pipeline">
+<section class="pipeline tour-run" id="pipeline">
   <div class="contain">
     <div class="pipeline-head reveal">
       <div class="label" style="text-align:center;">The tour</div>
       <h2>Inside the platform.</h2>
       <p>What each part of Cinebody actually does, in the order you'll use it, shown with real screens from the product, web and app. Click any screen to look closer.</p>
     </div>
-
-    <div class="pipe-stage reveal">
+    <div class="tour-body">
+      <nav class="tour-rail" aria-label="Tour sections">
+        <a href="#tour-pulse">Pulse</a>
+        <a href="#tour-projects">Projects & Ideas</a>
+        <a href="#tour-director">AI Director</a>
+        <a href="#tour-interviews">Voice Interviews</a>
+        <a href="#tour-messages">Messages & Map</a>
+        <a href="#tour-library">Library & Review</a>
+        <a href="#tour-payouts">Payouts</a>
+        <a href="#tour-postprod">Post Production</a>
+        <a href="#tour-brandkit">Brand Kit</a>
+      </nav>
+      <div class="tour-stages">
+      <div class="tour-sec" id="tour-pulse">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Pulse</div>
         <h3>See everything happening, live</h3>
@@ -738,20 +785,15 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="pipe-visual">
         <div class="pipe-pair">
-          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.jpg" alt="Pulse on the web: the live overview" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.jpg" alt="Pulse on the web: the live overview" loading="lazy"></div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-pulse.jpg" alt="Pulse in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">Pulse · web and app</div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
-<section class="feat feat--light">
-  <div class="contain">
-    <div class="pipe-stage flip reveal">
+      </div>
+      <div class="tour-sec" id="tour-projects">
+<div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Projects &amp; Idea Studio</div>
         <h3>From idea to plan in a minute</h3>
@@ -761,8 +803,8 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The idea"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-ideastudio.jpg" alt="Idea Studio: a dealt shoot idea, ready to keep or skip" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The generated shot list"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-wizard.jpg" alt="The wizard: an AI-generated shot list from one description" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The idea"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-ideastudio.jpg" alt="Idea Studio: a dealt shoot idea, ready to keep or skip" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The generated shot list"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-wizard.jpg" alt="The wizard: an AI-generated shot list from one description" loading="lazy"></div>
         </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-project.jpg" alt="The same project in the Cinebody app" loading="lazy"></div>
@@ -770,14 +812,9 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">An idea becomes a plan · dealt, generated, editable</div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
-
-<section class="feat feat--dark2">
-  <div class="contain">
-    <div class="pipe-stage reveal">
+      </div>
+      <div class="tour-sec" id="tour-director">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">AI Director</div>
         <h3>Every filmer gets a director</h3>
@@ -791,14 +828,9 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">The real capture screen · brief, then live checks</div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
-<section class="feat feat--light">
-  <div class="contain">
-    <div class="pipe-stage flip reveal">
+      </div>
+      <div class="tour-sec" id="tour-interviews">
+<div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">AI Voice Interviews</div>
         <h3>An interviewer in every pocket</h3>
@@ -809,14 +841,9 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">AI Voice Interview · it asks, listens, and follows up</div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
-
-<section class="feat feat--dark3">
-  <div class="contain">
-    <div class="pipe-stage reveal">
+      </div>
+      <div class="tour-sec" id="tour-messages">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Messages, Directions &amp; Map</div>
         <h3>Run the shoot from your desk</h3>
@@ -826,8 +853,8 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The live map"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-map.jpg" alt="The clip map: where every clip was filmed, pin by pin" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Messages & directions"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-messages.jpg" alt="Messages and directions: talk to one filmer or all of them" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The live map"><div class="pipe-bar" data-url="cinebody.com/dashboard/shoot"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-map.jpg" alt="The clip map: where every clip was filmed, pin by pin" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Messages & directions"><div class="pipe-bar" data-url="cinebody.com/dashboard/shoot"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-messages.jpg" alt="Messages and directions: talk to one filmer or all of them" loading="lazy"></div>
         </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-messages.jpg" alt="The same conversation in the Cinebody app" loading="lazy"></div>
@@ -835,14 +862,9 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">Directions land as notifications, while they film</div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
-<section class="feat feat--light">
-  <div class="contain">
-    <div class="pipe-stage flip reveal">
+      </div>
+      <div class="tour-sec" id="tour-library">
+<div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Library &amp; AI Clip Review</div>
         <h3>Footage that grades itself</h3>
@@ -852,8 +874,8 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The library"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The library: every clip scored on arrival" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="A clip review"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The library"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The library: every clip scored on arrival" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="A clip review"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
         </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-library.jpg" alt="The library in the Cinebody app" loading="lazy"></div>
@@ -861,14 +883,9 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">AI Clip Review · web and app</div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
-
-<section class="feat feat--dark2">
-  <div class="contain">
-    <div class="pipe-stage reveal">
+      </div>
+      <div class="tour-sec" id="tour-payouts">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Payouts</div>
         <h3>Pay filmers without the spreadsheet</h3>
@@ -876,20 +893,15 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="pipe-visual">
         <div class="pipe-pair">
-          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-payouts.jpg" alt="Payouts: funded budgets and one-click payments" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard/payouts"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-payouts.jpg" alt="Payouts: funded budgets and one-click payments" loading="lazy"></div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="Cashing out in the app"><img src="/app-ui/live/app-earnings.jpg" alt="A filmer's earnings in the app: connect Stripe once, cash out anytime" loading="lazy"></div>
         </div>
         <div class="pipe-cap">Payouts · you fund it, filmers cash out in the app</div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
-<section class="feat feat--light">
-  <div class="contain">
-    <div class="pipe-stage flip reveal">
+      </div>
+      <div class="tour-sec" id="tour-postprod">
+<div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Post Production</div>
         <h3>From a pile of clips to a timeline in one click</h3>
@@ -899,8 +911,8 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The story it found"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.jpg" alt="The AI reads the footage and writes the story brief" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The timeline it built"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The story it found"><div class="pipe-bar" data-url="cinebody.com/dashboard/post-production"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.jpg" alt="The AI reads the footage and writes the story brief" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The timeline it built"><div class="pipe-bar" data-url="cinebody.com/dashboard/post-production"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
         </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="The finished cut"><img src="/app-ui/live/app-cut.jpg" alt="The finished vertical cut, the way it lands on the feed" loading="lazy"></div>
@@ -908,14 +920,9 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">Auto-Editor · the brief, then the cut</div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
-
-<section class="feat feat--dark3">
-  <div class="contain">
-    <div class="pipe-stage reveal">
+      </div>
+      <div class="tour-sec" id="tour-brandkit">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Brand Kit</div>
         <h3>Your brand, learned once</h3>
@@ -925,8 +932,8 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="Brand profile"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandprofile.jpg" alt="Brand profile: voice, audience, and filming rules" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Visual identity"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.jpg" alt="Brand Kit: logo and colors, fetched from your site" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="Brand profile"><div class="pipe-bar" data-url="cinebody.com/dashboard/brand-kit"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandprofile.jpg" alt="Brand profile: voice, audience, and filming rules" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Visual identity"><div class="pipe-bar" data-url="cinebody.com/dashboard/brand-kit"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.jpg" alt="Brand Kit: logo and colors, fetched from your site" loading="lazy"></div>
         </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-brandkit.jpg" alt="Brand Kit in the Cinebody app" loading="lazy"></div>
@@ -934,10 +941,12 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">Brand Kit · both pages, fetched from your site</div>
       </div>
     </div>
+      </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- curve: dark → white (global) -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ GLOBAL ORGANIZED SHOOT ═══ -->
@@ -1166,6 +1175,23 @@ body > * { position: relative; z-index: 1; }
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }, { passive: true });
+})();
+
+// Tour rail: light the section in view
+(function(){
+  var links = document.querySelectorAll('.tour-rail a');
+  if (!links.length) return;
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var obs = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      links.forEach(function(a){ a.classList.remove('on'); });
+      var a = map[e.target.id];
+      if (a) a.classList.add('on');
+    });
+  }, { rootMargin: '-35% 0px -55% 0px' });
+  document.querySelectorAll('.tour-sec').forEach(function(s){ obs.observe(s); });
 })();
 
 // FAQ
