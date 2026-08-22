@@ -1125,18 +1125,6 @@ body > * { position: relative; z-index: 1; }
     </div>
   </div>
 
-  <div class="contain">
-    <!-- Closer: the output -->
-    <div class="pipe-closer reveal">
-      <h3>Real people create it. <em>AI runs it end to end.</em></h3>
-      <div class="pipe-outputs">
-        <div class="pipe-output"><img src="/app-ui/img00.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
-        <div class="pipe-output"><img src="/app-ui/img01.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
-        <div class="pipe-output"><img src="/app-ui/img02.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
-      </div>
-      <div class="pipe-cap">Finished, on-brand cuts, ready to publish</div>
-    </div>
-  </div>
 </section>
 
 <script>
@@ -1191,12 +1179,22 @@ body > * { position: relative; z-index: 1; }
 })();
 </script>
 
-<!-- ═══ PROOF ═══ -->
+<!-- curve: dark → plum -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
+
+<!-- ═══ PAYOFF: the output + the proof, one section ═══ -->
 <style>
-.stats-head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
-.stats-head h2 { font-size: clamp(1.75rem,3.5vw,2.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: #fff !important; margin-bottom: 12px; }
+.stats.payoff { padding: 96px 0 90px;
+  background:
+    radial-gradient(ellipse 80% 70% at 82% 16%, rgba(235,0,139,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 16% 86%, rgba(255,236,3,0.05) 0%, transparent 70%),
+    linear-gradient(180deg, #1a0a18 0%, #140a1e 100%);
+}
+.payoff .pipe-closer { margin-top: 0; }
+.stats-head { text-align: center; max-width: 620px; margin: 76px auto 40px; }
+.stats-head h2 { font-size: clamp(1.5rem,2.6vw,2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: #fff !important; margin-bottom: 10px; }
 .stats-head h2 em { font-style: normal; color: var(--teal); }
-.stats-head p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
+.stats-head p { font-size: 0.92rem; color: var(--text-dim); line-height: 1.6; }
 .stats-foot { text-align: center; margin-top: 24px; font-size: 0.78rem; color: rgba(255,255,255,0.42); }
 .stats .stat-label { font-size: 12px; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); }
 /* typewriter heading + staggered stats (ported from MotionSites arceage-stats) */
@@ -1210,12 +1208,20 @@ body > * { position: relative; z-index: 1; }
 .stats-grid.vis .stat:nth-child(3) { transition-delay: .25s; }
 .stats-grid.vis .stat:nth-child(4) { transition-delay: .35s; }
 </style>
-<section class="stats">
+<section class="stats payoff">
   <div class="contain">
+    <div class="pipe-closer reveal">
+      <h3>Real people create it. <em>AI runs it end to end.</em></h3>
+      <div class="pipe-outputs">
+        <div class="pipe-output"><img src="/app-ui/img00.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+        <div class="pipe-output"><img src="/app-ui/img01.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+        <div class="pipe-output"><img src="/app-ui/img02.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+      </div>
+      <div class="pipe-cap">Finished, on-brand cuts, ready to publish</div>
+    </div>
     <div class="stats-head reveal">
-      <div class="label" style="text-align:center;">The proof</div>
       <h2>Real beats polished. <em>It's not close.</em></h2>
-      <p>People trust content made by people. The numbers on authentic, human-made video are lopsided.</p>
+      <p>People trust content made by people. The numbers are lopsided.</p>
     </div>
     <div class="stats-grid reveal reveal-d1">
       <div class="stat"><div class="stat-num" data-count-to="7" data-count-suffix="x">0x</div><div class="stat-label">More engagement</div></div>
@@ -1227,8 +1233,8 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
-<!-- curve: dark → light -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+<!-- curve: plum → light -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#140a1e"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ TEASER: POINT.ME ═══ -->
 <section class="teaser teaser--light" style="padding-top:60px">
