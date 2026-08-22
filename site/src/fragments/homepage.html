@@ -897,7 +897,7 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
 @media (max-width: 600px) { .pipe-output { width: calc((100% - 28px) / 3); } }
 /* ── scroll-driven pipeline: pinned wireframe phone stepping through the stages ── */
-.pipe-scroll { height: 340vh; position: relative; margin-top: -18vh; margin-bottom: -24vh; }
+.pipe-scroll { height: 430vh; position: relative; margin-top: -18vh; margin-bottom: -24vh; }
 .pipe-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
 .pipe-stickygrid { display: grid; grid-template-columns: minmax(0,1fr) 56px 400px; gap: 28px; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; }
 .pipe-copies { position: relative; min-height: 320px; }
@@ -909,7 +909,7 @@ body > * { position: relative; z-index: 1; }
 .pipe-rail-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(0,188,241,0.14); border-radius: 2px; }
 .pipe-rail-fill { width: 100%; height: 0; background: linear-gradient(180deg, var(--teal), rgba(0,188,241,0.4)); border-radius: 2px; }
 .pipe-rail-node { position: absolute; left: 50%; width: 11px; height: 11px; margin-left: -6px; border-radius: 50%; background: #08131a; border: 2px solid rgba(0,188,241,0.4); transition: box-shadow .3s ease, border-color .3s ease; }
-.pipe-rail-node[data-n="0"] { top: 6%; } .pipe-rail-node[data-n="1"] { top: 50%; margin-top: -6px; } .pipe-rail-node[data-n="2"] { bottom: 6%; }
+.pipe-rail-node[data-n="0"] { top: 6%; } .pipe-rail-node[data-n="1"] { top: 35.3%; } .pipe-rail-node[data-n="2"] { top: 64.6%; } .pipe-rail-node[data-n="3"] { bottom: 6%; }
 .pipe-rail-node.on { border-color: var(--teal); box-shadow: 0 0 14px rgba(0,188,241,0.5), 0 0 0 5px rgba(0,188,241,0.1); }
 .pipe-phone-slot { display: flex; justify-content: center; }
 .wire-phone { display: block; width: 100%; max-width: 375px; overflow: visible; will-change: transform; }
@@ -1014,7 +1014,7 @@ body > * { position: relative; z-index: 1; }
     <div class="pipeline-head reveal">
       <div class="label" style="text-align:center;">The connected pipeline</div>
       <h2>One system runs your whole production.</h2>
-      <p>A connected pipeline where every step feeds the next: shotlist, coaching, scoring, edit. Everything a producer, a director, and an editor used to own, running as one&nbsp;system.</p>
+      <p>A connected pipeline where every step feeds the next: plan, capture, score, cut. Everything a producer, a director, and an editor used to own, running as one&nbsp;system.</p>
     </div>
   </div>
 
@@ -1024,20 +1024,26 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-copies">
           <div class="pipe-copy-block" data-stage="0">
             <div class="pipe-num">Stage 01</div>
-            <h3>AI Director</h3>
-            <p>Give it your goal and it writes the shotlist, then coaches every person on camera, live: framing, light, steadiness, even whether the location works. First-take pro footage from anyone.</p>
-            <div class="pipe-mini">AI Director &middot; live on-camera coaching</div>
+            <h3>The brief becomes a plan</h3>
+            <p>Tell it what you need and the AI Director writes the shotlist: every shot, every prompt, tuned to your goal and your brand. The plan that used to take a production meeting takes a minute.</p>
+            <div class="pipe-mini">AI Director &middot; shotlist in seconds</div>
           </div>
           <div class="pipe-copy-block" data-stage="1">
             <div class="pipe-num">Stage 02</div>
-            <h3>Clip scoring</h3>
-            <p>Every clip is transcribed and scored the second it lands: light, focus, framing, audio, delivery. The best moments rise to the top and weak takes get flagged on the spot, so you review the best, not the whole pile.</p>
-            <div class="pipe-mini">AI clip review &middot; scored as it lands</div>
+            <h3>Anyone becomes your crew</h3>
+            <p>Send a link. Real people film on their phones while the AI coaches every shot live: framing, light, steadiness, even whether the location works. First-take pro footage from anyone, anywhere.</p>
+            <div class="pipe-mini">AI Director &middot; live on-camera coaching</div>
           </div>
           <div class="pipe-copy-block" data-stage="2">
             <div class="pipe-num">Stage 03</div>
-            <h3>The auto-editor</h3>
-            <p>It reads the transcripts, finds the real story in what people actually said, and cuts a finished, on-brand video: paced to music, captioned, reframed for vertical. You open a video that is nearly done.</p>
+            <h3>Every clip judged as it lands</h3>
+            <p>Each clip is transcribed and scored the second it arrives: light, focus, framing, audio, delivery. The best moments rise, weak takes get flagged, so you review the best, not the pile.</p>
+            <div class="pipe-mini">AI clip review &middot; scored as it lands</div>
+          </div>
+          <div class="pipe-copy-block" data-stage="3">
+            <div class="pipe-num">Stage 04</div>
+            <h3>A finished cut appears</h3>
+            <p>The auto-editor reads the transcripts, finds the real story in what people actually said, and cuts an on-brand video: paced to music, captioned, reframed for vertical. You open a video that is nearly done.</p>
             <div class="pipe-mini">Auto-editor &middot; build my cut</div>
           </div>
         </div>
@@ -1047,6 +1053,7 @@ body > * { position: relative; z-index: 1; }
           <div class="pipe-rail-node" data-n="0"></div>
           <div class="pipe-rail-node" data-n="1"></div>
           <div class="pipe-rail-node" data-n="2"></div>
+          <div class="pipe-rail-node" data-n="3"></div>
         </div>
 
         <div class="pipe-phone-slot">
@@ -1080,15 +1087,15 @@ body > * { position: relative; z-index: 1; }
   window.addEventListener('resize', onScroll);
   onScroll();
   function act(i, p){
-    var c = (i + 0.5) / 3;
+    var c = (i + 0.5) / 4;
     var d = Math.abs(p - c);
-    return Math.max(0, Math.min(1, 1 - Math.max(0, d - 0.05) / 0.11));
+    return Math.max(0, Math.min(1, 1 - Math.max(0, d - 0.04) / 0.085));
   }
   function render(p){
-    var pe = Math.max(1/6, Math.min(5/6, p));
-    for (var i = 0; i < 3; i++) {
+    var pe = Math.max(1/8, Math.min(7/8, p));
+    for (var i = 0; i < 4; i++) {
       var a = act(i, pe);
-      var c = (i + 0.5) / 3;
+      var c = (i + 0.5) / 4;
       var dirn = pe < c ? 1 : -1;
       copies[i].style.opacity = a;
       copies[i].style.transform = 'translateY(calc(-50% + ' + ((1 - a) * 26 * dirn) + 'px))';
