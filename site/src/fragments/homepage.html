@@ -897,7 +897,7 @@ body > * { position: relative; z-index: 1; }
 @media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
 @media (max-width: 600px) { .pipe-output { width: calc((100% - 28px) / 3); } }
 /* ── scroll-driven pipeline: pinned wireframe phone stepping through the stages ── */
-.pipe-scroll { height: 430vh; position: relative; }
+.pipe-scroll { height: 540vh; position: relative; }
 .pipe-sticky { position: sticky; top: calc(50vh - 280px); height: 560px; display: flex; align-items: center; }
 .pipe-stickygrid { display: grid; grid-template-columns: minmax(0,1fr) 56px 400px; gap: 28px; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; }
 .pipe-copies { position: relative; min-height: 320px; }
@@ -1298,7 +1298,7 @@ body > * { position: relative; z-index: 1; }
     }
     scenesWrap.style.transform = 'translateY(' + (p * 30 - 15) + 'px)';
     if (subjEl) {
-      var q = Math.max(0, Math.min(1, (pe - 0.332) / 0.086));
+      var q = Math.max(0, Math.min(1, (pe - 0.325) / 0.1));
       var qe = q * q * (3 - 2 * q);
       subjEl.style.transform = 'translateX(-50%) scale(' + (0.62 + 0.43 * qe) + ')';
       var di = q < 0.45 ? 0 : q < 0.85 ? 1 : 2;
