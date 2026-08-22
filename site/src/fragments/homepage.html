@@ -893,6 +893,7 @@ body > * { position: relative; z-index: 1; }
 .pipe-output { position: relative; width: 224px; aspect-ratio: 9/16; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 14px 34px rgba(0,0,0,0.45); transition: transform .4s var(--ease), border-color .3s ease; cursor: pointer; }
 .pipe-output:hover { transform: translateY(-4px); border-color: rgba(0,188,241,0.4); }
 .pipe-output img, .pipe-output video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pipe-output iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .po-play { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,0.16); transition: opacity .3s ease; }
 .po-play span { width: 54px; height: 54px; border-radius: 50%; background: rgba(8,12,16,0.6); border: 1.5px solid rgba(255,255,255,0.5); backdrop-filter: blur(6px); position: relative; }
 .po-play span::after { content: ''; position: absolute; left: 55%; top: 50%; transform: translate(-50%,-50%); border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent #fff; }
@@ -1150,9 +1151,9 @@ body > * { position: relative; z-index: 1; }
     <div class="pipe-closer reveal">
       <h3>Real people create it. <em>AI runs it end to end.</em></h3>
       <div class="pipe-outputs">
-        <div class="pipe-output"><video src="/cuts/cut-royalcaribbean.mp4" poster="/cuts/cut-royalcaribbean.jpg" preload="none" playsinline></video><div class="po-play"><span></span></div><div class="po-label">Royal Caribbean</div></div>
-        <div class="pipe-output"><video src="/cuts/cut-nike.mp4" poster="/cuts/cut-nike.jpg" preload="none" playsinline></video><div class="po-play"><span></span></div><div class="po-label">Nike</div></div>
-        <div class="pipe-output"><video src="/cuts/cut-altra.mp4" poster="/cuts/cut-altra.jpg" preload="none" playsinline></video><div class="po-play"><span></span></div><div class="po-label">Altra</div></div>
+        <div class="pipe-output" data-vimeo="1012467060" data-h="39cf8e54c8"><img src="/cuts/cut-royalcaribbean.jpg" alt="Royal Caribbean finished cut" loading="lazy"><div class="po-play"><span></span></div><div class="po-label">Royal Caribbean</div></div>
+        <div class="pipe-output" data-vimeo="1092175563" data-h="aeeb559c41"><img src="/cuts/cut-altra.jpg" alt="Altra finished cut" loading="lazy"><div class="po-play"><span></span></div><div class="po-label">Altra</div></div>
+        <div class="pipe-output" data-vimeo="1129595346" data-h="755f92d893"><img src="/cuts/cut-lorde.jpg" alt="Lorde live finished cut" loading="lazy"><div class="po-play"><span></span></div><div class="po-label">Lorde</div></div>
       </div>
       <div class="pipe-cap">Real finished cuts from real campaigns. Press play.</div>
     </div>
@@ -1393,29 +1394,26 @@ body > * { position: relative; z-index: 1; }
   upd();
 })();
 
-// Finished cuts: click to play with sound, one at a time
+// Finished cuts: click builds a Vimeo player with sound, one at a time
 (function(){
-  var outs = Array.prototype.slice.call(document.querySelectorAll('.pipe-output'));
+  var outs = Array.prototype.slice.call(document.querySelectorAll('.pipe-output[data-vimeo]'));
+  function stop(o){
+    var f = o.querySelector('iframe');
+    if (f) f.remove();
+    o.classList.remove('playing');
+  }
   outs.forEach(function(o){
-    var v = o.querySelector('video');
-    if (!v) return;
     o.addEventListener('click', function(){
-      if (v.paused) {
-        outs.forEach(function(x){
-          var xv = x.querySelector('video');
-          if (xv && xv !== v) { xv.pause(); x.classList.remove('playing'); }
-        });
-        v.muted = false;
-        v.play();
-        o.classList.add('playing');
-      } else {
-        v.pause();
-        o.classList.remove('playing');
-      }
-    });
-    v.addEventListener('ended', function(){
-      v.currentTime = 0;
-      o.classList.remove('playing');
+      if (o.classList.contains('playing')) return; // Vimeo controls take over
+      outs.forEach(function(x){ if (x !== o) stop(x); });
+      var id = o.dataset.vimeo, h = o.dataset.h;
+      var src = 'https://player.vimeo.com/video/' + id + (h ? '?h=' + h + '&' : '?') + 'autoplay=1&title=0&byline=0&portrait=0';
+      var f = document.createElement('iframe');
+      f.src = src;
+      f.allow = 'autoplay; fullscreen';
+      f.title = 'Cinebody finished cut';
+      o.appendChild(f);
+      o.classList.add('playing');
     });
   });
 })();
