@@ -754,6 +754,26 @@ body > * { position: relative; z-index: 1; }
 .tour-rail a.on { color: #04141c; background: var(--teal); border-color: var(--teal); }
 .tour-sec { position: relative; padding: 88px 0; scroll-margin-top: 90px; }
 .tour-lockup .tour-sec { padding: 60px 0; }
+/* alternation: even sections mirror (visual left, copy right), overhangs point outward */
+.tour-lockup .tour-sec:nth-child(even) .pipe-stage { direction: rtl; }
+.tour-lockup .tour-sec:nth-child(even) .pipe-stage > * { direction: ltr; }
+.tour-lockup .tour-sec:nth-child(even) .pipe-pair { padding: 0 46px 0 0; }
+.tour-lockup .tour-sec:nth-child(even) .pipe-side-phone { left: auto; right: -8px; }
+.tour-lockup .tour-sec:nth-child(even) .pipe-stack { padding: 26px 0 0 58px; }
+.tour-lockup .tour-sec:nth-child(even) .pipe-stack-back { left: -58px; right: 58px; }
+.tour-lockup .tour-sec:nth-child(even)::before { right: auto; left: -0.5%; }
+/* soft full-bleed color zones instead of hard separators */
+.tour-lockup .tour-sec + .tour-sec { border-top: none; }
+.tour-lockup .tour-sec::after { content: ''; position: absolute; top: -6%; bottom: -6%; left: 50%; transform: translateX(-50%); width: 100vw; z-index: -1; pointer-events: none; background: radial-gradient(56% 78% at 76% 34%, rgba(0,188,241,0.05), transparent 66%); }
+.tour-lockup .tour-sec:nth-child(even)::after { background: radial-gradient(56% 78% at 24% 34%, rgba(235,0,139,0.04), transparent 66%); }
+.tour-lockup .tour-sec:nth-child(3n)::after { background: radial-gradient(56% 78% at 76% 34%, rgba(255,236,3,0.03), transparent 66%); }
+.tour-lockup .tour-sec:nth-child(6n)::after { background: radial-gradient(56% 78% at 24% 34%, rgba(255,236,3,0.03), transparent 66%); }
+/* left-edge stepper: nine dots, lit where you are, visible only inside the tour */
+.tour-lockup .tour-rail { display: flex; position: fixed; left: 16px; top: 50%; transform: translateY(-50%); flex-direction: column; gap: 13px; z-index: 60; margin: 0; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
+.tour-run.steprail-on .tour-rail { opacity: 1; pointer-events: auto; }
+.tour-lockup .tour-rail a { width: 9px; height: 9px; padding: 0; border: 2px solid rgba(0,188,241,0.35); border-radius: 50%; background: #08131a; overflow: hidden; text-indent: -999px; white-space: nowrap; transition: all .25s ease; }
+.tour-lockup .tour-rail a:hover { border-color: var(--teal); }
+.tour-lockup .tour-rail a.on { border-color: var(--teal); background: var(--teal); box-shadow: 0 0 12px rgba(0,188,241,0.55); }
 .tour-sec:first-child { padding-top: 12px; }
 .tour-sec + .tour-sec { border-top: 1px solid rgba(255,255,255,0.05); }
 .tour-sec .pipe-stage { margin-bottom: 0; }
@@ -1280,23 +1300,24 @@ body > * { position: relative; z-index: 1; }
   mq.addEventListener ? mq.addEventListener('change', decide) : mq.addListener(decide);
   decide();
 
-  // idle only while on screen
+  // stepper shows only while the tour fills the screen
   new IntersectionObserver(function(es){
     es.forEach(function(e){
       inView = e.isIntersecting;
+      run.classList.toggle('steprail-on', inView);
       inView ? startAuto() : stopAuto();
     });
-  }, { threshold: 0.35 }).observe(run);
+  }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 }).observe(run);
 
   // any real interaction with the tour hands over control
   run.addEventListener('click', engage);
 
   links.forEach(function(a, i){
+    a.title = a.textContent;
     a.addEventListener('click', function(e){
-      if (!enabled) return;
+      if (enabled) { e.preventDefault(); engage(); setActive(i); return; }
       e.preventDefault();
-      engage();
-      setActive(i);
+      secs[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   });
 
