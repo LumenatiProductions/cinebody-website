@@ -1413,7 +1413,7 @@ body > * { position: relative; z-index: 1; }
     if (f) f.remove();
     var pr = o.querySelector('.po-progress');
     if (pr) pr.remove();
-    o.classList.remove('playing', 'paused');
+    o.classList.remove('playing', 'paused', 'loading');
   }
   window.addEventListener('message', function(e){
     if (e.origin.indexOf('vimeo.com') === -1) return;
@@ -1425,9 +1425,12 @@ body > * { position: relative; z-index: 1; }
     });
     if (!o) return;
     if (d.event === 'ready') {
+      post(o, 'addEventListener', 'play');
       post(o, 'addEventListener', 'timeupdate');
       post(o, 'addEventListener', 'ended');
-    } else if (d.event === 'timeupdate' || d.event === 'playProgress') {
+    } else if (d.event === 'play' || d.event === 'timeupdate' || d.event === 'playProgress') {
+      if (o.classList.contains('loading')) { o.classList.remove('loading'); o.classList.add('playing'); }
+      if (d.event === 'play') return;
       var pr = o.querySelector('.po-progress');
       if (pr && d.data) pr.style.width = (d.data.percent * 100) + '%';
     } else if (d.event === 'ended' || d.event === 'finish') {
@@ -1441,6 +1444,7 @@ body > * { position: relative; z-index: 1; }
         else { post(o, 'pause'); o.classList.add('paused'); }
         return;
       }
+      if (o.classList.contains('loading')) return;
       outs.forEach(function(x){ if (x !== o) stop(x); });
       var id = o.dataset.vimeo, h = o.dataset.h;
       var src = 'https://player.vimeo.com/video/' + id + (h ? '?h=' + h + '&' : '?') + 'autoplay=1&controls=0&title=0&byline=0&portrait=0&dnt=1&api=1';
@@ -1452,7 +1456,7 @@ body > * { position: relative; z-index: 1; }
       var pr = document.createElement('div');
       pr.className = 'po-progress';
       o.appendChild(pr);
-      o.classList.add('playing');
+      o.classList.add('loading');
     });
   });
 })();
