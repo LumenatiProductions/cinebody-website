@@ -643,6 +643,20 @@ body > * { position: relative; z-index: 1; }
 .pipe-cap { margin-top: 20px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); text-align: center; }
 .pipe-stack { position: relative; padding: 26px 0 0 26px; }
 .pipe-duo { position: relative; padding: 0 30px 40px 0; }
+.pipe-pair { display: flex; align-items: center; gap: 18px; }
+.pipe-pair-main { flex: 1; min-width: 0; }
+.pipe-pair > .pipe-frame--browser { flex: 1; min-width: 0; }
+.pipe-side-phone { width: 148px; max-width: none; margin: 0; flex-shrink: 0; }
+.pipe-phones { display: flex; gap: 22px; justify-content: center; }
+.pipe-phones .pipe-frame--phone { max-width: 224px; margin: 0; }
+.shot-tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.shot-tab { font-family: var(--font); font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14); border-radius: 99px; padding: 7px 14px; cursor: pointer; transition: all .2s ease; }
+.shot-tab:hover { color: #fff; border-color: rgba(0,188,241,0.5); }
+.shot-tab.on { color: #04141c; background: var(--teal); border-color: var(--teal); }
+.feat--light .shot-tab { color: #555; background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.14); }
+.feat--light .shot-tab:hover { color: #111; border-color: rgba(0,188,241,0.6); }
+.feat--light .shot-tab.on { color: #fff; background: #111; border-color: #111; }
+@media (max-width: 900px) { .pipe-pair { flex-direction: column; } .pipe-side-phone { width: 180px; } }
 .pipe-duo-phone { position: absolute; right: -6px; bottom: 0; width: 168px; max-width: none; margin: 0; z-index: 2; box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
 .pipe-stack-back { position: absolute; top: 0; left: 0; right: 52px; opacity: 0.55; filter: saturate(0.8); }
 .pipe-stack-front { position: relative; z-index: 2; }
@@ -703,7 +717,7 @@ body > * { position: relative; z-index: 1; }
     <div class="pipeline-head reveal">
       <div class="label" style="text-align:center;">The tour</div>
       <h2>Inside the platform.</h2>
-      <p>What each part of Cinebody actually does, in the order you'll use it, shown with real screens from the product. Click any screen to look closer.</p>
+      <p>What each part of Cinebody actually does, in the order you'll use it, shown with real screens from the product, web and app. Click any screen to look closer.</p>
     </div>
 
     <!-- 1. Pulse -->
@@ -711,11 +725,14 @@ body > * { position: relative; z-index: 1; }
       <div class="pipe-copy">
         <div class="pipe-num">Pulse</div>
         <h3>See everything happening, live</h3>
-        <p>One screen with the whole operation: where clips are being filmed right now, how quality is trending, which projects need you, and every filmer conversation. The day starts here.</p>
+        <p>One screen with the whole operation: where clips are being filmed right now, how quality is trending, which projects need you, and every filmer conversation. On your desk or in your pocket.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.jpg" alt="Pulse: the live overview of every project, clip, and conversation" loading="lazy"></div>
-        <div class="pipe-cap">Pulse · the whole operation on one screen</div>
+        <div class="pipe-pair">
+          <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.jpg" alt="Pulse on the web: the live overview" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone"><img src="/app-ui/live/app-pulse.jpg" alt="Pulse in the Cinebody app" loading="lazy"></div>
+        </div>
+        <div class="pipe-cap">Pulse · web and app</div>
       </div>
     </div>
   </div>
@@ -731,14 +748,17 @@ body > * { position: relative; z-index: 1; }
       <div class="pipe-copy">
         <div class="pipe-num">Projects</div>
         <h3>Every project starts with a plan</h3>
-        <p>Tell it what you're making and the shot list writes itself, with plain directions anyone can follow. Then send the filmer link by text: it opens right in the phone, shows what to film and what it pays, and anyone is capturing in seconds.</p>
+        <p>Tell it what you're making and the shot list writes itself, with plain directions anyone can follow. The project HQ holds the rest: filmers, clips, scores, and the link you text to anyone who's filming.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-duo">
-          <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shotlist.jpg" alt="A real shot list: four shots with plain-language directions" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--phone pipe-duo-phone"><img src="/app-ui/live/phone-filmer.jpg" alt="The filmer link on a phone" loading="lazy"></div>
+        <div class="pipe-pair">
+          <div class="pipe-pair-main">
+        <div class="shot-tabs"><button class="shot-tab on" data-img="/app-ui/live/desk-shotlist.jpg" data-alt="A real shot list with plain-language directions">The shot list</button><button class="shot-tab" data-img="/app-ui/live/desk-shoot.jpg" data-alt="The project HQ: filmers, clips, scores">Project HQ</button></div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shotlist.jpg" alt="A real shot list with plain-language directions" loading="lazy"></div>
+          </div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone"><img src="/app-ui/live/app-project.jpg" alt="The same project in the Cinebody app" loading="lazy"></div>
         </div>
-        <div class="pipe-cap">A real shot list · and the link filmers get</div>
+        <div class="pipe-cap">A real project · web and app</div>
       </div>
     </div>
   </div>
@@ -747,21 +767,21 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: white → dark -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
-<!-- 3. Library + Clip Review -->
+<!-- 3. AI Director -->
 <section class="feat feat--dark2">
   <div class="contain">
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
-        <div class="pipe-num">Library &amp; AI Clip Review</div>
-        <h3>Footage that grades itself</h3>
-        <p>Every clip lands transcribed and scored: audio, stability, focus, exposure, framing, plus a plain verdict and what would make it better. Open any clip for the full review, approve it or send it back, and search the whole library by what people actually said.</p>
+        <div class="pipe-num">AI Director</div>
+        <h3>Every filmer gets a director</h3>
+        <p>The camera opens with the shot's brief right on screen, and the AI checks framing, light, focus, steadiness, and audio live while they film. When every check clears, they nailed it. First-take footage from anyone.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The library: every clip scored on arrival" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A clip review: 6/10 with the reasons why" loading="lazy"></div>
+        <div class="pipe-phones">
+          <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/live/app-camera-2.jpg" alt="The shot brief over the live camera" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/live/app-hud-idle.jpg" alt="The live coaching checks over the camera" loading="lazy"></div>
         </div>
-        <div class="pipe-cap">AI Clip Review · a real score, with the reason why</div>
+        <div class="pipe-cap">The real capture screen · brief, then live checks</div>
       </div>
     </div>
   </div>
@@ -770,17 +790,64 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: dark → white -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
-<!-- 4. Payouts -->
+<!-- 4. AI Voice Interviews -->
 <section class="feat feat--light">
   <div class="contain">
     <div class="pipe-stage flip reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">AI Voice Interviews</div>
+        <h3>An interviewer in every pocket</h3>
+        <p>For story shots, the AI interviews people out loud, listens to the answer, and asks the follow-up a producer would. Real stories pulled out of anyone, on any phone, in any city.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/img07.jpg" alt="An AI voice interview in progress" loading="lazy"></div>
+        <div class="pipe-cap">AI Voice Interview · it asks, listens, and follows up</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: white → dark -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<!-- 5. Library + Clip Review -->
+<section class="feat feat--dark3">
+  <div class="contain">
+    <div class="pipe-stage reveal">
+      <div class="pipe-copy">
+        <div class="pipe-num">Library &amp; AI Clip Review</div>
+        <h3>Footage that grades itself</h3>
+        <p>Every clip lands transcribed and scored: audio, stability, focus, exposure, framing, plus a plain verdict and what would make it better. Open any clip for the full review, and search everything by what people actually said.</p>
+      </div>
+      <div class="pipe-visual">
+        <div class="pipe-pair">
+          <div class="pipe-pair-main">
+        <div class="shot-tabs"><button class="shot-tab" data-img="/app-ui/live/desk-library.jpg" data-alt="The library: every clip scored on arrival">The library</button><button class="shot-tab on" data-img="/app-ui/live/desk-clipdetail.jpg" data-alt="A real review: the score and the reasons why">A clip review</button></div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
+          </div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone"><img src="/app-ui/live/app-library.jpg" alt="The library in the Cinebody app" loading="lazy"></div>
+        </div>
+        <div class="pipe-cap">AI Clip Review · web and app</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: dark → white -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- 6. Payouts -->
+<section class="feat feat--light">
+  <div class="contain">
+    <div class="pipe-stage flip reveal">
+      <div class="pipe-num" style="display:none"></div>
       <div class="pipe-copy">
         <div class="pipe-num">Payouts</div>
         <h3>Pay filmers without the spreadsheet</h3>
         <p>Fund a project once and pay everyone from one screen: flat rates, bounties, or gift cards. Filmers see what a project pays before they pick up the phone, and payouts go out the moment you approve.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-payouts.jpg" alt="Payouts: funded budgets and one-click filmer payments" loading="lazy"></div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-payouts.jpg" alt="Payouts: funded budgets and one-click payments" loading="lazy"></div>
         <div class="pipe-cap">Payouts · funded budgets, one-click payments</div>
       </div>
     </div>
@@ -790,8 +857,8 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: white → dark -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
-<!-- 5. Idea Studio -->
-<section class="feat feat--dark3">
+<!-- 7. Idea Studio -->
+<section class="feat feat--dark2">
   <div class="contain">
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
@@ -808,23 +875,21 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark → white -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
-<!-- 6. Post Production -->
+<!-- 8. Post Production -->
 <section class="feat feat--light">
   <div class="contain">
     <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Post Production</div>
         <h3>From a pile of clips to a timeline in one click</h3>
-        <p>It reads all your footage, tells you the story it found, and one click builds the cut: best takes in order, B-roll over the seams, captions, music. Don't love it? Type a note like "get to the hook faster" and it revises just that. Export when it's yours.</p>
+        <p>It reads all your footage, tells you the story it found, and one click builds the cut: best takes in order, B-roll over the seams, captions, music. Don't love it? Type a note like "get to the hook faster" and it revises just that.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.jpg" alt="The AI reads the footage and writes the story brief" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
-        </div>
-        <div class="pipe-cap">Auto-Editor · the story it found, and the timeline it built</div>
+        <div class="shot-tabs"><button class="shot-tab" data-img="/app-ui/live/desk-postproduction.jpg" data-alt="The AI reads the footage and writes the story brief">The story it found</button><button class="shot-tab on" data-img="/app-ui/live/desk-postgen.jpg" data-alt="One click later: a finished timeline with captions and music">The timeline it built</button></div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
+        <div class="pipe-cap">Auto-Editor · the brief, then the cut</div>
       </div>
     </div>
   </div>
@@ -833,18 +898,19 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: white → dark -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
-<!-- 7. Brand Kit -->
+<!-- 9. Brand Kit -->
 <section class="feat feat--dark3">
   <div class="contain">
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Brand Kit</div>
         <h3>Your brand, learned once</h3>
-        <p>Point it at your website and it drafts your logo, colors, voice, and filming rules. From then on, every cover, caption, and cut stays on brand automatically, across every project.</p>
+        <p>Point it at your website and it drafts your logo, colors, voice, and filming rules. From then on, every shot list, cover, caption, and cut stays on brand automatically.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.jpg" alt="Brand Kit: fetched from your website, applied everywhere" loading="lazy"></div>
-        <div class="pipe-cap">Brand Kit · fetched straight from your site</div>
+        <div class="shot-tabs"><button class="shot-tab on" data-img="/app-ui/live/desk-brandkit.jpg" data-alt="Brand Kit: logo and colors, fetched from your site">Visual identity</button><button class="shot-tab" data-img="/app-ui/live/desk-brandprofile.jpg" data-alt="Brand profile: voice, audience, and filming rules">Brand profile</button></div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.jpg" alt="Brand Kit: logo and colors, fetched from your site" loading="lazy"></div>
+        <div class="pipe-cap">Brand Kit · both pages, fetched from your site</div>
       </div>
     </div>
   </div>
@@ -1119,6 +1185,21 @@ document.querySelectorAll('.faq-q').forEach(function(b){
 </script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do filmers need to download an app?","acceptedAnswer":{"@type":"Answer","text":"No. A link or QR code opens Cinebody right in the phone browser, so anyone is filming in seconds. And for teams that film often, the Cinebody app makes capture even better."}},{"@type":"Question","name":"How does the shot list work?","acceptedAnswer":{"@type":"Answer","text":"You build a shot list in the dashboard that controls exactly what filmers capture, including resolution, FPS, orientation, and creative prompts. Filmers see guided instructions on their screen as they record. You get the footage you actually need."}},{"@type":"Question","name":"Can I use the software without creative services?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. The software subscription is fully standalone, you direct shoots, collect footage, and edit with your own team. Creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution."}},{"@type":"Question","name":"What video quality can I expect?","acceptedAnswer":{"@type":"Answer","text":"Cinebody captures up to 4K resolution at configurable frame rates. Our patented technology controls the camera settings remotely, so you get broadcast-quality footage from any smartphone, not shaky selfie videos."}},{"@type":"Question","name":"How quickly do I get the footage?","acceptedAnswer":{"@type":"Answer","text":"Instantly. The moment a filmer stops recording, footage begins syncing to your cloud dashboard. No waiting for uploads, no file transfer services, no chasing down content. It's there when you need it."}}]}</script>
+<script>
+(function(){
+  document.querySelectorAll('.shot-tabs').forEach(function(tabs){
+    var frameImg = tabs.parentElement.querySelector('.pipe-frame img');
+    tabs.querySelectorAll('.shot-tab').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        tabs.querySelectorAll('.shot-tab').forEach(function(b){ b.classList.remove('on'); });
+        btn.classList.add('on');
+        frameImg.src = btn.dataset.img;
+        frameImg.alt = btn.dataset.alt || '';
+      });
+    });
+  });
+})();
+</script>
 <script>
 (function(){
   var lb = document.createElement('div');
