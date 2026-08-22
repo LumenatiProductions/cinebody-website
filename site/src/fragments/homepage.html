@@ -1185,7 +1185,23 @@ body > * { position: relative; z-index: 1; }
               <div class="pcard">
                 <div class="pcard-head"><span class="pcard-title">Clips</span></div>
                 <div class="pfeat">
-                  <div class="pfeat-thumb"><svg viewBox="0 0 200 220" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path fill="url(#pBust)" d="M100,18 C123,18 139,37 139,62 C139,81 131,97 119,105 L119,117 C119,124 124,128 133,131 C162,141 178,159 182,192 L184,220 L16,220 L18,192 C22,159 38,141 67,131 C76,128 81,124 81,117 L81,105 C69,97 61,81 61,62 C61,37 77,18 100,18 Z"/></svg></div>
+                  <div class="pfeat-thumb"><svg viewBox="0 0 180 320" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+                      <defs>
+                        <radialGradient id="pSun" cx="0.5" cy="0.5" r="0.5">
+                          <stop offset="0" stop-color="rgba(255,244,180,0.5)"/>
+                          <stop offset="0.55" stop-color="rgba(255,244,180,0.14)"/>
+                          <stop offset="1" stop-color="rgba(255,244,180,0)"/>
+                        </radialGradient>
+                        <linearGradient id="pMtn" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stop-color="rgba(255,255,255,0.22)"/>
+                          <stop offset="1" stop-color="rgba(255,255,255,0.05)"/>
+                        </linearGradient>
+                      </defs>
+                      <circle cx="52" cy="86" r="34" fill="url(#pSun)"/>
+                      <circle cx="52" cy="86" r="11" fill="rgba(255,248,205,0.45)"/>
+                      <path fill="rgba(255,255,255,0.1)" d="M0,196 L38,128 L72,178 L112,112 L148,170 L180,140 L180,320 L0,320 Z"/>
+                      <path fill="url(#pMtn)" d="M0,248 L46,178 L88,232 L132,166 L180,224 L180,320 L0,320 Z"/>
+                    </svg></div>
                   <div class="pfeat-body">
                     <div class="pfeat-toprow">
                       <div><span class="pfeat-score">9.1</span><span class="pfeat-den">/10</span><div class="pfeat-verdict">Great</div></div>
