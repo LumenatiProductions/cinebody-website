@@ -617,16 +617,8 @@ body > * { position: relative; z-index: 1; }
 .pipe-stage.flip > * { direction: ltr; }
 /* connecting spine between stages */
 .pipe-track { position: relative; }
-.pipe-track::before { content: ''; position: absolute; left: 50%; top: -24px; bottom: -8px; width: 2px; margin-left: -1px;
-  background-image: linear-gradient(180deg, var(--teal) 0 7px, transparent 7px 18px); background-size: 2px 18px; background-repeat: repeat-y;
-  opacity: 0.3; animation: pipeflow 2.2s linear infinite;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); }
 @keyframes pipeflow { to { background-position: 0 18px; } }
 .pipe-track .pipe-stage { position: relative; }
-.pipe-track .pipe-stage::after { content: ''; position: absolute; left: 50%; top: 50%; width: 11px; height: 11px; margin: -6px 0 0 -6px; border-radius: 50%;
-  background: #08131a; border: 2px solid var(--teal); box-shadow: 0 0 14px rgba(0,188,241,0.45), 0 0 0 5px rgba(0,188,241,0.1); }
-@media (max-width: 900px) { .pipe-track::before, .pipe-track .pipe-stage::after { display: none; } }
 
 .pipe-num { font-family: var(--mono); font-size: 12px; color: var(--teal); letter-spacing: 0.12em; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
 .pipe-num::before { content: ''; width: 30px; height: 1px; background: var(--teal); opacity: 0.4; }
@@ -644,6 +636,19 @@ body > * { position: relative; z-index: 1; }
 .pipe-stack { position: relative; padding: 26px 0 0 26px; }
 .pipe-stack-back { position: absolute; top: 0; left: 0; right: 52px; opacity: 0.55; filter: saturate(0.8); }
 .pipe-stack-front { position: relative; z-index: 2; }
+.feat { padding: 90px 0; overflow: hidden; }
+.feat .pipe-stage { margin-bottom: 0; }
+.pipeline .pipe-stage { margin-bottom: 0; }
+.feat--light { background: #fff; }
+.feat--light .pipe-copy h3 { color: #111; }
+.feat--light .pipe-copy p { color: #555; }
+.feat--light .pipe-cap { color: #97a0a6; }
+.feat--light .pipe-frame { border-color: rgba(0,0,0,0.1); box-shadow: 0 24px 60px rgba(0,0,0,0.16); background: #fff; }
+.feat--light .pipe-bar { background: #f1f3f5; border-bottom-color: rgba(0,0,0,0.08); }
+.feat--light .pipe-bar span { background: rgba(0,0,0,0.15); }
+.feat--dark2 { background: linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
+.feat--dark3 { background: linear-gradient(180deg, #0a0a0a 0%, #08131a 100%); }
+.feat--dark3 .pipe-closer { margin-top: 96px; }
 .pipe-closer { text-align: center; margin-top: 8px; }
 .pipe-closer h3 { font-size: clamp(1.5rem,3vw,2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #fff; line-height: 1.2; }
 .pipe-closer h3 em { font-style: normal; background: linear-gradient(135deg,var(--teal),var(--pink),var(--yellow)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
@@ -692,7 +697,6 @@ body > * { position: relative; z-index: 1; }
       <p>What each part of Cinebody actually does, shown with real screens from the product. The homepage tells the story. This is the tour.</p>
     </div>
 
-    <div class="pipe-track">
     <!-- Stage 01 -->
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
@@ -706,6 +710,14 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- curve: dark → white -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#08131a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<section class="feat feat--light">
+  <div class="contain">
     <!-- Stage 02 -->
     <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
@@ -719,6 +731,14 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- curve: white → dark -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<section class="feat feat--dark2">
+  <div class="contain">
     <!-- Stage 03 -->
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
@@ -732,6 +752,14 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- curve: dark → white -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<section class="feat feat--light">
+  <div class="contain">
     <!-- Stage 04 -->
     <div class="pipe-stage flip reveal">
       <div class="pipe-copy">
@@ -747,6 +775,14 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">Auto-Editor · one click, a finished timeline</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- curve: white → dark -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
+
+<section class="feat feat--dark3">
+  <div class="contain">
     <!-- Idea Studio -->
     <div class="pipe-stage reveal">
       <div class="pipe-copy">
@@ -759,7 +795,6 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-cap">Idea Studio · keep one and it becomes a project</div>
       </div>
     </div>
-    </div><!-- /pipe-track -->
 
     <!-- Stage 05 / closer -->
     <div class="pipe-closer reveal">
@@ -770,9 +805,6 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-output"><img src="/app-ui/img01.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
         <div class="pipe-output"><img src="/app-ui/img02.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
       </div>
-      <div class="pipe-cap">Finished, on-brand cuts, ready to publish or hand to your team to polish</div>
-    </div>
-  </div>
 </section>
 
 <!-- curve: dark → white (global) -->
