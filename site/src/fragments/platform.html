@@ -768,6 +768,8 @@ body > * { position: relative; z-index: 1; }
 .tour-reel .tour-sec .pipe-stage { width: 100%; grid-template-columns: 0.68fr 1.32fr; gap: clamp(32px,3.5vw,56px); }
 .tour-reel .tour-sec.is-active { opacity: 1; transform: none; pointer-events: auto; }
 .tour-reel .tour-sec.is-above { transform: translateY(-4.5%); }
+/* phone-led sections: the visuals are narrow, so the copy takes real width */
+.tour-reel #tour-director .pipe-stage, .tour-reel #tour-interviews .pipe-stage { grid-template-columns: 1.05fr 0.95fr; }
 /* the screens own the vertical room: height-driven, cropped like tall panels */
 .tour-reel .pipe-visual { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-bottom: 0; }
 .tour-reel .pipe-visual .pipe-cap { margin-top: 26px; }
