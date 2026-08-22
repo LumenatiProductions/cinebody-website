@@ -261,6 +261,7 @@ const pageSchema = entitySchemas[active];
     for(i=0;i<9;i++)colors.push(TEAL);
     var NS='http://www.w3.org/2000/svg', LAP=700;
     document.querySelectorAll('.btn-glow, .site-nav__cta').forEach(function(btn){
+      if(btn.closest('.cta-band'))return; // yellow bands: plain black pill, no ring
       if(btn.querySelector('.ai-ring'))return;
       var svg=document.createElementNS(NS,'svg');
       svg.setAttribute('class','ai-ring');
