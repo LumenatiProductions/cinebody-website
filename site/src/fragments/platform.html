@@ -2314,6 +2314,35 @@ body > * { position: relative; z-index: 1; }
 .tour-run .pipe-side-phone { border-radius: 27px; padding: 5px; }
 .tour-run .pipe-side-phone img { border-radius: 22px; }
 
+/* ── Scroll choreography: devices nudge in as each section arrives ── */
+@media (prefers-reduced-motion: no-preference) {
+  .tour-lockup .pipe-stage.reveal { opacity: 1; transform: none; }
+  .tour-lockup .pipe-stage.reveal .pipe-copy { opacity: 0; transform: translateX(-26px); transition: opacity .65s ease, transform .75s var(--ease); }
+  .tour-lockup .pipe-stage.reveal .pipe-pair-main,
+  .tour-lockup .pipe-stage.reveal .pipe-pair > .pipe-frame--browser { opacity: 0; transform: translateX(54px); transition: opacity .7s ease .08s, transform .85s var(--ease) .08s; }
+  .tour-lockup .pipe-stage.reveal .pipe-side-phone { opacity: 0; transform: translateY(46px); transition: opacity .6s ease .24s, transform .8s var(--ease) .24s; }
+  .tour-lockup .pipe-stage.reveal .pipe-phones .pipe-frame--phone,
+  .tour-lockup .pipe-stage.reveal .pipe-visual > .pipe-frame--phone { opacity: 0; transform: translateY(46px); transition: opacity .6s ease .1s, transform .8s var(--ease) .1s; }
+  .tour-lockup .pipe-stage.reveal .pipe-phones .pipe-frame--phone:last-child { transition-delay: .26s; }
+  .tour-lockup .pipe-stage.reveal .pipe-cap { opacity: 0; transition: opacity .6s ease .4s; }
+  /* mirrored sections nudge from mirrored sides */
+  .tour-lockup .tour-sec:nth-child(even) .pipe-stage.reveal .pipe-copy { transform: translateX(26px); }
+  .tour-lockup .tour-sec:nth-child(even) .pipe-stage.reveal .pipe-pair-main,
+  .tour-lockup .tour-sec:nth-child(even) .pipe-stage.reveal .pipe-pair > .pipe-frame--browser { transform: translateX(-54px); }
+  /* arrived */
+  .tour-lockup .pipe-stage.reveal.vis .pipe-copy,
+  .tour-lockup .pipe-stage.reveal.vis .pipe-pair-main,
+  .tour-lockup .pipe-stage.reveal.vis .pipe-pair > .pipe-frame--browser,
+  .tour-lockup .pipe-stage.reveal.vis .pipe-side-phone,
+  .tour-lockup .pipe-stage.reveal.vis .pipe-phones .pipe-frame--phone,
+  .tour-lockup .pipe-stage.reveal.vis .pipe-visual > .pipe-frame--phone,
+  .tour-lockup .pipe-stage.reveal.vis .pipe-cap { opacity: 1; transform: none; }
+  .tour-lockup .pipe-stage.reveal.vis .pipe-frame:hover { transform: translateY(-3px); }
+  /* ghost numeral drifts up behind the arriving lockup */
+  .tour-lockup .tour-sec::before { opacity: 0; transform: translateY(30px); transition: opacity .9s ease .15s, transform 1s var(--ease) .15s; }
+  .tour-lockup .tour-sec:has(.reveal.vis)::before { opacity: 1; transform: none; }
+}
+
 /* ── Reel mode: auto-advancing, click-driven. The page scrolls past it. ── */
 .tour-reel .tour-stages { position: relative; height: clamp(560px, 76vh, 800px); }
 .tour-reel .tour-sec { position: absolute; inset: 0; display: flex; align-items: stretch; padding: 0; border-top: none; opacity: 0; transform: translateY(6%); transition: transform .8s var(--ease), opacity .5s ease; pointer-events: none; }
