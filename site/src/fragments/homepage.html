@@ -957,7 +957,8 @@ body > * { position: relative; z-index: 1; }
 .pcorner:nth-of-type(2) { top: 10px; right: 10px; border-left: 0; border-bottom: 0; border-top-right-radius: 4px; }
 .pcorner:nth-of-type(3) { bottom: 10px; left: 10px; border-right: 0; border-top: 0; border-bottom-left-radius: 4px; }
 .pcorner:nth-of-type(4) { bottom: 10px; right: 10px; border-left: 0; border-top: 0; border-bottom-right-radius: 4px; }
-.prec { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: rgba(255,255,255,0.85); }
+.prec { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: rgba(255,255,255,0.85); opacity: 0; transition: opacity .3s ease; }
+.prec.on { opacity: 1; }
 .prec::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--pink); animation: pPulse 1.6s ease-in-out infinite; }
 /* the direction is the hero: one big directive at a time, cycling */
 .pdir { position: absolute; left: 50%; top: 46%; transform: translate(-50%,-40%); display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; opacity: 0; width: 86%; }
@@ -1257,6 +1258,7 @@ body > * { position: relative; z-index: 1; }
   var subjEl = scenes[1] ? scenes[1].querySelector('.psubject') : null;
   var dirEls = scenes[1] ? Array.prototype.slice.call(scenes[1].querySelectorAll('.pdir')) : [];
   var recBtn = scenes[1] ? scenes[1].querySelector('.prec-btn') : null;
+  var recTag = scenes[1] ? scenes[1].querySelector('.prec') : null;
   var briefEl = document.getElementById('pbriefT');
   var BRIEF = 'Spring line launch. Fun, real, six people.';
   var briefOn = false, briefI = 0, briefTimer = null;
@@ -1321,6 +1323,7 @@ body > * { position: relative; z-index: 1; }
       var di = q < 0.45 ? 0 : q < 0.85 ? 1 : 2;
       for (var d = 0; d < dirEls.length; d++) dirEls[d].classList.toggle('cur', d === di);
       if (recBtn) recBtn.classList.toggle('on', di === 2);
+      if (recTag) recTag.classList.toggle('on', di === 2);
     }
     fill.style.height = (p * 100) + '%';
   }
