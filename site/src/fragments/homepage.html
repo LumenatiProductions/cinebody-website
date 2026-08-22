@@ -961,9 +961,13 @@ body > * { position: relative; z-index: 1; }
 .prec::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--pink); animation: pPulse 1.6s ease-in-out infinite; }
 /* the direction is the hero: one big directive at a time, cycling */
 .pdir { position: absolute; left: 50%; top: 46%; transform: translate(-50%,-40%); display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; opacity: 0; width: 86%; }
-.pdir-lab { font-size: 8.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--yellow); text-shadow: 0 1px 8px rgba(0,0,0,0.8); }
+.pdir-lab { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--yellow); text-shadow: 0 1px 8px rgba(0,0,0,0.8); }
+.pdir-lab svg { width: 12px; height: 12px; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.8)); }
 .pdir.good .pdir-lab { color: var(--teal); }
 .pdir-t { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; color: #fff; line-height: 1.15; text-shadow: 0 2px 16px rgba(0,0,0,0.85); }
+.prec-btn { position: absolute; bottom: 14px; left: 50%; transform: translate(-50%, 8px); width: 36px; height: 36px; border-radius: 50%; border: 2.5px solid rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s ease, transform .35s var(--ease); }
+.prec-btn::before { content: ''; width: 24px; height: 24px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 14px rgba(235,0,139,0.6); animation: pPulse 1.6s ease-in-out infinite; }
+.prec-btn.on { opacity: 1; transform: translate(-50%, 0); }
 /* scroll-scrubbed: JS drives the punch-in and picks the current directive */
 .pdir { transition: opacity .3s ease, transform .3s var(--ease); transform: translate(-50%,-30%); }
 .pdir.cur { opacity: 1; transform: translate(-50%,-40%); }
@@ -1172,9 +1176,10 @@ body > * { position: relative; z-index: 1; }
                   </svg></div>
                   <i class="pcorner"></i><i class="pcorner"></i><i class="pcorner"></i><i class="pcorner"></i>
                   <div class="prec">REC 0:14</div>
-                  <div class="pdir d1"><span class="pdir-lab">AI Director</span><span class="pdir-t">Step a little closer</span></div>
-                  <div class="pdir d2 good"><span class="pdir-lab">AI Director</span><span class="pdir-t">&#10003; Framing looks great</span></div>
-                  <div class="pdir d3 good"><span class="pdir-lab">AI Director</span><span class="pdir-t">&#10003; Perfect. Rolling</span></div>
+                  <div class="pdir d1"><span class="pdir-lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>AI Director</span><span class="pdir-t">Step a little closer</span></div>
+                  <div class="pdir d2 good"><span class="pdir-lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>AI Director</span><span class="pdir-t">&#10003; Framing looks great</span></div>
+                  <div class="pdir d3 good"><span class="pdir-lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>AI Director</span><span class="pdir-t">&#10003; Perfect. Rolling</span></div>
+                  <div class="prec-btn"></div>
                 </div>
               </div>
             </div>
@@ -1251,6 +1256,7 @@ body > * { position: relative; z-index: 1; }
   var scenes = Array.prototype.slice.call(scenesWrap.querySelectorAll('.pscene'));
   var subjEl = scenes[1] ? scenes[1].querySelector('.psubject') : null;
   var dirEls = scenes[1] ? Array.prototype.slice.call(scenes[1].querySelectorAll('.pdir')) : [];
+  var recBtn = scenes[1] ? scenes[1].querySelector('.prec-btn') : null;
   var briefEl = document.getElementById('pbriefT');
   var BRIEF = 'Spring line launch. Fun, real, six people.';
   var briefOn = false, briefI = 0, briefTimer = null;
@@ -1314,6 +1320,7 @@ body > * { position: relative; z-index: 1; }
       subjEl.style.transform = 'translateX(-50%) scale(' + (0.62 + 0.43 * qe) + ')';
       var di = q < 0.45 ? 0 : q < 0.85 ? 1 : 2;
       for (var d = 0; d < dirEls.length; d++) dirEls[d].classList.toggle('cur', d === di);
+      if (recBtn) recBtn.classList.toggle('on', di === 2);
     }
     fill.style.height = (p * 100) + '%';
   }
