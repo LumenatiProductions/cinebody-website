@@ -2369,10 +2369,8 @@ body > * { position: relative; z-index: 1; }
 .tour-lockup .pipe-stack-back { display: none; }
 .tour-lockup .pipe-side-phone { position: absolute; left: -8px; bottom: -26px; width: clamp(168px, 24%, 210px); height: auto; z-index: 4; box-shadow: inset 0 0 0 2px #000, 0 34px 80px rgba(0,0,0,0.7); }
 /* phone-led sections: width-bounded so they can never squeeze the copy column */
-.tour-lockup .pipe-phones { height: auto; align-items: flex-start; justify-content: center; }
+.tour-lockup .pipe-phones { height: auto; align-items: center; justify-content: center; gap: clamp(26px, 3vw, 44px); }
 .tour-lockup .pipe-phones .pipe-frame--phone { height: auto; width: clamp(172px, 12.5vw, 232px); max-width: none; }
-.tour-lockup .pipe-phones .pipe-frame--phone:first-child { margin-top: 36px; }
-.tour-lockup .pipe-phones .pipe-frame--phone:last-child { margin-left: -26px; position: relative; z-index: 2; }
 .tour-lockup .pipe-visual > .pipe-frame--phone { height: auto; width: clamp(196px, 14vw, 250px); max-width: none; margin: 0 auto; }
 /* ghost numeral anchors the dark behind each lockup (echoes the pipeline) */
 .tour-lockup .tour-sec::before { content: attr(data-ghost); position: absolute; right: -0.5%; top: 0; font-size: clamp(130px, 15vw, 210px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.8; color: rgba(0,188,241,0.055); z-index: 0; pointer-events: none; }
@@ -2463,7 +2461,10 @@ body > * { position: relative; z-index: 1; }
         <p>For story shots, the AI interviews people out loud, listens to the answer, and asks the follow-up a producer would. Real stories pulled out of anyone, on any phone, in any city.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--phone" data-lb="The interview"><img src="/app-ui/img07.jpg" alt="An AI voice interview in progress" loading="lazy"></div>
+        <div class="pipe-phones">
+          <div class="pipe-frame pipe-frame--phone" data-lb="The setup"><img src="/app-ui/img06.jpg" alt="Setting up an AI voice interview" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone" data-lb="The interview"><img src="/app-ui/img07.jpg" alt="An AI voice interview in progress" loading="lazy"></div>
+        </div>
         <div class="pipe-cap">AI Voice Interview · it asks, listens, and follows up</div>
       </div>
     </div>
@@ -2780,14 +2781,17 @@ body > * { position: relative; z-index: 1; }
   mq.addEventListener ? mq.addEventListener('change', decide) : mq.addListener(decide);
   decide();
 
-  // stepper shows only while the tour fills the screen
-  new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      inView = e.isIntersecting;
+  // stepper shows only while a tour section owns the middle of the screen
+  var midSecs = new Set();
+  (function(){
+    var o = new IntersectionObserver(function(es){
+      es.forEach(function(e){ e.isIntersecting ? midSecs.add(e.target) : midSecs.delete(e.target); });
+      inView = midSecs.size > 0;
       run.classList.toggle('steprail-on', inView);
       inView ? startAuto() : stopAuto();
-    });
-  }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 }).observe(run);
+    }, { rootMargin: '-32% 0px -32% 0px', threshold: 0 });
+    secs.forEach(function(s){ o.observe(s); });
+  })();
 
   // any real interaction with the tour hands over control
   run.addEventListener('click', engage);
