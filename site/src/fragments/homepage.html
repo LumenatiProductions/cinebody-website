@@ -1158,7 +1158,7 @@ body > * { position: relative; z-index: 1; }
       var c = (i + 0.5) / 3;
       var dirn = pe < c ? 1 : -1;
       copies[i].style.opacity = a;
-      copies[i].style.transform = 'translateY(' + ((1 - a) * 26 * dirn) + 'px)';
+      copies[i].style.transform = 'translateY(calc(-50% + ' + ((1 - a) * 26 * dirn) + 'px))';
       copies[i].style.pointerEvents = a > 0.5 ? 'auto' : 'none';
       scenes[i].style.opacity = a;
       scenes[i].classList.toggle('on', a > 0.55);
