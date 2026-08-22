@@ -902,8 +902,20 @@ body > * { position: relative; z-index: 1; }
 .pipe-stickygrid { display: grid; grid-template-columns: minmax(0,1fr) 56px 400px; gap: 28px; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; }
 .pipe-copies { position: relative; min-height: 320px; }
 .pipe-copy-block { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); opacity: 0; }
-.pipe-copy-block h3 { font-size: clamp(1.9rem,3vw,2.6rem); font-weight: 800; letter-spacing: -0.03em; color: #fff; margin-bottom: 16px; }
-.pipe-copy-block p { font-size: 1.02rem; color: var(--text-dim); line-height: 1.7; max-width: 430px; }
+.pipe-copy-block h3 { font-size: clamp(1.9rem,3vw,2.6rem); font-weight: 800; letter-spacing: -0.03em; color: #fff; margin-bottom: 16px; position: relative; }
+.pipe-copy-block p { font-size: 1.02rem; color: var(--text-dim); line-height: 1.7; max-width: 430px; position: relative; opacity: 0; transform: translateY(10px); }
+.pipe-copy-block .pipe-mini { position: relative; opacity: 0; }
+.pipe-copy-block.on p { animation: pUp .6s .5s var(--ease) forwards; }
+.pipe-copy-block.on .pipe-mini { animation: pIn .6s .8s ease forwards; }
+/* giant ghost numeral behind the stack */
+.pipe-ghost { position: absolute; top: -0.62em; left: -0.06em; font-size: clamp(7rem,11vw,9.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1.5px rgba(0,188,241,0.16); pointer-events: none; opacity: 0; transform: translateY(14px); }
+.pipe-copy-block.on .pipe-ghost { animation: pGhost .8s var(--ease) forwards; }
+@keyframes pGhost { to { opacity: 1; transform: none; } }
+.pipe-num { position: relative; }
+/* word-by-word blur reveal (MotionSites word-reveal, scroll-triggered) */
+.pw { display: inline-block; opacity: 0; transform: translateY(12px); filter: blur(8px); }
+.pipe-copy-block.on .pw { animation: pwIn .45s var(--ease) forwards; animation-delay: calc(0.08s + var(--wi,0) * 0.055s); }
+@keyframes pwIn { to { opacity: 1; transform: none; filter: blur(0); } }
 .pipe-mini { margin-top: 18px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); }
 .pipe-rail { position: relative; height: 280px; width: 56px; }
 .pipe-rail-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(0,188,241,0.14); border-radius: 2px; }
@@ -1029,6 +1041,7 @@ body > * { position: relative; z-index: 1; }
   .pipe-copies { min-height: 0; }
   .pipe-copy-block { position: static; transform: none !important; opacity: 1 !important; margin-bottom: 40px; }
   .pipe-scenes { display: none; }
+  .pw, .pipe-copy-block p, .pipe-copy-block .pipe-mini, .pipe-ghost { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
 }
 
 </style>
@@ -1082,26 +1095,30 @@ body > * { position: relative; z-index: 1; }
       <div class="contain pipe-stickygrid">
         <div class="pipe-copies">
           <div class="pipe-copy-block" data-stage="0">
-            <div class="pipe-num">Stage 01</div>
-            <h3>The brief becomes a plan</h3>
+            <div class="pipe-ghost" aria-hidden="true">01</div>
+            <div class="pipe-num">Plan</div>
+            <h3><span class="pw" style="--wi:0">The</span> <span class="pw" style="--wi:1">brief</span> <span class="pw" style="--wi:2">becomes</span> <span class="pw" style="--wi:3">a</span> <span class="pw" style="--wi:4">plan</span></h3>
             <p>Tell it what you need and the AI Director writes the shotlist: every shot, every prompt, tuned to your goal and your brand. The plan that used to take a production meeting takes a minute.</p>
             <div class="pipe-mini">AI Director &middot; shotlist in seconds</div>
           </div>
           <div class="pipe-copy-block" data-stage="1">
-            <div class="pipe-num">Stage 02</div>
-            <h3>Anyone becomes your crew</h3>
+            <div class="pipe-ghost" aria-hidden="true">02</div>
+            <div class="pipe-num">Film</div>
+            <h3><span class="pw" style="--wi:0">Anyone</span> <span class="pw" style="--wi:1">becomes</span> <span class="pw" style="--wi:2">your</span> <span class="pw" style="--wi:3">crew</span></h3>
             <p>Send a link. Real people film on their phones while the AI coaches every shot live: framing, light, steadiness, even whether the location works. First-take pro footage from anyone, anywhere.</p>
             <div class="pipe-mini">AI Director &middot; live on-camera coaching</div>
           </div>
           <div class="pipe-copy-block" data-stage="2">
-            <div class="pipe-num">Stage 03</div>
-            <h3>Every clip judged as it lands</h3>
+            <div class="pipe-ghost" aria-hidden="true">03</div>
+            <div class="pipe-num">Score</div>
+            <h3><span class="pw" style="--wi:0">Every</span> <span class="pw" style="--wi:1">clip</span> <span class="pw" style="--wi:2">judged</span> <span class="pw" style="--wi:3">as</span> <span class="pw" style="--wi:4">it</span> <span class="pw" style="--wi:5">lands</span></h3>
             <p>Each clip is transcribed and scored the second it arrives: light, focus, framing, audio, delivery. The best moments rise, weak takes get flagged, so you review the best, not the pile.</p>
             <div class="pipe-mini">AI clip review &middot; scored as it lands</div>
           </div>
           <div class="pipe-copy-block" data-stage="3">
-            <div class="pipe-num">Stage 04</div>
-            <h3>A finished cut appears</h3>
+            <div class="pipe-ghost" aria-hidden="true">04</div>
+            <div class="pipe-num">Cut</div>
+            <h3><span class="pw" style="--wi:0">A</span> <span class="pw" style="--wi:1">finished</span> <span class="pw" style="--wi:2">cut</span> <span class="pw" style="--wi:3">appears</span></h3>
             <p>The auto-editor reads the transcripts, finds the real story in what people actually said, and cuts an on-brand video: paced to music, captioned, reframed for vertical. You open a video that is nearly done.</p>
             <div class="pipe-mini">Auto-editor &middot; build my cut</div>
           </div>
@@ -1218,6 +1235,7 @@ body > * { position: relative; z-index: 1; }
       copies[i].style.opacity = a;
       copies[i].style.transform = 'translateY(calc(-50% + ' + ((1 - a) * 26 * dirn) + 'px))';
       copies[i].style.pointerEvents = a > 0.5 ? 'auto' : 'none';
+      copies[i].classList.toggle('on', a > 0.55);
       if (scenes[i]) { scenes[i].style.opacity = a; scenes[i].classList.toggle('on', a > 0.55); }
       nodes[i].classList.toggle('on', a > 0.55);
     }
