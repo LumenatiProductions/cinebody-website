@@ -943,40 +943,52 @@ body > * { position: relative; z-index: 1; }
 .pcorner:nth-of-type(4) { bottom: 10px; right: 10px; border-left: 0; border-top: 0; border-bottom-right-radius: 4px; }
 .prec { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: rgba(255,255,255,0.85); }
 .prec::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--pink); animation: pPulse 1.6s ease-in-out infinite; }
-.pcoach { position: absolute; left: 12px; display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; color: #fff; background: rgba(10,14,18,0.88); border: 1px solid rgba(255,255,255,0.12); border-radius: 99px; padding: 6px 11px; opacity: 0; transform: translateY(8px); }
-.pcoach b { font-weight: 800; font-size: 9px; letter-spacing: 0.08em; }
-.pcoach.c1 { bottom: 76px; } .pcoach.c1 b { color: var(--yellow); }
-.pcoach.c2 { bottom: 42px; } .pcoach.c2 b { color: var(--teal); }
-.pcoach.c3 { bottom: 8px;  } .pcoach.c3 b { color: var(--teal); }
-.pscene.on .pcoach.c1 { animation: pUp .45s .4s var(--ease) forwards; }
-.pscene.on .pcoach.c2 { animation: pUp .45s 1.2s var(--ease) forwards; }
-.pscene.on .pcoach.c3 { animation: pUp .45s 2s var(--ease) forwards; }
-/* scene 3: clip scoring grid */
-.pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
-.pclip { position: relative; aspect-ratio: 9/13; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); opacity: 0; transform: translateY(10px); }
-.pclip i { position: absolute; inset: 0; display: block; }
-.pclip:nth-of-type(1) i { background: linear-gradient(150deg, #1d3a4d, #0f2635); }
-.pclip:nth-of-type(2) i { background: linear-gradient(150deg, #3d2a44, #1d1530); }
-.pclip:nth-of-type(3) i { background: linear-gradient(150deg, #294a3a, #12281e); }
-.pclip:nth-of-type(4) i { background: linear-gradient(150deg, #4a4229, #262112); }
-.pclip:nth-of-type(5) i { background: linear-gradient(150deg, #27394f, #101c2b); }
-.pclip:nth-of-type(6) i { background: linear-gradient(150deg, #44282b, #251114); }
-.pscore { position: absolute; bottom: 6px; left: 6px; font-size: 10px; font-weight: 800; color: #04141c; background: var(--teal); border-radius: 6px; padding: 2px 6px; opacity: 0; transform: scale(0.6); }
-.pclip.ok .pscore { background: var(--yellow); }
-.pclip.bad .pscore { background: var(--pink); color: #fff; }
-.pclip.top::after { content: 'TOP PICK'; position: absolute; top: 6px; left: 6px; font-size: 7px; font-weight: 800; letter-spacing: 0.08em; color: var(--teal); background: rgba(4,20,28,0.85); border: 1px solid rgba(0,188,241,0.5); border-radius: 5px; padding: 2px 5px; opacity: 0; }
-.pclip.top { box-shadow: 0 0 0 0 rgba(0,188,241,0); }
-.pclip.bad i { filter: brightness(0.55) saturate(0.6); }
-.pscene.on .pclip { animation: pUp .45s var(--ease) forwards; }
-.pscene.on .pclip:nth-of-type(2) { animation-delay: .12s; } .pscene.on .pclip:nth-of-type(3) { animation-delay: .24s; }
-.pscene.on .pclip:nth-of-type(4) { animation-delay: .36s; } .pscene.on .pclip:nth-of-type(5) { animation-delay: .48s; }
-.pscene.on .pclip:nth-of-type(6) { animation-delay: .6s; }
-.pscene.on .pscore { animation: pPop .4s var(--ease) forwards; }
-.pscene.on .pclip:nth-of-type(1) .pscore { animation-delay: .9s; } .pscene.on .pclip:nth-of-type(2) .pscore { animation-delay: 1.05s; }
-.pscene.on .pclip:nth-of-type(3) .pscore { animation-delay: 1.2s; } .pscene.on .pclip:nth-of-type(4) .pscore { animation-delay: 1.35s; }
-.pscene.on .pclip:nth-of-type(5) .pscore { animation-delay: 1.5s; } .pscene.on .pclip:nth-of-type(6) .pscore { animation-delay: 1.65s; }
-.pscene.on .pclip.top { animation: pUp .45s var(--ease) forwards, pRing .6s 2s var(--ease) forwards; }
-.pscene.on .pclip.top::after { animation: pIn .4s 2.1s ease forwards; }
+/* the direction is the hero: one big directive at a time, cycling */
+.pdir { position: absolute; left: 50%; top: 46%; transform: translate(-50%,-40%); display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; opacity: 0; width: 86%; }
+.pdir-lab { font-size: 8.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--yellow); text-shadow: 0 1px 8px rgba(0,0,0,0.8); }
+.pdir.good .pdir-lab { color: var(--teal); }
+.pdir-t { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; color: #fff; line-height: 1.15; text-shadow: 0 2px 16px rgba(0,0,0,0.85); }
+.pscene.on .pdir { animation: pDir 9s infinite; }
+.pscene.on .pdir.d2 { animation-delay: 3s; }
+.pscene.on .pdir.d3 { animation-delay: 6s; }
+@keyframes pDir { 0% { opacity: 0; transform: translate(-50%,-28%); } 6%, 27% { opacity: 1; transform: translate(-50%,-40%); } 33%, 100% { opacity: 0; transform: translate(-50%,-52%); } }
+.pscene.on .psubject { animation: pSubj 9s infinite; }
+@keyframes pSubj { 0%, 30% { transform: translateX(-50%) scale(0.9); } 44%, 100% { transform: translateX(-50%) scale(1.05); } }
+.psubject { transform-origin: 50% 100%; }
+/* scene 3: the score is the hero */
+.pfeat { display: flex; gap: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(0,188,241,0.3); border-radius: 10px; padding: 12px; margin-bottom: 10px; opacity: 0; transform: translateY(10px); }
+.pscene.on .pfeat { animation: pUp .5s .15s var(--ease) forwards; }
+.pfeat-thumb { width: 62px; aspect-ratio: 9/13; border-radius: 7px; background: linear-gradient(150deg, #1d3a4d, #0f2635); border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; }
+.pfeat-body { flex: 1; min-width: 0; }
+.pfeat-toprow { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.pfeat-score { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; color: var(--teal); line-height: 1; opacity: 0; transform: scale(0.6); transform-origin: left bottom; }
+.pscene.on .pfeat-score { animation: pPop .5s .5s var(--ease) forwards; }
+.pfeat-chip { font-size: 8px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(0,188,241,0.5); border-radius: 99px; padding: 3px 8px; opacity: 0; }
+.pscene.on .pfeat-chip { animation: pIn .4s .9s ease forwards; }
+.pbar { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.pbar span { font-size: 8.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.45); width: 48px; flex-shrink: 0; }
+.pbar i { display: block; flex: 1; height: 4px; border-radius: 99px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; }
+.pbar i::after { content: ''; position: absolute; inset: 0; border-radius: 99px; background: var(--teal); transform: scaleX(var(--w,1)); transform-origin: left; opacity: 0; }
+.pscene.on .pbar i::after { animation: pBar .7s var(--ease) forwards; }
+.pscene.on .pbar:nth-of-type(1) i::after { animation-delay: .8s; } .pscene.on .pbar:nth-of-type(2) i::after { animation-delay: .95s; }
+.pscene.on .pbar:nth-of-type(3) i::after { animation-delay: 1.1s; } .pscene.on .pbar:nth-of-type(4) i::after { animation-delay: 1.25s; }
+@keyframes pBar { from { opacity: 1; transform: scaleX(0); } to { opacity: 1; transform: scaleX(var(--w,1)); } }
+.pminis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+.pmini { position: relative; aspect-ratio: 1/1.15; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); opacity: 0; transform: translateY(10px); display: flex; align-items: center; justify-content: center; }
+.pmini i { position: absolute; inset: 0; }
+.pmini i.m1 { background: linear-gradient(150deg, #3d2a44, #1d1530); }
+.pmini i.m2 { background: linear-gradient(150deg, #294a3a, #12281e); }
+.pmini i.m3 { background: linear-gradient(150deg, #4a4229, #262112); }
+.pmini i.m4 { background: linear-gradient(150deg, #44282b, #251114); filter: brightness(0.6) saturate(0.6); }
+.pmini-s { position: relative; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; color: var(--teal); text-shadow: 0 2px 10px rgba(0,0,0,0.7); opacity: 0; transform: scale(0.6); }
+.pmini.ok .pmini-s { color: var(--yellow); }
+.pmini.bad .pmini-s { color: var(--pink); }
+.pscene.on .pmini { animation: pUp .45s var(--ease) forwards; }
+.pscene.on .pmini:nth-of-type(1) { animation-delay: 1.5s; } .pscene.on .pmini:nth-of-type(2) { animation-delay: 1.62s; }
+.pscene.on .pmini:nth-of-type(3) { animation-delay: 1.74s; } .pscene.on .pmini:nth-of-type(4) { animation-delay: 1.86s; }
+.pscene.on .pmini-s { animation: pPop .4s var(--ease) forwards; }
+.pscene.on .pmini:nth-of-type(1) .pmini-s { animation-delay: 1.8s; } .pscene.on .pmini:nth-of-type(2) .pmini-s { animation-delay: 1.92s; }
+.pscene.on .pmini:nth-of-type(3) .pmini-s { animation-delay: 2.04s; } .pscene.on .pmini:nth-of-type(4) .pmini-s { animation-delay: 2.16s; }
 /* scene 4: auto-editor timeline */
 .ptl { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 14px; position: relative; overflow: hidden; }
 .ptl-row { display: flex; gap: 6px; margin-bottom: 8px; }
@@ -1123,22 +1135,30 @@ body > * { position: relative; z-index: 1; }
                   <div class="psubject"></div>
                   <i class="pcorner"></i><i class="pcorner"></i><i class="pcorner"></i><i class="pcorner"></i>
                   <div class="prec">REC 0:14</div>
-                  <div class="pcoach c1"><b>TIP</b> Step a little closer</div>
-                  <div class="pcoach c2"><b>&#10003;</b> Great light</div>
-                  <div class="pcoach c3"><b>&#10003;</b> Framing locked. Rolling</div>
+                  <div class="pdir d1"><span class="pdir-lab">AI Director</span><span class="pdir-t">Step a little closer</span></div>
+                  <div class="pdir d2 good"><span class="pdir-lab">AI Director</span><span class="pdir-t">&#10003; Great light</span></div>
+                  <div class="pdir d3 good"><span class="pdir-lab">AI Director</span><span class="pdir-t">&#10003; Perfect. Rolling</span></div>
                 </div>
               </div>
             </div>
             <div class="pscene" data-scene="2">
               <div class="pcard">
                 <div class="pcard-head"><span class="pcard-title">Clips</span><span class="ppill">Scoring live</span></div>
-                <div class="pgrid">
-                  <div class="pclip top"><i></i><span class="pscore">9.1</span></div>
-                  <div class="pclip"><i></i><span class="pscore">8.6</span></div>
-                  <div class="pclip"><i></i><span class="pscore">8.2</span></div>
-                  <div class="pclip ok"><i></i><span class="pscore">7.1</span></div>
-                  <div class="pclip"><i></i><span class="pscore">8.8</span></div>
-                  <div class="pclip bad"><i></i><span class="pscore">4.7</span></div>
+                <div class="pfeat">
+                  <div class="pfeat-thumb"></div>
+                  <div class="pfeat-body">
+                    <div class="pfeat-toprow"><span class="pfeat-score">9.1</span><span class="pfeat-chip">Top pick</span></div>
+                    <div class="pbar"><span>Light</span><i style="--w:0.93"></i></div>
+                    <div class="pbar"><span>Focus</span><i style="--w:0.9"></i></div>
+                    <div class="pbar"><span>Audio</span><i style="--w:0.86"></i></div>
+                    <div class="pbar"><span>Delivery</span><i style="--w:0.95"></i></div>
+                  </div>
+                </div>
+                <div class="pminis">
+                  <div class="pmini"><i class="m1"></i><span class="pmini-s">8.6</span></div>
+                  <div class="pmini"><i class="m2"></i><span class="pmini-s">8.2</span></div>
+                  <div class="pmini ok"><i class="m3"></i><span class="pmini-s">7.1</span></div>
+                  <div class="pmini bad"><i class="m4"></i><span class="pmini-s">4.7</span></div>
                 </div>
               </div>
             </div>
