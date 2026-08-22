@@ -948,10 +948,9 @@ body > * { position: relative; z-index: 1; }
 /* scene 2: live coaching over a capture frame */
 .pframe { position: relative; aspect-ratio: 4/4.4; border-radius: 10px; overflow: hidden; background: linear-gradient(160deg, #14202b 0%, #0e2431 55%, #123040 100%); border: 1px solid rgba(255,255,255,0.08); }
 .pframe-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 33.4% 33.4%; }
-/* abstract human: soft head + shoulders in the same glow style */
-.psubject { position: absolute; left: 50%; bottom: -3%; width: 56%; height: 34%; transform: translateX(-50%); background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.04) 95%); border-radius: 50% 50% 0 0 / 100% 100% 0 0; filter: blur(1.5px); }
-.psubject::before { content: ''; position: absolute; left: 50%; bottom: 96%; width: 44%; aspect-ratio: 1/1.18; transform: translateX(-50%); background: radial-gradient(ellipse 55% 42% at 50% 30%, rgba(255,255,255,0.3), rgba(255,255,255,0.16) 60%, rgba(255,255,255,0.1) 100%); border-radius: 50%; }
-.psubject::after { content: ''; position: absolute; left: 50%; bottom: 88%; width: 16%; height: 14%; transform: translateX(-50%); background: rgba(255,255,255,0.12); }
+/* abstract human: SVG head-and-shoulders silhouette, soft glow */
+.psubject { position: absolute; left: 50%; bottom: -1%; width: 84%; height: 88%; transform: translateX(-50%); filter: blur(1.2px); }
+.psubject svg { display: block; width: 100%; height: 100%; }
 .pcorner { position: absolute; width: 16px; height: 16px; border: 2px solid rgba(0,188,241,0.75); }
 .pcorner:nth-of-type(1) { top: 10px; left: 10px; border-right: 0; border-bottom: 0; border-top-left-radius: 4px; }
 .pcorner:nth-of-type(2) { top: 10px; right: 10px; border-left: 0; border-bottom: 0; border-top-right-radius: 4px; }
@@ -1153,7 +1152,21 @@ body > * { position: relative; z-index: 1; }
                 <div class="pcard-head"><span class="pcard-title">Filming</span></div>
                 <div class="pframe">
                   <div class="pframe-grid"></div>
-                  <div class="psubject"></div>
+                  <div class="psubject"><svg viewBox="0 0 200 220" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="pBust" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="rgba(255,255,255,0.26)"/>
+                        <stop offset="0.5" stop-color="rgba(255,255,255,0.12)"/>
+                        <stop offset="1" stop-color="rgba(255,255,255,0.03)"/>
+                      </linearGradient>
+                      <radialGradient id="pFace" cx="0.5" cy="0.28" r="0.5">
+                        <stop offset="0" stop-color="rgba(255,255,255,0.2)"/>
+                        <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+                      </radialGradient>
+                    </defs>
+                    <path fill="url(#pBust)" d="M100,18 C123,18 139,37 139,62 C139,81 131,97 119,105 L119,117 C119,124 124,128 133,131 C162,141 178,159 182,192 L184,220 L16,220 L18,192 C22,159 38,141 67,131 C76,128 81,124 81,117 L81,105 C69,97 61,81 61,62 C61,37 77,18 100,18 Z"/>
+                    <path fill="url(#pFace)" d="M100,18 C123,18 139,37 139,62 C139,81 131,97 119,105 L119,117 C119,124 124,128 133,131 C162,141 178,159 182,192 L184,220 L16,220 L18,192 C22,159 38,141 67,131 C76,128 81,124 81,117 L81,105 C69,97 61,81 61,62 C61,37 77,18 100,18 Z"/>
+                  </svg></div>
                   <i class="pcorner"></i><i class="pcorner"></i><i class="pcorner"></i><i class="pcorner"></i>
                   <div class="prec">REC 0:14</div>
                   <div class="pdir d1"><span class="pdir-lab">AI Director</span><span class="pdir-t">Step a little closer</span></div>
