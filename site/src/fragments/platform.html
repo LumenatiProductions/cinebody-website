@@ -771,11 +771,13 @@ body > * { position: relative; z-index: 1; }
 /* the screens own the vertical room: height-driven, cropped like tall panels */
 .tour-reel .pipe-visual { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-bottom: 0; }
 .tour-reel .pipe-visual .pipe-cap { margin-top: 26px; }
-.tour-reel .pipe-pair { display: block; position: relative; height: clamp(420px, 54vh, 600px); padding: 0 46px 0 0; }
+.tour-reel .pipe-pair { display: block; position: relative; height: clamp(370px, 46vh, 500px); padding: 0 46px 0 0; }
 .tour-reel .pipe-pair-main { width: 100%; height: 100%; }
 .tour-reel .pipe-pair > .pipe-frame--browser { width: 100%; height: 100%; }
 .tour-reel .pipe-pair .pipe-frame--browser { display: flex; flex-direction: column; }
 .tour-reel .pipe-pair .pipe-frame--browser img { flex: 1; min-height: 0; height: auto; object-fit: cover; object-position: left top; }
+.tour-reel .pipe-frame--browser[data-crop="right"] img { object-position: right top; }
+.tour-reel .pipe-frame--browser[data-crop="center"] img { object-position: center top; }
 .tour-reel .pipe-stack { height: 100%; padding: 28px 0 0 28px; }
 .tour-reel .pipe-stack-front { height: calc(100% - 28px); }
 .tour-reel .pipe-stack-back { height: calc(100% - 28px); right: 40px; }
@@ -831,7 +833,7 @@ body > * { position: relative; z-index: 1; }
     </div>
       </div>
       <div class="tour-sec" id="tour-projects" data-ghost="02">
-<div class="pipe-stage flip reveal">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Projects &amp; Idea Studio</div>
         <h3>From idea to plan in a minute</h3>
@@ -842,7 +844,7 @@ body > * { position: relative; z-index: 1; }
           <div class="pipe-pair-main">
         <div class="pipe-stack">
           <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The idea"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-ideastudio.jpg" alt="Idea Studio: a dealt shoot idea, ready to keep or skip" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The generated shot list"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-wizard.jpg" alt="The wizard: an AI-generated shot list from one description" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The generated shot list" data-crop="center"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-wizard.jpg" alt="The wizard: an AI-generated shot list from one description" loading="lazy"></div>
         </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-project.jpg" alt="The same project in the Cinebody app" loading="lazy"></div>
@@ -868,7 +870,7 @@ body > * { position: relative; z-index: 1; }
     </div>
       </div>
       <div class="tour-sec" id="tour-interviews" data-ghost="04">
-<div class="pipe-stage flip reveal">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">AI Voice Interviews</div>
         <h3>An interviewer in every pocket</h3>
@@ -902,7 +904,7 @@ body > * { position: relative; z-index: 1; }
     </div>
       </div>
       <div class="tour-sec" id="tour-library" data-ghost="06">
-<div class="pipe-stage flip reveal">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Library &amp; AI Clip Review</div>
         <h3>Footage that grades itself</h3>
@@ -913,7 +915,7 @@ body > * { position: relative; z-index: 1; }
           <div class="pipe-pair-main">
         <div class="pipe-stack">
           <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The library"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The library: every clip scored on arrival" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="A clip review"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="A clip review" data-crop="right"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
         </div>
           </div>
           <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-library.jpg" alt="The library in the Cinebody app" loading="lazy"></div>
@@ -939,7 +941,7 @@ body > * { position: relative; z-index: 1; }
     </div>
       </div>
       <div class="tour-sec" id="tour-postprod" data-ghost="08">
-<div class="pipe-stage flip reveal">
+<div class="pipe-stage reveal">
       <div class="pipe-copy">
         <div class="pipe-num">Post Production</div>
         <h3>From a pile of clips to a timeline in one click</h3>
