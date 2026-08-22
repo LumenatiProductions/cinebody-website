@@ -631,9 +631,19 @@ body > * { position: relative; z-index: 1; }
 .pipe-frame:hover::after { opacity: 1; }
 .shot-lightbox { position: fixed; inset: 0; z-index: 2000; background: rgba(4,8,12,0.9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 4vh 4vw; opacity: 0; pointer-events: none; transition: opacity .25s ease; cursor: zoom-out; }
 .shot-lightbox.on { opacity: 1; pointer-events: auto; }
-.shot-lightbox img { max-width: 100%; max-height: 86vh; border-radius: 12px; box-shadow: 0 40px 120px rgba(0,0,0,0.65); transform: scale(0.965); transition: transform .3s var(--ease); }
+.shot-lb-body { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: min(1200px, 88vw); cursor: default; }
+.shot-lightbox img { max-width: 100%; max-height: 74vh; border-radius: 12px; box-shadow: 0 40px 120px rgba(0,0,0,0.65); transform: scale(0.965); transition: transform .3s var(--ease); }
 .shot-lightbox.on img { transform: none; }
-.shot-lightbox-cap { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.65); }
+.shot-lb-title { font-size: 1.05rem; font-weight: 700; color: #fff; }
+.shot-lightbox-cap { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.65); text-align: center; max-width: 640px; text-transform: none; letter-spacing: 0.01em; font-family: var(--font); font-size: 0.9rem; }
+.shot-lb-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 2px; }
+.shot-lb-chip { font-family: var(--font); font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); border-radius: 99px; padding: 7px 14px; cursor: pointer; transition: all .2s ease; }
+.shot-lb-chip:hover { color: #fff; border-color: rgba(0,188,241,0.5); }
+.shot-lb-chip.on { color: #04141c; background: var(--teal); border-color: var(--teal); }
+.shot-lb-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; font-size: 26px; line-height: 1; color: #fff; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; cursor: pointer; transition: all .2s ease; z-index: 2; }
+.shot-lb-arrow:hover { background: rgba(0,188,241,0.25); border-color: var(--teal); }
+.shot-lb-prev { left: 3vw; }
+.shot-lb-next { right: 3vw; }
 .pipe-frame img { display: block; width: 100%; }
 .pipe-frame--phone { max-width: 274px; margin: 0 auto; border-radius: 30px; padding: 6px; border-color: rgba(255,255,255,0.16); }
 .pipe-frame--phone img { border-radius: 24px; }
@@ -729,8 +739,8 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="pipe-visual">
         <div class="pipe-pair">
-          <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.jpg" alt="Pulse on the web: the live overview" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone"><img src="/app-ui/live/app-pulse.jpg" alt="Pulse in the Cinebody app" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.jpg" alt="Pulse on the web: the live overview" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-pulse.jpg" alt="Pulse in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">Pulse · web and app</div>
       </div>
@@ -756,7 +766,7 @@ body > * { position: relative; z-index: 1; }
         <div class="shot-tabs"><button class="shot-tab on" data-img="/app-ui/live/desk-shotlist.jpg" data-alt="A real shot list with plain-language directions">The shot list</button><button class="shot-tab" data-img="/app-ui/live/desk-shoot.jpg" data-alt="The project HQ: filmers, clips, scores">Project HQ</button></div>
         <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shotlist.jpg" alt="A real shot list with plain-language directions" loading="lazy"></div>
           </div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone"><img src="/app-ui/live/app-project.jpg" alt="The same project in the Cinebody app" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-project.jpg" alt="The same project in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">A real project · web and app</div>
       </div>
@@ -778,8 +788,8 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="pipe-visual">
         <div class="pipe-phones">
-          <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/live/app-camera-2.jpg" alt="The shot brief over the live camera" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/live/app-hud-idle.jpg" alt="The live coaching checks over the camera" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone" data-lb="The shot brief"><img src="/app-ui/live/app-camera-2.jpg" alt="The shot brief over the live camera" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone" data-lb="Live checks"><img src="/app-ui/live/app-hud-idle.jpg" alt="The live coaching checks over the camera" loading="lazy"></div>
         </div>
         <div class="pipe-cap">The real capture screen · brief, then live checks</div>
       </div>
@@ -800,7 +810,7 @@ body > * { position: relative; z-index: 1; }
         <p>For story shots, the AI interviews people out loud, listens to the answer, and asks the follow-up a producer would. Real stories pulled out of anyone, on any phone, in any city.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/img07.jpg" alt="An AI voice interview in progress" loading="lazy"></div>
+        <div class="pipe-frame pipe-frame--phone" data-lb="The interview"><img src="/app-ui/img07.jpg" alt="An AI voice interview in progress" loading="lazy"></div>
         <div class="pipe-cap">AI Voice Interview · it asks, listens, and follows up</div>
       </div>
     </div>
@@ -825,7 +835,7 @@ body > * { position: relative; z-index: 1; }
         <div class="shot-tabs"><button class="shot-tab" data-img="/app-ui/live/desk-library.jpg" data-alt="The library: every clip scored on arrival">The library</button><button class="shot-tab on" data-img="/app-ui/live/desk-clipdetail.jpg" data-alt="A real review: the score and the reasons why">A clip review</button></div>
         <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
           </div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone"><img src="/app-ui/live/app-library.jpg" alt="The library in the Cinebody app" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-library.jpg" alt="The library in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">AI Clip Review · web and app</div>
       </div>
@@ -1204,21 +1214,76 @@ document.querySelectorAll('.faq-q').forEach(function(b){
 (function(){
   var lb = document.createElement('div');
   lb.className = 'shot-lightbox';
-  lb.innerHTML = '<img alt=""><div class="shot-lightbox-cap"></div>';
+  lb.innerHTML = '<button class="shot-lb-arrow shot-lb-prev" aria-label="Previous screen">&#8249;</button>' +
+    '<div class="shot-lb-body"><img alt=""><div class="shot-lb-title"></div><div class="shot-lightbox-cap"></div><div class="shot-lb-chips"></div></div>' +
+    '<button class="shot-lb-arrow shot-lb-next" aria-label="Next screen">&#8250;</button>';
   document.body.appendChild(lb);
-  var img = lb.querySelector('img'), cap = lb.querySelector('.shot-lightbox-cap');
+  var img = lb.querySelector('img'), cap = lb.querySelector('.shot-lightbox-cap'),
+      title = lb.querySelector('.shot-lb-title'), chips = lb.querySelector('.shot-lb-chips'),
+      prev = lb.querySelector('.shot-lb-prev'), next = lb.querySelector('.shot-lb-next');
+  var gallery = [], gCap = '', idx = 0;
+
+  function render(){
+    var it = gallery[idx];
+    if (!it) return;
+    img.src = it.src; img.alt = it.alt || '';
+    title.textContent = it.label || '';
+    cap.textContent = (it.alt && it.alt !== it.label) ? it.alt : gCap;
+    chips.innerHTML = '';
+    if (gallery.length > 1) {
+      gallery.forEach(function(g, i){
+        var b = document.createElement('button');
+        b.className = 'shot-lb-chip' + (i === idx ? ' on' : '');
+        b.textContent = g.label || ('Screen ' + (i + 1));
+        b.addEventListener('click', function(e){ e.stopPropagation(); idx = i; render(); });
+        chips.appendChild(b);
+      });
+    }
+    var many = gallery.length > 1;
+    prev.style.display = next.style.display = many ? 'flex' : 'none';
+  }
+  function open(items, capText, i){ gallery = items; gCap = capText; idx = i || 0; render(); lb.classList.add('on'); }
   function close(){ lb.classList.remove('on'); }
+  function step(d){ idx = (idx + d + gallery.length) % gallery.length; render(); }
   lb.addEventListener('click', close);
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
-  document.querySelectorAll('.pipe-frame').forEach(function(f){
-    f.addEventListener('click', function(){
-      var src = f.querySelector('img');
-      if (!src) return;
-      img.src = src.src;
-      var v = f.closest('.pipe-visual');
-      var c = v ? v.querySelector('.pipe-cap') : null;
-      cap.textContent = c ? c.textContent : (src.alt || '');
-      lb.classList.add('on');
+  lb.querySelector('.shot-lb-body').addEventListener('click', function(e){ e.stopPropagation(); });
+  prev.addEventListener('click', function(e){ e.stopPropagation(); step(-1); });
+  next.addEventListener('click', function(e){ e.stopPropagation(); step(1); });
+  document.addEventListener('keydown', function(e){
+    if (!lb.classList.contains('on')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  // Build one gallery per section visual: tab screens + any extra frames
+  document.querySelectorAll('.pipe-visual').forEach(function(v){
+    var items = [];
+    var capText = (v.querySelector('.pipe-cap') || {}).textContent || '';
+    var tabs = v.querySelector('.shot-tabs');
+    var mainImg = tabs ? tabs.parentElement.querySelector('.pipe-frame img') : null;
+    if (tabs) {
+      tabs.querySelectorAll('.shot-tab').forEach(function(b){
+        items.push({ src: b.dataset.img, label: b.textContent, alt: b.dataset.alt || '' });
+      });
+    }
+    v.querySelectorAll('.pipe-frame').forEach(function(f){
+      var fi = f.querySelector('img');
+      if (!fi) return;
+      if (mainImg && fi === mainImg) { f.dataset.lbTab = '1'; }
+      else {
+        f.dataset.lbIdx = items.length;
+        items.push({ src: fi.getAttribute('src'), label: f.dataset.lb || fi.alt || 'Screen', alt: fi.alt || '' });
+      }
+      f.addEventListener('click', function(){
+        var i = 0;
+        if (f.dataset.lbTab) {
+          var on = tabs.querySelector('.shot-tab.on');
+          i = Array.prototype.indexOf.call(tabs.querySelectorAll('.shot-tab'), on);
+          if (i < 0) i = 0;
+        } else { i = parseInt(f.dataset.lbIdx, 10) || 0; }
+        open(items, capText, i);
+      });
     });
   });
 })();
