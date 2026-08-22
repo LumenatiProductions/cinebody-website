@@ -641,6 +641,9 @@ body > * { position: relative; z-index: 1; }
 .pipe-bar { display: flex; gap: 6px; padding: 11px 14px; background: #141414; border-bottom: 1px solid var(--border); }
 .pipe-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); }
 .pipe-cap { margin-top: 20px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); text-align: center; }
+.pipe-stack { position: relative; padding: 26px 0 0 26px; }
+.pipe-stack-back { position: absolute; top: 0; left: 0; right: 52px; opacity: 0.55; filter: saturate(0.8); }
+.pipe-stack-front { position: relative; z-index: 2; }
 .pipe-closer { text-align: center; margin-top: 8px; }
 .pipe-closer h3 { font-size: clamp(1.5rem,3vw,2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #fff; line-height: 1.2; }
 .pipe-closer h3 em { font-style: normal; background: linear-gradient(135deg,var(--teal),var(--pink),var(--yellow)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
@@ -698,8 +701,8 @@ body > * { position: relative; z-index: 1; }
         <p>You give it the goal. It writes the exact shots to get, so everyone films with a plan, not a guess, and it knows a good location from a bad one before a frame is shot.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/img05.jpg" alt="Cinebody writing the shotlist and scouting the location" loading="lazy"></div>
-        <div class="pipe-cap">Shotlist and location, set by the AI</div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shoot.jpg" alt="A real Cinebody project: shotlist, filmers, and every clip scored" loading="lazy"></div>
+        <div class="pipe-cap">A real project HQ · the plan, the filmers, the scores</div>
       </div>
     </div>
 
@@ -711,8 +714,8 @@ body > * { position: relative; z-index: 1; }
         <p>Framing, light, steadiness, in real time, on camera. When every check clears, they nailed it. First-take pro footage from anyone.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/img04.jpg" alt="Cinebody AI Director coaching a shot live on the phone" loading="lazy"></div>
-        <div class="pipe-cap">AI Director · live on-camera coaching</div>
+        <div class="pipe-frame pipe-frame--phone"><img src="/app-ui/live/phone-filmer.jpg" alt="The filmer link on a phone: shot count, payout, start filming" loading="lazy"></div>
+        <div class="pipe-cap">The filmer link · anyone films from a text</div>
       </div>
     </div>
 
@@ -724,8 +727,8 @@ body > * { position: relative; z-index: 1; }
         <p>Audio, stability, focus, exposure, framing. Every clip gets a score and a verdict the second it arrives, the best moments surface and weak ones get flagged, so quality control runs itself.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--card"><img src="/app-ui/img08.jpg" alt="Cinebody clip review scoring a clip as it lands" loading="lazy"></div>
-        <div class="pipe-cap">AI clip review · scored as it lands</div>
+        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The Cinebody library: every clip scored the moment it lands" loading="lazy"></div>
+        <div class="pipe-cap">AI Clip Review · every clip scored as it lands</div>
       </div>
     </div>
 
@@ -737,8 +740,11 @@ body > * { position: relative; z-index: 1; }
         <p>It listens to everything people said, finds the real story, and assembles a finished cut: set to music, captioned, sized for social.</p>
       </div>
       <div class="pipe-visual">
-        <div class="pipe-frame pipe-frame--browser"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/img09.jpg" alt="Cinebody auto-editor building a cut from scored footage" loading="lazy"></div>
-        <div class="pipe-cap">Auto-editor · build my cut</div>
+        <div class="pipe-stack">
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.jpg" alt="Planning the cut: the AI reads the footage and writes the brief" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front"><div class="pipe-bar"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with cuts, captions, and music" loading="lazy"></div>
+        </div>
+        <div class="pipe-cap">Auto-Editor · one click, a finished timeline</div>
       </div>
     </div>
     </div><!-- /pipe-track -->
