@@ -40,3 +40,8 @@
 - Sim recipe: Metro `npx expo start --dev-client --port 8082` (app.json runtimeVersion temporarily "1.0.0", REVERTED after), Appium started with cwd = the scratchpad that has appium-xcuitest-driver in node_modules (home autodetects from cwd).
 - Scott's personal filmer card on Pulse still shows his dev filmer stats (relinking his user row was out of bounds); it appears in desk-pulse.jpg like it did before.
 - Old bug from last session: PEXELS_API_KEY still missing on Vercel; clips were scraped via headed Chrome instead (Cloudflare blocks headless).
+
+## Addendum (same day, later)
+- Every tour section now has a phone frame: app-messages (same Chris thread), app-brandkit, app-cut (real frame from the Open Gym Night cut's footage), plus refreshed app-earnings.
+- Payments story deepened: Jordan Reyes ($190) and Marcus Lee ($80) cashed out (completed cashouts scoped to their shoots) — web Payouts shows Total Paid $270; Maya kept at $200 available for the app Cash Out screen.
+- scott@cinebody.com users.filmer_profile_id now points at Maya Torres' demo profile (d45e0e9b-70a2-4560-9258-83b6853a6481) so app My Earnings looks real; original value was bd06de0c-682e-4023-b5c5-0d24c0ce0776. The Pulse filmer card pools ALL clips under the email (174 dev QA clips, 3.5 avg) so it was hidden for the desk-pulse capture by nulling the field, then relinked to Maya.
