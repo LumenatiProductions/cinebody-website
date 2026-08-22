@@ -347,10 +347,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* ============================================================
    FOOTER, custom code-block styles (the .footer markup)
    ============================================================ */
-.footer { border-top: none; padding: 0 0 28px; position: relative; background: #0a0a0a; }
-.sig-curve { line-height: 0; position: relative; z-index: 4; margin-top: -60px; pointer-events: none; }
-.sig-curve svg { display: block; width: 100%; height: 70px; }
-@media (max-width: 600px) { .sig-curve { margin-top: -80px; } .sig-curve svg { height: 90px; } }
+.footer { border-top: none; padding: 56px 0 28px; position: relative; background: #0a0a0a; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-brand img { height: 22px; margin-bottom: 14px; }
 /* !important: each page fragment ships its own footer CSS (var(--text-muted),
