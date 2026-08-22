@@ -964,13 +964,10 @@ body > * { position: relative; z-index: 1; }
 .pdir-lab { font-size: 8.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--yellow); text-shadow: 0 1px 8px rgba(0,0,0,0.8); }
 .pdir.good .pdir-lab { color: var(--teal); }
 .pdir-t { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; color: #fff; line-height: 1.15; text-shadow: 0 2px 16px rgba(0,0,0,0.85); }
-.pscene.on .pdir { animation: pDir 9s infinite; }
-.pscene.on .pdir.d2 { animation-delay: 3s; }
-.pscene.on .pdir.d3 { animation-delay: 6s; }
-@keyframes pDir { 0% { opacity: 0; transform: translate(-50%,-28%); } 6%, 27% { opacity: 1; transform: translate(-50%,-40%); } 33%, 100% { opacity: 0; transform: translate(-50%,-52%); } }
-.pscene.on .psubject { animation: pSubj 9s infinite; }
-@keyframes pSubj { 0%, 30% { transform: translateX(-50%) scale(0.62); } 44%, 100% { transform: translateX(-50%) scale(1.05); } }
-.psubject { transform-origin: 50% 100%; }
+/* scroll-scrubbed: JS drives the punch-in and picks the current directive */
+.pdir { transition: opacity .3s ease, transform .3s var(--ease); transform: translate(-50%,-30%); }
+.pdir.cur { opacity: 1; transform: translate(-50%,-40%); }
+.psubject { transform-origin: 50% 100%; will-change: transform; }
 /* scene 3: the score is the hero */
 .pfeat { display: flex; gap: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(0,188,241,0.3); border-radius: 10px; padding: 12px; margin-bottom: 10px; opacity: 0; transform: translateY(10px); }
 .pscene.on .pfeat { animation: pUp .5s .15s var(--ease) forwards; }
@@ -1252,6 +1249,8 @@ body > * { position: relative; z-index: 1; }
   if (window.matchMedia('(max-width: 900px)').matches) { wrap.closest('.pipeline').classList.add('pipe-static'); return; }
   var scenesWrap = document.getElementById('pipeScenes');
   var scenes = Array.prototype.slice.call(scenesWrap.querySelectorAll('.pscene'));
+  var subjEl = scenes[1] ? scenes[1].querySelector('.psubject') : null;
+  var dirEls = scenes[1] ? Array.prototype.slice.call(scenes[1].querySelectorAll('.pdir')) : [];
   var briefEl = document.getElementById('pbriefT');
   var BRIEF = 'Spring line launch. Fun, real, six people.';
   var briefOn = false, briefI = 0, briefTimer = null;
@@ -1298,6 +1297,13 @@ body > * { position: relative; z-index: 1; }
       nodes[i].classList.toggle('on', a > 0.55);
     }
     scenesWrap.style.transform = 'translateY(' + (p * 30 - 15) + 'px)';
+    if (subjEl) {
+      var q = Math.max(0, Math.min(1, (pe - 0.28) / 0.19));
+      var qe = q * q * (3 - 2 * q);
+      subjEl.style.transform = 'translateX(-50%) scale(' + (0.62 + 0.43 * qe) + ')';
+      var di = q < 0.45 ? 0 : q < 0.85 ? 1 : 2;
+      for (var d = 0; d < dirEls.length; d++) dirEls[d].classList.toggle('cur', d === di);
+    }
     fill.style.height = (p * 100) + '%';
   }
   function frame(now){
