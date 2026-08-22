@@ -221,6 +221,14 @@ const pageSchema = entitySchemas[active];
         if (!iframes.length) return;
         // Stagger start times so no two cards show the same beat of their loops
         iframes.forEach(function (f, i) { f.dataset.t = (i % 5) * 6; });
+        // Landscape clips letterbox in the portrait cards; tag them (via their
+        // poster's natural aspect) so CSS can scale the player to cover instead
+        iframes.forEach(function (f) {
+          var img = f.parentElement.querySelector('img');
+          if (!img) return;
+          function chk() { if (img.naturalWidth > img.naturalHeight) f.parentElement.classList.add('scr-wide'); }
+          if (img.complete) chk(); else img.addEventListener('load', chk);
+        });
         var noVideo =
           window.matchMedia('(max-width: 767px)').matches ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches ||

@@ -34,6 +34,9 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 
+/* Landscape clips in portrait wall cards: scale the player to cover, not letterbox */
+.scr-card.scr-wide iframe { width: 320% !important; left: 50% !important; transform: translateX(-50%); }
+
 /* No orphans: headings balance their lines, body text avoids lone last words */
 h1, h2, h3, h4 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
