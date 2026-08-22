@@ -889,10 +889,16 @@ body > * { position: relative; z-index: 1; }
 .pipe-closer h3 { font-size: clamp(1.5rem,3vw,2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #fff; line-height: 1.2; }
 .pipe-closer h3 em { font-style: normal; color: var(--teal); }
 .pipe-closer .pipe-cap { margin-top: 26px; }
-.pipe-outputs { display: flex; gap: 14px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
-.pipe-output { width: 148px; aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 14px 34px rgba(0,0,0,0.45); transition: transform .4s var(--ease); }
-.pipe-output:hover { transform: translateY(-4px); }
-.pipe-output img { width: 100%; height: 100%; object-fit: cover; }
+.pipe-outputs { display: flex; gap: 18px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+.pipe-output { position: relative; width: 224px; aspect-ratio: 9/16; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 14px 34px rgba(0,0,0,0.45); transition: transform .4s var(--ease), border-color .3s ease; cursor: pointer; }
+.pipe-output:hover { transform: translateY(-4px); border-color: rgba(0,188,241,0.4); }
+.pipe-output img, .pipe-output video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.po-play { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,0.16); transition: opacity .3s ease; }
+.po-play span { width: 54px; height: 54px; border-radius: 50%; background: rgba(8,12,16,0.6); border: 1.5px solid rgba(255,255,255,0.5); backdrop-filter: blur(6px); position: relative; }
+.po-play span::after { content: ''; position: absolute; left: 55%; top: 50%; transform: translate(-50%,-50%); border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent #fff; }
+.pipe-output.playing .po-play { opacity: 0; }
+.pipe-output.playing:hover .po-play { opacity: 1; }
+.po-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 12px 10px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.85); pointer-events: none; }
 @media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
 @media (max-width: 600px) { .pipe-output { width: calc((100% - 28px) / 3); } }
 /* ── scroll-driven pipeline: pinned wireframe phone stepping through the stages ── */
@@ -1144,11 +1150,11 @@ body > * { position: relative; z-index: 1; }
     <div class="pipe-closer reveal">
       <h3>Real people create it. <em>AI runs it end to end.</em></h3>
       <div class="pipe-outputs">
-        <div class="pipe-output"><img src="/app-ui/img00.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
-        <div class="pipe-output"><img src="/app-ui/img01.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
-        <div class="pipe-output"><img src="/app-ui/img02.jpg" alt="Finished Cinebody cut" loading="lazy"></div>
+        <div class="pipe-output"><video src="/cuts/cut-royalcaribbean.mp4" poster="/cuts/cut-royalcaribbean.jpg" preload="none" playsinline></video><div class="po-play"><span></span></div><div class="po-label">Royal Caribbean</div></div>
+        <div class="pipe-output"><video src="/cuts/cut-nike.mp4" poster="/cuts/cut-nike.jpg" preload="none" playsinline></video><div class="po-play"><span></span></div><div class="po-label">Nike</div></div>
+        <div class="pipe-output"><video src="/cuts/cut-altra.mp4" poster="/cuts/cut-altra.jpg" preload="none" playsinline></video><div class="po-play"><span></span></div><div class="po-label">Altra</div></div>
       </div>
-      <div class="pipe-cap">Finished, on-brand cuts, ready to publish</div>
+      <div class="pipe-cap">Real finished cuts from real campaigns. Press play.</div>
     </div>
     <div class="stats-head reveal">
       <h2>Real beats polished. <em>It's not close.</em></h2>
@@ -1385,6 +1391,33 @@ body > * { position: relative; z-index: 1; }
     if (!ticking) { ticking = true; requestAnimationFrame(upd); }
   }, { passive: true });
   upd();
+})();
+
+// Finished cuts: click to play with sound, one at a time
+(function(){
+  var outs = Array.prototype.slice.call(document.querySelectorAll('.pipe-output'));
+  outs.forEach(function(o){
+    var v = o.querySelector('video');
+    if (!v) return;
+    o.addEventListener('click', function(){
+      if (v.paused) {
+        outs.forEach(function(x){
+          var xv = x.querySelector('video');
+          if (xv && xv !== v) { xv.pause(); x.classList.remove('playing'); }
+        });
+        v.muted = false;
+        v.play();
+        o.classList.add('playing');
+      } else {
+        v.pause();
+        o.classList.remove('playing');
+      }
+    });
+    v.addEventListener('ended', function(){
+      v.currentTime = 0;
+      o.classList.remove('playing');
+    });
+  });
 })();
 
 // Typewriter: split proof heading into stagger-revealed chars
