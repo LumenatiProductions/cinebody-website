@@ -229,6 +229,19 @@ body > * { position: relative; z-index: 1; }
   line-height: 1.1; margin-bottom: 56px; color: #fff !important;
 }
 
+.offer { padding: 90px 0 96px; background: #fff; }
+.offer-head { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 4vw, 64px); align-items: end; margin-bottom: 48px; }
+.offer-head h2 { font-size: clamp(1.9rem, 3.2vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; color: #111 !important; }
+.offer-head h2 em { font-style: normal; color: var(--teal); }
+.offer-head p { font-size: 0.98rem; color: #555; line-height: 1.7; }
+.offer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(0,0,0,0.09); border: 1px solid rgba(0,0,0,0.09); border-radius: 14px; overflow: hidden; }
+.offer-cell { background: #fafafa; padding: 28px 26px 30px; }
+.offer-cell svg { width: 22px; height: 22px; stroke: var(--teal); margin-bottom: 14px; }
+.offer-cell h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
+.offer-cell p { font-size: 0.85rem; color: #666; line-height: 1.6; }
+.offer-cell--lead { background: #f2fbfe; box-shadow: inset 0 0 0 1px rgba(0,188,241,0.25); }
+@media (max-width: 1000px) { .offer-grid { grid-template-columns: 1fr 1fr; } .offer-head { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .offer-grid { grid-template-columns: 1fr; } }
 .process-head { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 4vw, 64px); align-items: end; margin-bottom: 12px; }
 @media (max-width: 900px) { .process-head { grid-template-columns: 1fr; } }
 .process-grid {
@@ -548,6 +561,47 @@ body > * { position: relative; z-index: 1; }
     </div>
   </div>
 </section>
+
+<!-- curve: dark → white -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+<!-- ═══ WHAT WE DO ═══ -->
+<section class="offer">
+  <div class="contain">
+    <div class="reveal offer-head">
+      <div>
+        <div class="label">What we do</div>
+        <h2>Your whole program, <em>run for you.</em></h2>
+      </div>
+      <p>Some teams want to run Cinebody themselves. Others want it off their plate entirely. If that's you, our creative producers run the whole program on the platform, so you get finished content without hiring or managing a&nbsp;thing.</p>
+    </div>
+    <div class="offer-grid reveal reveal-d1">
+      <div class="offer-cell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>
+        <h3>Strategy</h3>
+        <p>We shape what to make and why, tied to your goals: the ideas, the cadence, and the channels every piece is built for.</p>
+      </div>
+      <div class="offer-cell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg>
+        <h3>Direction</h3>
+        <p>We build the briefs and shot lists, recruit the right people from your community, and guide them on camera with the AI Director.</p>
+      </div>
+      <div class="offer-cell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="8.1" y1="8.1" x2="20" y2="20"/><line x1="20" y1="4" x2="8.1" y2="15.9"/></svg>
+        <h3>Editing &amp; delivery</h3>
+        <p>Polished, on-brand cuts with motion graphics and licensed music, delivered ready for every channel you publish to.</p>
+      </div>
+      <div class="offer-cell offer-cell--lead">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <h3>Your producer</h3>
+        <p>One point of contact who owns your program end to end. You talk to a person; the person runs the machine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- curve: white → dark -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <!-- ═══ PROCESS ═══ -->
 <section class="process">
