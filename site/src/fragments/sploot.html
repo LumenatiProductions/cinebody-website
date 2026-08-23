@@ -311,6 +311,7 @@ body > * { position: relative; z-index: 1; }
   @keyframes spTreeFlow { to { stroke-dashoffset:-14; } }
   @media (prefers-reduced-motion: reduce){ .sp-flow path { animation:none; } }
   .sp-nodes { display:flex; gap:16px; justify-content:center; align-items:flex-start; max-width:920px; margin:0 auto; flex-wrap:wrap; }
+  .sp-group { display:contents; }   /* desktop: the type groups flatten into one row */
   .sp-node { position:relative; border-radius:var(--radius); border:1px solid var(--border); background:#111; box-shadow:0 4px 24px rgba(0,0,0,0.2); overflow:visible; transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s ease; }
   .sp-node--v { width:132px; } .sp-node--h { width:180px; }
   .sp-node > .vid-playable { border-radius:var(--radius) var(--radius) 0 0; overflow:hidden; }
@@ -321,17 +322,18 @@ body > * { position: relative; z-index: 1; }
   .sp-node-label .node-name { font-size:0.88rem; font-weight:700; color:#fff; }
   @media (max-width:700px){
     /* the tethered tree can't reflow cleanly on phones: drop the connector and
-       turn the six deliverables into one swipe slider (drag handled globally) */
+       split into two clean sliders (verticals, then landscapes). drag handled globally */
     .sp-connector { display:none; }
     .sp-tree-hero { max-width:none; }
-    .sp-nodes { flex-wrap:nowrap; justify-content:flex-start; align-items:flex-start; max-width:none;
+    .sp-nodes { display:flex; flex-direction:column; gap:26px; max-width:none; margin-top:24px; }
+    .sp-group { display:flex; flex-wrap:nowrap; justify-content:flex-start; align-items:flex-start; max-width:none;
       overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;
-      gap:14px; padding:8px clamp(1.25rem,12vw,4rem); margin:24px -20px 0; scroll-padding-inline:clamp(1.25rem,12vw,4rem);
+      gap:14px; padding:8px clamp(1.25rem,12vw,4rem); margin:0 -20px; scroll-padding-inline:clamp(1.25rem,12vw,4rem);
       cursor:grab; touch-action:pan-y; }
-    .sp-nodes::-webkit-scrollbar { display:none; }
-    .sp-node, .sp-node--v, .sp-node--h { width:74% !important; max-width:300px; flex:0 0 74%; scroll-snap-align:center; }
-    .sp-node--v { order:-1; }                 /* a vertical clip leads the slider */
-    .sp-node--h { align-self:center; }        /* landscape clips center in the vertical height */
+    .sp-group::-webkit-scrollbar { display:none; }
+    .sp-node { scroll-snap-align:center; }
+    .sp-group--v .sp-node { width:66% !important; max-width:260px; flex:0 0 66%; }
+    .sp-group--h .sp-node { width:82% !important; max-width:340px; flex:0 0 82%; }
     .sp-node::before { display:none; }
   }
 </style>
@@ -368,27 +370,32 @@ body > * { position: relative; z-index: 1; }
       </svg>
     </div>
 
-    <!-- Cutdown nodes (5) -->
+    <!-- Cutdown nodes (5): two type groups. Desktop flattens them into one row
+         (.sp-group is display:contents); mobile makes each group its own slider. -->
     <div class="sp-nodes reveal reveal-d3">
-      <div class="sp-node sp-node--h">
-        <div class="vid-playable vid-playable--h" data-vimeo="1124286037" data-vimeo-h="56289df1ad" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104615-a78d1662ab289f49a0d2e54dc18fe06078fb57d998ed63efdb52fa897e46dc9e-d_640" alt="Veronica CTV"></div>
-        <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Veronica</div></div>
+      <div class="sp-group sp-group--v" aria-label="Vertical stories">
+        <div class="sp-node sp-node--v">
+          <div class="vid-playable vid-playable--v" data-vimeo="1124285974" data-vimeo-h="4693f0b08b" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104530-fb47cd8ae1da29afde58cf84348ed03a22154c80457f0fd37b19e85141ce3497-d_640" alt="Grace Stories"></div>
+          <div class="sp-node-label"><div class="node-type">Vertical · Stories</div><div class="node-name">Grace</div></div>
+        </div>
+        <div class="sp-node sp-node--v">
+          <div class="vid-playable vid-playable--v" data-vimeo="1124286155" data-vimeo-h="f06e663800" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104746-962de63c0449041a5dca2f0dce94bf7fa0287200f629550fe34e6609a9754925-d_640" alt="Veronica Stories"></div>
+          <div class="sp-node-label"><div class="node-type">Vertical · Stories</div><div class="node-name">Veronica</div></div>
+        </div>
       </div>
-      <div class="sp-node sp-node--v">
-        <div class="vid-playable vid-playable--v" data-vimeo="1124285974" data-vimeo-h="4693f0b08b" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104530-fb47cd8ae1da29afde58cf84348ed03a22154c80457f0fd37b19e85141ce3497-d_640" alt="Grace Stories"></div>
-        <div class="sp-node-label"><div class="node-type">Vertical · Stories</div><div class="node-name">Grace</div></div>
-      </div>
-      <div class="sp-node sp-node--h">
-        <div class="vid-playable vid-playable--h" data-vimeo="1124286076" data-vimeo-h="5570f8654a" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104656-5d5a34b831fa1dfc4c9ed5213b3c737eb00bfae17845ee3897e5c3e39a8f2e37-d_640" alt="Sheeda CTV"></div>
-        <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Sheeda</div></div>
-      </div>
-      <div class="sp-node sp-node--v">
-        <div class="vid-playable vid-playable--v" data-vimeo="1124286155" data-vimeo-h="f06e663800" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104746-962de63c0449041a5dca2f0dce94bf7fa0287200f629550fe34e6609a9754925-d_640" alt="Veronica Stories"></div>
-        <div class="sp-node-label"><div class="node-type">Vertical · Stories</div><div class="node-name">Veronica</div></div>
-      </div>
-      <div class="sp-node sp-node--h">
-        <div class="vid-playable vid-playable--h" data-vimeo="1124286207" data-vimeo-h="036d5ef7d3" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104783-27fbaf9318d8e655b28d23b84213053d48cdd453526a930b83c1fd4cf4dbbb73-d_640" alt="Grace CTV"></div>
-        <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Grace</div></div>
+      <div class="sp-group sp-group--h" aria-label="CTV cutdowns">
+        <div class="sp-node sp-node--h">
+          <div class="vid-playable vid-playable--h" data-vimeo="1124286037" data-vimeo-h="56289df1ad" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104615-a78d1662ab289f49a0d2e54dc18fe06078fb57d998ed63efdb52fa897e46dc9e-d_640" alt="Veronica CTV"></div>
+          <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Veronica</div></div>
+        </div>
+        <div class="sp-node sp-node--h">
+          <div class="vid-playable vid-playable--h" data-vimeo="1124286076" data-vimeo-h="5570f8654a" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104656-5d5a34b831fa1dfc4c9ed5213b3c737eb00bfae17845ee3897e5c3e39a8f2e37-d_640" alt="Sheeda CTV"></div>
+          <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Sheeda</div></div>
+        </div>
+        <div class="sp-node sp-node--h">
+          <div class="vid-playable vid-playable--h" data-vimeo="1124286207" data-vimeo-h="036d5ef7d3" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104783-27fbaf9318d8e655b28d23b84213053d48cdd453526a930b83c1fd4cf4dbbb73-d_640" alt="Grace CTV"></div>
+          <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Grace</div></div>
+        </div>
       </div>
     </div>
   </div>
