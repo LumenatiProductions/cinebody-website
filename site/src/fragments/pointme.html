@@ -307,6 +307,12 @@ body > * { position: relative; z-index: 1; }
       @keyframes pmFront { 0%{opacity:1;} 24%{opacity:1;} 26%{opacity:0;} 74%{opacity:0;} 76%{opacity:1;} 100%{opacity:1;} }
       @keyframes pmBack { 0%{opacity:0;} 24%{opacity:0;} 26%{opacity:.5;} 74%{opacity:.5;} 76%{opacity:0;} 100%{opacity:0;} }
       @media (prefers-reduced-motion: reduce){ .pm-plane{ animation:none; } }
+      .pm-stats { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid #e8e8e8; border-radius:14px; overflow:hidden; max-width:720px; margin:0 auto; }
+      .pm-stat { padding:34px 20px; text-align:center; }
+      .pm-stat + .pm-stat { border-left:1px solid #eee; }
+      .pm-stat .n { font-size:2rem; font-weight:700; color:var(--teal); letter-spacing:-0.03em; line-height:1; margin-bottom:6px; }
+      .pm-stat .l { font-family:var(--mono); font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#999; }
+      @media (max-width:560px){ .pm-stats { grid-template-columns:1fr 1fr; } .pm-stat:nth-child(3){ border-left:0; } }
     
 .cta-band { padding-bottom: 0 !important; }
 .cta-band .btn-glow { margin-bottom: 56px; }
@@ -341,11 +347,11 @@ body > * { position: relative; z-index: 1; }
       <div class="pm-pill pm-pill--br"><span class="pl"></span>Clips</div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">1</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Shoot</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">70+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Real Customers</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">5+</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Derivative Assets</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Multi</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Platform</div></div>
+    <div class="pm-stats reveal">
+      <div class="pm-stat"><div class="n">1</div><div class="l">Shoot</div></div>
+      <div class="pm-stat"><div class="n">70+</div><div class="l">Real Customers</div></div>
+      <div class="pm-stat"><div class="n">5+</div><div class="l">Derivative Assets</div></div>
+      <div class="pm-stat"><div class="n">Multi</div><div class="l">Platform</div></div>
     </div>
     <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">From a single CTV production featuring 70+ real customers, Cinebody's team extracted vignettes, social cuts, clips, and bonus content, maximizing every frame into a full multi-platform&nbsp;campaign.</p>
   </div>
