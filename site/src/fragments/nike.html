@@ -428,8 +428,12 @@ body > * { position: relative; z-index: 1; }
       @keyframes nkPulse { 0%{opacity:.5;transform:scale(1)} 70%{opacity:0;transform:scale(1.9)} 100%{opacity:0;transform:scale(1.9)} }
       .nk-pill { position:absolute; transform:translate(-50%,-50%); display:inline-flex; align-items:center; gap:7px; background:#fff; border:1.6px solid var(--teal); border-radius:9999px; padding:8px 15px 8px 12px; font-family:var(--font); font-size:13px; font-weight:700; color:#06546c; white-space:nowrap; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
       .nk-pill svg { flex-shrink:0; }
-      .nk-pill--tl { left:17%; top:13%; } .nk-pill--tr { left:83%; top:13%; }
-      .nk-pill--bl { left:17%; top:87%; } .nk-pill--br { left:83%; top:87%; }
+      .nk-city { position:absolute; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:6px; }
+      .nk-city .nk-pill { position:static; transform:none; }
+      .nk-city-ico { display:flex; }
+      .nk-ico { width:38px; height:auto; overflow:visible; }
+      .nk-city--tl { left:17%; top:14%; } .nk-city--tr { left:83%; top:14%; }
+      .nk-city--bl { left:17%; top:86%; } .nk-city--br { left:83%; top:86%; }
       .nk-stats { display:grid; grid-template-columns:1fr 1fr; border:1px solid #e8e8e8; border-radius:14px; overflow:hidden; }
       .nk-stat { padding:28px 22px; }
       .nk-stat:nth-child(2n) { border-left:1px solid #eee; }
@@ -472,18 +476,18 @@ body > * { position: relative; z-index: 1; }
         <circle class="nk-pulse" cx="230" cy="170" r="50" fill="none" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/>
         <circle class="nk-pulse" cx="230" cy="170" r="50" fill="none" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" style="animation-delay:1.4s"/>
         <circle cx="230" cy="170" r="52" fill="rgba(0,188,241,0.06)"/>
-        <circle cx="230" cy="170" r="46" fill="#08151d" stroke="#00bcf1" stroke-width="2.2"/>
+        <circle cx="230" cy="170" r="50" fill="#08151d" stroke="#00bcf1" stroke-width="2.4"/>
         <rect x="206" y="150" width="48" height="30" rx="4" fill="none" stroke="rgba(0,188,241,0.5)" stroke-width="1.6"/>
         <rect x="213" y="166" width="5" height="9" rx="1" fill="#00bcf1"/>
         <rect x="222" y="161" width="5" height="14" rx="1" fill="#00bcf1"/>
         <rect x="231" y="157" width="5" height="18" rx="1" fill="#eb008b"/>
         <rect x="240" y="164" width="5" height="11" rx="1" fill="#00bcf1"/>
-        <text x="230" y="200" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="800" letter-spacing="1.2" fill="#0a6f90">DASHBOARD</text>
+        <text x="230" y="196" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="8" font-weight="800" letter-spacing="1" fill="#4bd0ef">DASHBOARD</text>
         </svg>
-        <div class="nk-pill nk-pill--tl"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#eb008b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>Los Angeles</div>
-        <div class="nk-pill nk-pill--tr"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#eb008b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>Chicago</div>
-        <div class="nk-pill nk-pill--bl"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#eb008b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>Austin</div>
-        <div class="nk-pill nk-pill--br"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#eb008b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>New York</div>
+        <div class="nk-city nk-city--tl"><div class="nk-city-ico"><svg class="nk-ico" viewBox="-22 -20 44 42"><g fill="#fff" stroke="#00bcf1" stroke-width="1.6"><rect x="-16" y="-6" width="12" height="22" rx="1"/><rect x="-2" y="-14" width="18" height="30" rx="1"/></g><g fill="rgba(0,188,241,0.25)" stroke="rgba(0,188,241,0.5)" stroke-width="0.8"><rect x="-14" y="2" width="8" height="5" rx="0.5"/><rect x="2" y="-8" width="6" height="4" rx="0.5"/><rect x="9" y="-8" width="6" height="4" rx="0.5"/><rect x="2" y="2" width="6" height="4" rx="0.5"/><rect x="9" y="2" width="6" height="4" rx="0.5"/></g></svg></div><div class="nk-pill">Los Angeles</div></div>
+        <div class="nk-city nk-city--tr"><div class="nk-city-ico"><svg class="nk-ico" viewBox="-22 -28 44 46"><g fill="#fff" stroke="#00bcf1" stroke-width="1.6"><rect x="-8" y="-16" width="16" height="32" rx="1"/><rect x="-16" y="0" width="10" height="16" rx="1"/><rect x="6" y="-6" width="14" height="22" rx="1"/></g><line x1="0" y1="-16" x2="0" y2="-24" stroke="#00bcf1" stroke-width="1.6"/><g fill="rgba(0,188,241,0.25)" stroke="rgba(0,188,241,0.5)" stroke-width="0.8"><rect x="-5" y="-10" width="4" height="3" rx="0.5"/><rect x="1" y="-10" width="4" height="3" rx="0.5"/><rect x="-5" y="-4" width="4" height="3" rx="0.5"/><rect x="1" y="-4" width="4" height="3" rx="0.5"/></g></svg></div><div class="nk-pill">Chicago</div></div>
+        <div class="nk-city nk-city--bl"><div class="nk-city-ico"><svg class="nk-ico" viewBox="-22 -40 44 44"><g fill="#fff" stroke="#00bcf1" stroke-width="1.6"><rect x="-16" y="-14" width="32" height="14" rx="1"/><rect x="-12" y="-20" width="24" height="8" rx="1"/><path d="M-8,-20 Q0,-32 8,-20" fill="#fff"/></g><line x1="0" y1="-32" x2="0" y2="-38" stroke="#00bcf1" stroke-width="1.6"/><rect x="-2.5" y="-10" width="5" height="10" rx="0.5" fill="rgba(0,188,241,0.25)" stroke="rgba(0,188,241,0.5)" stroke-width="0.8"/></svg></div><div class="nk-pill">Austin</div></div>
+        <div class="nk-city nk-city--br"><div class="nk-city-ico"><svg class="nk-ico" viewBox="-20 -46 40 50"><g fill="#fff" stroke="#00bcf1" stroke-width="1.6"><rect x="-12" y="-16" width="24" height="18" rx="1"/><rect x="-8" y="-26" width="16" height="12" rx="1"/><rect x="-4" y="-36" width="8" height="12" rx="1"/></g><line x1="0" y1="-36" x2="0" y2="-44" stroke="#00bcf1" stroke-width="1.6"/><g fill="rgba(0,188,241,0.25)" stroke="rgba(0,188,241,0.5)" stroke-width="0.8"><rect x="-5" y="-22" width="4" height="3" rx="0.5"/><rect x="1" y="-22" width="4" height="3" rx="0.5"/><rect x="-2" y="-32" width="4" height="3" rx="0.5"/></g></svg></div><div class="nk-pill">New York</div></div>
       </div>
     </div>
   </div>
