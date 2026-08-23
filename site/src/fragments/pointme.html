@@ -164,7 +164,7 @@ body > * { position: relative; z-index: 1; }
 
 /* Branch connector */
 .tree-connector {
-  display: block; margin: -2px auto 4px; position: relative; max-width: 900px;
+  display: block; margin: -2px auto 11px; position: relative; max-width: 900px;
 }
 .tree-connector svg { width: 100%; height: 96px; display: block; }
 .tree-flow path { animation: treeFlow 1.4s linear infinite; }
@@ -178,11 +178,19 @@ body > * { position: relative; z-index: 1; }
 }
 
 .tree-node {
-  border-radius: var(--radius); overflow: hidden;
+  position: relative;
+  border-radius: var(--radius); overflow: visible;
   border: 1px solid var(--border); background: #111;
   box-shadow: 0 4px 24px rgba(0,0,0,0.2);
   transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s ease;
 }
+.tree-node > .vid-playable, .tree-node > .vid-playable--v { border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; }
+.tree-node::before {
+  content: ''; position: absolute; top: -11px; left: 18%; right: 18%; height: 11px;
+  border: 2px solid var(--pink); border-bottom: none; border-radius: 7px 7px 0 0;
+  z-index: 2; transition: border-color 0.4s ease;
+}
+.tree-node:hover::before { border-color: var(--pink); box-shadow: 0 0 14px rgba(235,0,139,0.4); }
 
 .tree-node:hover {
   transform: translateY(-4px);
@@ -401,8 +409,6 @@ body > * { position: relative; z-index: 1; }
           <path d="M450,2 C450,58 794,40 794,94"/>
         </g>
         <circle cx="450" cy="2" r="5" fill="var(--teal)"/>
-        <circle cx="106" cy="94" r="4.5" fill="#eb008b"/><circle cx="335" cy="94" r="4.5" fill="#eb008b"/>
-        <circle cx="565" cy="94" r="4.5" fill="#eb008b"/><circle cx="794" cy="94" r="4.5" fill="#eb008b"/>
       </svg>
     </div>
 
@@ -426,14 +432,14 @@ body > * { position: relative; z-index: 1; }
         <div class="vid-playable vid-playable--v" data-vimeo="1087576984" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2019611648-a6bdc1b8c347c1fed85192125fbe2e96fda414deb4f802faf143dde092dece54-d_640" alt="Clip"></div>
         <div class="tree-node-label">
           <div class="node-type">Derivative</div>
-          <div class="node-name">Clip</div>
+          <div class="node-name">Graphic Ad</div>
         </div>
       </div>
       <div class="tree-node">
         <div class="vid-playable vid-playable--v" data-vimeo="1087438401" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2019435288-9a144453bd98b7e9da4c1647eee0d84e359ec5a5123127483892080752aab951-d_640" alt="Bonus"></div>
         <div class="tree-node-label">
           <div class="node-type">Derivative</div>
-          <div class="node-name">Bonus</div>
+          <div class="node-name">Story Content</div>
         </div>
       </div>
     </div>
