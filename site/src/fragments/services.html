@@ -430,6 +430,8 @@ body > * { position: relative; z-index: 1; }
 .cat-intro h2 { font-family: var(--font); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 12px; }
 .cat-intro h2 em { font-style: normal; color: var(--teal) !important; }
 .cat-intro--light h2 { color: #111 !important; }
+.feeds-run { background: linear-gradient(180deg, #041a24 0%, #0a1a1e 40%, #14140c 100%); }
+.feeds-run .cat-intro--dark, .feeds-run .showcase--dark { background: transparent !important; }
 .cat-intro--dark h2 { color: var(--text) !important; }
 .cat-intro--pink h2 { color: var(--text) !important; }
 .cat-intro--pink h2 em { color: var(--pink) !important; }
@@ -767,7 +769,8 @@ body > * { position: relative; z-index: 1; }
 <!-- Category: Social Content -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
 
-<div class="cat-intro cat-intro--dark" style="background:#041a24;padding-top:70px">
+<div class="feeds-run">
+<div class="cat-intro cat-intro--dark" style="padding-top:70px">
   <div class="contain reveal">
     <h2><em>Keep your social feeds full,</em> without burning out your&nbsp;team.</h2>
     <p>Production timelines shrink from weeks to days when your community is doing the filming. We handle the&nbsp;rest.</p>
@@ -834,9 +837,10 @@ body > * { position: relative; z-index: 1; }
     <a href="/work" class="btn btn-glow">See all Work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   </div>
 </section>
+</div><!-- /feeds-run -->
 
 <!-- curve: light → yellow -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#14140c"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
 <!-- ═══ CTA BAND ═══ -->
 <section class="cta-band" style="padding-top:40px">
