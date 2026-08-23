@@ -237,11 +237,23 @@ body > * { position: relative; z-index: 1; }
 .offer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(0,0,0,0.09); border: 1px solid rgba(0,0,0,0.09); border-radius: 14px; overflow: hidden; }
 .offer-cell { background: #fafafa; padding: 28px 26px 30px; }
 .offer-cell svg { width: 22px; height: 22px; stroke: var(--teal); margin-bottom: 14px; }
+.offer-num { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 8px; }
 .offer-cell h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
 .offer-cell p { font-size: 0.85rem; color: #666; line-height: 1.6; }
-.offer-cell--lead { grid-column: 1 / -1; background: #f2fbfe; box-shadow: inset 0 0 0 1px rgba(0,188,241,0.25); display: flex; align-items: center; gap: 20px; padding: 24px 28px; }
-.offer-cell--lead svg { margin-bottom: 0; flex-shrink: 0; }
-.offer-cell--lead p { max-width: 640px; }
+.producer-moment { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 80px); align-items: center; margin-top: 64px; }
+.producer-copy h3 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -0.025em; color: #111; margin-bottom: 14px; }
+.producer-copy h3 em { font-style: normal; color: var(--teal); }
+.producer-copy p { font-size: 0.95rem; color: #555; line-height: 1.7; max-width: 460px; }
+.producer-sub { margin-top: 12px; font-weight: 700; color: #111 !important; }
+.producer-chat { background: #fafafa; border: 1px solid rgba(0,0,0,0.09); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 18px 44px rgba(0,0,0,0.07); }
+.pm-head { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid rgba(0,0,0,0.07); margin-bottom: 6px; }
+.pm-avatar { width: 38px; height: 38px; border-radius: 50%; background: rgba(0,188,241,0.12); display: flex; align-items: center; justify-content: center; }
+.pm-avatar svg { width: 18px; height: 18px; stroke: var(--teal); }
+.pm-name { font-size: 0.85rem; font-weight: 700; color: #111; }
+.pm-sub { font-size: 0.72rem; color: #8a9298; }
+.pm-msg { align-self: flex-start; max-width: 85%; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px 14px 14px 4px; padding: 10px 14px; font-size: 0.84rem; color: #333; line-height: 1.5; }
+.pm-msg--you { align-self: flex-end; background: rgba(0,188,241,0.1); border-color: rgba(0,188,241,0.25); border-radius: 14px 14px 4px 14px; color: #0b3a4a; }
+@media (max-width: 900px) { .producer-moment { grid-template-columns: 1fr; } }
 @media (max-width: 1000px) { .offer-grid { grid-template-columns: 1fr 1fr; } .offer-head { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .offer-grid { grid-template-columns: 1fr; } }
 .process-head { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 4vw, 64px); align-items: end; margin-bottom: 12px; }
@@ -573,97 +585,52 @@ body > * { position: relative; z-index: 1; }
     <div class="reveal offer-head">
       <div>
         <div class="label">What we do</div>
-        <h2>Your whole program, <em>run for you.</em></h2>
+        <h2>Your whole program, <em>run for you</em>, start to finish.</h2>
       </div>
       <p>Some teams want to run Cinebody themselves. Others want it off their plate entirely. If that's you, our creative producers run the whole program on the platform, so you get finished content without hiring or managing a&nbsp;thing.</p>
     </div>
     <div class="offer-grid reveal reveal-d1">
       <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>
+        <div class="offer-num">01</div>
         <h3>Strategy</h3>
         <p>We shape what to make and why, tied to your goals: the ideas, the cadence, and the channels every piece is built for.</p>
       </div>
       <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="offer-num">02</div>
         <h3>Casting &amp; motivation</h3>
         <p>Finding, exciting, and incentivizing a large group of filmers at once is a job. We do it: outreach, payouts, reminders, and all the back-and-forth.</p>
       </div>
       <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg>
+        <div class="offer-num">03</div>
         <h3>Direction</h3>
         <p>We build the briefs and shot lists and guide your people on camera with the AI Director, so the footage comes back on-brief.</p>
       </div>
       <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="8.1" y1="8.1" x2="20" y2="20"/><line x1="20" y1="4" x2="8.1" y2="15.9"/></svg>
+        <div class="offer-num">04</div>
         <h3>Post production, elevated</h3>
         <p>The auto-editor gets you a fast cut. Our editors take it further: refined edits, motion graphics, sound, and finish that holds up anywhere.</p>
       </div>
-      <div class="offer-cell offer-cell--lead">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-        <div>
-          <h3>Your producer</h3>
-          <p>One point of contact who owns your program end to end. You talk to a person; the person runs the machine.</p>
-        </div>
+      </div>
+    <div class="producer-moment reveal reveal-d2">
+      <div class="producer-copy">
+        <h3>And one person <em>who owns it all.</em></h3>
+        <p>From kickoff to final delivery you work with one creative producer who knows your brand, your calendar, and your footage. They run the casting, the shoots, and the edit reviews, and they carry all the back-and-forth so it never lands on your desk.</p>
+        <p class="producer-sub">No account layers. No ticket queues. A person.</p>
+      </div>
+      <div class="producer-chat" aria-hidden="true">
+        <div class="pm-head"><span class="pm-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></span><div><div class="pm-name">Your producer</div><div class="pm-sub">Cinebody Creative Services</div></div></div>
+        <div class="pm-msg">Morning! 14 new clips came in overnight from the Denver crew. Six are great, already tagged for the cut.</div>
+        <div class="pm-msg">Rough cut of the launch video is in your inbox. Two options for the ending.</div>
+        <div class="pm-msg pm-msg--you">Love option B. Can we push the logo earlier?</div>
+        <div class="pm-msg">Already on it. Final by Thursday.</div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- curve: white → dark -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
-
-<!-- ═══ PROCESS ═══ -->
-<section class="process">
-  <div class="contain">
-    <div class="reveal process-head">
-      <div>
-        <div class="label">Our Process</div>
-        <h2>From concept to final&nbsp;cut.</h2>
-      </div>
-      <p class="hero-body">Because the platform's AI does the production heavy lifting, our team delivers more, faster, and for far less than a traditional agency. One producer owns your program end to&nbsp;end.</p>
-    </div>
-    <div class="process-grid reveal reveal-d2">
-      <div class="process-step">
-        <div class="process-num">01</div>
-        <div>
-          <h3>Vision & Alignment</h3>
-          <p>We align on goals, audience, and creative direction, so every shoot has a&nbsp;purpose.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="process-num">02</div>
-        <div>
-          <h3>Talent & Casting</h3>
-          <p>We recruit the right voices from your community, the people your audience&nbsp;trusts.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="process-num">03</div>
-        <div>
-          <h3>Project Execution</h3>
-          <p>Our producers manage the shoot remotely, keeping filmers on-brief and&nbsp;on-schedule.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="process-num">04</div>
-        <div>
-          <h3>Pro Editing</h3>
-          <p>Editing starts the moment footage lands, no waiting for a hard drive in the&nbsp;mail.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="process-num">05</div>
-        <div>
-          <h3>Motion GFX & Music</h3>
-          <p>Branded graphics and licensed music give every video a polished, professional&nbsp;finish.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- curve: process → light -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
 <!-- ═══ SHOWCASE: ROYAL CARIBBEAN (light, content left, 3 vert right) ═══ -->
 <!-- Category: Social Content -->
