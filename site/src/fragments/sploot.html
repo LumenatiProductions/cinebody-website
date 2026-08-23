@@ -299,8 +299,28 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: light → teal-navy -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
 
-<!-- ═══ THE DELIVERABLES ═══ -->
-<section class="content-section">
+<!-- ═══ THE DELIVERABLES (content tree) ═══ -->
+<style>
+  .sp-tree { padding: 92px 0; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(235,0,139,0.05) 0%, transparent 70%), linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%); }
+  .sp-tree-hero { max-width: 620px; margin: 0 auto; }
+  .sp-tree-hero-label { text-align:center; margin-top:12px; font-family:var(--mono); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--teal); }
+  .sp-connector { max-width: 900px; margin: 4px auto 0; }
+  .sp-connector svg { width:100%; height:82px; display:block; }
+  .sp-flow path { animation: spTreeFlow 1.4s linear infinite; }
+  @keyframes spTreeFlow { to { stroke-dashoffset:-14; } }
+  @media (prefers-reduced-motion: reduce){ .sp-flow path { animation:none; } }
+  .sp-nodes { display:flex; gap:16px; justify-content:center; align-items:flex-start; max-width:920px; margin:0 auto; flex-wrap:wrap; }
+  .sp-node { position:relative; border-radius:var(--radius); border:1px solid var(--border); background:#111; box-shadow:0 4px 24px rgba(0,0,0,0.2); overflow:visible; transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s ease; }
+  .sp-node--v { width:132px; } .sp-node--h { width:180px; }
+  .sp-node > .vid-playable { border-radius:var(--radius) var(--radius) 0 0; overflow:hidden; }
+  .sp-node::before { content:''; position:absolute; top:-11px; left:22%; right:22%; height:11px; border:2px solid var(--pink); border-bottom:none; border-radius:7px 7px 0 0; z-index:2; }
+  .sp-node:hover { transform:translateY(-4px); box-shadow:0 8px 40px rgba(0,0,0,0.3); border-color:var(--border-hover); }
+  .sp-node-label { padding:11px; text-align:center; border-top:1px solid var(--border); }
+  .sp-node-label .node-type { font-family:var(--mono); font-size:8.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--pink); margin-bottom:4px; }
+  .sp-node-label .node-name { font-size:0.88rem; font-weight:700; color:#fff; }
+  @media (max-width:700px){ .sp-node--v { width:40%; } .sp-node--h { width:46%; } }
+</style>
+<section class="sp-tree">
   <div class="contain">
     <div class="section-head reveal">
       <div class="label">The Deliverables</div>
@@ -308,51 +328,52 @@ body > * { position: relative; z-index: 1; }
       <p>The hero :30 CTV spot plus five individual patron testimonial cutdowns, each geo-targeted to Chicago and Denver&nbsp;markets.</p>
     </div>
 
-    <!-- Hero CTV Spot -->
-    <div class="reveal reveal-d1" style="max-width:700px;margin:0 auto 24px">
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="1130557367" data-vimeo-h="67815d0119" style="width:100%">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640" alt="Hero CTV Spot">
-        </div>
-        <div style="padding:10px 14px;text-align:center;font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-dim);">Hero :30 CTV Spot</div>
+    <!-- Hero CTV spot -->
+    <div class="sp-tree-hero reveal reveal-d1">
+      <div class="vid-playable vid-playable--h" data-vimeo="1130557367" data-vimeo-h="67815d0119" style="width:100%">
+        <img class="vid-poster" src="https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640" alt="Hero CTV Spot">
       </div>
+      <div class="sp-tree-hero-label">Hero :30 CTV Spot</div>
     </div>
 
-    <!-- Vertical cutdowns (2) -->
-    <div class="reveal reveal-d2" style="display:flex;gap:16px;justify-content:center;max-width:440px;margin:0 auto 24px">
-      <div class="vid-card" style="flex:1;max-width:200px">
-        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1124285974" data-vimeo-h="4693f0b08b" style="width:100%">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2066104530-fb47cd8ae1da29afde58cf84348ed03a22154c80457f0fd37b19e85141ce3497-d_640" alt="Grace Vertical">
-        </div>
-        <div style="padding:8px 10px;text-align:center;font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Grace · Stories</div>
-      </div>
-      <div class="vid-card" style="flex:1;max-width:200px">
-        <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1124286155" data-vimeo-h="f06e663800" style="width:100%">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2066104746-962de63c0449041a5dca2f0dce94bf7fa0287200f629550fe34e6609a9754925-d_640" alt="Veronica Vertical">
-        </div>
-        <div style="padding:8px 10px;text-align:center;font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Veronica · Stories</div>
-      </div>
+    <!-- Branch connector: one shoot flows into every cutdown -->
+    <div class="sp-connector reveal reveal-d2">
+      <svg viewBox="0 0 900 82" preserveAspectRatio="none">
+        <g fill="none" stroke="rgba(0,188,241,0.22)" stroke-width="2">
+          <path d="M450,4 C450,52 90,38 90,80"/><path d="M450,4 C450,52 270,44 270,80"/>
+          <path d="M450,4 C450,52 450,44 450,80"/><path d="M450,4 C450,52 630,44 630,80"/>
+          <path d="M450,4 C450,52 810,38 810,80"/>
+        </g>
+        <g class="sp-flow" fill="none" stroke="#eb008b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 12">
+          <path d="M450,4 C450,52 90,38 90,80"/><path d="M450,4 C450,52 270,44 270,80"/>
+          <path d="M450,4 C450,52 450,44 450,80"/><path d="M450,4 C450,52 630,44 630,80"/>
+          <path d="M450,4 C450,52 810,38 810,80"/>
+        </g>
+        <circle cx="450" cy="4" r="5" fill="var(--teal)"/>
+      </svg>
     </div>
 
-    <!-- Horizontal cutdowns (3) -->
-    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:900px;margin:0 auto">
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="1124286037" data-vimeo-h="56289df1ad" style="width:100%">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2066104615-a78d1662ab289f49a0d2e54dc18fe06078fb57d998ed63efdb52fa897e46dc9e-d_640" alt="Veronica Horizontal">
-        </div>
-        <div style="padding:8px 10px;text-align:center;font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Veronica · CTV</div>
+    <!-- Cutdown nodes (5) -->
+    <div class="sp-nodes reveal reveal-d3">
+      <div class="sp-node sp-node--h">
+        <div class="vid-playable vid-playable--h" data-vimeo="1124286037" data-vimeo-h="56289df1ad" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104615-a78d1662ab289f49a0d2e54dc18fe06078fb57d998ed63efdb52fa897e46dc9e-d_640" alt="Veronica CTV"></div>
+        <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Veronica</div></div>
       </div>
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="1124286076" data-vimeo-h="5570f8654a" style="width:100%">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2066104656-5d5a34b831fa1dfc4c9ed5213b3c737eb00bfae17845ee3897e5c3e39a8f2e37-d_640" alt="Sheeda Horizontal">
-        </div>
-        <div style="padding:8px 10px;text-align:center;font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Sheeda · CTV</div>
+      <div class="sp-node sp-node--v">
+        <div class="vid-playable vid-playable--v" data-vimeo="1124285974" data-vimeo-h="4693f0b08b" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104530-fb47cd8ae1da29afde58cf84348ed03a22154c80457f0fd37b19e85141ce3497-d_640" alt="Grace Stories"></div>
+        <div class="sp-node-label"><div class="node-type">Vertical · Stories</div><div class="node-name">Grace</div></div>
       </div>
-      <div class="vid-card">
-        <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="1124286207" data-vimeo-h="036d5ef7d3" style="width:100%">
-          <img class="vid-poster" src="https://i.vimeocdn.com/video/2066104783-27fbaf9318d8e655b28d23b84213053d48cdd453526a930b83c1fd4cf4dbbb73-d_640" alt="Grace Horizontal">
-        </div>
-        <div style="padding:8px 10px;text-align:center;font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Grace · CTV</div>
+      <div class="sp-node sp-node--h">
+        <div class="vid-playable vid-playable--h" data-vimeo="1124286076" data-vimeo-h="5570f8654a" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104656-5d5a34b831fa1dfc4c9ed5213b3c737eb00bfae17845ee3897e5c3e39a8f2e37-d_640" alt="Sheeda CTV"></div>
+        <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Sheeda</div></div>
+      </div>
+      <div class="sp-node sp-node--v">
+        <div class="vid-playable vid-playable--v" data-vimeo="1124286155" data-vimeo-h="f06e663800" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104746-962de63c0449041a5dca2f0dce94bf7fa0287200f629550fe34e6609a9754925-d_640" alt="Veronica Stories"></div>
+        <div class="sp-node-label"><div class="node-type">Vertical · Stories</div><div class="node-name">Veronica</div></div>
+      </div>
+      <div class="sp-node sp-node--h">
+        <div class="vid-playable vid-playable--h" data-vimeo="1124286207" data-vimeo-h="036d5ef7d3" style="width:100%"><img class="vid-poster" src="https://i.vimeocdn.com/video/2066104783-27fbaf9318d8e655b28d23b84213053d48cdd453526a930b83c1fd4cf4dbbb73-d_640" alt="Grace CTV"></div>
+        <div class="sp-node-label"><div class="node-type">CTV Cutdown</div><div class="node-name">Grace</div></div>
       </div>
     </div>
   </div>
