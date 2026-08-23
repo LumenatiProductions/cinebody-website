@@ -180,6 +180,16 @@ body > * { position: relative; z-index: 1; }
     linear-gradient(180deg, #1a0a18 0%, #1e0e24 50%, #140a1e 100%);
 }
 
+/* Continuous teal->pink room: Sparkle + Creator Carousel share one gradient */
+.gp-room { position: relative; background:
+  radial-gradient(ellipse 60% 40% at 75% 10%, rgba(0,188,241,0.08) 0%, transparent 70%),
+  radial-gradient(ellipse 60% 40% at 25% 90%, rgba(235,0,139,0.09) 0%, transparent 70%),
+  linear-gradient(180deg, #041a24 0%, #0c1420 45%, #1a0a18 100%); }
+.gp-room .content-section, .gp-room .carousel-section { background: transparent; padding-top: 90px; padding-bottom: 50px; }
+.gp-room .carousel-section { padding-top: 40px; padding-bottom: 90px; }
+.gp-room .carousel-track-wrap::before { background: linear-gradient(90deg, #160a1a, transparent); }
+.gp-room .carousel-track-wrap::after { background: linear-gradient(270deg, #160a1a, transparent); }
+
 .carousel-head { text-align: center; margin-bottom: 48px; }
 
 .carousel-head h2 {
@@ -430,6 +440,8 @@ body > * { position: relative; z-index: 1; }
 <!-- curve: light → teal-navy -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
 
+<!-- ═══ CONTENT ROOM: continuous teal → pink ═══ -->
+<div class="gp-room">
 <!-- ═══ SPARKLE SECTION ═══ -->
 <section class="content-section">
   <div class="contain">
@@ -489,9 +501,9 @@ body > * { position: relative; z-index: 1; }
     <div class="carousel-hint reveal reveal-d2">Drag to explore all 16 creators &rarr;</div>
   </div>
 </section>
-
+</div>
 <!-- curve: dark → yellow -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#140a1e"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#1a0a18"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
 <!-- ═══ CTA BAND ═══ -->
 <section class="cta-band">
