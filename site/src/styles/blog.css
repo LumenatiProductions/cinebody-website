@@ -106,3 +106,12 @@
 }
 .blog-btn:hover { transform: translateY(-2px); box-shadow: 0 0 34px rgba(0,188,241,0.28), 0 6px 16px rgba(0,0,0,0.3); }
 .blog-btn:hover::before { opacity: 0.55; }
+
+/* Branded fallback for posts without a featured image */
+.blog-card__img--fallback {
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(ellipse 80% 80% at 28% 18%, rgba(0,188,241,0.22), transparent 60%),
+    radial-gradient(ellipse 80% 80% at 82% 92%, rgba(235,0,139,0.20), transparent 62%),
+    #0c1420;
+}
