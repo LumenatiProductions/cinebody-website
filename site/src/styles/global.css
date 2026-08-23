@@ -374,7 +374,11 @@ p, li { text-wrap: pretty; }
 }
 
 /* ============================================================
-   FOOTER, custom code-block styles (the .footer markup)
+   FOOTER — single source of truth for every page. The footer markup
+   (_footer.html) is shared; these styles are the ONLY footer CSS on the
+   site (page fragments no longer ship their own copies), so every page
+   renders an identical footer. The !important flags are legacy from when
+   fragments overrode these and are harmless now.
    ============================================================ */
 .footer { border-top: none; padding: 56px 0 28px; position: relative; background: #0a0a0a; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
@@ -386,7 +390,7 @@ p, li { text-wrap: pretty; }
 .footer-brand a:hover { color: var(--teal) !important; }
 /* Footer column titles are <h3> (sequential after the page's <h2> sections) */
 .footer-col h3 { font-family: var(--mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7) !important; margin: 0 0 10px; }
-.footer-col a { display: block; font-size: 0.82rem; line-height: 1.4; color: rgba(255,255,255,0.62) !important; padding: 8px 0; transition: color 0.2s ease; text-decoration: none; }
+.footer-col a { display: block; font-size: 0.82rem; line-height: 1.4; color: rgba(255,255,255,0.62) !important; padding: 3px 0; transition: color 0.2s ease; text-decoration: none; }
 .footer-col a:hover { color: #fff !important; }
 /* Bigger tap target for the brand social icons */
 .footer-brand a[aria-label] { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; min-height: 32px; }
@@ -402,11 +406,11 @@ p, li { text-wrap: pretty; }
 .sig-bar { height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--pink) 66.66%); }
 .footer .contain { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 
-@media (max-width: 768px) {
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
-  .footer-brand { display: flex; flex-direction: column; align-items: center; }
-  .footer-brand p { max-width: 300px; }   /* keep the tagline off the edges; it should wrap like every other page */
-  .footer-brand > div { justify-content: center; }
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
 }
 
