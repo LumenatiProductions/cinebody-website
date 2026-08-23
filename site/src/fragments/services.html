@@ -303,19 +303,19 @@ body > * { position: relative; z-index: 1; }
 .pillar-frame--phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 27px; }
 .pillar-duo { display: flex; gap: clamp(20px, 2vw, 32px); }
 @media (max-width: 900px) { .pillar-cards { grid-template-columns: 1fr; } }
-.producer-moment { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 80px); align-items: center; margin-top: 64px; }
-.producer-copy h3 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -0.025em; color: #111; margin-bottom: 14px; }
+.producer-moment { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 80px); align-items: center; margin-top: 56px; background: linear-gradient(160deg, #0c1218, #08131a); border-radius: 26px; padding: clamp(34px, 4vw, 56px); }
+.producer-copy h3 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -0.025em; color: #fff; margin-bottom: 14px; }
 .producer-copy h3 em { font-style: normal; color: var(--teal); }
-.producer-copy p { font-size: 0.95rem; color: #555; line-height: 1.7; max-width: 460px; }
-.producer-sub { margin-top: 12px; font-weight: 700; color: #111 !important; }
-.producer-chat { background: #fafafa; border: 1px solid rgba(0,0,0,0.09); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 18px 44px rgba(0,0,0,0.07); }
-.pm-head { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid rgba(0,0,0,0.07); margin-bottom: 6px; }
-.pm-avatar { width: 38px; height: 38px; border-radius: 50%; background: rgba(0,188,241,0.12); display: flex; align-items: center; justify-content: center; }
+.producer-copy p { font-size: 0.95rem; color: rgba(255,255,255,0.62); line-height: 1.7; max-width: 460px; }
+.producer-sub { margin-top: 12px; font-weight: 700; color: #fff !important; }
+.producer-chat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+.pm-head { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px; }
+.pm-avatar { width: 38px; height: 38px; border-radius: 50%; background: rgba(0,188,241,0.16); display: flex; align-items: center; justify-content: center; }
 .pm-avatar svg { width: 18px; height: 18px; stroke: var(--teal); }
-.pm-name { font-size: 0.85rem; font-weight: 700; color: #111; }
-.pm-sub { font-size: 0.72rem; color: #8a9298; }
-.pm-msg { align-self: flex-start; max-width: 85%; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px 14px 14px 4px; padding: 10px 14px; font-size: 0.84rem; color: #333; line-height: 1.5; }
-.pm-msg--you { align-self: flex-end; background: rgba(0,188,241,0.1); border-color: rgba(0,188,241,0.25); border-radius: 14px 14px 4px 14px; color: #0b3a4a; }
+.pm-name { font-size: 0.85rem; font-weight: 700; color: #fff; }
+.pm-sub { font-size: 0.72rem; color: rgba(255,255,255,0.45); }
+.pm-msg { align-self: flex-start; max-width: 85%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px 14px 14px 4px; padding: 10px 14px; font-size: 0.84rem; color: rgba(255,255,255,0.88); line-height: 1.5; }
+.pm-msg--you { align-self: flex-end; background: rgba(0,188,241,0.16); border-color: rgba(0,188,241,0.35); border-radius: 14px 14px 4px 14px; color: #bfeaf7; }
 @media (max-width: 900px) { .producer-moment { grid-template-columns: 1fr; } }
 @media (max-width: 1000px) { .offer-grid { grid-template-columns: 1fr 1fr; } .offer-head { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .offer-grid { grid-template-columns: 1fr; } }
@@ -640,8 +640,6 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- curve: dark → white -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0a0a0a"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
 <!-- ═══ WHAT WE DO ═══ -->
 <section class="offer">
   <div class="contain">
@@ -769,10 +767,12 @@ body > * { position: relative; z-index: 1; }
   </div>
 </div>
 
-<section class="showcase showcase--light">
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
+
+<section class="showcase showcase--dark">
   <div class="contain">
     <div class="showcase-content reveal">
-      <img src="/assets/f7c6adcf-Royal-Cribbean-logo.png" alt="Royal Caribbean" class="showcase-logo">
+      <img src="/assets/de31bd3b-RCI_Brand_Logo_2-Line_Horiz_White.webp" alt="Royal Caribbean" class="showcase-logo">
       <h3 class="showcase-title">A constant stream of social&nbsp;content.</h3>
       <p class="showcase-desc">Crew members film daily life on board. Cinebody's team turns raw moments into a steady stream of social content, keeping feeds fresh across the&nbsp;fleet.</p>
       <a href="/royal-caribbean" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
@@ -791,7 +791,7 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
 
 <section class="showcase showcase--pink showcase--flip" style="padding-top:60px">
   <div class="contain">
