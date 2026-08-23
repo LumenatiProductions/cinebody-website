@@ -330,6 +330,8 @@ body > * { position: relative; z-index: 1; }
       cursor:grab; touch-action:pan-y; }
     .sp-nodes::-webkit-scrollbar { display:none; }
     .sp-node, .sp-node--v, .sp-node--h { width:74% !important; max-width:300px; flex:0 0 74%; scroll-snap-align:center; }
+    .sp-node--v { order:-1; }                 /* a vertical clip leads the slider */
+    .sp-node--h { align-self:center; }        /* landscape clips center in the vertical height */
     .sp-node::before { display:none; }
   }
 </style>
