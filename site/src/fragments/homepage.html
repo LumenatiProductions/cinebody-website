@@ -192,6 +192,10 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero-trust { font-size: 12px; color: var(--text-muted); margin-top: 20px; font-family: var(--mono); letter-spacing: 0.02em; }
+.hero-apps-wrap { padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.hero-apps-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 40px; }
+.hero-apps__label { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+@media (max-width: 600px) { .hero-apps-row { flex-direction: column; gap: 12px; margin-top: 26px; } }
 
 /* Vertical video scroller, 3 columns scrolling up/down */
 .hero-scroller {
@@ -652,6 +656,9 @@ body > * { position: relative; z-index: 1; }
 .cta-band h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; color: #111 !important; line-height: 1.2; margin-bottom: 28px; }
 .cta-band h2 span { color: var(--teal) !important; }
 .cta-band .btn-glow { margin-bottom: 56px; }
+.cta-apps { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin: -20px auto 48px; }
+.cta-apps__label { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #333; }
+@media (max-width: 600px) { .cta-apps { flex-direction: column; gap: 12px; margin: -8px auto 40px; } }
 
 .cta-marquee { display: flex; height: 200px; overflow: hidden; }
 .cta-marquee-track { display: flex; animation: logos-scroll 28s linear infinite; flex-shrink: 0; }
@@ -712,8 +719,8 @@ body > * { position: relative; z-index: 1; }
    ═══════════════════════════ */
 @media (max-width: 1000px) {
   .hero .contain { grid-template-columns: 1fr; gap: 40px; }
-  .hero { padding: 96px 0 80px; }
-  .hero-scroller { order: -1; margin-top: 0; margin-bottom: 0; height: 620px; }
+  .hero { padding: 96px 0 36px; }
+  .hero-scroller { margin-top: 8px; margin-bottom: 0; height: 440px; }
   .stats-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
   .cases-grid { grid-template-columns: repeat(2, 1fr); }
   .svc-grid { grid-template-columns: 1fr; }
@@ -723,8 +730,9 @@ body > * { position: relative; z-index: 1; }
 }
 
 @media (max-width: 600px) {
-  .hero { padding: 88px 0 64px; }
+  .hero { padding: 88px 0 24px; }
   .hero h1 { font-size: 2.25rem; }
+  .hero-scroller { height: 340px; }
   .why-grid { grid-template-columns: 1fr; }
   .cases-grid { grid-template-columns: 1fr; }
   .case-card { aspect-ratio: 4/3; }
@@ -753,30 +761,6 @@ body > * { position: relative; z-index: 1; }
       <div class="hero-actions">
         <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <a href="#pipeline" class="btn btn-ghost">See how it works</a>
-      </div>
-      <!-- Get the app: replace href="#" with the real App Store / Play Store URLs when live -->
-      <div class="store-badges" style="margin-top:20px">
-        <a href="#" class="store-badge" aria-label="Download on the App Store">
-          <svg viewBox="0 0 120 40" role="img" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.5" y="0.5" width="119" height="39" rx="7.5" fill="#000" stroke="rgba(255,255,255,0.28)"/>
-            <g transform="translate(10,9.5) scale(0.85)"><path fill="#fff" d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z"/></g>
-            <text x="37" y="16.5" fill="#fff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6.5" letter-spacing="0.3">Download on the</text>
-            <text x="36.5" y="30" fill="#fff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="500" letter-spacing="-0.4">App Store</text>
-          </svg>
-        </a>
-        <a href="#" class="store-badge" aria-label="Get it on Google Play">
-          <svg viewBox="0 0 135 40" role="img" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.5" y="0.5" width="134" height="39" rx="7.5" fill="#000" stroke="rgba(255,255,255,0.28)"/>
-            <g transform="translate(11,11)">
-              <path d="M0 0 L0 18 L3.6 9 Z" fill="#00e676"/>
-              <path d="M0 0 L3.6 9 L15.6 9 Z" fill="#00c3ff"/>
-              <path d="M3.6 9 L0 18 L15.6 9 Z" fill="#ff3d47"/>
-              <path d="M11.9 7.4 L15.6 9 L11.9 10.6 Z" fill="#ffce00"/>
-            </g>
-            <text x="37" y="16.5" fill="#fff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6" letter-spacing="1">GET IT ON</text>
-            <text x="36.5" y="30" fill="#fff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="500" letter-spacing="-0.3">Google Play</text>
-          </svg>
-        </a>
       </div>
       <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
     </div>
@@ -832,6 +816,15 @@ body > * { position: relative; z-index: 1; }
       </div>
     </div>
   </div>
+    <div class="hero-apps-wrap">
+      <div class="hero-apps-row">
+        <span class="hero-apps__label">Get the app</span>
+        <div class="store-badges">
+          <a href="#" class="store-badge" aria-label="Download on the App Store"><svg viewBox="0 0 120 40" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="119" height="39" rx="7.5" fill="#000" stroke="rgba(255,255,255,0.28)"/><g transform="translate(10,9.5) scale(0.85)"><path fill="#fff" d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z"/></g><text x="37" y="16.5" fill="#fff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6.5" letter-spacing="0.3">Download on the</text><text x="36.5" y="30" fill="#fff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="500" letter-spacing="-0.4">App Store</text></svg></a>
+          <a href="#" class="store-badge" aria-label="Get it on Google Play"><svg viewBox="0 0 135 40" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="134" height="39" rx="7.5" fill="#000" stroke="rgba(255,255,255,0.28)"/><g transform="translate(11,11)"><path d="M0 0 L0 18 L3.6 9 Z" fill="#00e676"/><path d="M0 0 L3.6 9 L15.6 9 Z" fill="#00c3ff"/><path d="M3.6 9 L0 18 L15.6 9 Z" fill="#ff3d47"/><path d="M11.9 7.4 L15.6 9 L11.9 10.6 Z" fill="#ffce00"/></g><text x="37" y="16.5" fill="#fff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="6" letter-spacing="1">GET IT ON</text><text x="36.5" y="30" fill="#fff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="500" letter-spacing="-0.3">Google Play</text></svg></a>
+        </div>
+      </div>
+    </div>
 </section>
 
 <!-- ═══ LOGOS ═══ -->
@@ -1071,13 +1064,18 @@ body > * { position: relative; z-index: 1; }
 /* static fallback (small screens / no JS) */
 @media (max-width: 900px) {
   .pipe-scroll { height: auto; }
-  .pipe-sticky { position: static; height: auto; display: block; padding: 24px 0; }
+  .pipe-sticky { position: static; height: auto; display: block; padding: 8px 0 24px; }
   .pipe-stickygrid { grid-template-columns: 1fr; }
   .pipe-rail { display: none; }
-  .pipe-copies { min-height: 0; }
-  .pipe-copy-block { position: static; transform: none !important; opacity: 1 !important; margin-bottom: 40px; }
   .pipe-scenes { display: none; }
-  .pw, .pipe-copy-block p, .pipe-copy-block .pipe-mini, .pipe-ghost { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
+  .pipe-ghost { display: none; }
+  /* clean connected timeline on mobile (the pinned vignettes are desktop-only) */
+  .pipe-copies { min-height: 0; position: relative; padding-left: 30px; }
+  .pipe-copies::before { content: ''; position: absolute; left: 5px; top: 12px; bottom: 30px; width: 2px; background: linear-gradient(180deg, var(--teal), var(--pink)); opacity: 0.5; }
+  .pipe-copy-block { position: relative; transform: none !important; opacity: 1 !important; margin-bottom: 44px; }
+  .pipe-copy-block::before { content: ''; position: absolute; left: -30px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(0,188,241,0.14); }
+  .pipe-copy-block h3 { font-size: 1.55rem; }
+  .pw, .pipe-copy-block p, .pipe-copy-block .pipe-mini { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
 }
 
 </style>
@@ -1699,8 +1697,8 @@ body > * { position: relative; z-index: 1; }
     <h2 class="reveal">See what your people could make<br><span>this week.</span></h2>
     <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow reveal reveal-d1">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     <!-- Get the app: replace href="#" with the real App Store / Play Store URLs when live -->
-    <div class="reveal reveal-d2" style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:-20px 0 48px">
-      <span style="font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#333">Get the app</span>
+    <div class="cta-apps reveal reveal-d2">
+      <span class="cta-apps__label">Get the app</span>
       <div class="store-badges">
         <a href="#" class="store-badge" aria-label="Download on the App Store">
           <svg viewBox="0 0 120 40" role="img" xmlns="http://www.w3.org/2000/svg">
