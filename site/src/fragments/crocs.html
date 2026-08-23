@@ -285,7 +285,7 @@ body > * { position: relative; z-index: 1; }
   .cr-stat .l { font-family:ui-monospace,'SF Mono',monospace; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#999; }
   .cr-note { font-size:0.95rem; color:#666; line-height:1.65; margin:22px 0 0; }
   .cr-viz { position:relative; width:100%; max-width:400px; margin:0 auto; aspect-ratio:340/300; }
-  .cr-viz svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+  .cr-viz > svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
   .cr-pulse { transform-box:fill-box; transform-origin:center; opacity:0; animation:crPulse 3s ease-out infinite; }
   @keyframes crPulse { 0%{opacity:.5;transform:scale(1)} 70%{opacity:0;transform:scale(1.7)} 100%{opacity:0;transform:scale(1.7)} }
   .cr-pill { position:absolute; transform:translate(-50%,-50%); display:inline-flex; align-items:center; gap:6px; background:#fff; border:1.6px solid var(--teal); border-radius:9999px; padding:6px 12px 6px 9px; font-family:var(--font,'Plus Jakarta Sans',sans-serif); font-size:11.5px; font-weight:700; color:#06546c; white-space:nowrap; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
