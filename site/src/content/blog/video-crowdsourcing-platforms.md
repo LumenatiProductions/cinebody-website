@@ -1,6 +1,6 @@
 ---
 title: "The Top 8 Video Crowdsourcing Platforms You Should Know About"
-description: "Whether you're a brand aiming to create compelling content, or a filmmaker seeking new opportunities, the digital world clearly has something for everyone. Here's our detailed list of the top 8 video crowdsourcing platforms you need to know:"
+description: "Whether you're a brand aiming to create compelling content, or a filmmaker seeking new opportunities, the digital world clearly has something for everyone."
 pubDate: 2019-05-28
 author: "Scott McDonald"
 heroImage: "/blog/video-crowdsourcing-platforms/hero.webp"

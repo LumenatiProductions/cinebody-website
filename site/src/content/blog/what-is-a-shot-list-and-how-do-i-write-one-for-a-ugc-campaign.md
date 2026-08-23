@@ -1,16 +1,16 @@
 ---
 title: "What Is a Shot List and How Do I Write One for a UGC Campaign?"
-description: "Shot lists -- it’s one of many crucial elements to any production. if you’re running any kind of UGC campaign, you’ll need one. And a good one at that, though what’s considered “good” depends on the type of campaign you’re looking to run."
+description: "Shot lists are one of many crucial elements to any production. If you’re running any kind of UGC campaign, you’ll need one. And a good one at that, though what’s considered “good” depends on the type of campaign you’re looking to run."
 pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/what-is-a-shot-list-and-how-do-i-write-one-for-a-ugc-campaign/hero.webp"
 cardImage: "/blog/what-is-a-shot-list-and-how-do-i-write-one-for-a-ugc-campaign/card.webp"
 ---
-<p>Shot lists -- it’s <a href="https://www.cinebody.com/4-things-you-should-know-before-managing-your-first-cinebody-project">one of many crucial elements</a> to any production. if you’re running any kind of UGC campaign, you’ll need one. And a good one at that, though what’s considered “good” depends on the type of campaign you’re looking to run. But at the end of the day, the shot list is your key to success, because without it you’re relying on pure luck and the filming skills of a community that might have never shot a thing.</p>
-<p>For traditional productions, with the whole crew, fancy lighting set-ups, etc., the shot list is the heart and soul of the entire operation. It means nothing is left to chance: all you have to do is make sure every shot is captured, and you’ve got all the material you need to form a compelling and cohesive edit -- guaranteed. The same theory applies to UGC campaigns.</p>
+<p>Shot lists are <a href="https://www.cinebody.com/4-things-you-should-know-before-managing-your-first-cinebody-project">one of many crucial elements</a> to any production. If you’re running any kind of UGC campaign, you’ll need one. And a good one at that, though what’s considered “good” depends on the type of campaign you’re looking to run. But at the end of the day, the shot list is your key to success, because without it you’re relying on pure luck and the filming skills of a community that might have never shot a thing.</p>
+<p>For traditional productions, with the whole crew, fancy lighting set-ups, etc., the shot list is the heart and soul of the entire operation. It means nothing is left to chance: all you have to do is make sure every shot is captured, and you’ve got all the material you need to form a compelling and cohesive edit, guaranteed. The same theory applies to UGC campaigns.</p>
 <p>Thankfully, it’s not difficult to write a good shot list that houses all the instructions and prompts your filmers needs. Get it nailed, and the chance of your UGC campaign proving a huge smash jumps significantly.</p>
 <h3><strong>Understanding the Significance of a UGC Shot List</strong></h3>
-<p>Most cloud-based UGC platforms house a shot list feature. But the quality of your shot list -- how you’ve considered and composed it -- is a make or break for your project’s final edit(s).</p>
+<p>Most cloud-based UGC platforms house a shot list feature. But the quality of your shot list, how you’ve considered and composed it, is a make or break for your project’s final edit(s).</p>
 <p>The key is to reduce ambiguity. If you want filmers to capture certain footage, you should provide the precise instructions they need.</p>
 <p>To write a good shot list, you’ll need to consider three elements:</p>
 <h3><strong>1. How long should my shot list be?</strong></h3>
@@ -72,7 +72,7 @@ cardImage: "/blog/what-is-a-shot-list-and-how-do-i-write-one-for-a-ugc-campaign/
 <h3><strong>2. What language should I use in my shot list?</strong></h3>
 <p>It’s a ‘gimme’ that the description for every shot in your shot list is clear and concise so that there’s no confusion as to what participants should be filming. But clarity and concision should be balanced with a tone that is warm, friendly as it makes a participant feel welcome in stepping outside of the box or even making a mistake or two before getting that perfect take. You’re aiming to detail all the specifics you need while still providing encouragement and comfort to your filmers who, again, are doing you the favor of participating. <a href="https://www.cinebody.com/get-better-results-with-your-next-user-generated-content-campaign">If you can avoid overt rigidity, as suggested here</a>, you’ll likely maximize the quality and volume of submissions you receive and, in some cases, wind up with unique footage that too much rigidity might have inadvertently discouraged. Remember, a lot of people tend to be timid about sharing their footage in a public campaign in the first place. Don’t further intimidate them with instructions that sound like there’s a penalty for not getting it perfect. Remember, the goal is to capture <a href="https://www.cinebody.com/cinebody-blog/authentic-content-marketing-is-a-winner">authentic, user-generated content</a> with some guidance, not to intimidate them with perfectionism.</p>
 <h3><strong>3. What’s the best layout for my shot list?</strong></h3>
-<p>Remember one rule above everything: one shot = one ask. If you put more than one ask into a single shot, you’re almost guaranteeing that some filmers will miss the mark. Want clips of people answering five different questions? That’s five different shots -- not one long shot of all five questions.&nbsp;</p>
+<p>Remember one rule above everything: one shot = one ask. If you put more than one ask into a single shot, you’re almost guaranteeing that some filmers will miss the mark. Want clips of people answering five different questions? That’s five different shots, not one long shot of all five questions.&nbsp;</p>
 
 
  

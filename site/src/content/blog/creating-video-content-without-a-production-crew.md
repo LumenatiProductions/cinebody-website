@@ -1,6 +1,6 @@
 ---
 title: "Creating video content without a production crew."
-description: "When it comes to the COVID-19 pandemic, businesses of all shapes and sizes are facing tough times. On the one hand, they need to advertise and engage with people now more than ever before. And yet, because of the stay-at-home orders, creating content is almost impossible because creative video produ"
+description: "When it comes to the COVID-19 pandemic, businesses of all shapes and sizes are facing tough times. On the one hand, they need to advertise and engage with people now more than ever before."
 pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/creating-video-content-without-a-production-crew/hero.webp"

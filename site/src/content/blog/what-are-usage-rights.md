@@ -1,6 +1,6 @@
 ---
 title: "What Are Usage Rights? Read Our Simple Breakdown"
-description: "In the complex world of digital marketing, understanding usage rights is essential for brands that want to engage audiences without stepping over legal boundaries. Whether it’s through social media campaigns, digital advertising, or content marketing, knowing how to navigate the terrain of usage rig"
+description: "In the complex world of digital marketing, understanding usage rights is essential for brands that want to engage audiences without stepping over legal boundaries."
 pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/what-are-usage-rights/hero.webp"

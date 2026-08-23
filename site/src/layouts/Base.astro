@@ -471,7 +471,21 @@ const pageSchema = entitySchemas[active];
     vp.addEventListener('pointercancel', up);
   }
 
-  function init() { document.querySelectorAll(SEL).forEach(setup); }
+  // Set up each slider only once it actually has width. Rows inside hidden tab
+  // panels measure 0 at load (cloning would be skipped, so they'd dead-end); a
+  // ResizeObserver runs setup the moment the tab is shown and the row gets width.
+  function arm(track) {
+    if (track.dataset.cbInit) return;
+    if (track.getBoundingClientRect().width > 0) { track.dataset.cbInit = '1'; setup(track); return; }
+    if (typeof ResizeObserver === 'undefined') { track.dataset.cbInit = '1'; setup(track); return; }
+    var ro = new ResizeObserver(function () {
+      if (!track.dataset.cbInit && track.getBoundingClientRect().width > 0) {
+        track.dataset.cbInit = '1'; ro.disconnect(); setup(track);
+      }
+    });
+    ro.observe(track);
+  }
+  function init() { document.querySelectorAll(SEL).forEach(arm); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>

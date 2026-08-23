@@ -1,6 +1,6 @@
 ---
 title: "The Ultimate Guide to Remote Video Production"
-description: "This method of production doesn’t require truckloads of equipment and a large crew to operate it. What you’re looking at is smartphone-based production, and as everyone has one in their pocket you don’t even need to buy that. But, you do need to look into the right apps and software to get the job d"
+description: "This method of production doesn’t require truckloads of equipment and a large crew to operate it. What you’re looking at is smartphone-based production, and as everyone has one in their pocket you don’t even need to buy that."
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/the-ultimate-guide-to-video-production/hero.webp"

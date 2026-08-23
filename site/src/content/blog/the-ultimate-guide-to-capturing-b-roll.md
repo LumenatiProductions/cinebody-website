@@ -1,6 +1,6 @@
 ---
 title: "The Ultimate Guide to Capturing B-Roll"
-description: "When it comes to video production, B-roll footage is the unsung hero that elevates content from good to great. It’s the visual pizazz, and can quickly turn the ordinary into the extraordinary. Whether filming at an event, capturing an interview, or creating remote video productions, following these "
+description: "When it comes to video production, B-roll footage is the unsung hero that elevates content from good to great. It’s the visual pizazz, and can quickly turn the ordinary into the extraordinary."
 pubDate: 2019-05-28
 author: "Scott McDonald"
 heroImage: "/blog/the-ultimate-guide-to-capturing-b-roll/hero.webp"

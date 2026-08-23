@@ -1,6 +1,6 @@
 ---
 title: "How to Frame a Video Shot When Filming on Your Smartphone"
-description: "Everyone has the ability to film on their smartphone, but knowing how to frame a shot will take you from amateur to artist. In fact, framing is often overlooked because it may seem like a minor characteristic to concentrate on, but if executed correctly, it can make a huge difference in how your sho"
+description: "Everyone has the ability to film on their smartphone, but knowing how to frame a shot will take you from amateur to artist."
 pubDate: 2025-07-30
 author: "Travis Page"
 heroImage: "/blog/how-to-frame-video-on-smartphones/hero.webp"

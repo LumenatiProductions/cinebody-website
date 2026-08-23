@@ -1,6 +1,6 @@
 ---
 title: "Why Lo-Fi Content Should be Part of Your Video Content Plan"
-description: "You know the aphorism. You’ve probably used it yourself when you’ve been staring at a video edit at 2:00am knowing it’s time to stop making tweaks and call it a day. But now there’s growing evidence that perfection in video content is actually turning viewers off. Whether it’s on Instagram, Facebook"
+description: "You know the aphorism. You’ve probably used it yourself when you’ve been staring at a video edit at 2:00am knowing it’s time to stop making tweaks and call it a day. But now there’s growing evidence that perfection in video content is actually turning viewers off."
 pubDate: 2025-07-20
 author: "Scott McDonald"
 heroImage: "/blog/why-lo-fi-content-should-be-part-of-your-video-content-plan/hero.webp"
