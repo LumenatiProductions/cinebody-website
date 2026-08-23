@@ -463,3 +463,10 @@ p, li { text-wrap: pretty; }
   .vid-mute-btn svg { width: 14px; height: 14px; }
   .vid-playable.playing .vid-mute-btn { opacity: 0.7; }
 }
+
+/* Mobile: a hero pair of videos becomes a swipe scroller (one featured, peek the next) */
+@media (max-width: 700px) {
+  .hero .hero-vid-pair { flex-wrap: nowrap; justify-content: flex-start; max-width: none; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 14px; padding: 4px clamp(1.25rem, 12vw, 4rem) 6px; margin-left: -20px; margin-right: -20px; scroll-padding-inline: clamp(1.25rem, 12vw, 4rem); }
+  .hero .hero-vid-pair::-webkit-scrollbar { display: none; }
+  .hero .hero-vid-pair .vid-card { flex: 0 0 74%; width: 74%; max-width: 300px; scroll-snap-align: center; }
+}
