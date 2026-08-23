@@ -355,6 +355,10 @@ const pageSchema = entitySchemas[active];
     track.style.scrollSnapType = 'none';
     track.style.willChange = 'transform';
     track.style.transform = 'translate3d(0,0,0)';
+    // The carousel's own transform overrides the scroll-reveal transform, and the
+    // reveal observer won't fire on the wrapped track — so resolve it to visible now,
+    // else opacity stays 0 and the whole slider is invisible.
+    track.classList.add('vis'); track.style.opacity = '1';
 
     // Uniform card width (each slider holds one aspect ratio) → one period P.
     // Duplicate the set until there are enough cards to cover the viewport and wrap
