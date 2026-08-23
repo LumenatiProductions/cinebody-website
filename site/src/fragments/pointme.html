@@ -249,7 +249,9 @@ body > * { position: relative; z-index: 1; }
 }
 </style>
 <style>
-      .pm-orbit-group { animation: pmOrbit 12s linear infinite; transform-origin: 120px 120px; }
+      .pm-orbit-g { animation: pmOrbit 14s linear infinite; transform-origin: 150px 150px; }
+      .pm-spoke { animation: pmSpoke 1.6s linear infinite; animation-delay: var(--sd,0s); }
+      @keyframes pmSpoke { to { stroke-dashoffset: -16; } }
       @keyframes pmOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
       .pm-float-1 { animation: pmFloat1 4s ease-in-out infinite; }
       .pm-float-2 { animation: pmFloat2 4.5s ease-in-out infinite; }
@@ -291,7 +293,7 @@ body > * { position: relative; z-index: 1; }
 
     <!-- Globe Graphic -->
     <style>
-      .pm-orbit-group { animation: pmOrbit 12s linear infinite; transform-origin: 120px 120px; }
+      .pm-orbit-g { animation: pmOrbit 14s linear infinite; transform-origin: 150px 150px; }
       @keyframes pmOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
       .pm-float-1 { animation: pmFloat1 4s ease-in-out infinite; }
       .pm-float-2 { animation: pmFloat2 4.5s ease-in-out infinite; }
@@ -309,40 +311,48 @@ body > * { position: relative; z-index: 1; }
 .cta-marquee-track img { width: 200px; height: 200px; object-fit: cover; flex-shrink: 0; }
 @keyframes logos-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 </style>
-    <div class="reveal" style="max-width:300px;margin:0 auto 56px">
-      <svg viewBox="0 0 240 244" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
-        <!-- Globe -->
-        <circle cx="120" cy="120" r="52" fill="rgba(0,188,241,0.05)"/>
-        <circle cx="120" cy="120" r="52" fill="none" stroke="rgba(0,188,241,0.2)" stroke-width="1.4"/>
-        <ellipse cx="120" cy="120" rx="52" ry="18" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
-        <ellipse cx="120" cy="104" rx="46" ry="12" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
-        <ellipse cx="120" cy="136" rx="46" ry="12" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
-        <ellipse cx="120" cy="120" rx="18" ry="52" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
-        <ellipse cx="120" cy="120" rx="38" ry="52" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
-        <!-- Orbit -->
-        <ellipse cx="120" cy="120" rx="72" ry="72" fill="none" stroke="rgba(0,188,241,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
-        <!-- Orbiting plane -->
-        <g class="pm-orbit-group">
-          <g transform="translate(120, 48)">
-            <ellipse cx="2" cy="0" rx="16" ry="3" fill="#00bcf1"/>
-            <path d="M16,-2 Q24,0 16,2 Z" fill="#00bcf1"/>
-            <path d="M4,-3 L-2,-16 L-10,-16 L-4,-3 Z" fill="rgba(0,188,241,0.8)"/>
-            <path d="M4,3 L-2,16 L-10,16 L-4,3 Z" fill="rgba(0,188,241,0.8)"/>
-            <path d="M-12,-2.5 L-16,-9 L-20,-9 L-15,-2.5 Z" fill="rgba(0,188,241,0.8)"/>
-            <path d="M-12,2.5 L-16,9 L-20,9 L-15,2.5 Z" fill="rgba(0,188,241,0.8)"/>
-            <rect x="-16" y="-1.2" width="5" height="2.4" rx="0.8" fill="#ffec03"/>
-            <ellipse cx="-2" cy="-7" rx="3" ry="1.5" fill="rgba(0,188,241,0.4)"/>
-            <ellipse cx="-2" cy="7" rx="3" ry="1.5" fill="rgba(0,188,241,0.4)"/>
-            <line x1="-5" y1="-7" x2="-26" y2="-7" stroke="rgba(0,188,241,0.08)" stroke-width="2" stroke-linecap="round"/>
-            <line x1="-5" y1="7" x2="-26" y2="7" stroke="rgba(0,188,241,0.08)" stroke-width="2" stroke-linecap="round"/>
-          </g>
+    <div class="reveal" style="max-width:340px;margin:0 auto 52px">
+      <svg class="pm-globe" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line class="pm-spoke" x1="116" y1="116" x2="82" y2="82" stroke="#00bcf1" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="3 5" style="--sd:0.00s"/>
+        <line class="pm-spoke" x1="184" y1="116" x2="218" y2="82" stroke="#00bcf1" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="3 5" style="--sd:0.35s"/>
+        <line class="pm-spoke" x1="116" y1="184" x2="82" y2="218" stroke="#00bcf1" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="3 5" style="--sd:0.70s"/>
+        <line class="pm-spoke" x1="184" y1="184" x2="218" y2="218" stroke="#00bcf1" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="3 5" style="--sd:1.05s"/>
+        <circle cx="150" cy="150" r="66" fill="none" stroke="rgba(0,188,241,0.14)" stroke-width="1" stroke-dasharray="3 4"/>
+        <circle cx="150" cy="150" r="46" fill="rgba(0,188,241,0.05)" stroke="rgba(0,188,241,0.28)" stroke-width="1.3"/>
+        <ellipse cx="150" cy="150" rx="46" ry="15" fill="none" stroke="rgba(0,188,241,0.16)" stroke-width="0.9"/>
+        <ellipse cx="150" cy="150" rx="15" ry="46" fill="none" stroke="rgba(0,188,241,0.16)" stroke-width="0.9"/>
+        <ellipse cx="150" cy="150" rx="33" ry="46" fill="none" stroke="rgba(0,188,241,0.1)" stroke-width="0.8"/>
+        <line x1="104" y1="150" x2="196" y2="150" stroke="rgba(0,188,241,0.12)" stroke-width="0.8"/>
+        <g class="pm-orbit-g">
+        <g transform="translate(150,84)">
+        <ellipse cx="1" cy="0" rx="11" ry="2.2" fill="#00bcf1"/>
+        <path d="M11,-1.6 Q17,0 11,1.6 Z" fill="#00bcf1"/>
+        <path d="M2,-2 L-2,-11 L-7,-11 L-3,-2 Z" fill="rgba(0,188,241,0.85)"/>
+        <path d="M2,2 L-2,11 L-7,11 L-3,2 Z" fill="rgba(0,188,241,0.85)"/>
+        <rect x="-11" y="-0.9" width="4" height="1.8" rx="0.6" fill="#ffec03"/>
+        </g></g>
+        <text x="150" y="153" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="8" font-weight="700" letter-spacing="1" fill="rgba(0,120,160,0.6)">ONE SHOOT</text>
+        <g class="pm-chip">
+        <rect x="51" y="61" width="46" height="26" rx="13" fill="#fff" stroke="rgba(0,188,241,0.35)" stroke-width="1.2"/>
+        <polygon points="61,70 61,77 67,74" fill="#00bcf1"/>
+        <text x="73" y="77" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="600" fill="#0a4d63">CTV</text>
         </g>
-        <!-- Content cards -->
-        <g class="pm-float-1"><rect x="20" y="30" width="40" height="22" rx="3" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="0.9"/><polygon points="36,36 36,46 44,41" fill="rgba(0,188,241,0.5)"/><text x="40" y="62" text-anchor="middle" font-family='Plus Jakarta Sans' font-size="7.5" font-weight="700" fill="rgba(0,0,0,0.3)">CTV</text></g>
-        <g class="pm-float-2"><rect x="180" y="36" width="40" height="22" rx="3" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="0.9"/><polygon points="196,42 196,52 204,47" fill="rgba(0,188,241,0.5)"/><text x="200" y="68" text-anchor="middle" font-family='Plus Jakarta Sans' font-size="7.5" font-weight="700" fill="rgba(0,0,0,0.3)">Social</text></g>
-        <g class="pm-float-3"><rect x="16" y="188" width="48" height="22" rx="3" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="0.9"/><polygon points="36,194 36,204 44,199" fill="rgba(0,188,241,0.5)"/><text x="40" y="220" text-anchor="middle" font-family='Plus Jakarta Sans' font-size="7.5" font-weight="700" fill="rgba(0,0,0,0.3)">Vignettes</text></g>
-        <g class="pm-float-4"><rect x="180" y="192" width="40" height="22" rx="3" fill="rgba(0,188,241,0.06)" stroke="rgba(0,188,241,0.2)" stroke-width="0.9"/><polygon points="196,198 196,208 204,203" fill="rgba(0,188,241,0.5)"/><text x="200" y="224" text-anchor="middle" font-family='Plus Jakarta Sans' font-size="7.5" font-weight="700" fill="rgba(0,0,0,0.3)">Clips</text></g>
-      </svg>
+        <g class="pm-chip">
+        <rect x="192" y="61" width="68" height="26" rx="13" fill="#fff" stroke="rgba(0,188,241,0.35)" stroke-width="1.2"/>
+        <polygon points="203,70 203,77 208,74" fill="#00bcf1"/>
+        <text x="214" y="77" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="600" fill="#0a4d63">Social</text>
+        </g>
+        <g class="pm-chip">
+        <rect x="28" y="213" width="91" height="26" rx="13" fill="#fff" stroke="rgba(0,188,241,0.35)" stroke-width="1.2"/>
+        <polygon points="39,223 39,230 44,226" fill="#00bcf1"/>
+        <text x="50" y="230" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="600" fill="#0a4d63">Vignettes</text>
+        </g>
+        <g class="pm-chip">
+        <rect x="196" y="213" width="61" height="26" rx="13" fill="#fff" stroke="rgba(0,188,241,0.35)" stroke-width="1.2"/>
+        <polygon points="206,223 206,230 212,226" fill="#00bcf1"/>
+        <text x="218" y="230" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="600" fill="#0a4d63">Clips</text>
+        </g>
+        </svg>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
