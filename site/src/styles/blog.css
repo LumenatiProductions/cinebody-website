@@ -3,14 +3,19 @@
 .blog-wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 
 /* ---- Index hero ---- */
+/* Continuous teal->pink gradient room (matches the case studies) */
+.blog-room {
+  position: relative;
+  background:
+    radial-gradient(ellipse 60% 30% at 75% 6%, rgba(0,188,241,0.09) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 30% at 25% 96%, rgba(235,0,139,0.10) 0%, transparent 72%),
+    linear-gradient(180deg, #041a24 0%, #0c1420 45%, #1a0a18 100%);
+}
 .blog-hero {
   position: relative;
   padding: calc(var(--nav-h) + 72px) 0 8px;
   text-align: center;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 70% 60% at 70% 20%, rgba(0,188,241,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 55% at 28% 45%, rgba(255,236,3,0.035) 0%, transparent 70%);
 }
 .blog-eyebrow {
   font-family: var(--mono); font-size: 11px; font-weight: 500;
