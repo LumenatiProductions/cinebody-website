@@ -259,12 +259,38 @@ body > * { position: relative; z-index: 1; }
 </section>
 
 <!-- ═══ STATS ═══ -->
+<style>
+  .al-split { display:grid; grid-template-columns:0.82fr 1.18fr; gap:clamp(34px,5vw,64px); align-items:center; }
+  .al-stats { display:grid; grid-template-columns:1fr 1fr; border:1px solid #e8e8e8; border-radius:14px; overflow:hidden; }
+  .al-stat { padding:26px 20px; }
+  .al-stat:nth-child(2n){ border-left:1px solid #eee; }
+  .al-stat:nth-child(n+3){ border-top:1px solid #eee; }
+  .al-stat .n { font-size:1.8rem; font-weight:700; color:var(--teal); letter-spacing:-0.03em; line-height:1; margin-bottom:6px; }
+  .al-stat .l { font-family:ui-monospace,'SF Mono',monospace; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#999; }
+  .al-note { font-size:0.95rem; color:#666; line-height:1.65; margin:22px 0 0; }
+  .al-map { position:relative; width:100%; max-width:490px; margin:0 auto; }
+  .al-map svg { width:100%; height:auto; display:block; overflow:visible; }
+  .al-pill { position:absolute; transform:translate(-50%,-50%); display:inline-flex; align-items:center; gap:6px; background:#fff; border:1.6px solid var(--teal); border-radius:9999px; padding:6px 12px 6px 9px; font-family:var(--font,'Plus Jakarta Sans',sans-serif); font-size:11.5px; font-weight:700; color:#06546c; white-space:nowrap; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+  .al-pill svg { width:15px; height:15px; color:var(--pink); fill:currentColor; }
+  .al-pill--race { left:16%; top:7%; } .al-pill--trail { left:84%; top:7%; } .al-pill--box { left:50%; top:96%; }
+  @media (max-width:820px){ .al-split { grid-template-columns:1fr; gap:36px; } .al-note { text-align:center; } }
+</style>
 <section style="background:#fff;color:#111;padding:80px 0">
-  <div class="contain" style="max-width:900px">
+  <div class="contain" style="max-width:1040px">
+    <div class="al-split">
+      <div class="al-info">
+        <div class="al-stats reveal">
+          <div class="al-stat"><div class="n">&#8734;</div><div class="l">Athletes</div></div>
+          <div class="al-stat"><div class="n">0</div><div class="l">Crews Flown In</div></div>
+          <div class="al-stat"><div class="n">Always</div><div class="l">On</div></div>
+          <div class="al-stat"><div class="n">100%</div><div class="l">On Brand</div></div>
+        </div>
+        <p class="al-note reveal reveal-d1">Altra activated their running community to capture authentic stories from race day mornings, trail runs, and product unboxings, all guided by Cinebody's shot list&nbsp;technology.</p>
+      </div>
 
     <!-- Neighborhood Run Loop with Capture Points -->
-    <div class="reveal" style="max-width:440px;margin:0 auto 48px">
-      <svg viewBox="0 0 440 280" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto">
+    <div class="reveal al-map">
+      <svg viewBox="0 0 440 280" preserveAspectRatio="xMidYMid meet">
 
         <!-- Neighborhood streets (subtle grid) -->
         <g stroke="rgba(0,0,0,0.03)" stroke-width="1">
@@ -293,36 +319,33 @@ body > * { position: relative; z-index: 1; }
         <path id="runPath" d="M70,230 L70,170 L150,170 L150,110 L70,110 L70,50 L150,50 L230,50 L230,110 L310,110 L310,50 L390,50 L390,110 L390,170 L310,170 L310,230 L230,230 L150,230 L70,230"
           fill="none" stroke="#00bcf1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.12"/>
         <path d="M70,230 L70,170 L150,170 L150,110 L70,110 L70,50 L150,50 L230,50 L230,110 L310,110 L310,50 L390,50 L390,110 L390,170 L310,170 L310,230 L230,230 L150,230 L70,230"
-          fill="none" stroke="#00bcf1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+          fill="none" stroke="#00bcf1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
 
-        <!-- Runner dot (positioned by JS) -->
-        <circle id="runnerDot" cx="70" cy="230" r="5" fill="#00bcf1" opacity="0.8"/>
-
-        <!-- Capture points, yellow dots (pulse rings added by JS on arrival) -->
-        <circle cx="70" cy="230" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
-        <circle cx="150" cy="170" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
-        <circle cx="70" cy="50" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
-        <circle cx="230" cy="50" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
-        <circle cx="390" cy="50" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
-        <circle cx="390" cy="170" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
-        <circle cx="230" cy="230" r="5" fill="#ffec03" opacity="0.7" class="cp"/>
+        <!-- Capture points, pink content dots (pulse rings added by JS on arrival) -->
+        <circle cx="70" cy="230" r="5.5" fill="#eb008b" opacity="0.85" class="cp"/>
+        <circle cx="150" cy="170" r="5.5" fill="#eb008b" opacity="0.85" class="cp"/>
+        <circle cx="70" cy="50" r="5.5" fill="#eb008b" opacity="0.85" class="cp"/>
+        <circle cx="230" cy="50" r="5.5" fill="#eb008b" opacity="0.85" class="cp"/>
+        <circle cx="390" cy="50" r="5.5" fill="#eb008b" opacity="0.85" class="cp"/>
+        <circle cx="390" cy="170" r="5.5" fill="#eb008b" opacity="0.85" class="cp"/>
+        <circle cx="230" cy="230" r="5.5" fill="#eb008b" opacity="0.85" class="cp"/>
 
         <!-- Burst container (rings injected here by JS) -->
         <g id="burstLayer"></g>
 
-        <!-- "7 clips captured" -->
-        <text x="220" y="270" text-anchor="middle" font-family='Plus Jakarta Sans' font-size="8" font-weight="600" fill="rgba(0,188,241,0.35)" letter-spacing="0.08em">7 CLIPS · 1 RUN · 0 CREWS</text>
+        <!-- Runner (positioned by JS via transform) -->
+        <g id="runnerDot" transform="translate(70,230)">
+          <circle r="10" fill="rgba(0,188,241,0.16)"/>
+          <circle r="6.5" fill="#00bcf1"/>
+          <g transform="translate(-6,-6) scale(0.5)"><path fill="#fff" d="M13.5 5.5c1.09 0 2-.92 2-2a2 2 0 0 0-2-2c-1.11 0-2 .88-2 2c0 1.08.89 2 2 2M9.89 19.38l1-4.38L13 17v6h2v-7.5l-2.11-2l.61-3A7.3 7.3 0 0 0 19 13v-2c-1.91 0-3.5-1-4.31-2.42l-1-1.58c-.4-.62-1-1-1.69-1c-.31 0-.5.08-.81.08L6 8.28V13h2V9.58l1.79-.7L8.19 17l-4.9-1l-.4 2z"/></g>
+        </g>
 
       </svg>
+      <div class="al-pill al-pill--race"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M14.4 6H20v10h-7l-.4-2H7v7H5V4h9zm-.4 8h2v-2h2v-2h-2V8h-2v2l-1-2V6h-2v2H9V6H7v2h2v2H7v2h2v-2h2v2h2v-2l1 2zm-3-4V8h2v2zm3 0h2v2h-2z"/></svg>Race Day</div>
+      <div class="al-pill al-pill--trail"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 21v-3H3l5-5H5l5-5H7l5-5l5 5h-3l5 5h-3l5 5h-7v3z"/></svg>Trail Run</div>
+      <div class="al-pill al-pill--box"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.32.17.53.5.53.88zM12 4.15l-1.89 1.07L16 8.61l1.96-1.11zM6.04 7.5L12 10.85l1.96-1.1l-5.88-3.4zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-6.7l-6 3.37v6.71z"/></svg>Unboxing</div>
     </div>
-
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0e0;border-radius:12px;overflow:hidden" class="reveal">
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">&#8734;</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Athletes</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">0</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">Crews</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">Always</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On</div></div>
-      <div style="background:#fff;padding:36px 20px;text-align:center"><div style="font-size:2rem;font-weight:700;color:#00bcf1;letter-spacing:-0.03em;line-height:1;margin-bottom:6px">100%</div><div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.08em">On Brand</div></div>
     </div>
-    <p class="reveal reveal-d1" style="font-size:0.95rem;color:#666;line-height:1.65;max-width:560px;margin:32px auto 0;text-align:center">Altra activated their running community to capture authentic stories from race day mornings, trail runs, and product unboxings, all guided by Cinebody's shot list&nbsp;technology.</p>
   </div>
 </section>
 
@@ -463,7 +486,7 @@ body > * { position: relative; z-index: 1; }
       ring.setAttribute('cy', cy);
       ring.setAttribute('r', '5');
       ring.setAttribute('fill', 'none');
-      ring.setAttribute('stroke', '#ffec03');
+      ring.setAttribute('stroke', '#eb008b');
       ring.setAttribute('stroke-width', '1.5');
       ring.setAttribute('opacity', '0.6');
       burstLayer.appendChild(ring);
@@ -495,8 +518,7 @@ body > * { position: relative; z-index: 1; }
     if (progress >= 1) progress -= 1;
 
     var pt = path.getPointAtLength(progress * totalLen);
-    svg.setAttribute('cx', pt.x);
-    svg.setAttribute('cy', pt.y);
+    svg.setAttribute('transform', 'translate(' + pt.x + ',' + pt.y + ')');
 
     // Check if we hit the next capture point
     if (nextCP < cpDists.length) {
