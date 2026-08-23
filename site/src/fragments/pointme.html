@@ -131,7 +131,7 @@ body > * { position: relative; z-index: 1; }
 /* ═══ TREE STRUCTURE ═══ */
 .tree-section { padding: 100px 0; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #041a24 0%, #0a1e2e 50%, #0f1a24 100%); }
 
-.tree-head { text-align: center; margin-bottom: 64px; }
+.tree-head { text-align: center; margin-bottom: 44px; }
 
 .tree-head h2 {
   font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
@@ -146,7 +146,7 @@ body > * { position: relative; z-index: 1; }
 
 /* Hero CTV video */
 .tree-hero {
-  max-width: 700px; margin: 0 auto 48px;
+  max-width: 640px; margin: 0 auto 0;
   border-radius: var(--radius); overflow: hidden;
   border: 1px solid var(--border); box-shadow: 0 8px 40px rgba(0,0,0,0.3);
 }
@@ -164,10 +164,12 @@ body > * { position: relative; z-index: 1; }
 
 /* Branch connector */
 .tree-connector {
-  display: flex; justify-content: center; margin-bottom: 48px; position: relative;
+  display: block; margin: -2px auto 4px; position: relative; max-width: 900px;
 }
-
-.tree-connector svg { width: 600px; max-width: 100%; height: 80px; }
+.tree-connector svg { width: 100%; height: 96px; display: block; }
+.tree-flow path { animation: treeFlow 1.4s linear infinite; }
+@keyframes treeFlow { to { stroke-dashoffset: -14; } }
+@media (prefers-reduced-motion: reduce){ .tree-flow path { animation: none; } }
 
 /* Node grid */
 .tree-nodes {
@@ -193,18 +195,18 @@ body > * { position: relative; z-index: 1; }
 .tree-node .vid-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 
 .tree-node-label {
-  padding: 12px 14px; text-align: center;
+  padding: 14px; text-align: center;
   border-top: 1px solid var(--border);
 }
 
 .tree-node-label .node-type {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
-  margin-bottom: 2px;
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--pink);
+  margin-bottom: 4px;
 }
 
 .tree-node-label .node-name {
-  font-size: 0.78rem; font-weight: 600; color: var(--text-dim);
+  font-size: 0.95rem; font-weight: 700; color: #fff;
 }
 
 /* ═══ CTA BAND ═══ */
@@ -383,24 +385,24 @@ body > * { position: relative; z-index: 1; }
       <div class="tree-hero-label">Hero CTV Commercial</div>
     </div>
 
-    <!-- Branch SVG -->
+    <!-- Branch connector: content flows from the hero down into each derivative -->
     <div class="tree-connector reveal reveal-d2">
-      <svg viewBox="0 0 600 80" preserveAspectRatio="xMidYMid meet">
-        <line x1="300" y1="0" x2="300" y2="20" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
-        <line x1="300" y1="20" x2="75" y2="20" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
-        <line x1="300" y1="20" x2="525" y2="20" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
-        <line x1="75" y1="20" x2="75" y2="80" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
-        <line x1="225" y1="20" x2="225" y2="80" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
-        <line x1="375" y1="20" x2="375" y2="80" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
-        <line x1="525" y1="20" x2="525" y2="80" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
-        <circle cx="300" cy="4" r="4" fill="var(--teal)" filter="url(#glow)"/>
-        <circle cx="75" cy="76" r="4" fill="var(--teal)" filter="url(#glow)"/>
-        <circle cx="225" cy="76" r="4" fill="var(--teal)" filter="url(#glow)"/>
-        <circle cx="375" cy="76" r="4" fill="var(--teal)" filter="url(#glow)"/>
-        <circle cx="525" cy="76" r="4" fill="var(--teal)" filter="url(#glow)"/>
-        <defs>
-          <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
+      <svg viewBox="0 0 900 96" preserveAspectRatio="none">
+        <g fill="none" stroke="rgba(0,188,241,0.22)" stroke-width="2">
+          <path d="M450,2 C450,58 106,40 106,94"/>
+          <path d="M450,2 C450,58 335,46 335,94"/>
+          <path d="M450,2 C450,58 565,46 565,94"/>
+          <path d="M450,2 C450,58 794,40 794,94"/>
+        </g>
+        <g class="tree-flow" fill="none" stroke="#eb008b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 12">
+          <path d="M450,2 C450,58 106,40 106,94"/>
+          <path d="M450,2 C450,58 335,46 335,94"/>
+          <path d="M450,2 C450,58 565,46 565,94"/>
+          <path d="M450,2 C450,58 794,40 794,94"/>
+        </g>
+        <circle cx="450" cy="2" r="5" fill="var(--teal)"/>
+        <circle cx="106" cy="94" r="4.5" fill="#eb008b"/><circle cx="335" cy="94" r="4.5" fill="#eb008b"/>
+        <circle cx="565" cy="94" r="4.5" fill="#eb008b"/><circle cx="794" cy="94" r="4.5" fill="#eb008b"/>
       </svg>
     </div>
 
