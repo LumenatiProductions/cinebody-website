@@ -239,7 +239,7 @@ body > * { position: relative; z-index: 1; }
 .offer-list li { font-size: 0.84rem; color: #555; line-height: 1.5; padding-left: 16px; position: relative; }
 .offer-list li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 8px; height: 2px; border-radius: 2px; background: var(--teal); }
 /* pillar vignettes: light-mode graphic representations */
-.pv { position: relative; width: min(360px, 100%); height: 260px; margin: 0 auto; }
+.pv { position: relative; width: min(380px, 92%); height: 220px; }
 .pv-cal { position: absolute; left: 0; top: 18px; width: 200px; background: #fafafa; border: 1px solid rgba(0,0,0,0.09); border-radius: 12px; padding: 16px; }
 .pv-cal-head { font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; color: #99a2a8; margin-bottom: 10px; }
 .pv-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
@@ -262,7 +262,7 @@ body > * { position: relative; z-index: 1; }
 .pv-av { position: absolute; left: var(--x); top: var(--y); width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,0.06); color: #99a2a8; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .pv-av--on { background: rgba(0,188,241,0.14); color: #067ba0; box-shadow: 0 0 0 2px rgba(0,188,241,0.35); }
 .pv-pay { position: absolute; left: var(--x); top: var(--y); font-family: var(--mono); font-size: 9.5px; font-weight: 700; color: #067ba0; background: rgba(0,188,241,0.1); border-radius: 99px; padding: 3px 8px; }
-.pv-direction { background: linear-gradient(160deg, #f4f7f9, #e9f0f4); border-radius: 14px; border: 1px solid rgba(0,0,0,0.07); }
+.pv-direction { background: transparent; border: 0; }
 .pv-c { position: absolute; width: 18px; height: 18px; border: 2.5px solid rgba(0,188,241,0.7); }
 .pv-c1 { top: 14px; left: 14px; border-right: 0; border-bottom: 0; border-top-left-radius: 5px; }
 .pv-c2 { top: 14px; right: 14px; border-left: 0; border-bottom: 0; border-top-right-radius: 5px; }
@@ -282,17 +282,14 @@ body > * { position: relative; z-index: 1; }
 .pv-wave i { flex: 1; height: var(--h); background: rgba(0,0,0,0.18); border-radius: 2px; }
 .pv-playhead { position: absolute; left: 44%; top: 8%; bottom: 8%; width: 2px; background: var(--teal); box-shadow: 0 0 8px rgba(0,188,241,0.5); animation: pvplay 7s linear infinite; }
 @keyframes pvplay { 0% { left: 6%; } 100% { left: 94%; } }
-.pillar-rows { display: flex; flex-direction: column; gap: 8px; }
-.pillar-row { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(24px, 3vw, 48px); align-items: center; padding: 38px 0; }
-.pillar-row + .pillar-row { border-top: 1px solid rgba(0,0,0,0.06); }
-.pillar-row--flip { direction: rtl; }
-.pillar-row--flip > * { direction: ltr; }
-.pillar-copy > svg { width: 26px; height: 26px; stroke: var(--teal); margin-bottom: 12px; }
-.pillar-copy h3 { font-size: clamp(1.35rem, 2.1vw, 1.7rem); font-weight: 800; letter-spacing: -0.02em; color: #111; margin-bottom: 10px; }
+.pillar-cards { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 2.5vw, 32px); }
+.pillar-card { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 18px; padding: 26px; }
+.pillar-fig { background: #f7f9fa; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; overflow: hidden; }
+.pillar-card > svg { width: 26px; height: 26px; stroke: var(--teal); margin-bottom: 12px; }
+.pillar-card h3 { font-size: clamp(1.35rem, 2.1vw, 1.7rem); font-weight: 800; letter-spacing: -0.02em; color: #111; margin-bottom: 10px; }
 
-.pillar-copy p { font-size: 0.92rem; color: #555; line-height: 1.65; max-width: 440px; }
-.pillar-visual { display: flex; justify-content: flex-start; padding-left: 12px; }
-.pillar-row--flip .pillar-visual { justify-content: flex-end; padding-left: 0; padding-right: 12px; }
+.pillar-card > p { font-size: 0.92rem; color: #555; line-height: 1.65; max-width: 440px; }
+
 .pillar-frame { border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 22px 54px rgba(0,0,0,0.14); background: #fff; }
 .pillar-frame--browser { width: 100%; max-height: 400px; display: flex; flex-direction: column; }
 .pillar-frame--browser img { flex: 1; min-height: 0; width: 100%; object-fit: cover; object-position: left top; }
@@ -305,7 +302,7 @@ body > * { position: relative; z-index: 1; }
 .pillar-frame--phone::before { content: ''; position: absolute; top: 4.2%; left: 50%; transform: translateX(-50%); width: 27%; height: 2.5%; min-height: 8px; background: #000; border-radius: 99px; z-index: 3; }
 .pillar-frame--phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 27px; }
 .pillar-duo { display: flex; gap: clamp(20px, 2vw, 32px); }
-@media (max-width: 900px) { .pillar-row { grid-template-columns: 1fr; } .pillar-row--flip { direction: ltr; } }
+@media (max-width: 900px) { .pillar-cards { grid-template-columns: 1fr; } }
 .producer-moment { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 80px); align-items: center; margin-top: 64px; }
 .producer-copy h3 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -0.025em; color: #111; margin-bottom: 14px; }
 .producer-copy h3 em { font-style: normal; color: var(--teal); }
@@ -655,19 +652,10 @@ body > * { position: relative; z-index: 1; }
       </div>
       <p>Some teams want to run Cinebody themselves. Others want it off their plate entirely. If that's you, our creative producers run the whole program on the platform, so you get finished content without hiring or managing a&nbsp;thing.</p>
     </div>
-    <div class="pillar-rows">
-      <div class="pillar-row reveal">
-        <div class="pillar-copy">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>
-          <h3>Strategy</h3>
-          <p>We shape what to make and why, tied to your goals: the ideas, the cadence, and the channels every piece is built for.</p>
-          <ul class="offer-list">
-            <li>A content calendar built around your moments</li>
-            <li>Fresh shoot ideas, pitched every month</li>
-            <li>Every piece planned for its channel</li>
-          </ul>
-        </div>
-        <div class="pv pv-strategy" aria-hidden="true">
+    <div class="pillar-cards">
+      <div class="pillar-card reveal">
+        <div class="pillar-fig">
+          <div class="pv pv-strategy" aria-hidden="true">
           <div class="pv-cal">
             <div class="pv-cal-head">OCTOBER</div>
             <div class="pv-cal-grid"><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="on"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="on"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="on"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="on"></span><span class=""></span><span class=""></span><span class=""></span></div>
@@ -678,19 +666,19 @@ body > * { position: relative; z-index: 1; }
             <div class="pv-idea-btns"><span class="pv-keep">Keep</span><span class="pv-skip">Skip</span></div>
           </div>
         </div>
-      </div>
-      <div class="pillar-row pillar-row--flip reveal">
-        <div class="pillar-copy">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <h3>Casting &amp; motivation</h3>
-          <p>Finding, exciting, and incentivizing a large group of filmers at once is a job. We do it: outreach, payouts, reminders, and all the back-and-forth.</p>
-          <ul class="offer-list">
-            <li>A community of proven filmers, ready to go</li>
-            <li>Casting calls that reach the right people, not cold lists</li>
-            <li>Incentives, payouts, and reminders handled</li>
-          </ul>
         </div>
-        <div class="pv pv-casting" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>
+          <h3>Strategy</h3>
+          <p>We shape what to make and why, tied to your goals: the ideas, the cadence, and the channels every piece is built for.</p>
+          <ul class="offer-list">
+            <li>A content calendar built around your moments</li>
+            <li>Fresh shoot ideas, pitched every month</li>
+            <li>Every piece planned for its channel</li>
+          </ul>
+      </div>
+      <div class="pillar-card reveal">
+        <div class="pillar-fig">
+          <div class="pv pv-casting" aria-hidden="true">
           <div class="pv-call">
             <span class="pv-ring"></span>
             <span class="pv-ring pv-ring--2"></span>
@@ -705,10 +693,27 @@ body > * { position: relative; z-index: 1; }
           <span class="pv-pay" style="--x:84%;--y:30%">+ $50</span>
           <span class="pv-pay" style="--x:60%;--y:74%">+ $40</span>
         </div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h3>Casting &amp; motivation</h3>
+          <p>Finding, exciting, and incentivizing a large group of filmers at once is a job. We do it: outreach, payouts, reminders, and all the back-and-forth.</p>
+          <ul class="offer-list">
+            <li>A community of proven filmers, ready to go</li>
+            <li>Casting calls that reach the right people, not cold lists</li>
+            <li>Incentives, payouts, and reminders handled</li>
+          </ul>
       </div>
-      <div class="pillar-row reveal">
-        <div class="pillar-copy">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg>
+      <div class="pillar-card reveal">
+        <div class="pillar-fig">
+          <div class="pv pv-direction" aria-hidden="true">
+          <span class="pv-c pv-c1"></span><span class="pv-c pv-c2"></span><span class="pv-c pv-c3"></span><span class="pv-c pv-c4"></span>
+          <div class="pv-dir-cue">Step a little closer</div>
+          <div class="pv-dir-ok">Framing looks great</div>
+          <div class="pv-shot-line"></div>
+          <div class="pv-shot-line pv-shot-line--2"></div>
+        </div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg>
           <h3>Direction</h3>
           <p>We build the briefs and shot lists and guide your people on camera with the AI Director, so the footage comes back on-brief.</p>
           <ul class="offer-list">
@@ -716,27 +721,10 @@ body > * { position: relative; z-index: 1; }
             <li>The AI Director coaching every take live</li>
             <li>Mid-shoot direction when plans change</li>
           </ul>
-        </div>
-        <div class="pv pv-direction" aria-hidden="true">
-          <span class="pv-c pv-c1"></span><span class="pv-c pv-c2"></span><span class="pv-c pv-c3"></span><span class="pv-c pv-c4"></span>
-          <div class="pv-dir-cue">Step a little closer</div>
-          <div class="pv-dir-ok">Framing looks great</div>
-          <div class="pv-shot-line"></div>
-          <div class="pv-shot-line pv-shot-line--2"></div>
-        </div>
       </div>
-      <div class="pillar-row pillar-row--flip reveal">
-        <div class="pillar-copy">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="8.1" y1="8.1" x2="20" y2="20"/><line x1="20" y1="4" x2="8.1" y2="15.9"/></svg>
-          <h3>Post production, elevated</h3>
-          <p>The auto-editor gets you a fast cut. Our editors take it further: refined edits, motion graphics, sound, and finish that holds up anywhere.</p>
-          <ul class="offer-list">
-            <li>Pro editors starting from the AI's head start</li>
-            <li>Motion graphics, sound, and licensed music</li>
-            <li>A private screening room to review cuts and leave feedback</li>
-          </ul>
-        </div>
-        <div class="pv pv-post" aria-hidden="true">
+      <div class="pillar-card reveal">
+        <div class="pillar-fig">
+          <div class="pv pv-post" aria-hidden="true">
           <div class="pv-track">
             <span style="width:26%"></span><span style="width:18%"></span><span style="width:30%"></span><span style="width:16%"></span>
           </div>
@@ -744,6 +732,15 @@ body > * { position: relative; z-index: 1; }
           <div class="pv-wave"><i style="--h:30%"></i><i style="--h:55%"></i><i style="--h:40%"></i><i style="--h:75%"></i><i style="--h:50%"></i><i style="--h:85%"></i><i style="--h:45%"></i><i style="--h:65%"></i><i style="--h:35%"></i><i style="--h:70%"></i><i style="--h:52%"></i><i style="--h:80%"></i><i style="--h:42%"></i><i style="--h:60%"></i><i style="--h:33%"></i><i style="--h:72%"></i><i style="--h:48%"></i><i style="--h:58%"></i><i style="--h:38%"></i><i style="--h:66%"></i></div>
           <div class="pv-playhead"></div>
         </div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="8.1" y1="8.1" x2="20" y2="20"/><line x1="20" y1="4" x2="8.1" y2="15.9"/></svg>
+          <h3>Post production, elevated</h3>
+          <p>The auto-editor gets you a fast cut. Our editors take it further: refined edits, motion graphics, sound, and finish that holds up anywhere.</p>
+          <ul class="offer-list">
+            <li>Pro editors starting from the AI's head start</li>
+            <li>Motion graphics, sound, and licensed music</li>
+            <li>A private screening room to review cuts and leave feedback</li>
+          </ul>
       </div>
     </div>
     <div class="producer-moment reveal reveal-d2">
