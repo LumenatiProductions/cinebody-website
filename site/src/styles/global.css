@@ -474,21 +474,22 @@ p, li { text-wrap: pretty; }
 /* Mobile: every multi-video gallery becomes a one-featured swipe scroller.
    (rc-row = a shot-list graphic and vid-marquee = an auto-scroller, so both are excluded.) */
 @media (max-width: 700px) {
-  .vid-trio, .vert-trio, .vid-grid, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair {
+  .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair {
     display: flex !important; flex-wrap: nowrap !important; grid-template-columns: none !important;
     justify-content: flex-start; align-items: stretch; max-width: none !important;
     overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
     gap: 14px; padding: 4px clamp(1.25rem, 12vw, 4rem) 8px;
     margin-left: -20px; margin-right: -20px; scroll-padding-inline: clamp(1.25rem, 12vw, 4rem);
   }
-  .vid-trio::-webkit-scrollbar, .vert-trio::-webkit-scrollbar, .vid-grid::-webkit-scrollbar, .grid-2x2::-webkit-scrollbar,
+  .vid-trio::-webkit-scrollbar, .vert-trio::-webkit-scrollbar, .vid-grid::-webkit-scrollbar, .vid-grid-3v::-webkit-scrollbar, .grid-2x2::-webkit-scrollbar,
   .horiz-pair::-webkit-scrollbar, .vert-pair::-webkit-scrollbar, .vid-pair::-webkit-scrollbar, .sparkle-pair::-webkit-scrollbar { display: none; }
   .vid-trio > .vid-card, .vert-trio > .vid-card, .vid-grid > .vid-card, .grid-2x2 > .vid-card,
-  .horiz-pair > .vid-card, .vert-pair > .vid-card, .vid-pair > .vid-card, .sparkle-pair > .vid-card {
+  .horiz-pair > .vid-card, .vert-pair > .vid-card, .vid-pair > .vid-card, .sparkle-pair > .vid-card,
+  .vid-grid-3v > .vid-playable {
     flex: 0 0 74% !important; width: 74% !important; max-width: 300px !important; scroll-snap-align: center;
   }
   /* drag affordance + let horizontal drag work while page still scrolls vertically */
-  .pipe-outputs, .hero .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair { cursor: grab; touch-action: pan-y; }
+  .pipe-outputs, .hero .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair { cursor: grab; touch-action: pan-y; }
   .is-dragging { cursor: grabbing !important; scroll-snap-type: none !important; scroll-behavior: auto !important; user-select: none; }
   .is-dragging * { pointer-events: none !important; }
 }
