@@ -298,5 +298,40 @@ const pageSchema = entitySchemas[active];
   else build();
 })();
 </script>
+<script>
+// Drag-to-scroll for the mobile video scrollers (native touch already swipes; this adds mouse/trackpad drag).
+(function(){
+  var SEL='.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair';
+  function enable(el){
+    if(el.dataset.dragScroll) return; el.dataset.dragScroll='1';
+    var down=false, startX=0, startScroll=0, moved=0;
+    el.addEventListener('pointerdown', function(e){
+      if(e.pointerType==='touch') return;               // let touch scroll natively
+      if(el.scrollWidth <= el.clientWidth+2) return;      // not a scroller right now
+      down=true; moved=0; startX=e.clientX; startScroll=el.scrollLeft;
+      el.classList.add('is-dragging');
+      try{ el.setPointerCapture(e.pointerId); }catch(_){}
+    });
+    el.addEventListener('pointermove', function(e){
+      if(!down) return;
+      var dx=e.clientX-startX; if(Math.abs(dx)>moved) moved=Math.abs(dx);
+      el.scrollLeft=startScroll-dx; e.preventDefault();
+    });
+    function end(e){
+      if(!down) return; down=false; el.classList.remove('is-dragging');
+      try{ el.releasePointerCapture(e.pointerId); }catch(_){}
+      if(moved>6){ // a drag, not a click: swallow the click that follows so it doesn't open/play
+        var kill=function(ev){ ev.stopPropagation(); ev.preventDefault(); el.removeEventListener('click',kill,true); };
+        el.addEventListener('click',kill,true);
+        setTimeout(function(){ el.removeEventListener('click',kill,true); },0);
+      }
+    }
+    el.addEventListener('pointerup', end);
+    el.addEventListener('pointercancel', end);
+  }
+  function init(){ document.querySelectorAll(SEL).forEach(enable); }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
 </body>
 </html>
