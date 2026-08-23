@@ -177,16 +177,32 @@ body > * { position: relative; z-index: 1; }
       .rc-row { display:flex; align-items:center; gap:11px; padding:10.5px 17px; border-top:1px solid #f2f6f8; }
       .rc-row:first-child { border-top:none; }
       .rc-no { flex:none; width:15px; font-family:var(--mono); font-size:10px; color:#bcd4df; }
-      .rc-ck { flex:none; width:19px; height:19px; border-radius:6px; border:1.8px solid #cfe6f0; background:#fff; position:relative; animation:rcBox 6s ease-in-out infinite; animation-delay:var(--d,0s); }
-      .rc-ck::after { content:''; position:absolute; left:6px; top:2px; width:4.5px; height:9px; border:solid #fff; border-width:0 2.2px 2.2px 0; transform:rotate(45deg) scale(0); animation:rcChk 6s ease-in-out infinite; animation-delay:var(--d,0s); }
+      .rc-ck { flex:none; width:19px; height:19px; border-radius:6px; border:1.8px solid #cfe6f0; background:#fff; position:relative; animation-duration:6s; animation-timing-function:ease-in-out; animation-iteration-count:infinite; }
+      .rc-ck::after { content:''; position:absolute; left:6px; top:2px; width:4.5px; height:9px; border:solid #fff; border-width:0 2.2px 2.2px 0; transform:rotate(45deg) scale(0); animation-duration:6s; animation-timing-function:ease-in-out; animation-iteration-count:infinite; }
+      .rc-list .rc-row:nth-child(2) .rc-ck { animation-name:rcB1 } .rc-list .rc-row:nth-child(2) .rc-ck::after { animation-name:rcC1 }
+      .rc-list .rc-row:nth-child(3) .rc-ck { animation-name:rcB2 } .rc-list .rc-row:nth-child(3) .rc-ck::after { animation-name:rcC2 }
+      .rc-list .rc-row:nth-child(4) .rc-ck { animation-name:rcB3 } .rc-list .rc-row:nth-child(4) .rc-ck::after { animation-name:rcC3 }
+      .rc-list .rc-row:nth-child(5) .rc-ck { animation-name:rcB4 } .rc-list .rc-row:nth-child(5) .rc-ck::after { animation-name:rcC4 }
+      .rc-list .rc-row:nth-child(6) .rc-ck { animation-name:rcB5 } .rc-list .rc-row:nth-child(6) .rc-ck::after { animation-name:rcC5 }
+      .rc-list .rc-row:nth-child(7) .rc-ck { animation-name:rcB6 } .rc-list .rc-row:nth-child(7) .rc-ck::after { animation-name:rcC6 }
       .rc-ico { flex:none; width:20px; height:20px; display:inline-flex; color:var(--pink); }
       .rc-ico svg { width:20px; height:20px; fill:currentColor; }
       .rc-nm { font-family:var(--font); font-size:13.5px; font-weight:700; color:#0b2a36; }
       .rc-sh { margin-left:auto; font-family:var(--font); font-size:11px; color:#94b0bd; font-weight:500; white-space:nowrap; }
-      .rc-feedwrap { position:relative; height:104px; margin-top:-1px; }
+      .rc-feedwrap { position:relative; height:132px; margin-top:-1px; }
       .rc-feedwrap svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
-      @keyframes rcBox { 0%,7%{background:#fff;border-color:#cfe6f0} 15%,100%{background:var(--teal);border-color:var(--teal)} }
-      @keyframes rcChk { 0%,7%{transform:rotate(45deg) scale(0)} 17%,100%{transform:rotate(45deg) scale(1)} }
+      @keyframes rcB1 { 0%,10%{background:#fff;border-color:#cfe6f0} 13%,92%{background:var(--teal);border-color:var(--teal)} 100%{background:#fff;border-color:#cfe6f0} }
+      @keyframes rcB2 { 0%,20%{background:#fff;border-color:#cfe6f0} 23%,92%{background:var(--teal);border-color:var(--teal)} 100%{background:#fff;border-color:#cfe6f0} }
+      @keyframes rcB3 { 0%,30%{background:#fff;border-color:#cfe6f0} 33%,92%{background:var(--teal);border-color:var(--teal)} 100%{background:#fff;border-color:#cfe6f0} }
+      @keyframes rcB4 { 0%,40%{background:#fff;border-color:#cfe6f0} 43%,92%{background:var(--teal);border-color:var(--teal)} 100%{background:#fff;border-color:#cfe6f0} }
+      @keyframes rcB5 { 0%,50%{background:#fff;border-color:#cfe6f0} 53%,92%{background:var(--teal);border-color:var(--teal)} 100%{background:#fff;border-color:#cfe6f0} }
+      @keyframes rcB6 { 0%,60%{background:#fff;border-color:#cfe6f0} 63%,92%{background:var(--teal);border-color:var(--teal)} 100%{background:#fff;border-color:#cfe6f0} }
+      @keyframes rcC1 { 0%,10%{transform:rotate(45deg) scale(0)} 13%,92%{transform:rotate(45deg) scale(1)} 100%{transform:rotate(45deg) scale(0)} }
+      @keyframes rcC2 { 0%,20%{transform:rotate(45deg) scale(0)} 23%,92%{transform:rotate(45deg) scale(1)} 100%{transform:rotate(45deg) scale(0)} }
+      @keyframes rcC3 { 0%,30%{transform:rotate(45deg) scale(0)} 33%,92%{transform:rotate(45deg) scale(1)} 100%{transform:rotate(45deg) scale(0)} }
+      @keyframes rcC4 { 0%,40%{transform:rotate(45deg) scale(0)} 43%,92%{transform:rotate(45deg) scale(1)} 100%{transform:rotate(45deg) scale(0)} }
+      @keyframes rcC5 { 0%,50%{transform:rotate(45deg) scale(0)} 53%,92%{transform:rotate(45deg) scale(1)} 100%{transform:rotate(45deg) scale(0)} }
+      @keyframes rcC6 { 0%,60%{transform:rotate(45deg) scale(0)} 63%,92%{transform:rotate(45deg) scale(1)} 100%{transform:rotate(45deg) scale(0)} }
       .rc-stats { display:grid; grid-template-columns:1fr 1fr; border:1px solid #e8e8e8; border-radius:14px; overflow:hidden; }
       .rc-stat { padding:26px 20px; }
       .rc-stat:nth-child(2n) { border-left:1px solid #eee; }
@@ -420,15 +436,15 @@ body > * { position: relative; z-index: 1; }
           <div class="rc-row" style="--d:2.5s"><span class="rc-no">06</span><span class="rc-ck"></span><span class="rc-ico"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18 4c-1.71 0-2.75.33-3.35.61C13.88 4.23 13 4 12 4s-1.88.23-2.65.61C8.75 4.33 7.71 4 6 4c-3 0-5 8-5 10c0 .83 1.32 1.59 3.14 1.9c.64 2.24 3.66 3.95 7.36 4.1v-4.28c-.59-.37-1.5-1.04-1.5-1.72c0-1 2-1 2-1s2 0 2 1c0 .68-.91 1.35-1.5 1.72V20c3.7-.15 6.72-1.86 7.36-4.1C21.68 15.59 23 14.83 23 14c0-2-2-10-5-10M4.15 13.87c-.5-.12-.89-.26-1.15-.37c.25-2.77 2.2-7.1 3.05-7.5c.54 0 .95.06 1.32.11c-2.1 2.31-2.93 5.93-3.22 7.76M9 12a1 1 0 0 1-1-1c0-.54.45-1 1-1a1 1 0 0 1 1 1c0 .56-.45 1-1 1m6 0a1 1 0 0 1-1-1c0-.54.45-1 1-1a1 1 0 0 1 1 1c0 .56-.45 1-1 1m4.85 1.87c-.29-1.83-1.12-5.45-3.22-7.76c.37-.05.78-.11 1.32-.11c.85.4 2.8 4.73 3.05 7.5c-.25.11-.64.25-1.15.37"/></svg></span><span class="rc-nm">Rover</span><span class="rc-sh">robot bartender</span></div>
         </div>
         <div class="rc-feedwrap">
-          <svg viewBox="0 0 340 104" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="170" y1="52" x2="170" y2="-4" stroke="rgba(235,0,139,0.32)" stroke-width="1.8" stroke-dasharray="3 6" stroke-linecap="round"/>
-            <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="1.8s" begin="0s" repeatCount="indefinite" path="M170,52 L170,-4"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="1.8s" begin="0s" repeatCount="indefinite"/></circle>
-            <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="1.8s" begin="0.9s" repeatCount="indefinite" path="M170,52 L170,-4"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="1.8s" begin="0.9s" repeatCount="indefinite"/></circle>
-            <circle class="rc-pulse" cx="170" cy="60" r="30" fill="none" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/>
-            <circle class="rc-pulse" cx="170" cy="60" r="30" fill="none" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" style="animation-delay:1.4s"/>
-            <g transform="translate(150,38) scale(1.7)" style="color:#00bcf1"><path fill="currentColor" d="M6 6h12v3.96L12 8L6 9.96M3.94 19H4c1.6 0 3-.88 4-2c1 1.12 2.4 2 4 2s3-.88 4-2c1 1.12 2.4 2 4 2h.05l1.9-6.69c.08-.25.05-.53-.06-.77c-.13-.24-.34-.42-.6-.5L20 10.62V6a2 2 0 0 0-2-2h-3V1H9v3H6a2 2 0 0 0-2 2v4.62l-1.29.42c-.26.08-.47.26-.6.5c-.11.24-.14.52-.06.77M20 21c-1.39 0-2.78-.47-4-1.33c-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.37 0 2.74-.35 4-1c2.5 1.3 5.5 1.3 8 0c1.26.65 2.62 1 4 1h2v-2z"/></g>
-            <path d="M40,86 Q70,79 100,86 Q130,93 160,86 Q190,79 220,86 Q250,93 280,86 Q300,81 300,86" fill="none" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
-            <path d="M30,94 Q62,87 94,94 Q126,101 158,94 Q190,87 222,94 Q254,101 286,94 Q302,90 310,94" fill="none" stroke="rgba(0,188,241,0.18)" stroke-width="2"/>
+          <svg viewBox="0 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="170" y1="54" x2="170" y2="-6" stroke="rgba(235,0,139,0.32)" stroke-width="1.8" stroke-dasharray="3 6" stroke-linecap="round"/>
+            <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="1.8s" begin="0s" repeatCount="indefinite" path="M170,54 L170,-6"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="1.8s" begin="0s" repeatCount="indefinite"/></circle>
+            <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="1.8s" begin="0.9s" repeatCount="indefinite" path="M170,54 L170,-6"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="1.8s" begin="0.9s" repeatCount="indefinite"/></circle>
+            <circle class="rc-pulse" cx="170" cy="74" r="42" fill="none" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/>
+            <circle class="rc-pulse" cx="170" cy="74" r="42" fill="none" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" style="animation-delay:1.4s"/>
+            <g transform="translate(140,34) scale(2.5)" style="color:#00bcf1"><path fill="currentColor" d="M6 6h12v3.96L12 8L6 9.96M3.94 19H4c1.6 0 3-.88 4-2c1 1.12 2.4 2 4 2s3-.88 4-2c1 1.12 2.4 2 4 2h.05l1.9-6.69c.08-.25.05-.53-.06-.77c-.13-.24-.34-.42-.6-.5L20 10.62V6a2 2 0 0 0-2-2h-3V1H9v3H6a2 2 0 0 0-2 2v4.62l-1.29.42c-.26.08-.47.26-.6.5c-.11.24-.14.52-.06.77M20 21c-1.39 0-2.78-.47-4-1.33c-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.37 0 2.74-.35 4-1c2.5 1.3 5.5 1.3 8 0c1.26.65 2.62 1 4 1h2v-2z"/></g>
+            <path d="M34,104 Q68,96 102,104 Q136,112 170,104 Q204,96 238,104 Q272,112 306,104" fill="none" stroke="rgba(0,188,241,0.3)" stroke-width="2"/>
+            <path d="M22,113 Q58,105 94,113 Q130,121 166,113 Q202,105 238,113 Q274,121 310,113" fill="none" stroke="rgba(0,188,241,0.18)" stroke-width="2"/>
           </svg>
         </div>
       </div>
