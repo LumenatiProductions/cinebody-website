@@ -319,7 +319,19 @@ body > * { position: relative; z-index: 1; }
   .sp-node-label { padding:11px; text-align:center; border-top:1px solid var(--border); }
   .sp-node-label .node-type { font-family:var(--mono); font-size:8.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--pink); margin-bottom:4px; }
   .sp-node-label .node-name { font-size:0.88rem; font-weight:700; color:#fff; }
-  @media (max-width:700px){ .sp-node--v { width:40%; } .sp-node--h { width:46%; } }
+  @media (max-width:700px){
+    /* the tethered tree can't reflow cleanly on phones: drop the connector and
+       turn the six deliverables into one swipe slider (drag handled globally) */
+    .sp-connector { display:none; }
+    .sp-tree-hero { max-width:none; }
+    .sp-nodes { flex-wrap:nowrap; justify-content:flex-start; align-items:flex-start; max-width:none;
+      overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+      gap:14px; padding:8px clamp(1.25rem,12vw,4rem); margin:24px -20px 0; scroll-padding-inline:clamp(1.25rem,12vw,4rem);
+      cursor:grab; touch-action:pan-y; }
+    .sp-nodes::-webkit-scrollbar { display:none; }
+    .sp-node, .sp-node--v, .sp-node--h { width:74% !important; max-width:300px; flex:0 0 74%; scroll-snap-align:center; }
+    .sp-node::before { display:none; }
+  }
 </style>
 <section class="sp-tree">
   <div class="contain">

@@ -301,7 +301,7 @@ const pageSchema = entitySchemas[active];
 <script>
 // Drag-to-scroll for the mobile video scrollers (native touch already swipes; this adds mouse/trackpad drag).
 (function(){
-  var SEL='.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair';
+  var SEL='.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-nodes';
   function enable(el){
     if(el.dataset.dragScroll) return; el.dataset.dragScroll='1';
     var down=false, startX=0, startScroll=0, moved=0;
