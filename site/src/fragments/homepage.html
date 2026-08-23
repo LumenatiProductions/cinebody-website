@@ -230,7 +230,7 @@ body > * { position: relative; z-index: 1; }
   aspect-ratio: 9/16;
   border-radius: 12px;
   overflow: hidden;
-  background: #111;
+  background: linear-gradient(135deg, #1a2a3a 0%, #0e1820 100%);
   border: 1px solid rgba(255,255,255,0.08);
   position: relative;
 }
@@ -881,7 +881,7 @@ body > * { position: relative; z-index: 1; }
 .pipe-closer h3 em { font-style: normal; color: var(--teal); }
 .pipe-closer .pipe-cap { margin-top: 26px; }
 .pipe-outputs { display: flex; gap: 18px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
-.pipe-output { position: relative; width: 224px; aspect-ratio: 9/16; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 14px 34px rgba(0,0,0,0.45); transition: transform .4s var(--ease), border-color .3s ease; cursor: pointer; }
+.pipe-output { position: relative; width: 224px; aspect-ratio: 9/16; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: linear-gradient(135deg, #1a2a3a 0%, #0e1820 100%); box-shadow: 0 14px 34px rgba(0,0,0,0.45); transition: transform .4s var(--ease), border-color .3s ease; cursor: pointer; }
 .pipe-output:hover { transform: translateY(-4px); border-color: rgba(0,188,241,0.4); }
 .pipe-output.playing, .pipe-output.playing:hover { transform: none; }
 .pipe-output img, .pipe-output video { width: 100%; height: 100%; object-fit: cover; display: block; }

@@ -422,8 +422,11 @@ p, li { text-wrap: pretty; }
 .vid-playable {
   position: relative; cursor: pointer; overflow: hidden;
   border-radius: 12px; background-size: cover;
-  background-position: center; background-color: #111;
+  background-position: center; background-color: #12202c;
+  /* soft dark placeholder so cards don't flash pure black before posters load */
+  background-image: linear-gradient(135deg, #1a2a3a 0%, #0e1820 100%);
 }
+.vid-playable.playing { background-image: none; }
 .vid-playable--h { aspect-ratio: 16/9; }
 .vid-playable--v { aspect-ratio: 9/16; }
 .vid-playable--sq { aspect-ratio: 1/1; }
