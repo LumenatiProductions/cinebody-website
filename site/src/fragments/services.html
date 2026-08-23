@@ -239,7 +239,9 @@ body > * { position: relative; z-index: 1; }
 .offer-cell svg { width: 22px; height: 22px; stroke: var(--teal); margin-bottom: 14px; }
 .offer-cell h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
 .offer-cell p { font-size: 0.85rem; color: #666; line-height: 1.6; }
-.offer-cell--lead { background: #f2fbfe; box-shadow: inset 0 0 0 1px rgba(0,188,241,0.25); }
+.offer-cell--lead { grid-column: 1 / -1; background: #f2fbfe; box-shadow: inset 0 0 0 1px rgba(0,188,241,0.25); display: flex; align-items: center; gap: 20px; padding: 24px 28px; }
+.offer-cell--lead svg { margin-bottom: 0; flex-shrink: 0; }
+.offer-cell--lead p { max-width: 640px; }
 @media (max-width: 1000px) { .offer-grid { grid-template-columns: 1fr 1fr; } .offer-head { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .offer-grid { grid-template-columns: 1fr; } }
 .process-head { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 4vw, 64px); align-items: end; margin-bottom: 12px; }
@@ -582,19 +584,26 @@ body > * { position: relative; z-index: 1; }
         <p>We shape what to make and why, tied to your goals: the ideas, the cadence, and the channels every piece is built for.</p>
       </div>
       <div class="offer-cell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <h3>Casting &amp; motivation</h3>
+        <p>Finding, exciting, and incentivizing a large group of filmers at once is a job. We do it: outreach, payouts, reminders, and all the back-and-forth.</p>
+      </div>
+      <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg>
         <h3>Direction</h3>
-        <p>We build the briefs and shot lists, recruit the right people from your community, and guide them on camera with the AI Director.</p>
+        <p>We build the briefs and shot lists and guide your people on camera with the AI Director, so the footage comes back on-brief.</p>
       </div>
       <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="8.1" y1="8.1" x2="20" y2="20"/><line x1="20" y1="4" x2="8.1" y2="15.9"/></svg>
-        <h3>Editing &amp; delivery</h3>
-        <p>Polished, on-brand cuts with motion graphics and licensed music, delivered ready for every channel you publish to.</p>
+        <h3>Post production, elevated</h3>
+        <p>The auto-editor gets you a fast cut. Our editors take it further: refined edits, motion graphics, sound, and finish that holds up anywhere.</p>
       </div>
       <div class="offer-cell offer-cell--lead">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-        <h3>Your producer</h3>
-        <p>One point of contact who owns your program end to end. You talk to a person; the person runs the machine.</p>
+        <div>
+          <h3>Your producer</h3>
+          <p>One point of contact who owns your program end to end. You talk to a person; the person runs the machine.</p>
+        </div>
       </div>
     </div>
   </div>
