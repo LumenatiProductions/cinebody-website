@@ -910,7 +910,12 @@ body > * { position: relative; z-index: 1; }
 .po-progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--teal); z-index: 3; transition: width .25s linear; pointer-events: none; }
 .po-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 12px 10px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.85); pointer-events: none; }
 @media (max-width: 900px) { .pipe-stage { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; } .pipe-stage.flip { direction: ltr; } .pipe-visual { order: 2; } }
-@media (max-width: 600px) { .pipe-output { width: calc((100% - 28px) / 3); } }
+@media (max-width: 700px) {
+  /* one featured video, swipe left/right for the rest */
+  .pipe-outputs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 14px; padding: 4px clamp(1.25rem, 12vw, 4rem) 8px; margin-left: calc(-1 * var(--gutter, 20px)); margin-right: calc(-1 * var(--gutter, 20px)); scroll-padding-inline: clamp(1.25rem, 12vw, 4rem); }
+  .pipe-outputs::-webkit-scrollbar { display: none; }
+  .pipe-output { flex: 0 0 74%; width: 74%; max-width: 300px; scroll-snap-align: center; }
+}
 /* ── scroll-driven pipeline: pinned wireframe phone stepping through the stages ── */
 .pipe-scroll { height: 540vh; position: relative; }
 .pipe-sticky { position: sticky; top: calc(50vh - 280px); height: 560px; display: flex; align-items: center; }
