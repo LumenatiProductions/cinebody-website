@@ -8,13 +8,9 @@
   padding: calc(var(--nav-h) + 72px) 0 8px;
   text-align: center;
   overflow: hidden;
-}
-.blog-hero::before {
-  content: '';
-  position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
-  width: 900px; height: 600px;
-  background: radial-gradient(closest-side, rgba(0,188,241,0.12), rgba(235,0,139,0.06), transparent);
-  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 20%, rgba(0,188,241,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 55% at 28% 45%, rgba(255,236,3,0.035) 0%, transparent 70%);
 }
 .blog-eyebrow {
   font-family: var(--mono); font-size: 11px; font-weight: 500;
