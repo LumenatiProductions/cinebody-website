@@ -240,6 +240,9 @@ body > * { position: relative; z-index: 1; }
 .offer-num { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 8px; }
 .offer-cell h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
 .offer-cell p { font-size: 0.85rem; color: #666; line-height: 1.6; }
+.offer-list { margin-top: 14px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.offer-list li { font-size: 0.78rem; color: #555; line-height: 1.45; padding-left: 16px; position: relative; }
+.offer-list li::before { content: ''; position: absolute; left: 0; top: 0.52em; width: 8px; height: 2px; border-radius: 2px; background: var(--teal); }
 .producer-moment { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 80px); align-items: center; margin-top: 64px; }
 .producer-copy h3 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -0.025em; color: #111; margin-bottom: 14px; }
 .producer-copy h3 em { font-style: normal; color: var(--teal); }
@@ -595,24 +598,44 @@ body > * { position: relative; z-index: 1; }
         <div class="offer-num">01</div>
         <h3>Strategy</h3>
         <p>We shape what to make and why, tied to your goals: the ideas, the cadence, and the channels every piece is built for.</p>
+        <ul class="offer-list">
+          <li>A content calendar built around your moments</li>
+          <li>Fresh shoot ideas, pitched every month</li>
+          <li>Every piece planned for its channel</li>
+        </ul>
       </div>
       <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <div class="offer-num">02</div>
         <h3>Casting &amp; motivation</h3>
         <p>Finding, exciting, and incentivizing a large group of filmers at once is a job. We do it: outreach, payouts, reminders, and all the back-and-forth.</p>
+        <ul class="offer-list">
+          <li>A community of proven filmers, ready to go</li>
+          <li>Casting calls that reach the right people, not cold lists</li>
+          <li>Incentives, payouts, and reminders handled</li>
+        </ul>
       </div>
       <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg>
         <div class="offer-num">03</div>
         <h3>Direction</h3>
         <p>We build the briefs and shot lists and guide your people on camera with the AI Director, so the footage comes back on-brief.</p>
+        <ul class="offer-list">
+          <li>Briefs and shot lists written for real phones</li>
+          <li>The AI Director coaching every take live</li>
+          <li>Mid-shoot direction when plans change</li>
+        </ul>
       </div>
       <div class="offer-cell">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="8.1" y1="8.1" x2="20" y2="20"/><line x1="20" y1="4" x2="8.1" y2="15.9"/></svg>
         <div class="offer-num">04</div>
         <h3>Post production, elevated</h3>
         <p>The auto-editor gets you a fast cut. Our editors take it further: refined edits, motion graphics, sound, and finish that holds up anywhere.</p>
+        <ul class="offer-list">
+          <li>Pro editors starting from the AI's head start</li>
+          <li>Motion graphics, sound, and licensed music</li>
+          <li>A private screening room to review cuts and leave feedback</li>
+        </ul>
       </div>
       </div>
     <div class="producer-moment reveal reveal-d2">
