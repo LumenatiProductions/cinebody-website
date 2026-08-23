@@ -229,6 +229,8 @@ body > * { position: relative; z-index: 1; }
   line-height: 1.1; margin-bottom: 56px; color: #fff !important;
 }
 
+.process-head { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 4vw, 64px); align-items: end; margin-bottom: 12px; }
+@media (max-width: 900px) { .process-head { grid-template-columns: 1fr; } }
 .process-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -550,10 +552,12 @@ body > * { position: relative; z-index: 1; }
 <!-- ═══ PROCESS ═══ -->
 <section class="process">
   <div class="contain">
-    <div class="reveal">
-      <div class="label">Our Process</div>
-      <h2>From concept to final&nbsp;cut.</h2>
-      <p class="hero-body" style="max-width:640px;margin-top:16px">Because the platform's AI does the production heavy lifting, our team delivers more, faster, and for far less than a traditional agency. One producer owns your program end to&nbsp;end.</p>
+    <div class="reveal process-head">
+      <div>
+        <div class="label">Our Process</div>
+        <h2>From concept to final&nbsp;cut.</h2>
+      </div>
+      <p class="hero-body">Because the platform's AI does the production heavy lifting, our team delivers more, faster, and for far less than a traditional agency. One producer owns your program end to&nbsp;end.</p>
     </div>
     <div class="process-grid reveal reveal-d2">
       <div class="process-step">
@@ -629,64 +633,8 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
-<!-- curve: light → dark-teal -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
-
-<!-- ═══ SHOWCASE: ALTRA (dark, 3 vert left, content right) ═══ -->
-<section class="showcase showcase--dark showcase--flip" style="padding-top:60px">
-  <div class="contain">
-    <div class="showcase-content reveal">
-      <img src="/assets/448c4d68-Altra_running_logo.png" alt="Altra" class="showcase-logo">
-      <h3 class="showcase-title">Activating the community</h3>
-      <p class="showcase-desc">Athletes share stories and unboxings. Cinebody edits them into content that deepens the bond between brand and running&nbsp;community.</p>
-      <a href="/altra" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-    </div>
-    <div class="vid-grid-3v reveal reveal-d2">
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1098260354" data-vimeo-h="9d87d05789" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/2032816480-c57d37ddbcd1b4069810c65e9a339026549fb66876cf3142449f76547a5df8ad-d_640" alt="Altra video 1">
-      </div>
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1092175563" data-vimeo-h="aeeb559c41" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="Altra video 2">
-      </div>
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1092215288" data-vimeo-h="b0766b2779" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/2025241323-e06eacd171ff7bf6d1a8c9cf93d3a832638c42f88d0dff5afa4ed3e6df125c32-d_640" alt="Altra video 3">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- curve: dark-teal → light -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
-<!-- Category: CTV & Testimonials -->
-<div class="cat-intro cat-intro--light" style="background:#fff">
-  <div class="contain reveal">
-    <h2><em>CTV ads that feel real.</em> Because they&nbsp;are.</h2>
-    <p>Viewers skip polished ads. They watch real people. Cinebody helps you create testimonial-driven CTV spots that outperform traditional production at a fraction of the&nbsp;cost.</p>
-  </div>
-</div>
-
-<!-- ═══ SHOWCASE: CROCS (light, content left, 1 horiz right) ═══ -->
-<section class="showcase showcase--light">
-  <div class="contain">
-    <div class="showcase-content reveal">
-      <img src="/assets/0eec5de8-Crocs_wordmark.svg.png" alt="Crocs" class="showcase-logo">
-      <h3 class="showcase-title">Empowering global influencers</h3>
-      <p class="showcase-desc">One global influencer activation. Cinebody collected footage remotely, then repurposed it into polished assets for every&nbsp;channel.</p>
-      <a href="/crocs" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-    </div>
-    <div class="vid-single-h reveal reveal-d2">
-      <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="824853571" data-vimeo-h="a9ef1a15c4" style="border-radius:12px;overflow:hidden">
-        <img class="vid-poster" src="https://vumbnail.com/824853571.jpg" alt="Crocs video">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- curve: light → pink-navy -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#1a0a18"/></svg></div>
 
-<!-- ═══ SHOWCASE: POINT.ME (pink-navy, 1 horiz left, content right) ═══ -->
 <section class="showcase showcase--pink showcase--flip" style="padding-top:60px">
   <div class="contain">
     <div class="showcase-content reveal">
@@ -703,91 +651,24 @@ body > * { position: relative; z-index: 1; }
   </div>
 </section>
 
-<!-- curve: pink-navy → light -->
 <div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#140a1e"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
 
-<!-- ═══ SHOWCASE: SPLOOT (light, content left, 1 horiz right) ═══ -->
-<section class="showcase showcase--light" style="padding-top:60px">
-  <div class="contain">
-    <div class="showcase-content reveal">
-      <img src="/assets/ca32b25a-Sploot-Horizontal-Full-Color-Rgb-2000px-w-72ppi.png" alt="Sploot" class="showcase-logo">
-      <h3 class="showcase-title">Locally Targeted</h3>
-      <p class="showcase-desc">Sploot activated local patrons in Chicago and Denver to deliver geo-targeted CTV ads. By leaning into their thousands of positive reviews, they created content that measurably increased local awareness and drove new&nbsp;appointments.</p>
-      <a href="/sploot" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-    </div>
-    <div class="vid-single-h reveal reveal-d2">
-      <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="1130557367" data-vimeo-h="67815d0119" style="border-radius:12px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/2074280120-09f945986b145cd2a2b928299b48bc2641434676dca2f594a93a39bdd2d6be67-d_640" alt="Sploot video">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- curve: light → dark-teal -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
-
-<!-- Category: Events -->
-<div class="cat-intro cat-intro--dark" style="background:#041a24">
-  <div class="contain reveal">
-    <h2>Your events deserve more <em>than a single camera&nbsp;crew.</em></h2>
-    <p>Put phones in the hands of attendees, staff, and talent. Cinebody captures every angle, every reaction, then our team edits it into content that extends the life of every&nbsp;event.</p>
-  </div>
-</div>
-
-<!-- ═══ SHOWCASE: COGENT (dark-teal, 3 vert left, content right) ═══ -->
-<section class="showcase showcase--dark showcase--flip">
-  <div class="contain">
-    <div class="showcase-content reveal">
-      <img src="/assets/2bc61a05-1629489003234.jpg" alt="Cogent World" class="showcase-logo">
-      <h3 class="showcase-title">Scaling content for hundreds of&nbsp;events</h3>
-      <p class="showcase-desc">From music festivals to brand activations, Cogent World produces hundreds of events across the globe. With Cinebody, they empower on-site teams and talent to capture real, in-the-moment content, fueling a steady stream of authentic video that connects with their community long after the event&nbsp;ends.</p>
-      <a href="/cogent" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-    </div>
-    <div class="vid-grid-3v reveal reveal-d2">
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1090977594" data-vimeo-h="646a9f78bc" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="Cogent World video 1">
-      </div>
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1090655136" data-vimeo-h="32eda7fecd" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/2023308957-b60d46468a140d084beae2f0afac4eacd3bef8e9fdb53c415d2c3e0f518265d1-d_640" alt="Cogent World video 2">
-      </div>
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1089063815" data-vimeo-h="0822c777dc" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/2021455319-42166add3b024c990b06a7211474861fd47c47b14a5a982b2d421483d98e09c5-d_640" alt="Cogent World video 3">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- curve: dark-teal → light -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
-
-<!-- Category: Employee Stories -->
-<div class="cat-intro cat-intro--light" style="background:#fff">
-  <div class="contain reveal">
-    <h2><em>Your employees have stories worth telling.</em> Give them the&nbsp;mic.</h2>
-    <p>Cinebody makes it easy for teams anywhere in the world to film real stories in their own words, building trust with external audiences and strengthening culture from the inside&nbsp;out.</p>
-  </div>
-</div>
-
-<!-- ═══ SHOWCASE: DELL (light, content left, 3 vert right) ═══ -->
 <section class="showcase showcase--light">
   <div class="contain">
     <div class="showcase-content reveal">
-      <img src="/assets/02f77588-dell-2-logo-png-transparent.png" alt="Dell" class="showcase-logo">
-      <h3 class="showcase-title">Elevating employee voices&nbsp;worldwide</h3>
-      <p class="showcase-desc">Dell uses Cinebody to capture authentic stories from employees and communities across the world to highlight the people behind the innovation. By turning real experiences into high-performing content, Dell builds connection, transparency, and a stronger global&nbsp;culture.</p>
-      <a href="/dell" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <img src="/assets/0eec5de8-Crocs_wordmark.svg.png" alt="Crocs" class="showcase-logo">
+      <h3 class="showcase-title">Empowering global influencers</h3>
+      <p class="showcase-desc">One global influencer activation. Cinebody collected footage remotely, then repurposed it into polished assets for every&nbsp;channel.</p>
+      <a href="/crocs" class="showcase-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
-    <div class="vid-grid-3v reveal reveal-d2">
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1065884285" data-vimeo-h="75786524f6" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640" alt="Dell video 1">
-      </div>
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1065886093" data-vimeo-h="80404d7365" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/1993482466-f54bae18ca4f73806a7452580ea13be1f84dbba0c1e22c04233f20e333b5d86b-d_640" alt="Dell video 2">
-      </div>
-      <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1065890083" data-vimeo-h="8d129ec781" style="border-radius:8px;overflow:hidden">
-        <img class="vid-poster" src="https://i.vimeocdn.com/video/1993487178-f18895b0fe981a75970a2204846cba31f47678cfb4c502ef843a7dc3e9dd1ccd-d_640" alt="Dell video 3">
+    <div class="vid-single-h reveal reveal-d2">
+      <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="824853571" data-vimeo-h="a9ef1a15c4" style="border-radius:12px;overflow:hidden">
+        <img class="vid-poster" src="https://vumbnail.com/824853571.jpg" alt="Crocs video">
       </div>
     </div>
+  </div>
+  <div class="reveal" style="text-align:center; margin-top:56px;">
+    <a href="/work" class="btn btn-glow">See all Work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   </div>
 </section>
 
