@@ -196,6 +196,7 @@ p, li { text-wrap: pretty; }
 
 /* Actions cluster + secondary login link */
 .site-nav__actions { display: flex; align-items: center; gap: 20px; }
+.site-nav__apps { display: none; }   /* Get the app: only in the mobile drawer */
 .site-nav__login {
   font-family: var(--font);
   font-size: 0.85rem;
@@ -278,6 +279,8 @@ p, li { text-wrap: pretty; }
     margin: 12px clamp(1.25rem, 4vw, 3rem) 0;
     text-align: center;
   }
+  .site-nav__apps { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px clamp(1.25rem, 4vw, 3rem) 6px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .site-nav__apps-label { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); }
 }
 @media (min-width: 861px) {
   .site-nav__menu { display: flex; align-items: center; gap: 32px; }

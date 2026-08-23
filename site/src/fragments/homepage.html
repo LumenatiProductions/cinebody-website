@@ -719,7 +719,8 @@ body > * { position: relative; z-index: 1; }
    ═══════════════════════════ */
 @media (max-width: 1000px) {
   .hero .contain { grid-template-columns: 1fr; gap: 40px; }
-  .hero { padding: 96px 0 36px; }
+  .hero { padding: 96px 0 0; }               /* wall runs flush into the logos */
+  .hero-apps-wrap { display: none; }         /* Get the app lives in the menu on mobile */
   .hero-scroller { margin-top: 8px; margin-bottom: 0; height: 620px; }
   .stats-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
   .cases-grid { grid-template-columns: repeat(2, 1fr); }
@@ -730,7 +731,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 @media (max-width: 600px) {
-  .hero { padding: 88px 0 24px; }
+  .hero { padding: 88px 0 0; }
   .hero h1 { font-size: 2.25rem; }
   .hero-scroller { height: 560px; }
   .why-grid { grid-template-columns: 1fr; }
