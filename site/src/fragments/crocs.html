@@ -284,7 +284,7 @@ body > * { position: relative; z-index: 1; }
   .cr-stat .n { font-size:1.8rem; font-weight:700; color:var(--teal); letter-spacing:-0.03em; line-height:1; margin-bottom:6px; }
   .cr-stat .l { font-family:ui-monospace,'SF Mono',monospace; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#999; }
   .cr-note { font-size:0.95rem; color:#666; line-height:1.65; margin:22px 0 0; }
-  .cr-viz { position:relative; width:100%; max-width:400px; margin:0 auto; aspect-ratio:340/300; }
+  .cr-viz { position:relative; width:100%; max-width:400px; margin:0 auto; aspect-ratio:340/260; }
   .cr-viz > svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
   .cr-pulse { transform-box:fill-box; transform-origin:center; opacity:0; animation:crPulse 3s ease-out infinite; }
   @keyframes crPulse { 0%{opacity:.5;transform:scale(1)} 70%{opacity:0;transform:scale(1.7)} 100%{opacity:0;transform:scale(1.7)} }
@@ -305,33 +305,50 @@ body > * { position: relative; z-index: 1; }
           <div class="cr-stat"><div class="n">0</div><div class="l">Crews Flown In</div></div>
           <div class="cr-stat"><div class="n">100%</div><div class="l">Authentic</div></div>
         </div>
-        <p class="cr-note reveal reveal-d1">Crocs used Cinebody to capture authentic unboxing content for their carbon-neutral commitment, real reactions from real people, then rolled one shoot out across every&nbsp;channel.</p>
+        <p class="cr-note reveal reveal-d1">Crocs shipped product straight to real community members, Jasmine, Adiel, Piper and more, who filmed their own authentic unboxings. One seeding, endless real content, zero&nbsp;crews.</p>
       </div>
 
       <div class="reveal cr-viz">
-        <svg viewBox="0 0 340 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- cascade flow lines: box -> channels -->
+        <svg viewBox="0 0 340 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="170" y="12" text-anchor="middle" font-family="ui-monospace,'SF Mono',monospace" font-size="8.5" font-weight="600" letter-spacing="0.14em" fill="#0a6f90">PRODUCT SHIPPED</text>
+          <!-- flow: box -> community members -->
           <g stroke="rgba(235,0,139,0.28)" stroke-width="1.6" stroke-dasharray="3 6" stroke-linecap="round">
-            <line x1="170" y1="76" x2="95" y2="141"/><line x1="170" y1="76" x2="245" y2="141"/>
-            <line x1="170" y1="76" x2="51" y2="219"/><line x1="170" y1="76" x2="170" y2="219"/><line x1="170" y1="76" x2="289" y2="219"/>
+            <line x1="170" y1="70" x2="52" y2="138"/><line x1="170" y1="70" x2="124" y2="138"/>
+            <line x1="170" y1="70" x2="216" y2="138"/><line x1="170" y1="70" x2="288" y2="138"/>
           </g>
-          <!-- cascading content dots -->
-          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="0s" repeatCount="indefinite" path="M170,76 L95,141"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="0s" repeatCount="indefinite"/></circle>
-          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="0.4s" repeatCount="indefinite" path="M170,76 L245,141"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="0.4s" repeatCount="indefinite"/></circle>
-          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="0.8s" repeatCount="indefinite" path="M170,76 L51,219"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="0.8s" repeatCount="indefinite"/></circle>
-          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="1.2s" repeatCount="indefinite" path="M170,76 L170,219"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="1.2s" repeatCount="indefinite"/></circle>
-          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="1.6s" repeatCount="indefinite" path="M170,76 L289,219"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="1.6s" repeatCount="indefinite"/></circle>
-          <!-- unboxing box (source) -->
-          <circle class="cr-pulse" cx="170" cy="48" r="32" fill="none" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/>
-          <circle class="cr-pulse" cx="170" cy="48" r="32" fill="none" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" style="animation-delay:1.4s"/>
-          <rect x="140" y="22" width="60" height="52" rx="13" fill="#fff" stroke="var(--teal)" stroke-width="2"/>
-          <g transform="translate(154,32) scale(1.35)"><path fill="#00bcf1" d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55l6.28-3.63l-.58-1.01l-6.28 3.63z"/></g>
+          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="0s" repeatCount="indefinite" path="M170,70 L52,138"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="0s" repeatCount="indefinite"/></circle>
+          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="0.4s" repeatCount="indefinite" path="M170,70 L124,138"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="0.4s" repeatCount="indefinite"/></circle>
+          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="0.8s" repeatCount="indefinite" path="M170,70 L216,138"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="0.8s" repeatCount="indefinite"/></circle>
+          <circle r="3" fill="#eb008b" opacity="0"><animateMotion dur="2s" begin="1.2s" repeatCount="indefinite" path="M170,70 L288,138"/><animate attributeName="opacity" values="0;0.95;0.7;0" dur="2s" begin="1.2s" repeatCount="indefinite"/></circle>
+          <!-- product box (source) -->
+          <circle class="cr-pulse" cx="170" cy="46" r="30" fill="none" stroke="rgba(0,188,241,0.5)" stroke-width="1.5"/>
+          <circle class="cr-pulse" cx="170" cy="46" r="30" fill="none" stroke="rgba(0,188,241,0.4)" stroke-width="1.5" style="animation-delay:1.4s"/>
+          <rect x="140" y="22" width="60" height="48" rx="13" fill="#fff" stroke="var(--teal)" stroke-width="2"/>
+          <g transform="translate(154,30) scale(1.35)"><path fill="#00bcf1" d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55l6.28-3.63l-.58-1.01l-6.28 3.63z"/></g>
+          <!-- community members who create (avatar + pink play badge + name) -->
+          <g font-family="'Plus Jakarta Sans',sans-serif">
+            <!-- Jasmine -->
+            <circle cx="52" cy="160" r="22" fill="rgba(0,188,241,0.1)" stroke="var(--teal)" stroke-width="2"/>
+            <g transform="translate(41,149) scale(0.92)"><path fill="#00bcf1" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></g>
+            <circle cx="67" cy="176" r="8" fill="#eb008b"/><path d="M64,172 L71.5,176 L64,180 Z" fill="#fff"/>
+            <text x="52" y="200" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0b2a36">Jasmine</text>
+            <!-- Adiel -->
+            <circle cx="124" cy="160" r="22" fill="rgba(0,188,241,0.1)" stroke="var(--teal)" stroke-width="2"/>
+            <g transform="translate(113,149) scale(0.92)"><path fill="#00bcf1" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></g>
+            <circle cx="139" cy="176" r="8" fill="#eb008b"/><path d="M136,172 L143.5,176 L136,180 Z" fill="#fff"/>
+            <text x="124" y="200" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0b2a36">Adiel</text>
+            <!-- Piper -->
+            <circle cx="216" cy="160" r="22" fill="rgba(0,188,241,0.1)" stroke="var(--teal)" stroke-width="2"/>
+            <g transform="translate(205,149) scale(0.92)"><path fill="#00bcf1" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></g>
+            <circle cx="231" cy="176" r="8" fill="#eb008b"/><path d="M228,172 L235.5,176 L228,180 Z" fill="#fff"/>
+            <text x="216" y="200" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0b2a36">Piper</text>
+            <!-- Terrell -->
+            <circle cx="288" cy="160" r="22" fill="rgba(0,188,241,0.1)" stroke="var(--teal)" stroke-width="2"/>
+            <g transform="translate(277,149) scale(0.92)"><path fill="#00bcf1" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></g>
+            <circle cx="303" cy="176" r="8" fill="#eb008b"/><path d="M300,172 L307.5,176 L300,180 Z" fill="#fff"/>
+            <text x="288" y="200" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0b2a36">Terrell</text>
+          </g>
         </svg>
-        <div class="cr-pill cr-pill--social"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>Social</div>
-        <div class="cr-pill cr-pill--ctv"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 17H3V5h18m0-2H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5v2h8v-2h5a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"/></svg>CTV</div>
-        <div class="cr-pill cr-pill--web"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>Web</div>
-        <div class="cr-pill cr-pill--retail"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M5.06 3c-.43 0-.84.14-1.22.42s-.6.64-.7 1.08L2.11 8.91c-.25 1.09-.05 2.01.58 2.82c.12.12.24.24.35.34c.59.57 1.24.93 2.18.93s1.69-.41 2.25-.95c.63.62 1.39.95 2.33.95c.84 0 1.64-.37 2.2-.93c.68.63 1.45.93 2.3.93c.87 0 1.61-.33 2.24-.95c.57.57 1.32.95 2.27.95s1.62-.35 2.19-.94c.09-.09.18-.19.28-.29c.66-.82.86-1.77.61-2.86L20.86 4.5c-.13-.44-.36-.8-.73-1.08A1.88 1.88 0 0 0 18.94 3m-.05 1.97l1.08 4.41c.09.43 0 .82-.28 1.17c-.25.31-.56.45-.94.45c-.31 0-.58-.1-.8-.34c-.22-.23-.34-.5-.37-.82L16.97 5M5.06 5h1.97l-.61 4.84C6.3 10.63 5.91 11 5.25 11c-.41 0-.72-.14-.94-.45c-.28-.35-.37-.74-.28-1.17M9.05 5H11v4.7c0 .35-.11.65-.36.92c-.25.26-.56.38-.94.38c-.34 0-.63-.12-.86-.41S8.5 10 8.5 9.66V9.5M13 5h1.95l.55 4.5c.08.42 0 .77-.29 1.07c-.26.3-.6.43-1.01.43c-.31 0-.59-.12-.84-.38A1.3 1.3 0 0 1 13 9.7M3 14.03V19c0 1.11.89 2 2 2h14a2 2 0 0 0 2-2v-4.95c-.55.58-1.25.91-2 .95c-1 .03-1.75-.26-2.46-.95c-.6.6-1.4.95-2.24.95c-.9 0-1.7-.36-2.3-.93c-.57.57-1.35.93-2.22.93c-.91 0-1.71-.35-2.31-.95c-.58.59-1.37.95-2.24.95c-.9 0-1.57-.35-2.23-.97"/></svg>Retail</div>
-        <div class="cr-pill cr-pill--pr"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 5v14H4V5zm0-2H4c-1.11 0-2 .89-2 2v14c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2m-2 12H6v2h12zm-8-8H6v6h4zm2 2h6V7h-6zm6 2h-6v2h6z"/></svg>PR</div>
       </div>
     </div>
   </div>
