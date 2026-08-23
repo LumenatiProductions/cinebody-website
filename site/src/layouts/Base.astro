@@ -299,38 +299,176 @@ const pageSchema = entitySchemas[active];
 })();
 </script>
 <script>
-// Drag-to-scroll for the mobile video scrollers (native touch already swipes; this adds mouse/trackpad drag).
-(function(){
-  var SEL='.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group';
-  function enable(el){
-    if(el.dataset.dragScroll) return; el.dataset.dragScroll='1';
-    var down=false, startX=0, startScroll=0, moved=0;
-    el.addEventListener('pointerdown', function(e){
-      if(e.pointerType==='touch') return;               // let touch scroll natively
-      if(el.scrollWidth <= el.clientWidth+2) return;      // not a scroller right now
-      down=true; moved=0; startX=e.clientX; startScroll=el.scrollLeft;
-      el.classList.add('is-dragging');
-      try{ el.setPointerCapture(e.pointerId); }catch(_){}
+// ── Infinite carousel for the mobile video sliders ──────────────────────────
+// Replaces native horizontal scroll with a transform-driven track that RECYCLES
+// its own children (moves the item that leaves one edge to the other edge and
+// compensates the transform), so it wraps forever in both directions. No clones,
+// so every card keeps the click-to-play handler the video controller already bound.
+// Mobile only; on desktop these render as static grids and this never runs. If the
+// script is disabled the CSS native-scroll version still works as a fallback.
+(function () {
+  if (!window.matchMedia('(max-width: 700px)').matches) return;
+  var SEL = '.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group';
+
+  // Give a cloned card its own click-to-play (the controller only wired the originals).
+  function wirePlay(node) {
+    var v = node.matches && node.matches('.vid-playable') ? node : (node.querySelector && node.querySelector('.vid-playable'));
+    if (!v) return;
+    v.classList.remove('playing');
+    var old = v.querySelector('iframe'); if (old) old.remove();
+    v.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.vid-mute-btn')) return;
+      if (v.classList.contains('playing')) return;
+      var id = v.getAttribute('data-vimeo'); if (!id) return;
+      var h = v.getAttribute('data-vimeo-h');
+      var f = document.createElement('iframe');
+      f.src = 'https://player.vimeo.com/video/' + id + (h ? '?h=' + h + '&background=1' : '?background=1') + '&dnt=1';
+      f.allow = 'autoplay'; f.loading = 'lazy';
+      v.insertBefore(f, v.firstChild); v.classList.add('playing');
     });
-    el.addEventListener('pointermove', function(e){
-      if(!down) return;
-      var dx=e.clientX-startX; if(Math.abs(dx)>moved) moved=Math.abs(dx);
-      el.scrollLeft=startScroll-dx; e.preventDefault();
-    });
-    function end(e){
-      if(!down) return; down=false; el.classList.remove('is-dragging');
-      try{ el.releasePointerCapture(e.pointerId); }catch(_){}
-      if(moved>6){ // a drag, not a click: swallow the click that follows so it doesn't open/play
-        var kill=function(ev){ ev.stopPropagation(); ev.preventDefault(); el.removeEventListener('click',kill,true); };
-        el.addEventListener('click',kill,true);
-        setTimeout(function(){ el.removeEventListener('click',kill,true); },0);
-      }
-    }
-    el.addEventListener('pointerup', end);
-    el.addEventListener('pointercancel', end);
   }
-  function init(){ document.querySelectorAll(SEL).forEach(enable); }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init); else init();
+
+  function setup(track) {
+    var items = Array.prototype.slice.call(track.children);
+    if (items.length < 2) return;
+    Array.prototype.forEach.call(track.querySelectorAll('img'), function (i) { i.draggable = false; });
+
+    // Wrap the track in a clipping viewport; move the edge-bleed + peek padding onto it.
+    var cs = getComputedStyle(track);
+    // If the track sits in a flex parent it would size to its (huge) content, so pin
+    // the viewport width to the parent's inner width; block parents size fine on their own.
+    var pd = track.parentElement ? getComputedStyle(track.parentElement).display : '';
+    var widthCss = /flex/.test(pd) && track.parentElement ? 'width:' + track.parentElement.clientWidth + 'px;' : '';
+    var vp = document.createElement('div');
+    vp.className = 'cb-vp';
+    vp.style.cssText = 'position:relative;overflow:hidden;touch-action:pan-y;cursor:grab;min-width:0;box-sizing:border-box;' + widthCss +
+      'margin-left:' + cs.marginLeft + ';margin-right:' + cs.marginRight + ';' +
+      'padding-left:' + cs.paddingLeft + ';padding-right:' + cs.paddingRight + ';';
+    track.parentNode.insertBefore(vp, track);
+    vp.appendChild(track);
+    track.classList.add('cb-tr');
+    var gap = parseFloat(cs.columnGap || cs.gap) || 0;
+    track.style.overflow = 'visible';
+    track.style.margin = '0';
+    track.style.padding = '0';
+    track.style.position = 'relative';
+    track.style.scrollSnapType = 'none';
+    track.style.willChange = 'transform';
+    track.style.transform = 'translate3d(0,0,0)';
+
+    // Uniform card width (each slider holds one aspect ratio) → one period P.
+    // Duplicate the set until there are enough cards to cover the viewport and wrap
+    // cleanly; clones get their own click-to-play wired below.
+    var P = items[0].getBoundingClientRect().width + gap;
+    var need = Math.ceil(vp.clientWidth / P) + 3;
+    while (track.children.length < need) {
+      items.forEach(function (it) {
+        var c = it.cloneNode(true);
+        Array.prototype.forEach.call(c.querySelectorAll('img'), function (i) { i.draggable = false; });
+        wirePlay(c);
+        track.appendChild(c);
+      });
+    }
+
+    var pos = 0;
+    function apply() { track.style.transform = 'translate3d(' + pos + 'px,0,0)'; }
+
+    // Seamless wrap by whole cards: keep pos in (-2P, -P] so a card always covers
+    // the left peek. Identical widths mean rotating the DOM causes no visual jump.
+    function recycle() {
+      var guard = 0;
+      while (pos <= -2 * P && guard++ < 200) { track.appendChild(track.firstElementChild); pos += P; }
+      guard = 0;
+      while (pos > -P && guard++ < 200) { track.insertBefore(track.lastElementChild, track.firstElementChild); pos -= P; }
+      apply();
+    }
+
+    // Center the nearest item in the viewport.
+    function nearest() {
+      var v = vp.getBoundingClientRect(), mid = v.left + v.width / 2, best = null, bd = Infinity;
+      Array.prototype.forEach.call(track.children, function (it) {
+        var r = it.getBoundingClientRect(), c = r.left + r.width / 2, d = Math.abs(c - mid);
+        if (d < bd) { bd = d; best = it; }
+      });
+      return best;
+    }
+    function snap() {
+      var it = nearest(); if (!it) return;
+      var v = vp.getBoundingClientRect(), r = it.getBoundingClientRect();
+      animateBy((v.left + v.width / 2) - (r.left + r.width / 2));
+    }
+    var raf = 0;
+    function animateBy(delta) {
+      cancelAnimationFrame(raf);
+      var start = pos, target = pos + delta, t0 = 0;
+      function step(t) {
+        if (!t0) t0 = t;
+        var k = Math.min(1, (t - t0) / 320), e = 1 - Math.pow(1 - k, 3);
+        pos = start + (target - start) * e; apply();
+        if (k < 1) raf = requestAnimationFrame(step); else recycle();
+      }
+      raf = requestAnimationFrame(step);
+    }
+
+    // Initial layout: center the first card, then wrap to fill both edges.
+    (function initPos() {
+      var v = vp.getBoundingClientRect(), r = track.firstElementChild.getBoundingClientRect();
+      pos = (v.left + v.width / 2) - (r.left + r.width / 2); recycle();
+    })();
+    window.addEventListener('resize', function () { recycle(); snap(); });
+
+    // ── pointer drag + momentum + direction lock ──
+    var down = false, dragging = false, decided = false, ignore = false;
+    var sx = 0, sy = 0, sp = 0, lastX = 0, lastT = 0, vel = 0, moved = 0, pid = null;
+    vp.addEventListener('pointerdown', function (e) {
+      if (e.button != null && e.button !== 0) return;
+      cancelAnimationFrame(raf);
+      down = true; dragging = false; decided = false; ignore = false; moved = 0;
+      sx = lastX = e.clientX; sy = e.clientY; sp = pos; lastT = e.timeStamp || performance.now(); vel = 0; pid = e.pointerId;
+    });
+    vp.addEventListener('pointermove', function (e) {
+      if (!down || ignore) return;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      if (!decided) {
+        if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+        decided = true;
+        if (Math.abs(dy) > Math.abs(dx)) { ignore = true; return; }  // vertical → let the page scroll
+        dragging = true; vp.style.cursor = 'grabbing';
+        try { vp.setPointerCapture(pid); } catch (_) {}
+      }
+      if (!dragging) return;
+      moved = Math.max(moved, Math.abs(dx));
+      pos = sp + dx; apply(); recycle();
+      var now = e.timeStamp || performance.now(), dt = now - lastT;
+      if (dt > 0) { var v2 = (e.clientX - lastX) / dt; vel = Math.max(-4, Math.min(4, v2)); }  // px/ms, clamped
+      lastX = e.clientX; lastT = now;
+      e.preventDefault();
+    });
+    function up() {
+      if (!down) return; down = false; vp.style.cursor = 'grab';
+      try { vp.releasePointerCapture(pid); } catch (_) {}
+      if (moved > 6) {                              // was a drag: swallow the click so no video opens
+        var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); vp.removeEventListener('click', kill, true); };
+        vp.addEventListener('click', kill, true);
+        setTimeout(function () { vp.removeEventListener('click', kill, true); }, 60);
+      }
+      if (!dragging) return;
+      dragging = false;
+      var v = vel * 16;                             // carry momentum
+      cancelAnimationFrame(raf);
+      (function glide() {
+        v *= 0.93;
+        if (Math.abs(v) < 0.4) { snap(); return; }
+        pos += v; apply(); recycle();
+        raf = requestAnimationFrame(glide);
+      })();
+    }
+    vp.addEventListener('pointerup', up);
+    vp.addEventListener('pointercancel', up);
+  }
+
+  function init() { document.querySelectorAll(SEL).forEach(setup); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 </body>
