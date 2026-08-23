@@ -81,6 +81,8 @@ body > * { position: relative; z-index: 1; }
 .hero .contain {
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
 }
+.hero .contain > * { min-width: 0; }
+.hero h1 { overflow-wrap: break-word; }
 
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
@@ -113,7 +115,7 @@ body > * { position: relative; z-index: 1; }
 .logo-pair img.grayscale { filter: brightness(0) invert(1); opacity: 1; }
 .logo-pair .logo-x { font-size: 18px; font-weight: 300; color: var(--text-muted); }
 
-.hero-visual { position: relative; text-align: center; }
+.hero-visual { position: relative; text-align: center; min-width: 0; }
 .hero-visual .vid-playable { margin: 0 auto; }
 
 /* ═══ CONTENT SECTIONS ═══ */
@@ -221,7 +223,7 @@ body > * { position: relative; z-index: 1; }
 
 @media (max-width: 600px) {
   .hero { padding: 40px 0 60px; }
-  .hero h1 { font-size: 2.25rem; }
+  .hero h1 { font-size: 2rem; }
   .content-section, .cta-band { padding: 60px 0; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
   .photo-grid .photo-wide { grid-column: span 2; }
@@ -259,7 +261,7 @@ body > * { position: relative; z-index: 1; }
       <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow">Book a Strategy Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
     <div class="hero-visual reveal reveal-d2">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.3)">
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.3)">
         <img src="/assets/192b5f74-Crocs_3572-Jasmine68_.webp" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
         <img src="/assets/72325712-Crocs_2801-Group_.webp" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
         <img src="/assets/32c4ee44-Crocs_1377-Adiel_.webp" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;" loading="lazy">
