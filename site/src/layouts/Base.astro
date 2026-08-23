@@ -235,13 +235,16 @@ const pageSchema = entitySchemas[active];
           !('IntersectionObserver' in window);
         if (noVideo) return;
         function withDnt(u) { return u + (u.indexOf('?') > -1 ? '&' : '?') + 'dnt=1'; }
+        // Cap concurrent streams so the wall stays lively without pulling a dozen
+        // Vimeo players at once; posters (real video frames) fill the rest.
+        var MAX = 9, active = 0;
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) {
             var f = e.target;
             if (e.isIntersecting) {
-              if (!f.getAttribute('src')) { f.title = 'Cinebody customer video'; f.setAttribute('src', withDnt(f.dataset.src) + '#t=' + f.dataset.t + 's'); }
+              if (!f.getAttribute('src') && active < MAX) { f.title = 'Cinebody customer video'; f.setAttribute('src', withDnt(f.dataset.src) + '#t=' + f.dataset.t + 's'); active++; }
             } else if (f.getAttribute('src')) {
-              f.removeAttribute('src'); // revert to poster, stop the stream
+              f.removeAttribute('src'); active = Math.max(0, active - 1); // revert to poster, stop the stream
             }
           });
         }, { threshold: 0.2 });
