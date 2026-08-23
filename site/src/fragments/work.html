@@ -90,9 +90,6 @@ body > * { position: relative; z-index: 1; }
 .case-card .case-desc { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
 
 /* pixel-dissolve hover (ported from MotionSites pixel-grid-hover) */
-.px-ov { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.px-b { position: absolute; background: rgba(6,16,22,0.85); transform: scale(0); transition: transform .24s cubic-bezier(0.22,1,0.36,1); }
-.case-card:hover .px-b { transform: scale(1.02); }
 
 /* ═══ CTA BAND, yellow ═══ */
 .cta-band { background: var(--yellow); padding: 80px 0; text-align: center; }
@@ -159,26 +156,6 @@ body > * { position: relative; z-index: 1; }
   document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
 })();
 
-// Pixel-dissolve overlays: 6x4 blocks per card, diagonal stagger
-(function(){
-  var COLS = 6, ROWS = 4;
-  document.querySelectorAll('.case-card').forEach(function(card){
-    var ov = document.createElement('div');
-    ov.className = 'px-ov';
-    for (var r = 0; r < ROWS; r++) for (var c = 0; c < COLS; c++) {
-      var b = document.createElement('div');
-      b.className = 'px-b';
-      b.style.left = (c * 100 / COLS) + '%';
-      b.style.top = (r * 100 / ROWS) + '%';
-      b.style.width = (100 / COLS + 0.5) + '%';
-      b.style.height = (100 / ROWS + 0.5) + '%';
-      b.style.transitionDelay = ((r + c) * 0.022) + 's';
-      ov.appendChild(b);
-    }
-    var ct = card.querySelector('.case-ct');
-    card.insertBefore(ov, ct);
-  });
-})();
 
 // CTA image marquee
 (function(){

@@ -72,24 +72,10 @@ body > * { position: relative; z-index: 1; }
   transition: all 0.3s var(--ease); position: relative; isolation: isolate;
 }
 
-.btn-glow {
-  background: var(--teal); color: #fff;
-  box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.btn-glow::before {
-  content: ''; position: absolute; inset: -2px; border-radius: 10px; z-index: -1;
-  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
-  opacity: 0; transition: opacity 0.5s ease; filter: blur(8px);
-}
-
-.btn-glow:hover::before { opacity: 0.7; }
-.btn-glow:hover {
-  box-shadow: 0 0 40px rgba(0,188,241,0.25), 0 4px 16px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
-}
-.btn-glow svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
-.btn-glow:hover svg { transform: translateX(3px); }
+.btn-glow { background: #151518; color: #fff; border-radius: 9999px; box-shadow: none; transition: color 150ms ease, box-shadow 150ms ease, transform 150ms ease; }
+.btn-glow:hover { box-shadow: 0 0 20px rgba(0,188,241,0.15), 0 0 20px rgba(235,0,139,0.1); transform: translateY(-1px); }
+.btn-glow svg:not(.ai-ring) { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
+.btn-glow:hover svg:not(.ai-ring) { transform: translateX(3px); }
 
 /* ═══ HERO ═══ */
 .hero { padding: 100px 0 120px; position: relative; background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(0,188,241,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255,236,3,0.04) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #041a24 100%); }
