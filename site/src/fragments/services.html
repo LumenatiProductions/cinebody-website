@@ -511,7 +511,12 @@ body > * { position: relative; z-index: 1; }
 /* ═══════════════════════════
    CTA BAND
    ═══════════════════════════ */
-.cta-band { background: var(--yellow); padding: 72px 0; text-align: center; overflow: hidden; }
+.cta-band { background: var(--yellow); padding: 72px 0 0; text-align: center; overflow: hidden; }
+.cta-band .btn-glow { margin-bottom: 56px; }
+.cta-marquee { display: flex; height: 200px; overflow: hidden; }
+.cta-marquee-track { display: flex; animation: logos-scroll 28s linear infinite; flex-shrink: 0; }
+.cta-marquee-track img { width: 200px; height: 200px; object-fit: cover; flex-shrink: 0; }
+@keyframes logos-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 .cta-band h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; color: #111 !important; line-height: 1.2; margin-bottom: 8px; }
 .cta-band p { font-size: 1.05rem; color: #333; margin-bottom: 28px; }
@@ -838,12 +843,13 @@ body > * { position: relative; z-index: 1; }
   <div class="contain">
     <h2 class="reveal">Tell us what you need. <span>We'll handle the rest.</span></h2>
     <p class="reveal reveal-d1">Talk to a person.</p>
-    <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow reveal reveal-d2">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    <a href="https://calendly.com/gavin-cinebody/cinebody-intro2" class="btn btn-glow reveal reveal-d1">Talk to us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </div>
+  <div class="cta-marquee" style="position:relative">
+    <div class="cta-marquee-track" id="ctaTrack"></div>
+    <svg style="position:absolute;bottom:0;left:0;width:100%;height:50px;z-index:2" viewBox="0 0 1440 50" preserveAspectRatio="none"><path d="M0,0 Q720,50 1440,0 L1440,50 L0,50 Z" fill="#0a0a0a"/></svg>
   </div>
 </section>
-
-<!-- curve: yellow → dark -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
 
 <script>
 // Scroll reveal
@@ -861,5 +867,13 @@ body > * { position: relative; z-index: 1; }
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }, { passive: true });
+})();
+
+// CTA image marquee
+(function(){
+  var imgs=['/assets/cta-still006.jpg','/assets/cta-still005.jpg','/assets/cta-still004.jpg','/assets/cta-still009.jpg','/assets/cta-still008.jpg','/assets/cta-still007.jpg'];
+  var t=document.getElementById('ctaTrack');
+  if(!t) return;
+  for(var i=0;i<4;i++) imgs.forEach(function(s){ var img=document.createElement('img'); img.src=s; img.loading='lazy'; img.alt=''; t.appendChild(img); });
 })();
 </script>
