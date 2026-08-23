@@ -1067,15 +1067,18 @@ body > * { position: relative; z-index: 1; }
   .pipe-sticky { position: static; height: auto; display: block; padding: 8px 0 24px; }
   .pipe-stickygrid { grid-template-columns: 1fr; }
   .pipe-rail { display: none; }
-  .pipe-scenes { display: none; }
+  .pipe-phone-slot, .pipe-scenes { display: none; }
   .pipe-ghost { display: none; }
-  /* clean connected timeline on mobile (the pinned vignettes are desktop-only) */
+  /* connected timeline on mobile: each stage carries its own vignette, moved in by JS */
   .pipe-copies { min-height: 0; position: relative; padding-left: 30px; }
   .pipe-copies::before { content: ''; position: absolute; left: 5px; top: 12px; bottom: 30px; width: 2px; background: linear-gradient(180deg, var(--teal), var(--pink)); opacity: 0.5; }
-  .pipe-copy-block { position: relative; transform: none !important; opacity: 1 !important; margin-bottom: 44px; }
+  .pipe-copy-block { position: relative; transform: none !important; opacity: 1 !important; margin-bottom: 48px; }
   .pipe-copy-block::before { content: ''; position: absolute; left: -30px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(0,188,241,0.14); }
   .pipe-copy-block h3 { font-size: 1.55rem; }
   .pw, .pipe-copy-block p, .pipe-copy-block .pipe-mini { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
+  /* the vignette card, once relocated into its stage */
+  .pipe-copy-block .pscene { position: static; inset: auto; display: block; opacity: 1; margin-top: 20px; max-width: 330px; }
+  .pipe-copy-block .pcard { box-shadow: 0 18px 44px rgba(0,0,0,0.4); }
 }
 
 </style>
@@ -1275,7 +1278,28 @@ body > * { position: relative; z-index: 1; }
 (function(){
   var wrap = document.getElementById('pipeScroll');
   if (!wrap) return;
-  if (window.matchMedia('(max-width: 900px)').matches) { wrap.closest('.pipeline').classList.add('pipe-static'); return; }
+  if (window.matchMedia('(max-width: 900px)').matches) {
+    wrap.closest('.pipeline').classList.add('pipe-static');
+    // Move each pinned vignette into its own timeline stage and lock it to its end pose.
+    var mCopies = Array.prototype.slice.call(wrap.querySelectorAll('.pipe-copy-block'));
+    var mScenes = Array.prototype.slice.call(document.querySelectorAll('#pipeScenes .pscene'));
+    var mBrief = document.getElementById('pbriefT');
+    if (mBrief) mBrief.textContent = 'Spring line launch. Fun, real, six people.';
+    mScenes.forEach(function(sc, i){
+      if (!mCopies[i]) return;
+      mCopies[i].appendChild(sc);
+      sc.classList.add('on');
+      if (i === 1) { // Filming: show the final "Perfect. Rolling" cue + record button
+        var dirs = Array.prototype.slice.call(sc.querySelectorAll('.pdir'));
+        dirs.forEach(function(d, j){ d.classList.toggle('cur', j === dirs.length - 1); });
+        var subj = sc.querySelector('.psubject');
+        if (subj) subj.style.transform = 'translateX(-50%) scale(1)';
+        var rb = sc.querySelector('.prec-btn'); if (rb) rb.classList.add('on');
+        var rt = sc.querySelector('.prec'); if (rt) rt.classList.add('on');
+      }
+    });
+    return;
+  }
   var scenesWrap = document.getElementById('pipeScenes');
   var scenes = Array.prototype.slice.call(scenesWrap.querySelectorAll('.pscene'));
   var subjEl = scenes[1] ? scenes[1].querySelector('.psubject') : null;
