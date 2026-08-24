@@ -226,60 +226,18 @@ if (!pageSchema && caseStudies[slug]) {
         var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         var activePlayer = null, activeBtn = null;
 
-        // Desktop autoplay (no user gesture): Vimeo background mode — muted,
-        // looping, no chrome. Fine on Chrome/Firefox desktop.
-        // User tap/click: a REAL player with autoplay+muted. background=1 is
-        // decorative and often never starts on iOS / mobile Chrome after a
-        // gesture; lazy-loading the iframe can also miss the gesture window.
-        function videoSrc(videoId, hash, fromUser) {
-          var base = 'https://player.vimeo.com/video/' + videoId;
-          var q = [];
-          if (hash) q.push('h=' + hash);
-          if (fromUser) {
-            q.push('autoplay=1', 'muted=1', 'playsinline=1', 'loop=1', 'byline=0', 'title=0', 'portrait=0');
-          } else {
-            q.push('background=1');
-          }
-          q.push('dnt=1');
-          return base + '?' + q.join('&');
-        }
-
-        function bindPlayer(container, iframe) {
-          function attach() {
-            if (container._player) return true;
-            if (window.Vimeo && Vimeo.Player) {
-              container._player = new Vimeo.Player(iframe);
-              return true;
-            }
-            return false;
-          }
-          if (attach()) return;
-          var n = 0;
-          var t = setInterval(function () {
-            if (attach() || ++n > 40) clearInterval(t);
-          }, 100);
-        }
-
-        function hidePlay(container) {
-          var playBtn = container.querySelector('.vid-play-btn');
-          if (playBtn) {
-            playBtn.style.opacity = '0';
-            playBtn.style.pointerEvents = 'none';
-          }
-        }
-
-        function loadVideo(container, videoId, hash, fromUser) {
+        function loadVideo(container, videoId, hash) {
           if (container.classList.contains('playing')) return;
+          var base = 'https://player.vimeo.com/video/' + videoId;
+          var src = (hash ? base + '?h=' + hash + '&background=1' : base + '?background=1') + '&dnt=1';
           var iframe = document.createElement('iframe');
-          iframe.src = videoSrc(videoId, hash, !!fromUser);
-          iframe.allow = 'autoplay; fullscreen';
-          iframe.setAttribute('allowfullscreen', '');
-          if (!fromUser) iframe.loading = 'lazy';
+          iframe.src = src;
+          iframe.allow = 'autoplay';
+          iframe.loading = 'lazy';
           iframe.title = container.getAttribute('data-title') || 'Cinebody customer video';
           container.insertBefore(iframe, container.firstChild);
           container.classList.add('playing');
-          hidePlay(container);
-          bindPlayer(container, iframe);
+          if (window.Vimeo && Vimeo.Player) container._player = new Vimeo.Player(iframe);
         }
 
         // One mount routine for EVERY card — originals and the carousel's clones alike —
@@ -314,7 +272,7 @@ if (!pageSchema && caseStudies[slug]) {
           if (shouldAutoplay) {
             var obs = new IntersectionObserver(function (entries) {
               entries.forEach(function (e) {
-                if (e.isIntersecting) { loadVideo(container, videoId, hash, false); obs.unobserve(container); }
+                if (e.isIntersecting) { loadVideo(container, videoId, hash); obs.unobserve(container); }
               });
             }, { threshold: 0.15 });
             obs.observe(container);
@@ -322,42 +280,28 @@ if (!pageSchema && caseStudies[slug]) {
 
           container.addEventListener('click', function (e) {
             if (e.target.closest('.vid-mute-btn')) return;
-            loadVideo(container, videoId, hash, true);
+            loadVideo(container, videoId, hash);
+            playBtn.style.opacity = '0';
+            playBtn.style.pointerEvents = 'none';
           });
 
           muteBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             var player = container._player;
             if (!player) return;
-            // iOS ignores setVolume and only honors muted; do both.
             if (activeBtn === muteBtn) {
-              try { player.setMuted(true); } catch (_) {}
-              try { player.setVolume(0); } catch (_) {}
-              muteBtn.innerHTML = svgMuted; muteBtn.setAttribute('aria-label', 'Unmute');
+              player.setVolume(0); muteBtn.innerHTML = svgMuted; muteBtn.setAttribute('aria-label', 'Unmute');
               activePlayer = null; activeBtn = null; return;
             }
             if (activePlayer && activeBtn) {
-              try { activePlayer.setMuted(true); } catch (_) {}
-              try { activePlayer.setVolume(0); } catch (_) {}
-              activeBtn.innerHTML = svgMuted; activeBtn.setAttribute('aria-label', 'Unmute');
+              activePlayer.setVolume(0); activeBtn.innerHTML = svgMuted; activeBtn.setAttribute('aria-label', 'Unmute');
             }
-            try { player.setMuted(false); } catch (_) {}
-            try { player.setVolume(1); } catch (_) {}
-            muteBtn.innerHTML = svgUnmuted; muteBtn.setAttribute('aria-label', 'Mute');
+            player.setVolume(1); muteBtn.innerHTML = svgUnmuted; muteBtn.setAttribute('aria-label', 'Mute');
             activePlayer = player; activeBtn = muteBtn;
           });
         }
 
         window.__cbMountVideo = mountCard;
-        // Carousel pointer handlers often steal the click (capture + 6px
-        // kill). They call this on a real tap so play is not click-dependent.
-        window.__cbPlayVideo = function (container) {
-          if (!container || !container.getAttribute) return;
-          var videoId = container.getAttribute('data-vimeo');
-          var hash = container.getAttribute('data-vimeo-h');
-          if (!videoId) return;
-          loadVideo(container, videoId, hash, true);
-        };
         document.querySelectorAll('.vid-playable').forEach(mountCard);
       })();
     </script>
@@ -670,11 +614,6 @@ if (!pageSchema && caseStudies[slug]) {
     var sig = { signal: ac.signal };
     window.addEventListener('resize', function () { wrap(); snap(); }, sig);
 
-    // Finger wobble on a real tap is often 4–10px. The old 4px decide + 6px
-    // click-kill treated almost every mobile tap as a drag: setPointerCapture
-    // retargeted `click` onto `.cb-vp` (the card never heard it) and the
-    // capture-phase killer swallowed the rest. Play then did nothing.
-    var TAP = 12;
     var down = false, dragging = false, decided = false, ignore = false;
     var sx = 0, sy = 0, sp = 0, lastX = 0, lastT = 0, vel = 0, moved = 0, pid = null;
     vp.addEventListener('pointerdown', function (e) {
@@ -687,7 +626,7 @@ if (!pageSchema && caseStudies[slug]) {
       if (!down || ignore) return;
       var dx = e.clientX - sx, dy = e.clientY - sy;
       if (!decided) {
-        if (Math.abs(dx) < TAP && Math.abs(dy) < TAP) return;
+        if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
         decided = true;
         if (Math.abs(dy) > Math.abs(dx)) { ignore = true; return; }
         dragging = true; vp.style.cursor = 'grabbing';
@@ -701,24 +640,16 @@ if (!pageSchema && caseStudies[slug]) {
       lastX = e.clientX; lastT = now;
       e.preventDefault();
     }, { passive: false, signal: ac.signal });
-    function playAt(x, y) {
-      var el = document.elementFromPoint(x, y);
-      if (!el) return;
-      if (el.closest && el.closest('.vid-mute-btn')) return;
-      var card = el.closest ? el.closest('.vid-playable') : null;
-      if (!card || !vp.contains(card)) return;
-      if (window.__cbPlayVideo) window.__cbPlayVideo(card);
-    }
-    function up(e) {
+    function up() {
       if (!down) return; down = false; vp.style.cursor = 'grab';
       try { vp.releasePointerCapture(pid); } catch (_) {}
-      if (dragging && moved > TAP) {
+      // Thumb jitter on a tap is often 8–15px. The old `moved > 6` killer
+      // swallowed those clicks even when we never entered horizontal drag
+      // (drag arms at 4px and needs |dx| > |dy|). Only kill after a real swipe.
+      if (dragging && moved > 14) {
         var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); vp.removeEventListener('click', kill, true); };
         vp.addEventListener('click', kill, true);
         setTimeout(function () { vp.removeEventListener('click', kill, true); }, 60);
-      } else if (!ignore) {
-        // Don't wait for `click` — capture / retargeting often drops it.
-        playAt(e.clientX, e.clientY);
       }
       if (!dragging) return;
       dragging = false;
@@ -732,11 +663,7 @@ if (!pageSchema && caseStudies[slug]) {
       })();
     }
     vp.addEventListener('pointerup', up, sig);
-    vp.addEventListener('pointercancel', function (e) {
-      if (!down) return;
-      down = false; dragging = false; ignore = true; vp.style.cursor = 'grab';
-      try { vp.releasePointerCapture(pid); } catch (_) {}
-    }, sig);
+    vp.addEventListener('pointercancel', up, sig);
 
     track._cbTeardown = function () {
       ac.abort();
