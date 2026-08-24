@@ -210,6 +210,7 @@ if (!pageSchema && caseStudies[slug]) {
           margin: 0 !important;
           padding: 0 !important;
           overflow: visible !important;
+          transition: none !important;
         }
       }
     </style>`} />
@@ -491,7 +492,11 @@ if (!pageSchema && caseStudies[slug]) {
     track.style.position = 'relative';
     track.style.scrollSnapType = 'none';
     track.style.willChange = 'transform';
-    track.style.transform = 'translate3d(0,0,0)';
+    // Fragment .reveal { transition: transform 0.7s } would ease every drag
+    // (and interpolate wrap jumps off-canvas). Hero has no .reveal — strip it.
+    track.classList.remove('reveal');
+    track.style.transition = 'none';
+    track.style.setProperty('transform', 'translate3d(0,0,0)', 'important');
     track.classList.add('vis'); track.style.opacity = '1';
 
     void track.offsetWidth;
@@ -528,7 +533,7 @@ if (!pageSchema && caseStudies[slug]) {
 
     var pos = 0;
     var base = 0;
-    function apply() { track.style.transform = 'translate3d(' + pos + 'px,0,0)'; }
+    function apply() { track.style.setProperty('transform', 'translate3d(' + pos + 'px,0,0)', 'important'); }
     // Keep pos in (base-setW, base]. Teleport is one set-width; sets are identical
     // so the jump is invisible. Do NOT park at -2*setW — that assumed card 0 was
     // at x=0 and shoved tab rows off-canvas when justify-center / bad P applied.
@@ -595,7 +600,7 @@ if (!pageSchema && caseStudies[slug]) {
     var down = false, dragging = false, decided = false, ignore = false;
     var sx = 0, sy = 0, sp = 0, lastX = 0, lastT = 0, vel = 0, moved = 0, pid = null;
     vp.addEventListener('pointerdown', function (e) {
-      if (e.button != null && e.button !== 0) return;
+      if (e.pointerType !== 'touch' && e.button != null && e.button !== 0) return;
       cancelAnimationFrame(raf);
       down = true; dragging = false; decided = false; ignore = false; moved = 0;
       sx = lastX = e.clientX; sy = e.clientY; sp = pos; lastT = e.timeStamp || performance.now(); vel = 0; pid = e.pointerId;

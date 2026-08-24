@@ -516,6 +516,7 @@ p, li { text-wrap: pretty; }
     margin: 0 !important;
     padding: 0 !important;
     overflow: visible !important;
+    transition: none !important;
   }
   .hero-vid-pair::-webkit-scrollbar, .vid-trio::-webkit-scrollbar, .vert-trio::-webkit-scrollbar,
   .vid-grid::-webkit-scrollbar, .vid-grid-3v::-webkit-scrollbar, .grid-2x2::-webkit-scrollbar,
