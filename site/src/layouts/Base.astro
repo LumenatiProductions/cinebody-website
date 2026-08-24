@@ -176,6 +176,30 @@ if (!pageSchema && caseStudies[slug]) {
 
     <Fragment set:html={footerHtml} />
 
+    <!-- After fragment <style> tags so these beat page-level flex:1 / 1-col grids. -->
+    <Fragment set:html={`<style>
+      @media (max-width: 700px) {
+        .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v,
+        .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes {
+          display: flex !important;
+          flex-flow: row nowrap !important;
+          grid-template-columns: none !important;
+          justify-content: flex-start !important;
+          align-items: stretch;
+          max-width: none !important;
+          width: 100% !important;
+          gap: 12px !important;
+        }
+        .hero-vid-pair > *, .vid-trio > *, .vert-trio > *, .vid-grid > *, .vid-grid-3v > *,
+        .grid-2x2 > *, .horiz-pair > *, .vert-pair > *, .vid-pair > *, .sparkle-pair > *,
+        .sp-group > *, .tree-nodes > *, .cb-mcard {
+          flex: 0 0 160px !important;
+          width: 160px !important;
+          max-width: none !important;
+        }
+      }
+    </style>`} />
+
     <!-- Click-to-play / autoplay video controller for .vid-playable elements. -->
     <script is:inline>
       (function () {
@@ -367,7 +391,8 @@ if (!pageSchema && caseStudies[slug]) {
 // script is disabled the CSS native-scroll version still works as a fallback.
 (function () {
   if (!window.matchMedia('(max-width: 700px)').matches) return;
-  var SEL = '.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group';
+  var SEL = '.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes';
+  var CARD_W = 160;
 
   // cloneNode copies the controller's play/mute buttons but NOT their listeners, so a
   // fresh clone has dead controls. Strip the cloned-in state and re-mount the clone
@@ -388,6 +413,24 @@ if (!pageSchema && caseStudies[slug]) {
     var items = Array.prototype.slice.call(track.children);
     if (items.length < 2) return;
     Array.prototype.forEach.call(track.querySelectorAll('img'), function (i) { i.draggable = false; });
+
+    // Force a flex row + fixed card width BEFORE measuring P. Fragment CSS uses
+    // flex:1 / 1-col grids, which shrink 3-up rows to fit the viewport and make
+    // the infinite carousel look like a static cramped grid.
+    track.style.display = 'flex';
+    track.style.flexFlow = 'row nowrap';
+    track.style.justifyContent = 'flex-start';
+    track.style.maxWidth = 'none';
+    track.style.width = '100%';
+    if (!track.style.gap) track.style.gap = '12px';
+    if (!track.classList.contains('pipe-outputs')) {
+      items.forEach(function (it) {
+        it.classList.add('cb-mcard');
+        it.style.flex = '0 0 ' + CARD_W + 'px';
+        it.style.width = CARD_W + 'px';
+        it.style.maxWidth = 'none';
+      });
+    }
 
     // Wrap the track in a clipping viewport; move the edge-bleed + peek padding onto it.
     var cs = getComputedStyle(track);
@@ -420,6 +463,7 @@ if (!pageSchema && caseStudies[slug]) {
     // as WHOLE copies so the DOM is FIXED. We wrap by teleporting the transform one
     // set-width at a seam (identical sets = invisible jump) and never touch the DOM
     // mid-drag — so scrolling is smooth and the play/mute buttons don't jitter.
+    void track.offsetWidth;
     var N = items.length;
     var P = items[0].getBoundingClientRect().width + gap;
     var setW = N * P;

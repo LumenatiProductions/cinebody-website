@@ -337,8 +337,8 @@ body > * { position: relative; z-index: 1; }
     .sp-group::-webkit-scrollbar { display:none; }
     .sp-node { scroll-snap-align:center; }
     .sp-group--h { order:0; }   /* vertical slider stays first on mobile */
-    .sp-group--v .sp-node { width:74% !important; max-width:300px; flex:0 0 74%; }
-    .sp-group--h .sp-node { width:90% !important; max-width:380px; flex:0 0 90%; }
+    .sp-group--v .sp-node,
+    .sp-group--h .sp-node { width:160px !important; max-width:none; flex:0 0 160px; }
     .sp-node::before { display:none; }
   }
 </style>
