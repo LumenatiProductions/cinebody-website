@@ -522,9 +522,7 @@ body > * { position: relative; z-index: 1; }
           </div>
           <div class="vid-label">HSI Alumni Story</div>
         </div>
-      </div>
-      <div style="margin-top:24px">
-        <div class="vid-card reveal" style="max-width:640px;margin:0 auto">
+        <div class="vid-card">
           <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="949537419">
             <img class="vid-poster" src="https://i.vimeocdn.com/video/1857510799-42eb5175fdc37e61412989556931b44fc24a062332d36a5a9975ef93421d5444-d_640" alt="StemAspire India">
           </div>
@@ -557,9 +555,7 @@ body > * { position: relative; z-index: 1; }
           </div>
           <div class="vid-label">Resume Tips</div>
         </div>
-      </div>
-      <div style="margin-top:24px">
-        <div class="vid-card reveal" style="max-width:240px;margin:0 auto">
+        <div class="vid-card">
           <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1203948167" data-vimeo-h="68b8e8f4b6">
             <img class="vid-poster" src="https://i.vimeocdn.com/video/2172167993-82c67e598c56ba8320aa71eb0def2ed8ac0620e7fcf7828f240f855f457f696d-d_640" alt="Interns, India">
           </div>
@@ -625,6 +621,10 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
     panel.querySelectorAll('.reveal:not(.vis)').forEach(function(el){
       revealObs.observe(el);
     });
+    // Hidden tabs measured 0 at load; arm now that the panel has width.
+    if (window.__cbArmCarousel) {
+      panel.querySelectorAll('.hero-vid-pair, .vid-trio, .horiz-pair, .grid-2x2, .vert-trio, .vid-grid').forEach(window.__cbArmCarousel);
+    }
   });
 });
 

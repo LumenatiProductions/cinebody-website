@@ -580,20 +580,28 @@ if (!pageSchema && caseStudies[slug]) {
     vp.addEventListener('pointercancel', up);
   }
 
-  // Set up each slider only once it actually has width. Rows inside hidden tab
-  // panels measure 0 at load (cloning would be skipped, so they'd dead-end); a
-  // ResizeObserver runs setup the moment the tab is shown and the row gets width.
+  // Set up each slider only once it actually has a real on-screen width.
+  // Hidden tab panels measure 0 at load; a too-early setup (parent ~0) pins a
+  // 0-width viewport and the row looks empty / refuses to swipe. Wait until
+  // both the track and its parent are at least 200px, then init.
+  function ready(track) {
+    var w = track.getBoundingClientRect().width;
+    var pw = track.parentElement ? track.parentElement.clientWidth : 0;
+    return w >= 200 && pw >= 200;
+  }
   function arm(track) {
     if (track.dataset.cbInit) return;
-    if (track.getBoundingClientRect().width > 0) { track.dataset.cbInit = '1'; setup(track); return; }
+    if (ready(track)) { track.dataset.cbInit = '1'; setup(track); return; }
     if (typeof ResizeObserver === 'undefined') { track.dataset.cbInit = '1'; setup(track); return; }
     var ro = new ResizeObserver(function () {
-      if (!track.dataset.cbInit && track.getBoundingClientRect().width > 0) {
+      if (!track.dataset.cbInit && ready(track)) {
         track.dataset.cbInit = '1'; ro.disconnect(); setup(track);
       }
     });
     ro.observe(track);
+    if (track.parentElement) ro.observe(track.parentElement);
   }
+  window.__cbArmCarousel = arm;
   function init() { document.querySelectorAll(SEL).forEach(arm); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
