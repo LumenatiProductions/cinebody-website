@@ -1403,6 +1403,11 @@ body > * { position: relative; z-index: 1; }
 .stats-foot { text-align: center; margin-top: 24px; font-size: 0.78rem; color: rgba(255,255,255,0.42); }
 .stats .stat-label { font-size: 12px; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); }
 /* typewriter heading + staggered stats (ported from MotionSites arceage-stats) */
+/* mobile: pull the heading up under the curve so it isn't stranded in white */
+@media (max-width: 1024px) {
+  .stats.payoff { padding-top: 28px; }
+  .payoff .pipe-closer h3 { margin-bottom: 22px; }
+}
 .tw-c { opacity: 0; }
 .stats-head.vis .tw-c { animation: twIn .01s forwards; animation-delay: var(--d, 0s); }
 @keyframes twIn { to { opacity: 1; } }
