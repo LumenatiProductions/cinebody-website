@@ -1055,7 +1055,7 @@ body > * { position: relative; z-index: 1; }
 @keyframes pRing { to { box-shadow: 0 0 0 2px rgba(0,188,241,0.65), 0 0 18px rgba(0,188,241,0.25); } }
 @keyframes pSweep { 0% { left: 14px; } 100% { left: calc(100% - 16px); } }
 /* static fallback (small screens / no JS) */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .pipe-scroll { height: auto; }
   .pipe-sticky { position: static; height: auto; display: block; padding: 8px 0 24px; }
   .pipe-stickygrid { grid-template-columns: 1fr; }
@@ -1271,7 +1271,7 @@ body > * { position: relative; z-index: 1; }
 (function(){
   var wrap = document.getElementById('pipeScroll');
   if (!wrap) return;
-  if (window.matchMedia('(max-width: 900px)').matches) {
+  if (window.matchMedia('(max-width: 1024px)').matches) {
     wrap.closest('.pipeline').classList.add('pipe-static');
     // Move each pinned vignette into its own timeline stage and lock it to its end pose.
     var mCopies = Array.prototype.slice.call(wrap.querySelectorAll('.pipe-copy-block'));
