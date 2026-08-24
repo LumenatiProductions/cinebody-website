@@ -270,3 +270,48 @@ Report what is wrong and how to trigger it. No prescribed fixes.
 - Preview only; platform app (`cinebody.vercel.app`) not exercised beyond the Knowledge Base help-widget iframe.
 - Phone slider dead-end on tab panels was reproduced with synthetic pointer events on the slider's own handlers; a real-device pass on Dell tab panels is still worth doing before sign-off.
 - Some headless full-page captures timed out under the heavy Vimeo hero; defects above were confirmed live in the browser even when a PNG was not saved.
+
+## Re-check 2026-08-23 (after builder fixes)
+
+Preview hard-refreshed with cache-busters. Phone ~390px + desktop ~1440px. #8 Dell tabs verified on real iPhone 17 Pro Simulator Safari.
+
+| # | Item | Verdict |
+|---|---|---|
+| 1 | Home nav legible over hero | **PASS** |
+| 2 | Hamburger Resources vs Log in overlap | **PASS** (not reproducible; clean stack) |
+| 3 / 5 / 15 | Black-flash / heavy late art | **PASS** (much improved; home/platform videos capped → images at phone) |
+| 4 | Platform/Services phone eyebrow clears nav | **PASS** |
+| 6 | Pricing Plus $250 dark/legible | **PASS** (`rgb(13,13,13)`) |
+| 7 | Crocs H1 mid-word break | **PASS** |
+| 8 | Dell / Royal Caribbean phone tab-panel swipe loop | **PASS** (Dell Social Trends on iPhone 17 Pro sim; RC Rover + Always-On loop at 390px) |
+| 9 | Yellow CTA marquee black holes | **PASS** |
+| 10 | Blog excerpts mid-word cut | **PASS** |
+| 17 | Shot-list excerpt punctuation | **PASS** |
+| 18 | KB chat empty black block | **PASS** |
+| 19 | Privacy date + effective-date wording | **PASS** |
+| 20 | Privacy "Choices" cross-ref | **PASS** |
+| 23 | Blog card alt text | **PASS** |
+| 24 | KB disclaimer comma splice | **PASS** ("See the fixes →" still generic FAQ — known open) |
+| 25 | Patents International empty space | **PASS** |
+| 26 | Address/email + Squarespace comment | **PASS** (Squarespace comment gone) |
+
+### Intentional / won't-fix — confirmed
+
+| # | Item | Confirmed |
+|---|---|---|
+| 11 / 12 | Home hero bleed / masked over-width | Yes — no visible horizontal scrollbar |
+| 13 | Floating round widget over hamburger | **ABSENT** on deployed preview (only Vercel Live preview bubble, won't ship) |
+| 14 | Sticky nav dark glass + hairline | Present as designed |
+| 16 | Cogent festival row | Intentional auto-scrolling marquee |
+| 21 | ✓ glyphs in AI Director / Payments mocks | Still present, intentional |
+| App Store / Play `href="#"` | Known — app not shipped | Unchanged |
+
+### Still open / known (not addressed this round)
+
+- Deeper perf on very long Home/Platform pages beyond the image/stream cuts
+- #24 "See the fixes →" still `href="#common-questions"`
+
+### Notes
+
+- **#8:** Canonical Social Trends repro on iPhone 17 Pro sim looped (Warming Up after 7 left swipes; not rubber-band). Default Dell row looped both ways. HBCU swipes executed. Royal Caribbean Rover + Always-On also looped at 390px (8 left swipes each, wrapping transforms).
+- Residual cosmetics not re-filed: home hero tile shuffle between refreshes; legal pages still mix some straight quotes; Patents "International Patents" heading vs APPLICATIONS eyebrow unchanged.
