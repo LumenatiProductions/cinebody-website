@@ -655,9 +655,9 @@ body > * { position: relative; z-index: 1; }
 .cta-band h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; color: #111 !important; line-height: 1.2; margin-bottom: 28px; }
 .cta-band h2 span { color: var(--teal) !important; }
 .cta-band .btn-glow { margin-bottom: 56px; }
-.cta-apps { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin: -20px auto 48px; }
+.cta-apps { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; margin: -20px auto 48px; }
 .cta-apps__label { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #333; }
-@media (max-width: 600px) { .cta-apps { flex-direction: column; gap: 12px; margin: -8px auto 40px; } }
+@media (max-width: 600px) { .cta-apps { margin: -8px auto 40px; } }
 
 .cta-marquee { display: flex; height: 200px; overflow: hidden; }
 .cta-marquee-track { display: flex; animation: logos-scroll 28s linear infinite; flex-shrink: 0; }
