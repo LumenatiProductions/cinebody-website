@@ -226,18 +226,58 @@ if (!pageSchema && caseStudies[slug]) {
         var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         var activePlayer = null, activeBtn = null;
 
-        function loadVideo(container, videoId, hash) {
-          if (container.classList.contains('playing')) return;
+        // Desktop IntersectionObserver autoplay: Vimeo background mode
+        // (muted, looping, no chrome). Fine on desktop Chrome/Firefox.
+        // User tap/click: a real muted autoplay player. background=1 is
+        // decorative and often never starts on iOS / mobile Chrome after a
+        // gesture, so .playing hides the play button while the poster stays.
+        function videoSrc(videoId, hash, fromUser) {
           var base = 'https://player.vimeo.com/video/' + videoId;
-          var src = (hash ? base + '?h=' + hash + '&background=1' : base + '?background=1') + '&dnt=1';
+          var q = [];
+          if (hash) q.push('h=' + hash);
+          if (fromUser) {
+            q.push('autoplay=1', 'muted=1', 'loop=1', 'autopause=0', 'title=0', 'byline=0', 'portrait=0', 'playsinline=1');
+          } else {
+            q.push('background=1');
+          }
+          q.push('dnt=1');
+          return base + '?' + q.join('&');
+        }
+
+        function bindPlayer(container, iframe, fromUser) {
+          function attach() {
+            if (container._player) return true;
+            if (!(window.Vimeo && Vimeo.Player)) return false;
+            var player = new Vimeo.Player(iframe);
+            container._player = player;
+            // iOS often needs an explicit play() after construct, even when
+            // the iframe was created inside the user-gesture click handler.
+            if (fromUser) {
+              try { player.setVolume(0); } catch (_) {}
+              try { player.play(); } catch (_) {}
+            }
+            return true;
+          }
+          if (attach()) return;
+          var n = 0;
+          var t = setInterval(function () {
+            if (attach() || ++n > 40) clearInterval(t);
+          }, 100);
+        }
+
+        function loadVideo(container, videoId, hash, fromUser) {
+          if (container.classList.contains('playing')) return;
           var iframe = document.createElement('iframe');
-          iframe.src = src;
-          iframe.allow = 'autoplay';
-          iframe.loading = 'lazy';
+          iframe.src = videoSrc(videoId, hash, !!fromUser);
+          iframe.allow = 'autoplay; fullscreen';
+          iframe.setAttribute('allowfullscreen', '');
+          // Lazy-load can miss the gesture window on iOS; only use it for
+          // desktop autoplay where there is no user gesture to preserve.
+          if (!fromUser) iframe.loading = 'lazy';
           iframe.title = container.getAttribute('data-title') || 'Cinebody customer video';
           container.insertBefore(iframe, container.firstChild);
           container.classList.add('playing');
-          if (window.Vimeo && Vimeo.Player) container._player = new Vimeo.Player(iframe);
+          bindPlayer(container, iframe, !!fromUser);
         }
 
         // One mount routine for EVERY card — originals and the carousel's clones alike —
@@ -272,7 +312,7 @@ if (!pageSchema && caseStudies[slug]) {
           if (shouldAutoplay) {
             var obs = new IntersectionObserver(function (entries) {
               entries.forEach(function (e) {
-                if (e.isIntersecting) { loadVideo(container, videoId, hash); obs.unobserve(container); }
+                if (e.isIntersecting) { loadVideo(container, videoId, hash, false); obs.unobserve(container); }
               });
             }, { threshold: 0.15 });
             obs.observe(container);
@@ -280,7 +320,7 @@ if (!pageSchema && caseStudies[slug]) {
 
           container.addEventListener('click', function (e) {
             if (e.target.closest('.vid-mute-btn')) return;
-            loadVideo(container, videoId, hash);
+            loadVideo(container, videoId, hash, true);
             playBtn.style.opacity = '0';
             playBtn.style.pointerEvents = 'none';
           });
