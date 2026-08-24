@@ -1048,7 +1048,7 @@ body > * { position: relative; z-index: 1; }
    scrolling — so on a touch device it can strand on stage 1-2. Touch always gets the
    reliable stack (must stay in lockstep with the JS condition below). */
 @media (max-width: 1024px), (hover: none), (pointer: coarse) {
-  .pipeline { overflow: visible; }
+  .pipeline { overflow-x: clip; overflow-y: visible; }
   .pipe-scroll { height: auto !important; }
   .pipe-sticky { position: static !important; height: auto !important; display: block !important; overflow: visible !important; padding: 8px 0 24px; }
   .pipe-stickygrid { grid-template-columns: 1fr; }
@@ -1087,7 +1087,7 @@ body > * { position: relative; z-index: 1; }
    device — including a desktop iOS Simulator, which reports a fine pointer + wide width so the
    media query above misses it entirely. These mirror that block but win by class, so whenever
    JS decides "touch" you get the reliable stack, never the scroll version that strands stage 1. */
-.pipeline.pipe-static { overflow: visible !important; }
+.pipeline.pipe-static { overflow-x: clip !important; overflow-y: visible !important; }
 .pipeline.pipe-static .pipe-scroll { height: auto !important; }
 .pipeline.pipe-static .pipe-sticky { position: static !important; height: auto !important; display: block !important; overflow: visible !important; padding: 8px 0 24px; }
 .pipeline.pipe-static .pipe-stickygrid { grid-template-columns: 1fr; }
@@ -1322,9 +1322,11 @@ body > * { position: relative; z-index: 1; }
     pipelineEl.classList.add('pipe-static');
     // Force the stacked layout INLINE with !important. On WebKit the class/media-query rules
     // don't reliably override the desktop `position:sticky; height:560px` sticky (which only
-    // fits Plan+Film, clipping Score+Cut), and `.pipeline { overflow-x: clip }` clips the lower
-    // stages vertically. Inline !important beats any specificity/recalc quirk. (Grok's diagnosis.)
-    pipelineEl.style.setProperty('overflow', 'visible', 'important');
+    // fits Plan+Film, clipping Score+Cut). Inline !important beats any specificity/recalc quirk.
+    // Keep overflow-x:clip (contains horizontal bleed so you can't pinch-zoom past the edge)
+    // but pin overflow-y:visible so the now-static tall stack is never clipped vertically.
+    pipelineEl.style.setProperty('overflow-x', 'clip', 'important');
+    pipelineEl.style.setProperty('overflow-y', 'visible', 'important');
     wrap.style.setProperty('height', 'auto', 'important');
     var stickyEl = wrap.querySelector('.pipe-sticky');
     if (stickyEl) {
