@@ -174,7 +174,9 @@ body > * { position: relative; z-index: 1; }
 /* Node grid */
 .tree-nodes {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-  max-width: 900px; margin: 0 auto;
+}
+@media (min-width: 701px) {
+  .tree-nodes { max-width: 900px; margin: 0 auto; }
 }
 
 .tree-node {

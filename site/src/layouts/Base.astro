@@ -188,14 +188,17 @@ if (!pageSchema && caseStudies[slug]) {
           align-items: stretch;
           max-width: none !important;
           width: 100% !important;
-          gap: 12px !important;
+          gap: 14px !important;
+          padding: 4px clamp(1.25rem, 12vw, 4rem) 8px !important;
+          margin-left: -20px !important;
+          margin-right: -20px !important;
         }
         .hero-vid-pair > *, .vid-trio > *, .vert-trio > *, .vid-grid > *, .vid-grid-3v > *,
         .grid-2x2 > *, .horiz-pair > *, .vert-pair > *, .vid-pair > *, .sparkle-pair > *,
         .sp-group > *, .tree-nodes > *, .cb-mcard {
-          flex: 0 0 160px !important;
-          width: 160px !important;
-          max-width: none !important;
+          flex: 0 0 84% !important;
+          width: 84% !important;
+          max-width: 340px !important;
         }
       }
     </style>`} />
@@ -392,7 +395,6 @@ if (!pageSchema && caseStudies[slug]) {
 (function () {
   if (!window.matchMedia('(max-width: 700px)').matches) return;
   var SEL = '.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes';
-  var CARD_W = 160;
 
   // cloneNode copies the controller's play/mute buttons but NOT their listeners, so a
   // fresh clone has dead controls. Strip the cloned-in state and re-mount the clone
@@ -422,13 +424,13 @@ if (!pageSchema && caseStudies[slug]) {
     track.style.justifyContent = 'flex-start';
     track.style.maxWidth = 'none';
     track.style.width = '100%';
-    if (!track.style.gap) track.style.gap = '12px';
+    if (!track.style.gap) track.style.gap = '14px';
     if (!track.classList.contains('pipe-outputs')) {
       items.forEach(function (it) {
         it.classList.add('cb-mcard');
-        it.style.flex = '0 0 ' + CARD_W + 'px';
-        it.style.width = CARD_W + 'px';
-        it.style.maxWidth = 'none';
+        it.style.flex = '0 0 84%';
+        it.style.width = '84%';
+        it.style.maxWidth = '340px';
       });
     }
 

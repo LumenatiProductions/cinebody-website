@@ -289,7 +289,9 @@ body > * { position: relative; z-index: 1; }
 
 .vid-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-  max-width: 480px; margin: 0 auto;
+}
+@media (min-width: 701px) {
+  .vid-grid { max-width: 480px; margin: 0 auto; }
 }
 
 .vid-card {

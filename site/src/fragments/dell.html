@@ -117,8 +117,10 @@ body > * { position: relative; z-index: 1; }
 .hero-visual .vid-playable { margin: 0 auto; }
 
 .hero-vid-pair {
-  display: flex; gap: 16px; justify-content: center;
-  max-width: 500px; margin: 0 auto;
+  display: flex; gap: 16px;
+}
+@media (min-width: 701px) {
+  .hero-vid-pair { justify-content: center; max-width: 500px; margin: 0 auto; }
 }
 .hero-vid-pair .vid-card { flex: 1; max-width: 240px; }
 
@@ -167,8 +169,10 @@ body > * { position: relative; z-index: 1; }
 
 /* Vertical video trio */
 .vid-trio {
-  display: flex; gap: 16px; justify-content: center;
-  max-width: 660px; margin: 0 auto;
+  display: flex; gap: 16px;
+}
+@media (min-width: 701px) {
+  .vid-trio { justify-content: center; max-width: 660px; margin: 0 auto; }
 }
 .vid-trio .vid-card { flex: 1; max-width: 200px; }
 .vid-label {
@@ -180,13 +184,12 @@ body > * { position: relative; z-index: 1; }
 /* Horizontal pair */
 .horiz-pair {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  max-width: 900px; margin: 0 auto;
 }
-
-/* 2x2 Grid */
 .grid-2x2 {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  max-width: 900px; margin: 0 auto;
+}
+@media (min-width: 701px) {
+  .horiz-pair, .grid-2x2 { max-width: 900px; margin: 0 auto; }
 }
 
 /* ═══ TABS ═══ */
@@ -520,14 +523,12 @@ body > * { position: relative; z-index: 1; }
           <div class="vid-label">HSI Alumni Story</div>
         </div>
       </div>
-      <div style="margin-top:24px;max-width:440px;margin-left:auto;margin-right:auto">
-        <div class="horiz-pair reveal" style="grid-template-columns:1fr">
-          <div class="vid-card">
-            <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="949537419">
-              <img class="vid-poster" src="https://i.vimeocdn.com/video/1857510799-42eb5175fdc37e61412989556931b44fc24a062332d36a5a9975ef93421d5444-d_640" alt="StemAspire India">
-            </div>
-            <div class="vid-label">StemAspire India</div>
+      <div style="margin-top:24px">
+        <div class="vid-card reveal" style="max-width:640px;margin:0 auto">
+          <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="949537419">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1857510799-42eb5175fdc37e61412989556931b44fc24a062332d36a5a9975ef93421d5444-d_640" alt="StemAspire India">
           </div>
+          <div class="vid-label">StemAspire India</div>
         </div>
       </div>
     </div>
@@ -558,13 +559,11 @@ body > * { position: relative; z-index: 1; }
         </div>
       </div>
       <div style="margin-top:24px">
-        <div class="vid-trio reveal">
-          <div class="vid-card">
-            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1203948167" data-vimeo-h="68b8e8f4b6">
-              <img class="vid-poster" src="https://i.vimeocdn.com/video/2172167993-82c67e598c56ba8320aa71eb0def2ed8ac0620e7fcf7828f240f855f457f696d-d_640" alt="Interns, India">
-            </div>
-            <div class="vid-label">India</div>
+        <div class="vid-card reveal" style="max-width:240px;margin:0 auto">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1203948167" data-vimeo-h="68b8e8f4b6">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2172167993-82c67e598c56ba8320aa71eb0def2ed8ac0620e7fcf7828f240f855f457f696d-d_640" alt="Interns, India">
           </div>
+          <div class="vid-label">India</div>
         </div>
       </div>
     </div>

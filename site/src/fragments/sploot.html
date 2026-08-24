@@ -300,7 +300,8 @@ body > * { position: relative; z-index: 1; }
   @keyframes spTreeFlow { to { stroke-dashoffset:-14; } }
   @media (prefers-reduced-motion: reduce){ .sp-flow path { animation:none; } }
   .sp-nodes { display:flex; flex-direction:column; align-items:center; gap:22px; max-width:920px; margin:0 auto; }
-  .sp-group { display:flex; gap:16px; justify-content:center; align-items:flex-start; }   /* one row per type */
+  .sp-group { display:flex; gap:16px; align-items:flex-start; }
+  @media (min-width: 701px) { .sp-group { justify-content:center; } }
   .sp-group--h { order:-1; }   /* landscape cutdowns on top (wider fan), vertical stories below */
   .sp-node { position:relative; border-radius:var(--radius); border:1px solid var(--border); background:#111; box-shadow:0 4px 24px rgba(0,0,0,0.2); overflow:visible; transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s ease; }
   .sp-node--v { width:132px; } .sp-node--h { width:180px; }
@@ -338,7 +339,7 @@ body > * { position: relative; z-index: 1; }
     .sp-node { scroll-snap-align:center; }
     .sp-group--h { order:0; }   /* vertical slider stays first on mobile */
     .sp-group--v .sp-node,
-    .sp-group--h .sp-node { width:160px !important; max-width:none; flex:0 0 160px; }
+    .sp-group--h .sp-node { width:84% !important; max-width:340px; flex:0 0 84%; }
     .sp-node::before { display:none; }
   }
 </style>

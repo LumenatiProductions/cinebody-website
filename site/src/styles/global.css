@@ -481,13 +481,13 @@ p, li { text-wrap: pretty; }
   .vid-playable.playing .vid-mute-btn { opacity: 0.7; }
 }
 
-/* Mobile: every case-study multi-video row is a horizontal scroller with a
-   fixed card width so 2/3-up groups can't shrink into a cramped grid.
-   ~160px + gap → one or two cards on screen with a neighbor peek (Dell hero).
-   Homepage .pipe-outputs keeps its own 84% treatment. JS adds .cb-mcard as a
-   second lock so fragment flex:1 / max-width rules can't pollute measure. */
+/* Mobile: every multi-video gallery becomes a one-featured swipe scroller
+   matching the working Dell hero (.hero .hero-vid-pair). Fragment <style>
+   tags load later and used to override justify/margin/padding — those
+   props are !important here so centering and max-width:660px cannot win.
+   Homepage .pipe-outputs keeps its own 84% treatment. */
 @media (max-width: 700px) {
-  .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v,
+  .hero .hero-vid-pair, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v,
   .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes {
     display: flex !important;
     flex-flow: row nowrap !important;
@@ -500,25 +500,25 @@ p, li { text-wrap: pretty; }
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: 12px !important;
-    padding: 4px clamp(1.25rem, 12vw, 4rem) 8px;
-    margin-left: -20px;
-    margin-right: -20px;
+    gap: 14px !important;
+    padding: 4px clamp(1.25rem, 12vw, 4rem) 8px !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
     scroll-padding-inline: clamp(1.25rem, 12vw, 4rem);
   }
   .hero-vid-pair::-webkit-scrollbar, .vid-trio::-webkit-scrollbar, .vert-trio::-webkit-scrollbar,
   .vid-grid::-webkit-scrollbar, .vid-grid-3v::-webkit-scrollbar, .grid-2x2::-webkit-scrollbar,
   .horiz-pair::-webkit-scrollbar, .vert-pair::-webkit-scrollbar, .vid-pair::-webkit-scrollbar,
   .sparkle-pair::-webkit-scrollbar, .sp-group::-webkit-scrollbar, .tree-nodes::-webkit-scrollbar { display: none; }
-  .hero-vid-pair > *, .vid-trio > *, .vert-trio > *, .vid-grid > *, .vid-grid-3v > *,
-  .grid-2x2 > *, .horiz-pair > *, .vert-pair > *, .vid-pair > *, .sparkle-pair > *,
-  .sp-group > *, .tree-nodes > *, .cb-mcard {
-    flex: 0 0 160px !important;
-    width: 160px !important;
-    max-width: none !important;
+  .hero .hero-vid-pair > *, .hero-vid-pair > *, .vid-trio > *, .vert-trio > *, .vid-grid > *,
+  .vid-grid-3v > *, .grid-2x2 > *, .horiz-pair > *, .vert-pair > *, .vid-pair > *,
+  .sparkle-pair > *, .sp-group > *, .tree-nodes > *, .cb-mcard {
+    flex: 0 0 84% !important;
+    width: 84% !important;
+    max-width: 340px !important;
     scroll-snap-align: center;
   }
-  .pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v,
+  .pipe-outputs, .hero .hero-vid-pair, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v,
   .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes {
     cursor: grab; touch-action: pan-y;
   }
