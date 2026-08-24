@@ -734,8 +734,20 @@ body > * { position: relative; z-index: 1; }
   .teaser-vid-pair .teaser-vid { max-width: 160px; }
 }
 
+/* Pause compositor work when marquees / hero columns are offscreen */
+.is-offscreen .hero-scroller-col,
+.is-offscreen .logos-track,
+.is-offscreen .cta-marquee-track { animation-play-state: paused !important; }
+.is-offscreen .mq-par,
+.is-offscreen .hero-scroller-col { will-change: auto; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .hero-scroller-col,
+  .logos-track,
+  .cta-marquee-track { animation: none !important; }
+  .mq-par,
+  .hero-scroller-col { will-change: auto; }
 }
 </style>
 
@@ -1857,17 +1869,38 @@ body > * { position: relative; z-index: 1; }
     { src: '/assets/b1e36654-pngimg.com-snapchat_PNG41.png', id: 'snap' }
   ];
   var t = document.getElementById('logoTrack');
-  // Load the first pass eagerly (small logos, needed for the loop immediately). lazy-loading
-  // inside a CSS-animated/off-screen marquee track is unreliable on Safari — it left the logos
-  // blank for tens of seconds. Only the duplicate passes (i>0) stay lazy.
-  for(var i=0;i<4;i++) logos.forEach(function(l){ var img=document.createElement('img'); img.src=l.src; img.dataset.logo=l.id; if(i>0) img.loading='lazy'; img.decoding='async'; img.draggable=false; img.alt=''; t.appendChild(img); });
+  if (!t) return;
+  // Eager-load every pass. lazy-loading inside a CSS-animated / transform
+  // marquee is unreliable on Safari (logos stayed blank for tens of seconds).
+  // 4x duplication stays so the loop can wrap seamlessly; the browser
+  // cache-dedupes the repeated srcs.
+  for(var i=0;i<4;i++) logos.forEach(function(l){ var img=document.createElement('img'); img.src=l.src; img.dataset.logo=l.id; img.loading='eager'; img.decoding='async'; img.draggable=false; img.alt=''; t.appendChild(img); });
 })();
 
 // CTA marquee
 (function(){
   var imgs=['/assets/cta-still006.jpg','/assets/cta-still005.jpg','/assets/cta-still004.jpg','/assets/cta-still009.jpg','/assets/cta-still008.jpg','/assets/cta-still007.jpg'];
   var t=document.getElementById('ctaTrack');
-  for(var i=0;i<4;i++) imgs.forEach(function(s){ var img=document.createElement('img'); img.src=s; img.loading='lazy'; img.alt=''; t.appendChild(img); });
+  if (!t) return;
+  for(var i=0;i<4;i++) imgs.forEach(function(s){ var img=document.createElement('img'); img.src=s; img.loading='eager'; img.decoding='async'; img.alt=''; t.appendChild(img); });
+})();
+
+// Pause hero-column + marquee CSS loops while offscreen so they stop burning GPU
+(function(){
+  if (!('IntersectionObserver' in window)) return;
+  var roots = [
+    document.querySelector('.hero-scroller'),
+    document.getElementById('logosPar') || document.querySelector('.logos'),
+    document.getElementById('ctaPar') || document.querySelector('.cta-marquee')
+  ].filter(Boolean);
+  if (!roots.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) e.target.classList.remove('is-offscreen');
+      else e.target.classList.add('is-offscreen');
+    });
+  }, { threshold: 0 });
+  roots.forEach(function(el){ io.observe(el); });
 })();
 
 // Reveal
@@ -1876,8 +1909,13 @@ body > * { position: relative; z-index: 1; }
   document.querySelectorAll('.reveal').forEach(function(el){o.observe(el);});
 })();
 
-// Scroll-coupled marquees: parallax offset layered over the CSS loops
+// Scroll-coupled marquees: parallax offset layered over the CSS loops.
+// Skip on mobile / coarse pointers (CSS loop is enough) and when the
+// user prefers reduced motion — this rAF is NEW-only overhead.
 (function(){
+  if (window.matchMedia('(max-width: 767px)').matches ||
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var items = [
     { el: document.getElementById('logosPar'), dir: 1, f: 0.10 },
     { el: document.getElementById('ctaPar'), dir: -1, f: 0.14 }
