@@ -472,8 +472,9 @@ if (!pageSchema && caseStudies[slug]) {
 
     var cs = getComputedStyle(track);
     var parentLeft = parent.getBoundingClientRect().left;
-    var vpW = window.innerWidth;
-    var bleed = Math.round(parentLeft);
+    var vpW = Math.min(window.innerWidth, document.documentElement.clientWidth || window.innerWidth);
+    if (vpW < 200) vpW = window.innerWidth;
+    var bleed = Math.max(0, Math.round(parentLeft));
     var vp = document.createElement('div');
     vp.className = 'cb-vp';
     // Full-bleed clip (viewport width) so a centered 84% card leaves a
@@ -665,6 +666,7 @@ if (!pageSchema && caseStudies[slug]) {
       ac.abort();
       cancelAnimationFrame(raf);
       while (track.children.length > N) track.removeChild(track.lastElementChild);
+      track.style.setProperty('width', '100%', 'important');
       if (vp.parentNode) {
         vp.parentNode.insertBefore(track, vp);
         vp.parentNode.removeChild(vp);
