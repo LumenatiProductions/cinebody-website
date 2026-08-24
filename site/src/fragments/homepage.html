@@ -1857,7 +1857,10 @@ body > * { position: relative; z-index: 1; }
     { src: '/assets/b1e36654-pngimg.com-snapchat_PNG41.png', id: 'snap' }
   ];
   var t = document.getElementById('logoTrack');
-  for(var i=0;i<4;i++) logos.forEach(function(l){ var img=document.createElement('img'); img.src=l.src; img.dataset.logo=l.id; img.loading='lazy'; img.draggable=false; img.alt=''; t.appendChild(img); });
+  // Load the first pass eagerly (small logos, needed for the loop immediately). lazy-loading
+  // inside a CSS-animated/off-screen marquee track is unreliable on Safari — it left the logos
+  // blank for tens of seconds. Only the duplicate passes (i>0) stay lazy.
+  for(var i=0;i<4;i++) logos.forEach(function(l){ var img=document.createElement('img'); img.src=l.src; img.dataset.logo=l.id; if(i>0) img.loading='lazy'; img.decoding='async'; img.draggable=false; img.alt=''; t.appendChild(img); });
 })();
 
 // CTA marquee
