@@ -411,12 +411,15 @@ if (!pageSchema && caseStudies[slug]) {
     // else opacity stays 0 and the whole slider is invisible.
     track.classList.add('vis'); track.style.opacity = '1';
 
-    // Uniform card width (each slider holds one aspect ratio) → one period P.
-    // Duplicate the set until there are enough cards to cover the viewport and wrap
-    // cleanly; clones get their own click-to-play wired below.
+    // Uniform card width → one period P and one full-set width setW. Duplicate the set
+    // as WHOLE copies so the DOM is FIXED. We wrap by teleporting the transform one
+    // set-width at a seam (identical sets = invisible jump) and never touch the DOM
+    // mid-drag — so scrolling is smooth and the play/mute buttons don't jitter.
+    var N = items.length;
     var P = items[0].getBoundingClientRect().width + gap;
-    var need = Math.ceil(vp.clientWidth / P) + 3;
-    while (track.children.length < need) {
+    var setW = N * P;
+    var sets = Math.max(3, Math.ceil((Math.ceil(vp.clientWidth / P) + 3) / N));
+    for (var si = 1; si < sets; si++) {
       items.forEach(function (it) {
         var c = it.cloneNode(true);
         Array.prototype.forEach.call(c.querySelectorAll('img'), function (i) { i.draggable = false; });
@@ -427,14 +430,12 @@ if (!pageSchema && caseStudies[slug]) {
 
     var pos = 0;
     function apply() { track.style.transform = 'translate3d(' + pos + 'px,0,0)'; }
-
-    // Seamless wrap by whole cards: keep pos in (-2P, -P] so a card always covers
-    // the left peek. Identical widths mean rotating the DOM causes no visual jump.
-    function recycle() {
+    // Teleport-wrap: keep pos inside one set-width band. Pure math + transform, no DOM.
+    function wrap() {
       var guard = 0;
-      while (pos <= -2 * P && guard++ < 200) { track.appendChild(track.firstElementChild); pos += P; }
+      while (pos <= -2 * setW && guard++ < 999) pos += setW;
       guard = 0;
-      while (pos > -P && guard++ < 200) { track.insertBefore(track.lastElementChild, track.firstElementChild); pos -= P; }
+      while (pos > -setW && guard++ < 999) pos -= setW;
       apply();
     }
 
@@ -460,7 +461,7 @@ if (!pageSchema && caseStudies[slug]) {
         if (!t0) t0 = t;
         var k = Math.min(1, (t - t0) / 320), e = 1 - Math.pow(1 - k, 3);
         pos = start + (target - start) * e; apply();
-        if (k < 1) raf = requestAnimationFrame(step); else recycle();
+        if (k < 1) raf = requestAnimationFrame(step); else wrap();
       }
       raf = requestAnimationFrame(step);
     }
@@ -468,9 +469,9 @@ if (!pageSchema && caseStudies[slug]) {
     // Initial layout: center the first card, then wrap to fill both edges.
     (function initPos() {
       var v = vp.getBoundingClientRect(), r = track.firstElementChild.getBoundingClientRect();
-      pos = (v.left + v.width / 2) - (r.left + r.width / 2); recycle();
+      pos = (v.left + v.width / 2) - (r.left + r.width / 2); wrap();
     })();
-    window.addEventListener('resize', function () { recycle(); snap(); });
+    window.addEventListener('resize', function () { wrap(); snap(); });
 
     // ── pointer drag + momentum + direction lock ──
     var down = false, dragging = false, decided = false, ignore = false;
@@ -493,7 +494,7 @@ if (!pageSchema && caseStudies[slug]) {
       }
       if (!dragging) return;
       moved = Math.max(moved, Math.abs(dx));
-      pos = sp + dx; apply(); recycle();
+      pos = sp + dx; apply(); wrap();
       var now = e.timeStamp || performance.now(), dt = now - lastT;
       if (dt > 0) { var v2 = (e.clientX - lastX) / dt; vel = Math.max(-4, Math.min(4, v2)); }  // px/ms, clamped
       lastX = e.clientX; lastT = now;
@@ -514,7 +515,7 @@ if (!pageSchema && caseStudies[slug]) {
       (function glide() {
         v *= 0.93;
         if (Math.abs(v) < 0.4) { snap(); return; }
-        pos += v; apply(); recycle();
+        pos += v; apply(); wrap();
         raf = requestAnimationFrame(glide);
       })();
     }
