@@ -11,6 +11,7 @@ const {
   active,
   image = '/og.png',
   noindex = false,
+  schema,   // optional page-specific JSON-LD (object or array), e.g. BlogPosting
 } = Astro.props;
 
 const siteName = 'Cinebody';
@@ -26,7 +27,8 @@ const orgSchema = {
   url: 'https://www.cinebody.com',
   logo: 'https://www.cinebody.com/cinebody-icon.png',
   description,
-  address: { '@type': 'PostalAddress', addressLocality: 'Denver', addressRegion: 'CO', addressCountry: 'US' },
+  address: { '@type': 'PostalAddress', streetAddress: '3839 N Jackson Street', addressLocality: 'Denver', addressRegion: 'CO', postalCode: '80205', addressCountry: 'US' },
+  email: 'info@cinebody.com',
   sameAs: ['https://vimeo.com/cinebody', 'https://instagram.com/cinebody', 'https://facebook.com/cinebody'],
 };
 const siteSchema = {
@@ -68,8 +70,51 @@ const entitySchemas = {
     provider: publisher,
     areaServed: 'US',
   },
+  pricing: {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Cinebody',
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: 'Web',
+    url: 'https://www.cinebody.com/pricing',
+    description: 'Cinebody software plans plus optional Creative Services. Software starts at $250/month, billed annually.',
+    offers: [
+      { '@type': 'Offer', name: 'Plus', price: '250', priceCurrency: 'USD', description: 'For small teams. $250/month billed annually ($300 monthly).', url: 'https://www.cinebody.com/pricing' },
+      { '@type': 'Offer', name: 'Pro', price: '500', priceCurrency: 'USD', description: 'For growing programs. $500/month billed annually ($600 monthly).', url: 'https://www.cinebody.com/pricing' },
+      { '@type': 'Offer', name: 'Enterprise', priceCurrency: 'USD', description: 'Custom pricing for large organizations.', url: 'https://www.cinebody.com/pricing' },
+    ],
+    publisher,
+  },
 };
-const pageSchema = entitySchemas[active];
+
+// Case studies: a CreativeWork per client, keyed by URL slug (they don't set `active`).
+const caseStudies = {
+  'royal-caribbean': ['Royal Caribbean', 'Turned onboard crew across the fleet into an always-on content engine, with no production crews flown in.'],
+  'pointme': ['Point.me', 'One shoot produced a connected-TV spot plus a full multi-platform campaign featuring 70+ real customers.'],
+  'nike': ['Nike', 'Captured authentic athlete and community video at the speed of culture.'],
+  'dell': ['Dell', 'Scaled authentic employee and event video across teams and geographies.'],
+  'georgia-pacific': ['Georgia-Pacific', 'Captured employee stories and brand video across a distributed workforce.'],
+  'altra': ['Altra', 'Captured athlete stories on the trail and turned them into a season of content.'],
+  'cogent': ['Cogent', 'Captured real festival and event footage and produced a marquee brand film.'],
+  'crocs': ['Crocs', 'Ran a high-volume campaign of authentic creator and customer video.'],
+  'sploot': ['Sploot', 'Shot once and produced a connected-TV spot plus a full set of social cutdowns.'],
+};
+const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, '');
+let pageSchema = entitySchemas[active];
+if (!pageSchema && caseStudies[slug]) {
+  const [client, outcome] = caseStudies[slug];
+  pageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: `${client} × Cinebody`,
+    headline: `${client} case study`,
+    about: { '@type': 'Organization', name: client },
+    description: outcome,
+    creator: publisher,
+    publisher,
+    url: canonical,
+  };
+}
 ---
 
 <!DOCTYPE html>
@@ -116,6 +161,7 @@ const pageSchema = entitySchemas[active];
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
     {pageSchema && <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />}
+    {schema && [].concat(schema).map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>
     <a href="#content" class="skip-link">Skip to content</a>

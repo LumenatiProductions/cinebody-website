@@ -3,9 +3,11 @@
 > Cinebody is the video capture platform that turns your community into your content team. Brands send a creative brief, and their employees, customers, and fans capture pro-quality vertical video on their phones, guided by patented shot-list technology. Teams then review, manage, and publish that video at scale. Optional Creative Services add strategy, direction, and editing, so a brand gets a steady stream of authentic video without a traditional production crew. Cinebody is made by Super 6 LLC and based in Denver, CO.
 
 ## Core pages
-- [Software](https://www.cinebody.com/software): The platform. Send a link, set a shot list, and get pro-quality vertical video back from real people anywhere, with no app download and no production crew.
+- [Platform](https://www.cinebody.com/platform): The software. Send a link, set a shot list, and get pro-quality vertical video back from real people anywhere, with no app download and no production crew. AI writes the shot list, coaches every filmer live on camera, scores each clip, and assembles a finished cut.
 - [Creative Services](https://www.cinebody.com/services): Your content team without the headcount. Cinebody handles strategy, creative direction, and editing.
-- [Pricing](https://www.cinebody.com/pricing): Plans for the software platform and for creative services.
+- [Pricing](https://www.cinebody.com/pricing): Plans for the software platform and for creative services. Software starts at $250/month billed annually.
+- [Work](https://www.cinebody.com/work): Case studies from brands running Cinebody, including Nike, Royal Caribbean, Dell, and more.
+- [Blog](https://www.cinebody.com/cinebody-blog): Field notes on video, UGC, and creation from the Cinebody team: production tips, content strategy, and how brands capture authentic video at scale.
 - [Knowledge Base](https://www.cinebody.com/knowledge-base): Guides, answers, and best practices for using Cinebody.
 
 ## Case studies
