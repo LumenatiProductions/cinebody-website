@@ -1048,8 +1048,9 @@ body > * { position: relative; z-index: 1; }
    scrolling — so on a touch device it can strand on stage 1-2. Touch always gets the
    reliable stack (must stay in lockstep with the JS condition below). */
 @media (max-width: 1024px), (hover: none), (pointer: coarse) {
-  .pipe-scroll { height: auto; }
-  .pipe-sticky { position: static; height: auto; display: block; padding: 8px 0 24px; }
+  .pipeline { overflow: visible; }
+  .pipe-scroll { height: auto !important; min-height: 0; overflow: visible; }
+  .pipe-sticky { position: static !important; height: auto !important; top: auto !important; display: block !important; overflow: visible !important; align-items: stretch; padding: 8px 0 24px; }
   .pipe-stickygrid { grid-template-columns: 1fr; }
   .pipe-rail { display: none; }
   .pipe-phone-slot, .pipe-scenes { display: none; }
@@ -1086,8 +1087,9 @@ body > * { position: relative; z-index: 1; }
    device — including a desktop iOS Simulator, which reports a fine pointer + wide width so the
    media query above misses it entirely. These mirror that block but win by class, so whenever
    JS decides "touch" you get the reliable stack, never the scroll version that strands stage 1. */
-.pipeline.pipe-static .pipe-scroll { height: auto; }
-.pipeline.pipe-static .pipe-sticky { position: static; height: auto; display: block; padding: 8px 0 24px; }
+.pipeline.pipe-static { overflow: visible; }
+.pipeline.pipe-static .pipe-scroll { height: auto !important; min-height: 0; overflow: visible; }
+.pipeline.pipe-static .pipe-sticky { position: static !important; height: auto !important; top: auto !important; display: block !important; overflow: visible !important; align-items: stretch; padding: 8px 0 24px; }
 .pipeline.pipe-static .pipe-stickygrid { grid-template-columns: 1fr; }
 .pipeline.pipe-static .pipe-rail { display: none; }
 .pipeline.pipe-static .pipe-phone-slot, .pipeline.pipe-static .pipe-scenes { display: none; }
@@ -1316,9 +1318,36 @@ body > * { position: relative; z-index: 1; }
   // it strands on stage 1-2. Adding .pipe-static makes the class-based CSS above force the stack.
   var isTouch = navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
   if (isTouch || window.matchMedia('(max-width: 1024px)').matches || window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches) {
-    wrap.closest('.pipeline').classList.add('pipe-static');
+    var pipe = wrap.closest('.pipeline');
+    pipe.classList.add('pipe-static');
+    // iOS WebKit can keep the desktop 560px sticky / overflow-x:clip computed style even
+    // after the class + media-query rules apply (timeline spine shows, layout still clips).
+    // Inline !important is the only authority that reliably wins on that engine.
+    var sticky = wrap.querySelector('.pipe-sticky');
+    wrap.style.setProperty('height', 'auto', 'important');
+    wrap.style.setProperty('min-height', '0', 'important');
+    wrap.style.setProperty('overflow', 'visible', 'important');
+    if (sticky) {
+      sticky.style.setProperty('position', 'static', 'important');
+      sticky.style.setProperty('height', 'auto', 'important');
+      sticky.style.setProperty('top', 'auto', 'important');
+      sticky.style.setProperty('display', 'block', 'important');
+      sticky.style.setProperty('align-items', 'stretch', 'important');
+      sticky.style.setProperty('overflow', 'visible', 'important');
+    }
+    pipe.style.setProperty('overflow', 'visible', 'important');
     // Move each pinned vignette into its own timeline stage and lock it to its end pose.
     var mCopies = Array.prototype.slice.call(wrap.querySelectorAll('.pipe-copy-block'));
+    mCopies.forEach(function(c){
+      c.style.setProperty('position', 'relative', 'important');
+      c.style.setProperty('opacity', '1', 'important');
+      c.style.setProperty('transform', 'none', 'important');
+      c.style.setProperty('top', 'auto', 'important');
+      c.style.setProperty('left', 'auto', 'important');
+      c.style.setProperty('right', 'auto', 'important');
+      c.style.setProperty('pointer-events', 'auto', 'important');
+      c.classList.add('on');
+    });
     var mScenes = Array.prototype.slice.call(document.querySelectorAll('#pipeScenes .pscene'));
     var mBrief = document.getElementById('pbriefT');
     if (mBrief) mBrief.textContent = 'Spring line launch. Fun, real, six people.';
@@ -1333,6 +1362,15 @@ body > * { position: relative; z-index: 1; }
         if (subj) subj.style.transform = 'translateX(-50%) scale(1)';
         var rb = sc.querySelector('.prec-btn'); if (rb) rb.classList.add('on');
         var rt = sc.querySelector('.prec'); if (rt) rt.classList.add('on');
+      }
+      if (i === 2 || i === 3) {
+        // Score + Cut: same end-pose lock as Film. CSS already covers these; force any
+        // absolute/keyframed child that WebKit left at opacity 0 so the stage is visible.
+        var locked = sc.querySelectorAll('.pfeat, .pfeat-verdict, .pfeat-score, .pfeat-chip, .pmini, .pmini-s, .pblock, .pplay, .pdone');
+        Array.prototype.forEach.call(locked, function(el){
+          el.style.setProperty('opacity', '1', 'important');
+          el.style.setProperty('transform', 'none', 'important');
+        });
       }
     });
     return;
