@@ -470,6 +470,7 @@ if (!pageSchema && caseStudies[slug]) {
     var parentW = parent ? parent.clientWidth : window.innerWidth;
     if (parentW < 200) return false;
 
+    var cs = getComputedStyle(track);
     var parentLeft = parent.getBoundingClientRect().left;
     var vpW = window.innerWidth;
     var bleed = Math.round(parentLeft);
