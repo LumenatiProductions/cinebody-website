@@ -117,10 +117,25 @@ body > * { position: relative; z-index: 1; }
 .hero-visual .vid-playable { margin: 0 auto; }
 
 .hero-vid-pair {
-  display: flex; gap: 16px; justify-content: center;
-  max-width: 500px; margin: 0 auto;
+  display: flex; gap: 16px;
+}
+@media (min-width: 701px) {
+  .hero-vid-pair { justify-content: center; max-width: 500px; margin: 0 auto; }
 }
 .hero-vid-pair .vid-card { flex: 1; max-width: 240px; }
+@media (max-width: 700px) {
+  .hero-vid-pair, .vid-trio, .horiz-pair, .grid-2x2 {
+    justify-content: flex-start !important;
+    max-width: none !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+  }
+  .hero-vid-pair .vid-card, .vid-trio .vid-card {
+    flex: 0 0 84% !important;
+    width: 84% !important;
+    max-width: 340px !important;
+  }
+}
 
 /* ═══ CONTENT SECTIONS ═══ */
 .content-section {
@@ -167,8 +182,10 @@ body > * { position: relative; z-index: 1; }
 
 /* Vertical video trio */
 .vid-trio {
-  display: flex; gap: 16px; justify-content: center;
-  max-width: 660px; margin: 0 auto;
+  display: flex; gap: 16px;
+}
+@media (min-width: 701px) {
+  .vid-trio { justify-content: center; max-width: 660px; margin: 0 auto; }
 }
 .vid-trio .vid-card { flex: 1; max-width: 200px; }
 .vid-label {
@@ -180,13 +197,12 @@ body > * { position: relative; z-index: 1; }
 /* Horizontal pair */
 .horiz-pair {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  max-width: 900px; margin: 0 auto;
 }
-
-/* 2x2 Grid */
 .grid-2x2 {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  max-width: 900px; margin: 0 auto;
+}
+@media (min-width: 701px) {
+  .horiz-pair, .grid-2x2 { max-width: 900px; margin: 0 auto; }
 }
 
 /* ═══ TABS ═══ */
@@ -268,8 +284,6 @@ body > * { position: relative; z-index: 1; }
   .hero { padding: 96px 0 52px; }
   .hero h1 { font-size: 2.25rem; }
   .content-section, .cta-band { padding: 60px 0; }
-  .vid-trio .vid-card { max-width: 160px; }
-  .hero-vid-pair .vid-card { max-width: 160px; }
   .program-stats { grid-template-columns: repeat(2, 1fr); }
   .tabs { gap: 6px; }
   .tab-btn { padding: 8px 14px; font-size: 10px; }
@@ -435,21 +449,17 @@ body > * { position: relative; z-index: 1; }
           </div>
           <div class="vid-label">POV</div>
         </div>
-      </div>
-      <div style="margin-top:24px">
-        <div class="vid-trio reveal">
-          <div class="vid-card">
-            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1125887433">
-              <img class="vid-poster" src="https://i.vimeocdn.com/video/2070359721-d20f225c24d78f0a79c51b3d25e04a91ae02a9264d12e3e33b511293cdf4ef50-d_640" alt="Unfortunately, I Love">
-            </div>
-            <div class="vid-label">Unfortunately, I Love&hellip;</div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1125887433">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2070359721-d20f225c24d78f0a79c51b3d25e04a91ae02a9264d12e3e33b511293cdf4ef50-d_640" alt="Unfortunately, I Love">
           </div>
-          <div class="vid-card">
-            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1168553841">
-              <img class="vid-poster" src="https://i.vimeocdn.com/video/2126964827-bfbf53dd814ad31c53493044506381fd4f5ab4f56d878b709557a8f41b16c842-d_640" alt="So Much Fun">
-            </div>
-            <div class="vid-label">So Much Fun</div>
+          <div class="vid-label">Unfortunately, I Love&hellip;</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1168553841">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2126964827-bfbf53dd814ad31c53493044506381fd4f5ab4f56d878b709557a8f41b16c842-d_640" alt="So Much Fun">
           </div>
+          <div class="vid-label">So Much Fun</div>
         </div>
       </div>
     </div>
@@ -478,21 +488,17 @@ body > * { position: relative; z-index: 1; }
           </div>
           <div class="vid-label">Abhishek Mehra</div>
         </div>
-      </div>
-      <div style="margin-top:24px">
-        <div class="vid-trio reveal">
-          <div class="vid-card">
-            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1044697604">
-              <img class="vid-poster" src="https://i.vimeocdn.com/video/1968137753-8c482648b7ba4dbc4db180635219f063b18342869beb1472e267fe307c48306c-d_640" alt="Why Dell?">
-            </div>
-            <div class="vid-label">Why Dell?</div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1044697604">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1968137753-8c482648b7ba4dbc4db180635219f063b18342869beb1472e267fe307c48306c-d_640" alt="Why Dell?">
           </div>
-          <div class="vid-card">
-            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1122853331">
-              <img class="vid-poster" src="https://i.vimeocdn.com/video/2064339976-359aaff378e439ac9355235e6e22963b1672adc5c58367534518c3ea780072ca-d_640" alt="Supply Chain Excellence">
-            </div>
-            <div class="vid-label">Supply Chain Excellence</div>
+          <div class="vid-label">Why Dell?</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1122853331">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2064339976-359aaff378e439ac9355235e6e22963b1672adc5c58367534518c3ea780072ca-d_640" alt="Supply Chain Excellence">
           </div>
+          <div class="vid-label">Supply Chain Excellence</div>
         </div>
       </div>
     </div>
@@ -521,15 +527,11 @@ body > * { position: relative; z-index: 1; }
           </div>
           <div class="vid-label">HSI Alumni Story</div>
         </div>
-      </div>
-      <div style="margin-top:24px;max-width:440px;margin-left:auto;margin-right:auto">
-        <div class="horiz-pair reveal" style="grid-template-columns:1fr">
-          <div class="vid-card">
-            <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="949537419">
-              <img class="vid-poster" src="https://i.vimeocdn.com/video/1857510799-42eb5175fdc37e61412989556931b44fc24a062332d36a5a9975ef93421d5444-d_640" alt="StemAspire India">
-            </div>
-            <div class="vid-label">StemAspire India</div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--h" data-autoplay data-vimeo="949537419">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/1857510799-42eb5175fdc37e61412989556931b44fc24a062332d36a5a9975ef93421d5444-d_640" alt="StemAspire India">
           </div>
+          <div class="vid-label">StemAspire India</div>
         </div>
       </div>
     </div>
@@ -558,15 +560,11 @@ body > * { position: relative; z-index: 1; }
           </div>
           <div class="vid-label">Resume Tips</div>
         </div>
-      </div>
-      <div style="margin-top:24px">
-        <div class="vid-trio reveal">
-          <div class="vid-card">
-            <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1203948167" data-vimeo-h="68b8e8f4b6">
-              <img class="vid-poster" src="https://i.vimeocdn.com/video/2172167993-82c67e598c56ba8320aa71eb0def2ed8ac0620e7fcf7828f240f855f457f696d-d_640" alt="Interns, India">
-            </div>
-            <div class="vid-label">India</div>
+        <div class="vid-card">
+          <div class="vid-playable vid-playable--v" data-autoplay data-vimeo="1203948167" data-vimeo-h="68b8e8f4b6">
+            <img class="vid-poster" src="https://i.vimeocdn.com/video/2172167993-82c67e598c56ba8320aa71eb0def2ed8ac0620e7fcf7828f240f855f457f696d-d_640" alt="Interns, India">
           </div>
+          <div class="vid-label">India</div>
         </div>
       </div>
     </div>
@@ -627,6 +625,15 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
     // Trigger reveal for newly visible elements
     panel.querySelectorAll('.reveal:not(.vis)').forEach(function(el){
       revealObs.observe(el);
+    });
+    // Hidden tabs measured 0 at load. Flush layout, then force re-arm so a
+    // prior 0-width / off-canvas init cannot stick (cbInit with bad geometry).
+    void panel.offsetWidth;
+    requestAnimationFrame(function(){
+      if (!window.__cbArmCarousel) return;
+      panel.querySelectorAll('.hero-vid-pair, .vid-trio, .horiz-pair, .grid-2x2, .vert-trio, .vid-grid').forEach(function(t){
+        window.__cbArmCarousel(t, true);
+      });
     });
   });
 });

@@ -189,7 +189,9 @@ body > * { position: relative; z-index: 1; }
 /* Video pair */
 .vid-pair {
   display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-  max-width: 900px; margin: 0 auto;
+}
+@media (min-width: 701px) {
+  .vid-pair { max-width: 900px; margin: 0 auto; }
 }
 
 /* ═══ CTA BAND ═══ */

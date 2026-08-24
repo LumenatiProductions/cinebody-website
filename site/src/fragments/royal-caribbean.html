@@ -289,7 +289,9 @@ body > * { position: relative; z-index: 1; }
 
 .vid-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-  max-width: 480px; margin: 0 auto;
+}
+@media (min-width: 701px) {
+  .vid-grid { max-width: 480px; margin: 0 auto; }
 }
 
 .vid-card {
@@ -534,7 +536,15 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
     document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
     document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
     btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    var panel = document.getElementById('tab-' + btn.dataset.tab);
+    panel.classList.add('active');
+    void panel.offsetWidth;
+    requestAnimationFrame(function(){
+      if (!window.__cbArmCarousel) return;
+      panel.querySelectorAll('.vid-grid, .vid-trio, .hero-vid-pair').forEach(function(t){
+        window.__cbArmCarousel(t, true);
+      });
+    });
   });
 });
 

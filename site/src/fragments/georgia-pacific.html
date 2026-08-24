@@ -122,8 +122,10 @@ body > * { position: relative; z-index: 1; }
 .hero-visual .vid-playable { margin: 0 auto; }
 
 .hero-vid-pair {
-  display: flex; gap: 12px; justify-content: center;
-  max-width: 480px; margin: 0 auto;
+  display: flex; gap: 12px;
+}
+@media (min-width: 701px) {
+  .hero-vid-pair { justify-content: center; max-width: 480px; margin: 0 auto; }
 }
 
 .hero-vid-pair .vid-card { flex: 1; max-width: 220px; }
@@ -166,8 +168,10 @@ body > * { position: relative; z-index: 1; }
 
 /* Sparkle vertical pair */
 .sparkle-pair {
-  display: flex; gap: 20px; justify-content: center;
-  max-width: 480px; margin: 0 auto;
+  display: flex; gap: 20px;
+}
+@media (min-width: 701px) {
+  .sparkle-pair { justify-content: center; max-width: 480px; margin: 0 auto; }
 }
 .sparkle-pair .vid-card { flex: 1; max-width: 230px; }
 
@@ -283,8 +287,6 @@ body > * { position: relative; z-index: 1; }
   .hero { padding: 96px 0 52px; }
   .hero h1 { font-size: 2.25rem; }
   .content-section, .carousel-section, .cta-band { padding: 60px 0; }
-  .sparkle-pair .vid-card { max-width: 160px; }
-  .hero-vid-pair .vid-card { max-width: 160px; }
   .carousel-card { flex: 0 0 160px; }
 }
 

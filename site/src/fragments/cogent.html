@@ -122,8 +122,10 @@ body > * { position: relative; z-index: 1; }
 .hero-visual .vid-playable { margin: 0 auto; }
 
 .hero-vid-pair {
-  display: flex; gap: 16px; justify-content: center;
-  max-width: 500px; margin: 0 auto;
+  display: flex; gap: 16px;
+}
+@media (min-width: 701px) {
+  .hero-vid-pair { justify-content: center; max-width: 500px; margin: 0 auto; }
 }
 .hero-vid-pair .vid-card { flex: 1; max-width: 240px; }
 
@@ -190,7 +192,10 @@ body > * { position: relative; z-index: 1; }
 
 /* Vertical video trio */
 .vid-trio {
-  display: flex; gap: 16px; justify-content: center;
+  display: flex; gap: 16px;
+}
+@media (min-width: 701px) {
+  .vid-trio { justify-content: center; }
 }
 .vid-trio .vid-card { flex: 1; max-width: 200px; }
 .vid-trio .vid-label {
@@ -227,7 +232,6 @@ body > * { position: relative; z-index: 1; }
   .marq-card { width: 100px; border-radius: 10px; }
   .vid-marquee-track { gap: 10px; }
   .vid-marquee-row { margin-bottom: 10px; }
-  .hero-vid-pair .vid-card { max-width: 160px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
