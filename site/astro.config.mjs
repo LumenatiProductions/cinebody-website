@@ -15,7 +15,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/boeing') && !page.includes('/giin') && !page.includes('/gilead-cds') && !page.includes('/kc-current'),
+      filter: (page) => !page.includes('/boeing') && !page.includes('/giin') && !page.includes('/gilead-cds') && !page.includes('/kc-current') && !page.includes('/sashco-year2'),
     }),
   ],
   compressHTML: true,
