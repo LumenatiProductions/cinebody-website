@@ -1072,6 +1072,22 @@ body > * { position: relative; z-index: 1; }
   /* the vignette card, once relocated into its stage */
   .pipe-copy-block .pscene { position: static; inset: auto; display: block; opacity: 1; margin-top: 20px; max-width: 330px; }
   .pipe-copy-block .pcard { box-shadow: 0 18px 44px rgba(0,0,0,0.4); }
+  /* Each stage vignette reveals its contents purely through CSS keyframes. On the
+     static mobile pipeline those animations play off-screen before you ever scroll
+     here, so their motion is never seen anyway, and a device that refuses to run
+     them (iOS Low Power Mode) would leave the stage blank. Lock every keyframed
+     element to its end pose so the stage always shows, animation or not. */
+  .pipe-copy-block .pscene .pshot,
+  .pipe-copy-block .pscene .pfeat,
+  .pipe-copy-block .pscene .pfeat-verdict,
+  .pipe-copy-block .pscene .pfeat-score,
+  .pipe-copy-block .pscene .pfeat-chip,
+  .pipe-copy-block .pscene .pmini,
+  .pipe-copy-block .pscene .pmini-s,
+  .pipe-copy-block .pscene .pblock,
+  .pipe-copy-block .pscene .pplay,
+  .pipe-copy-block .pscene .pdone { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .pipe-copy-block .pscene .pbar i::after { opacity: 1 !important; transform: scaleX(var(--w,1)) !important; animation: none !important; }
 }
 
 </style>
@@ -1829,7 +1845,9 @@ body > * { position: relative; z-index: 1; }
 
 // Finished cuts: chromeless Vimeo + our own controls (play/pause + teal progress)
 (function(){
-  var outs = Array.prototype.slice.call(document.querySelectorAll('.pipe-output[data-vimeo]'));
+  // Query live every time so the mobile carousel's CLONED finished-cut cards are
+  // covered too — they're added after load and never got per-node listeners.
+  function allOuts(){ return Array.prototype.slice.call(document.querySelectorAll('.pipe-output[data-vimeo]')); }
   function post(o, method, value){
     var f = o.querySelector('iframe');
     if (f && f.contentWindow) f.contentWindow.postMessage(JSON.stringify({ method: method, value: value }), '*');
@@ -1845,7 +1863,7 @@ body > * { position: relative; z-index: 1; }
     if (e.origin.indexOf('vimeo.com') === -1) return;
     var d;
     try { d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch (err) { return; }
-    var o = outs.find(function(x){
+    var o = allOuts().find(function(x){
       var f = x.querySelector('iframe');
       return f && f.contentWindow === e.source;
     });
@@ -1863,27 +1881,28 @@ body > * { position: relative; z-index: 1; }
       stop(o);
     }
   });
-  outs.forEach(function(o){
-    o.addEventListener('click', function(){
-      if (o.classList.contains('playing')) {
-        if (o.classList.contains('paused')) { post(o, 'play'); o.classList.remove('paused'); }
-        else { post(o, 'pause'); o.classList.add('paused'); }
-        return;
-      }
-      if (o.classList.contains('loading')) return;
-      outs.forEach(function(x){ if (x !== o) stop(x); });
-      var id = o.dataset.vimeo, h = o.dataset.h;
-      var src = 'https://player.vimeo.com/video/' + id + (h ? '?h=' + h + '&' : '?') + 'autoplay=1&controls=0&title=0&byline=0&portrait=0&dnt=1&api=1';
-      var f = document.createElement('iframe');
-      f.src = src;
-      f.allow = 'autoplay; fullscreen';
-      f.title = 'Cinebody finished cut';
-      o.appendChild(f);
-      var pr = document.createElement('div');
-      pr.className = 'po-progress';
-      o.appendChild(pr);
-      o.classList.add('loading');
-    });
+  // Delegated click so both the original cards AND the carousel's clones behave the same.
+  document.addEventListener('click', function(e){
+    var o = e.target.closest && e.target.closest('.pipe-output[data-vimeo]');
+    if (!o) return;
+    if (o.classList.contains('playing')) {
+      if (o.classList.contains('paused')) { post(o, 'play'); o.classList.remove('paused'); }
+      else { post(o, 'pause'); o.classList.add('paused'); }
+      return;
+    }
+    if (o.classList.contains('loading')) return;
+    allOuts().forEach(function(x){ if (x !== o) stop(x); });
+    var id = o.dataset.vimeo, h = o.dataset.h;
+    var src = 'https://player.vimeo.com/video/' + id + (h ? '?h=' + h + '&' : '?') + 'autoplay=1&controls=0&title=0&byline=0&portrait=0&dnt=1&api=1';
+    var f = document.createElement('iframe');
+    f.src = src;
+    f.allow = 'autoplay; fullscreen';
+    f.title = 'Cinebody finished cut';
+    o.appendChild(f);
+    var pr = document.createElement('div');
+    pr.className = 'po-progress';
+    o.appendChild(pr);
+    o.classList.add('loading');
   });
 })();
 

@@ -201,12 +201,17 @@ if (!pageSchema && caseStudies[slug]) {
           if (window.Vimeo && Vimeo.Player) container._player = new Vimeo.Player(iframe);
         }
 
-        document.querySelectorAll('.vid-playable').forEach(function (container) {
+        // One mount routine for EVERY card — originals and the carousel's clones alike —
+        // so play + mute behave identically everywhere. Exposed on window so the mobile
+        // carousel can re-mount its clones through this exact path instead of a parallel one.
+        function mountCard(container) {
+          if (container.__cbMounted) return;
           var videoId = container.getAttribute('data-vimeo');
           var hash = container.getAttribute('data-vimeo-h');
           var autoplayDesktop = container.hasAttribute('data-autoplay');
           var autoplayAlways = container.hasAttribute('data-autoplay-always');
           if (!videoId) return;
+          container.__cbMounted = true;
 
           var shouldAutoplay = !isSafari && !isMobile && (autoplayAlways || autoplayDesktop);
 
@@ -255,7 +260,10 @@ if (!pageSchema && caseStudies[slug]) {
             player.setVolume(1); muteBtn.innerHTML = svgUnmuted; muteBtn.setAttribute('aria-label', 'Mute');
             activePlayer = player; activeBtn = muteBtn;
           });
-        });
+        }
+
+        window.__cbMountVideo = mountCard;
+        document.querySelectorAll('.vid-playable').forEach(mountCard);
       })();
     </script>
 
@@ -361,22 +369,19 @@ if (!pageSchema && caseStudies[slug]) {
   if (!window.matchMedia('(max-width: 700px)').matches) return;
   var SEL = '.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group';
 
-  // Give a cloned card its own click-to-play (the controller only wired the originals).
+  // cloneNode copies the controller's play/mute buttons but NOT their listeners, so a
+  // fresh clone has dead controls. Strip the cloned-in state and re-mount the clone
+  // through the SAME controller the originals use, so play + mute are identical on
+  // every card in the loop (fixes mute doing nothing on the cloned cards).
   function wirePlay(node) {
     var v = node.matches && node.matches('.vid-playable') ? node : (node.querySelector && node.querySelector('.vid-playable'));
     if (!v) return;
     v.classList.remove('playing');
     var old = v.querySelector('iframe'); if (old) old.remove();
-    v.addEventListener('click', function (e) {
-      if (e.target.closest && e.target.closest('.vid-mute-btn')) return;
-      if (v.classList.contains('playing')) return;
-      var id = v.getAttribute('data-vimeo'); if (!id) return;
-      var h = v.getAttribute('data-vimeo-h');
-      var f = document.createElement('iframe');
-      f.src = 'https://player.vimeo.com/video/' + id + (h ? '?h=' + h + '&background=1' : '?background=1') + '&dnt=1';
-      f.allow = 'autoplay'; f.loading = 'lazy';
-      v.insertBefore(f, v.firstChild); v.classList.add('playing');
-    });
+    var pb = v.querySelector('.vid-play-btn'); if (pb) pb.remove();
+    var mb = v.querySelector('.vid-mute-btn'); if (mb) mb.remove();
+    v._player = null; v.__cbMounted = false;
+    if (window.__cbMountVideo) window.__cbMountVideo(v);
   }
 
   function setup(track) {
