@@ -244,24 +244,90 @@ if (!pageSchema && caseStudies[slug]) {
           return base + '?' + q.join('&');
         }
 
+        // 401 / PrivacyError (missing data-vimeo-h) and other Player failures
+        // used to leave .playing on with a dead iframe, so the poster and play
+        // button stayed hidden. Roll the card back so tap can be retried.
+        function restoreFailedPlay(container, iframe) {
+          if (container._cbRestored === iframe) return;
+          container._cbRestored = iframe;
+          if (container._cbMsgFn) {
+            window.removeEventListener('message', container._cbMsgFn);
+            container._cbMsgFn = null;
+          }
+          if (activePlayer && activePlayer === container._player) {
+            activePlayer = null; activeBtn = null;
+          }
+          if (container._player) {
+            try { container._player.off('error'); } catch (_) {}
+            container._player = null;
+          }
+          if (iframe && iframe.parentNode) iframe.parentNode.removeChild(iframe);
+          container.classList.remove('playing');
+          var playBtn = container.querySelector('.vid-play-btn');
+          if (playBtn) {
+            playBtn.style.removeProperty('opacity');
+            playBtn.style.removeProperty('pointer-events');
+          }
+        }
+
         function bindPlayer(container, iframe, fromUser) {
           function attach() {
             if (container._player) return true;
             if (!(window.Vimeo && Vimeo.Player)) return false;
-            var player = new Vimeo.Player(iframe);
+            var player;
+            try {
+              player = new Vimeo.Player(iframe);
+            } catch (_) {
+              restoreFailedPlay(container, iframe);
+              return true;
+            }
             container._player = player;
+            var started = false;
+            function onFail() {
+              if (started) return;
+              restoreFailedPlay(container, iframe);
+            }
+            try { player.on('error', onFail); } catch (_) {}
+            try { player.on('playing', function () { started = true; }); } catch (_) {}
+            if (player.ready) {
+              try { player.ready().then(function () {}, onFail); } catch (_) {}
+            }
+            if (!container._cbMsgFn) {
+              container._cbMsgFn = function (ev) {
+                if (!iframe.contentWindow || ev.source !== iframe.contentWindow) return;
+                var data = ev.data;
+                if (typeof data === 'string') {
+                  try { data = JSON.parse(data); } catch (e) { return; }
+                }
+                if (!data) return;
+                var kind = ((data.event || data.method || '') + '').toLowerCase();
+                var blob = '';
+                try { blob = JSON.stringify(data); } catch (e) { blob = ''; }
+                if (kind === 'error' || /401|privacyerror|passworderror|notfound/i.test(blob)) onFail(data.data || data);
+              };
+              window.addEventListener('message', container._cbMsgFn);
+            }
             // iOS often needs an explicit play() after construct, even when
             // the iframe was created inside the user-gesture click handler.
             if (fromUser) {
               try { player.setVolume(0); } catch (_) {}
-              try { player.play(); } catch (_) {}
+              try {
+                var played = player.play();
+                if (played && typeof played.then === 'function') played.then(function () {}, onFail);
+              } catch (_) {
+                onFail();
+              }
             }
             return true;
           }
           if (attach()) return;
           var n = 0;
           var t = setInterval(function () {
-            if (attach() || ++n > 40) clearInterval(t);
+            if (attach()) { clearInterval(t); return; }
+            if (++n > 40) {
+              clearInterval(t);
+              restoreFailedPlay(container, iframe);
+            }
           }, 100);
         }
 
@@ -321,8 +387,13 @@ if (!pageSchema && caseStudies[slug]) {
           container.addEventListener('click', function (e) {
             if (e.target.closest('.vid-mute-btn')) return;
             loadVideo(container, videoId, hash, true);
-            playBtn.style.opacity = '0';
-            playBtn.style.pointerEvents = 'none';
+            // Hide via CSS while .playing is on. Do not set inline opacity here —
+            // a sync Player/401 restore would then re-hide the button after we
+            // already rolled the card back.
+            if (container.classList.contains('playing')) {
+              playBtn.style.opacity = '0';
+              playBtn.style.pointerEvents = 'none';
+            }
           });
 
           muteBtn.addEventListener('click', function (e) {
