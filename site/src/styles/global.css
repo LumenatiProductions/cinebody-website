@@ -456,6 +456,7 @@ p, li { text-wrap: pretty; }
 }
 .vid-play-btn svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
 .vid-playable.playing .vid-play-btn { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.vid-playable.vid-loading .vid-play-btn { opacity: 0.4; }
 .vid-error-msg {
   position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
   z-index: 4; pointer-events: none; white-space: nowrap;
