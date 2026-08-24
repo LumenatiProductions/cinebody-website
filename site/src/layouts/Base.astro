@@ -469,18 +469,17 @@ if (!pageSchema && caseStudies[slug]) {
     var parent = track.parentElement;
     var parentW = parent ? parent.clientWidth : window.innerWidth;
     if (parentW < 200) return false;
-    // Pin to the visible column, never the (possibly 0) padded leftover.
-    parentW = Math.min(parentW, window.innerWidth);
 
-    var cs = getComputedStyle(track);
+    var parentLeft = parent.getBoundingClientRect().left;
+    var vpW = window.innerWidth;
+    var bleed = Math.round(parentLeft);
     var vp = document.createElement('div');
     vp.className = 'cb-vp';
-    // No padding on the clip — copied fragment padding shrank the content box
-    // so live-rect centering parked a 328px card with only a sliver visible.
+    // Full-bleed clip (viewport width) so a centered 84% card leaves a
+    // neighbor peek. No padding — that used to shrink the box and park
+    // cards off-canvas after wrap.
     vp.style.cssText = 'position:relative;overflow:hidden;touch-action:pan-y;cursor:grab;min-width:0;box-sizing:border-box;' +
-      'width:' + parentW + 'px;max-width:100%;' +
-      'margin-left:' + cs.marginLeft + ';margin-right:' + cs.marginRight + ';' +
-      'padding:0;';
+      'width:' + vpW + 'px;max-width:100vw;margin-left:' + (-bleed) + 'px;margin-right:0;padding:0;';
     parent.insertBefore(vp, track);
     vp.appendChild(track);
     track.classList.add('cb-tr');
