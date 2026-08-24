@@ -428,10 +428,11 @@ if (!pageSchema && caseStudies[slug]) {
 
     // Wrap the track in a clipping viewport; move the edge-bleed + peek padding onto it.
     var cs = getComputedStyle(track);
-    // If the track sits in a flex parent it would size to its (huge) content, so pin
-    // the viewport width to the parent's inner width; block parents size fine on their own.
-    var pd = track.parentElement ? getComputedStyle(track.parentElement).display : '';
-    var widthCss = /flex/.test(pd) && track.parentElement ? 'width:' + track.parentElement.clientWidth + 'px;' : '';
+    // Pin the viewport to the parent's width *before* clones exist. Grid/flex
+    // items have min-width:auto, so an unpinned vp grows with the cloned strip
+    // and the row stops looking like a one-card scroller.
+    var parentW = track.parentElement ? track.parentElement.clientWidth : window.innerWidth;
+    var widthCss = 'width:' + parentW + 'px;max-width:100%;';
     var vp = document.createElement('div');
     vp.className = 'cb-vp';
     vp.style.cssText = 'position:relative;overflow:hidden;touch-action:pan-y;cursor:grab;min-width:0;box-sizing:border-box;' + widthCss +
@@ -446,7 +447,7 @@ if (!pageSchema && caseStudies[slug]) {
     // once clones are added (84% of a content-sized track ≠ 84% of the screen),
     // which shrank the working hero to ~170px. 84% of the visible vp, cap 340.
     if (!track.classList.contains('pipe-outputs')) {
-      var cardPx = Math.min(340, Math.max(160, Math.round(vp.clientWidth * 0.84)));
+      var cardPx = Math.min(340, Math.max(160, Math.round(window.innerWidth * 0.84)));
       items.forEach(function (it) {
         it.classList.add('cb-mcard');
         it.style.setProperty('flex', '0 0 ' + cardPx + 'px', 'important');
