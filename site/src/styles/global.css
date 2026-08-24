@@ -504,7 +504,18 @@ p, li { text-wrap: pretty; }
     padding: 4px clamp(1.25rem, 12vw, 4rem) 8px !important;
     margin-left: -20px !important;
     margin-right: -20px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     scroll-padding-inline: clamp(1.25rem, 12vw, 4rem);
+  }
+  .cb-vp { overflow: hidden !important; max-width: 100% !important; min-width: 0 !important; }
+  .cb-tr {
+    justify-content: flex-start !important;
+    width: max-content !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
   }
   .hero-vid-pair::-webkit-scrollbar, .vid-trio::-webkit-scrollbar, .vert-trio::-webkit-scrollbar,
   .vid-grid::-webkit-scrollbar, .vid-grid-3v::-webkit-scrollbar, .grid-2x2::-webkit-scrollbar,

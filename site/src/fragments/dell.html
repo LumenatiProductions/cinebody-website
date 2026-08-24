@@ -123,6 +123,19 @@ body > * { position: relative; z-index: 1; }
   .hero-vid-pair { justify-content: center; max-width: 500px; margin: 0 auto; }
 }
 .hero-vid-pair .vid-card { flex: 1; max-width: 240px; }
+@media (max-width: 700px) {
+  .hero-vid-pair, .vid-trio, .horiz-pair, .grid-2x2 {
+    justify-content: flex-start !important;
+    max-width: none !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+  }
+  .hero-vid-pair .vid-card, .vid-trio .vid-card {
+    flex: 0 0 84% !important;
+    width: 84% !important;
+    max-width: 340px !important;
+  }
+}
 
 /* ═══ CONTENT SECTIONS ═══ */
 .content-section {
@@ -621,10 +634,15 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
     panel.querySelectorAll('.reveal:not(.vis)').forEach(function(el){
       revealObs.observe(el);
     });
-    // Hidden tabs measured 0 at load; arm now that the panel has width.
-    if (window.__cbArmCarousel) {
-      panel.querySelectorAll('.hero-vid-pair, .vid-trio, .horiz-pair, .grid-2x2, .vert-trio, .vid-grid').forEach(window.__cbArmCarousel);
-    }
+    // Hidden tabs measured 0 at load. Flush layout, then force re-arm so a
+    // prior 0-width / off-canvas init cannot stick (cbInit with bad geometry).
+    void panel.offsetWidth;
+    requestAnimationFrame(function(){
+      if (!window.__cbArmCarousel) return;
+      panel.querySelectorAll('.hero-vid-pair, .vid-trio, .horiz-pair, .grid-2x2, .vert-trio, .vid-grid').forEach(function(t){
+        window.__cbArmCarousel(t, true);
+      });
+    });
   });
 });
 

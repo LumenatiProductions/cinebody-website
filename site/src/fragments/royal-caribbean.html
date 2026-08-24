@@ -538,9 +538,13 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
     btn.classList.add('active');
     var panel = document.getElementById('tab-' + btn.dataset.tab);
     panel.classList.add('active');
-    if (window.__cbArmCarousel) {
-      panel.querySelectorAll('.vid-grid, .vid-trio, .hero-vid-pair').forEach(window.__cbArmCarousel);
-    }
+    void panel.offsetWidth;
+    requestAnimationFrame(function(){
+      if (!window.__cbArmCarousel) return;
+      panel.querySelectorAll('.vid-grid, .vid-trio, .hero-vid-pair').forEach(function(t){
+        window.__cbArmCarousel(t, true);
+      });
+    });
   });
 });
 
