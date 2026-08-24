@@ -202,7 +202,7 @@ if (!pageSchema && caseStudies[slug]) {
           width: 84% !important;
           max-width: 340px !important;
         }
-        .cb-vp { overflow: hidden !important; max-width: none !important; min-width: 0 !important; }
+        .cb-vp { overflow: hidden !important; min-width: 0; }
         .cb-tr {
           justify-content: flex-start !important;
           width: max-content !important;
@@ -479,8 +479,12 @@ if (!pageSchema && caseStudies[slug]) {
     // Full-bleed clip (viewport width) so a centered 84% card leaves a
     // neighbor peek. No padding — that used to shrink the box and park
     // cards off-canvas after wrap.
-    vp.style.cssText = 'position:relative;overflow:hidden;touch-action:pan-y;cursor:grab;min-width:0;box-sizing:border-box;' +
-      'width:' + vpW + 'px;max-width:none;margin-left:' + (-bleed) + 'px;margin-right:0;padding:0;';
+    vp.style.cssText = 'position:relative;overflow:hidden;touch-action:pan-y;cursor:grab;box-sizing:border-box;' +
+      'flex:0 0 ' + vpW + 'px;contain:inline-size;' +
+      'margin-left:' + (-bleed) + 'px;margin-right:0;padding:0;';
+    vp.style.setProperty('width', vpW + 'px', 'important');
+    vp.style.setProperty('min-width', vpW + 'px', 'important');
+    vp.style.setProperty('max-width', vpW + 'px', 'important');
     parent.insertBefore(vp, track);
     vp.appendChild(track);
     track.classList.add('cb-tr');
