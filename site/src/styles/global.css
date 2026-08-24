@@ -488,7 +488,7 @@ p, li { text-wrap: pretty; }
    Homepage .pipe-outputs keeps its own 84% treatment. */
 @media (max-width: 700px) {
   .hero .hero-vid-pair, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v,
-  .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes {
+  .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group {
     display: flex !important;
     flex-flow: row nowrap !important;
     grid-template-columns: none !important;
@@ -521,17 +521,17 @@ p, li { text-wrap: pretty; }
   .hero-vid-pair::-webkit-scrollbar, .vid-trio::-webkit-scrollbar, .vert-trio::-webkit-scrollbar,
   .vid-grid::-webkit-scrollbar, .vid-grid-3v::-webkit-scrollbar, .grid-2x2::-webkit-scrollbar,
   .horiz-pair::-webkit-scrollbar, .vert-pair::-webkit-scrollbar, .vid-pair::-webkit-scrollbar,
-  .sparkle-pair::-webkit-scrollbar, .sp-group::-webkit-scrollbar, .tree-nodes::-webkit-scrollbar { display: none; }
+  .sparkle-pair::-webkit-scrollbar, .sp-group::-webkit-scrollbar { display: none; }
   .hero .hero-vid-pair > *, .hero-vid-pair > *, .vid-trio > *, .vert-trio > *, .vid-grid > *,
   .vid-grid-3v > *, .grid-2x2 > *, .horiz-pair > *, .vert-pair > *, .vid-pair > *,
-  .sparkle-pair > *, .sp-group > *, .tree-nodes > *, .cb-mcard {
+  .sparkle-pair > *, .sp-group > *, .cb-mcard {
     flex: 0 0 84% !important;
     width: 84% !important;
     max-width: 340px !important;
     scroll-snap-align: center;
   }
   .pipe-outputs, .hero .hero-vid-pair, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v,
-  .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes {
+  .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group {
     cursor: grab; touch-action: pan-y;
   }
   .is-dragging { cursor: grabbing !important; scroll-snap-type: none !important; scroll-behavior: auto !important; user-select: none; }

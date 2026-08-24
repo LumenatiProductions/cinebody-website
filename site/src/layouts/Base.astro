@@ -180,7 +180,7 @@ if (!pageSchema && caseStudies[slug]) {
     <Fragment set:html={`<style>
       @media (max-width: 700px) {
         .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v,
-        .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes {
+        .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group {
           display: flex !important;
           flex-flow: row nowrap !important;
           grid-template-columns: none !important;
@@ -197,7 +197,7 @@ if (!pageSchema && caseStudies[slug]) {
         }
         .hero-vid-pair > *, .vid-trio > *, .vert-trio > *, .vid-grid > *, .vid-grid-3v > *,
         .grid-2x2 > *, .horiz-pair > *, .vert-pair > *, .vid-pair > *, .sparkle-pair > *,
-        .sp-group > *, .tree-nodes > *, .cb-mcard {
+        .sp-group > *, .cb-mcard {
           flex: 0 0 84% !important;
           width: 84% !important;
           max-width: 340px !important;
@@ -406,7 +406,7 @@ if (!pageSchema && caseStudies[slug]) {
 // script is disabled the CSS native-scroll version still works as a fallback.
 (function () {
   if (!window.matchMedia('(max-width: 700px)').matches) return;
-  var SEL = '.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group, .tree-nodes';
+  var SEL = '.pipe-outputs, .hero-vid-pair, .vid-trio, .vert-trio, .vid-grid, .vid-grid-3v, .grid-2x2, .horiz-pair, .vert-pair, .vid-pair, .sparkle-pair, .sp-group';
 
   // cloneNode copies the controller's play/mute buttons but NOT their listeners, so a
   // fresh clone has dead controls. Strip the cloned-in state and re-mount the clone
@@ -469,14 +469,18 @@ if (!pageSchema && caseStudies[slug]) {
     var parent = track.parentElement;
     var parentW = parent ? parent.clientWidth : window.innerWidth;
     if (parentW < 200) return false;
+    // Pin to the visible column, never the (possibly 0) padded leftover.
+    parentW = Math.min(parentW, window.innerWidth);
 
     var cs = getComputedStyle(track);
     var vp = document.createElement('div');
     vp.className = 'cb-vp';
+    // No padding on the clip — copied fragment padding shrank the content box
+    // so live-rect centering parked a 328px card with only a sliver visible.
     vp.style.cssText = 'position:relative;overflow:hidden;touch-action:pan-y;cursor:grab;min-width:0;box-sizing:border-box;' +
       'width:' + parentW + 'px;max-width:100%;' +
       'margin-left:' + cs.marginLeft + ';margin-right:' + cs.marginRight + ';' +
-      'padding-left:' + cs.paddingLeft + ';padding-right:' + cs.paddingRight + ';';
+      'padding:0;';
     parent.insertBefore(vp, track);
     vp.appendChild(track);
     track.classList.add('cb-tr');
@@ -578,20 +582,28 @@ if (!pageSchema && caseStudies[slug]) {
       pos += (v.left + v.width / 2) - (r.left + r.width / 2);
       apply();
     }
-    function cardInView() {
-      var v = vp.getBoundingClientRect(), kids = track.children, i, r, overlap;
-      for (i = 0; i < kids.length; i++) {
-        r = kids[i].getBoundingClientRect();
-        overlap = Math.min(r.right, v.right) - Math.max(r.left, v.left);
-        if (overlap >= Math.min(80, r.width * 0.45)) return true;
-      }
-      return false;
+    function featuredOverlap() {
+      var el = track.children[N] || track.firstElementChild;
+      if (!el) return 0;
+      var v = vp.getBoundingClientRect(), r = el.getBoundingClientRect();
+      return Math.min(r.right, v.right) - Math.max(r.left, v.left);
     }
-    // Center the first card of the MIDDLE set using live rects (works even if
-    // the strip was not laid out at x=0). Then remember that pos as wrap base.
-    centerCard(track.children[N] || track.firstElementChild);
-    if (!cardInView()) centerCard(track.firstElementChild);
-    base = pos;
+    function place() {
+      pos = 0;
+      apply();
+      var mid = track.children[N] || track.firstElementChild;
+      centerCard(mid);
+      if (featuredOverlap() < (mid ? mid.getBoundingClientRect().width * 0.7 : 80)) {
+        pos = 0;
+        apply();
+        centerCard(track.firstElementChild);
+      }
+      base = pos;
+    }
+    // Center the first card of the MIDDLE set from live rects (same title as
+    // the originals). Re-run on the next frame in case tab layout was pending.
+    place();
+    requestAnimationFrame(place);
 
     var ac = new AbortController();
     var sig = { signal: ac.signal };
