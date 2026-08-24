@@ -244,12 +244,48 @@ if (!pageSchema && caseStudies[slug]) {
           return base + '?' + q.join('&');
         }
 
+        function showPlayBtn(container) {
+          var playBtn = container.querySelector('.vid-play-btn');
+          if (!playBtn) return;
+          playBtn.style.opacity = '';
+          playBtn.style.pointerEvents = '';
+        }
+
+        // Privacy-gated Vimeo (missing data-vimeo-h) returns 401. Roll back
+        // .playing so we don't flash a loader then sit on a dead poster
+        // with the play button still hidden via inline styles.
+        function failPlay(container) {
+          if (container._cbPlayFailed) return;
+          container._cbPlayFailed = true;
+          container.classList.remove('playing');
+          var iframe = container.querySelector('iframe');
+          if (iframe) iframe.remove();
+          if (container._player && container._player.unload) {
+            try { container._player.unload(); } catch (_) {}
+          }
+          container._player = null;
+          showPlayBtn(container);
+          container.classList.add('vid-error');
+          if (!container.querySelector('.vid-error-msg')) {
+            var msg = document.createElement('div');
+            msg.className = 'vid-error-msg';
+            msg.setAttribute('role', 'status');
+            msg.textContent = 'Video unavailable';
+            container.appendChild(msg);
+          }
+        }
+
         function bindPlayer(container, iframe, fromUser) {
           function attach() {
             if (container._player) return true;
             if (!(window.Vimeo && Vimeo.Player)) return false;
             var player = new Vimeo.Player(iframe);
             container._player = player;
+            var onFail = function () { failPlay(container); };
+            try { player.on('error', onFail); } catch (_) {}
+            if (player.ready) {
+              try { player.ready().then(null, onFail); } catch (_) {}
+            }
             // iOS often needs an explicit play() after construct, even when
             // the iframe was created inside the user-gesture click handler.
             if (fromUser) {
@@ -267,6 +303,10 @@ if (!pageSchema && caseStudies[slug]) {
 
         function loadVideo(container, videoId, hash, fromUser) {
           if (container.classList.contains('playing')) return;
+          container._cbPlayFailed = false;
+          container.classList.remove('vid-error');
+          var oldErr = container.querySelector('.vid-error-msg');
+          if (oldErr) oldErr.remove();
           var iframe = document.createElement('iframe');
           iframe.src = videoSrc(videoId, hash, !!fromUser);
           iframe.allow = 'autoplay; fullscreen';
@@ -320,9 +360,9 @@ if (!pageSchema && caseStudies[slug]) {
 
           container.addEventListener('click', function (e) {
             if (e.target.closest('.vid-mute-btn')) return;
+            // Hide via .playing CSS only — inline opacity:0 survived error
+            // rollback and left a dead poster with no play button.
             loadVideo(container, videoId, hash, true);
-            playBtn.style.opacity = '0';
-            playBtn.style.pointerEvents = 'none';
           });
 
           muteBtn.addEventListener('click', function (e) {
@@ -455,10 +495,12 @@ if (!pageSchema && caseStudies[slug]) {
   function wirePlay(node) {
     var v = node.matches && node.matches('.vid-playable') ? node : (node.querySelector && node.querySelector('.vid-playable'));
     if (!v) return;
-    v.classList.remove('playing');
+    v.classList.remove('playing', 'vid-error');
     var old = v.querySelector('iframe'); if (old) old.remove();
+    var err = v.querySelector('.vid-error-msg'); if (err) err.remove();
     var pb = v.querySelector('.vid-play-btn'); if (pb) pb.remove();
     var mb = v.querySelector('.vid-mute-btn'); if (mb) mb.remove();
+    v._cbPlayFailed = false;
     v._player = null; v.__cbMounted = false;
     if (window.__cbMountVideo) window.__cbMountVideo(v);
   }
