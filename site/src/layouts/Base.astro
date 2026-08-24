@@ -3,6 +3,7 @@ import Nav from '../components/Nav.astro';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import footerHtml from '../fragments/_footer.html?raw';
+import { hasOG, ogFileSlug } from '../og/entries';
 import '../styles/global.css';
 
 const {
@@ -17,7 +18,9 @@ const {
 const siteName = 'Cinebody';
 const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Real people film it. AI does the rest.`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || Astro.site.href;
-const ogImage = new URL(image, Astro.site).href;
+const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, '');
+// per-page branded share card where we generate one; otherwise the passed image (blog hero) or default
+const ogImage = new URL(hasOG(slug) ? `/og/${ogFileSlug(slug)}.png` : image, Astro.site).href;
 
 const orgSchema = {
   '@context': 'https://schema.org',
@@ -99,7 +102,6 @@ const caseStudies = {
   'crocs': ['Crocs', 'Ran a high-volume campaign of authentic creator and customer video.'],
   'sploot': ['Sploot', 'Shot once and produced a connected-TV spot plus a full set of social cutdowns.'],
 };
-const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, '');
 let pageSchema = entitySchemas[active];
 if (!pageSchema && caseStudies[slug]) {
   const [client, outcome] = caseStudies[slug];

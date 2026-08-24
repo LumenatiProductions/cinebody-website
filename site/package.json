@@ -21,7 +21,9 @@
     "astro": "^5.6.0"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "node-html-parser": "^7.1.0",
+    "satori": "^0.33.3",
     "sharp": "^0.34.5"
   }
 }
