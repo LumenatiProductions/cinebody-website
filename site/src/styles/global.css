@@ -508,7 +508,7 @@ p, li { text-wrap: pretty; }
     margin-bottom: 0 !important;
     scroll-padding-inline: clamp(1.25rem, 12vw, 4rem);
   }
-  .cb-vp { overflow: hidden !important; max-width: 100% !important; min-width: 0 !important; }
+  .cb-vp { overflow: hidden !important; max-width: none !important; min-width: 0 !important; }
   .cb-tr {
     justify-content: flex-start !important;
     width: max-content !important;
