@@ -315,3 +315,26 @@ Preview hard-refreshed with cache-busters. Phone ~390px + desktop ~1440px. #8 De
 
 - **#8:** Canonical Social Trends repro on iPhone 17 Pro sim looped (Warming Up after 7 left swipes; not rubber-band). Default Dell row looped both ways. HBCU swipes executed. Royal Caribbean Rover + Always-On also looped at 390px (8 left swipes each, wrapping transforms).
 - Residual cosmetics not re-filed: home hero tile shuffle between refreshes; legal pages still mix some straight quotes; Patents "International Patents" heading vs APPLICATIONS eyebrow unchanged.
+
+## LLM / GEO follow-ups (2026-08-23)
+
+Not visual bugs. Hand to Claude as a separate pass after the redesign QA re-check. Goal: fastest / smartest 2026-style site for human + LLM search.
+
+Already in good shape:
+- `/llms.txt` exists and is substantive
+- Home has Organization + WebSite + FAQPage JSON-LD
+- robots.txt allows crawl and points at a sitemap index
+- Title / meta description / canonical / OG / Twitter tags present on home
+
+Do next:
+
+1. **Fix `/llms.txt` for current IA** — still links Software → `/software`; live route is `/platform`. Add Blog `/cinebody-blog`, Work `/work`, Patents `/patents`. Keep short factual blurbs (what / for whom / proof).
+2. **Per-page answer blocks** — Platform, Services, Pricing, each case study: 2–4 plain crawlable sentences near the top that an LLM can quote (not only in video/mock UI).
+3. **Richer JSON-LD** — Pricing: Product/SoftwareApplication + Offer(s). Services: Service (+ FAQ if present). Blog posts: BlogPosting/Article. Case studies: CreativeWork / case-study shape with client + outcome. Keep Organization + WebSite + FAQPage.
+4. **Stable entity facts** — one legal name / address / email style sitewide. Patents: do not label applications as granted patents.
+5. **Perf for crawlers + humans** — LCP priorities, capped hero streams, posters on every video card (no black first paint), less unused JS on content pages.
+6. **Sitemap completeness on launch** — every public route (platform, services, work, pricing, blog, KB, patents, all case studies, privacy, terms). Preview may still point at www sitemap; confirm launch config.
+
+Known / out of scope for this pass:
+- App Store / Google Play `href="#"` (app not shipped)
+- Intentional won't-fix from visual QA (#11/#12 bleed, #14 nav glass, #16 Cogent marquee, #21 ✓ glyphs)
