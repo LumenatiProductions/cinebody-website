@@ -1082,6 +1082,36 @@ body > * { position: relative; z-index: 1; }
   .pipe-copy-block .pscene .pbar i::after { opacity: 1 !important; transform: scaleX(var(--w,1)) !important; animation: none !important; }
 }
 
+/* JS is the final authority on layout. It adds .pipe-static for narrow OR any touch-capable
+   device — including a desktop iOS Simulator, which reports a fine pointer + wide width so the
+   media query above misses it entirely. These mirror that block but win by class, so whenever
+   JS decides "touch" you get the reliable stack, never the scroll version that strands stage 1. */
+.pipeline.pipe-static .pipe-scroll { height: auto; }
+.pipeline.pipe-static .pipe-sticky { position: static; height: auto; display: block; padding: 8px 0 24px; }
+.pipeline.pipe-static .pipe-stickygrid { grid-template-columns: 1fr; }
+.pipeline.pipe-static .pipe-rail { display: none; }
+.pipeline.pipe-static .pipe-phone-slot, .pipeline.pipe-static .pipe-scenes { display: none; }
+.pipeline.pipe-static .pipe-ghost { display: none; }
+.pipeline.pipe-static .pipe-copies { min-height: 0; position: relative; padding-left: 30px; }
+.pipeline.pipe-static .pipe-copies::before { content: ''; position: absolute; left: 5px; top: 12px; bottom: 30px; width: 2px; background: linear-gradient(180deg, var(--teal), var(--pink)); opacity: 0.5; }
+.pipeline.pipe-static .pipe-copy-block { position: relative; transform: none !important; opacity: 1 !important; margin-bottom: 48px; }
+.pipeline.pipe-static .pipe-copy-block::before { content: ''; position: absolute; left: -30px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(0,188,241,0.14); }
+.pipeline.pipe-static .pipe-copy-block h3 { font-size: 1.55rem; }
+.pipeline.pipe-static .pw, .pipeline.pipe-static .pipe-copy-block p, .pipeline.pipe-static .pipe-copy-block .pipe-mini { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
+.pipeline.pipe-static .pipe-copy-block .pscene { position: static; inset: auto; display: block; opacity: 1; margin-top: 20px; max-width: 330px; }
+.pipeline.pipe-static .pipe-copy-block .pcard { box-shadow: 0 18px 44px rgba(0,0,0,0.4); }
+.pipeline.pipe-static .pipe-copy-block .pscene .pshot,
+.pipeline.pipe-static .pipe-copy-block .pscene .pfeat,
+.pipeline.pipe-static .pipe-copy-block .pscene .pfeat-verdict,
+.pipeline.pipe-static .pipe-copy-block .pscene .pfeat-score,
+.pipeline.pipe-static .pipe-copy-block .pscene .pfeat-chip,
+.pipeline.pipe-static .pipe-copy-block .pscene .pmini,
+.pipeline.pipe-static .pipe-copy-block .pscene .pmini-s,
+.pipeline.pipe-static .pipe-copy-block .pscene .pblock,
+.pipeline.pipe-static .pipe-copy-block .pscene .pplay,
+.pipeline.pipe-static .pipe-copy-block .pscene .pdone { opacity: 1 !important; transform: none !important; animation: none !important; }
+.pipeline.pipe-static .pipe-copy-block .pscene .pbar i::after { opacity: 1 !important; transform: scaleX(var(--w,1)) !important; animation: none !important; }
+
 </style>
 
 <!-- curve: dark → white (mechanic) -->
@@ -1279,9 +1309,13 @@ body > * { position: relative; z-index: 1; }
 (function(){
   var wrap = document.getElementById('pipeScroll');
   if (!wrap) return;
-  // Must match the CSS condition above exactly: narrow OR any touch device gets the
-  // static stack (iOS throttles the scroll events the scrollytelling depends on).
-  if (window.matchMedia('(max-width: 1024px)').matches || window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches) {
+  // Narrow OR any touch-capable device gets the reliable static stack. maxTouchPoints /
+  // ontouchstart is the decisive one: a desktop iOS Simulator reports a fine pointer + wide
+  // width (so the media queries miss it) but still reports touch points — this catches it.
+  // The scroll version depends on continuous scroll events, which iOS throttles, so on touch
+  // it strands on stage 1-2. Adding .pipe-static makes the class-based CSS above force the stack.
+  var isTouch = navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
+  if (isTouch || window.matchMedia('(max-width: 1024px)').matches || window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches) {
     wrap.closest('.pipeline').classList.add('pipe-static');
     // Move each pinned vignette into its own timeline stage and lock it to its end pose.
     var mCopies = Array.prototype.slice.call(wrap.querySelectorAll('.pipe-copy-block'));
