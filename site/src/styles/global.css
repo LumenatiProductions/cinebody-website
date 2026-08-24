@@ -456,6 +456,17 @@ p, li { text-wrap: pretty; }
 }
 .vid-play-btn svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
 .vid-playable.playing .vid-play-btn { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.vid-playable.vid-loading .vid-play-btn { opacity: 0.4; }
+.vid-error-msg {
+  position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
+  z-index: 4; pointer-events: none; white-space: nowrap;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.9);
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 5px 10px; border-radius: 999px;
+}
+.vid-playable.vid-error .vid-play-btn { opacity: 1; }
 .vid-playable iframe {
   position: absolute; inset: 0; width: 100%; height: 100%; border: none;
   z-index: 1; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
