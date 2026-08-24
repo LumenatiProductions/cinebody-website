@@ -273,19 +273,18 @@ body > * { position: relative; z-index: 1; }
   margin-bottom: 56px;
 }
 
-/* Two-column split layout */
+/* Full-width chat on top, three quick-link cards in a row below */
 .kb-split {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   margin-top: 48px;
-  align-items: start;
 }
 
 .kb-left {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
 .kb-right {
@@ -430,10 +429,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 @media (max-width: 768px) {
-  .kb-split { grid-template-columns: 1fr; }
-  .kb-right { order: -1; }   /* AI chat leads on mobile */
-  .kb-left { flex-direction: row; flex-wrap: wrap; gap: 16px; }
-  .kb-left .ql-card { flex: 1; min-width: 200px; }
+  .kb-left { grid-template-columns: 1fr; }
   .ql-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
 }
 
@@ -459,6 +455,17 @@ body > * { position: relative; z-index: 1; }
 
     <!-- Two-column: Quick Links left, AI Bot right -->
     <div class="kb-split reveal reveal-d2">
+      <div class="kb-right">
+        <div class="ai-bot" id="ai-bot-container">
+          <iframe
+            src="https://cinebody.vercel.app/help-widget"
+            width="100%"
+            style="height: 100%; min-height: 480px; border-radius: 12px;"
+            frameborder="0"
+          ></iframe>
+        </div>
+        <p class="ai-bot-disclaimer">Our AI is still learning. If you get an answer that isn't quite right, email us at <a href="mailto:support@cinebody.com">support@cinebody.com</a></p>
+      </div>
       <div class="kb-left">
         <div class="ql-card">
           <div class="ql-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg></div>
@@ -478,17 +485,6 @@ body > * { position: relative; z-index: 1; }
           <p>Can't find what you need? Our team is here to&nbsp;help.</p>
           <a href="mailto:support@cinebody.com" class="ql-card-link">Email support &rarr;</a>
         </div>
-      </div>
-      <div class="kb-right">
-        <div class="ai-bot" id="ai-bot-container">
-          <iframe
-            src="https://cinebody.vercel.app/help-widget"
-            width="100%"
-            style="height: 100%; min-height: 480px; border-radius: 12px;"
-            frameborder="0"
-          ></iframe>
-        </div>
-        <p class="ai-bot-disclaimer">Our AI is still learning. If you get an answer that isn't quite right, email us at <a href="mailto:support@cinebody.com">support@cinebody.com</a></p>
       </div>
     </div>
   </div>

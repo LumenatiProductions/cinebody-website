@@ -92,21 +92,16 @@
 .post-cta h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em; color: #fff; margin: 0 0 0.3em; }
 .post-cta p { color: rgba(255,255,255,0.6); margin: 0 0 1.6em; }
 
-/* Primary button (blog pages don't load the homepage .btn-glow CSS) */
+/* Primary button — matches the site's Book a Demo pill; the sitewide script adds the
+   animated AI ring (via the .btn-glow class + global .ai-ring CSS). */
 .blog-btn {
   position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 8px;
-  background: var(--teal); color: #fff; padding: 14px 30px; border-radius: 10px;
+  background: var(--teal); color: #fff; padding: 14px 30px; border-radius: 999px;
   font-family: var(--font); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.01em;
   text-decoration: none; transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
   box-shadow: 0 0 18px rgba(0,188,241,0.18), 0 2px 8px rgba(0,0,0,0.25);
 }
-.blog-btn::before {
-  content: ''; position: absolute; inset: -2px; border-radius: 12px; z-index: -1;
-  background: linear-gradient(135deg, var(--teal), var(--pink), var(--yellow));
-  opacity: 0; filter: blur(10px); transition: opacity 0.4s ease;
-}
 .blog-btn:hover { transform: translateY(-2px); box-shadow: 0 0 34px rgba(0,188,241,0.28), 0 6px 16px rgba(0,0,0,0.3); }
-.blog-btn:hover::before { opacity: 0.55; }
 
 /* Branded fallback for posts without a featured image */
 .blog-card__img--fallback {
