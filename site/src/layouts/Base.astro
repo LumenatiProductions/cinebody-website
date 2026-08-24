@@ -643,7 +643,10 @@ if (!pageSchema && caseStudies[slug]) {
     function up() {
       if (!down) return; down = false; vp.style.cursor = 'grab';
       try { vp.releasePointerCapture(pid); } catch (_) {}
-      if (moved > 6) {
+      // Thumb jitter on a tap is often 8–15px. The old `moved > 6` killer
+      // swallowed those clicks even when we never entered horizontal drag
+      // (drag arms at 4px and needs |dx| > |dy|). Only kill after a real swipe.
+      if (dragging && moved > 14) {
         var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); vp.removeEventListener('click', kill, true); };
         vp.addEventListener('click', kill, true);
         setTimeout(function () { vp.removeEventListener('click', kill, true); }, 60);
