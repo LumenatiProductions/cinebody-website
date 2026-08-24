@@ -491,7 +491,7 @@ if (!pageSchema && caseStudies[slug]) {
     track.classList.add('cb-tr');
     var gap = parseFloat(cs.columnGap || cs.gap) || 0;
 
-    var cardPx = Math.min(340, Math.max(160, Math.round(window.innerWidth * 0.84)));
+    var cardPx = Math.min(340, Math.max(160, Math.round(vpW * 0.84)));
     if (!track.classList.contains('pipe-outputs')) {
       items.forEach(function (it) { lockCard(it, cardPx); });
     }
