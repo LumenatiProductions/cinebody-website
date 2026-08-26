@@ -16,6 +16,12 @@
       ]
     },
     {
+      "source": "/beta-testing",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
       "source": "/boeing",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
