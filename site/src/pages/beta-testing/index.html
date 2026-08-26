@@ -108,7 +108,7 @@ a { color: inherit; text-decoration: none; }
 
 .hero .contain { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; }
 
-.hero-wordmark { height: 30px; width: auto; margin-bottom: 40px; }
+.hero-wordmark { display: block; height: 30px; width: auto; margin-bottom: 40px; }
 
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
@@ -165,9 +165,11 @@ a { color: inherit; text-decoration: none; }
 .pillar-head p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.65; }
 .pillar-head--center { max-width: 620px; margin: 0 auto 44px; text-align: center; }
 
-/* ── STEP CARDS (get set up) ── */
+/* ── STEP CARDS (also reused for the dark "what's ready" grid) ── */
 .step-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+.step-grid--three { grid-template-columns: repeat(3, 1fr); }
 .step-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px 28px; }
+.step-card .svc-bar { margin-bottom: 18px; }
 .step-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(0,188,241,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
 .step-icon svg { width: 18px; height: 18px; stroke: var(--teal); }
 .step-card h3 { font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
@@ -177,9 +179,15 @@ a { color: inherit; text-decoration: none; }
 .step-card code { font-family: var(--mono); font-size: 0.85em; background: rgba(255,255,255,0.06); border: 1px solid var(--border); padding: 0.1em 0.45em; border-radius: 5px; color: var(--teal); }
 
 .service-note { display: flex; align-items: flex-start; gap: 12px; background: rgba(0,188,241,0.06); border: 1px solid rgba(0,188,241,0.15); border-radius: 8px; padding: 16px 20px; }
+.service-note + .service-note { margin-top: 12px; }
 .service-note-icon { width: 16px; height: 16px; stroke: var(--teal); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 2px; }
 .service-note-text { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
 .service-note-text strong { color: var(--teal); font-weight: 600; }
+.service-note-text code { font-family: var(--mono); font-size: 0.9em; background: rgba(255,255,255,0.06); border: 1px solid var(--border); padding: 0.1em 0.45em; border-radius: 5px; color: var(--teal); }
+
+.service-note--yellow { background: rgba(255,236,3,0.06); border-color: rgba(255,236,3,0.15); }
+.service-note--yellow .service-note-icon { stroke: var(--yellow); }
+.service-note--yellow .service-note-text strong { color: var(--yellow); }
 
 /* ── OUTPUTS LIST (known issues) ── */
 .outputs { max-width: 640px; margin: 0 auto; }
@@ -206,6 +214,7 @@ a { color: inherit; text-decoration: none; }
 .services-head p { font-size: 0.9rem; color: #666; line-height: 1.65; }
 
 .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.svc-grid--two { grid-template-columns: 1fr 1fr; }
 
 .svc-card { background: #fff; border: 2px solid rgba(0,0,0,0.05); border-radius: 16px; padding: 32px 26px; transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease); }
 .svc-card:hover { border-color: rgba(0,0,0,0.1); box-shadow: 0 20px 48px rgba(0,0,0,0.07); }
@@ -218,6 +227,8 @@ a { color: inherit; text-decoration: none; }
 
 .svc-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: #111; }
 .svc-card p  { font-size: 0.85rem; color: #666; line-height: 1.6; }
+.svc-card p.fine { color: #999; font-size: 0.8rem; margin-top: 8px; }
+.svc-card code { font-family: var(--mono); font-size: 0.85em; background: #f2f2f2; border: 1px solid #e3e3e3; padding: 0.1em 0.4em; border-radius: 5px; color: #333; }
 
 .svc-fine { margin-top: 16px; padding-top: 16px; border-top: 1px solid #ececec; font-family: var(--mono); font-size: 0.8rem; color: #888; line-height: 1.7; }
 .svc-fine code { font-family: var(--mono); background: #f2f2f2; border: 1px solid #e3e3e3; padding: 0.1em 0.4em; border-radius: 5px; color: #333; }
@@ -363,111 +374,111 @@ a { color: inherit; text-decoration: none; }
   </div>
 </section>
 
+<!-- ═══ CURVE: dark → light ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fafafa"/></svg></div>
+
 <!-- ═══ GET SET UP ═══ -->
-<section class="pillar pillar--teal">
+<section class="services">
   <div class="contain">
-    <div class="pillar-head reveal">
+    <div class="services-head reveal">
       <div class="label">Setup</div>
       <h2>Get set up</h2>
       <p>Two things to install: the web platform, and the mobile app. Takes about five minutes.</p>
     </div>
 
-    <div class="step-grid reveal reveal-d1">
-      <div class="step-card">
-        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M2 20h20"/></svg></div>
+    <div class="svc-grid svc-grid--two reveal reveal-d1">
+      <div class="svc-card">
+        <div class="svc-bar svc-bar--teal"></div>
         <h3>Web platform</h3>
         <p>Head to <code>cinebody.vercel.app</code> and create an account with whichever email you'd like tied to your organization.</p>
         <p class="fine">This is where briefs, projects, footage, and payouts live: the control room for everything below.</p>
       </div>
-      <div class="step-card">
-        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+      <div class="svc-card">
+        <div class="svc-bar svc-bar--teal"></div>
         <h3>Mobile app, via TestFlight</h3>
-        <p><strong style="color:#fff">Travis</strong> on our team will send you an invite via TestFlight to download the beta iOS app, using the Apple ID email we already have on file for you.</p>
+        <p><strong style="color:#111">Travis</strong> on our team will send you an invite via TestFlight to download the beta iOS app, using the Apple ID email we already have on file for you.</p>
         <p class="fine">You'll get an email from Apple's TestFlight. If you don't already have the TestFlight app, grab it from the App Store first, then open our invite from that same device to install Cinebody.</p>
       </div>
     </div>
 
-    <div class="service-note reveal reveal-d2">
-      <svg class="service-note-icon" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div class="service-note-text"><strong>No Android app yet.</strong> We're working on it, but it isn't ready for external testing just yet. For now, please stick to the iOS app or film directly from your browser's camera using a project link. No install required for that path.</div>
+    <div class="next-note next-note--teal reveal reveal-d2">
+      <svg class="next-note-icon" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="next-note-text"><strong>No Android app yet.</strong> We're working on it, but it isn't ready for external testing just yet. For now, please stick to the iOS app or film directly from your browser's camera using a project link. No install required for that path.</div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CURVE: dark → light ═══ -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0f1a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fafafa"/></svg></div>
+<!-- ═══ CURVE: light → dark ═══ -->
+<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fafafa"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
 
 <!-- ═══ WHAT'S READY TO TEST ═══ -->
-<section class="services">
+<section class="pillar pillar--teal">
   <div class="contain">
-    <div class="services-head reveal">
+    <div class="pillar-head reveal">
       <div class="label">What's ready</div>
       <h2>What's ready to test</h2>
       <p>Not a checklist. Just the parts of this release we're proudest of, and the ones most worth exploring.</p>
     </div>
 
-    <div class="svc-grid reveal reveal-d1">
-      <div class="svc-card">
+    <div class="step-grid step-grid--three reveal reveal-d1">
+      <div class="step-card">
         <div class="svc-bar svc-bar--teal"></div>
         <h3>Idea generator</h3>
         <p>Start before you have a brief. Surface concepts and directions you can shape into a real project.</p>
       </div>
-      <div class="svc-card">
+      <div class="step-card">
         <div class="svc-bar svc-bar--teal"></div>
         <h3>AI shot-list generator</h3>
         <p>Turn a brief into a full, directable shot list in seconds. Reorder, cut, or rewrite any shot yourself.</p>
       </div>
-      <div class="svc-card">
+      <div class="step-card">
         <div class="svc-bar svc-bar--teal"></div>
         <h3>AI director</h3>
         <p>Walks a filmer through the shot list in the app, one shot at a time, so nobody needs a script to follow.</p>
       </div>
-      <div class="svc-card">
+      <div class="step-card">
         <div class="svc-bar svc-bar--pink"></div>
         <h3>AI Interviewer</h3>
         <p>Send a filmer an on-camera interview they record solo. No crew, no scheduling, questions asked for you.</p>
       </div>
-      <div class="svc-card">
+      <div class="step-card">
         <div class="svc-bar svc-bar--pink"></div>
         <h3>Simple filmer links</h3>
         <p>Send anyone a link and they can film for a project with zero login. The real path most one-off filmers will actually use.</p>
       </div>
-      <div class="svc-card">
+      <div class="step-card">
         <div class="svc-bar svc-bar--yellow"></div>
         <h3>Footage scoring &amp; best takes</h3>
         <p>Upload footage and watch it get scored on the way in, with the strongest takes surfaced automatically.</p>
       </div>
-      <div class="svc-card">
+      <div class="step-card">
         <div class="svc-bar svc-bar--yellow"></div>
         <h3>Batch download</h3>
         <p>Pull every clip from a project at once, ready for your own editor or archive.</p>
       </div>
-      <div class="svc-card">
+      <div class="step-card">
         <div class="svc-bar svc-bar--yellow"></div>
         <h3>Brand kit</h3>
         <p>Point it at your own site and it'll pull your logo and colors in automatically. No manual upload required.</p>
       </div>
-      <div class="svc-card">
+      <div class="step-card">
         <div class="svc-bar svc-bar--teal"></div>
         <h3>Payouts</h3>
         <p>Fund an incentive on a project and watch a filmer cash out. It's all sandboxed in Stripe's test mode, so nothing here touches a real card or bank account.</p>
       </div>
     </div>
 
-    <div class="next-note next-note--teal reveal reveal-d1">
-      <svg class="next-note-icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="2" y1="10" x2="22" y2="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div class="next-note-text"><strong>Testing Payouts:</strong> funding card <code>4000 0000 0000 0077</code>, any future expiry, any CVC, any ZIP. On the filmer's side, use any made-up SSN, phone number, past birthdate, and address. It all auto-verifies in test mode.</div>
+    <div class="service-note reveal reveal-d1">
+      <svg class="service-note-icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="2" y1="10" x2="22" y2="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="service-note-text"><strong>Testing Payouts:</strong> funding card <code>4000 0000 0000 0077</code>, any future expiry, any CVC, any ZIP. On the filmer's side, use any made-up SSN, phone number, past birthdate, and address. It all auto-verifies in test mode.</div>
     </div>
 
-    <div class="next-note reveal reveal-d2">
-      <svg class="next-note-icon" viewBox="0 0 24 24"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div class="next-note-text"><strong>Coming next:</strong> the AI editor, which will assemble a finished cut from your best takes automatically. It's still in training and isn't ready to test yet, but it's what we're building toward, and you'll be invited back to try it.</div>
+    <div class="service-note service-note--yellow reveal reveal-d2">
+      <svg class="service-note-icon" viewBox="0 0 24 24"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="service-note-text"><strong>Coming next:</strong> the AI editor, which will assemble a finished cut from your best takes automatically. It's still in training and isn't ready to test yet, but it's what we're building toward, and you'll be invited back to try it.</div>
     </div>
   </div>
 </section>
-
-<!-- ═══ CURVE: light → dark ═══ -->
-<div class="curve"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fafafa"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#140a1e"/></svg></div>
 
 <!-- ═══ WHERE THINGS STAND ═══ -->
 <section class="pillar pillar--pink">
