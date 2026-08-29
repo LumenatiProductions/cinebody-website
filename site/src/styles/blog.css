@@ -125,6 +125,7 @@
   background: none;
   border-radius: 0;
   box-shadow: none;
+  filter: drop-shadow(0 22px 36px rgba(0, 0, 0, 0.45));
 }
 
 .post-article {
@@ -158,7 +159,10 @@
 .post-light .post-content blockquote { color: #111; }
 .post-light .post-content hr { border-top-color: rgba(0,0,0,0.12); }
 .post-light .post-figure--wide {
-  --post-wide: min(1120px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .post-content { max-width: 720px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
@@ -173,16 +177,16 @@
 .post-content strong { color: #fff; font-weight: 700; }
 .post-content ul, .post-content ol { color: #e8e8e8; font-size: 1.08rem; line-height: 1.7; margin: 0 0 1.4em; padding-left: 1.4em; }
 .post-content li { margin-bottom: 0.5em; }
-.post-content img { width: 100%; border-radius: 16px; margin: 1.6em 0; display: block; background: none; box-shadow: none; }
+.post-content img { width: 100%; height: auto; border-radius: 0; margin: 1.6em 0; display: block; background: none; box-shadow: none; object-fit: contain; }
 .post-content figure { margin: 1.8em 0; background: none; box-shadow: none; }
-.post-content figure img { margin: 0; border-radius: 16px; }
+.post-content figure img { margin: 0; border-radius: 0; background: none; object-fit: contain; width: 100%; height: auto; max-height: none; aspect-ratio: auto; }
 .post-content figcaption { font-size: 0.85rem; color: rgba(255,255,255,0.45); text-align: center; margin-top: 0.7em; }
 .post-content blockquote { border-left: 3px solid var(--teal); margin: 1.8em 0; padding: 0.2em 0 0.2em 1.3em; color: #fff; font-size: 1.2rem; line-height: 1.5; font-style: italic; }
 .post-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 2.4em 0; }
 
 /* In-article phone: large wrap on desktop, stack on small screens. */
-.post-figure--phone { margin: 0.2em 0 1.3em 0; }
-.post-figure--phone img { width: 100%; height: auto; }
+.post-figure--phone { margin: 0.2em 0 1.3em 0; background: none; }
+.post-figure--phone img { width: 100%; height: auto; max-height: none; background: none; border-radius: 0; object-fit: contain; filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.4)); }
 
 /* Desktop wizard: full breakout, no wrap. */
 .post-figure--wide {
@@ -192,7 +196,7 @@
   margin: 2.2em 0 2.4em;
   margin-left: calc(50% - (var(--post-wide) / 2));
 }
-.post-figure--wide img { width: 100%; height: auto; }
+.post-figure--wide img { width: 100%; height: auto; max-height: none; aspect-ratio: auto; background: none; border-radius: 0; object-fit: contain; }
 .post-figure--wide figcaption { text-align: center; color: rgba(255,255,255,0.45); }
 
 @media (min-width: 760px) {
