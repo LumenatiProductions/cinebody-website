@@ -171,13 +171,13 @@
 
 /* Numbered lists: home .mech step cards, break out of the 720px column. */
 .post-content ol {
-  --post-ol: min(920px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
+  --ol-wide: min(920px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
   list-style: none;
   counter-reset: post-ol;
-  width: var(--post-ol);
+  width: var(--ol-wide);
   max-width: none;
   margin: 0 0 1.6em;
-  margin-left: calc(50% - (var(--post-ol) / 2));
+  margin-left: calc(50% - (var(--ol-wide) / 2));
   padding: 0;
   color: #e8e8e8;
   font-size: 1.08rem;
@@ -223,9 +223,9 @@
 .post-figure--phone { margin: 0.2em 0 1.3em 0; background: none; }
 .post-figure--phone img { width: 100%; height: auto; max-height: none; border-radius: 16px; object-fit: contain; }
 
-/* Shot list on the dark room: breakout column, image centered, no card. */
+/* Shot list on the dark room: figure still breaks out; image stays native size. */
 .post-article .post-figure--wide {
-  --post-wide: min(680px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
+  --post-wide: min(920px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
   width: var(--post-wide);
   max-width: none;
   margin: 2.4em auto 0.4em;
@@ -236,7 +236,7 @@
 .post-content .post-figure--wide img {
   display: block;
   width: auto;
-  max-width: min(680px, 100%);
+  max-width: min(720px, 100%);
   height: auto;
   margin-left: auto;
   margin-right: auto;
