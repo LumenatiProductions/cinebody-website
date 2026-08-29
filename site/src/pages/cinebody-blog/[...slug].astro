@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { title, description, pubDate, author, heroImage } = post.data;
 const deviceImage = post.id === 'start-your-shot-list-from-the-brief'
-  ? '/blog/start-your-shot-list-from-the-brief/img-1.png'
+  ? '/blog/start-your-shot-list-from-the-brief/img-1.jpg'
   : heroImage;
 const html = post.body;
 const lightStart = html.indexOf('<h2>A short example');

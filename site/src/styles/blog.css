@@ -114,18 +114,16 @@
   z-index: 4;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  margin-bottom: -56px;
+  align-items: center;
 }
 .post-hero__device img {
-  width: min(100%, 540px);
+  width: min(100%, 360px);
   height: auto;
-  max-height: 82vh;
+  max-height: 78vh;
   object-fit: contain;
-  background: none;
-  border-radius: 0;
-  box-shadow: none;
-  filter: drop-shadow(0 22px 36px rgba(0, 0, 0, 0.45));
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
 }
 
 .post-article {
@@ -171,16 +169,16 @@
 .post-content strong { color: #fff; font-weight: 700; }
 .post-content ul, .post-content ol { color: #e8e8e8; font-size: 1.08rem; line-height: 1.7; margin: 0 0 1.4em; padding-left: 1.4em; }
 .post-content li { margin-bottom: 0.5em; }
-.post-content img { width: 100%; height: auto; border-radius: 0; margin: 1.6em 0; display: block; background: none; box-shadow: none; object-fit: contain; }
+.post-content img { width: 100%; height: auto; border-radius: 16px; margin: 1.6em 0; display: block; object-fit: contain; }
 .post-content figure { margin: 1.8em 0; background: none; box-shadow: none; }
-.post-content figure img { margin: 0; border-radius: 0; background: none; object-fit: contain; width: 100%; height: auto; max-height: none; aspect-ratio: auto; }
+.post-content figure img { margin: 0; border-radius: 16px; object-fit: contain; width: 100%; height: auto; max-height: none; aspect-ratio: auto; }
 .post-content figcaption { font-size: 0.85rem; color: rgba(255,255,255,0.45); text-align: center; margin-top: 0.7em; }
 .post-content blockquote { border-left: 3px solid var(--teal); margin: 1.8em 0; padding: 0.2em 0 0.2em 1.3em; color: #fff; font-size: 1.2rem; line-height: 1.5; font-style: italic; }
 .post-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 2.4em 0; }
 
 /* In-article phone: large wrap on desktop, stack on small screens. */
 .post-figure--phone { margin: 0.2em 0 1.3em 0; background: none; }
-.post-figure--phone img { width: 100%; height: auto; max-height: none; background: none; border-radius: 0; object-fit: contain; filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.4)); }
+.post-figure--phone img { width: 100%; height: auto; max-height: none; border-radius: 16px; object-fit: contain; }
 
 /* Shot list on the dark room: wide breakout, no card. */
 .post-article .post-figure--wide {
@@ -192,7 +190,7 @@
   background: none;
   box-shadow: none;
 }
-.post-figure--wide img { width: 100%; height: auto; max-height: none; aspect-ratio: auto; background: none; border-radius: 0; object-fit: contain; }
+.post-figure--wide img { width: 100%; height: auto; max-height: none; aspect-ratio: auto; border-radius: 16px; object-fit: contain; }
 .post-figure--wide figcaption { text-align: center; color: rgba(255,255,255,0.45); }
 
 @media (min-width: 760px) {
@@ -212,8 +210,7 @@
     padding-top: 8px;
     gap: 28px;
   }
-  .post-hero__device { margin-bottom: -36px; }
-  .post-hero__device img { width: min(100%, 420px); max-height: none; }
+  .post-hero__device img { width: min(100%, 320px); max-height: none; }
   .post-figure--phone,
   .post-figure--wide {
     float: none;
