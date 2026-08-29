@@ -13,12 +13,16 @@ const { title, description, pubDate, author, heroImage } = post.data;
 const html = post.body;
 const lightStart = html.indexOf('<h2>A short example');
 const lightEnd = html.indexOf('<h2>The brief is the start');
-const wideFigure = html.match(/<figure class="post-figure--wide">[\s\S]*?<\/figure>/);
+const wideFigure = html.match(/<figure class="post-figure--wide">[\s\S]*?<\/figure>/)?.[0] ?? '';
+const wideFigureAlt = wideFigure.match(/\salt="([^"]*)"/)?.[1];
+const wideFigureOnDark = wideFigure && wideFigureAlt && !/<figcaption[\s>]/.test(wideFigure)
+  ? wideFigure.replace('</figure>', `<figcaption>${wideFigureAlt}</figcaption></figure>`)
+  : wideFigure;
 const lightBand = lightStart !== -1 && lightEnd > lightStart
   ? {
       before: html.slice(0, lightStart),
-      light: html.slice(lightStart, lightEnd).replace(wideFigure?.[0] ?? '', ''),
-      figure: wideFigure?.[0] ?? '',
+      light: html.slice(lightStart, lightEnd).replace(wideFigure, ''),
+      figure: wideFigureOnDark,
       after: html.slice(lightEnd),
     }
   : null;
