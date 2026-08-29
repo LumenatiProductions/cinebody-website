@@ -3,8 +3,8 @@ title: "Start Your Shot List From the Brief, Not a Blank Page"
 description: "You used to start a UGC shot list from a blank page. Now the brief writes the first draft, and you still edit it like a producer."
 pubDate: 2026-08-28
 author: "Scott McDonald"
-heroImage: "/blog/start-your-shot-list-from-the-brief/hero.jpg"
-cardImage: "/blog/start-your-shot-list-from-the-brief/card.jpg"
+heroImage: "/blog/start-your-shot-list-from-the-brief/hero.webp"
+cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
 ---
 <p>A shot list is still what makes a UGC campaign editable. Vague lists get you vibe. Long lists make people bounce. Five asks in one prompt get you the first ask and a shrug.</p>
 <p>We already wrote the rules. Keep the list to one to five shots. Use warm language. One shot, one ask. Put the footage you cannot live without at the top. Those rules still hold. They are spelled out in <a href="https://www.cinebody.com/cinebody-blog/what-is-a-shot-list-and-how-do-i-write-one-for-a-ugc-campaign">What Is a Shot List and How Do I Write One for a UGC Campaign?</a></p>
@@ -24,7 +24,7 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.jpg"
 <h2>What a filmable ask actually looks like</h2>
 <p>A shot is something a person can do in one take without rereading the sentence.</p>
 <figure class="post-figure--phone">
-  <img src="/blog/start-your-shot-list-from-the-brief/img-1.jpg" alt="Phone showing the capture brief.">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-1.webp" alt="Phone showing the capture brief.">
 </figure>
 <p>Here is a brief that is fine, and a shot that is not.</p>
 <p>Brief: "Customers film a quick review of the new bottle after a workout."</p>
@@ -52,7 +52,7 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.jpg"
 <p>The earlier post is the full write-up. This one is the front end of the same job. The brief writes the first list. You still write the last one.</p>
 <h2>A short example: launch clips, not a novel</h2>
 <figure class="post-figure--wide">
-  <img src="/blog/start-your-shot-list-from-the-brief/img-2.jpg" alt="Desktop wizard with the generated shot list.">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-2.webp" alt="Desktop wizard with the generated shot list.">
 </figure>
 <p>Say you are briefing a launch for a running shoe. Filmers are store staff and a few local run-club people. You need a 30-second social cut by the end of the week. Phones only. After work.</p>
 <p>A usable brief looks like this:</p>
