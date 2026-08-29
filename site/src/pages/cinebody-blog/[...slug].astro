@@ -27,10 +27,12 @@ const blogSchema = {
 ---
 
 <Base title={title} description={description} image={heroImage || '/og.png'} schema={blogSchema}>
+  <div class="blog-room">
   <article class="post">
     <div class="post-head">
       <p class="post-meta"><span>Blog</span> &nbsp;&middot;&nbsp; {fmt(pubDate)} &nbsp;&middot;&nbsp; {author}</p>
       <h1>{title}</h1>
+      {description && <p class="post-dek">{description}</p>}
     </div>
 
     {heroImage && (
@@ -49,4 +51,5 @@ const blogSchema = {
       <a class="blog-btn btn-glow" href={CALENDLY} target="_blank" rel="noopener">Book a Demo &rarr;</a>
     </div>
   </article>
+  </div>
 </Base>

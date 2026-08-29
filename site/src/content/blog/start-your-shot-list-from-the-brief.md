@@ -23,8 +23,8 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
 <p>Leave out what filmers cannot act on. Media mix. KPI language. "Make it feel premium." Save that for the producer pass.</p>
 <h2>What a filmable ask actually looks like</h2>
 <p>A shot is something a person can do in one take without rereading the sentence.</p>
-<figure>
-  <img src="/blog/start-your-shot-list-from-the-brief/img-1.webp" alt="One shot equals one ask: a stacked four-job take versus four single-job shots.">
+<figure class="post-figure--phone">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-1.webp" alt="Phone showing the capture brief.">
 </figure>
 <p>Here is a brief that is fine, and a shot that is not.</p>
 <p>Brief: "Customers film a quick review of the new bottle after a workout."</p>
@@ -51,8 +51,8 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
 <p>Are the important shots first? If they only do one clip, it should be the clip you cannot cut without. A suggested list often leads with the pretty wide. Reorder it. The line to camera, the product in hand, the moment the night is about: those go to the top.</p>
 <p>The earlier post is the full write-up. This one is the front end of the same job. The brief writes the first list. You still write the last one.</p>
 <h2>A short example: launch clips, not a novel</h2>
-<figure>
-  <img src="/blog/start-your-shot-list-from-the-brief/img-2.webp" alt="Producer pass: reorder, cut, time, and voice.">
+<figure class="post-figure--wide">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-2.webp" alt="Desktop wizard with the generated shot list.">
 </figure>
 <p>Say you are briefing a launch for a running shoe. Filmers are store staff and a few local run-club people. You need a 30-second social cut by the end of the week. Phones only. After work.</p>
 <p>A usable brief looks like this:</p>
