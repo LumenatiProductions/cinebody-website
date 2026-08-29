@@ -130,9 +130,35 @@
 .post-article {
   position: relative;
   z-index: 1;
-  background: #0c2230;
+  background: #041a24;
   padding: 56px 0 48px;
   overflow-x: clip;
+}
+
+/* Home-style light band (mech): white surface, dark type. */
+.post-light {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  color: #111;
+  padding: 56px 0 64px;
+  overflow-x: clip;
+}
+.post-light .post-content p { color: #111; }
+.post-light .post-content h2 { color: #111; }
+.post-light .post-content h3,
+.post-light .post-content h4 { color: #111; }
+.post-light .post-content a { color: #008eb8; }
+.post-light .post-content a:hover { color: #0a0a0a; }
+.post-light .post-content strong { color: #111; }
+.post-light .post-content ul,
+.post-light .post-content ol,
+.post-light .post-content li { color: #333; }
+.post-light .post-content figcaption { color: rgba(17,17,17,0.5); }
+.post-light .post-content blockquote { color: #111; }
+.post-light .post-content hr { border-top-color: rgba(0,0,0,0.12); }
+.post-light .post-figure--wide {
+  --post-wide: min(1120px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
 }
 
 .post-content { max-width: 720px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }

@@ -13,6 +13,12 @@ const { title, description, pubDate, author, heroImage } = post.data;
 const deviceImage = post.id === 'start-your-shot-list-from-the-brief'
   ? '/blog/start-your-shot-list-from-the-brief/img-1.webp'
   : heroImage;
+const html = post.body;
+const lightStart = html.indexOf('<h2>A short example');
+const lightEnd = html.indexOf('<h2>The brief is the start');
+const lightBand = lightStart !== -1 && lightEnd > lightStart
+  ? { before: html.slice(0, lightStart), light: html.slice(lightStart, lightEnd), after: html.slice(lightEnd) }
+  : null;
 const fmt = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 const CALENDLY = 'https://calendly.com/gavin-cinebody/cinebody-intro2';
 const postUrl = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '');
@@ -46,16 +52,37 @@ const blogSchema = {
       </div>
     </div>
 
-    <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0c2230"/></svg></div>
+    {lightBand ? (
+      <>
+        <div class="post-article">
+          <div class="post-content" set:html={lightBand.before} />
+        </div>
 
-    <div class="post-article">
-      <div class="post-content" set:html={post.body} />
-      <div class="post-foot">
-        <a class="post-foot__back" href="/cinebody-blog">&larr; All posts</a>
+        <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+        <div class="post-light">
+          <div class="post-content" set:html={lightBand.light} />
+        </div>
+
+        <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
+
+        <div class="post-article">
+          <div class="post-content" set:html={lightBand.after} />
+          <div class="post-foot">
+            <a class="post-foot__back" href="/cinebody-blog">&larr; All posts</a>
+          </div>
+        </div>
+      </>
+    ) : (
+      <div class="post-article">
+        <div class="post-content" set:html={post.body} />
+        <div class="post-foot">
+          <a class="post-foot__back" href="/cinebody-blog">&larr; All posts</a>
+        </div>
       </div>
-    </div>
+    )}
 
-    <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#0c2230"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
+    <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
     <section class="cta-band">
       <h2>Turn your community into your <span>content team.</span></h2>
