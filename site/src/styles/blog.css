@@ -160,8 +160,8 @@
 .post-content a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; transition: color 0.2s ease; }
 .post-content a:hover { color: #fff; }
 .post-content strong { color: #fff; font-weight: 700; }
-.post-content ul, .post-content ol { color: #e8e8e8; font-size: 1.08rem; line-height: 1.7; margin: 0 0 1.4em; padding-left: 1.4em; }
-.post-content li { margin-bottom: 0.5em; }
+.post-content ul { color: #e8e8e8; font-size: 1.08rem; line-height: 1.7; margin: 0 0 1.4em; padding-left: 1.4em; }
+.post-content ul li { margin-bottom: 0.5em; }
 .post-content img { width: 100%; height: auto; border-radius: 16px; margin: 1.6em 0; display: block; object-fit: contain; }
 .post-content figure { margin: 1.8em 0; background: none; box-shadow: none; }
 .post-content figure img { margin: 0; border-radius: 16px; object-fit: contain; width: 100%; height: auto; max-height: none; aspect-ratio: auto; }
@@ -169,13 +169,63 @@
 .post-content blockquote { border-left: 3px solid var(--teal); margin: 1.8em 0; padding: 0.2em 0 0.2em 1.3em; color: #fff; font-size: 1.2rem; line-height: 1.5; font-style: italic; }
 .post-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 2.4em 0; }
 
+/* Numbered lists: home .mech step cards, break out of the 720px column. */
+.post-content ol {
+  --post-ol: min(920px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
+  list-style: none;
+  counter-reset: post-ol;
+  width: var(--post-ol);
+  max-width: none;
+  margin: 0 0 1.6em;
+  margin-left: calc(50% - (var(--post-ol) / 2));
+  padding: 0;
+  color: #e8e8e8;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+.post-content ol > li {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  counter-increment: post-ol;
+  margin: 0 0 10px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: inherit;
+}
+.post-content ol > li:last-child { margin-bottom: 0; }
+.post-content ol > li::before {
+  content: counter(post-ol, decimal-leading-zero);
+  box-sizing: border-box;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(0,188,241,0.12);
+  color: var(--teal);
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-light .post-content ol > li {
+  background: #f7f8f9;
+  border: none;
+  color: #333;
+}
+
 /* In-article phone: large wrap on desktop, stack on small screens. */
 .post-figure--phone { margin: 0.2em 0 1.3em 0; background: none; }
 .post-figure--phone img { width: 100%; height: auto; max-height: none; border-radius: 16px; object-fit: contain; }
 
-/* Shot list on the dark room: wide breakout, no card. */
+/* Shot list on the dark room: breakout column, image centered, no card. */
 .post-article .post-figure--wide {
-  --post-wide: min(1120px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
+  --post-wide: min(680px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
   width: var(--post-wide);
   max-width: none;
   margin: 2.4em auto 0.4em;
@@ -183,7 +233,17 @@
   background: none;
   box-shadow: none;
 }
-.post-figure--wide img { width: 100%; height: auto; max-height: none; aspect-ratio: auto; border-radius: 16px; object-fit: contain; }
+.post-content .post-figure--wide img {
+  display: block;
+  width: auto;
+  max-width: min(680px, 100%);
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 16px;
+  object-fit: contain;
+  background: none;
+}
 .post-figure--wide figcaption { text-align: center; color: rgba(255,255,255,0.45); }
 
 @media (min-width: 760px) {
@@ -200,13 +260,15 @@
   .post-hero__grid { min-height: calc(78vh - var(--nav-h) - 48px); }
   .post-hero__copy h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
   .post-figure--phone,
-  .post-figure--wide {
+  .post-figure--wide,
+  .post-content ol {
     float: none;
     width: 100%;
     max-width: none;
     margin: 1.6em 0;
     margin-left: 0;
   }
+  .post-content ol { margin-bottom: 1.6em; }
 }
 
 .post-foot {
