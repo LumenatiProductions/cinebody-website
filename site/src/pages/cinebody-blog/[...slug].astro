@@ -28,7 +28,7 @@ const blogSchema = {
 
 <Base title={title} description={description} image={heroImage || '/og.png'} schema={blogSchema}>
   <article class="post">
-    <div class="post-hero-room">
+    <div class="post-room">
       <div class="post-head">
         <p class="post-meta"><span>Blog</span> &nbsp;&middot;&nbsp; {fmt(pubDate)} &nbsp;&middot;&nbsp; {author}</p>
         <h1>{title}</h1>
@@ -38,20 +38,17 @@ const blogSchema = {
       {heroImage && (
         <div class="post-hero-img"><img src={heroImage} alt={title} fetchpriority="high" /></div>
       )}
-    </div>
 
-    <div class="post-article">
       <div class="post-content" set:html={post.body} />
+
+      <div class="post-foot">
+        <a class="post-foot__back" href="/cinebody-blog">&larr; All posts</a>
+      </div>
     </div>
 
-    <div class="post-foot">
-      <a class="post-foot__back" href="/cinebody-blog">&larr; All posts</a>
-    </div>
-
-    <div class="post-cta">
-      <h2>Turn your community into your content team.</h2>
-      <p>See how Cinebody captures authentic video at scale.</p>
-      <a class="blog-btn btn-glow" href={CALENDLY} target="_blank" rel="noopener">Book a Demo &rarr;</a>
-    </div>
+    <section class="cta-band">
+      <h2>Turn your community into your <span>content team.</span></h2>
+      <a class="btn btn-glow" href={CALENDLY} target="_blank" rel="noopener">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+    </section>
   </article>
 </Base>
