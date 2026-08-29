@@ -24,7 +24,7 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
 <h2>What a filmable ask actually looks like</h2>
 <p>A shot is something a person can do in one take without rereading the sentence.</p>
 <figure>
-  <img src="/blog/start-your-shot-list-from-the-brief/img-1.webp" alt="A short shot list of three specific asks on scrap paper next to a phone.">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-1.webp" alt="A phone in the dark showing a short four-line shot list.">
 </figure>
 <p>Here is a brief that is fine, and a shot that is not.</p>
 <p>Brief: "Customers film a quick review of the new bottle after a workout."</p>
@@ -52,7 +52,7 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
 <p>The earlier post is the full write-up. This one is the front end of the same job. The brief writes the first list. You still write the last one.</p>
 <h2>A short example: launch clips, not a novel</h2>
 <figure>
-  <img src="/blog/start-your-shot-list-from-the-brief/img-2.webp" alt="Handwritten brief beside a numbered shot list.">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-2.webp" alt="Someone filming a community gathering on their phone at dusk.">
 </figure>
 <p>Say you are briefing a launch for a running shoe. Filmers are store staff and a few local run-club people. You need a 30-second social cut by the end of the week. Phones only. After work.</p>
 <p>A usable brief looks like this:</p>
