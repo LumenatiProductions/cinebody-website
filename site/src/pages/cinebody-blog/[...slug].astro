@@ -16,8 +16,14 @@ const deviceImage = post.id === 'start-your-shot-list-from-the-brief'
 const html = post.body;
 const lightStart = html.indexOf('<h2>A short example');
 const lightEnd = html.indexOf('<h2>The brief is the start');
+const wideFigure = html.match(/<figure class="post-figure--wide">[\s\S]*?<\/figure>/);
 const lightBand = lightStart !== -1 && lightEnd > lightStart
-  ? { before: html.slice(0, lightStart), light: html.slice(lightStart, lightEnd), after: html.slice(lightEnd) }
+  ? {
+      before: html.slice(0, lightStart),
+      light: html.slice(lightStart, lightEnd).replace(wideFigure?.[0] ?? '', ''),
+      figure: wideFigure?.[0] ?? '',
+      after: html.slice(lightEnd),
+    }
   : null;
 const fmt = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 const CALENDLY = 'https://calendly.com/gavin-cinebody/cinebody-intro2';
@@ -55,7 +61,7 @@ const blogSchema = {
     {lightBand ? (
       <>
         <div class="post-article">
-          <div class="post-content" set:html={lightBand.before} />
+          <div class="post-content" set:html={lightBand.before + lightBand.figure} />
         </div>
 
         <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>

@@ -158,12 +158,6 @@
 .post-light .post-content figcaption { color: rgba(17,17,17,0.5); }
 .post-light .post-content blockquote { color: #111; }
 .post-light .post-content hr { border-top-color: rgba(0,0,0,0.12); }
-.post-light .post-figure--wide {
-  width: 100%;
-  max-width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-}
 
 .post-content { max-width: 720px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 .post-content::after { content: ""; display: table; clear: both; }
@@ -188,13 +182,15 @@
 .post-figure--phone { margin: 0.2em 0 1.3em 0; background: none; }
 .post-figure--phone img { width: 100%; height: auto; max-height: none; background: none; border-radius: 0; object-fit: contain; filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.4)); }
 
-/* Desktop wizard: full breakout, no wrap. */
-.post-figure--wide {
-  --post-wide: min(1200px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
+/* Shot list on the dark room: wide breakout, no card. */
+.post-article .post-figure--wide {
+  --post-wide: min(1120px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
   width: var(--post-wide);
   max-width: none;
-  margin: 2.2em 0 2.4em;
+  margin: 2.4em auto 0.4em;
   margin-left: calc(50% - (var(--post-wide) / 2));
+  background: none;
+  box-shadow: none;
 }
 .post-figure--wide img { width: 100%; height: auto; max-height: none; aspect-ratio: auto; background: none; border-radius: 0; object-fit: contain; }
 .post-figure--wide figcaption { text-align: center; color: rgba(255,255,255,0.45); }
