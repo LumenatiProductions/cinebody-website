@@ -127,6 +127,7 @@ html { scroll-padding-top: var(--nav-h); }
   padding: 56px 0 96px;
   overflow: visible;
 }
+.post-article--figure { padding-bottom: 96px; }
 
 /* Home-style light band (mech): white surface, dark type. */
 .post-light {
