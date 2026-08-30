@@ -45,15 +45,17 @@ const blogSchema = {
 <Base title={title} description={description} image={heroImage || '/og.png'} schema={blogSchema}>
   <article class="post">
     <div class="post-hero">
-      {heroImage && (
-        <img class="post-hero__photo" src={heroImage} alt="" fetchpriority="high" />
-      )}
       <div class="post-hero__grid">
         <div class="post-hero__copy">
           <p class="post-meta"><span>Blog</span> &nbsp;&middot;&nbsp; {fmt(pubDate)} &nbsp;&middot;&nbsp; {author}</p>
           <h1>{title}</h1>
           {description && <p class="post-dek">{description}</p>}
         </div>
+        {heroImage && (
+          <div class="post-hero__visual">
+            <img class="post-hero__photo" src={heroImage} alt="" fetchpriority="high" />
+          </div>
+        )}
       </div>
     </div>
 
@@ -90,8 +92,10 @@ const blogSchema = {
     <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
     <section class="cta-band">
-      <h2>Turn your community into your <span>content team.</span></h2>
-      <a class="btn btn-glow" href={CALENDLY} target="_blank" rel="noopener">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      <div class="cta-band__inner">
+        <h2>Turn your community into your <span>content team.</span></h2>
+        <a class="btn btn-glow" href={CALENDLY} target="_blank" rel="noopener">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div>
     </section>
 
     <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
