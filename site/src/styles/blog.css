@@ -75,6 +75,8 @@ html { scroll-padding-top: var(--nav-h); }
   object-fit: cover;
   object-position: 72% center;
   z-index: 0;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 68%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 68%, transparent 100%);
 }
 .post-hero::before {
   content: '';
@@ -83,13 +85,13 @@ html { scroll-padding-top: var(--nav-h); }
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, #0a0a0a 0%, rgba(4,26,36,0.88) 28%, rgba(4,26,36,0.45) 52%, rgba(4,26,36,0.12) 74%, transparent 92%),
-    linear-gradient(180deg, rgba(10,10,10,0.28) 0%, transparent 22%, transparent 58%, #041a24 100%);
+    linear-gradient(90deg, rgba(4,26,36,0.7) 0%, rgba(4,26,36,0.38) 34%, rgba(4,26,36,0.12) 62%, transparent 86%),
+    linear-gradient(180deg, rgba(4,26,36,0.2) 0%, transparent 26%, transparent 52%, rgba(4,26,36,0.45) 78%, #041a24 100%);
 }
 .post-hero__grid {
   position: relative;
   z-index: 2;
-  max-width: 720px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 3rem);
   min-height: calc(78vh - var(--nav-h) - 48px);
@@ -97,6 +99,7 @@ html { scroll-padding-top: var(--nav-h); }
   align-items: center;
 }
 .post-hero__copy {
+  max-width: 40rem;
   text-align: left;
   overflow: visible;
 }
@@ -111,7 +114,6 @@ html { scroll-padding-top: var(--nav-h); }
   overflow: visible;
 }
 .post-dek {
-  max-width: 40em;
   margin: 0;
   font-size: 1.28rem;
   line-height: 1.5;
@@ -152,9 +154,20 @@ html { scroll-padding-top: var(--nav-h); }
 .post-light .post-content blockquote { color: #111; }
 .post-light .post-content hr { border-top-color: rgba(0,0,0,0.12); }
 
-.post-content { max-width: 720px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.post-content { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 .post-content::after { content: ""; display: table; clear: both; }
 .post-content > :first-child { margin-top: 0; }
+.post-content p,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content ul,
+.post-content blockquote,
+.post-content hr,
+.post-content figcaption,
+.post-dek {
+  max-width: 40rem;
+}
 .post-content p { color: #e8e8e8; font-size: 1.08rem; line-height: 1.78; margin: 0 0 1.4em; }
 .post-content h2 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; color: #fff; line-height: 1.2; margin: 2.35em 0 0.55em; clear: both; }
 .post-content h3 { font-size: 1.3rem; font-weight: 700; color: #fff; margin: 1.6em 0 0.5em; }
@@ -165,17 +178,18 @@ html { scroll-padding-top: var(--nav-h); }
 .post-content ul { color: #e8e8e8; font-size: 1.08rem; line-height: 1.7; margin: 0 0 1.4em; padding-left: 1.4em; }
 .post-content ul li { margin-bottom: 0.5em; }
 .post-content img { width: 100%; height: auto; border-radius: 16px; margin: 1.6em 0; display: block; object-fit: contain; }
-.post-content figure { margin: 1.8em 0; background: none; box-shadow: none; }
+.post-content figure { max-width: 40rem; margin: 1.8em 0; background: none; box-shadow: none; }
 .post-content figure img { margin: 0; border-radius: 16px; object-fit: contain; width: 100%; height: auto; max-height: none; aspect-ratio: auto; }
-.post-content figcaption { font-size: 0.85rem; color: rgba(255,255,255,0.45); text-align: center; margin-top: 0.7em; }
+.post-content figcaption { font-size: 0.85rem; color: rgba(255,255,255,0.45); text-align: left; margin-top: 0.7em; }
 .post-content blockquote { border-left: 3px solid var(--teal); margin: 1.8em 0; padding: 0.2em 0 0.2em 1.3em; color: #fff; font-size: 1.2rem; line-height: 1.5; font-style: italic; }
 .post-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 2.4em 0; }
 
-/* Numbered lists: home .mech step cards, inside the 720px column. */
+/* Numbered lists: home .mech step cards, same reading width as prose. */
 .post-content ol {
   list-style: none;
   counter-reset: post-ol;
   width: 100%;
+  max-width: 40rem;
   margin: 0 0 1.6em;
   padding: 0;
   color: #e8e8e8;
@@ -218,15 +232,15 @@ html { scroll-padding-top: var(--nav-h); }
   color: #333;
 }
 
-/* In-article phone: full column, same gutter as prose. */
-.post-figure--phone { margin: 1.8em 0; background: none; }
+/* In-article phone: stacked, same left edge and reading width as prose. */
+.post-figure--phone { max-width: 40rem; margin: 1.8em 0; background: none; }
 .post-figure--phone img { width: 100%; height: auto; max-height: none; border-radius: 16px; object-fit: contain; }
 
-/* Shot list on the dark room: stay in the 720px column; crop the sliced Continue bar. */
+/* Shot list: wider than prose, still left-aligned to the wrap. Crop the sliced Continue bar. */
 .post-article .post-figure--wide {
   overflow: hidden;
   width: 100%;
-  max-width: none;
+  max-width: min(920px, 100%);
   margin: 2.4em 0 0.4em;
   background: none;
   box-shadow: none;
@@ -244,10 +258,9 @@ html { scroll-padding-top: var(--nav-h); }
   background: none;
 }
 .post-figure--wide figcaption {
-  max-width: none;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  max-width: 40rem;
+  margin: 0.7em 0 0;
+  text-align: left;
   color: rgba(255,255,255,0.45);
 }
 
@@ -257,13 +270,17 @@ html { scroll-padding-top: var(--nav-h); }
   .post-hero__copy h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
   .post-hero::before {
     background:
-      linear-gradient(90deg, #0a0a0a 0%, rgba(4,26,36,0.94) 40%, rgba(4,26,36,0.72) 64%, rgba(4,26,36,0.28) 86%, transparent 100%),
-      linear-gradient(180deg, rgba(10,10,10,0.58) 0%, rgba(4,26,36,0.32) 26%, transparent 50%, #041a24 100%);
+      linear-gradient(90deg, rgba(4,26,36,0.88) 0%, rgba(4,26,36,0.62) 38%, rgba(4,26,36,0.28) 70%, transparent 100%),
+      linear-gradient(180deg, rgba(4,26,36,0.4) 0%, rgba(4,26,36,0.18) 30%, transparent 48%, rgba(4,26,36,0.5) 80%, #041a24 100%);
+  }
+  .post-hero__photo {
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
   }
 }
 
 .post-foot {
-  max-width: 720px; margin: 64px auto 0; padding: 40px clamp(1.25rem, 4vw, 3rem) 0;
+  max-width: 1200px; margin: 64px auto 0; padding: 40px clamp(1.25rem, 4vw, 3rem) 0;
   border-top: 1px solid rgba(255,255,255,0.1);
   display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
 }
