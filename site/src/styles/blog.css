@@ -1,5 +1,7 @@
 /* Cinebody blog — V4 design system (dark, Inter, teal/pink/yellow accents) */
 
+html { scroll-padding-top: var(--nav-h); }
+
 .blog-wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 
 /* ---- Index hero ---- */
@@ -87,7 +89,7 @@
 .post-hero__grid {
   position: relative;
   z-index: 2;
-  max-width: 1280px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 3rem);
   min-height: calc(78vh - var(--nav-h) - 48px);
@@ -96,7 +98,6 @@
 }
 .post-hero__copy {
   text-align: left;
-  max-width: 40em;
   overflow: visible;
 }
 .post-hero__copy h1 {
@@ -106,7 +107,7 @@
   color: #fff;
   line-height: 1.12;
   margin: 0.4em 0 0.45em;
-  text-wrap: balance;
+  text-wrap: pretty;
   overflow: visible;
 }
 .post-dek {
@@ -123,8 +124,8 @@
   position: relative;
   z-index: 1;
   background: #041a24;
-  padding: 56px 0 48px;
-  overflow-x: clip;
+  padding: 56px 0 96px;
+  overflow: visible;
 }
 
 /* Home-style light band (mech): white surface, dark type. */
@@ -134,7 +135,7 @@
   background: #fff;
   color: #111;
   padding: 56px 0 64px;
-  overflow-x: clip;
+  overflow: visible;
 }
 .post-light .post-content p { color: #111; }
 .post-light .post-content h2 { color: #111; }
@@ -169,17 +170,12 @@
 .post-content blockquote { border-left: 3px solid var(--teal); margin: 1.8em 0; padding: 0.2em 0 0.2em 1.3em; color: #fff; font-size: 1.2rem; line-height: 1.5; font-style: italic; }
 .post-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 2.4em 0; }
 
-/* Numbered lists: home .mech step cards, break out of the 720px column. */
+/* Numbered lists: home .mech step cards, inside the 720px column. */
 .post-content ol {
-  --ol-wide: min(920px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
   list-style: none;
   counter-reset: post-ol;
-  width: var(--ol-wide);
-  max-width: none;
-  margin-top: 0;
-  margin-bottom: 1.6em;
-  margin-left: calc(50% - (var(--ol-wide) / 2));
-  margin-right: calc(50% - (var(--ol-wide) / 2));
+  width: 100%;
+  margin: 0 0 1.6em;
   padding: 0;
   color: #e8e8e8;
   font-size: 1.08rem;
@@ -221,65 +217,48 @@
   color: #333;
 }
 
-/* In-article phone: large wrap on desktop, stack on small screens. */
-.post-figure--phone { margin: 0.2em 0 1.3em 0; background: none; }
+/* In-article phone: full column, same gutter as prose. */
+.post-figure--phone { margin: 1.8em 0; background: none; }
 .post-figure--phone img { width: 100%; height: auto; max-height: none; border-radius: 16px; object-fit: contain; }
 
-/* Shot list on the dark room: figure still breaks out; image stays native size. */
+/* Shot list on the dark room: stay in the 720px column; crop the sliced Continue bar. */
 .post-article .post-figure--wide {
-  --post-wide: min(920px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
-  width: var(--post-wide);
+  overflow: hidden;
+  width: 100%;
   max-width: none;
-  margin-top: 2.4em;
-  margin-bottom: 0.4em;
-  margin-left: calc(50% - (var(--post-wide) / 2));
-  margin-right: calc(50% - (var(--post-wide) / 2));
+  margin: 2.4em 0 0.4em;
   background: none;
   box-shadow: none;
 }
 .post-content .post-figure--wide img {
   display: block;
-  width: auto;
-  max-width: min(920px, 100%);
+  width: 100%;
+  max-width: none;
   height: auto;
-  margin-left: auto;
-  margin-right: auto;
+  aspect-ratio: 1640 / 655;
+  margin: 0;
   border-radius: 16px;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: top center;
   background: none;
 }
 .post-figure--wide figcaption {
-  max-width: min(920px, 100%);
+  max-width: none;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   color: rgba(255,255,255,0.45);
 }
 
-@media (min-width: 760px) {
-  .post-figure--phone {
-    float: right;
-    width: min(420px, 48%);
-    max-width: 420px;
-    margin: 0.15em 0 1.4em 1.7em;
-  }
-}
-
 @media (max-width: 759px) {
   .post-hero { min-height: 78vh; padding-bottom: 64px; }
   .post-hero__grid { min-height: calc(78vh - var(--nav-h) - 48px); }
   .post-hero__copy h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
-  .post-figure--phone,
-  .post-figure--wide,
-  .post-content ol {
-    float: none;
-    width: 100%;
-    max-width: none;
-    margin: 1.6em 0;
-    margin-left: 0;
-    margin-right: 0;
+  .post-hero::before {
+    background:
+      linear-gradient(90deg, #0a0a0a 0%, rgba(4,26,36,0.94) 40%, rgba(4,26,36,0.72) 64%, rgba(4,26,36,0.28) 86%, transparent 100%),
+      linear-gradient(180deg, rgba(10,10,10,0.58) 0%, rgba(4,26,36,0.32) 26%, transparent 50%, #041a24 100%);
   }
-  .post-content ol { margin-bottom: 1.6em; }
 }
 
 .post-foot {
