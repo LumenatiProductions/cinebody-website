@@ -52,7 +52,7 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
 <p>The earlier post is the full write-up. This one is the front end of the same job. The brief writes the first list. You still write the last one.</p>
 <h2>A short example: launch clips, not a novel</h2>
 <figure class="post-figure--wide">
-  <img src="/blog/start-your-shot-list-from-the-brief/img-2.webp" alt="Desktop wizard with the generated shot list.">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-2.webp" alt="Cinebody shot list with three short filmable asks: lace up, a short jog, and one line to camera.">
 </figure>
 <p>Say you are briefing a launch for a running shoe. Filmers are store staff and a few local run-club people. You need a 30-second social cut by the end of the week. Phones only. After work.</p>
 <p>A usable brief looks like this:</p>
