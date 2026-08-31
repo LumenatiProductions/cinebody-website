@@ -245,11 +245,12 @@ html { scroll-padding-top: var(--nav-h); }
   width: 100%;
   max-width: none;
   height: auto;
+  /* UI is x 348–1491 of 1640. 348/(1640-1144)=70.16%. 56% clipped Add Shot. */
   aspect-ratio: 1144 / 700;
   margin: 0;
   border-radius: 16px;
   object-fit: cover;
-  object-position: 56% center;
+  object-position: 70.16% center;
   background: none;
 }
 .post-figure--wide figcaption {
