@@ -230,7 +230,7 @@ html { scroll-padding-top: var(--nav-h); }
 .post-figure--phone img { width: 100%; height: auto; max-height: none; border-radius: 16px; object-fit: contain; }
 
 .post-article .post-figure--wide {
-  overflow: visible;
+  overflow: hidden;
   width: min(1100px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
   max-width: none;
   margin: 2.4em auto 0.4em;
@@ -238,17 +238,18 @@ html { scroll-padding-top: var(--nav-h); }
   transform: translateX(-50%);
   background: none;
   box-shadow: none;
+  border-radius: 16px;
 }
 .post-content .post-figure--wide img {
   display: block;
   width: 100%;
   max-width: none;
   height: auto;
-  aspect-ratio: auto;
+  aspect-ratio: 1144 / 700;
   margin: 0;
   border-radius: 16px;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: 56% center;
   background: none;
 }
 .post-figure--wide figcaption {
