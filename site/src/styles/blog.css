@@ -113,10 +113,14 @@ html { scroll-padding-top: var(--nav-h); }
 }
 .post-hero__photo {
   display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 58% center;
+  height: auto;
+  transform: translateY(-50%);
+  object-fit: contain;
+  object-position: center;
 }
 .post-meta { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
 .post-meta span { color: var(--teal); }
@@ -226,9 +230,12 @@ html { scroll-padding-top: var(--nav-h); }
 .post-figure--phone img { width: 100%; height: auto; max-height: none; border-radius: 16px; object-fit: contain; }
 
 .post-article .post-figure--wide {
-  overflow: hidden;
-  width: 100%;
-  margin: 2.4em 0 0.4em;
+  overflow: visible;
+  width: min(1100px, calc(100vw - 2 * clamp(1.25rem, 4vw, 3rem)));
+  max-width: none;
+  margin: 2.4em auto 0.4em;
+  margin-left: 50%;
+  transform: translateX(-50%);
   background: none;
   box-shadow: none;
 }
@@ -237,11 +244,11 @@ html { scroll-padding-top: var(--nav-h); }
   width: 100%;
   max-width: none;
   height: auto;
-  aspect-ratio: 1640 / 655;
+  aspect-ratio: auto;
   margin: 0;
   border-radius: 16px;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: contain;
+  object-position: center;
   background: none;
 }
 .post-figure--wide figcaption {
