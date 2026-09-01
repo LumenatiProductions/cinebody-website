@@ -8,7 +8,7 @@ import '../styles/global.css';
 
 const {
   title,
-  description = 'Cinebody is the video capture platform that turns your community into your content team. Direct authentic UGC at scale.',
+  description = 'Cinebody is the authentic video production platform. Real people film on their phones; AI writes the shot list, coaches every filmer, scores each clip, and cuts the finished video.',
   active,
   image = '/og.png',
   noindex = false,
@@ -29,7 +29,9 @@ const orgSchema = {
   legalName: 'Super 6 LLC',
   url: 'https://www.cinebody.com',
   logo: 'https://www.cinebody.com/cinebody-icon.png',
-  description,
+  description: 'Cinebody is an authentic video production platform. Brands send a link, real people (employees, customers, fans) film on their phones, and AI writes the shot list, coaches every filmer live, scores each clip, and cuts a finished, on-brand video.',
+  slogan: 'Real people film it. AI does the rest.',
+  knowsAbout: ['user-generated video', 'authentic video production', 'AI video editing', 'employee-generated content', 'customer video', 'remote video capture', 'shot lists'],
   address: { '@type': 'PostalAddress', streetAddress: '3839 N Jackson Street', addressLocality: 'Denver', addressRegion: 'CO', postalCode: '80205', addressCountry: 'US' },
   email: 'info@cinebody.com',
   sameAs: ['https://vimeo.com/cinebody', 'https://instagram.com/cinebody', 'https://facebook.com/cinebody'],
@@ -127,7 +129,7 @@ if (!pageSchema && caseStudies[slug]) {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    {noindex ? <meta name="robots" content="noindex,nofollow" /> : <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />}
 
     <!-- Icons -->
     <link rel="icon" type="image/png" href="/cinebody-icon.png" />
@@ -143,6 +145,7 @@ if (!pageSchema && caseStudies[slug]) {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -153,12 +156,27 @@ if (!pageSchema && caseStudies[slug]) {
     <!-- Self-hosted variable font (no render-blocking third-party request) -->
     <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Vimeo player. Loaded deferred (after parse, before interaction) so it
-         doesn't block render but is available globally for the page video
-         scripts that several fragments rely on. -->
+    <!-- Vimeo player API is loaded on demand (first video that actually
+         mounts) via window.__cbVimeo() below, so pages that never play a video
+         never pay for the script or the third-party connection. -->
     <link rel="preconnect" href="https://player.vimeo.com" />
-    <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin />
-    <script src="https://player.vimeo.com/api/player.js" defer></script>
+    <script is:inline>
+      // Returns a promise that resolves once player.js is on the page. Safe to call repeatedly.
+      window.__cbVimeo = function () {
+        if (window.Vimeo && window.Vimeo.Player) return Promise.resolve(window.Vimeo);
+        if (!window.__cbVimeoP) {
+          window.__cbVimeoP = new Promise(function (res, rej) {
+            var s = document.createElement('script');
+            s.src = 'https://player.vimeo.com/api/player.js';
+            s.async = true;
+            s.onload = function () { res(window.Vimeo); };
+            s.onerror = rej;
+            document.head.appendChild(s);
+          });
+        }
+        return window.__cbVimeoP;
+      };
+    </script>
 
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
@@ -339,7 +357,12 @@ if (!pageSchema && caseStudies[slug]) {
           if (!fromUser) iframe.loading = 'lazy';
           iframe.title = container.getAttribute('data-title') || 'Cinebody customer video';
           container.insertBefore(iframe, container.firstChild);
-          bindPlayer(container, iframe, !!fromUser);
+          // player.js is loaded on demand (see head); bind once it lands so the
+          // 4s ready() timeout below measures the embed, not the script fetch.
+          window.__cbVimeo().then(
+            function () { bindPlayer(container, iframe, !!fromUser); },
+            function () { failPlay(container); }
+          );
         }
 
         // One mount routine for EVERY card — originals and the carousel's clones alike —
@@ -408,45 +431,46 @@ if (!pageSchema && caseStudies[slug]) {
       })();
     </script>
 
-    <!-- Homepage hero scroller: poster thumbnails carry the visual. On mobile or
-         with reduced-motion we never stream the background videos at all; on
-         desktop we only stream the cards currently in view and unload them once
-         they scroll out, so the page never pulls tens of MB of video up front. -->
+    <!-- Hero video wall (Home / Platform / Services). The HTML ships only a tiny
+         local poster per card plus the Vimeo URL on data-video. On mobile or with
+         reduced-motion we never stream: the posters ARE the wall. On desktop we
+         create a background player only for the cards in view (capped) and tear
+         it down once they scroll out, so no page ever pulls 30 players at once. -->
     <script is:inline>
       (function () {
-        var iframes = Array.prototype.slice.call(document.querySelectorAll('.scr-card iframe[data-src]'));
-        if (!iframes.length) return;
-        // Stagger start times so no two cards show the same beat of their loops
-        iframes.forEach(function (f, i) { f.dataset.t = (i % 5) * 6; });
-        // Landscape clips letterbox in the portrait cards; tag them (via their
-        // poster's natural aspect) so CSS can scale the player to cover instead
-        iframes.forEach(function (f) {
-          var img = f.parentElement.querySelector('img');
-          if (!img) return;
-          function chk() { if (img.naturalWidth > img.naturalHeight) f.parentElement.classList.add('scr-wide'); }
-          if (img.complete) chk(); else img.addEventListener('load', chk);
-        });
+        var cards = Array.prototype.slice.call(document.querySelectorAll('.scr-card[data-video]'));
+        if (!cards.length) return;
         var noVideo =
           window.matchMedia('(max-width: 767px)').matches ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
           !('IntersectionObserver' in window);
         if (noVideo) return;
-        function withDnt(u) { return u + (u.indexOf('?') > -1 ? '&' : '?') + 'dnt=1'; }
-        // Cap concurrent streams so the wall stays lively without pulling a dozen
-        // Vimeo players at once; posters (real video frames) fill the rest.
         var MAX = 9, active = 0;
+        function mount(card, i) {
+          var iframe = document.createElement('iframe');
+          var u = card.getAttribute('data-video');
+          iframe.src = u + (u.indexOf('?') > -1 ? '&' : '?') + 'dnt=1#t=' + ((i % 5) * 6) + 's'; // stagger loop start
+          iframe.allow = 'autoplay';
+          iframe.title = 'Cinebody customer video';
+          iframe.setAttribute('aria-hidden', 'true');
+          iframe.tabIndex = -1;
+          card.insertBefore(iframe, card.querySelector('.scr-label'));
+          card._frame = iframe; active++;
+        }
+        function unmount(card) {
+          if (!card._frame) return;
+          card._frame.src = 'about:blank'; card._frame.remove(); card._frame = null;
+          active = Math.max(0, active - 1);
+        }
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) {
-            var f = e.target;
-            if (e.isIntersecting) {
-              if (!f.getAttribute('src') && active < MAX) { f.title = 'Cinebody customer video'; f.setAttribute('src', withDnt(f.dataset.src) + '#t=' + f.dataset.t + 's'); active++; }
-            } else if (f.getAttribute('src')) {
-              f.removeAttribute('src'); active = Math.max(0, active - 1); // revert to poster, stop the stream
-            }
+            var c = e.target;
+            if (e.isIntersecting) { if (!c._frame && active < MAX) mount(c, cards.indexOf(c)); }
+            else unmount(c);
           });
         }, { threshold: 0.2 });
         var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 300); };
-        idle(function () { iframes.forEach(function (f) { io.observe(f); }); });
+        idle(function () { cards.forEach(function (c) { io.observe(c); }); });
       })();
     </script>
 

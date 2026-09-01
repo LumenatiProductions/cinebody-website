@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import body from '../fragments/platform.html?raw';
+import { faqSchema } from '../lib/faq';
 ---
-<Base title="Platform" active="platform" description="The whole production, run by AI. Send a link and Cinebody writes the shotlist, coaches every filmer live, scores each clip, and cuts a finished, on-brand video. The people are real.">
+<Base schema={faqSchema(body)} title="Platform" active="platform" description="The whole production, run by AI. Send a link and Cinebody writes the shotlist, coaches every filmer live, scores each clip, and cuts a finished, on-brand video. The people are real.">
   <Fragment set:html={body} />
 </Base>

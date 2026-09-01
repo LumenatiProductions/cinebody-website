@@ -11,7 +11,7 @@ export default defineConfig({
   },
   build: {
     format: 'directory', // /software/index.html -> served at /software
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
   integrations: [
     sitemap({

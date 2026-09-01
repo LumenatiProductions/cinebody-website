@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import body from '../fragments/pricing.html?raw';
+import { faqSchema } from '../lib/faq';
 ---
-<Base title="Pricing" active="pricing" description="Simple plans for the Cinebody software platform and creative services. Find the right fit for your team and start capturing authentic video.">
+<Base schema={faqSchema(body)} title="Pricing" active="pricing" description="Simple plans for the Cinebody software platform and creative services. Find the right fit for your team and start capturing authentic video.">
   <Fragment set:html={body} />
 </Base>

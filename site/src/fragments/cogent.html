@@ -443,6 +443,7 @@ body > * { position: relative; z-index: 1; }
       if (e.isIntersecting && !loaded) {
         loaded = true;
         wrap.querySelectorAll('iframe[data-src]').forEach(function(f) { f.src = f.getAttribute('data-src'); });
+        if (window.__cbVimeo) window.__cbVimeo();
       }
       wrap.querySelectorAll('.vid-marquee-track').forEach(function(t) {
         t.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';

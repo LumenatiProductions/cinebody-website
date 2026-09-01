@@ -226,6 +226,19 @@ body > * { position: relative; z-index: 1; }
   color: rgba(255,255,255,0.6); z-index: 3;
 }
 
+/* Hero entrance: CSS-only so first paint isn't gated on the reveal observer (LCP). */
+.hero .reveal { opacity: 1; transform: none; animation: heroIn 0.7s var(--ease) both; }
+.hero .reveal.reveal-d2 { animation-delay: 0.15s; }
+@keyframes heroIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hero .reveal { animation: none; } }
+/* Mobile wall: no filter on the animated columns, and each half of the loop keeps 3 cards
+   (the two halves stay identical so the -50% loop is seamless) = fewer decodes + smaller layers. */
+@media (max-width: 600px) {
+  .hero-scroller-col { filter: none; }
+  .hero-scroller-col .scr-card:nth-child(4), .hero-scroller-col .scr-card:nth-child(5),
+  .hero-scroller-col .scr-card:nth-child(9), .hero-scroller-col .scr-card:nth-child(10) { display: none; }
+}
+
 /* ═══════════════════════════
    HOW IT WORKS
    ═══════════════════════════ */
@@ -560,44 +573,44 @@ body > * { position: relative; z-index: 1; }
     <div class="hero-scroller reveal reveal-d2">
       <div class="scroll-up">
         <div class="hero-scroller-col">
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Outside Lands</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1065884285?h=75786524f6&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Employee</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Altra · Athlete</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072989645?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Besame</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Lorde · Live</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435241-116025cae9943a044af693188ebc0b710d9d99cd30ed9df76e0abee8b1bab071-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454370?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Outside Lands</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1993480268-6a5708386ba0db6e1f616d176abe9881b72dc7c9a1ed6a0241ff77acb996d577-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1065884285?h=75786524f6&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Employee</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2025192258-80513b19ff58e300f424e59b19a39bd7b10197c78e011653225a96f8dad0048f-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Altra · Athlete</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2002031965-198ff24b7da64432983fe6d45e6c20fd4cb056b15fbd711e20fb7d1b5d079947-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1072989645?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Besame</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2074297352-a7062ae7a9a3e2c48d8054e0a92e56af57c288f9632d6f9aa5576fb74347212d-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Lorde · Live</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1111454370?background=1"><img src="/wall/1111454370-240.webp" srcset="/wall/1111454370-240.webp 240w, /wall/1111454370-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="eager" fetchpriority="high"/><div class="scr-label">Cogent · Outside Lands</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1065884285?h=75786524f6&background=1"><img src="/wall/1065884285-240.webp" srcset="/wall/1065884285-240.webp 240w, /wall/1065884285-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Dell · Employee</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1"><img src="/wall/1092175563-240.webp" srcset="/wall/1092175563-240.webp 240w, /wall/1092175563-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Altra · Athlete</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1072989645?background=1"><img src="/wall/1072989645-240.webp" srcset="/wall/1072989645-240.webp 240w, /wall/1072989645-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · Besame</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1"><img src="/wall/1129595346-240.webp" srcset="/wall/1129595346-240.webp 240w, /wall/1129595346-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Lorde · Live</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1111454370?background=1"><img src="/wall/1111454370-240.webp" srcset="/wall/1111454370-240.webp 240w, /wall/1111454370-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · Outside Lands</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1065884285?h=75786524f6&background=1"><img src="/wall/1065884285-240.webp" srcset="/wall/1065884285-240.webp 240w, /wall/1065884285-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Dell · Employee</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1092175563?h=aeeb559c41&background=1"><img src="/wall/1092175563-240.webp" srcset="/wall/1092175563-240.webp 240w, /wall/1092175563-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Altra · Athlete</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1072989645?background=1"><img src="/wall/1072989645-240.webp" srcset="/wall/1072989645-240.webp 240w, /wall/1072989645-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · Besame</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1129595346?h=755f92d893&background=1"><img src="/wall/1129595346-240.webp" srcset="/wall/1129595346-240.webp 240w, /wall/1129595346-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Lorde · Live</div></div>
         </div>
       </div>
       <div class="scroll-down">
         <div class="hero-scroller-col">
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1061059233?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">RC · Rover</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1145001262?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Modelo CFB</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1131472355?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Jose</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2038638655-4ef78cd2bf72975d8e802116dbfb44252b5b797a7ec267b4c2138960b71ec95c-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Sparkle · Creator</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454811?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · USOS</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1987718223-f6511b9ced65ac41be4c43d3f3b4643cb2c2b126fd8e0c10369cd1e5074e74b8-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1061059233?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">RC · Rover</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2093796299-edea0d9a5aa7f6589fbc56a21dee3b9de71e09ef7ff59413f39e08e014f3279e-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1145001262?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Modelo CFB</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2075410888-95683344ca1be2098b5cd60f8061138ec8a7444d1792a8a248cdd3ad9335c58c-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1131472355?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Jose</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2038638655-4ef78cd2bf72975d8e802116dbfb44252b5b797a7ec267b4c2138960b71ec95c-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Sparkle · Creator</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2049435740-b10642c56fbed8c1a9556eb61104c948abedadcdf47feb8397504a5156457e23-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1111454811?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · USOS</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1061059233?background=1"><img src="/wall/1061059233-240.webp" srcset="/wall/1061059233-240.webp 240w, /wall/1061059233-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="eager" fetchpriority="high"/><div class="scr-label">RC · Rover</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1145001262?background=1"><img src="/wall/1145001262-240.webp" srcset="/wall/1145001262-240.webp 240w, /wall/1145001262-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · Modelo CFB</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1131472355?background=1"><img src="/wall/1131472355-240.webp" srcset="/wall/1131472355-240.webp 240w, /wall/1131472355-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Dell · Jose</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1"><img src="/wall/1091854157-240.webp" srcset="/wall/1091854157-240.webp 240w, /wall/1091854157-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Sparkle · Creator</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1111454811?background=1"><img src="/wall/1111454811-240.webp" srcset="/wall/1111454811-240.webp 240w, /wall/1111454811-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · USOS</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1061059233?background=1"><img src="/wall/1061059233-240.webp" srcset="/wall/1061059233-240.webp 240w, /wall/1061059233-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">RC · Rover</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1145001262?background=1"><img src="/wall/1145001262-240.webp" srcset="/wall/1145001262-240.webp 240w, /wall/1145001262-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · Modelo CFB</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1131472355?background=1"><img src="/wall/1131472355-240.webp" srcset="/wall/1131472355-240.webp 240w, /wall/1131472355-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Dell · Jose</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1091854157?h=26c42f8016&background=1"><img src="/wall/1091854157-240.webp" srcset="/wall/1091854157-240.webp 240w, /wall/1091854157-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Sparkle · Creator</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1111454811?background=1"><img src="/wall/1111454811-240.webp" srcset="/wall/1111454811-240.webp 240w, /wall/1111454811-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · USOS</div></div>
         </div>
       </div>
       <div class="scroll-up">
         <div class="hero-scroller-col">
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Suenos</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2060423790-aeb2c1b4bfa75cf8c4b9ae8a43261c8a7b95c09e2e2826e809345c5cff4fd9f3-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1119837195?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Abhishek</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · La Onda</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1983601027-f4595d307ed320fb1d7c7f830f927efa36c34b538d0e5d53248c0ec6aa9a4305-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1057614300?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · HBCU</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · BottleRock</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2021194382-8313ef7ef53e8bd4ee90b1ec0908a818e5286ca827282433e6abecaf313e24aa-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1088876642?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · Suenos</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2060423790-aeb2c1b4bfa75cf8c4b9ae8a43261c8a7b95c09e2e2826e809345c5cff4fd9f3-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1119837195?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · Abhishek</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2023698409-54095ce0ac3097d8d2dc6f24231ba292b902eadc9748ff1ab8b53f93036a6ed7-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1090977594?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · La Onda</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/1983601027-f4595d307ed320fb1d7c7f830f927efa36c34b538d0e5d53248c0ec6aa9a4305-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1057614300?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Dell · HBCU</div></div>
-          <div class="scr-card"><img src="https://i.vimeocdn.com/video/2019553454-bc795c788702fed7aee54963e5f2fa93bb89675bab3ec37efa54e1c3f2b1fa34-d_640" alt="" loading="lazy"/><iframe src="https://player.vimeo.com/video/1087531124?background=1" allow="autoplay" loading="lazy"></iframe><div class="scr-label">Cogent · BottleRock</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1088876642?background=1"><img src="/wall/1088876642-240.webp" srcset="/wall/1088876642-240.webp 240w, /wall/1088876642-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="eager" fetchpriority="high"/><div class="scr-label">Cogent · Suenos</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1119837195?background=1"><img src="/wall/1119837195-240.webp" srcset="/wall/1119837195-240.webp 240w, /wall/1119837195-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Dell · Abhishek</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1090977594?background=1"><img src="/wall/1090977594-240.webp" srcset="/wall/1090977594-240.webp 240w, /wall/1090977594-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · La Onda</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1057614300?background=1"><img src="/wall/1057614300-240.webp" srcset="/wall/1057614300-240.webp 240w, /wall/1057614300-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Dell · HBCU</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1087531124?background=1"><img src="/wall/1087531124-240.webp" srcset="/wall/1087531124-240.webp 240w, /wall/1087531124-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · BottleRock</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1088876642?background=1"><img src="/wall/1088876642-240.webp" srcset="/wall/1088876642-240.webp 240w, /wall/1088876642-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · Suenos</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1119837195?background=1"><img src="/wall/1119837195-240.webp" srcset="/wall/1119837195-240.webp 240w, /wall/1119837195-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Dell · Abhishek</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1090977594?background=1"><img src="/wall/1090977594-240.webp" srcset="/wall/1090977594-240.webp 240w, /wall/1090977594-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · La Onda</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1057614300?background=1"><img src="/wall/1057614300-240.webp" srcset="/wall/1057614300-240.webp 240w, /wall/1057614300-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Dell · HBCU</div></div>
+          <div class="scr-card" data-video="https://player.vimeo.com/video/1087531124?background=1"><img src="/wall/1087531124-240.webp" srcset="/wall/1087531124-240.webp 240w, /wall/1087531124-480.webp 480w" sizes="(max-width: 767px) 33vw, 145px" width="240" height="427" alt="" decoding="async" loading="lazy"/><div class="scr-label">Cogent · BottleRock</div></div>
         </div>
       </div>
     </div>
@@ -2425,8 +2438,8 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="pipe-visual">
         <div class="pipe-pair">
-          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.jpg" alt="Pulse on the web: the live overview" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-pulse.jpg" alt="Pulse in the Cinebody app" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-pulse.webp"  alt="Pulse on the web: the live overview" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-pulse.webp"  alt="Pulse in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">Pulse · web and app</div>
       </div>
@@ -2443,11 +2456,11 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The idea"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-ideastudio.jpg" alt="Idea Studio: a dealt shoot idea, ready to keep or skip" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The generated shot list" data-crop="center"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-wizard.jpg" alt="The wizard: an AI-generated shot list from one description" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The idea"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-ideastudio.webp"  alt="Idea Studio: a dealt shoot idea, ready to keep or skip" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The generated shot list" data-crop="center"><div class="pipe-bar" data-url="cinebody.com/dashboard/new"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-wizard.webp"  alt="The wizard: an AI-generated shot list from one description" loading="lazy"></div>
         </div>
           </div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-project.jpg" alt="The same project in the Cinebody app" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-project.webp"  alt="The same project in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">An idea becomes a plan · dealt, generated, editable</div>
       </div>
@@ -2462,8 +2475,8 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="pipe-visual">
         <div class="pipe-pair">
-          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard/director"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-director.jpg" alt="The AI Director view on the web" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="On the phone"><img src="/app-ui/live/app-camera-2.jpg" alt="The shot brief and live checks over the camera" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard/director"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-director.webp"  alt="The AI Director view on the web" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="On the phone"><img src="/app-ui/live/app-camera-2.webp"  alt="The shot brief and live checks over the camera" loading="lazy"></div>
         </div>
         <div class="pipe-cap">AI Director · web and the real capture screen</div>
       </div>
@@ -2478,8 +2491,8 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="pipe-visual">
         <div class="pipe-pair">
-          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard/shoot"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shoot.jpg" alt="The shoot dashboard on the web" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="On the phone"><img src="/app-ui/img07.jpg" alt="An AI voice interview in progress on the phone" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard/shoot"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-shoot.webp"  alt="The shoot dashboard on the web" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="On the phone"><img src="/app-ui/img07.webp"  alt="An AI voice interview in progress on the phone" loading="lazy"></div>
         </div>
         <div class="pipe-cap">AI Voice Interview · run the shoot, it interviews on the phone</div>
       </div>
@@ -2496,11 +2509,11 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The live map"><div class="pipe-bar" data-url="cinebody.com/dashboard/shoot"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-map.jpg" alt="The clip map: where every clip was filmed, pin by pin" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Messages & directions"><div class="pipe-bar" data-url="cinebody.com/dashboard/shoot"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-messages.jpg" alt="Messages and directions: talk to one filmer or all of them" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The live map"><div class="pipe-bar" data-url="cinebody.com/dashboard/shoot"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-map.webp"  alt="The clip map: where every clip was filmed, pin by pin" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Messages & directions"><div class="pipe-bar" data-url="cinebody.com/dashboard/shoot"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-messages.webp"  alt="Messages and directions: talk to one filmer or all of them" loading="lazy"></div>
         </div>
           </div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-messages.jpg" alt="The same conversation in the Cinebody app" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-messages.webp"  alt="The same conversation in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">Directions land as notifications, while they film</div>
       </div>
@@ -2517,11 +2530,11 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The library"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.jpg" alt="The library: every clip scored on arrival" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="A clip review" data-crop="right"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.jpg" alt="A real review: the score and the reasons why" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The library"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-library.webp"  alt="The library: every clip scored on arrival" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="A clip review" data-crop="right"><div class="pipe-bar" data-url="cinebody.com/dashboard/library"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-clipdetail.webp"  alt="A real review: the score and the reasons why" loading="lazy"></div>
         </div>
           </div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-library.jpg" alt="The library in the Cinebody app" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-library.webp"  alt="The library in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">AI Clip Review · web and app</div>
       </div>
@@ -2536,8 +2549,8 @@ body > * { position: relative; z-index: 1; }
       </div>
       <div class="pipe-visual">
         <div class="pipe-pair">
-          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard/payouts"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-payouts.jpg" alt="Payouts: funded budgets and one-click payments" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="Cashing out in the app"><img src="/app-ui/live/app-earnings.jpg" alt="A filmer's earnings in the app: connect Stripe once, cash out anytime" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser" data-lb="On the web"><div class="pipe-bar" data-url="cinebody.com/dashboard/payouts"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-payouts.webp"  alt="Payouts: funded budgets and one-click payments" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="Cashing out in the app"><img src="/app-ui/live/app-earnings.webp"  alt="A filmer's earnings in the app: connect Stripe once, cash out anytime" loading="lazy"></div>
         </div>
         <div class="pipe-cap">Payouts · you fund it, filmers cash out in the app</div>
       </div>
@@ -2554,11 +2567,11 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The story it found"><div class="pipe-bar" data-url="cinebody.com/dashboard/post-production"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.jpg" alt="The AI reads the footage and writes the story brief" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The timeline it built"><div class="pipe-bar" data-url="cinebody.com/dashboard/post-production"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.jpg" alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="The story it found"><div class="pipe-bar" data-url="cinebody.com/dashboard/post-production"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postproduction.webp"  alt="The AI reads the footage and writes the story brief" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="The timeline it built"><div class="pipe-bar" data-url="cinebody.com/dashboard/post-production"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-postgen.webp"  alt="One click later: a finished timeline with captions and music" loading="lazy"></div>
         </div>
           </div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="The finished cut"><img src="/app-ui/live/app-cut.jpg" alt="The finished vertical cut, the way it lands on the feed" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="The finished cut"><img src="/app-ui/live/app-cut.webp"  alt="The finished vertical cut, the way it lands on the feed" loading="lazy"></div>
         </div>
         <div class="pipe-cap">Auto-Editor · the brief, then the cut</div>
       </div>
@@ -2575,11 +2588,11 @@ body > * { position: relative; z-index: 1; }
         <div class="pipe-pair">
           <div class="pipe-pair-main">
         <div class="pipe-stack">
-          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="Brand profile"><div class="pipe-bar" data-url="cinebody.com/dashboard/brand-kit"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandprofile.jpg" alt="Brand profile: voice, audience, and filming rules" loading="lazy"></div>
-          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Visual identity"><div class="pipe-bar" data-url="cinebody.com/dashboard/brand-kit"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.jpg" alt="Brand Kit: logo and colors, fetched from your site" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-back" data-lb="Brand profile"><div class="pipe-bar" data-url="cinebody.com/dashboard/brand-kit"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandprofile.webp"  alt="Brand profile: voice, audience, and filming rules" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--browser pipe-stack-front" data-lb="Visual identity"><div class="pipe-bar" data-url="cinebody.com/dashboard/brand-kit"><span></span><span></span><span></span></div><img src="/app-ui/live/desk-brandkit.webp"  alt="Brand Kit: logo and colors, fetched from your site" loading="lazy"></div>
         </div>
           </div>
-          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-brandkit.jpg" alt="Brand Kit in the Cinebody app" loading="lazy"></div>
+          <div class="pipe-frame pipe-frame--phone pipe-side-phone" data-lb="In the app"><img src="/app-ui/live/app-brandkit.webp"  alt="Brand Kit in the Cinebody app" loading="lazy"></div>
         </div>
         <div class="pipe-cap">Brand Kit · both pages, fetched from your site</div>
       </div>
