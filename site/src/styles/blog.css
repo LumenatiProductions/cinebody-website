@@ -245,13 +245,12 @@ html { scroll-padding-top: var(--nav-h); }
   width: 100%;
   max-width: none;
   height: auto;
-  /* UI is x 348–1491 of 1640. 56px of app chrome so the 16px radius does not clip Basics / Add Shot / Review. */
-  aspect-ratio: 1256 / 700;
+  aspect-ratio: auto;
   margin: 0;
   border-radius: 16px;
-  object-fit: cover;
-  object-position: 76.04% center;
-  background: none;
+  object-fit: contain;
+  object-position: center;
+  background: #0a0a0a;
 }
 .post-figure--wide figcaption {
   margin: 0.7em 0 0;
