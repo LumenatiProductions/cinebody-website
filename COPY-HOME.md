@@ -1,20 +1,20 @@
 # Homepage Copy (locked, 2026-08-20)
 
-Voice: humans-first, specific about what the AI does, subtle on anti-slop, outcome-framed. No em dashes, no emojis.
+Voice: humans-first, Cinebody is the subject doing the work, subtle on anti-slop, outcome-framed. No em dashes, no emojis. Product labels may keep AI (AI Director, AI Shotlist, AI Clip Review, AI Voice Interviews).
 
 ---
 
 ## 1. Hero
 - Eyebrow: `AUTHENTIC VIDEO PRODUCTION PLATFORM`
-- **H1: Real people film it. AI does the rest.** *(revised 2026-08-21; "Real people, run by AI" read like the people were run by AI)*
+- **H1: Real people film it. Cinebody does the rest.** *(revised 2026-09-05; Cinebody is the actor, not "AI")*
 - Sub: The everyday video your brand needs, made by the people who already love you, at the speed your channels demand.
 - Buttons: [Book a Demo] · [See how it works]
 - Trust: Trusted by Nike, Royal Caribbean, Dell, and 100+ brands
 
 ## 2. The mechanic
-- **Just a phone and a link. The AI makes it good.** *(revised 2026-08-21; killed the hero echo and the "no experience" framing)*
-- Open a link, start shooting. The AI coaches every shot so it comes back usable. No app, no crew, no experience. Footage syncs to your dashboard the moment they stop.
-- Three beats: `Send the link` · `They film, AI coaches` · `You open a finished cut`
+- **Just a phone and a link. Cinebody makes it good.**
+- Open a link, start shooting. Cinebody coaches every shot so it comes back usable. No app, no crew, no experience. Footage syncs to your dashboard the moment they stop.
+- Three beats: `Send the link` · `Cinebody coaches every shot` · `You open a finished cut`
 
 ## 3. The pipeline (the star)
 - **One system runs your whole production.**
@@ -22,7 +22,7 @@ Voice: humans-first, specific about what the AI does, subtle on anti-slop, outco
 - **AI Director** — writes the shotlist and coaches every person on camera, live.
 - **Clip scoring** — every clip is scored the second it lands, so the best moments rise to the top.
 - **Auto-editor** — finds the real story in what people actually said, and cuts it into a finished, on-brand video.
-- Closer: **Real people create it. AI runs it end to end.**
+- Closer: **Real people create it. Cinebody runs it end to end.**
 
 ## 4. Proof
 - **Real beats polished. It's not close.**

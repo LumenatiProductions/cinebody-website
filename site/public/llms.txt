@@ -1,22 +1,22 @@
 # Cinebody
 
-> Cinebody is the authentic video production platform. Real people film it. AI does the rest. A brand sends a link, and its own employees, customers, and fans film on their phones with no app download. Cinebody's AI writes the shot list from a plain-English brief, coaches every filmer live on camera, scores each clip as it lands, and cuts a finished, on-brand video. Optional Creative Services add strategy, creative direction, and editing. Cinebody is made by Super 6 LLC and based in Denver, Colorado.
+> Cinebody is the authentic video production platform. Real people film it. Cinebody does the rest. A brand sends a link, and its own employees, customers, and fans film on their phones with no app download. Cinebody writes the shot list from a plain-English brief, coaches every filmer live on camera, scores each clip as it lands, and cuts a finished, on-brand video. Optional Creative Services add strategy, creative direction, and editing. Cinebody is made by Super 6 LLC and based in Denver, Colorado.
 
 ## Key facts
 - Category: authentic video production platform (software) with optional creative services.
 - Who films: the brand's own community (employees, customers, fans, athletes, crew), not paid influencers or marketplace creators.
-- How it works: send a link, the AI writes the shot list, guides people while they film on their phones, grades every clip, and delivers a nearly finished edit.
-- What the AI does: AI Director and shot-list builder, live camera coaching, per-clip scoring and review, AI rough cut and auto-editor, AI voice interviews, brand kit and voice, auto covers, post-production cleanup, pro exports (Premiere, Final Cut, EDL) on higher tiers.
+- How it works: send a link, Cinebody writes the shot list, guides people while they film on their phones, grades every clip, and delivers a nearly finished edit.
+- What Cinebody does: AI Director and shot-list builder, live camera coaching, per-clip scoring and review, Cinebody rough cut and auto-editor, AI voice interviews, brand kit and voice, auto covers, post-production cleanup, pro exports (Premiere, Final Cut, EDL) on higher tiers.
 - Connected pipeline: the shot list informs the AI Director, which informs clip scores, which inform the auto-editor, so the cut is built from data captured at every stage of the shoot.
 - Scale: shoots have run across 160+ countries and 5,000+ cities without production crews traveling.
 - Customers include Nike, Royal Caribbean, Dell, Georgia-Pacific, Point.me, Altra, Cogent, Crocs, Sploot, Boeing, Roku, Experian, Siemens, WebMD, S&P Global, and Snap.
-- Pricing: software plans start at $250/month billed annually (Plus, $300 monthly). Pro is $500/month billed annually ($600 monthly). Enterprise is custom. AI editing is included on every paid plan. Creative Services are custom-quoted.
+- Pricing: software plans start at $250/month billed annually (Plus, $300 monthly). Pro is $500/month billed annually ($600 monthly). Enterprise is custom. Cinebody editing is included on every paid plan. Creative Services are custom-quoted.
 - Positioning: not a replacement for large-scale hero productions; the simple way to make all the rest of the video a brand needs, at the speed its channels demand.
 - Capture technology is protected by patents (see /patents).
 
 ## Core pages
-- [Platform](https://www.cinebody.com/platform): The software. Send a link, set a shot list, and get pro-quality vertical video back from real people anywhere, with no app download and no production crew. AI writes the shot list, coaches every filmer live on camera, scores each clip, and assembles a finished cut.
-- [Creative Services](https://www.cinebody.com/services): Want it fully handled? Cinebody's team runs the whole thing: strategy, creative direction, and editing, with AI doing the heavy lifting and one producer owning it end to end.
+- [Platform](https://www.cinebody.com/platform): The software. Send a link, set a shot list, and get pro-quality vertical video back from real people anywhere, with no app download and no production crew. Cinebody writes the shot list, coaches every filmer live on camera, scores each clip, and assembles a finished cut.
+- [Creative Services](https://www.cinebody.com/services): Want it fully handled? Cinebody's team runs the whole thing: strategy, creative direction, and editing, with Cinebody doing the heavy lifting and one producer owning it end to end.
 - [Pricing](https://www.cinebody.com/pricing): Plans for the software platform and for creative services. Software starts at $250/month billed annually.
 - [Work](https://www.cinebody.com/work): Case studies from brands running Cinebody, including Nike, Royal Caribbean, Dell, and more.
 - [Blog](https://www.cinebody.com/cinebody-blog): Field notes on video, UGC, and creation from the Cinebody team: production tips, content strategy, and how brands capture authentic video at scale.
@@ -34,11 +34,11 @@
 - [Sploot](https://www.cinebody.com/sploot): Shot once and produced a connected-TV spot plus a full set of social cutdowns.
 
 ## Frequently asked questions
-- What exactly is Cinebody? Cinebody is a video production platform where real people do the filming and AI does everything else. You say what you need, the AI writes the plan, guides people while they film on their phones, grades every clip as it lands, and hands you an edited video that is nearly done.
+- What exactly is Cinebody? Cinebody is a video production platform where real people do the filming and Cinebody does everything else. You say what you need, Cinebody writes the plan, guides people while they film on their phones, grades every clip as it lands, and hands you an edited video that is nearly done.
 - How is this different from UGC marketplaces? UGC marketplaces match you with paid creators who pretend to be customers. Cinebody activates your actual community, the people who already know and love your brand. The result is genuinely authentic content, not performed.
-- What does the AI actually do? It writes your shot list from a plain-English brief, coaches every person on camera live while they film, scores each clip on how it looks and sounds, picks the best takes, and builds the finished cut with music and captions. You review, tweak, and approve.
+- What does Cinebody actually do? Cinebody writes your shot list from a plain-English brief, coaches every person on camera live while they film, scores each clip on how it looks and sounds, picks the best takes, and builds the finished cut with music and captions. You review, tweak, and approve.
 - Can I use it without creative services? Absolutely. The software subscription is standalone: you direct shoots, collect footage, and edit in-house. Creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution.
-- How much does it cost? Software plans start at $250/month billed annually, with AI editing included on every paid plan. Creative services are custom-quoted. Most brands save 70%+ compared to traditional video production.
+- How much does it cost? Software plans start at $250/month billed annually, with Cinebody editing included on every paid plan. Creative services are custom-quoted. Most brands save 70%+ compared to traditional video production.
 
 ## Company
 - [Privacy Policy](https://www.cinebody.com/privacy-policy)
