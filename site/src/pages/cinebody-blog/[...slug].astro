@@ -10,6 +10,22 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { title, description, pubDate, author, heroImage } = post.data;
+const html = post.body;
+const lightStart = html.indexOf('<h2>A short example');
+const lightEnd = html.indexOf('<h2>The brief is the start');
+const wideFigure = html.match(/<figure class="post-figure--wide">[\s\S]*?<\/figure>/)?.[0] ?? '';
+const wideFigureAlt = wideFigure.match(/\salt="([^"]*)"/)?.[1];
+const wideFigureOnDark = wideFigure && wideFigureAlt && !/<figcaption[\s>]/.test(wideFigure)
+  ? wideFigure.replace('</figure>', `<figcaption>${wideFigureAlt}</figcaption></figure>`)
+  : wideFigure;
+const lightBand = lightStart !== -1 && lightEnd > lightStart
+  ? {
+      before: html.slice(0, lightStart),
+      light: html.slice(lightStart, lightEnd).replace(wideFigure, ''),
+      figure: wideFigureOnDark,
+      after: html.slice(lightEnd),
+    }
+  : null;
 const fmt = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 const CALENDLY = 'https://calendly.com/gavin-cinebody/cinebody-intro2';
 const postUrl = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '');
@@ -28,25 +44,60 @@ const blogSchema = {
 
 <Base title={title} description={description} image={heroImage || '/og.png'} schema={blogSchema}>
   <article class="post">
-    <div class="post-head">
-      <p class="post-meta"><span>Blog</span> &nbsp;&middot;&nbsp; {fmt(pubDate)} &nbsp;&middot;&nbsp; {author}</p>
-      <h1>{title}</h1>
+    <div class="post-hero">
+      <div class="post-hero__grid">
+        <div class="post-hero__copy">
+          <p class="post-meta"><span>Blog</span> &nbsp;&middot;&nbsp; {fmt(pubDate)} &nbsp;&middot;&nbsp; {author}</p>
+          <h1>{title}</h1>
+          {description && <p class="post-dek">{description}</p>}
+        </div>
+        {heroImage && (
+          <div class="post-hero__visual">
+            <img class="post-hero__photo" src={heroImage} alt="" fetchpriority="high" />
+          </div>
+        )}
+      </div>
     </div>
 
-    {heroImage && (
-      <div class="post-hero-img"><img src={heroImage} alt={title} fetchpriority="high" /></div>
+    {lightBand ? (
+      <>
+        <div class="post-article post-article--figure">
+          <div class="post-content" set:html={lightBand.before + lightBand.figure} />
+        </div>
+
+        <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
+
+        <div class="post-light">
+          <div class="post-content" set:html={lightBand.light} />
+        </div>
+
+        <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#fff"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#041a24"/></svg></div>
+
+        <div class="post-article">
+          <div class="post-content" set:html={lightBand.after} />
+          <div class="post-foot">
+            <a class="post-foot__back" href="/cinebody-blog">&larr; All posts</a>
+          </div>
+        </div>
+      </>
+    ) : (
+      <div class="post-article">
+        <div class="post-content" set:html={post.body} />
+        <div class="post-foot">
+          <a class="post-foot__back" href="/cinebody-blog">&larr; All posts</a>
+        </div>
+      </div>
     )}
 
-    <div class="post-content" set:html={post.body} />
+    <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#041a24"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#ffec03"/></svg></div>
 
-    <div class="post-foot">
-      <a class="post-foot__back" href="/cinebody-blog">&larr; All posts</a>
-    </div>
+    <section class="cta-band">
+      <div class="cta-band__inner">
+        <h2>Turn your community into your <span>content team.</span></h2>
+        <a class="btn btn-glow" href={CALENDLY} target="_blank" rel="noopener">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div>
+    </section>
 
-    <div class="post-cta">
-      <h2>Turn your community into your content team.</h2>
-      <p>See how Cinebody captures authentic video at scale.</p>
-      <a class="blog-btn btn-glow" href={CALENDLY} target="_blank" rel="noopener">Book a Demo &rarr;</a>
-    </div>
+    <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><rect width="1440" height="80" fill="#ffec03"/><path d="M0,10 Q720,60 1440,10 L1440,80 L0,80 Z" fill="#0a0a0a"/></svg></div>
   </article>
 </Base>
