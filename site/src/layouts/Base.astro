@@ -8,7 +8,7 @@ import '../styles/global.css';
 
 const {
   title,
-  description = 'Cinebody is the authentic video production platform. Real people film on their phones; AI writes the shot list, coaches every filmer, scores each clip, and cuts the finished video.',
+  description = 'Cinebody is the authentic video production platform. Real people film on their phones; Cinebody writes the shot list, coaches every filmer, scores each clip, and cuts the finished video.',
   active,
   image = '/og.png',
   noindex = false,
@@ -16,7 +16,7 @@ const {
 } = Astro.props;
 
 const siteName = 'Cinebody';
-const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Real people film it. AI does the rest.`;
+const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Real people film it. Cinebody does the rest.`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || Astro.site.href;
 const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, '');
 // per-page branded share card where we generate one; otherwise the passed image (blog hero) or default
@@ -29,8 +29,8 @@ const orgSchema = {
   legalName: 'Super 6 LLC',
   url: 'https://www.cinebody.com',
   logo: 'https://www.cinebody.com/cinebody-icon.png',
-  description: 'Cinebody is an authentic video production platform. Brands send a link, real people (employees, customers, fans) film on their phones, and AI writes the shot list, coaches every filmer live, scores each clip, and cuts a finished, on-brand video.',
-  slogan: 'Real people film it. AI does the rest.',
+  description: 'Cinebody is an authentic video production platform. Brands send a link, real people (employees, customers, fans) film on their phones, and Cinebody writes the shot list, coaches every filmer live, scores each clip, and cuts a finished, on-brand video.',
+  slogan: 'Real people film it. Cinebody does the rest.',
   knowsAbout: ['user-generated video', 'authentic video production', 'AI video editing', 'employee-generated content', 'customer video', 'remote video capture', 'shot lists'],
   address: { '@type': 'PostalAddress', streetAddress: '3839 N Jackson Street', addressLocality: 'Denver', addressRegion: 'CO', postalCode: '80205', addressCountry: 'US' },
   email: 'info@cinebody.com',
@@ -54,7 +54,7 @@ const entitySchemas = {
     operatingSystem: 'Web',
     url: 'https://www.cinebody.com/platform',
     description:
-      'An authentic video production platform: send a link and the AI writes the shotlist, coaches every filmer live on camera, scores each clip, and cuts a finished, on-brand video. Real people, run by AI.',
+      'An authentic video production platform: send a link and Cinebody writes the shotlist, coaches every filmer live on camera, scores each clip, and cuts a finished, on-brand video. Real people, run by Cinebody.',
     offers: {
       '@type': 'Offer',
       priceCurrency: 'USD',

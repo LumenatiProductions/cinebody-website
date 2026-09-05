@@ -1,8 +1,8 @@
 // Title + subtitle for each page that gets a branded OG card. Keyed by URL slug
 // ('' = home). Blog posts keep their own hero image as the share image.
 export const STATIC_OG: Record<string, { title: string; subtitle: string }> = {
-  '': { title: 'Real people film it. AI does the rest.', subtitle: 'The video capture platform that turns your community into your content team.' },
-  platform: { title: 'The whole production, run by AI.', subtitle: 'Send a link and the AI plans the shoot, coaches every filmer, scores each clip, and hands you the finished video. The people are real.' },
+  '': { title: 'Real people film it. Cinebody does the rest.', subtitle: 'The video capture platform that turns your community into your content team.' },
+  platform: { title: 'The whole production, run by Cinebody.', subtitle: 'Send a link and Cinebody plans the shoot, coaches every filmer, scores each clip, and hands you the finished video. The people are real.' },
   services: { title: 'Creative Services', subtitle: 'Your content team without the headcount: strategy, creative direction, and editing.' },
   pricing: { title: 'Real content. Real savings.', subtitle: 'Authentic video at a fraction of traditional production costs. Software from $250/month.' },
   work: { title: 'Brands run their video on Cinebody', subtitle: 'Case studies from Nike, Royal Caribbean, Dell, and more.' },
