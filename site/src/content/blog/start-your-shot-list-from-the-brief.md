@@ -10,15 +10,24 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
 <p>A useful list is short, usually one to five shots. Each shot is one ask, written in language someone can follow on a phone. The footage you cannot make the cut without belongs at the top. We walked through those rules in <a href="https://www.cinebody.com/cinebody-blog/what-is-a-shot-list-and-how-do-i-write-one-for-a-ugc-campaign">What Is a Shot List and How Do I Write One for a UGC Campaign?</a></p>
 <p>This post is about the step before that list: a brief. Not a treatment. A short paragraph that says what you are making, who is filming, and what the edit needs. Once that is written down, the shot list is a translation job instead of a blank field.</p>
 <h2>Why start with a brief</h2>
+<figure class="post-figure--wide">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-3.webp" alt="People in a concert crowd holding phones up to film the stage">
+</figure>
 <p>The blank page is hard because a campaign is a paragraph of intent, and a shot is a physical action. Those are different kinds of writing. You can know the campaign well and still not know the first line of the list.</p>
 <p>A brief holds the intent in one place so you can pull shots out of it. Who is holding the phone. Where they are. How long they have. What the cut actually needs, such as a 30-second social, a store recap, or a few testimonials.</p>
 <p>Without that, lists tend to swallow the whole campaign in one line. "Capture authentic energy." "Get a hero, a product demo, three soundbites, and a wide of the room." Those sentences describe a video. They do not tell a person what to do with a phone.</p>
 <p>Starting from a brief does not write the list for you. It gives you material to edit. First-draft shots should still be short, filmable asks. You still decide which ones belong, which ones are two asks in one sentence, and which ones sound like a slide instead of a person.</p>
 <h2>What belongs in the brief</h2>
+<figure class="post-figure--wide">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-4.webp" alt="Two coworkers at a desk filming a product on a phone">
+</figure>
 <p>You need enough for the list to be useful. You do not need a brand story.</p>
 <p>Say what you are making. "Employee clips for a product launch. We need a 30-second social cut" is a brief. "We are a purpose-driven brand empowering everyday athletes" is not, because a filmer cannot act on it.</p>
 <p>Name who is filming. Store staff after close. Customers who already bought the product. Run-club members with ten minutes before the group leaves. People film differently on the clock than they do at a concert, and the list should match that.</p>
 <p>Name the setting and the time they actually have. A locker room, a sales floor, a driveway, a festival pit. If they have four minutes, a list that needs twenty will not get done.</p>
+<figure class="post-figure--wide">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-5.webp" alt="A retail associate filming a product display on the sales floor">
+</figure>
 <p>Name what the edit needs. If you need one line to camera, say so. If you need hands on the product, say so. If you need movement, say the path: walk in, lace up, start the jog. The closer the brief is to the cut, the closer the first list will be to shots.</p>
 <p>Leave out what a filmer cannot do anything with. Media mix, KPI language, "make it feel premium." That can wait for your own pass on the list.</p>
 <h2>What a filmable ask looks like</h2>
@@ -37,6 +46,9 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
   <li>Look at the camera and say one sentence about how it feels after a workout.</li>
   <li>Set the bottle on the bench and take two steps back so we see you and the gym.</li>
 </ol>
+<figure class="post-figure--wide">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-6.webp" alt="A person at the gym filming a water bottle after a workout">
+</figure>
 <p>Each line is one action you can check off. The campaign did not change. The asks did.</p>
 <p>Language matters as much as structure. Compare these:</p>
 <p>"Capture authentic, high-energy B-roll of the event atmosphere from multiple angles."</p>
@@ -64,11 +76,17 @@ cardImage: "/blog/start-your-shot-list-from-the-brief/card.webp"
   <li>Stop, look at the camera, and say one sentence about how the shoe feels.</li>
   <li>Optional: a wide of the block or trail you just ran.</li>
 </ol>
+<figure class="post-figure--wide">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-7.webp" alt="A runner outdoors filming on a phone during a short jog">
+</figure>
 <p>Then edit it. If the line to camera is the hero of the cut, move it to shot one, because people drop off and the first ask is the one you are most likely to get. If ten minutes is real, cut the wide. You can usually live without it. The lace-up and the line are harder to replace.</p>
 <p>Rewrite shot 3 so it does not feel like a test. "Whenever you are ready, look at us and tell us one thing about how it feels. One sentence is perfect." Same ask, easier to do on a sidewalk after work.</p>
 <p>Resist adding the box, the storefront, a group shot, and a sunset because the brief mentioned a launch. That is how a five-shot list turns into homework.</p>
 <p>Send the list. Watch the first clips. If shot two is coming back too soft to use, change the line. A shot list is direction. It can move when the footage tells you something.</p>
 <h2>The brief is the start. The list is still yours.</h2>
+<figure class="post-figure--wide">
+  <img src="/blog/start-your-shot-list-from-the-brief/img-8.webp" alt="Festival-goers filming with phones in a colorful crowd">
+</figure>
 <p>A UGC campaign still depends on the shot list: short, one ask at a time, important shots first, written so a person can film it.</p>
 <p>You do not have to start that list from an empty field. Describe the thing you are actually making. Turn it into a short set of filmable asks. Cut it down, warm up the language, and put the shot you need most at the top.</p>
 <p>The people on the other end of the link should know what to film. You should know what you are going to cut. That is the job. A brief is just a way to begin it without guessing.</p>
