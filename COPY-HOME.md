@@ -45,3 +45,10 @@ Voice: humans-first, Cinebody is the subject doing the work, subtle on anti-slop
 - Light line: Don't have a team? Ours can run it for you.
 - **See what your people could make this week.**
 - [Book a Demo]
+
+
+## Trust / authenticity (2026-09-07)
+- Hero: Real people. Real phones. Never synthetic faces or AI testimonials.
+- Who films: no AI avatars — real employees, customers, fans on real phones.
+- Testimonial strip: Real customer. Real quote. Not generated.
+- FAQ: Is any of the video AI-generated? → No; people film; Cinebody coaches/edits only.

@@ -192,6 +192,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .hero-trust { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 20px; font-family: var(--mono); letter-spacing: 0.02em; }
+.hero-trust--auth { margin-top: 8px; color: rgba(255,255,255,0.78); }
 .hero-apps-row { display: flex; align-items: center; justify-content: flex-start; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
 .hero-apps__label { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
 @media (max-width: 600px) { .hero-apps-row { flex-direction: column; gap: 12px; margin-top: 26px; } }
@@ -604,6 +605,14 @@ body > * { position: relative; z-index: 1; }
   border-top: 1px solid #e0e0e0; text-align: center;
 }
 
+.testi-trust {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.45);
+  margin: 0 0 14px;
+}
 .testi-quote {
   font-family: var(--font); font-size: clamp(1.1rem, 2vw, 1.35rem);
   font-weight: 400; font-style: italic; line-height: 1.7; color: #444;
@@ -777,6 +786,7 @@ body > * { position: relative; z-index: 1; }
         <a href="#pipeline" class="btn btn-ghost">See how it works</a>
       </div>
       <p class="hero-trust">Trusted by Nike, Royal Caribbean, Dell, and 100+ brands</p>
+      <p class="hero-trust hero-trust--auth">Real people. Real phones. Never synthetic faces or AI testimonials.</p>
       <div class="hero-apps-wrap">
         <div class="hero-apps-row">
           <div class="store-badges">
@@ -1750,6 +1760,7 @@ body > * { position: relative; z-index: 1; }
 
     <!-- Testimonial -->
     <div class="testi-wrap reveal reveal-d3">
+      <p class="testi-trust">Real customer. Real quote. Not generated.</p>
       <blockquote class="testi-quote">"Because of Cinebody, we can produce high-quality videos that are posted throughout the course of the year on our social pages and we no longer have to come up with separate campaign budgets. The video content is happening continuously and it wouldn't have been possible without&nbsp;Cinebody."</blockquote>
       <div class="testi-author">
         <div class="testi-name">Morgan Handy</div>
@@ -1776,7 +1787,7 @@ body > * { position: relative; z-index: 1; }
     <div class="reveal">
       <div class="label">Who films for you</div>
       <h2>Your employees. Your customers. Your&nbsp;fans.</h2>
-      <p class="why-sub">The people who already love you make the most believable content there is. No influencers, no agencies, just the humans who know you&nbsp;best.</p>
+      <p class="why-sub">The people who already love you make the most believable content there is. No influencers, no agencies, no AI avatars — just real employees, customers, and fans on real&nbsp;phones.</p>
     </div>
     <div class="who-grid reveal reveal-d2">
       <div class="why-card who-card glow-track"><img src="/who/who-employees.webp" srcset="/who/who-employees-640.webp 640w, /who/who-employees.webp 1200w" sizes="(max-width: 700px) 92vw, 560px" class="who-img"  alt="Team of employees filming a video together at the office" loading="lazy"><div class="who-body"><h3>Employees</h3><p>Your team already lives the brand. Employee-made video earns up to 8x the engagement and reaches far past your own&nbsp;channels.</p></div></div>
@@ -1851,8 +1862,9 @@ body > * { position: relative; z-index: 1; }
   <div class="contain">
     <h2 class="reveal">Frequently asked&nbsp;questions</h2>
     <div class="reveal reveal-d1">
-      <div class="faq-item"><button class="faq-q">What exactly is Cinebody?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Cinebody is a video production platform where real people do the filming and Cinebody does everything else. You say what you need, Cinebody writes the plan, guides people while they film on their phones, grades every clip as it lands, and hands you an edited video that is nearly done.</div></div></div>
+      <div class="faq-item"><button class="faq-q">What exactly is Cinebody?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Cinebody is a video production platform where real people — not AI-generated performers — do the filming, and Cinebody does everything else. You say what you need, Cinebody writes the plan, guides people while they film on their phones, grades every clip as it lands, and hands you an edited video that is nearly done.</div></div></div>
       <div class="faq-item"><button class="faq-q">How is this different from UGC marketplaces?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">UGC marketplaces match you with paid creators who pretend to be customers. Cinebody activates your actual community, the people who already know and love your brand. The result is genuinely authentic content, not performed.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Is any of the video AI-generated?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">No. The people on camera are real — employees, customers, fans — filming on their own phones. Cinebody coaches the shoot and helps edit, but it never invents faces, voices, or testimonials. What you publish came from a human holding a phone.</div></div></div>
       <div class="faq-item"><button class="faq-q">What does Cinebody actually do?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Cinebody writes your shot list from a plain-English brief, coaches every person on camera live while they film, scores each clip on how it looks and sounds, picks the best takes, and builds the finished cut with music and captions. You review, tweak, and approve.</div></div></div>
       <div class="faq-item"><button class="faq-q">Can I use it without creative services?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Absolutely. The software subscription is standalone, you direct shoots, collect footage, and edit in-house. Our creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution.</div></div></div>
       <div class="faq-item"><button class="faq-q">How much does it cost?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Software plans start at $250/month billed annually, with Cinebody editing included on every paid plan. Creative services are custom-quoted. Most brands save 70%+ compared to traditional video production.</div></div></div>
@@ -2096,4 +2108,4 @@ document.querySelectorAll('.faq-q').forEach(function(b){
 });
 </script>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What exactly is Cinebody?","acceptedAnswer":{"@type":"Answer","text":"Cinebody is a patented video capture platform that lets you collect professional-quality footage from anyone, anywhere. You set the shot list, resolution, and creative direction. They film on their phone. Footage syncs to your dashboard in real time."}},{"@type":"Question","name":"How is this different from UGC marketplaces?","acceptedAnswer":{"@type":"Answer","text":"UGC marketplaces match you with paid creators who pretend to be customers. Cinebody activates your actual community, the people who already know and love your brand. The result is genuinely authentic content, not performed."}},{"@type":"Question","name":"Do filmers need to download an app?","acceptedAnswer":{"@type":"Answer","text":"No. Cinebody works as a web app, filmers access it through a link or QR code. No downloads, no friction. They're filming within seconds."}},{"@type":"Question","name":"Can I use it without creative services?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. The software subscription is standalone, you direct shoots, collect footage, and edit in-house. Our creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution."}},{"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"Software plans start at $250/month billed annually. Creative services are custom-quoted. Most brands save 70%+ compared to traditional video production."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What exactly is Cinebody?","acceptedAnswer":{"@type":"Answer","text":"Cinebody is a video production platform where real people \u2014 not AI-generated performers \u2014 do the filming, and Cinebody does everything else. You say what you need, Cinebody writes the plan, guides people while they film on their phones, grades every clip as it lands, and hands you an edited video that is nearly done."}},{"@type":"Question","name":"How is this different from UGC marketplaces?","acceptedAnswer":{"@type":"Answer","text":"UGC marketplaces match you with paid creators who pretend to be customers. Cinebody activates your actual community, the people who already know and love your brand. The result is genuinely authentic content, not performed."}},{"@type":"Question","name":"Is any of the video AI-generated?","acceptedAnswer":{"@type":"Answer","text":"No. The people on camera are real \u2014 employees, customers, fans \u2014 filming on their own phones. Cinebody coaches the shoot and helps edit, but it never invents faces, voices, or testimonials. What you publish came from a human holding a phone."}},{"@type":"Question","name":"Do filmers need to download an app?","acceptedAnswer":{"@type":"Answer","text":"No. Cinebody works as a web app, filmers access it through a link or QR code. No downloads, no friction. They're filming within seconds."}},{"@type":"Question","name":"Can I use it without creative services?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. The software subscription is standalone, you direct shoots, collect footage, and edit in-house. Our creative services are an optional add-on for brands that want strategy, editing, motion graphics, and full campaign execution."}},{"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"Software plans start at $250/month billed annually. Creative services are custom-quoted. Most brands save 70%+ compared to traditional video production."}}]}</script>
