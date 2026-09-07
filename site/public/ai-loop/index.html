@@ -78,6 +78,8 @@
     max-width: 36em;
   }
 
+  .intro-grid { display: block; }
+
   /* Cards */
   .card {
     background: var(--surface);
@@ -312,6 +314,53 @@
   footer {
     text-align: center; font-size: 11px; color: var(--faint); margin-top: 8px;
   }
+
+  /* Desktop */
+  @media (min-width: 768px) {
+    :root { --pad: 32px; --rail: 40px; }
+    .wrap {
+      max-width: 920px;
+      padding: 40px var(--pad) 96px;
+    }
+    h1 { font-size: 40px; max-width: 16ch; }
+    .lede { font-size: 16px; max-width: 52ch; margin-bottom: 36px; }
+    .hero-loop { padding: 28px 24px 20px; margin-bottom: 20px; }
+    .hero-cap { font-size: 14px; }
+    .thesis { padding: 20px 24px; margin-bottom: 56px; }
+    .thesis p { font-size: 20px; max-width: 42ch; }
+    .thesis .why { font-size: 14px; max-width: 56ch; }
+    .compare { gap: 12px; margin-bottom: 56px; }
+    .compare .box { padding: 16px 18px; }
+    .compare .cap { font-size: 13px; }
+    .pillars {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 56px;
+    }
+    .pillar { padding: 16px; grid-template-columns: 1fr; gap: 12px; }
+    .ai-note { margin-bottom: 56px; }
+    .spine { margin-bottom: 56px; max-width: 640px; }
+    .node { padding: 16px 18px; margin-bottom: 18px; }
+    .node .title { font-size: 16px; }
+    .vignette, .learn, .panel { padding: 24px; margin-bottom: 56px; }
+    .vignette .v, .learn .v { font-size: 26px; }
+    .vignette .s, .learn .s { font-size: 14px; max-width: 60ch; }
+    .timeline { height: 110px; }
+  }
+  @media (min-width: 1100px) {
+    .wrap { max-width: 1080px; }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    .intro-grid .hero-loop { margin-bottom: 0; }
+    .intro-grid .thesis { margin-bottom: 0; }
+    .spine { max-width: 720px; }
+  }
+
 </style>
 </head>
 <body>
@@ -328,6 +377,7 @@
   <h1>The full AI production loop</h1>
   <p class="lede">Brand rules write the shoot. Models understand footage as it lands. One clock locks the cut. Human taste compounds into the next brief.</p>
 
+  <div class="intro-grid">
   <div class="card hero-loop" aria-hidden="true">
     <svg viewBox="0 0 400 168" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -363,6 +413,7 @@
     <div class="k">The bet</div>
     <p>Production AI should run during the shoot and the land, not as a black box after the bin is full.</p>
     <div class="why">Most tools optimize the last mile. Cinebody wires Brand Kit → coach → grade → word clock → paper edit → graphics → learn-back so every take teaches the next one.</div>
+  </div>
   </div>
 
   <div class="compare">
