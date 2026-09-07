@@ -3,671 +3,1210 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="robots" content="noindex, nofollow"/>
+<meta name="color-scheme" content="dark light"/>
+<meta name="theme-color" content="#0A0B0D"/>
 <title>Cinebody: Full AI Production Loop</title>
 <style>
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('/fonts/inter-var.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/jetbrains-mono-500.woff2') format('woff2'); }
+
+  /* ---------- Tokens ---------- */
   :root {
     --bg: #0A0B0D;
     --surface: #12141A;
     --lift: #181B22;
     --stroke: #2A2E36;
+    --hair: #1F232B;
     --text: #E8ECF0;
     --muted: #B4BCC6;
     --faint: #8B949E;
+
     --cyan: #00BCF1;
     --mag: #EB008B;
     --yellow: #FFEC03;
     --edit: #5EEAD4;
     --learn: #F472B6;
-    --pad: 20px;
-    --rail: 36px;
+
+    /* text-safe versions of the accents (darkened in light mode) */
+    --ink-cyan: var(--cyan);
+    --ink-mag: var(--mag);
+    --ink-yellow: var(--yellow);
+    --ink-edit: var(--edit);
+    --ink-learn: var(--learn);
+
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --max: 1280px;
+    --gutter: 20px;
+    --gap: 16px;
+    --r: 12px;
+    --r-sm: 8px;
+    --sec: 64px;
+    --top-h: 56px;
   }
   html.light {
     --bg: #F4F6F8;
     --surface: #FFFFFF;
     --lift: #F0F3F6;
     --stroke: #D8DEE6;
+    --hair: #E6EAF0;
     --text: #0E1520;
     --muted: #5A6570;
     --faint: #8A949E;
+    --ink-cyan: #0A86B5;
+    --ink-mag: #C2007A;
+    --ink-yellow: #857900;
+    --ink-edit: #0F9A84;
+    --ink-learn: #C4367C;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @media (min-width: 768px) {
+    :root { --gutter: 32px; --gap: 24px; --sec: 88px; --top-h: 64px; }
+  }
+  @media (min-width: 1024px) {
+    :root { --gutter: 48px; --sec: 112px; }
+  }
+
+  /* ---------- Base ---------- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--top-h) + 16px); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font);
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     font-size: 15px;
-    line-height: 1.62;
-    letter-spacing: 0.01em;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
   }
-  .wrap {
-    max-width: 440px;
-    margin: 0 auto;
-    padding: 24px var(--pad) 80px;
+  @media (min-width: 1024px) { body { font-size: 16px; } }
+  a { color: inherit; text-decoration: none; }
+  ul, ol { list-style: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  svg { display: block; }
+  img { display: block; }
+
+  .container { width: 100%; max-width: calc(var(--max) + var(--gutter) * 2); margin: 0 auto; padding-inline: var(--gutter); }
+  .g12 { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--gap); }
+  @media (min-width: 1024px) {
+    .g12 { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
   }
 
-  /* Top */
-  .topbar {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 32px;
+  /* ---------- Type ---------- */
+  .mono {
+    font-family: var(--mono); font-weight: 500; font-size: 11px; line-height: 1;
+    letter-spacing: 0.08em; text-transform: uppercase; font-variant-numeric: tabular-nums;
   }
-  .brand {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 13px; font-weight: 600; color: var(--muted);
+  .display {
+    font-size: clamp(36px, 2.6vw + 22px, 60px);
+    line-height: 1.04; letter-spacing: -0.032em; font-weight: 600;
+    text-wrap: balance;
   }
-  .brand img { height: 16px; width: auto; display: block; opacity: .92; }
+  .title {
+    font-size: clamp(26px, 1.1vw + 16px, 32px);
+    line-height: 1.15; letter-spacing: -0.024em; font-weight: 600;
+    text-wrap: balance;
+  }
+  .statement {
+    font-size: clamp(20px, 1vw + 14px, 28px);
+    line-height: 1.28; letter-spacing: -0.02em; font-weight: 500;
+    text-wrap: pretty;
+  }
+  .lede { font-size: 16px; line-height: 1.55; color: var(--muted); text-wrap: pretty; }
+  @media (min-width: 1024px) { .lede { font-size: 18px; } }
+  .body-sm { font-size: 14px; line-height: 1.55; color: var(--muted); }
+  .cap { font-size: 12px; line-height: 1.5; color: var(--faint); }
+
+  .sec-label { display: flex; align-items: center; gap: 12px; color: var(--faint); margin-bottom: 16px; }
+  .sec-label .idx { color: var(--acc, var(--ink-cyan)); }
+  .sec-label::before { content: ""; width: 24px; height: 2px; background: var(--acc, var(--cyan)); border-radius: 1px; }
+
+  /* section head: title left, lede right on desktop */
+  .sec-head { margin-bottom: 32px; }
+  .sec-head .lede { margin-top: 12px; max-width: 52ch; }
+  @media (min-width: 1024px) {
+    .sec-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: end; margin-bottom: 40px; }
+    .sec-head > .head-l { grid-column: 1 / 6; }
+    .sec-head > .lede { grid-column: 7 / 13; margin-top: 0; padding-bottom: 4px; }
+  }
+
+
+  /* accent pairs: fill accent + text-safe ink */
+  .a-yellow { --accent: var(--yellow); --ink: var(--ink-yellow); --c: var(--yellow); }
+  .a-cyan   { --accent: var(--cyan);   --ink: var(--ink-cyan);   --c: var(--cyan); }
+  .a-mag    { --accent: var(--mag);    --ink: var(--ink-mag);    --c: var(--mag); }
+  .a-edit   { --accent: var(--edit);   --ink: var(--ink-edit);   --c: var(--edit); }
+  .a-learn  { --accent: var(--learn);  --ink: var(--ink-learn);  --c: var(--learn); }
+
+  /* ---------- Surfaces ---------- */
+  .card { background: var(--surface); border: 1px solid var(--stroke); border-radius: var(--r); }
+  .bar { display: block; width: 24px; height: 2px; border-radius: 1px; background: var(--acc, var(--cyan)); }
+
+  /* ---------- Topbar ---------- */
+  .top {
+    position: sticky; top: 0; z-index: 20;
+    height: var(--top-h);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .top-in { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+  .brand img { height: 16px; width: auto; opacity: .92; }
   html.light .brand img { filter: invert(1); }
+  .brand .sep { width: 1px; height: 16px; background: var(--stroke); }
+  .nav { display: none; }
+  @media (min-width: 1024px) {
+    .nav { display: flex; gap: 4px; }
+    .nav a { padding: 6px 10px; border-radius: 6px; font-size: 13px; font-weight: 500; color: var(--faint); white-space: nowrap; transition: color .15s, background-color .15s; }
+    .nav a:hover { color: var(--text); background: var(--lift); }
+  }
   .toggle {
-    height: 28px; padding: 0 12px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 32px; padding: 0 12px 0 10px; border-radius: 999px;
     border: 1px solid var(--stroke); background: var(--surface);
-    color: var(--muted); font: inherit; font-size: 12px; font-weight: 600;
-    cursor: pointer;
+    color: var(--muted); font-size: 12px; font-weight: 600;
+    transition: border-color .15s, color .15s;
+  }
+  .toggle:hover { color: var(--text); border-color: var(--faint); }
+  .toggle svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .toggle .ic-sun { display: none; }
+  html.light .toggle .ic-sun { display: block; }
+  html.light .toggle .ic-moon { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding-top: 48px; padding-bottom: var(--sec); }
+  .hero-copy .sec-label { margin-bottom: 24px; }
+  .hero-copy .display { margin-bottom: 20px; }
+  .hero-copy .lede { max-width: 44ch; }
+  .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; margin-top: 24px; }
+  .facts > div { padding: 16px 0; border-top: 1px solid var(--stroke); }
+  .facts dt { color: var(--faint); margin-bottom: 8px; }
+  .facts dd { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .hero-fig {
+    margin-top: 24px; padding: 24px 16px 16px;
+    display: flex; flex-direction: column; justify-content: center;
+    background-color: var(--surface);
+    background-image: radial-gradient(var(--hair) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: 12px 12px;
+  }
+  .hero-fig figcaption { margin-top: 16px; text-align: center; }
+  @media (min-width: 768px) {
+    .hero { padding-top: 64px; }
+    .facts { grid-template-columns: repeat(4, 1fr); }
+    .hero-fig { padding: 32px 32px 24px; }
+  }
+  @media (min-width: 1024px) {
+    .hero { padding-top: 88px; row-gap: 48px; }
+    .hero-copy { grid-column: 1 / 6; display: flex; flex-direction: column; justify-content: center; }
+    .hero-fig { grid-column: 6 / 13; margin-top: 0; padding: 40px 40px 28px; }
+    .facts { grid-column: 1 / 13; grid-template-columns: repeat(4, 1fr); gap: 0 var(--gap); margin-top: 0; }
+    .facts > div { padding: 20px 0 0; }
+    .facts dd { font-size: 16px; }
+  }
+  @media (min-width: 1280px) {
+    .hero-copy { grid-column: 1 / 6; }
+    .hero-fig { grid-column: 7 / 13; }
   }
 
-  .eyebrow {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--cyan); margin-bottom: 12px;
+  /* diagrams: shared primitives, themable */
+  .dg { width: 100%; height: auto; }
+  .dg text { font-family: var(--font); fill: var(--text); }
+  .dg .mono { font-family: var(--mono); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .dg .t-muted { fill: var(--muted); }
+  .dg .t-faint { fill: var(--faint); }
+  .dg .t-cyan { fill: var(--ink-cyan); }
+  .dg .t-learn { fill: var(--ink-learn); }
+  .dg .t-yellow { fill: var(--ink-yellow); }
+  .dg .f-surface { fill: var(--surface); }
+  .dg .f-lift { fill: var(--lift); }
+  .dg .f-bg { fill: var(--bg); }
+  .dg .f-cyan { fill: var(--cyan); }
+  .dg .f-mag { fill: var(--mag); }
+  .dg .f-yellow { fill: var(--yellow); }
+  .dg .f-edit { fill: var(--edit); }
+  .dg .f-learn { fill: var(--learn); }
+  .dg .f-cyan-soft { fill: color-mix(in srgb, var(--cyan) 14%, transparent); }
+  .dg .f-yellow-soft { fill: color-mix(in srgb, var(--yellow) 14%, transparent); }
+  .dg .s-stroke { stroke: var(--stroke); }
+  .dg .s-hair { stroke: var(--hair); }
+  .dg .s-faint { stroke: var(--faint); }
+  .dg .s-cyan { stroke: var(--cyan); }
+  .dg .s-mag { stroke: var(--mag); }
+  .dg .s-yellow { stroke: var(--yellow); }
+  .dg .s-edit { stroke: var(--edit); }
+  .dg .s-learn { stroke: var(--learn); }
+  .dg .s-cyan-soft { stroke: color-mix(in srgb, var(--cyan) 60%, transparent); }
+  .dg-desk { display: none; }
+  .dg-mob { display: block; }
+  @media (min-width: 768px) { .dg-desk { display: block; } .dg-mob { display: none; } }
+
+  /* ---------- Bet + Compare ---------- */
+  .bet { padding-bottom: var(--sec); }
+  .thesis { padding: 24px 20px; --acc: var(--cyan); }
+  .thesis .sec-label { margin-bottom: 20px; }
+  .thesis .why { margin-top: 16px; max-width: 58ch; }
+  .compare { display: grid; grid-template-columns: 1fr; gap: var(--gap); }
+  .compare .box {
+    padding: 20px 20px;
+    display: grid; grid-template-columns: minmax(0, 1fr) 132px; grid-template-rows: auto 1fr; column-gap: 20px; align-items: center;
   }
-  h1 {
-    font-size: 30px; font-weight: 600; letter-spacing: -0.035em;
-    line-height: 1.15; margin-bottom: 14px;
+  .compare .lbl { grid-column: 1; grid-row: 1; align-self: start; }
+  .compare .old .lbl { color: var(--faint); }
+  .compare .new .lbl { color: var(--ink-cyan); }
+  .compare .box svg { grid-column: 2; grid-row: 1 / 3; }
+  .compare .box p { grid-column: 1; grid-row: 2; margin-top: 12px; align-self: end; }
+  @media (min-width: 768px) {
+    .compare { grid-template-columns: 1fr 1fr; }
+    .compare .box { padding: 24px; grid-template-columns: minmax(0, 1fr) 148px; column-gap: 24px; }
   }
-  .lede {
-    font-size: 15px; color: var(--muted); margin-bottom: 28px;
-    max-width: 36em;
+  @media (min-width: 1024px) {
+    .thesis { grid-column: 1 / 8; padding: 40px 40px 40px; display: flex; flex-direction: column; justify-content: center; }
+    .thesis .statement { max-width: 24ch; }
+    .compare { grid-column: 8 / 13; grid-template-columns: 1fr; grid-auto-rows: 1fr; }
+    .compare .box { grid-template-columns: minmax(0, 1fr) 160px; }
+  }
+  @media (min-width: 1280px) {
+    .compare .box { grid-template-columns: minmax(0, 1fr) 200px; }
   }
 
-  .intro-grid { display: block; }
-
-  /* Cards */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--stroke);
-    border-radius: 12px;
-  }
-
-  /* Hero loop: 4 node compact */
-  .hero-loop {
-    padding: 20px 16px 16px;
-    margin-bottom: 16px;
-  }
-  .hero-loop svg { width: 100%; height: auto; display: block; }
-  .hero-cap {
-    margin-top: 12px; font-size: 13px; color: var(--muted); text-align: center;
-  }
-
-  /* Thesis */
-  .thesis {
-    padding: 16px;
-    margin-bottom: 48px;
-    border-left: 2px solid var(--cyan);
-    border-radius: 0 12px 12px 0;
-  }
-  .thesis .k {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--cyan); margin-bottom: 8px;
-  }
-  .thesis p {
-    font-size: 16px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.4;
-  }
-  .thesis .why {
-    margin-top: 10px; font-size: 13px; font-weight: 400; color: var(--muted); line-height: 1.55;
-  }
-
-  /* Compare */
-  .compare {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    margin-bottom: 48px;
-  }
-  .compare .box { padding: 12px; }
-  .compare .label {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; margin-bottom: 10px;
-  }
-  .compare .old .label { color: var(--faint); }
-  .compare .new .label { color: var(--cyan); }
-  .compare svg { width: 100%; height: auto; display: block; margin-bottom: 8px; }
-  .compare .cap { font-size: 12px; color: var(--muted); line-height: 1.45; }
-
-  /* Pillars */
-  .section-h {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--faint);
-    margin: 0 0 16px;
-  }
-  .pillars { display: grid; gap: 8px; margin-bottom: 48px; }
-  .pillar {
-    display: grid; grid-template-columns: 40px 1fr; gap: 12px;
-    padding: 14px; align-items: start;
-  }
+  /* ---------- Innovations ---------- */
+  .innov { padding-bottom: var(--sec); }
+  .pillars { display: grid; gap: var(--gap); }
+  .pillar { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+  .pillar .pill-top { display: flex; align-items: center; justify-content: space-between; }
   .pillar .glyph {
-    width: 40px; height: 40px; border-radius: 10px;
-    display: grid; place-items: center;
-    background: var(--lift);
-    border: 1px solid var(--stroke);
-  }
-  .pillar .glyph svg {
-    width: 20px; height: 20px; stroke: var(--c); fill: none;
-    stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .pillar h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .pillar p { font-size: 13px; color: var(--muted); line-height: 1.5; }
-
-  /* AI chips */
-  .ai-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-  .ai {
-    font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 999px;
-    border: 1px solid var(--stroke); background: var(--lift); color: var(--muted);
-  }
-  .ai.on { color: var(--c); border-color: color-mix(in srgb, var(--c) 40%, var(--stroke)); }
-  .ai-note { font-size: 12px; color: var(--faint); margin-bottom: 48px; line-height: 1.5; }
-
-  /* Spine */
-  .spine {
-    position: relative;
-    padding-left: var(--rail);
-    margin-bottom: 48px;
-  }
-  .spine::before {
-    content: "";
-    position: absolute;
-    left: 11px; top: 12px; bottom: 12px;
-    width: 1px; background: var(--stroke);
-  }
-  .band {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-    margin: 28px 0 12px; padding-left: 2px;
-  }
-  .band:first-child { margin-top: 0; }
-  .node {
-    position: relative;
-    background: var(--surface);
-    border: 1px solid var(--stroke);
-    border-radius: 12px;
-    padding: 14px 14px 14px 14px;
-    margin-bottom: 16px;
-  }
-  .node::before {
-    content: "";
-    position: absolute;
-    left: calc(-1 * var(--rail) + 4px);
-    top: 18px;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--accent);
-    box-sizing: border-box;
-  }
-  .node .num {
-    font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
-    color: var(--accent); margin-bottom: 4px;
-  }
-  .node .title {
-    font-size: 15px; font-weight: 600; letter-spacing: -0.015em;
-    margin-bottom: 2px;
-  }
-  .node .meta {
-    font-size: 12px; color: var(--muted); margin-bottom: 10px;
-  }
-  .node .logic {
-    font-size: 12px; color: var(--muted); line-height: 1.5;
-    padding-top: 10px; border-top: 1px solid var(--stroke);
-  }
-  .node .logic strong {
-    color: var(--text); font-weight: 600;
-  }
-
-  .pipes {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
-    margin: 12px 0 4px;
-  }
-  .pipe {
-    text-align: center; padding: 10px 6px; border-radius: 8px;
+    width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center;
     background: var(--lift); border: 1px solid var(--stroke);
   }
-  .pipe .p {
-    font-size: 9px; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--c); margin-bottom: 4px;
+  .pillar .glyph svg { width: 20px; height: 20px; stroke: var(--ink); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .pillar .num { color: var(--faint); }
+  .pillar h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.3; }
+  .pillar p { color: var(--muted); font-size: 14px; line-height: 1.55; }
+  .pillar .foot { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--hair); display: flex; align-items: center; gap: 8px; color: var(--faint); }
+  .pillar .foot i { width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
+  @media (min-width: 768px) {
+    .pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .pillar { padding: 28px 24px 24px; gap: 20px; }
   }
-  .pipe .n { font-size: 12px; font-weight: 600; color: var(--text); }
-  .pipe .d { font-size: 10px; color: var(--faint); margin-top: 2px; }
+  @media (min-width: 1024px) {
+    .pillar { padding: 32px 32px 28px; min-height: 280px; }
+    .pillar h3 { font-size: 20px; }
+    .pillar p { font-size: 15px; }
+  }
 
-  /* Timing vignette */
-  .vignette {
-    padding: 16px;
-    margin-bottom: 48px;
+  /* ---------- AI + systems strip ---------- */
+  .systems { padding-bottom: var(--sec); }
+  .sys { border-top: 1px solid var(--stroke); border-bottom: 1px solid var(--stroke); }
+  .sys-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+  .sys-head .sec-label { margin-bottom: 0; }
+  .sys-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .sys-grid li { padding: 16px 16px 16px 0; display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid var(--hair); }
+  .sys-grid li:nth-child(odd) { padding-left: 0; }
+  .sys-grid li:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--hair); }
+  .sys-grid li:nth-last-child(-n+2) { border-bottom: 0; }
+  .sys-grid b { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .sys-grid b::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c); flex: none; }
+  .sys-grid span { font-size: 13px; color: var(--muted); line-height: 1.45; }
+  @media (min-width: 768px) {
+    .sys-grid { grid-template-columns: repeat(4, 1fr); }
+    .sys-grid li { border-bottom: 1px solid var(--hair); padding: 20px 16px; border-left: 1px solid var(--hair); }
+    .sys-grid li:nth-child(odd), .sys-grid li:nth-child(even) { padding-left: 16px; }
+    .sys-grid li:nth-child(4n+1) { border-left: 0; padding-left: 0; }
+    .sys-grid li:nth-last-child(-n+2) { border-bottom: 1px solid var(--hair); }
+    .sys-grid li:nth-last-child(-n+3) { border-bottom: 0; }
   }
-  .vignette .k {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--cyan); margin-bottom: 8px;
+  @media (min-width: 1024px) {
+    .sys-grid { grid-template-columns: repeat(7, 1fr); }
+    .sys-grid li { border-bottom: 0 !important; padding: 24px 16px; border-left: 1px solid var(--hair); }
+    .sys-grid li:nth-child(4n+1) { border-left: 1px solid var(--hair); padding-left: 16px; }
+    .sys-grid li:first-child { border-left: 0; padding-left: 0; }
   }
-  .vignette .v {
-    font-size: 20px; font-weight: 600; letter-spacing: -0.025em;
-    line-height: 1.25; margin-bottom: 6px;
-  }
-  .vignette .s {
-    font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.5;
-  }
-  .timeline {
-    position: relative; height: 88px;
-    background: var(--lift); border: 1px solid var(--stroke);
-    border-radius: 10px; overflow: hidden; padding: 12px 12px 10px;
-  }
-  .timeline svg { width: 100%; height: 100%; display: block; }
 
-  /* Learn-back return arc */
-  .learn {
-    padding: 16px;
-    margin-bottom: 48px;
+  /* ---------- The loop: strip + stage grid ---------- */
+  .loop { padding-bottom: var(--sec); }
+  .strip { display: none; }
+  @media (min-width: 768px) {
+    .strip {
+      display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); column-gap: 8px;
+      margin-bottom: 32px;
+    }
+    .strip .band { grid-row: 1; padding-top: 12px; border-top: 2px solid var(--accent); color: var(--ink); }
+    .strip .band .mono { display: block; }
+    .strip .seg {
+      grid-row: 2; margin-top: 12px; height: 32px; border-radius: 6px;
+      display: grid; place-items: center; color: var(--faint);
+      border: 1px solid transparent; transition: background-color .15s, color .15s, border-color .15s;
+    }
+    .strip .seg:hover, .strip .seg.hot { background: var(--lift); color: var(--text); border-color: var(--stroke); }
+    .strip .seg:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   }
-  .learn .k {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--learn); margin-bottom: 8px;
+  .stages { position: relative; display: grid; gap: var(--gap); }
+  .stage { position: relative; padding: 20px 20px 20px; display: flex; flex-direction: column; transition: border-color .2s, box-shadow .2s; }
+  .stage.hot { border-color: var(--accent); }
+  .stage .hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .stage .num { color: var(--ink); font-size: 12px; }
+  .stage .bandlbl { color: var(--faint); }
+  .stage h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.3; margin-bottom: 4px; }
+  .stage .meta { font-size: 13px; color: var(--muted); }
+  .stage .logic { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--hair); font-size: 14px; line-height: 1.55; color: var(--muted); }
+  .stage .logic strong { display: block; color: var(--text); font-size: 11px; margin-bottom: 6px; }
+  .stage .logic strong.acc { color: var(--ink); }
+  .stage .fill { flex: 1; }
+  .pipes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+  .pipe { padding: 12px 12px; border-radius: var(--r-sm); background: var(--lift); border: 1px solid var(--stroke); }
+  .pipe .p { color: var(--c); margin-bottom: 8px; font-size: 10px; }
+  .pipe .n { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .pipe .d { font-size: 12px; color: var(--faint); margin-top: 2px; }
+  /* mobile spine rail */
+  @media (max-width: 767px) {
+    .stages { padding-left: 28px; }
+    .stages::before { content: ""; position: absolute; left: 6px; top: 20px; bottom: 20px; width: 1px; background: var(--stroke); }
+    .stage::before {
+      content: ""; position: absolute; left: -28px; top: 24px; width: 13px; height: 13px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--accent);
+    }
   }
-  .learn .v {
-    font-size: 20px; font-weight: 600; letter-spacing: -0.025em;
-    margin-bottom: 6px;
+  @media (min-width: 768px) {
+    .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stage { padding: 24px; }
+    .stage.last { grid-column: span 2; }
   }
-  .learn .s {
-    font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.5;
+  @media (min-width: 1024px) {
+    .stages { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .stage { padding: 24px 24px 24px; }
+    .stage.last { grid-column: auto; }
+    .stage.wide { grid-column: span 2; }
   }
-  .learn svg { width: 100%; height: auto; display: block; }
-  .learn .chip {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 12px; padding: 6px 10px; border-radius: 999px;
-    background: var(--lift); border: 1px solid var(--stroke);
+  @media (min-width: 1280px) {
+    .stage.wide .wide-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 24px; align-items: start; }
+    .stage.wide .pipes { margin-top: 0; }
+    .stage.wide .logic { margin-top: 20px; }
+  }
+
+  /* ---------- Bleed vignettes ---------- */
+  .bleed { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); padding-block: var(--sec); }
+  .bleed.clock { background: var(--surface); }
+  .bleed.learn { background: var(--bg); border-top: 0; }
+  .vig-copy .sec-label { margin-bottom: 20px; }
+  .vig-copy .title { margin-bottom: 16px; }
+  .vig-copy .lede { max-width: 46ch; }
+  .points { margin-top: 32px; border-top: 1px solid var(--stroke); }
+  .points li { display: grid; grid-template-columns: 88px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--hair); font-size: 14px; line-height: 1.5; color: var(--muted); }
+  .points li b { color: var(--acc, var(--ink-cyan)); align-self: start; padding-top: 3px; }
+  .fig { margin-top: 16px; }
+  .learn .vig-copy { order: 1; }
+  .learn .fig { order: 2; }
+  .learn .targets { order: 3; }
+  .fig-frame { padding: 16px 12px; border-radius: var(--r); border: 1px solid var(--stroke); background: var(--bg); }
+  .bleed.learn .fig-frame { background: var(--surface); }
+  .fig figcaption { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  .fig figcaption span { display: inline-flex; align-items: center; gap: 8px; }
+  .fig figcaption i { width: 10px; height: 2px; border-radius: 1px; background: var(--k); }
+  .fig figcaption i.dot { width: 8px; height: 8px; border-radius: 50%; }
+  @media (min-width: 768px) { .fig-frame { padding: 24px; } }
+  @media (min-width: 1024px) {
+    .clock .vig-copy { grid-column: 1 / 5; }
+    .clock .fig { grid-column: 5 / 13; margin-top: 0; }
+    .learn .fig { grid-column: 1 / 8; margin-top: 0; order: 1; }
+    .learn .vig-copy { grid-column: 9 / 13; order: 2; align-self: center; }
+    .fig-frame { padding: 32px; }
+  }
+  @media (min-width: 1280px) {
+    .clock .vig-copy { grid-column: 1 / 5; }
+    .clock .fig { grid-column: 6 / 13; }
+  }
+
+  /* playhead drift */
+  @media (prefers-reduced-motion: no-preference) {
+    .dg-desk .playhead { animation: drift 14s linear infinite; }
+    .dg-mob .playhead { animation: drift-m 14s linear infinite; }
+    @keyframes drift { from { transform: translateX(0); } to { transform: translateX(272px); } }
+    @keyframes drift-m { from { transform: translateX(0); } to { transform: translateX(140px); } }
+  }
+
+  /* learn-back targets */
+  .targets { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-top: 24px; }
+  .target { padding: 20px 16px; --acc: var(--learn); }
+  .target .mono { color: var(--faint); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .target .mono b { color: var(--ink-learn); font-weight: 500; }
+  .target h4 { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .target p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .target .arrow { color: var(--faint); }
+  @media (min-width: 768px) { .target { padding: 24px 20px; } }
+  @media (min-width: 1024px) { .targets { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-column: 1 / 13; order: 3; margin-top: 8px; } }
+  .learn-chip {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 32px;
+    height: 32px; padding: 0 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--stroke);
     font-size: 12px; font-weight: 600; color: var(--muted);
   }
-  .learn .chip i {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--yellow);
-    display: inline-block;
-  }
+  .learn-chip i { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); }
 
-  /* Compounds */
-  .panel {
-    padding: 16px;
-    margin-bottom: 24px;
-  }
-  .panel h3 {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--faint); margin-bottom: 12px;
-  }
-  .compounds { list-style: none; display: grid; gap: 10px; }
-  .compounds li {
-    display: grid; grid-template-columns: 20px 1fr; gap: 8px;
-    font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.45;
-  }
-  .compounds b {
-    font-size: 12px; font-weight: 600; color: var(--cyan);
-    font-variant-numeric: tabular-nums;
-  }
-  .accuracy {
-    margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--stroke);
-    font-size: 12px; color: var(--muted); line-height: 1.5;
-  }
-  .accuracy strong {
-    display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--mag); margin-bottom: 6px;
-  }
-
-  footer {
-    text-align: center; font-size: 11px; color: var(--faint); margin-top: 8px;
-  }
-
-  /* Desktop */
+  /* ---------- Compounds + accuracy ---------- */
+  .comp { padding-block: var(--sec); }
+  .comp .sec-head { margin-bottom: 24px; }
+  .steps { border-top: 1px solid var(--stroke); }
+  .steps li { display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--hair); font-size: 15px; font-weight: 500; line-height: 1.45; letter-spacing: -0.005em; }
+  .steps li b { color: var(--ink-cyan); font-size: 12px; }
+  .accuracy { margin-top: 16px; padding: 24px 20px; --acc: var(--mag); }
+  .accuracy .sec-label { margin-bottom: 20px; }
+  .accuracy dl { display: grid; gap: 0; }
+  .accuracy dl div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid var(--hair); font-size: 14px; line-height: 1.5; }
+  .accuracy dl div:first-child { border-top: 0; padding-top: 0; }
+  .accuracy dt { color: var(--faint); }
+  .accuracy dd { color: var(--text); }
+  .accuracy dd span { color: var(--muted); }
   @media (min-width: 768px) {
-    :root { --pad: 32px; --rail: 40px; }
-    .wrap {
-      max-width: 920px;
-      padding: 40px var(--pad) 96px;
-    }
-    h1 { font-size: 40px; max-width: 16ch; }
-    .lede { font-size: 16px; max-width: 52ch; margin-bottom: 36px; }
-    .hero-loop { padding: 28px 24px 20px; margin-bottom: 20px; }
-    .hero-cap { font-size: 14px; }
-    .thesis { padding: 20px 24px; margin-bottom: 56px; }
-    .thesis p { font-size: 20px; max-width: 42ch; }
-    .thesis .why { font-size: 14px; max-width: 56ch; }
-    .compare { gap: 12px; margin-bottom: 56px; }
-    .compare .box { padding: 16px 18px; }
-    .compare .cap { font-size: 13px; }
-    .pillars {
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 56px;
-    }
-    .pillar { padding: 16px; grid-template-columns: 1fr; gap: 12px; }
-    .ai-note { margin-bottom: 56px; }
-    .spine { margin-bottom: 56px; max-width: 640px; }
-    .node { padding: 16px 18px; margin-bottom: 18px; }
-    .node .title { font-size: 16px; }
-    .vignette, .learn, .panel { padding: 24px; margin-bottom: 56px; }
-    .vignette .v, .learn .v { font-size: 26px; }
-    .vignette .s, .learn .s { font-size: 14px; max-width: 60ch; }
-    .timeline { height: 110px; }
+    .steps li { grid-template-columns: 48px 1fr; padding: 20px 0; font-size: 16px; }
   }
-  @media (min-width: 1100px) {
-    .wrap { max-width: 1080px; }
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 20px;
-      align-items: stretch;
-      margin-bottom: 20px;
-    }
-    .intro-grid .hero-loop { margin-bottom: 0; }
-    .intro-grid .thesis { margin-bottom: 0; }
-    .spine { max-width: 720px; }
+  @media (min-width: 1024px) {
+    .comp-l { grid-column: 1 / 8; }
+    .comp-r { grid-column: 9 / 13; }
+    .accuracy { margin-top: 0; padding: 32px; }
+    .comp .sec-head { display: block; }
+    .steps li { font-size: 17px; }
   }
 
+  /* ---------- Footer ---------- */
+  footer { border-top: 1px solid var(--hair); }
+  .foot-in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 24px; color: var(--faint); font-size: 12px; }
 </style>
 </head>
-<body>
-<div class="wrap">
-  <div class="topbar">
-    <div class="brand">
+<body id="top">
+
+<header class="top">
+  <div class="container top-in">
+    <a class="brand" href="#top">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfAAAABiCAYAAACvdYEaAAAJE0lEQVR4nO3dMZLcRBTG8SeKIt3ERETcwUfgDq4iWkIfgJyQKh+AIsLRnoKjUMUBTOIiMskQ7Mqe1WpmpNbrft/r/v8ybDx6emr1p9bMaMwAAAAAAEB9U3QBqk6n02n5Z9M00S8AgAQCaWEtuNcQ5qhh6/hbYjyiNcZqvK+iC1CyZ0CWDl4AADwQ4E9KApkQBwBEIcDtWBAT4gCACAQ4AAAJDR/grKABABkNH+AeuAgAALRGgAMAkBABDgBAQgQ4AAAJEeAOeLIQAKC14QOc8AUAZDR8gAMAkBEBbsdW4azgAQARCPAnJUFMeAMAohDgZ/YEMuENAIj0dXQBauZgvvR0NYIbAKCAAL+AoAYAKOMWOgAACRHgAAAkRIADAJBQm/fA//x4/ec2f7jj/ebGlh/S6/E9/1s/89rjPu8xwhhY2vLTvyP0AX2oM1BvBfYWhLqb0t8rzzaRefwue/Q+1zpWR3oT3ZMjehgTHmoc/1HmFWV+jfQI7TWNglxlMHrW4TF5XXptFV77uCZivxWP/7VtKOptTJSqffxbzZkZLsI8LpCuvcby/5n/+/hO1QrupcpB3lOA15rAlCavmpP0Usv9Vj7+a9tS0uuY2KvV8W85Zx7dp5rHy6u2Pa9zPMBbBfdSpSDvJcBHmLxbTtSzVvutfvzXthktYjzMVHowa9WLaZqmTAFeut0tPC8ulivsWw8UK/sUelR4R29bXIuTN3KyPD0Zbdtbta5PoR/RNURvf9Z6fLbeb7ULpVn0nYH9/1gpQB1X49lX4K21PqGU+qJ8Oy5C1OSq1KvIgFHqwxalvVJchXsHeN0VuFJ4m+nVM5Cer/ZvUasnWkQ/1I5B1B0atT7UpLoKL+WxP5sD/Pe/7ocZKNim91v216jWFWXkC7oo9CFWjf5PT5b/vTT//aYHuZw+2snsvX0z/Wc//f2bd83AKiaoXE6n00n56zottOjBvJ3a21B05MNzZu2Ozy1eNdxcgT+G96P7Vw/2x/dvPbbrg4e9hBt1IjEbe98jZOl3ljpRTuUYXw3w8/CeyYQ44d01lRPklix1tlKrH9n6XLPebL3wdnT1Gt0/zzsAF2+hr4X37P7Vg5lZ3O10wrtr3ifY2gkTfRIDJRi38ZSOQfGvkYWtxAlvOUoDerb2gY89f7+H4v5H8u5H1v5mrTuD7KtwL6sr8Gur73ObV+K3Qnfr18EI792uDXTFQRzxYISjH4zJYEtfeu+BWfs+eH5oqsWdqZrbg/9X4dZ/ZWZjgM/e//PjeoiXBO6lMOdZ6LvsqUvpAQlHaom8KlfY/zV76/LcvtLdjZJaIre9Jqqe6DF5TesL/ogFxtXXW/7B3vCePQvxo2G7DPEGK++eAjxislKYpKIDI3r7nrWoXNRF1xG9fc86jtaiUMNSpgCv8fW14vfAl+5fPdgv3/3qE7bnr8Ft811KB4nCdyMVTg6FPhzlsQ8KfVAIT6XwPUqhF95aXqiqHMdzbitwM7PpzvH3xRvrZQUedYUdOdGpHAOVyV7hbohHLSp3hRRqid6+Vx2etcxa9SZ6flzzbAU+anj3QvEKGW15joHM48n9vUZ64f5aKhRX1lu53UJHfpEnp9JJVNoHpX3w0uOEHeHI2FAbV2pjokU9iqtvs43PQr+F1TciqU1wUdQm1iMUJ8xpyvd1w57GBF5iBQ4ASK3mZwwULyZnnwO89P1vVt8auNJGLYwtLDEmNLACBzrAhIrR1ViFq79lQoADwEaZLpQy1dqjFv0nwAF0g9AaW/T37VsjwAEAWFD+8NqMAAcAdGOkVTgBDqAbmSbf2uhFuQyrbzMCHOgCk3Ub9DmHUT4L4fIkNiDKKCdqJEILS4yJda3no88r8NIHshz5ARQAAGoY4eKeW+hIjZUAlmqNiYxjLWPN2M4lwFmF46gRrpZrqzFZRwVAb+Ohp/3JdFHQsu8Rx9htBU6II0qmCaU2pV709PO0kX0d6WtR2OdZgPPDJABm2Sf+7PUrytjTFheSURerbivwTw+v7YO9czu4H+zdyfP10DfPiSXjJHXOo36FHqjcdlboxVG9jAk89+IEKbkV/unhtf379s2zP/vWfi46+dZCu/S19igdnN6TTHQdWbfvVcfa9lsGieckWVq3Vw0efYuuxWP7KufGkVoUxuVRtS5AIi80X6zA995GXwtvs/UgvuXSv2Eljq2OnKSX/u3pSXlVMfbW7bmfKqvn2d79ynrMb4kcE/C3epJtXYVfCu81l1bRe8K55ko8euWpUkf09o/UsLS1ppLt1Qqo2pPlsu4Mq5IaNa7V12o7R7SosfUYbMl736IvVC9u/FaI7wlvT7VCXCG4FOqI3v6RGm6Za1S+HdjDaoeefEEvXiLA/Vz8ENu1W+lR4W3G7fQR1Fzdep/APUyo6qInyVI16s7aCxWe/VM4Frs/hR4Z3jNCHNBUa1JTmCz3yFYvcroa4MtVuEJ4zwjxvmWZALPU2ULtXtDrR/ThmJ76d3MFPoe4UnjPCPG+9XSiYRw9PzgEj1T6v+nnRKc7mz7YG8ISzU3TNKm+z6xyEito1Qvl8WDW/tnbyr1AfZvfA2/xMJW9FGuCP8WgVKwpSuteqPY+oi7VXvRMqee7PsSmFJhKtaA+pZNGqZZZVE2jbfeSyHrUeqGup7sWuz+FrhCcCjWgPYWJSqGGS0ZbCU9PRq9hrqPn7alQ2+9DxbT+EBlPYqtfR/T2t2p9Fd1q/zz63/OTtC6JWFUp9sGs3fHPMlecO9obtWPuUkztIOfHTNrVEb39vXoLK6/+Z3gsaA0tgnzUPniNsawBrnjcXQvyDvKWt8pVBmN0HdHbL9XLIxJr9L+3VcdWvYyJo2oef6XfEbilx/OgWkGlYc772/CQaWJpaUtfeuwD4+ELxkAZxZ7IFQQAgKcew9us4FPoAAAgHgEOAOhWr6tvMwIcAICUCHAAAFYor77NCHAAQKd6emzqGgIcAIAF9dW3GQEOAOhQ76tvMwIcAIBnMqy+zQhwAEBnRlh9mxHgAACkRIADALrR84NblghwAAASIsABAF0YafVtRoADAJASAQ4AGF621bcZAQ4A6MAoXx07R4ADAIaWcfUNAAAAAABa+R9q2NoyUzxHZAAAAABJRU5ErkJggg==" alt="cinebody"/>
-      AI production loop
-    </div>
-    <button class="toggle" id="themeBtn" type="button">Light</button>
+      <span class="sep" aria-hidden="true"></span>
+      <span>AI production loop</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#bet">The bet</a>
+      <a href="#innovations">Innovations</a>
+      <a href="#systems">Systems</a>
+      <a href="#loop">The loop</a>
+      <a href="#clock">Word clock</a>
+      <a href="#learn">Learn-back</a>
+      <a href="#compounds">Compounds</a>
+    </nav>
+    <button class="toggle" id="themeBtn" type="button" aria-label="Toggle light theme">
+      <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+      <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <span id="themeLabel">Light</span>
+    </button>
   </div>
+</header>
 
-  <div class="eyebrow">Team explainer</div>
-  <h1>The full AI production loop</h1>
-  <p class="lede">Brand rules write the shoot. Models understand footage as it lands. One clock locks the cut. Human taste compounds into the next brief.</p>
+<main>
 
-  <div class="intro-grid">
-  <div class="card hero-loop" aria-hidden="true">
-    <svg viewBox="0 0 400 168" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-          <path d="M0 1 L9 5 L0 9 Z" fill="#6B7380"/>
-        </marker>
-      </defs>
-      <!-- forward path -->
-      <path d="M48 84 H352" stroke="#2A2E36" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
-      <!-- return arc -->
-      <path d="M352 96 C352 140, 48 140, 48 96" fill="none" stroke="#F472B6" stroke-width="1.5" stroke-dasharray="4 4" opacity=".85"/>
-      <text x="200" y="158" text-anchor="middle" fill="#F472B6" font-size="10" font-weight="600" font-family="Inter,system-ui,sans-serif">learn-back → improves next shoot</text>
-      <!-- nodes -->
-      <g font-family="Inter,system-ui,sans-serif">
-        <circle cx="48" cy="84" r="18" fill="#12141A" stroke="#00BCF1" stroke-width="1.5"/>
-        <text x="48" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Shoot</text>
-        <circle cx="149" cy="84" r="18" fill="#12141A" stroke="#EB008B" stroke-width="1.5"/>
-        <text x="149" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Understand</text>
-        <circle cx="251" cy="84" r="18" fill="#12141A" stroke="#5EEAD4" stroke-width="1.5"/>
-        <text x="251" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Cut</text>
-        <circle cx="352" cy="84" r="18" fill="#12141A" stroke="#FFEC03" stroke-width="1.5"/>
-        <text x="352" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Ship</text>
-      </g>
-      <text x="48" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">capture</text>
-      <text x="149" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">intelligence</text>
-      <text x="251" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">edit</text>
-      <text x="352" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">brand</text>
-    </svg>
-    <div class="hero-cap">Four beats. One return path. The hub is Brand Kit + word clock + recipe.</div>
-  </div>
-
-  <div class="card thesis">
-    <div class="k">The bet</div>
-    <p>Production AI should run during the shoot and the land, not as a black box after the bin is full.</p>
-    <div class="why">Most tools optimize the last mile. Cinebody wires Brand Kit → coach → grade → word clock → paper edit → graphics → learn-back so every take teaches the next one.</div>
-  </div>
-  </div>
-
-  <div class="compare">
-    <div class="card box old">
-      <div class="label">Typical</div>
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="20" width="40" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="24" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">Shoot</text>
-        <path d="M46 30 H56" stroke="#2A2E36" stroke-width="1.5"/>
-        <rect x="56" y="20" width="40" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="76" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">Dump</text>
-        <path d="M98 30 H108" stroke="#2A2E36" stroke-width="1.5"/>
-        <rect x="108" y="20" width="48" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="132" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">AI cut</text>
-      </svg>
-      <div class="cap">Linear. Blind until the bin is full. No shared clock.</div>
-    </div>
-    <div class="card box new">
-      <div class="label">Cinebody</div>
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="80" cy="28" r="18" fill="none" stroke="#00BCF1" stroke-width="1.25" stroke-dasharray="3 3" opacity=".7"/>
-        <circle cx="80" cy="28" r="7" fill="rgba(255,236,3,.12)" stroke="#FFEC03" stroke-width="1.25"/>
-        <circle cx="80" cy="8" r="3.5" fill="#00BCF1"/>
-        <circle cx="100" cy="20" r="3.5" fill="#EB008B"/>
-        <circle cx="100" cy="36" r="3.5" fill="#5EEAD4"/>
-        <circle cx="80" cy="48" r="3.5" fill="#FFEC03"/>
-        <circle cx="60" cy="36" r="3.5" fill="#F472B6"/>
-        <circle cx="60" cy="20" r="3.5" fill="#00BCF1"/>
-      </svg>
-      <div class="cap">Closed loop. Understands as it lands. Taste feeds back.</div>
-    </div>
-  </div>
-
-  <div class="section-h">Three innovations</div>
-  <div class="pillars">
-    <div class="card pillar" style="--c:var(--yellow)">
-      <div class="glyph"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h14"/></svg></div>
-      <div>
-        <h3>Brand Kit is the recipe</h3>
-        <p>Voice, look, and rules aren’t a PDF on a shelf. Every later model inherits them.</p>
-      </div>
-    </div>
-    <div class="card pillar" style="--c:var(--cyan)">
-      <div class="glyph"><svg viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M7 8v8M12 6v12M17 9v6"/></svg></div>
-      <div>
-        <h3>ONE word clock locks the cut</h3>
-        <p>“Clock lock” = shared Scribe syllables. Timeline, captions, and graphics snap to the same words.</p>
-      </div>
-    </div>
-    <div class="card pillar" style="--c:var(--learn)">
-      <div class="glyph"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0114.5-4.8M20 12a8 8 0 01-14.5 4.8"/><path d="M18 3v5h-5M6 21v-5h5"/></svg></div>
-      <div>
-        <h3>Learn-back compounds</h3>
-        <p>Human finals distill into shotlist rules, paper-edit library, graphics taste, and filmer Pulse.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-h">AI + systems</div>
-  <div class="ai-row">
-    <span class="ai on" style="--c:var(--cyan)">Claude</span>
-    <span class="ai on" style="--c:var(--mag)">Gemini</span>
-    <span class="ai on" style="--c:var(--cyan)">Scribe</span>
-    <span class="ai on" style="--c:var(--yellow)">ElevenLabs</span>
-    <span class="ai on" style="--c:var(--mag)">BlazeFace</span>
-    <span class="ai on" style="--c:var(--yellow)">Remotion</span>
-    <span class="ai on" style="--c:var(--learn)">Pulse</span>
-  </div>
-  <p class="ai-note">Claude coaches and plans · Gemini grades · Scribe is the one clock · BlazeFace tracks · Remotion renders · Pulse is ops, not a model</p>
-
-  <div class="section-h">The loop</div>
-  <div class="spine">
-
-    <div class="band" style="--accent:var(--yellow);color:var(--yellow)">Brand</div>
-    <div class="node" style="--accent:var(--yellow)">
-      <div class="num">01</div>
-      <div class="title">Brand Kit</div>
-      <div class="meta">voice · look · rules</div>
-      <div class="logic"><strong>Why:</strong> Upstream source of truth. Without it, every AI invents its own brand.</div>
+  <!-- ============ HERO ============ -->
+  <section class="hero container g12">
+    <div class="hero-copy">
+      <div class="sec-label mono"><span class="idx">Team explainer</span><span>Internal</span></div>
+      <h1 class="display">The full AI production loop</h1>
+      <p class="lede">Brand rules write the shoot. Models understand footage as it lands. One clock locks the cut. Human taste compounds into the next brief.</p>
     </div>
 
-    <div class="band" style="--accent:var(--cyan);color:var(--cyan)">Capture</div>
-    <div class="node" style="--accent:var(--cyan)">
-      <div class="num">02</div>
-      <div class="title">Brief / Idea Studio</div>
-      <div class="meta">Claude</div>
-      <div class="logic"><strong>Why:</strong> Brand Kit + ask → shootable brief. The loop starts with intent, not footage.</div>
-    </div>
-    <div class="node" style="--accent:var(--cyan)">
-      <div class="num">03</div>
-      <div class="title">Shotlist</div>
-      <div class="meta">Claude · brief rules</div>
-      <div class="logic"><strong>Why:</strong> Brief rules become assignable takes. Learn-back later rewrites these rules.</div>
-    </div>
-    <div class="node" style="--accent:var(--cyan)">
-      <div class="num">04</div>
-      <div class="title">Live Director + Camera Coach</div>
-      <div class="meta">Claude · live JPEG</div>
-      <div class="logic"><strong>Innovation:</strong> On-set coaching from live frames. Quality shaped before upload.</div>
-    </div>
-    <div class="node" style="--accent:var(--cyan)">
-      <div class="num">05</div>
-      <div class="title">Upload</div>
-      <div class="meta">Pulse surface</div>
-      <div class="logic"><strong>Why:</strong> Landing pad into intelligence. Pulse is ops, not a model.</div>
-    </div>
-
-    <div class="band" style="--accent:var(--mag);color:var(--mag)">Intelligence</div>
-    <div class="node" style="--accent:var(--mag)">
-      <div class="num">06</div>
-      <div class="title">Grade + Transcribe + Track</div>
-      <div class="meta">Three pipes as footage lands</div>
-      <div class="pipes">
-        <div class="pipe" style="--c:var(--mag)"><div class="p">Grade</div><div class="n">Gemini</div><div class="d">0-10 · redo</div></div>
-        <div class="pipe" style="--c:var(--cyan)"><div class="p">Clock</div><div class="n">Scribe</div><div class="d">syllables</div></div>
-        <div class="pipe" style="--c:var(--yellow)"><div class="p">Track</div><div class="n">BlazeFace</div><div class="d">reframe</div></div>
-      </div>
-      <div class="logic"><strong>Innovation:</strong> Understanding starts on land, in parallel, not one “AI edit” button later.</div>
-    </div>
-    <div class="node" style="--accent:var(--mag)">
-      <div class="num">07</div>
-      <div class="title">Running Editor Notes</div>
-      <div class="meta">moments · keep/skip</div>
-      <div class="logic"><strong>Why:</strong> A living edit accumulates with every upload. The cut is half-written before anyone sits down.</div>
-    </div>
-
-    <div class="band" style="--accent:var(--edit);color:var(--edit)">Edit</div>
-    <div class="node" style="--accent:var(--edit)">
-      <div class="num">08</div>
-      <div class="title">Paper Edit / Plan</div>
-      <div class="meta">Claude</div>
-      <div class="logic"><strong>Why:</strong> Claude drafts structure from notes + brief. Humans steer.</div>
-    </div>
-    <div class="node" style="--accent:var(--edit)">
-      <div class="num">09</div>
-      <div class="title">Timeline Build</div>
-      <div class="meta">Scribe word clock</div>
-      <div class="logic"><strong>Keystone:</strong> Cuts snap to shared syllables. Captions and graphics inherit the same lock.</div>
-    </div>
-
-    <div class="band" style="--accent:var(--yellow);color:var(--yellow)">Brand</div>
-    <div class="node" style="--accent:var(--yellow)">
-      <div class="num">10</div>
-      <div class="title">Captions / Music / Graphics</div>
-      <div class="meta">Remotion · Claude · ElevenLabs</div>
-      <div class="logic"><strong>Why:</strong> Finish inherits Brand Kit + word clock: brand-true motion, not a craft silo.</div>
-    </div>
-
-    <div class="band" style="--accent:var(--learn);color:var(--learn)">Learn</div>
-    <div class="node" style="--accent:var(--learn)">
-      <div class="num">11</div>
-      <div class="title">Deliver</div>
-      <div class="meta">human finals</div>
-      <div class="logic"><strong>Why:</strong> Humans lock taste. Approvals and rejects become signal for the next loop.</div>
-    </div>
-  </div>
-
-  <div class="card vignette">
-    <div class="k">Keystone</div>
-    <div class="v">ONE word clock</div>
-    <div class="s">Scribe syllables are the shared timeline. Cuts (yellow) snap to words, not Whisper, not per-clip guesses. That’s “clock lock.”</div>
-    <div class="timeline" aria-hidden="true">
-      <svg viewBox="0 0 360 64" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <!-- muted waveform -->
-        <path d="M0 36 Q10 28 20 36 T40 36 T60 36 T80 36 T100 36 T120 36 T140 36 T160 36 T180 36 T200 36 T220 36 T240 36 T260 36 T280 36 T300 36 T320 36 T340 36 T360 36"
-              fill="none" stroke="#2A2E36" stroke-width="8" opacity=".9"/>
-        <path d="M0 36 Q8 22 16 36 T32 36 T48 20 T64 36 T80 28 T96 36 T112 18 T128 36 T144 30 T160 36 T176 24 T192 36 T208 16 T224 36 T240 28 T256 36 T272 22 T288 36 T304 30 T320 36 T336 26 T352 36 T360 36"
-              fill="none" stroke="#3A4050" stroke-width="2"/>
-        <!-- playhead -->
-        <line x1="168" y1="4" x2="168" y2="60" stroke="#00BCF1" stroke-width="2"/>
-        <!-- syllable ticks -->
-        <g stroke="#EB008B" stroke-width="1.25" opacity=".85">
-          <line x1="48" y1="12" x2="48" y2="52"/>
-          <line x1="96" y1="14" x2="96" y2="50"/>
-          <line x1="128" y1="12" x2="128" y2="52"/>
-          <line x1="208" y1="12" x2="208" y2="52"/>
-          <line x1="256" y1="14" x2="256" y2="50"/>
-          <line x1="304" y1="12" x2="304" y2="52"/>
+    <figure class="card hero-fig">
+      <!-- desktop loop -->
+      <svg class="dg dg-desk" viewBox="0 0 720 272" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g class="mono t-faint" font-size="10" text-anchor="middle">
+          <text x="96" y="62">Capture · 02 to 05</text>
+          <text x="272" y="62">Intelligence · 06 to 07</text>
+          <text x="448" y="62">Edit · 08 to 09</text>
+          <text x="624" y="62">Brand · 10 to 11</text>
         </g>
-        <!-- cue chips -->
-        <rect x="44" y="4" width="28" height="12" rx="3" fill="rgba(0,188,241,.18)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="58" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">we</text>
-        <rect x="120" y="4" width="36" height="12" rx="3" fill="rgba(0,188,241,.18)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="138" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">made</text>
-        <rect x="200" y="4" width="28" height="12" rx="3" fill="rgba(0,188,241,.28)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="214" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">this</text>
-        <!-- cut markers -->
-        <path d="M128 54 l4 6 -4 6 -4-6 z" fill="#FFEC03"/>
-        <path d="M208 54 l4 6 -4 6 -4-6 z" fill="#FFEC03"/>
+        <g font-size="13" font-weight="600" text-anchor="middle">
+          <text x="96" y="86">Shoot</text>
+          <text x="272" y="86">Understand</text>
+          <text x="448" y="86">Cut</text>
+          <text x="624" y="86">Ship</text>
+        </g>
+        <!-- forward path -->
+        <g class="s-faint" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
+          <path d="M130 128 H236"/><path d="M306 128 H412"/><path d="M482 128 H588"/>
+          <path d="M184 123 l5 5 -5 5"/><path d="M360 123 l5 5 -5 5"/><path d="M536 123 l5 5 -5 5"/>
+        </g>
+        <!-- return path -->
+        <path d="M624 162 V212 a24 24 0 0 1 -24 24 H120 a24 24 0 0 1 -24 -24 V172" fill="none" class="s-learn" stroke-width="1.5" stroke-dasharray="4 5" stroke-linecap="round"/>
+        <path d="M90 178 l6 -8 6 8" fill="none" class="s-learn" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="248" y="224" width="224" height="24" rx="12" class="f-surface s-learn" stroke-width="1"/>
+        <text x="360" y="240" text-anchor="middle" font-size="11" font-weight="600" class="t-learn">learn-back improves the next shoot</text>
+        <!-- nodes -->
+        <g fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="96" cy="128" r="32" class="f-surface s-cyan"/>
+          <g transform="translate(96 128)" class="s-cyan"><rect x="-10" y="-6" width="20" height="14" rx="2.5"/><circle cx="0" cy="1" r="3.5"/><path d="M-4 -6 l2 -3 h4 l2 3"/></g>
+          <circle cx="272" cy="128" r="32" class="f-surface s-mag"/>
+          <g transform="translate(272 128)" class="s-mag"><path d="M-11 0 C-7 -6.5 7 -6.5 11 0 C7 6.5 -7 6.5 -11 0 Z"/><circle cx="0" cy="0" r="3"/></g>
+          <circle cx="448" cy="128" r="32" class="f-surface s-edit"/>
+          <g transform="translate(448 128)" class="s-edit"><circle cx="-5.5" cy="5.5" r="3"/><circle cx="5.5" cy="5.5" r="3"/><path d="M-3.4 3.4 L8 -9 M3.4 3.4 L-8 -9"/></g>
+          <circle cx="624" cy="128" r="32" class="f-surface s-yellow"/>
+          <g transform="translate(624 128)" class="s-yellow"><path d="M-10 0 H10 M4 -6 l6 6 -6 6"/></g>
+        </g>
       </svg>
+      <!-- mobile loop -->
+      <svg class="dg dg-mob" viewBox="0 0 320 168" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g class="mono t-faint" font-size="9" text-anchor="middle">
+          <text x="40" y="24">capture</text>
+          <text x="120" y="24">intel</text>
+          <text x="200" y="24">edit</text>
+          <text x="280" y="24">brand</text>
+        </g>
+        <g font-size="11" font-weight="600" text-anchor="middle">
+          <text x="40" y="42">Shoot</text>
+          <text x="120" y="42">Understand</text>
+          <text x="200" y="42">Cut</text>
+          <text x="280" y="42">Ship</text>
+        </g>
+        <g class="s-faint" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
+          <path d="M64 76 H96"/><path d="M144 76 H176"/><path d="M224 76 H256"/>
+          <path d="M80 72 l4 4 -4 4"/><path d="M160 72 l4 4 -4 4"/><path d="M240 72 l4 4 -4 4"/>
+        </g>
+        <path d="M280 100 V134 a14 14 0 0 1 -14 14 H54 a14 14 0 0 1 -14 -14 V108" fill="none" class="s-learn" stroke-width="1.25" stroke-dasharray="3 4" stroke-linecap="round"/>
+        <path d="M35 113 l5 -7 5 7" fill="none" class="s-learn" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="112" y="138" width="96" height="20" rx="10" class="f-surface s-learn" stroke-width="1"/>
+        <text x="160" y="152" text-anchor="middle" font-size="10" font-weight="600" class="t-learn">learn-back</text>
+        <g fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="40" cy="76" r="22" class="f-surface s-cyan"/>
+          <g transform="translate(40 76) scale(.85)" class="s-cyan"><rect x="-10" y="-6" width="20" height="14" rx="2.5"/><circle cx="0" cy="1" r="3.5"/><path d="M-4 -6 l2 -3 h4 l2 3"/></g>
+          <circle cx="120" cy="76" r="22" class="f-surface s-mag"/>
+          <g transform="translate(120 76) scale(.85)" class="s-mag"><path d="M-11 0 C-7 -6.5 7 -6.5 11 0 C7 6.5 -7 6.5 -11 0 Z"/><circle cx="0" cy="0" r="3"/></g>
+          <circle cx="200" cy="76" r="22" class="f-surface s-edit"/>
+          <g transform="translate(200 76) scale(.85)" class="s-edit"><circle cx="-5.5" cy="5.5" r="3"/><circle cx="5.5" cy="5.5" r="3"/><path d="M-3.4 3.4 L8 -9 M3.4 3.4 L-8 -9"/></g>
+          <circle cx="280" cy="76" r="22" class="f-surface s-yellow"/>
+          <g transform="translate(280 76) scale(.85)" class="s-yellow"><path d="M-10 0 H10 M4 -6 l6 6 -6 6"/></g>
+        </g>
+      </svg>
+      <figcaption class="cap">Four beats. One return path. The hub is Brand Kit + word clock + recipe.</figcaption>
+    </figure>
+
+    <dl class="facts">
+      <div><dt class="mono">Stages</dt><dd>01 to 11</dd></div>
+      <div><dt class="mono">The clock</dt><dd>Scribe syllables</dd></div>
+      <div><dt class="mono">The hub</dt><dd>Brand Kit + recipe</dd></div>
+      <div><dt class="mono">Return path</dt><dd>Learn-back</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============ THE BET + COMPARE ============ -->
+  <section id="bet" class="bet container g12">
+    <div class="card thesis">
+      <div class="sec-label mono"><span class="idx">01</span><span>The bet</span></div>
+      <p class="statement">Production AI should run during the shoot and the land, not as a black box after the bin is full.</p>
+      <p class="why body-sm">Most tools optimize the last mile. Cinebody wires Brand Kit → coach → grade → word clock → paper edit → graphics → learn-back so every take teaches the next one.</p>
     </div>
-  </div>
-
-  <div class="card learn">
-    <div class="k">Close the loop</div>
-    <div class="v">Learn-back from Deliver</div>
-    <div class="s">Fat path forward. Thin path back. Each publish trains the next edit: style, pacing, brand, and who to hire again.</div>
-    <svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <!-- forward spine -->
-      <path d="M40 40 H360" stroke="#2A2E36" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="40" cy="40" r="6" fill="#00BCF1"/>
-      <circle cx="140" cy="40" r="6" fill="#EB008B"/>
-      <circle cx="240" cy="40" r="6" fill="#5EEAD4"/>
-      <circle cx="360" cy="40" r="7" fill="#F472B6"/>
-      <text x="40" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Shoot</text>
-      <text x="140" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Understand</text>
-      <text x="240" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Cut</text>
-      <text x="360" y="24" text-anchor="middle" fill="#F472B6" font-size="9" font-weight="600" font-family="Inter,system-ui">Ship</text>
-      <!-- return arc -->
-      <path d="M360 50 C360 120, 40 120, 40 50" fill="none" stroke="#FFEC03" stroke-width="1.5" stroke-dasharray="5 4"/>
-      <text x="200" y="148" text-anchor="middle" fill="#FFEC03" font-size="11" font-weight="600" font-family="Inter,system-ui">learns style · pacing · brand · filmer</text>
-      <!-- targets -->
-      <g font-family="Inter,system-ui" font-size="9" font-weight="600" fill="#E8ECF0">
-        <rect x="70" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="106" y="92" text-anchor="middle">shotlist</text>
-        <rect x="164" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="200" y="92" text-anchor="middle">paper-edit</text>
-        <rect x="258" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="294" y="92" text-anchor="middle">graphics</text>
-      </g>
-    </svg>
-    <div class="chip"><i></i> compounds every campaign</div>
-  </div>
-
-  <div class="card panel">
-    <h3>How it compounds</h3>
-    <ol class="compounds">
-      <li><b>1</b><span>Brand Kit + Brief write Shotlist</span></li>
-      <li><b>2</b><span>Live Claude coach shapes the take</span></li>
-      <li><b>3</b><span>Land → Gemini grades + Scribe times + BlazeFace tracks</span></li>
-      <li><b>4</b><span>Notes accumulate into a running edit</span></li>
-      <li><b>5</b><span>ONE Scribe word clock locks every cut</span></li>
-      <li><b>6</b><span>Claude paper edit + Remotion graphics finish</span></li>
-      <li><b>7</b><span>Human finals → rules · library · taste · Pulse</span></li>
-    </ol>
-    <div class="accuracy">
-      <strong>Accuracy</strong>
-      STT clock = Scribe (not Whisper). Gemini = video-native grade + STT. Pulse = ops. fal.ai experimental, omitted.
+    <div class="compare">
+      <div class="card box old">
+        <div class="lbl mono">Typical</div>
+        <svg class="dg" viewBox="0 0 220 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g class="f-lift s-stroke" stroke-width="1">
+            <rect x="6" y="24" width="56" height="24" rx="6"/>
+            <rect x="82" y="24" width="56" height="24" rx="6"/>
+            <rect x="158" y="24" width="56" height="24" rx="6"/>
+          </g>
+          <g class="t-faint" font-size="10" font-weight="600" text-anchor="middle">
+            <text x="34" y="39.5">Shoot</text>
+            <text x="110" y="39.5">Dump</text>
+            <text x="186" y="39.5">AI cut</text>
+          </g>
+          <g class="s-faint" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" opacity=".8">
+            <path d="M64 36 H78"/><path d="M74 32 l4 4 -4 4"/>
+            <path d="M140 36 H154"/><path d="M150 32 l4 4 -4 4"/>
+          </g>
+        </svg>
+        <p class="body-sm">Linear. Blind until the bin is full. No shared clock.</p>
+      </div>
+      <div class="card box new">
+        <div class="lbl mono">Cinebody</div>
+        <svg class="dg" viewBox="0 0 220 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="110" cy="36" r="28" fill="none" class="s-cyan" stroke-width="1.25" stroke-dasharray="3 3" opacity=".7"/>
+          <circle cx="110" cy="36" r="9" class="f-yellow-soft s-yellow" stroke-width="1.25"/>
+          <circle cx="110" cy="8" r="4.5" class="f-cyan"/>
+          <circle cx="134.2" cy="22" r="4.5" class="f-mag"/>
+          <circle cx="134.2" cy="50" r="4.5" class="f-edit"/>
+          <circle cx="110" cy="64" r="4.5" class="f-yellow"/>
+          <circle cx="85.8" cy="50" r="4.5" class="f-learn"/>
+          <circle cx="85.8" cy="22" r="4.5" class="f-cyan"/>
+        </svg>
+        <p class="body-sm">Closed loop. Understands as it lands. Taste feeds back.</p>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <footer>Cinebody internal · pixel pass</footer>
-</div>
+  <!-- ============ THREE INNOVATIONS ============ -->
+  <section id="innovations" class="innov container">
+    <div class="sec-head">
+      <div class="head-l">
+        <div class="sec-label mono"><span class="idx">02</span><span>Three innovations</span></div>
+        <h2 class="title">Three things nobody else wires together</h2>
+      </div>
+      <p class="lede">A recipe every model inherits. A single clock every track obeys. A return path that turns finals into rules.</p>
+    </div>
+    <div class="pillars">
+      <article class="card pillar a-yellow">
+        <div class="pill-top">
+          <div class="glyph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h14"/></svg></div>
+          <span class="num mono">01</span>
+        </div>
+        <div>
+          <h3>Brand Kit is the recipe</h3>
+          <p>Voice, look, and rules aren’t a PDF on a shelf. Every later model inherits them.</p>
+        </div>
+        <div class="foot mono"><i></i>Stage 01</div>
+      </article>
+      <article class="card pillar a-cyan">
+        <div class="pill-top">
+          <div class="glyph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18"/><path d="M7 8v8M12 6v12M17 9v6"/></svg></div>
+          <span class="num mono">02</span>
+        </div>
+        <div>
+          <h3>ONE word clock locks the cut</h3>
+          <p>“Clock lock” = shared Scribe syllables. Timeline, captions, and graphics snap to the same words.</p>
+        </div>
+        <div class="foot mono"><i></i>Stages 06, 09</div>
+      </article>
+      <article class="card pillar a-learn">
+        <div class="pill-top">
+          <div class="glyph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0114.5-4.8M20 12a8 8 0 01-14.5 4.8"/><path d="M18 3v5h-5M6 21v-5h5"/></svg></div>
+          <span class="num mono">03</span>
+        </div>
+        <div>
+          <h3>Learn-back compounds</h3>
+          <p>Human finals distill into shotlist rules, paper-edit library, graphics taste, and filmer Pulse.</p>
+        </div>
+        <div class="foot mono"><i></i>Stage 11 to 03</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ AI + SYSTEMS ============ -->
+  <section id="systems" class="systems container">
+    <div class="sys">
+      <div class="sys-head">
+        <div class="sec-label mono" style="--acc:var(--mag)"><span class="idx">03</span><span>AI + systems</span></div>
+        <span class="cap">Six systems, one ops surface</span>
+      </div>
+      <ul class="sys-grid">
+        <li style="--c:var(--cyan)"><b>Claude</b><span>coaches and plans</span></li>
+        <li style="--c:var(--mag)"><b>Gemini</b><span>grades footage</span></li>
+        <li style="--c:var(--cyan)"><b>Scribe</b><span>is the one clock</span></li>
+        <li style="--c:var(--yellow)"><b>ElevenLabs</b><span>in the finish</span></li>
+        <li style="--c:var(--mag)"><b>BlazeFace</b><span>tracks faces</span></li>
+        <li style="--c:var(--yellow)"><b>Remotion</b><span>renders graphics</span></li>
+        <li style="--c:var(--learn)"><b>Pulse</b><span>is ops, not a model</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ THE LOOP ============ -->
+  <section id="loop" class="loop container">
+    <div class="sec-head">
+      <div class="head-l">
+        <div class="sec-label mono" style="--acc:var(--edit)"><span class="idx">04</span><span>The loop</span></div>
+        <h2 class="title">Eleven stages, five bands, one return path</h2>
+      </div>
+      <p class="lede">Brand sets the recipe. Capture shapes the take. Intelligence starts the moment footage lands. Edit snaps to one clock. Learn closes the loop.</p>
+    </div>
+
+    <div class="strip" aria-hidden="true">
+      <div class="band a-yellow" style="grid-column: span 1"><span class="mono">Brand</span></div>
+      <div class="band a-cyan" style="grid-column: span 4"><span class="mono">Capture</span></div>
+      <div class="band a-mag" style="grid-column: span 2"><span class="mono">Intelligence</span></div>
+      <div class="band a-edit" style="grid-column: span 2"><span class="mono">Edit</span></div>
+      <div class="band a-yellow" style="grid-column: span 1"><span class="mono">Brand</span></div>
+      <div class="band a-learn" style="grid-column: span 1"><span class="mono">Learn</span></div>
+      <button class="seg mono a-yellow" type="button" data-stage="1" tabindex="-1">01</button>
+      <button class="seg mono a-cyan" type="button" data-stage="2" tabindex="-1">02</button>
+      <button class="seg mono a-cyan" type="button" data-stage="3" tabindex="-1">03</button>
+      <button class="seg mono a-cyan" type="button" data-stage="4" tabindex="-1">04</button>
+      <button class="seg mono a-cyan" type="button" data-stage="5" tabindex="-1">05</button>
+      <button class="seg mono a-mag" type="button" data-stage="6" tabindex="-1">06</button>
+      <button class="seg mono a-mag" type="button" data-stage="7" tabindex="-1">07</button>
+      <button class="seg mono a-edit" type="button" data-stage="8" tabindex="-1">08</button>
+      <button class="seg mono a-edit" type="button" data-stage="9" tabindex="-1">09</button>
+      <button class="seg mono a-yellow" type="button" data-stage="10" tabindex="-1">10</button>
+      <button class="seg mono a-learn" type="button" data-stage="11" tabindex="-1">11</button>
+    </div>
+
+    <div class="stages">
+      <article class="card stage a-yellow" id="stage-1">
+        <div class="hd"><span class="num mono">01</span><span class="bandlbl mono">Brand</span></div>
+        <h3>Brand Kit</h3>
+        <p class="meta">voice · look · rules</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono">Why</strong>Upstream source of truth. Without it, every AI invents its own brand.</p>
+      </article>
+
+      <article class="card stage a-cyan" id="stage-2">
+        <div class="hd"><span class="num mono">02</span><span class="bandlbl mono">Capture</span></div>
+        <h3>Brief / Idea Studio</h3>
+        <p class="meta">Claude</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono">Why</strong>Brand Kit + ask → shootable brief. The loop starts with intent, not footage.</p>
+      </article>
+
+      <article class="card stage a-cyan" id="stage-3">
+        <div class="hd"><span class="num mono">03</span><span class="bandlbl mono">Capture</span></div>
+        <h3>Shotlist</h3>
+        <p class="meta">Claude · brief rules</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono">Why</strong>Brief rules become assignable takes. Learn-back later rewrites these rules.</p>
+      </article>
+
+      <article class="card stage a-cyan" id="stage-4">
+        <div class="hd"><span class="num mono">04</span><span class="bandlbl mono">Capture</span></div>
+        <h3>Live Director + Camera Coach</h3>
+        <p class="meta">Claude · live JPEG</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono acc">Innovation</strong>On-set coaching from live frames. Quality shaped before upload.</p>
+      </article>
+
+      <article class="card stage a-cyan" id="stage-5">
+        <div class="hd"><span class="num mono">05</span><span class="bandlbl mono">Capture</span></div>
+        <h3>Upload</h3>
+        <p class="meta">Pulse surface</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono">Why</strong>Landing pad into intelligence. Pulse is ops, not a model.</p>
+      </article>
+
+      <article class="card stage wide a-mag" id="stage-6">
+        <div class="hd"><span class="num mono">06</span><span class="bandlbl mono">Intelligence</span></div>
+        <div class="wide-in">
+          <div>
+            <h3>Grade + Transcribe + Track</h3>
+            <p class="meta">Three pipes as footage lands</p>
+            <p class="logic"><strong class="mono acc">Innovation</strong>Understanding starts on land, in parallel, not one “AI edit” button later.</p>
+          </div>
+          <div class="pipes">
+            <div class="pipe" style="--c:var(--ink-mag)"><div class="p mono">Grade</div><div class="n">Gemini</div><div class="d">0-10 · redo</div></div>
+            <div class="pipe" style="--c:var(--ink-cyan)"><div class="p mono">Clock</div><div class="n">Scribe</div><div class="d">syllables</div></div>
+            <div class="pipe" style="--c:var(--ink-yellow)"><div class="p mono">Track</div><div class="n">BlazeFace</div><div class="d">reframe</div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card stage a-mag" id="stage-7">
+        <div class="hd"><span class="num mono">07</span><span class="bandlbl mono">Intelligence</span></div>
+        <h3>Running Editor Notes</h3>
+        <p class="meta">moments · keep/skip</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono">Why</strong>A living edit accumulates with every upload. The cut is half-written before anyone sits down.</p>
+      </article>
+
+      <article class="card stage a-edit" id="stage-8">
+        <div class="hd"><span class="num mono">08</span><span class="bandlbl mono">Edit</span></div>
+        <h3>Paper Edit / Plan</h3>
+        <p class="meta">Claude</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono">Why</strong>Claude drafts structure from notes + brief. Humans steer.</p>
+      </article>
+
+      <article class="card stage a-edit" id="stage-9">
+        <div class="hd"><span class="num mono">09</span><span class="bandlbl mono">Edit</span></div>
+        <h3>Timeline Build</h3>
+        <p class="meta">Scribe word clock</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono acc">Keystone</strong>Cuts snap to shared syllables. Captions and graphics inherit the same lock.</p>
+      </article>
+
+      <article class="card stage a-yellow" id="stage-10">
+        <div class="hd"><span class="num mono">10</span><span class="bandlbl mono">Brand</span></div>
+        <h3>Captions / Music / Graphics</h3>
+        <p class="meta">Remotion · Claude · ElevenLabs</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono">Why</strong>Finish inherits Brand Kit + word clock: brand-true motion, not a craft silo.</p>
+      </article>
+
+      <article class="card stage last a-learn" id="stage-11">
+        <div class="hd"><span class="num mono">11</span><span class="bandlbl mono">Learn</span></div>
+        <h3>Deliver</h3>
+        <p class="meta">human finals</p>
+        <div class="fill"></div>
+        <p class="logic"><strong class="mono">Why</strong>Humans lock taste. Approvals and rejects become signal for the next loop.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ WORD CLOCK ============ -->
+  <section id="clock" class="bleed clock">
+    <div class="container g12">
+      <div class="vig-copy">
+        <div class="sec-label mono"><span class="idx">05</span><span>Keystone</span></div>
+        <h2 class="title">ONE word clock</h2>
+        <p class="lede">Scribe syllables are the shared timeline. Cuts (yellow) snap to words, not Whisper, not per-clip guesses. That’s “clock lock.”</p>
+        <ul class="points">
+          <li><b class="mono">Source</b><span>Scribe syllables, transcribed once as footage lands.</span></li>
+          <li><b class="mono">Snaps</b><span>Timeline cuts, captions, and graphics read the same boundaries.</span></li>
+          <li><b class="mono">Not</b><span>Whisper. Not per-clip guesses. Not a separate clock per track.</span></li>
+        </ul>
+      </div>
+
+      <figure class="fig">
+        <div class="fig-frame">
+          <!-- desktop timeline -->
+          <svg class="dg dg-desk" viewBox="0 0 760 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- ruler -->
+            <path d="M112 28 H744" class="s-stroke" stroke-width="1"/>
+            <g class="s-stroke" stroke-width="1">
+              <path d="M112 22 V28"/><path d="M238 22 V28"/><path d="M364 22 V28"/><path d="M490 22 V28"/><path d="M616 22 V28"/><path d="M742 22 V28"/>
+            </g>
+            <g class="mono t-faint" font-size="9" text-anchor="middle">
+              <text x="112" y="16">0:00</text><text x="238" y="16">0:01</text><text x="364" y="16">0:02</text><text x="490" y="16">0:03</text><text x="616" y="16">0:04</text><text x="742" y="16">0:05</text>
+            </g>
+            <!-- track labels -->
+            <g class="mono t-faint" font-size="10">
+              <text x="16" y="68">Word clock</text>
+              <text x="16" y="116">Timeline</text>
+              <text x="16" y="164">Captions</text>
+              <text x="16" y="212">Graphics</text>
+            </g>
+            <!-- track beds -->
+            <g class="f-lift">
+              <rect x="112" y="48" width="632" height="32" rx="6"/>
+              <rect x="112" y="96" width="632" height="32" rx="6"/>
+              <rect x="112" y="144" width="632" height="32" rx="6"/>
+              <rect x="112" y="192" width="632" height="32" rx="6"/>
+            </g>
+            <!-- word chips -->
+            <g class="f-cyan-soft s-cyan-soft" stroke-width="1">
+              <rect x="116" y="52" width="40" height="24" rx="5"/>
+              <rect x="164" y="52" width="72" height="24" rx="5"/>
+              <rect x="244" y="52" width="56" height="24" rx="5"/>
+              <rect x="316" y="52" width="40" height="24" rx="5"/>
+              <rect x="364" y="52" width="64" height="24" rx="5"/>
+              <rect x="452" y="52" width="32" height="24" rx="5"/>
+              <rect x="492" y="52" width="56" height="24" rx="5"/>
+              <rect x="556" y="52" width="80" height="24" rx="5"/>
+            </g>
+            <path d="M200 52 V76" class="s-cyan-soft" stroke-width="1" stroke-dasharray="2 2"/>
+            <g class="t-cyan" font-size="11" font-weight="600" text-anchor="middle">
+              <text x="136" y="68">we</text><text x="200" y="68">made</text><text x="272" y="68">this</text><text x="336" y="68">for</text>
+              <text x="396" y="68">you</text><text x="468" y="68">in</text><text x="520" y="68">one</text><text x="596" y="68">take</text>
+            </g>
+            <!-- timeline clips -->
+            <g class="f-surface s-stroke" stroke-width="1">
+              <rect x="116" y="100" width="124" height="24" rx="4"/>
+              <rect x="248" y="100" width="200" height="24" rx="4"/>
+              <rect x="456" y="100" width="180" height="24" rx="4"/>
+            </g>
+            <g class="t-muted" font-size="11" font-weight="500">
+              <text x="126" y="116">A-cam · take 3</text>
+              <text x="258" y="116">B-cam · take 1</text>
+              <text x="466" y="116">A-cam · take 5</text>
+            </g>
+            <!-- captions -->
+            <g class="f-surface s-stroke" stroke-width="1">
+              <rect x="116" y="148" width="184" height="24" rx="4"/>
+              <rect x="316" y="148" width="112" height="24" rx="4"/>
+              <rect x="456" y="148" width="180" height="24" rx="4"/>
+            </g>
+            <g font-size="11" font-weight="500">
+              <text x="126" y="164">we made this</text>
+              <text x="326" y="164">for you</text>
+              <text x="466" y="164">in one take</text>
+            </g>
+            <!-- graphics -->
+            <g class="f-surface s-stroke" stroke-width="1">
+              <rect x="248" y="196" width="200" height="24" rx="4"/>
+              <rect x="560" y="196" width="76" height="24" rx="4"/>
+            </g>
+            <g class="t-muted" font-size="11" font-weight="500">
+              <text x="258" y="212">lower third · Remotion</text>
+              <text x="570" y="212">end card</text>
+            </g>
+            <!-- lock guides -->
+            <g class="s-cyan" fill="none" stroke-width="1" stroke-dasharray="3 4" opacity=".6">
+              <path d="M244 44 V230"/>
+              <path d="M452 44 V230"/>
+            </g>
+            <g class="mono t-cyan" font-size="9">
+              <text x="250" y="246">clock lock</text>
+              <text x="458" y="246">clock lock</text>
+            </g>
+            <!-- cut markers -->
+            <g class="f-yellow">
+              <path d="M240 92 h8 l-4 6 z"/>
+              <path d="M448 92 h8 l-4 6 z"/>
+            </g>
+            <g class="s-yellow" stroke-width="1.5">
+              <path d="M244 98 V126"/>
+              <path d="M452 98 V126"/>
+            </g>
+            <!-- playhead -->
+            <g class="playhead">
+              <path d="M364 34 V230" class="s-cyan" stroke-width="1.5"/>
+              <path d="M359 30 h10 l-5 6 z" class="f-cyan"/>
+            </g>
+          </svg>
+
+          <!-- mobile timeline -->
+          <svg class="dg dg-mob" viewBox="0 0 320 222" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g class="mono t-faint" font-size="9">
+              <text x="16" y="14">Word clock</text>
+              <text x="16" y="62">Timeline</text>
+              <text x="16" y="110">Captions</text>
+              <text x="16" y="158">Graphics</text>
+            </g>
+            <g class="f-lift">
+              <rect x="16" y="20" width="288" height="26" rx="5"/>
+              <rect x="16" y="68" width="288" height="26" rx="5"/>
+              <rect x="16" y="116" width="288" height="26" rx="5"/>
+              <rect x="16" y="164" width="288" height="26" rx="5"/>
+            </g>
+            <g class="f-cyan-soft s-cyan-soft" stroke-width="1">
+              <rect x="19" y="23" width="22" height="20" rx="4"/>
+              <rect x="46" y="23" width="40" height="20" rx="4"/>
+              <rect x="92" y="23" width="32" height="20" rx="4"/>
+              <rect x="132" y="23" width="22" height="20" rx="4"/>
+              <rect x="160" y="23" width="34" height="20" rx="4"/>
+              <rect x="202" y="23" width="18" height="20" rx="4"/>
+              <rect x="226" y="23" width="30" height="20" rx="4"/>
+              <rect x="262" y="23" width="38" height="20" rx="4"/>
+            </g>
+            <g class="t-cyan" font-size="10" font-weight="600" text-anchor="middle">
+              <text x="30" y="37">we</text><text x="66" y="37">made</text><text x="108" y="37">this</text><text x="143" y="37">for</text>
+              <text x="177" y="37">you</text><text x="211" y="37">in</text><text x="241" y="37">one</text><text x="281" y="37">take</text>
+            </g>
+            <g class="f-surface s-stroke" stroke-width="1">
+              <rect x="19" y="71" width="69" height="20" rx="3"/>
+              <rect x="96" y="71" width="102" height="20" rx="3"/>
+              <rect x="206" y="71" width="94" height="20" rx="3"/>
+            </g>
+            <g class="t-muted" font-size="10" font-weight="500">
+              <text x="27" y="85">A-cam</text><text x="104" y="85">B-cam</text><text x="214" y="85">A-cam</text>
+            </g>
+            <g class="f-surface s-stroke" stroke-width="1">
+              <rect x="19" y="119" width="105" height="20" rx="3"/>
+              <rect x="132" y="119" width="62" height="20" rx="3"/>
+              <rect x="206" y="119" width="94" height="20" rx="3"/>
+            </g>
+            <g font-size="10" font-weight="500">
+              <text x="27" y="133">we made this</text><text x="140" y="133">for you</text><text x="214" y="133">in one take</text>
+            </g>
+            <g class="f-surface s-stroke" stroke-width="1">
+              <rect x="96" y="167" width="102" height="20" rx="3"/>
+              <rect x="262" y="167" width="38" height="20" rx="3"/>
+            </g>
+            <g class="t-muted" font-size="10" font-weight="500">
+              <text x="104" y="181">lower third</text><text x="270" y="181">end</text>
+            </g>
+            <g class="s-cyan" fill="none" stroke-width="1" stroke-dasharray="3 3" opacity=".6">
+              <path d="M92 18 V196"/><path d="M202 18 V196"/>
+            </g>
+            <g class="f-yellow">
+              <path d="M88 64 h8 l-4 5 z"/><path d="M198 64 h8 l-4 5 z"/>
+            </g>
+            <g class="s-yellow" stroke-width="1.5">
+              <path d="M92 70 V92"/><path d="M202 70 V92"/>
+            </g>
+            <text x="98" y="212" class="mono t-cyan" font-size="9">clock lock</text>
+            <text x="208" y="212" class="mono t-cyan" font-size="9">clock lock</text>
+            <g class="playhead">
+              <path d="M160 16 V196" class="s-cyan" stroke-width="1.5"/>
+              <path d="M155.5 12 h9 l-4.5 5 z" class="f-cyan"/>
+            </g>
+          </svg>
+        </div>
+        <figcaption class="cap">
+          <span><i style="--k:var(--cyan)"></i>Scribe word clock</span>
+          <span><i class="dot" style="--k:var(--yellow)"></i>Cut, snapped to a word</span>
+          <span><i style="--k:var(--faint)"></i>Every track reads the same boundaries</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ LEARN-BACK ============ -->
+  <section id="learn" class="bleed learn">
+    <div class="container g12">
+      <figure class="fig">
+        <div class="fig-frame">
+          <!-- desktop arc -->
+          <svg class="dg dg-desk" viewBox="0 0 720 224" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g class="mono t-faint" font-size="10" text-anchor="middle">
+              <text x="48" y="24">02 to 05</text>
+              <text x="256" y="24">06 to 07</text>
+              <text x="464" y="24">08 to 09</text>
+              <text x="672" y="24">10 to 11</text>
+            </g>
+            <g font-size="13" font-weight="600" text-anchor="middle">
+              <text x="48" y="44">Shoot</text>
+              <text x="256" y="44">Understand</text>
+              <text x="464" y="44">Cut</text>
+              <text x="672" y="44" class="t-learn">Ship</text>
+            </g>
+            <path d="M48 68 H672" class="s-stroke" stroke-width="4" stroke-linecap="round"/>
+            <text x="360" y="96" text-anchor="middle" class="mono t-faint" font-size="10">fat path forward</text>
+            <circle cx="48" cy="68" r="8" class="f-cyan"/>
+            <circle cx="256" cy="68" r="8" class="f-mag"/>
+            <circle cx="464" cy="68" r="8" class="f-edit"/>
+            <circle cx="672" cy="68" r="9" class="f-learn"/>
+            <!-- thin return path -->
+            <path d="M672 80 V132 a20 20 0 0 1 -20 20 H68 a20 20 0 0 1 -20 -20 V86" fill="none" class="s-learn" stroke-width="1.25" stroke-dasharray="4 5" stroke-linecap="round"/>
+            <path d="M42 92 l6 -8 6 8" fill="none" class="s-learn" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- pickups that feed the next loop -->
+            <g class="s-learn" fill="none" stroke-width="1" opacity=".8">
+              <path d="M150 152 V176"/><path d="M290 164 V176"/><path d="M430 164 V176"/><path d="M570 152 V176"/>
+            </g>
+            <g class="f-learn">
+              <circle cx="150" cy="152" r="2.5"/><circle cx="570" cy="152" r="2.5"/>
+            </g>
+            <rect x="228" y="140" width="264" height="24" rx="12" class="f-surface s-learn" stroke-width="1"/>
+            <text x="360" y="156" text-anchor="middle" font-size="11" font-weight="600" class="t-learn">thin path back: style · pacing · brand · filmer</text>
+            <g class="mono t-faint" font-size="10" text-anchor="middle">
+              <text x="150" y="196">shotlist rules</text>
+              <text x="290" y="196">paper-edit library</text>
+              <text x="430" y="196">graphics taste</text>
+              <text x="570" y="196">filmer Pulse</text>
+            </g>
+            <g class="mono t-learn" font-size="9" text-anchor="middle">
+              <text x="150" y="212">to 03</text>
+              <text x="290" y="212">to 08</text>
+              <text x="430" y="212">to 10</text>
+              <text x="570" y="212">to ops</text>
+            </g>
+          </svg>
+          <!-- mobile arc -->
+          <svg class="dg dg-mob" viewBox="0 0 320 124" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g font-size="10" font-weight="600" text-anchor="middle">
+              <text x="24" y="24">Shoot</text>
+              <text x="115" y="24">Understand</text>
+              <text x="205" y="24">Cut</text>
+              <text x="296" y="24" class="t-learn">Ship</text>
+            </g>
+            <path d="M24 44 H296" class="s-stroke" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="24" cy="44" r="6" class="f-cyan"/>
+            <circle cx="115" cy="44" r="6" class="f-mag"/>
+            <circle cx="205" cy="44" r="6" class="f-edit"/>
+            <circle cx="296" cy="44" r="7" class="f-learn"/>
+            <path d="M296 54 V88 a12 12 0 0 1 -12 12 H36 a12 12 0 0 1 -12 -12 V60" fill="none" class="s-learn" stroke-width="1.25" stroke-dasharray="3 4" stroke-linecap="round"/>
+            <path d="M19 65 l5 -7 5 7" fill="none" class="s-learn" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="104" y="90" width="112" height="20" rx="10" class="f-surface s-learn" stroke-width="1"/>
+            <text x="160" y="104" text-anchor="middle" font-size="10" font-weight="600" class="t-learn">thin path back</text>
+          </svg>
+        </div>
+        <figcaption class="cap">
+          <span><i style="--k:var(--stroke)"></i>Fat path forward</span>
+          <span><i style="--k:var(--learn)"></i>Thin path back</span>
+        </figcaption>
+      </figure>
+
+      <div class="vig-copy">
+        <div class="sec-label mono" style="--acc:var(--learn)"><span class="idx">06</span><span>Close the loop</span></div>
+        <h2 class="title">Learn-back from Deliver</h2>
+        <p class="lede">Fat path forward. Thin path back. Each publish trains the next edit: style, pacing, brand, and who to hire again.</p>
+        <div class="learn-chip"><i></i>compounds every campaign</div>
+      </div>
+
+      <div class="targets">
+        <div class="card target">
+          <div class="mono"><b>Feeds 03</b><span class="arrow">·</span>Shotlist</div>
+          <h4>Shotlist rules</h4>
+          <p>Approvals and rejects rewrite the brief rules that become the next takes.</p>
+        </div>
+        <div class="card target">
+          <div class="mono"><b>Feeds 08</b><span class="arrow">·</span>Paper edit</div>
+          <h4>Paper-edit library</h4>
+          <p>Structures that shipped become the draft pool Claude reaches for first.</p>
+        </div>
+        <div class="card target">
+          <div class="mono"><b>Feeds 10</b><span class="arrow">·</span>Graphics</div>
+          <h4>Graphics taste</h4>
+          <p>Finals teach which brand-true motion actually makes the cut.</p>
+        </div>
+        <div class="card target">
+          <div class="mono"><b>Feeds ops</b><span class="arrow">·</span>Pulse</div>
+          <h4>Filmer Pulse</h4>
+          <p>Who to hire again, carried in ops. Pulse is a surface, not a model.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPOUNDS + ACCURACY ============ -->
+  <section id="compounds" class="comp container g12">
+    <div class="comp-l">
+      <div class="sec-head">
+        <div class="head-l">
+          <div class="sec-label mono"><span class="idx">07</span><span>How it compounds</span></div>
+          <h2 class="title">Seven steps, then it repeats</h2>
+        </div>
+      </div>
+      <ol class="steps">
+        <li><b class="mono">01</b><span>Brand Kit + Brief write Shotlist</span></li>
+        <li><b class="mono">02</b><span>Live Claude coach shapes the take</span></li>
+        <li><b class="mono">03</b><span>Land → Gemini grades + Scribe times + BlazeFace tracks</span></li>
+        <li><b class="mono">04</b><span>Notes accumulate into a running edit</span></li>
+        <li><b class="mono">05</b><span>ONE Scribe word clock locks every cut</span></li>
+        <li><b class="mono">06</b><span>Claude paper edit + Remotion graphics finish</span></li>
+        <li><b class="mono">07</b><span>Human finals → rules · library · taste · Pulse</span></li>
+      </ol>
+    </div>
+    <div class="comp-r">
+      <div class="card accuracy">
+        <div class="sec-label mono"><span class="idx">Accuracy</span><span>Read first</span></div>
+        <dl>
+          <div><dt class="mono">STT clock</dt><dd>Scribe <span>(not Whisper)</span></dd></div>
+          <div><dt class="mono">Gemini</dt><dd>Video-native grade + STT</dd></div>
+          <div><dt class="mono">Pulse</dt><dd>Ops surface, not a model</dd></div>
+          <div><dt class="mono">fal.ai</dt><dd>Experimental, <span>omitted here</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container foot-in">
+    <span>Cinebody internal · pixel pass</span>
+    <span>/ai-loop · not indexed</span>
+  </div>
+</footer>
+
 <script>
-  const btn = document.getElementById('themeBtn');
-  const root = document.documentElement;
-  if (localStorage.getItem('cb-loop-theme') === 'light') {
-    root.classList.add('light'); btn.textContent = 'Dark';
-  }
-  btn.addEventListener('click', () => {
-    const on = root.classList.toggle('light');
-    btn.textContent = on ? 'Dark' : 'Light';
-    localStorage.setItem('cb-loop-theme', on ? 'light' : 'dark');
-  });
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeBtn');
+    var label = document.getElementById('themeLabel');
+    function apply(light) {
+      root.classList.toggle('light', light);
+      label.textContent = light ? 'Dark' : 'Light';
+      btn.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
+    }
+    apply(localStorage.getItem('cb-loop-theme') === 'light');
+    btn.addEventListener('click', function () {
+      var light = !root.classList.contains('light');
+      apply(light);
+      localStorage.setItem('cb-loop-theme', light ? 'light' : 'dark');
+    });
+
+    // process strip <-> stage cards
+    var segs = document.querySelectorAll('.strip .seg');
+    var timer;
+    function pair(seg) { return document.getElementById('stage-' + seg.dataset.stage); }
+    segs.forEach(function (seg) {
+      var card = pair(seg);
+      if (!card) return;
+      seg.addEventListener('mouseenter', function () { card.classList.add('hot'); });
+      seg.addEventListener('mouseleave', function () { card.classList.remove('hot'); });
+      seg.addEventListener('click', function () {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('hot');
+        clearTimeout(timer);
+        timer = setTimeout(function () { card.classList.remove('hot'); }, 1600);
+      });
+      card.addEventListener('mouseenter', function () { seg.classList.add('hot'); });
+      card.addEventListener('mouseleave', function () { seg.classList.remove('hot'); });
+    });
+  })();
 </script>
 </body>
 </html>
