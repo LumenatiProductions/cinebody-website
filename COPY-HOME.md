@@ -19,9 +19,9 @@ Voice: humans-first, Cinebody is the subject doing the work, subtle on anti-slop
 ## 3. The pipeline (the star)
 - **One system runs your whole production.**
 - Sub: A connected pipeline where every step feeds the next: shotlist → director → scoring → edit.
-- **AI Director** — writes the shotlist and coaches every person on camera, live.
-- **Clip scoring** — every clip is scored the second it lands, so the best moments rise to the top.
-- **Auto-editor** — finds the real story in what people actually said, and cuts it into a finished, on-brand video.
+- **AI Director** ,  writes the shotlist and coaches every person on camera, live.
+- **Clip scoring** ,  every clip is scored the second it lands, so the best moments rise to the top.
+- **Auto-editor** ,  finds the real story in what people actually said, and cuts it into a finished, on-brand video.
 - Closer: **Real people create it. Cinebody runs it end to end.**
 
 ## 4. Proof
@@ -49,6 +49,6 @@ Voice: humans-first, Cinebody is the subject doing the work, subtle on anti-slop
 
 ## Trust / authenticity (2026-09-07)
 - Hero: Real people. Real phones. Never synthetic faces or AI testimonials.
-- Who films: no AI avatars — real employees, customers, fans on real phones.
+- Who films: no AI avatars ,  real employees, customers, fans on real phones.
 - Testimonial strip: Real customer. Real quote. Not generated.
 - FAQ: Is any of the video AI-generated? → No; people film; Cinebody coaches/edits only.
