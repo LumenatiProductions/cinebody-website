@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -16,19 +16,25 @@
     --cyan: #00BCF1;
     --mag: #EB008B;
     --yellow: #FFEC03;
+    --yellow-fg: #FFEC03;
     --edit: #5EEAD4;
     --learn: #F472B6;
     --pad: 20px;
     --rail: 36px;
+    --card-shadow: none;
   }
   html.light {
-    --bg: #F4F6F8;
+    --bg: #F7F8FA;
     --surface: #FFFFFF;
-    --lift: #F0F3F6;
-    --stroke: #D8DEE6;
+    --lift: #F1F4F8;
+    --stroke: #E2E8F0;
     --text: #0E1520;
     --muted: #5A6570;
     --faint: #8A949E;
+    --edit: #0D9488;
+    --learn: #DB2777;
+    --yellow-fg: #A16207;
+    --card-shadow: 0 1px 2px rgba(15,23,42,.04), 0 8px 24px rgba(15,23,42,.06);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -85,11 +91,12 @@
     background: var(--surface);
     border: 1px solid var(--stroke);
     border-radius: 12px;
+    box-shadow: var(--card-shadow);
   }
 
   /* Hero loop: 4 node compact */
   .hero-loop {
-    padding: 20px 16px 16px;
+    padding: 18px 12px 16px;
     margin-bottom: 16px;
   }
   .hero-loop svg { width: 100%; height: auto; display: block; }
@@ -370,7 +377,7 @@
       <img src="data:image/png;base64,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" alt="cinebody"/>
       AI production loop
     </div>
-    <button class="toggle" id="themeBtn" type="button">Light</button>
+    <button class="toggle" id="themeBtn" type="button">Dark</button>
   </div>
 
   <div class="eyebrow">Team explainer</div>
@@ -379,32 +386,54 @@
 
   <div class="intro-grid">
   <div class="card hero-loop" aria-hidden="true">
-    <svg viewBox="0 0 400 168" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 440 220" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-          <path d="M0 1 L9 5 L0 9 Z" fill="#6B7380"/>
+          <path d="M0 1 L9 5 L0 9 Z" fill="var(--faint)"/>
         </marker>
+        <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="1" stdDeviation="1.4" flood-color="#0f172a" flood-opacity=".12"/>
+        </filter>
       </defs>
-      <!-- forward path -->
-      <path d="M48 84 H352" stroke="#2A2E36" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+      <!-- forward spine -->
+      <path d="M55 84 H385" stroke="var(--stroke)" stroke-width="2" fill="none" marker-end="url(#a)"/>
+
+      <!-- soft connector dots between nodes -->
+      <circle cx="110" cy="84" r="2.5" fill="var(--faint)" opacity=".55"/>
+      <circle cx="220" cy="84" r="2.5" fill="var(--faint)" opacity=".55"/>
+      <circle cx="330" cy="84" r="2.5" fill="var(--faint)" opacity=".55"/>
+
       <!-- return arc -->
-      <path d="M352 96 C352 140, 48 140, 48 96" fill="none" stroke="#F472B6" stroke-width="1.5" stroke-dasharray="4 4" opacity=".85"/>
-      <text x="200" y="158" text-anchor="middle" fill="#F472B6" font-size="10" font-weight="600" font-family="Inter,system-ui,sans-serif">finals feed the next shoot</text>
-      <!-- nodes -->
-      <g font-family="Inter,system-ui,sans-serif">
-        <circle cx="48" cy="84" r="18" fill="#12141A" stroke="#00BCF1" stroke-width="1.5"/>
-        <text x="48" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Shoot</text>
-        <circle cx="149" cy="84" r="18" fill="#12141A" stroke="#EB008B" stroke-width="1.5"/>
-        <text x="149" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Understand</text>
-        <circle cx="251" cy="84" r="18" fill="#12141A" stroke="#5EEAD4" stroke-width="1.5"/>
-        <text x="251" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Cut</text>
-        <circle cx="352" cy="84" r="18" fill="#12141A" stroke="#FFEC03" stroke-width="1.5"/>
-        <text x="352" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Ship</text>
+      <path d="M385 100 C385 162, 55 162, 55 100" fill="none" stroke="var(--learn)" stroke-width="1.75" stroke-dasharray="5 4" opacity=".95"/>
+      <text x="220" y="186" text-anchor="middle" fill="var(--learn)" font-size="11" font-weight="600" font-family="Inter,system-ui,sans-serif">finals feed the next shoot</text>
+
+      <!-- nodes: number-only circles; labels under -->
+      <g font-family="Inter,system-ui,sans-serif" filter="url(#soft)">
+        <!-- 1 Shoot -->
+        <circle cx="55" cy="84" r="22" fill="var(--surface)" stroke="var(--cyan)" stroke-width="2"/>
+        <text x="55" y="89" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">1</text>
+        <text x="55" y="126" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Shoot</text>
+        <text x="55" y="140" text-anchor="middle" fill="var(--muted)" font-size="9">capture</text>
+
+        <!-- 2 Understand -->
+        <circle cx="165" cy="84" r="22" fill="var(--surface)" stroke="var(--mag)" stroke-width="2"/>
+        <text x="165" y="89" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">2</text>
+        <text x="165" y="126" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Understand</text>
+        <text x="165" y="140" text-anchor="middle" fill="var(--muted)" font-size="9">intelligence</text>
+
+        <!-- 3 Cut -->
+        <circle cx="275" cy="84" r="22" fill="var(--surface)" stroke="var(--edit)" stroke-width="2"/>
+        <text x="275" y="89" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">3</text>
+        <text x="275" y="126" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Cut</text>
+        <text x="275" y="140" text-anchor="middle" fill="var(--muted)" font-size="9">edit</text>
+
+        <!-- 4 Ship -->
+        <circle cx="385" cy="84" r="22" fill="var(--surface)" stroke="var(--yellow)" stroke-width="2"/>
+        <text x="385" y="89" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">4</text>
+        <text x="385" y="126" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Ship</text>
+        <text x="385" y="140" text-anchor="middle" fill="var(--muted)" font-size="9">brand</text>
       </g>
-      <text x="48" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">capture</text>
-      <text x="149" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">intelligence</text>
-      <text x="251" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">edit</text>
-      <text x="352" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">brand</text>
     </svg>
     <div class="hero-cap">Shoot → understand → cut → ship, then a thin return path so finals improve the next brief. Brand Kit, the shared transcript, and the edit recipe sit in the middle so every step shares the same rules and the same words.</div>
   </div>
@@ -419,29 +448,49 @@
   <div class="compare">
     <div class="card box old">
       <div class="label">Typical</div>
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="20" width="40" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="24" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">Shoot</text>
-        <path d="M46 30 H56" stroke="#2A2E36" stroke-width="1.5"/>
-        <rect x="56" y="20" width="40" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="76" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">Dump</text>
-        <path d="M98 30 H108" stroke="#2A2E36" stroke-width="1.5"/>
-        <rect x="108" y="20" width="48" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="132" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">AI cut</text>
+      <svg viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="cOld" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M0 2 L8 5 L0 8 Z" fill="var(--faint)"/>
+          </marker>
+        </defs>
+        <!-- linear Shoot → Dump → AI cut -->
+        <rect x="6" y="22" width="44" height="30" rx="8" fill="var(--lift)" stroke="var(--stroke)"/>
+        <text x="28" y="40" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600" font-family="Inter,system-ui">Shoot</text>
+        <path d="M52 37 H66" stroke="var(--stroke)" stroke-width="1.75" marker-end="url(#cOld)"/>
+        <rect x="68" y="22" width="44" height="30" rx="8" fill="var(--lift)" stroke="var(--stroke)"/>
+        <text x="90" y="40" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600" font-family="Inter,system-ui">Dump</text>
+        <path d="M114 37 H128" stroke="var(--stroke)" stroke-width="1.75" marker-end="url(#cOld)"/>
+        <rect x="130" y="22" width="44" height="30" rx="8" fill="var(--lift)" stroke="var(--stroke)"/>
+        <text x="152" y="40" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600" font-family="Inter,system-ui">AI cut</text>
+        <text x="90" y="78" text-anchor="middle" fill="var(--faint)" font-size="9" font-family="Inter,system-ui">linear · no feedback</text>
       </svg>
       <div class="cap">Shoot, dump everything, then hope an AI cut works. Nothing is scored or transcribed until the end, and each clip may get its own word timings.</div>
     </div>
     <div class="card box new">
       <div class="label">Cinebody</div>
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="80" cy="28" r="18" fill="none" stroke="#00BCF1" stroke-width="1.25" stroke-dasharray="3 3" opacity=".7"/>
-        <circle cx="80" cy="28" r="7" fill="rgba(255,236,3,.12)" stroke="#FFEC03" stroke-width="1.25"/>
-        <circle cx="80" cy="8" r="3.5" fill="#00BCF1"/>
-        <circle cx="100" cy="20" r="3.5" fill="#EB008B"/>
-        <circle cx="100" cy="36" r="3.5" fill="#5EEAD4"/>
-        <circle cx="80" cy="48" r="3.5" fill="#FFEC03"/>
-        <circle cx="60" cy="36" r="3.5" fill="#F472B6"/>
-        <circle cx="60" cy="20" r="3.5" fill="#00BCF1"/>
+      <svg viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- hub: Brand Kit -->
+        <circle cx="90" cy="46" r="17" fill="color-mix(in srgb, var(--yellow) 14%, var(--surface))" stroke="var(--yellow)" stroke-width="1.6"/>
+        <text x="90" y="44" text-anchor="middle" fill="var(--yellow-fg)" font-size="7" font-weight="700" font-family="Inter,system-ui">Brand</text>
+        <text x="90" y="54" text-anchor="middle" fill="var(--yellow-fg)" font-size="7" font-weight="700" font-family="Inter,system-ui">Kit</text>
+        <!-- orbit ring -->
+        <circle cx="90" cy="46" r="32" fill="none" stroke="var(--cyan)" stroke-width="1" stroke-dasharray="3 3" opacity=".4"/>
+        <!-- numbered orbit 1–4 -->
+        <circle cx="90" cy="12" r="9" fill="var(--surface)" stroke="var(--cyan)" stroke-width="1.5"/>
+        <text x="90" y="15" text-anchor="middle" fill="var(--text)" font-size="8" font-weight="700" font-family="Inter,system-ui">1</text>
+        <circle cx="124" cy="28" r="9" fill="var(--surface)" stroke="var(--mag)" stroke-width="1.5"/>
+        <text x="124" y="31" text-anchor="middle" fill="var(--text)" font-size="8" font-weight="700" font-family="Inter,system-ui">2</text>
+        <circle cx="124" cy="64" r="9" fill="var(--surface)" stroke="var(--edit)" stroke-width="1.5"/>
+        <text x="124" y="67" text-anchor="middle" fill="var(--text)" font-size="8" font-weight="700" font-family="Inter,system-ui">3</text>
+        <circle cx="90" cy="80" r="9" fill="var(--surface)" stroke="var(--yellow)" stroke-width="1.5"/>
+        <text x="90" y="83" text-anchor="middle" fill="var(--text)" font-size="8" font-weight="700" font-family="Inter,system-ui">4</text>
+        <!-- learn-back marker (left) -->
+        <circle cx="56" cy="64" r="9" fill="var(--surface)" stroke="var(--learn)" stroke-width="1.5"/>
+        <text x="56" y="67" text-anchor="middle" fill="var(--learn)" font-size="9" font-weight="700" font-family="Inter,system-ui">↻</text>
+        <text x="56" y="92" text-anchor="middle" fill="var(--learn)" font-size="7" font-weight="600" font-family="Inter,system-ui">learn</text>
+        <!-- return dashed hint from 4 toward learn -->
+        <path d="M82 78 Q60 78 60 70" fill="none" stroke="var(--learn)" stroke-width="1" stroke-dasharray="2 2" opacity=".7"/>
       </svg>
       <div class="cap">As clips land they are graded, transcribed, and tracked. The cut builds on one shared transcript. What humans keep or reject updates the next brief and shotlist.</div>
     </div>
@@ -579,13 +628,13 @@
       <svg viewBox="0 0 360 64" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <!-- muted waveform -->
         <path d="M0 36 Q10 28 20 36 T40 36 T60 36 T80 36 T100 36 T120 36 T140 36 T160 36 T180 36 T200 36 T220 36 T240 36 T260 36 T280 36 T300 36 T320 36 T340 36 T360 36"
-              fill="none" stroke="#2A2E36" stroke-width="8" opacity=".9"/>
+              fill="none" stroke="var(--stroke)" stroke-width="8" opacity=".9"/>
         <path d="M0 36 Q8 22 16 36 T32 36 T48 20 T64 36 T80 28 T96 36 T112 18 T128 36 T144 30 T160 36 T176 24 T192 36 T208 16 T224 36 T240 28 T256 36 T272 22 T288 36 T304 30 T320 36 T336 26 T352 36 T360 36"
-              fill="none" stroke="#3A4050" stroke-width="2"/>
+              fill="none" stroke="var(--faint)" stroke-width="2" opacity=".55"/>
         <!-- playhead -->
-        <line x1="168" y1="4" x2="168" y2="60" stroke="#00BCF1" stroke-width="2"/>
+        <line x1="168" y1="4" x2="168" y2="60" stroke="var(--cyan)" stroke-width="2"/>
         <!-- syllable ticks -->
-        <g stroke="#EB008B" stroke-width="1.25" opacity=".85">
+        <g stroke="var(--mag)" stroke-width="1.25" opacity=".85">
           <line x1="48" y1="12" x2="48" y2="52"/>
           <line x1="96" y1="14" x2="96" y2="50"/>
           <line x1="128" y1="12" x2="128" y2="52"/>
@@ -594,15 +643,15 @@
           <line x1="304" y1="12" x2="304" y2="52"/>
         </g>
         <!-- cue chips -->
-        <rect x="44" y="4" width="28" height="12" rx="3" fill="rgba(0,188,241,.18)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="58" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">we</text>
-        <rect x="120" y="4" width="36" height="12" rx="3" fill="rgba(0,188,241,.18)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="138" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">made</text>
-        <rect x="200" y="4" width="28" height="12" rx="3" fill="rgba(0,188,241,.28)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="214" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">this</text>
+        <rect x="44" y="4" width="28" height="12" rx="3" fill="color-mix(in srgb, var(--cyan) 18%, transparent)" stroke="var(--cyan)" stroke-width="1"/>
+        <text x="58" y="13" text-anchor="middle" fill="var(--cyan)" font-size="7" font-weight="600" font-family="Inter,system-ui">we</text>
+        <rect x="120" y="4" width="36" height="12" rx="3" fill="color-mix(in srgb, var(--cyan) 18%, transparent)" stroke="var(--cyan)" stroke-width="1"/>
+        <text x="138" y="13" text-anchor="middle" fill="var(--cyan)" font-size="7" font-weight="600" font-family="Inter,system-ui">made</text>
+        <rect x="200" y="4" width="28" height="12" rx="3" fill="color-mix(in srgb, var(--cyan) 28%, transparent)" stroke="var(--cyan)" stroke-width="1"/>
+        <text x="214" y="13" text-anchor="middle" fill="var(--cyan)" font-size="7" font-weight="600" font-family="Inter,system-ui">this</text>
         <!-- cut markers -->
-        <path d="M128 54 l4 6 -4 6 -4-6 z" fill="#FFEC03"/>
-        <path d="M208 54 l4 6 -4 6 -4-6 z" fill="#FFEC03"/>
+        <path d="M128 54 l4 6 -4 6 -4-6 z" fill="var(--yellow)"/>
+        <path d="M208 54 l4 6 -4 6 -4-6 z" fill="var(--yellow)"/>
       </svg>
     </div>
   </div>
@@ -611,29 +660,53 @@
     <div class="k">Close the loop</div>
     <div class="v">Learn-back from Deliver</div>
     <div class="s">Most of the work runs forward (shoot → understand → cut → ship). A thinner path comes back from the finished video: style, pacing, brand rules, and which filmers performed well get written into shotlist rules, the paper-edit library, graphics taste, and Pulse, so the next campaign starts smarter.</div>
-    <svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <!-- forward spine -->
-      <path d="M40 40 H360" stroke="#2A2E36" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="40" cy="40" r="6" fill="#00BCF1"/>
-      <circle cx="140" cy="40" r="6" fill="#EB008B"/>
-      <circle cx="240" cy="40" r="6" fill="#5EEAD4"/>
-      <circle cx="360" cy="40" r="7" fill="#F472B6"/>
-      <text x="40" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Shoot</text>
-      <text x="140" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Understand</text>
-      <text x="240" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Cut</text>
-      <text x="360" y="24" text-anchor="middle" fill="#F472B6" font-size="9" font-weight="600" font-family="Inter,system-ui">Ship</text>
-      <!-- return arc -->
-      <path d="M360 50 C360 120, 40 120, 40 50" fill="none" stroke="#FFEC03" stroke-width="1.5" stroke-dasharray="5 4"/>
-      <text x="200" y="148" text-anchor="middle" fill="#FFEC03" font-size="11" font-weight="600" font-family="Inter,system-ui">learns style · pacing · brand · filmer</text>
-      <!-- targets -->
-      <g font-family="Inter,system-ui" font-size="9" font-weight="600" fill="#E8ECF0">
-        <rect x="70" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="106" y="92" text-anchor="middle">shotlist</text>
-        <rect x="164" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="200" y="92" text-anchor="middle">paper-edit</text>
-        <rect x="258" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="294" y="92" text-anchor="middle">graphics</text>
+    <svg viewBox="0 0 440 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <marker id="fwd" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 1 L9 5 L0 9 Z" fill="var(--faint)"/>
+        </marker>
+      </defs>
+
+      <!-- forward path -->
+      <path d="M50 52 H390" stroke="var(--stroke)" stroke-width="2.5" stroke-linecap="round" marker-end="url(#fwd)"/>
+
+      <!-- soft connector dots -->
+      <circle cx="135" cy="52" r="2.25" fill="var(--faint)" opacity=".5"/>
+      <circle cx="220" cy="52" r="2.25" fill="var(--faint)" opacity=".5"/>
+      <circle cx="305" cy="52" r="2.25" fill="var(--faint)" opacity=".5"/>
+
+      <!-- numbered nodes + labels under -->
+      <g font-family="Inter,system-ui,sans-serif">
+        <circle cx="50" cy="52" r="16" fill="var(--surface)" stroke="var(--cyan)" stroke-width="2"/>
+        <text x="50" y="57" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700">1</text>
+        <text x="50" y="86" text-anchor="middle" fill="var(--text)" font-size="11" font-weight="600">Shoot</text>
+
+        <circle cx="163" cy="52" r="16" fill="var(--surface)" stroke="var(--mag)" stroke-width="2"/>
+        <text x="163" y="57" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700">2</text>
+        <text x="163" y="86" text-anchor="middle" fill="var(--text)" font-size="11" font-weight="600">Understand</text>
+
+        <circle cx="277" cy="52" r="16" fill="var(--surface)" stroke="var(--edit)" stroke-width="2"/>
+        <text x="277" y="57" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700">3</text>
+        <text x="277" y="86" text-anchor="middle" fill="var(--text)" font-size="11" font-weight="600">Cut</text>
+
+        <circle cx="390" cy="52" r="16" fill="var(--surface)" stroke="var(--learn)" stroke-width="2"/>
+        <text x="390" y="57" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700">4</text>
+        <text x="390" y="86" text-anchor="middle" fill="var(--learn)" font-size="11" font-weight="600">Ship</text>
       </g>
+
+      <!-- return arc -->
+      <path d="M390 70 C390 138, 50 138, 50 70" fill="none" stroke="var(--yellow)" stroke-width="1.75" stroke-dasharray="5 4"/>
+
+      <!-- learn targets on the return path -->
+      <g font-family="Inter,system-ui" font-size="10" font-weight="600" fill="var(--text)">
+        <rect x="78" y="108" width="78" height="24" rx="12" fill="var(--lift)" stroke="var(--stroke)"/>
+        <text x="117" y="124" text-anchor="middle">shotlist</text>
+        <rect x="181" y="108" width="78" height="24" rx="12" fill="var(--lift)" stroke="var(--stroke)"/>
+        <text x="220" y="124" text-anchor="middle">paper-edit</text>
+        <rect x="284" y="108" width="78" height="24" rx="12" fill="var(--lift)" stroke="var(--stroke)"/>
+        <text x="323" y="124" text-anchor="middle">graphics</text>
+      </g>
+      <text x="220" y="168" text-anchor="middle" fill="var(--yellow-fg)" font-size="11" font-weight="600" font-family="Inter,system-ui">learns style · pacing · brand · filmer</text>
     </svg>
     <div class="chip"><i></i> compounds every campaign</div>
   </div>
@@ -660,8 +733,13 @@
 <script>
   const btn = document.getElementById('themeBtn');
   const root = document.documentElement;
-  if (localStorage.getItem('cb-loop-theme') === 'light') {
-    root.classList.add('light'); btn.textContent = 'Dark';
+  // Default: light. Only leave light if user previously chose dark.
+  if (localStorage.getItem('cb-loop-theme') === 'dark') {
+    root.classList.remove('light');
+    btn.textContent = 'Light';
+  } else {
+    root.classList.add('light');
+    btn.textContent = 'Dark';
   }
   btn.addEventListener('click', () => {
     const on = root.classList.toggle('light');
