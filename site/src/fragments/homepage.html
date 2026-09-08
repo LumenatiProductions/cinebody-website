@@ -683,7 +683,11 @@ body > * { position: relative; z-index: 1; }
 .cta-apps__label { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #333; }
 @media (max-width: 600px) { .cta-apps { margin: -8px auto 40px; } }
 
-.cta-marquee { display: flex; height: 200px; overflow: hidden; }
+.cta-marquee { display: flex; height: 200px; overflow: hidden; clip-path: inset(0); background: #041a24; }
+/* clip-path makes the clip happen in the compositor (iOS Safari can paint a
+   will-change layer outside an overflow:hidden box); the dark background
+   means the sub-pixel seam against the FAQ blends dark on dark, not yellow. */
+@media (max-width: 767px), (pointer: coarse) { .cta-marquee .mq-par { will-change: auto; } }
 .cta-marquee-track { display: flex; animation: logos-scroll 28s linear infinite; flex-shrink: 0; }
 .cta-marquee-track img { width: 200px; height: 200px; object-fit: cover; flex-shrink: 0; }
 
