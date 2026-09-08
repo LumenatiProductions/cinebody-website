@@ -1,47 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="robots" content="noindex"/>
 <title>Cinebody: Full AI Production Loop</title>
 <style>
+  @font-face {
+    font-family: "Plus Jakarta Sans";
+    src: url("/fonts/plus-jakarta-var.woff2") format("woff2");
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Inter";
+    src: url("/fonts/inter-var.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("/fonts/jetbrains-mono-500.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root {
-    --bg: #0A0B0D;
-    --surface: #12141A;
-    --lift: #181B22;
-    --stroke: #2A2E36;
-    --text: #E8ECF0;
-    --muted: #B4BCC6;
-    --faint: #8B949E;
-    --cyan: #00BCF1;
-    --mag: #EB008B;
-    --yellow: #FFEC03;
-    --edit: #5EEAD4;
-    --learn: #F472B6;
+    --teal: #00bcf1;
+    --yellow: #ffec03;
+    --pink: #eb008b;
+    --bg: #0a0a0a;
+    --surface: #121212;
+    --lift: #1a1a1a;
+    --stroke: rgba(255,255,255,0.1);
+    --text: #e8e8e8;
+    --muted: rgba(255,255,255,0.55);
+    --faint: rgba(255,255,255,0.35);
+    --cyan: var(--teal);
+    --mag: var(--pink);
+    --edit: #5eead4;
+    --learn: #f472b6;
+    --yellow-fg: var(--yellow);
     --pad: 20px;
     --rail: 36px;
+    --radius: 14px;
+    --card-shadow: none;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --font: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --connector: rgba(255,255,255,0.12);
+    --step-num-bg: #151515;
+    --step-num-border: rgba(0,188,241,0.28);
+    --wash-opacity: 1;
   }
+
   html.light {
-    --bg: #F4F6F8;
-    --surface: #FFFFFF;
-    --lift: #F0F3F6;
-    --stroke: #D8DEE6;
-    --text: #0E1520;
-    --muted: #5A6570;
-    --faint: #8A949E;
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --lift: #f4f6f8;
+    --stroke: rgba(0,0,0,0.08);
+    --text: #111111;
+    --muted: #5a6570;
+    --faint: #8a949e;
+    --edit: #0d9488;
+    --learn: #db2777;
+    --yellow-fg: #a16207;
+    --card-shadow: 0 1px 2px rgba(15,23,42,.04), 0 8px 24px rgba(15,23,42,.06);
+    --connector: #e0e0e0;
+    --step-num-bg: #ffffff;
+    --step-num-border: rgba(0,188,241,0.2);
+    --wash-opacity: 0;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font);
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     font-size: 15px;
     line-height: 1.62;
-    letter-spacing: 0.01em;
     -webkit-font-smoothing: antialiased;
+    position: relative;
   }
+
+  /* Soft radial washes in dark mode (pipeline-like) */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(220px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: calc(0.06 * var(--wash-opacity));
+  }
+  body::before {
+    top: 8%; left: -12%; width: 560px; height: 560px;
+    background: var(--teal);
+  }
+  body::after {
+    bottom: 10%; right: -10%; width: 480px; height: 480px;
+    background: var(--pink);
+    opacity: calc(0.05 * var(--wash-opacity));
+  }
+
   .wrap {
+    position: relative;
+    z-index: 1;
     max-width: 440px;
     margin: 0 auto;
     padding: 24px var(--pad) 80px;
@@ -62,16 +132,30 @@
     height: 28px; padding: 0 12px; border-radius: 999px;
     border: 1px solid var(--stroke); background: var(--surface);
     color: var(--muted); font: inherit; font-size: 12px; font-weight: 600;
-    cursor: pointer;
+    cursor: pointer; transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
   }
+  .toggle:hover { border-color: var(--teal); color: var(--teal); }
 
+  .eyebrow,
+  .section-h,
+  .label,
+  .thesis .k,
+  .vignette .k,
+  .learn .k,
+  .panel h3,
+  .band {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
   .eyebrow {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--cyan); margin-bottom: 12px;
+    color: var(--teal); margin-bottom: 12px;
   }
   h1 {
-    font-size: 30px; font-weight: 600; letter-spacing: -0.035em;
-    line-height: 1.15; margin-bottom: 14px;
+    font-size: 30px; font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.12; margin-bottom: 14px;
   }
   .lede {
     font-size: 15px; color: var(--muted); margin-bottom: 28px;
@@ -84,56 +168,183 @@
   .card {
     background: var(--surface);
     border: 1px solid var(--stroke);
-    border-radius: 12px;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
   }
 
-  /* Hero loop: 4 node compact */
+  /* ── Hero loop: redesign-style steps row ── */
   .hero-loop {
-    padding: 20px 16px 16px;
+    padding: 28px 16px 22px;
     margin-bottom: 16px;
   }
-  .hero-loop svg { width: 100%; height: auto; display: block; }
+  .loop-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .loop-steps::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    left: calc(12.5% + 14px);
+    right: calc(12.5% + 14px);
+    height: 2px;
+    background: var(--connector);
+    z-index: 0;
+  }
+  .loop-step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 6px;
+  }
+  .loop-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--step-num-bg);
+    border: 2px solid var(--step-num-border);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+    font-family: var(--mono);
+    font-size: 18px; font-weight: 500; color: var(--teal);
+    position: relative; z-index: 2;
+    transition: all 0.4s var(--ease);
+  }
+  .loop-step:nth-child(1) .loop-num { border-color: color-mix(in srgb, var(--teal) 45%, transparent); color: var(--teal); }
+  .loop-step:nth-child(2) .loop-num { border-color: color-mix(in srgb, var(--pink) 45%, transparent); color: var(--pink); }
+  .loop-step:nth-child(3) .loop-num { border-color: color-mix(in srgb, var(--edit) 45%, transparent); color: var(--edit); }
+  .loop-step:nth-child(4) .loop-num { border-color: color-mix(in srgb, var(--yellow) 55%, transparent); color: var(--yellow-fg); }
+  .loop-step:hover .loop-num {
+    transform: scale(1.06);
+    box-shadow: 0 0 24px rgba(0,188,241,0.12);
+  }
+  .loop-step h3 {
+    font-size: 0.92rem; font-weight: 700; letter-spacing: -0.01em;
+    margin-bottom: 4px; color: var(--text);
+  }
+  .loop-step p {
+    font-size: 0.75rem; color: var(--faint); line-height: 1.4;
+  }
+
+  /* Learn-back strip — separate from forward line, no crossing */
+  .learn-strip {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px dashed color-mix(in srgb, var(--learn) 35%, var(--stroke));
+  }
+  .learn-strip-label {
+    font-family: var(--mono);
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--learn);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .learn-strip-label .arrow {
+    color: var(--teal);
+    letter-spacing: 0;
+    font-family: var(--font);
+    font-weight: 700;
+  }
+  .chip-row {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 11px; border-radius: 999px;
+    background: var(--lift); border: 1px solid var(--stroke);
+    font-size: 12px; font-weight: 600; color: var(--muted);
+  }
+  .chip i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal); display: inline-block;
+  }
+  .chip.learn i { background: var(--learn); }
+  .chip.yellow i { background: var(--yellow); }
+
   .hero-cap {
-    margin-top: 12px; font-size: 13px; color: var(--muted); text-align: center;
+    margin-top: 16px; font-size: 13px; color: var(--muted); text-align: center;
+    line-height: 1.5;
   }
 
   /* Thesis */
   .thesis {
     padding: 16px;
     margin-bottom: 48px;
-    border-left: 2px solid var(--cyan);
-    border-radius: 0 12px 12px 0;
+    border-left: 2px solid var(--teal);
+    border-radius: 0 var(--radius) var(--radius) 0;
   }
-  .thesis .k {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--cyan); margin-bottom: 8px;
-  }
+  .thesis .k { color: var(--teal); margin-bottom: 8px; }
   .thesis p {
-    font-size: 16px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.4;
+    font-size: 16px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.4;
   }
   .thesis .why {
     margin-top: 10px; font-size: 13px; font-weight: 400; color: var(--muted); line-height: 1.55;
   }
 
-  /* Compare */
+  /* Compare — HTML pills, no orbit */
   .compare {
     display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
     margin-bottom: 48px;
   }
-  .compare .box { padding: 12px; }
-  .compare .label {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; margin-bottom: 10px;
-  }
+  .compare .box { padding: 14px; }
+  .compare .label { margin-bottom: 12px; }
   .compare .old .label { color: var(--faint); }
-  .compare .new .label { color: var(--cyan); }
-  .compare svg { width: 100%; height: auto; display: block; margin-bottom: 8px; }
-  .compare .cap { font-size: 12px; color: var(--muted); line-height: 1.45; }
+  .compare .new .label { color: var(--teal); }
+  .compare .cap { font-size: 12px; color: var(--muted); line-height: 1.45; margin-top: 12px; }
+
+  .flow-pills {
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 4px 2px; min-height: 72px;
+  }
+  .pill {
+    padding: 7px 10px; border-radius: 999px;
+    background: var(--lift); border: 1px solid var(--stroke);
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    white-space: nowrap;
+  }
+  .flow-arrow {
+    color: var(--faint); font-size: 12px; font-weight: 700; padding: 0 2px;
+  }
+  .flow-note {
+    margin-top: 8px; text-align: center;
+    font-size: 10px; color: var(--faint); font-family: var(--mono);
+    letter-spacing: 0.04em;
+  }
+
+  .cb-mini {
+    display: flex; flex-direction: column; gap: 10px; align-items: center;
+    min-height: 72px; justify-content: center;
+  }
+  .cb-mini-steps {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap; justify-content: center;
+  }
+  .mini-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 12px; font-weight: 500;
+    background: var(--step-num-bg); border: 1.5px solid var(--step-num-border);
+    color: var(--teal);
+  }
+  .mini-num.n2 { border-color: color-mix(in srgb, var(--pink) 45%, transparent); color: var(--pink); }
+  .mini-num.n3 { border-color: color-mix(in srgb, var(--edit) 45%, transparent); color: var(--edit); }
+  .mini-num.n4 { border-color: color-mix(in srgb, var(--yellow) 55%, transparent); color: var(--yellow-fg); }
+  .mini-lab {
+    font-size: 10px; font-weight: 600; color: var(--text); margin-top: 2px;
+  }
+  .mini-unit { text-align: center; }
+  .mini-learn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 10px; border-radius: 999px;
+    border: 1px dashed color-mix(in srgb, var(--learn) 40%, var(--stroke));
+    background: color-mix(in srgb, var(--learn) 6%, var(--surface));
+    font-size: 11px; font-weight: 600; color: var(--learn);
+  }
 
   /* Pillars */
   .section-h {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--faint);
+    color: var(--faint);
     margin: 0 0 16px;
   }
   .pillars { display: grid; gap: 8px; margin-bottom: 48px; }
@@ -151,7 +362,7 @@
     width: 20px; height: 20px; stroke: var(--c); fill: none;
     stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
   }
-  .pillar h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .pillar h3 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; letter-spacing: -0.01em; }
   .pillar p { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
   /* AI chips */
@@ -176,8 +387,7 @@
     width: 1px; background: var(--stroke);
   }
   .band {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
+    color: var(--accent);
     margin: 28px 0 12px; padding-left: 2px;
   }
   .band:first-child { margin-top: 0; }
@@ -185,9 +395,10 @@
     position: relative;
     background: var(--surface);
     border: 1px solid var(--stroke);
-    border-radius: 12px;
-    padding: 14px 14px 14px 14px;
+    border-radius: var(--radius);
+    padding: 14px;
     margin-bottom: 16px;
+    box-shadow: var(--card-shadow);
   }
   .node::before {
     content: "";
@@ -200,11 +411,12 @@
     box-sizing: border-box;
   }
   .node .num {
-    font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
-    color: var(--accent); margin-bottom: 4px;
+    font-family: var(--mono);
+    font-size: 11px; font-weight: 500; font-variant-numeric: tabular-nums;
+    color: var(--accent); margin-bottom: 4px; letter-spacing: 0.08em;
   }
   .node .title {
-    font-size: 15px; font-weight: 600; letter-spacing: -0.015em;
+    font-size: 15px; font-weight: 700; letter-spacing: -0.015em;
     margin-bottom: 2px;
   }
   .node .meta {
@@ -227,61 +439,117 @@
     background: var(--lift); border: 1px solid var(--stroke);
   }
   .pipe .p {
-    font-size: 9px; font-weight: 600; letter-spacing: 0.08em;
+    font-family: var(--mono);
+    font-size: 9px; font-weight: 500; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--c); margin-bottom: 4px;
   }
-  .pipe .n { font-size: 12px; font-weight: 600; color: var(--text); }
+  .pipe .n { font-size: 12px; font-weight: 700; color: var(--text); }
   .pipe .d { font-size: 10px; color: var(--faint); margin-top: 2px; }
 
-  /* Timing vignette */
+  /* Keystone transcript — HTML timeline */
   .vignette {
     padding: 16px;
     margin-bottom: 48px;
   }
-  .vignette .k {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--cyan); margin-bottom: 8px;
-  }
+  .vignette .k { color: var(--teal); margin-bottom: 8px; }
   .vignette .v {
-    font-size: 20px; font-weight: 600; letter-spacing: -0.025em;
+    font-size: 20px; font-weight: 800; letter-spacing: -0.03em;
     line-height: 1.25; margin-bottom: 6px;
   }
   .vignette .s {
     font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.5;
   }
   .timeline {
-    position: relative; height: 88px;
     background: var(--lift); border: 1px solid var(--stroke);
-    border-radius: 10px; overflow: hidden; padding: 12px 12px 10px;
+    border-radius: 12px; padding: 14px 12px 12px;
   }
-  .timeline svg { width: 100%; height: 100%; display: block; }
+  .tl-words {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    margin-bottom: 12px;
+  }
+  .word {
+    display: inline-flex; align-items: center; gap: 0;
+    padding: 5px 9px; border-radius: 6px;
+    background: color-mix(in srgb, var(--teal) 10%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--teal) 28%, var(--stroke));
+    font-size: 12px; font-weight: 600; color: var(--teal);
+    position: relative;
+  }
+  .word.active {
+    background: color-mix(in srgb, var(--teal) 22%, var(--surface));
+    border-color: var(--teal);
+  }
+  .cut {
+    display: inline-flex; flex-direction: column; align-items: center;
+    width: 14px; flex-shrink: 0;
+  }
+  .cut::before {
+    content: "";
+    width: 2px; height: 22px;
+    background: var(--yellow);
+    border-radius: 1px;
+  }
+  .cut::after {
+    content: "";
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--yellow);
+    margin-top: -1px;
+  }
+  .tl-bar {
+    height: 4px; border-radius: 2px;
+    background: linear-gradient(90deg,
+      var(--stroke) 0%,
+      color-mix(in srgb, var(--teal) 40%, var(--stroke)) 35%,
+      var(--teal) 48%,
+      color-mix(in srgb, var(--teal) 40%, var(--stroke)) 62%,
+      var(--stroke) 100%);
+    position: relative; margin-top: 4px;
+  }
+  .tl-play {
+    position: absolute; top: -4px; left: 47%;
+    width: 2px; height: 12px; background: var(--teal); border-radius: 1px;
+  }
+  .tl-legend {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px;
+    font-size: 11px; color: var(--faint);
+  }
+  .tl-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .tl-legend .dot {
+    width: 8px; height: 8px; border-radius: 2px;
+  }
+  .tl-legend .dot.word-dot { background: var(--teal); }
+  .tl-legend .dot.cut-dot { background: var(--yellow); }
 
-  /* Learn-back return arc */
+  /* Learn-back section — forward steps + chips below */
   .learn {
     padding: 16px;
     margin-bottom: 48px;
   }
-  .learn .k {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--learn); margin-bottom: 8px;
-  }
+  .learn .k { color: var(--learn); margin-bottom: 8px; }
   .learn .v {
-    font-size: 20px; font-weight: 600; letter-spacing: -0.025em;
+    font-size: 20px; font-weight: 800; letter-spacing: -0.03em;
     margin-bottom: 6px;
   }
   .learn .s {
-    font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.5;
+    font-size: 13px; color: var(--muted); margin-bottom: 18px; line-height: 1.5;
   }
-  .learn svg { width: 100%; height: auto; display: block; }
-  .learn .chip {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 12px; padding: 6px 10px; border-radius: 999px;
-    background: var(--lift); border: 1px solid var(--stroke);
-    font-size: 12px; font-weight: 600; color: var(--muted);
+  .learn-diagram {
+    background: var(--lift);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    padding: 20px 12px 16px;
   }
-  .learn .chip i {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--yellow);
-    display: inline-block;
+  .learn .loop-steps { margin-bottom: 0; }
+  .learn-feeds {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed color-mix(in srgb, var(--learn) 30%, var(--stroke));
+  }
+  .learn-feeds .learn-strip-label { margin-bottom: 10px; }
+  .learn .compound-chip {
+    margin-top: 14px;
   }
 
   /* Compounds */
@@ -290,8 +558,7 @@
     margin-bottom: 24px;
   }
   .panel h3 {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--faint); margin-bottom: 12px;
+    color: var(--faint); margin-bottom: 12px;
   }
   .compounds { list-style: none; display: grid; gap: 10px; }
   .compounds li {
@@ -299,7 +566,8 @@
     font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.45;
   }
   .compounds b {
-    font-size: 12px; font-weight: 600; color: var(--cyan);
+    font-family: var(--mono);
+    font-size: 12px; font-weight: 500; color: var(--teal);
     font-variant-numeric: tabular-nums;
   }
   .accuracy {
@@ -307,12 +575,24 @@
     font-size: 12px; color: var(--muted); line-height: 1.5;
   }
   .accuracy strong {
-    display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--mag); margin-bottom: 6px;
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--pink); margin-bottom: 6px;
   }
 
   footer {
     text-align: center; font-size: 11px; color: var(--faint); margin-top: 8px;
+  }
+
+  /* Mobile: stack steps, hide connector */
+  @media (max-width: 700px) {
+    .loop-steps {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 8px;
+    }
+    .loop-steps::before { display: none; }
+    .compare { grid-template-columns: 1fr; }
   }
 
   /* Desktop */
@@ -324,7 +604,7 @@
     }
     h1 { font-size: 40px; max-width: 16ch; }
     .lede { font-size: 16px; max-width: 52ch; margin-bottom: 36px; }
-    .hero-loop { padding: 28px 24px 20px; margin-bottom: 20px; }
+    .hero-loop { padding: 32px 28px 24px; margin-bottom: 20px; }
     .hero-cap { font-size: 14px; }
     .thesis { padding: 20px 24px; margin-bottom: 56px; }
     .thesis p { font-size: 20px; max-width: 42ch; }
@@ -345,13 +625,12 @@
     .vignette, .learn, .panel { padding: 24px; margin-bottom: 56px; }
     .vignette .v, .learn .v { font-size: 26px; }
     .vignette .s, .learn .s { font-size: 14px; max-width: 60ch; }
-    .timeline { height: 110px; }
   }
   @media (min-width: 1100px) {
     .wrap { max-width: 1080px; }
     .intro-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 20px;
       align-items: stretch;
       margin-bottom: 20px;
@@ -360,90 +639,93 @@
     .intro-grid .thesis { margin-bottom: 0; }
     .spine { max-width: 720px; }
   }
-
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="topbar">
     <div class="brand">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfAAAABiCAYAAACvdYEaAAAJE0lEQVR4nO3dMZLcRBTG8SeKIt3ERETcwUfgDq4iWkIfgJyQKh+AIsLRnoKjUMUBTOIiMskQ7Mqe1WpmpNbrft/r/v8ybDx6emr1p9bMaMwAAAAAAEB9U3QBqk6n02n5Z9M00S8AgAQCaWEtuNcQ5qhh6/hbYjyiNcZqvK+iC1CyZ0CWDl4AADwQ4E9KApkQBwBEIcDtWBAT4gCACAQ4AAAJDR/grKABABkNH+AeuAgAALRGgAMAkBABDgBAQgQ4AAAJEeAOeLIQAKC14QOc8AUAZDR8gAMAkBEBbsdW4azgAQARCPAnJUFMeAMAohDgZ/YEMuENAIj0dXQBauZgvvR0NYIbAKCAAL+AoAYAKOMWOgAACRHgAAAkRIADAJBQm/fA//x4/ec2f7jj/ebGlh/S6/E9/1s/89rjPu8xwhhY2vLTvyP0AX2oM1BvBfYWhLqb0t8rzzaRefwue/Q+1zpWR3oT3ZMjehgTHmoc/1HmFWV+jfQI7TWNglxlMHrW4TF5XXptFV77uCZivxWP/7VtKOptTJSqffxbzZkZLsI8LpCuvcby/5n/+/hO1QrupcpB3lOA15rAlCavmpP0Usv9Vj7+a9tS0uuY2KvV8W85Zx7dp5rHy6u2Pa9zPMBbBfdSpSDvJcBHmLxbTtSzVvutfvzXthktYjzMVHowa9WLaZqmTAFeut0tPC8ulivsWw8UK/sUelR4R29bXIuTN3KyPD0Zbdtbta5PoR/RNURvf9Z6fLbeb7ULpVn0nYH9/1gpQB1X49lX4K21PqGU+qJ8Oy5C1OSq1KvIgFHqwxalvVJchXsHeN0VuFJ4m+nVM5Cer/ZvUasnWkQ/1I5B1B0atT7UpLoKL+WxP5sD/Pe/7ocZKNim91v216jWFWXkC7oo9CFWjf5PT5b/vTT//aYHuZw+2snsvX0z/Wc//f2bd83AKiaoXE6n00n56zottOjBvJ3a21B05MNzZu2Ozy1eNdxcgT+G96P7Vw/2x/dvPbbrg4e9hBt1IjEbe98jZOl3ljpRTuUYXw3w8/CeyYQ44d01lRPklix1tlKrH9n6XLPebL3wdnT1Gt0/zzsAF2+hr4X37P7Vg5lZ3O10wrtr3ifY2gkTfRIDJRi38ZSOQfGvkYWtxAlvOUoDerb2gY89f7+H4v5H8u5H1v5mrTuD7KtwL6sr8Gur73ObV+K3Qnfr18EI792uDXTFQRzxYISjH4zJYEtfeu+BWfs+eH5oqsWdqZrbg/9X4dZ/ZWZjgM/e//PjeoiXBO6lMOdZ6LvsqUvpAQlHaom8KlfY/zV76/LcvtLdjZJaIre9Jqqe6DF5TesL/ogFxtXXW/7B3vCePQvxo2G7DPEGK++eAjxislKYpKIDI3r7nrWoXNRF1xG9fc86jtaiUMNSpgCv8fW14vfAl+5fPdgv3/3qE7bnr8Ft811KB4nCdyMVTg6FPhzlsQ8KfVAIT6XwPUqhF95aXqiqHMdzbitwM7PpzvH3xRvrZQUedYUdOdGpHAOVyV7hbohHLSp3hRRqid6+Vx2etcxa9SZ6flzzbAU+anj3QvEKGW15joHM48n9vUZ64f5aKhRX1lu53UJHfpEnp9JJVNoHpX3w0uOEHeHI2FAbV2pjokU9iqtvs43PQr+F1TciqU1wUdQm1iMUJ8xpyvd1w57GBF5iBQ4ASK3mZwwULyZnnwO89P1vVt8auNJGLYwtLDEmNLACBzrAhIrR1ViFq79lQoADwEaZLpQy1dqjFv0nwAF0g9AaW/T37VsjwAEAWFD+8NqMAAcAdGOkVTgBDqAbmSbf2uhFuQyrbzMCHOgCk3Ub9DmHUT4L4fIkNiDKKCdqJEILS4yJda3no88r8NIHshz5ARQAAGoY4eKeW+hIjZUAlmqNiYxjLWPN2M4lwFmF46gRrpZrqzFZRwVAb+Ohp/3JdFHQsu8Rx9htBU6II0qmCaU2pV709PO0kX0d6WtR2OdZgPPDJABm2Sf+7PUrytjTFheSURerbivwTw+v7YO9czu4H+zdyfP10DfPiSXjJHXOo36FHqjcdlboxVG9jAk89+IEKbkV/unhtf379s2zP/vWfi46+dZCu/S19igdnN6TTHQdWbfvVcfa9lsGieckWVq3Vw0efYuuxWP7KufGkVoUxuVRtS5AIi80X6zA995GXwtvs/UgvuXSv2Eljq2OnKSX/u3pSXlVMfbW7bmfKqvn2d79ynrMb4kcE/C3epJtXYVfCu81l1bRe8K55ko8euWpUkf09o/UsLS1ppLt1Qqo2pPlsu4Mq5IaNa7V12o7R7SosfUYbMl736IvVC9u/FaI7wlvT7VCXCG4FOqI3v6RGm6Za1S+HdjDaoeefEEvXiLA/Vz8ENu1W+lR4W3G7fQR1Fzdep/APUyo6qInyVI16s7aCxWe/VM4Frs/hR4Z3jNCHNBUa1JTmCz3yFYvcroa4MtVuEJ4zwjxvmWZALPU2ULtXtDrR/ThmJ76d3MFPoe4UnjPCPG+9XSiYRw9PzgEj1T6v+nnRKc7mz7YG8ISzU3TNKm+z6xyEito1Qvl8WDW/tnbyr1AfZvfA2/xMJW9FGuCP8WgVKwpSuteqPY+oi7VXvRMqee7PsSmFJhKtaA+pZNGqZZZVE2jbfeSyHrUeqGup7sWuz+FrhCcCjWgPYWJSqGGS0ZbCU9PRq9hrqPn7alQ2+9DxbT+EBlPYqtfR/T2t2p9Fd1q/zz63/OTtC6JWFUp9sGs3fHPMlecO9obtWPuUkztIOfHTNrVEb39vXoLK6/+Z3gsaA0tgnzUPniNsawBrnjcXQvyDvKWt8pVBmN0HdHbL9XLIxJr9L+3VcdWvYyJo2oef6XfEbilx/OgWkGlYc772/CQaWJpaUtfeuwD4+ELxkAZxZ7IFQQAgKcew9us4FPoAAAgHgEOAOhWr6tvMwIcAICUCHAAAFYor77NCHAAQKd6emzqGgIcAIAF9dW3GQEOAOhQ76tvMwIcAIBnMqy+zQhwAEBnRlh9mxHgAACkRIADALrR84NblghwAAASIsABAF0YafVtRoADAJASAQ4AGF621bcZAQ4A6MAoXx07R4ADAIaWcfUNAAAAAABa+R9q2NoyUzxHZAAAAABJRU5ErkJggg==" alt="cinebody"/>
+      <img src="data:image/png;base64,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" alt="cinebody"/>
       AI production loop
     </div>
-    <button class="toggle" id="themeBtn" type="button">Light</button>
+    <button class="toggle" id="themeBtn" type="button">Dark</button>
   </div>
 
   <div class="eyebrow">Team explainer</div>
   <h1>The full AI production loop</h1>
-  <p class="lede">Brand rules write the shoot. Models understand footage as it lands. One clock locks the cut. Human taste compounds into the next brief.</p>
+  <p class="lede">Most “AI video” tools wait until you dump a full bin, then try to cut it in one shot. Cinebody runs the other way: brand rules shape the brief and the shoot, models score and read footage as it lands, one shared transcript keeps the cut and captions lined up, and what humans approve teaches the next campaign.</p>
 
   <div class="intro-grid">
   <div class="card hero-loop" aria-hidden="true">
-    <svg viewBox="0 0 400 168" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-          <path d="M0 1 L9 5 L0 9 Z" fill="#6B7380"/>
-        </marker>
-      </defs>
-      <!-- forward path -->
-      <path d="M48 84 H352" stroke="#2A2E36" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
-      <!-- return arc -->
-      <path d="M352 96 C352 140, 48 140, 48 96" fill="none" stroke="#F472B6" stroke-width="1.5" stroke-dasharray="4 4" opacity=".85"/>
-      <text x="200" y="158" text-anchor="middle" fill="#F472B6" font-size="10" font-weight="600" font-family="Inter,system-ui,sans-serif">learn-back → improves next shoot</text>
-      <!-- nodes -->
-      <g font-family="Inter,system-ui,sans-serif">
-        <circle cx="48" cy="84" r="18" fill="#12141A" stroke="#00BCF1" stroke-width="1.5"/>
-        <text x="48" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Shoot</text>
-        <circle cx="149" cy="84" r="18" fill="#12141A" stroke="#EB008B" stroke-width="1.5"/>
-        <text x="149" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Understand</text>
-        <circle cx="251" cy="84" r="18" fill="#12141A" stroke="#5EEAD4" stroke-width="1.5"/>
-        <text x="251" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Cut</text>
-        <circle cx="352" cy="84" r="18" fill="#12141A" stroke="#FFEC03" stroke-width="1.5"/>
-        <text x="352" y="88" text-anchor="middle" fill="#E8ECF0" font-size="9" font-weight="600">Ship</text>
-      </g>
-      <text x="48" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">capture</text>
-      <text x="149" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">intelligence</text>
-      <text x="251" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">edit</text>
-      <text x="352" y="52" text-anchor="middle" fill="#9AA3AD" font-size="9" font-family="Inter,system-ui,sans-serif">brand</text>
-    </svg>
-    <div class="hero-cap">Four beats. One return path. The hub is Brand Kit + word clock + recipe.</div>
+    <div class="loop-steps">
+      <div class="loop-step">
+        <div class="loop-num">1</div>
+        <h3>Shoot</h3>
+        <p>capture</p>
+      </div>
+      <div class="loop-step">
+        <div class="loop-num">2</div>
+        <h3>Understand</h3>
+        <p>intelligence</p>
+      </div>
+      <div class="loop-step">
+        <div class="loop-num">3</div>
+        <h3>Cut</h3>
+        <p>edit</p>
+      </div>
+      <div class="loop-step">
+        <div class="loop-num">4</div>
+        <h3>Ship</h3>
+        <p>brand</p>
+      </div>
+    </div>
+    <div class="learn-strip">
+      <div class="learn-strip-label">Finals feed <span class="arrow">→</span> next loop</div>
+      <div class="chip-row">
+        <span class="chip learn"><i></i>shotlist</span>
+        <span class="chip learn"><i></i>paper-edit</span>
+        <span class="chip learn"><i></i>graphics</span>
+        <span class="chip learn"><i></i>Pulse</span>
+      </div>
+    </div>
+    <div class="hero-cap">Shoot → understand → cut → ship, then a thin return path so finals improve the next brief. Brand Kit, the shared transcript, and the edit recipe sit in the middle so every step shares the same rules and the same words.</div>
   </div>
 
   <div class="card thesis">
-    <div class="k">The bet</div>
-    <p>Production AI should run during the shoot and the land, not as a black box after the bin is full.</p>
-    <div class="why">Most tools optimize the last mile. Cinebody wires Brand Kit → coach → grade → word clock → paper edit → graphics → learn-back so every take teaches the next one.</div>
+    <div class="k">The idea</div>
+    <p>Useful production AI should help while people are shooting and while clips are uploading, not only after everything is already in the bin.</p>
+    <div class="why">Typical tools only help at the end (one big “AI cut”). Cinebody connects Brand Kit, on-set coaching, grading, one shared transcript, the paper edit, graphics, and a learn-back step so each finished video makes the next shoot and edit a little smarter.</div>
   </div>
   </div>
 
   <div class="compare">
     <div class="card box old">
       <div class="label">Typical</div>
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="20" width="40" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="24" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">Shoot</text>
-        <path d="M46 30 H56" stroke="#2A2E36" stroke-width="1.5"/>
-        <rect x="56" y="20" width="40" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="76" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">Dump</text>
-        <path d="M98 30 H108" stroke="#2A2E36" stroke-width="1.5"/>
-        <rect x="108" y="20" width="48" height="20" rx="6" fill="#181B22" stroke="#2A2E36"/>
-        <text x="132" y="33" text-anchor="middle" fill="#6B7380" font-size="8" font-weight="600" font-family="Inter,system-ui">AI cut</text>
-      </svg>
-      <div class="cap">Linear. Blind until the bin is full. No shared clock.</div>
+      <div class="flow-pills">
+        <span class="pill">Shoot</span>
+        <span class="flow-arrow">→</span>
+        <span class="pill">Dump</span>
+        <span class="flow-arrow">→</span>
+        <span class="pill">AI cut</span>
+      </div>
+      <div class="flow-note">linear · no feedback</div>
+      <div class="cap">Shoot, dump everything, then hope an AI cut works. Nothing is scored or transcribed until the end, and each clip may get its own word timings.</div>
     </div>
     <div class="card box new">
       <div class="label">Cinebody</div>
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="80" cy="28" r="18" fill="none" stroke="#00BCF1" stroke-width="1.25" stroke-dasharray="3 3" opacity=".7"/>
-        <circle cx="80" cy="28" r="7" fill="rgba(255,236,3,.12)" stroke="#FFEC03" stroke-width="1.25"/>
-        <circle cx="80" cy="8" r="3.5" fill="#00BCF1"/>
-        <circle cx="100" cy="20" r="3.5" fill="#EB008B"/>
-        <circle cx="100" cy="36" r="3.5" fill="#5EEAD4"/>
-        <circle cx="80" cy="48" r="3.5" fill="#FFEC03"/>
-        <circle cx="60" cy="36" r="3.5" fill="#F472B6"/>
-        <circle cx="60" cy="20" r="3.5" fill="#00BCF1"/>
-      </svg>
-      <div class="cap">Closed loop. Understands as it lands. Taste feeds back.</div>
+      <div class="cb-mini">
+        <div class="cb-mini-steps">
+          <div class="mini-unit"><div class="mini-num">1</div><div class="mini-lab">Shoot</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="mini-unit"><div class="mini-num n2">2</div><div class="mini-lab">Understand</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="mini-unit"><div class="mini-num n3">3</div><div class="mini-lab">Cut</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="mini-unit"><div class="mini-num n4">4</div><div class="mini-lab">Ship</div></div>
+        </div>
+        <div class="mini-learn">↻ learn → next brief</div>
+      </div>
+      <div class="cap">As clips land they are graded, transcribed, and tracked. The cut builds on one shared transcript. What humans keep or reject updates the next brief and shotlist.</div>
     </div>
   </div>
 
@@ -453,91 +735,91 @@
       <div class="glyph"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h14"/></svg></div>
       <div>
         <h3>Brand Kit is the recipe</h3>
-        <p>Voice, look, and rules aren’t a PDF on a shelf. Every later model inherits them.</p>
+        <p>Voice, look, and do/don’t rules live in one place. Briefs, coaching, the cut, and graphics all pull from that kit instead of guessing the brand from a PDF.</p>
       </div>
     </div>
-    <div class="card pillar" style="--c:var(--cyan)">
+    <div class="card pillar" style="--c:var(--teal)">
       <div class="glyph"><svg viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M7 8v8M12 6v12M17 9v6"/></svg></div>
       <div>
-        <h3>ONE word clock locks the cut</h3>
-        <p>“Clock lock” = shared Scribe syllables. Timeline, captions, and graphics snap to the same words.</p>
+        <h3>One transcript for the whole cut</h3>
+        <p>Scribe writes down what was said once, with timings. Edits, captions, and graphics all use that same transcript, so a cut on a word stays lined up everywhere else.</p>
       </div>
     </div>
     <div class="card pillar" style="--c:var(--learn)">
       <div class="glyph"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0114.5-4.8M20 12a8 8 0 01-14.5 4.8"/><path d="M18 3v5h-5M6 21v-5h5"/></svg></div>
       <div>
-        <h3>Learn-back compounds</h3>
-        <p>Human finals distill into shotlist rules, paper-edit library, graphics taste, and filmer Pulse.</p>
+        <h3>Finals teach the next loop</h3>
+        <p>What humans approve or reject gets turned into clearer shotlist rules, better paper-edit patterns, graphics taste, and notes on which filmers to use again (Pulse).</p>
       </div>
     </div>
   </div>
 
   <div class="section-h">AI + systems</div>
   <div class="ai-row">
-    <span class="ai on" style="--c:var(--cyan)">Claude</span>
-    <span class="ai on" style="--c:var(--mag)">Gemini</span>
-    <span class="ai on" style="--c:var(--cyan)">Scribe</span>
-    <span class="ai on" style="--c:var(--yellow)">ElevenLabs</span>
-    <span class="ai on" style="--c:var(--mag)">BlazeFace</span>
-    <span class="ai on" style="--c:var(--yellow)">Remotion</span>
+    <span class="ai on" style="--c:var(--teal)">Claude</span>
+    <span class="ai on" style="--c:var(--pink)">Gemini</span>
+    <span class="ai on" style="--c:var(--teal)">Scribe</span>
+    <span class="ai on" style="--c:var(--yellow-fg)">ElevenLabs</span>
+    <span class="ai on" style="--c:var(--pink)">BlazeFace</span>
+    <span class="ai on" style="--c:var(--yellow-fg)">Remotion</span>
     <span class="ai on" style="--c:var(--learn)">Pulse</span>
   </div>
-  <p class="ai-note">Claude coaches and plans · Gemini grades · Scribe is the one clock · BlazeFace tracks · Remotion renders · Pulse is ops, not a model</p>
+  <p class="ai-note">Claude coaches and plans · Gemini grades · Scribe builds the shared transcript · BlazeFace tracks · Remotion renders · Pulse is ops, not a model</p>
 
   <div class="section-h">The loop</div>
   <div class="spine">
 
-    <div class="band" style="--accent:var(--yellow);color:var(--yellow)">Brand</div>
+    <div class="band" style="--accent:var(--yellow);color:var(--yellow-fg)">Brand</div>
     <div class="node" style="--accent:var(--yellow)">
       <div class="num">01</div>
       <div class="title">Brand Kit</div>
       <div class="meta">voice · look · rules</div>
-      <div class="logic"><strong>Why:</strong> Upstream source of truth. Without it, every AI invents its own brand.</div>
+      <div class="logic"><strong>Why:</strong> This is the shared brand source. Without it, each model invents its own voice and look.</div>
     </div>
 
-    <div class="band" style="--accent:var(--cyan);color:var(--cyan)">Capture</div>
-    <div class="node" style="--accent:var(--cyan)">
+    <div class="band" style="--accent:var(--teal);color:var(--teal)">Capture</div>
+    <div class="node" style="--accent:var(--teal)">
       <div class="num">02</div>
       <div class="title">Brief / Idea Studio</div>
       <div class="meta">Claude</div>
-      <div class="logic"><strong>Why:</strong> Brand Kit + ask → shootable brief. The loop starts with intent, not footage.</div>
+      <div class="logic"><strong>Why:</strong> Brand Kit plus what you want to make becomes a brief you can actually shoot. You start from intent, not a pile of clips.</div>
     </div>
-    <div class="node" style="--accent:var(--cyan)">
+    <div class="node" style="--accent:var(--teal)">
       <div class="num">03</div>
       <div class="title">Shotlist</div>
       <div class="meta">Claude · brief rules</div>
-      <div class="logic"><strong>Why:</strong> Brief rules become assignable takes. Learn-back later rewrites these rules.</div>
+      <div class="logic"><strong>Why:</strong> The brief turns into concrete shots people can film. Later, what worked in the final cut updates those shot rules.</div>
     </div>
-    <div class="node" style="--accent:var(--cyan)">
+    <div class="node" style="--accent:var(--teal)">
       <div class="num">04</div>
       <div class="title">Live Director + Camera Coach</div>
       <div class="meta">Claude · live JPEG</div>
-      <div class="logic"><strong>Innovation:</strong> On-set coaching from live frames. Quality shaped before upload.</div>
+      <div class="logic"><strong>What happens:</strong> Claude looks at live frames on set and coaches framing, light, and performance before the take is uploaded.</div>
     </div>
-    <div class="node" style="--accent:var(--cyan)">
+    <div class="node" style="--accent:var(--teal)">
       <div class="num">05</div>
       <div class="title">Upload</div>
       <div class="meta">Pulse surface</div>
-      <div class="logic"><strong>Why:</strong> Landing pad into intelligence. Pulse is ops, not a model.</div>
+      <div class="logic"><strong>Why:</strong> Clips land here so grading, transcript, and tracking can start. Pulse is the ops surface, not an AI model.</div>
     </div>
 
-    <div class="band" style="--accent:var(--mag);color:var(--mag)">Intelligence</div>
-    <div class="node" style="--accent:var(--mag)">
+    <div class="band" style="--accent:var(--pink);color:var(--pink)">Intelligence</div>
+    <div class="node" style="--accent:var(--pink)">
       <div class="num">06</div>
       <div class="title">Grade + Transcribe + Track</div>
       <div class="meta">Three pipes as footage lands</div>
       <div class="pipes">
-        <div class="pipe" style="--c:var(--mag)"><div class="p">Grade</div><div class="n">Gemini</div><div class="d">0-10 · redo</div></div>
-        <div class="pipe" style="--c:var(--cyan)"><div class="p">Clock</div><div class="n">Scribe</div><div class="d">syllables</div></div>
-        <div class="pipe" style="--c:var(--yellow)"><div class="p">Track</div><div class="n">BlazeFace</div><div class="d">reframe</div></div>
+        <div class="pipe" style="--c:var(--pink)"><div class="p">Grade</div><div class="n">Gemini</div><div class="d">0-10 · redo</div></div>
+        <div class="pipe" style="--c:var(--teal)"><div class="p">Transcript</div><div class="n">Scribe</div><div class="d">words spoken</div></div>
+        <div class="pipe" style="--c:var(--yellow-fg)"><div class="p">Track</div><div class="n">BlazeFace</div><div class="d">reframe</div></div>
       </div>
-      <div class="logic"><strong>Innovation:</strong> Understanding starts on land, in parallel, not one “AI edit” button later.</div>
+      <div class="logic"><strong>What happens:</strong> As soon as a clip lands, three jobs run at once: Gemini grades it, Scribe transcribes speech, BlazeFace tracks faces for reframes. You are not waiting for one late “AI edit” button.</div>
     </div>
-    <div class="node" style="--accent:var(--mag)">
+    <div class="node" style="--accent:var(--pink)">
       <div class="num">07</div>
       <div class="title">Running Editor Notes</div>
       <div class="meta">moments · keep/skip</div>
-      <div class="logic"><strong>Why:</strong> A living edit accumulates with every upload. The cut is half-written before anyone sits down.</div>
+      <div class="logic"><strong>Why:</strong> Keep/skip notes and moments pile up as clips arrive, so by the time someone opens the editor a lot of the structure is already sketched.</div>
     </div>
 
     <div class="band" style="--accent:var(--edit);color:var(--edit)">Edit</div>
@@ -545,21 +827,21 @@
       <div class="num">08</div>
       <div class="title">Paper Edit / Plan</div>
       <div class="meta">Claude</div>
-      <div class="logic"><strong>Why:</strong> Claude drafts structure from notes + brief. Humans steer.</div>
+      <div class="logic"><strong>Why:</strong> Claude proposes an order of beats from the brief and the running notes. A human still decides what stays.</div>
     </div>
     <div class="node" style="--accent:var(--edit)">
       <div class="num">09</div>
       <div class="title">Timeline Build</div>
-      <div class="meta">Scribe word clock</div>
-      <div class="logic"><strong>Keystone:</strong> Cuts snap to shared syllables. Captions and graphics inherit the same lock.</div>
+      <div class="meta">Scribe shared transcript</div>
+      <div class="logic"><strong>Keystone:</strong> Cuts land on words from the one shared Scribe transcript. Captions and graphics use those same timings, so nothing drifts clip by clip.</div>
     </div>
 
-    <div class="band" style="--accent:var(--yellow);color:var(--yellow)">Brand</div>
+    <div class="band" style="--accent:var(--yellow);color:var(--yellow-fg)">Brand</div>
     <div class="node" style="--accent:var(--yellow)">
       <div class="num">10</div>
       <div class="title">Captions / Music / Graphics</div>
       <div class="meta">Remotion · Claude · ElevenLabs</div>
-      <div class="logic"><strong>Why:</strong> Finish inherits Brand Kit + word clock: brand-true motion, not a craft silo.</div>
+      <div class="logic"><strong>Why:</strong> Captions, music, and motion graphics pull Brand Kit style and the same transcript timings, so finish work matches the cut instead of being built in a separate tool with different timings.</div>
     </div>
 
     <div class="band" style="--accent:var(--learn);color:var(--learn)">Learn</div>
@@ -567,91 +849,85 @@
       <div class="num">11</div>
       <div class="title">Deliver</div>
       <div class="meta">human finals</div>
-      <div class="logic"><strong>Why:</strong> Humans lock taste. Approvals and rejects become signal for the next loop.</div>
+      <div class="logic"><strong>Why:</strong> People make the final calls. Approvals and rejects become training signal for the next brief, shotlist, and hire choices.</div>
     </div>
+
   </div>
 
   <div class="card vignette">
     <div class="k">Keystone</div>
-    <div class="v">ONE word clock</div>
-    <div class="s">Scribe syllables are the shared timeline. Cuts (yellow) snap to words, not Whisper, not per-clip guesses. That’s “clock lock.”</div>
+    <div class="v">One shared transcript</div>
+    <div class="s">Scribe turns the spoken audio into one transcript with word timings for the whole project. When you cut (yellow markers), you cut on those words. Captions and graphics use the same list, instead of each clip getting its own Whisper-style guess that drifts.</div>
     <div class="timeline" aria-hidden="true">
-      <svg viewBox="0 0 360 64" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <!-- muted waveform -->
-        <path d="M0 36 Q10 28 20 36 T40 36 T60 36 T80 36 T100 36 T120 36 T140 36 T160 36 T180 36 T200 36 T220 36 T240 36 T260 36 T280 36 T300 36 T320 36 T340 36 T360 36"
-              fill="none" stroke="#2A2E36" stroke-width="8" opacity=".9"/>
-        <path d="M0 36 Q8 22 16 36 T32 36 T48 20 T64 36 T80 28 T96 36 T112 18 T128 36 T144 30 T160 36 T176 24 T192 36 T208 16 T224 36 T240 28 T256 36 T272 22 T288 36 T304 30 T320 36 T336 26 T352 36 T360 36"
-              fill="none" stroke="#3A4050" stroke-width="2"/>
-        <!-- playhead -->
-        <line x1="168" y1="4" x2="168" y2="60" stroke="#00BCF1" stroke-width="2"/>
-        <!-- syllable ticks -->
-        <g stroke="#EB008B" stroke-width="1.25" opacity=".85">
-          <line x1="48" y1="12" x2="48" y2="52"/>
-          <line x1="96" y1="14" x2="96" y2="50"/>
-          <line x1="128" y1="12" x2="128" y2="52"/>
-          <line x1="208" y1="12" x2="208" y2="52"/>
-          <line x1="256" y1="14" x2="256" y2="50"/>
-          <line x1="304" y1="12" x2="304" y2="52"/>
-        </g>
-        <!-- cue chips -->
-        <rect x="44" y="4" width="28" height="12" rx="3" fill="rgba(0,188,241,.18)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="58" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">we</text>
-        <rect x="120" y="4" width="36" height="12" rx="3" fill="rgba(0,188,241,.18)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="138" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">made</text>
-        <rect x="200" y="4" width="28" height="12" rx="3" fill="rgba(0,188,241,.28)" stroke="#00BCF1" stroke-width="1"/>
-        <text x="214" y="13" text-anchor="middle" fill="#00BCF1" font-size="7" font-weight="600" font-family="Inter,system-ui">this</text>
-        <!-- cut markers -->
-        <path d="M128 54 l4 6 -4 6 -4-6 z" fill="#FFEC03"/>
-        <path d="M208 54 l4 6 -4 6 -4-6 z" fill="#FFEC03"/>
-      </svg>
+      <div class="tl-words">
+        <span class="word">we</span>
+        <span class="word">really</span>
+        <span class="cut" title="cut"></span>
+        <span class="word">made</span>
+        <span class="word">this</span>
+        <span class="cut" title="cut"></span>
+        <span class="word active">together</span>
+        <span class="word">on</span>
+        <span class="word">purpose</span>
+      </div>
+      <div class="tl-bar"><span class="tl-play"></span></div>
+      <div class="tl-legend">
+        <span><i class="dot word-dot"></i> shared word timings</span>
+        <span><i class="dot cut-dot"></i> cut on word</span>
+      </div>
     </div>
   </div>
 
   <div class="card learn">
     <div class="k">Close the loop</div>
     <div class="v">Learn-back from Deliver</div>
-    <div class="s">Fat path forward. Thin path back. Each publish trains the next edit: style, pacing, brand, and who to hire again.</div>
-    <svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <!-- forward spine -->
-      <path d="M40 40 H360" stroke="#2A2E36" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="40" cy="40" r="6" fill="#00BCF1"/>
-      <circle cx="140" cy="40" r="6" fill="#EB008B"/>
-      <circle cx="240" cy="40" r="6" fill="#5EEAD4"/>
-      <circle cx="360" cy="40" r="7" fill="#F472B6"/>
-      <text x="40" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Shoot</text>
-      <text x="140" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Understand</text>
-      <text x="240" y="24" text-anchor="middle" fill="#9AA3AD" font-size="9" font-weight="600" font-family="Inter,system-ui">Cut</text>
-      <text x="360" y="24" text-anchor="middle" fill="#F472B6" font-size="9" font-weight="600" font-family="Inter,system-ui">Ship</text>
-      <!-- return arc -->
-      <path d="M360 50 C360 120, 40 120, 40 50" fill="none" stroke="#FFEC03" stroke-width="1.5" stroke-dasharray="5 4"/>
-      <text x="200" y="148" text-anchor="middle" fill="#FFEC03" font-size="11" font-weight="600" font-family="Inter,system-ui">learns style · pacing · brand · filmer</text>
-      <!-- targets -->
-      <g font-family="Inter,system-ui" font-size="9" font-weight="600" fill="#E8ECF0">
-        <rect x="70" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="106" y="92" text-anchor="middle">shotlist</text>
-        <rect x="164" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="200" y="92" text-anchor="middle">paper-edit</text>
-        <rect x="258" y="78" width="72" height="22" rx="11" fill="#181B22" stroke="#2A2E36"/>
-        <text x="294" y="92" text-anchor="middle">graphics</text>
-      </g>
-    </svg>
-    <div class="chip"><i></i> compounds every campaign</div>
+    <div class="s">Most of the work runs forward (shoot → understand → cut → ship). A thinner path comes back from the finished video: style, pacing, brand rules, and which filmers performed well get written into shotlist rules, the paper-edit library, graphics taste, and Pulse, so the next campaign starts smarter.</div>
+    <div class="learn-diagram" aria-hidden="true">
+      <div class="loop-steps">
+        <div class="loop-step">
+          <div class="loop-num">1</div>
+          <h3>Shoot</h3>
+        </div>
+        <div class="loop-step">
+          <div class="loop-num">2</div>
+          <h3>Understand</h3>
+        </div>
+        <div class="loop-step">
+          <div class="loop-num">3</div>
+          <h3>Cut</h3>
+        </div>
+        <div class="loop-step">
+          <div class="loop-num">4</div>
+          <h3>Ship</h3>
+        </div>
+      </div>
+      <div class="learn-feeds">
+        <div class="learn-strip-label">Finals feed <span class="arrow">→</span></div>
+        <div class="chip-row">
+          <span class="chip learn"><i></i>shotlist</span>
+          <span class="chip learn"><i></i>paper-edit</span>
+          <span class="chip learn"><i></i>graphics</span>
+          <span class="chip learn"><i></i>Pulse</span>
+        </div>
+      </div>
+    </div>
+    <div class="chip yellow compound-chip"><i></i> compounds every campaign</div>
   </div>
 
   <div class="card panel">
     <h3>How it compounds</h3>
     <ol class="compounds">
-      <li><b>1</b><span>Brand Kit + Brief write Shotlist</span></li>
-      <li><b>2</b><span>Live Claude coach shapes the take</span></li>
-      <li><b>3</b><span>Land → Gemini grades + Scribe times + BlazeFace tracks</span></li>
-      <li><b>4</b><span>Notes accumulate into a running edit</span></li>
-      <li><b>5</b><span>ONE Scribe word clock locks every cut</span></li>
-      <li><b>6</b><span>Claude paper edit + Remotion graphics finish</span></li>
-      <li><b>7</b><span>Human finals → rules · library · taste · Pulse</span></li>
+      <li><b>1</b><span>Brand Kit and the brief become a concrete shotlist</span></li>
+      <li><b>2</b><span>On set, Claude coaches the take from live frames</span></li>
+      <li><b>3</b><span>On upload, Gemini grades, Scribe transcribes, BlazeFace tracks faces</span></li>
+      <li><b>4</b><span>Editor notes build a running keep/skip plan as clips arrive</span></li>
+      <li><b>5</b><span>One Scribe transcript times the cut, captions, and graphics together</span></li>
+      <li><b>6</b><span>Claude drafts the paper edit; Remotion finishes captions and graphics</span></li>
+      <li><b>7</b><span>Human finals update rules, the edit library, graphics taste, and Pulse</span></li>
     </ol>
     <div class="accuracy">
       <strong>Accuracy</strong>
-      STT clock = Scribe (not Whisper). Gemini = video-native grade + STT. Pulse = ops. fal.ai experimental, omitted.
+      Speech-to-text for the shared timeline is Scribe (not Whisper). Gemini handles video-native grading (and can do STT, but the shared cut timeline is Scribe). Pulse is ops tooling, not a model. fal.ai experiments are left out of this diagram.
     </div>
   </div>
 
@@ -660,8 +936,13 @@
 <script>
   const btn = document.getElementById('themeBtn');
   const root = document.documentElement;
-  if (localStorage.getItem('cb-loop-theme') === 'light') {
-    root.classList.add('light'); btn.textContent = 'Dark';
+  // Default: light. Only leave light if user previously chose dark.
+  if (localStorage.getItem('cb-loop-theme') === 'dark') {
+    root.classList.remove('light');
+    btn.textContent = 'Light';
+  } else {
+    root.classList.add('light');
+    btn.textContent = 'Dark';
   }
   btn.addEventListener('click', () => {
     const on = root.classList.toggle('light');
