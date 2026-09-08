@@ -1,0 +1,1500 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Cinebody: Full AI Production Loop</title>
+<meta name="description" content="Internal explainer for the full Cinebody AI production loop.">
+
+<style>
+/* ---------------------------------------------------------------
+   Fonts. Files live in site/public/fonts/, served from /fonts/.
+   If a file is missing the stack falls back cleanly.
+   --------------------------------------------------------------- */
+@font-face{
+  font-family:"Plus Jakarta Sans";
+  src:url("/fonts/plus-jakarta-var.woff2") format("woff2-variations"),
+      url("/fonts/plus-jakarta-var.woff2") format("woff2");
+  font-weight:200 800; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"JetBrains Mono";
+  src:url("/fonts/jetbrains-mono-var.woff2") format("woff2-variations"),
+      url("/fonts/jetbrains-mono-var.woff2") format("woff2");
+  font-weight:100 800; font-style:normal; font-display:swap;
+}
+
+/* ---------------------------------------------------------------
+   Tokens
+   --------------------------------------------------------------- */
+:root{
+  --teal:#00bcf1;
+  --yellow:#ffec03;
+  --pink:#eb008b;
+  --ink:#0a0a0a;
+
+  --sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --maxw:1120px;
+  --gut:24px;
+}
+
+html[data-theme="light"]{
+  --bg:#ffffff;
+  --bg-alt:#fafafa;
+  --surface:#ffffff;
+  --surface-2:#f4f5f7;
+  --line:#e4e6ea;
+  --line-soft:#eef0f3;
+  --fg:#0a0a0a;
+  --fg-2:#3d434e;
+  --fg-3:#6b7280;
+  --shadow:0 1px 2px rgba(10,10,10,.04), 0 8px 24px rgba(10,10,10,.05);
+  --dot-bg:#ffffff;
+}
+html[data-theme="dark"]{
+  --bg:#0a0a0a;
+  --bg-alt:#0f0f11;
+  --surface:#121214;
+  --surface-2:#17181b;
+  --line:#25272d;
+  --line-soft:#1c1e22;
+  --fg:#fafafa;
+  --fg-2:#c6cad2;
+  --fg-3:#8b919d;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 12px 32px rgba(0,0,0,.35);
+  --dot-bg:#0a0a0a;
+}
+
+/* ---------------------------------------------------------------
+   Base
+   --------------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.6;
+  font-weight:400;
+  letter-spacing:-0.005em;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-0.028em;line-height:1.12}
+h1{font-size:clamp(2.4rem,5.2vw,3.9rem)}
+h2{font-size:clamp(1.75rem,3.4vw,2.5rem)}
+h3{font-size:1.0625rem;letter-spacing:-0.018em;line-height:1.3}
+p{margin:0}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut)}
+.section{padding:88px 0;border-top:1px solid var(--line-soft)}
+.section--alt{background:var(--bg-alt)}
+.section--flush{border-top:none}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.75rem;
+  font-weight:500;
+  letter-spacing:.02em;
+  color:var(--fg-3);
+  margin:0 0 14px;
+}
+.lede{
+  font-size:1.125rem;
+  line-height:1.62;
+  color:var(--fg-2);
+  max-width:66ch;
+}
+.note{font-size:.9375rem;line-height:1.6;color:var(--fg-3);max-width:72ch}
+.stack-24>*+*{margin-top:24px}
+.stack-16>*+*{margin-top:16px}
+
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
+
+/* ---------------------------------------------------------------
+   Header
+   --------------------------------------------------------------- */
+.hdr{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line-soft);
+}
+.hdr__in{
+  max-width:var(--maxw);margin:0 auto;padding:14px var(--gut);
+  display:flex;align-items:center;gap:14px;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em}
+.brand__mark{
+  width:22px;height:22px;border-radius:6px;
+  background:var(--ink);
+  display:grid;place-items:center;
+  color:#fff;font-size:.6875rem;font-weight:800;
+}
+html[data-theme="dark"] .brand__mark{background:#fff;color:#0a0a0a}
+.brand__sub{font-family:var(--mono);font-size:.75rem;font-weight:400;color:var(--fg-3);letter-spacing:0}
+.hdr__spacer{flex:1}
+.tag{
+  font-family:var(--mono);font-size:.6875rem;color:var(--fg-3);
+  border:1px solid var(--line);border-radius:999px;padding:5px 10px;
+}
+.toggle{
+  font:inherit;font-size:.8125rem;font-weight:600;
+  background:var(--surface);color:var(--fg-2);
+  border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px;cursor:pointer;
+}
+.toggle:hover{color:var(--fg);border-color:var(--fg-3)}
+
+/* ---------------------------------------------------------------
+   Hero
+   --------------------------------------------------------------- */
+.hero{padding:84px 0 76px}
+.hero h1{max-width:15ch;margin-bottom:22px}
+.hero .lede{max-width:64ch}
+
+/* ---------------------------------------------------------------
+   FLOW: four step columns, one thin connector behind the circles
+   --------------------------------------------------------------- */
+.flow{margin:0}
+.flow__row{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+.flow__line{
+  position:absolute;
+  top:28px;left:12.5%;right:12.5%;
+  height:1px;background:var(--line);
+  z-index:0;
+}
+/* Direction markers sit on the single connector, one per gap.
+   They punch the line out behind them with a background pad. */
+.flow__arrow{
+  position:absolute;top:28px;z-index:1;
+  transform:translate(-50%,-50%);
+  display:grid;place-items:center;line-height:0;
+  padding:3px 5px;background:var(--bg);color:var(--fg-3);
+}
+.section--alt .flow__arrow{background:var(--bg-alt)}
+.section--alt .step__dot{box-shadow:0 0 0 6px var(--bg-alt)}
+.ico--xs{width:13px;height:13px;stroke-width:2.1}
+.flow__u::after{ /* left-pointing marker on the return path */
+  content:"";position:absolute;left:50%;bottom:-4.5px;transform:translateX(-50%);
+  width:0;height:0;
+  border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;
+  border-right:6px solid var(--fg-3);
+}
+.step{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.step__dot{
+  width:56px;height:56px;border-radius:50%;
+  display:grid;place-items:center;
+  font-family:var(--mono);font-size:1rem;font-weight:600;
+  background:var(--dot-bg);
+  border:1px solid var(--line);
+  color:var(--fg);
+  box-shadow:0 0 0 6px var(--bg);
+}
+.step--teal .step__dot{background:var(--teal);border-color:var(--teal);color:#04222b}
+.step--pink .step__dot{background:var(--pink);border-color:var(--pink);color:#fff}
+.step--ink  .step__dot{background:var(--ink);border-color:var(--ink);color:#fff}
+html[data-theme="dark"] .step--ink .step__dot{background:#fff;border-color:#fff;color:#0a0a0a}
+.step--yellow .step__dot{background:var(--yellow);border-color:var(--yellow);color:#2b2800}
+
+.step__name{margin-top:20px;font-size:1.0625rem;font-weight:700;letter-spacing:-.02em}
+.step__meta{
+  margin-top:6px;font-family:var(--mono);font-size:.75rem;color:var(--fg-3);
+}
+
+/* Return strip: its own band under the forward row. Never crosses it. */
+.flow__return{
+  position:relative;
+  margin-top:34px;
+  padding-top:32px;
+}
+.flow__u{
+  position:absolute;top:0;left:12.5%;right:12.5%;height:26px;
+  border:1px dashed var(--line);
+  border-top:none;
+  border-radius:0 0 14px 14px;
+}
+.flow__u::before{ /* arrowhead pointing up into step 1 */
+  content:"";position:absolute;left:-4px;top:-1px;
+  width:0;height:0;
+  border-left:4.5px solid transparent;border-right:4.5px solid transparent;
+  border-bottom:6px solid var(--fg-3);
+}
+.return__card{
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:var(--r-md);
+  padding:16px 18px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;
+}
+.return__label{font-size:.9375rem;font-weight:600;color:var(--fg-2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-family:var(--mono);font-size:.75rem;color:var(--fg-2);
+  border:1px solid var(--line);border-radius:6px;
+  padding:4px 9px;background:var(--surface-2);
+}
+.chip--teal{border-color:color-mix(in srgb,var(--teal) 45%,var(--line));color:var(--fg)}
+.chip--yellow{border-color:color-mix(in srgb,var(--yellow) 60%,var(--line));color:var(--fg)}
+
+.flow__caption{margin-top:26px}
+
+/* ---------------------------------------------------------------
+   Compare
+   --------------------------------------------------------------- */
+.compare{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px;
+}
+.panel{
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:var(--r-lg);
+  padding:26px 24px 24px;
+  box-shadow:var(--shadow);
+  display:flex;flex-direction:column;
+}
+.panel__head{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.panel__title{font-size:1.125rem;font-weight:700;letter-spacing:-.02em}
+.panel__kind{font-family:var(--mono);font-size:.75rem;color:var(--fg-3)}
+.panel__body{margin-top:auto}
+.panel__note{margin-top:22px;font-size:.9375rem;line-height:1.6;color:var(--fg-2)}
+
+/* small inline flow used inside the compare panels */
+.mini{position:relative;display:grid;gap:14px}
+.mini__row{position:relative;display:grid;gap:12px;align-items:center}
+.mini__row--3{grid-template-columns:repeat(3,1fr)}
+.mini__row--4{grid-template-columns:repeat(4,1fr)}
+.mini__line{position:absolute;top:18px;height:1px;background:var(--line);z-index:0}
+.mini__row--3 .mini__line{left:16.67%;right:16.67%}
+.mini__row--4 .mini__line{left:12.5%;right:12.5%}
+.mini__arrow{position:absolute;top:18px;z-index:1;transform:translate(-50%,-50%);display:grid;place-items:center;line-height:0;padding:2px 4px;background:var(--surface);color:var(--fg-3)}
+.mini__u::after{content:"";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-right:5.5px solid var(--fg-3)}
+.mini__stop{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center}
+.mini__dot{
+  width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;
+  font-family:var(--mono);font-size:.8125rem;font-weight:600;
+  background:var(--dot-bg);border:1px solid var(--line);color:var(--fg-2);
+  box-shadow:0 0 0 5px var(--surface);
+}
+.mini__stop--teal .mini__dot{background:var(--teal);border-color:var(--teal);color:#04222b}
+.mini__stop--pink .mini__dot{background:var(--pink);border-color:var(--pink);color:#fff}
+.mini__stop--ink .mini__dot{background:var(--ink);border-color:var(--ink);color:#fff}
+html[data-theme="dark"] .mini__stop--ink .mini__dot{background:#fff;border-color:#fff;color:#0a0a0a}
+.mini__stop--yellow .mini__dot{background:var(--yellow);border-color:var(--yellow);color:#2b2800}
+.mini__label{margin-top:12px;font-size:.875rem;font-weight:600}
+.mini__end{
+  position:relative;z-index:1;justify-self:center;align-self:start;
+  margin-top:17px;width:11px;height:11px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--fg-3);
+}
+.deadend{
+  margin-top:16px;display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.75rem;color:var(--fg-3);
+}
+.deadend__bar{flex:1;height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 5px,transparent 5px 10px)}
+
+.mini__return{position:relative;margin-top:22px;padding-top:22px}
+.mini__u{
+  position:absolute;top:0;left:14%;right:14%;height:22px;
+  border:1px dashed var(--line);border-top:none;border-radius:0 0 12px 12px;
+}
+.mini__u::before{
+  content:"";position:absolute;left:-4px;top:-1px;width:0;height:0;
+  border-left:4px solid transparent;border-right:4px solid transparent;
+  border-bottom:5.5px solid var(--fg-3);
+}
+.mini__returnlabel{
+  margin-top:9px;
+  font-family:var(--mono);font-size:.75rem;color:var(--fg-2);text-align:center;
+}
+
+/* ---------------------------------------------------------------
+   Innovations / cards
+   --------------------------------------------------------------- */
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+.card{
+  border:1px solid var(--line);background:var(--surface);
+  border-radius:var(--r-lg);padding:24px;
+}
+.card__rule{width:28px;height:2px;border-radius:2px;margin-bottom:18px;background:var(--line)}
+.card--teal .card__rule{background:var(--teal)}
+.card--pink .card__rule{background:var(--pink)}
+.card--yellow .card__rule{background:var(--yellow)}
+.card h3{margin-bottom:10px}
+.card p{font-size:.9375rem;line-height:1.62;color:var(--fg-2)}
+
+.stackrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.stackrow .chip{font-size:.8125rem;padding:6px 12px;border-radius:8px}
+
+/* ---------------------------------------------------------------
+   Spine (11 steps)
+   --------------------------------------------------------------- */
+.spine{margin-top:40px}
+.phase{margin-top:44px}
+.phase:first-child{margin-top:0}
+.phase__label{
+  font-family:var(--mono);font-size:.75rem;color:var(--fg-3);
+  padding-bottom:10px;border-bottom:1px solid var(--line-soft);margin-bottom:22px;
+}
+.spinelist{display:grid;gap:14px}
+.node{
+  display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;
+}
+.node__num{
+  width:56px;height:56px;border-radius:50%;
+  display:grid;place-items:center;
+  font-family:var(--mono);font-size:.9375rem;font-weight:600;
+  background:var(--dot-bg);border:1px solid var(--line);color:var(--fg);
+}
+.node--teal .node__num{border-color:color-mix(in srgb,var(--teal) 55%,var(--line))}
+.node--pink .node__num{border-color:color-mix(in srgb,var(--pink) 45%,var(--line))}
+.node--yellow .node__num{border-color:color-mix(in srgb,var(--yellow) 70%,var(--line))}
+.node__card{
+  border:1px solid var(--line);background:var(--surface);
+  border-radius:var(--r-md);padding:20px 22px;
+}
+.node--key .node__card{
+  border-color:color-mix(in srgb,var(--yellow) 65%,var(--line));
+  background:color-mix(in srgb,var(--yellow) 7%,var(--surface));
+}
+html[data-theme="dark"] .node--key .node__card{background:color-mix(in srgb,var(--yellow) 6%,var(--surface))}
+.node__top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px}
+.node__title{font-size:1.0625rem;font-weight:700;letter-spacing:-.02em}
+.node__tool{font-family:var(--mono);font-size:.75rem;color:var(--fg-3)}
+.node__why{margin-top:10px;font-size:.9375rem;line-height:1.62;color:var(--fg-2)}
+.node__why b{font-weight:700;color:var(--fg)}
+
+.pipes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.pipe{
+  border:1px solid var(--line);border-radius:var(--r-sm);
+  background:var(--surface-2);padding:12px 14px;
+}
+.pipe__name{font-size:.875rem;font-weight:700}
+.pipe__tool{font-family:var(--mono);font-size:.6875rem;color:var(--fg-3);margin-top:3px}
+.pipe__out{font-size:.8125rem;color:var(--fg-2);margin-top:8px}
+
+/* ---------------------------------------------------------------
+   Keystone transcript vignette
+   --------------------------------------------------------------- */
+.keystone{
+  margin-top:34px;border:1px solid var(--line);background:var(--surface);
+  border-radius:var(--r-lg);padding:28px 26px;box-shadow:var(--shadow);
+}
+.tx-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tx{min-width:520px}
+.tx__head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:var(--mono);font-size:.75rem;color:var(--fg-3);
+  padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--line-soft);
+}
+.tx__grid{display:grid;grid-template-columns:74px 1fr;gap:14px 16px;align-items:center}
+.tx__rowlabel{font-family:var(--mono);font-size:.75rem;color:var(--fg-3);text-align:right}
+.tx__track{display:grid;grid-template-columns:auto 22px auto;align-items:center}
+
+.seg{display:flex;gap:8px}
+.word{
+  font-size:.9375rem;font-weight:600;color:var(--fg);
+  padding:6px 9px;border-radius:6px;background:var(--surface-2);
+  white-space:nowrap;
+}
+.cutmark{
+  justify-self:center;width:2px;height:34px;border-radius:2px;
+  background:var(--yellow);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--yellow) 22%,transparent);
+}
+.cutmark--short{height:22px}
+.bar{
+  height:22px;border-radius:5px;border:1px solid var(--line);
+  display:flex;align-items:center;padding:0 9px;
+  font-family:var(--mono);font-size:.6875rem;color:var(--fg-2);
+  white-space:nowrap;overflow:hidden;
+}
+.bar--a{background:color-mix(in srgb,var(--teal) 14%,var(--surface));border-color:color-mix(in srgb,var(--teal) 40%,var(--line))}
+.bar--b{background:color-mix(in srgb,var(--pink) 12%,var(--surface));border-color:color-mix(in srgb,var(--pink) 35%,var(--line))}
+.bar--c{background:var(--surface-2)}
+.ghost{visibility:hidden;height:0;overflow:hidden;display:flex;gap:8px}
+
+.tx__foot{margin-top:20px;font-size:.9375rem;color:var(--fg-2);line-height:1.62}
+
+/* ---------------------------------------------------------------
+   Compounds list
+   --------------------------------------------------------------- */
+.compounds{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 28px;margin-top:30px;padding:0;list-style:none;counter-reset:c}
+.compounds li{
+  display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:start;
+  font-size:.9375rem;line-height:1.55;color:var(--fg-2);
+  padding:12px 0;border-top:1px solid var(--line-soft);
+}
+.compounds li::before{
+  counter-increment:c;content:counter(c);
+  font-family:var(--mono);font-size:.75rem;color:var(--fg-3);
+  border:1px solid var(--line);border-radius:50%;
+  width:26px;height:26px;display:grid;place-items:center;
+}
+
+.accuracy{
+  margin-top:44px;border:1px solid var(--line);border-radius:var(--r-md);
+  background:var(--surface-2);padding:20px 22px;
+}
+.accuracy__label{font-family:var(--mono);font-size:.75rem;color:var(--fg-3);margin-bottom:8px}
+.accuracy p{font-size:.9375rem;line-height:1.62;color:var(--fg-2)}
+
+.ftr{padding:34px 0 60px;border-top:1px solid var(--line-soft)}
+.ftr p{font-family:var(--mono);font-size:.75rem;color:var(--fg-3)}
+
+/* ---------------------------------------------------------------
+   Icons
+   --------------------------------------------------------------- */
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.ico{
+  width:20px;height:20px;flex:0 0 auto;
+  fill:none;stroke:currentColor;stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.ico--sm{width:16px;height:16px;stroke-width:1.7}
+.ico--lg{width:22px;height:22px}
+
+.tile{
+  width:38px;height:38px;border-radius:11px;
+  display:grid;place-items:center;
+  background:var(--surface-2);border:1px solid var(--line);
+  color:var(--fg-2);
+}
+.tile--teal{background:color-mix(in srgb,var(--teal) 13%,var(--surface));border-color:color-mix(in srgb,var(--teal) 34%,var(--line));color:color-mix(in srgb,var(--teal) 72%,var(--fg))}
+.tile--pink{background:color-mix(in srgb,var(--pink) 11%,var(--surface));border-color:color-mix(in srgb,var(--pink) 30%,var(--line));color:color-mix(in srgb,var(--pink) 72%,var(--fg))}
+.tile--yellow{background:color-mix(in srgb,var(--yellow) 20%,var(--surface));border-color:color-mix(in srgb,var(--yellow) 55%,var(--line));color:color-mix(in srgb,var(--fg) 82%,var(--yellow))}
+.tile--ink{background:var(--ink);border-color:var(--ink);color:#fff}
+html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a0a}
+.tile--sm{width:30px;height:30px;border-radius:9px}
+
+/* ---------------------------------------------------------------
+   Product mocks under the hero steps
+   --------------------------------------------------------------- */
+.step__head{display:flex;flex-direction:column;align-items:center}
+.prop{
+  width:100%;margin-top:22px;
+  border:1px solid var(--line);border-radius:var(--r-md);
+  background:var(--surface);box-shadow:var(--shadow);
+  padding:12px;text-align:left;
+  min-height:146px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.prop__bar{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  font-family:var(--mono);font-size:.625rem;color:var(--fg-3);
+}
+.prop__dot{width:6px;height:6px;border-radius:50%;background:var(--pink);flex:0 0 auto}
+.prop__rec{display:flex;align-items:center;gap:5px}
+
+/* 1. viewfinder */
+.vf{
+  position:relative;flex:1;border-radius:9px;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--teal) 16%,var(--surface-2)),var(--surface-2));
+  overflow:hidden;
+}
+.vf__c{position:absolute;width:12px;height:12px;border:1.5px solid color-mix(in srgb,var(--teal) 70%,transparent);border-radius:2px}
+.vf__c--tl{top:8px;left:8px;border-right:none;border-bottom:none}
+.vf__c--tr{top:8px;right:8px;border-left:none;border-bottom:none}
+.vf__c--bl{bottom:8px;left:8px;border-right:none;border-top:none}
+.vf__c--br{bottom:8px;right:8px;border-left:none;border-top:none}
+.vf__subject{
+  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  width:26px;height:26px;border-radius:50%;
+  background:color-mix(in srgb,var(--teal) 45%,var(--surface));
+  box-shadow:0 14px 0 -3px color-mix(in srgb,var(--teal) 30%,var(--surface));
+}
+.coach{
+  position:absolute;left:8px;right:8px;bottom:8px;
+  background:var(--surface);border:1px solid var(--line);border-radius:7px;
+  padding:5px 8px;display:flex;align-items:center;gap:6px;
+  font-size:.6875rem;font-weight:600;color:var(--fg-2);
+}
+
+/* 2. clip score */
+.score{display:flex;align-items:baseline;gap:8px}
+.score__num{font-size:1.5rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.score__tag{
+  font-family:var(--mono);font-size:.625rem;padding:3px 7px;border-radius:5px;
+  background:color-mix(in srgb,var(--pink) 12%,var(--surface-2));
+  color:color-mix(in srgb,var(--pink) 78%,var(--fg));
+}
+.meters{display:grid;gap:6px;margin-top:2px}
+.meter{display:grid;grid-template-columns:52px 1fr 22px;gap:8px;align-items:center}
+.meter__k{font-family:var(--mono);font-size:.625rem;color:var(--fg-3)}
+.meter__t{height:4px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.meter__f{display:block;height:100%;border-radius:3px;background:var(--pink)}
+.meter__v{font-family:var(--mono);font-size:.625rem;color:var(--fg-2);text-align:right}
+
+/* 3. timeline */
+.tl{position:relative;flex:1;display:grid;gap:6px;align-content:center;padding:2px 0}
+.tl__lane{display:flex;gap:5px;align-items:center}
+.tl__blk{height:15px;border-radius:4px;background:var(--surface-2);border:1px solid var(--line)}
+.tl__blk--v{background:color-mix(in srgb,var(--teal) 22%,var(--surface));border-color:color-mix(in srgb,var(--teal) 40%,var(--line))}
+.tl__blk--a{background:color-mix(in srgb,var(--pink) 16%,var(--surface));border-color:color-mix(in srgb,var(--pink) 32%,var(--line))}
+.tl__blk--c{background:var(--surface-2)}
+.tl__head{
+  position:absolute;top:-2px;bottom:-2px;left:54%;width:2px;border-radius:2px;
+  background:var(--yellow);box-shadow:0 0 0 3px color-mix(in srgb,var(--yellow) 20%,transparent);
+}
+
+/* 4. deliverable */
+.ship{flex:1;display:flex;gap:10px;align-items:stretch}
+.ship__frame{
+  width:44px;border-radius:7px;border:1px solid var(--line);
+  background:linear-gradient(165deg,color-mix(in srgb,var(--yellow) 22%,var(--surface-2)),var(--surface-2));
+  position:relative;flex:0 0 auto;
+}
+.ship__cap{
+  position:absolute;left:5px;right:5px;bottom:17px;height:5px;border-radius:3px;
+  background:color-mix(in srgb,var(--fg) 55%,transparent);
+}
+.ship__cap::after{
+  content:"";position:absolute;left:0;top:8px;width:62%;height:5px;border-radius:3px;
+  background:color-mix(in srgb,var(--fg) 28%,transparent);
+}
+.ship__meta{display:flex;flex-direction:column;gap:5px;justify-content:center}
+.ship__meta span{
+  font-family:var(--mono);font-size:.625rem;color:var(--fg-2);
+  border:1px solid var(--line);border-radius:5px;padding:3px 7px;background:var(--surface-2);
+}
+
+/* card + node icon heads */
+.card__head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.card__head h3{margin-bottom:0}
+.node__icon{margin-right:2px}
+.node__top{align-items:center}
+.pipe__head{display:flex;align-items:center;gap:9px}
+.chip__ico{display:inline-flex;align-items:center;gap:6px}
+
+/* ---------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------- */
+@media (max-width:960px){
+  .cards-3{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .compounds{grid-template-columns:1fr}
+  .pipes{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .brand__sub{display:none}
+  .hdr__in{gap:10px}
+}
+@media (max-width:700px){
+  .section{padding:64px 0}
+  .hero{padding:56px 0 52px}
+  .flow__row{grid-template-columns:1fr;gap:14px}
+  .flow__line,.flow__arrow{display:none}
+  .flow__row .step+.step{padding-top:20px;position:relative}
+  .flow__row .step+.step::before{
+    content:"";position:absolute;left:24px;top:2px;transform:translateX(-50%);
+    width:0;height:0;
+    border-left:4.5px solid transparent;border-right:4.5px solid transparent;
+    border-top:6px solid var(--fg-3);
+  }
+  .step{align-items:stretch;text-align:left}
+  .step__head{flex-direction:row;align-items:center;gap:14px}
+  .step__dot{flex:0 0 auto;width:48px;height:48px;box-shadow:none}
+  .step__name{margin-top:0}
+  .step__meta{margin-top:2px}
+  .step__text{display:flex;flex-direction:column}
+  .prop{margin-top:12px;min-height:0}
+  .vf{min-height:112px}
+  .tl{min-height:80px}
+  .ship{min-height:104px}
+  .card__head{margin-bottom:14px}
+  .flow__u{display:none}
+  .flow__return{padding-top:0;margin-top:22px}
+  .mini__line,.mini__u,.mini__arrow{display:none}
+  .mini__row--3,.mini__row--4{grid-template-columns:1fr;gap:10px}
+  .mini__stop{flex-direction:row;gap:12px}
+  .mini__dot{box-shadow:none}
+  .mini__label{margin-top:0}
+  .mini__end{display:none}
+  .mini__return{padding-top:0;margin-top:16px}
+  .node{grid-template-columns:44px 1fr;gap:14px}
+  .node__num{width:44px;height:44px;font-size:.8125rem}
+  .node__card{padding:16px 16px}
+  .keystone{padding:20px 14px}
+  .tx{min-width:0}
+  .tx__grid{grid-template-columns:1fr;gap:4px}
+  .tx__rowlabel{text-align:left;margin-top:10px}
+  .tx__track{grid-template-columns:auto 18px auto}
+  .word{font-size:.75rem;padding:4px 6px}
+  .seg,.ghost{gap:5px}
+  .bar{font-size:.5625rem;padding:0 6px;height:20px}
+  .tx__head{flex-direction:column;align-items:flex-start;gap:6px}
+}
+@media (max-width:430px){
+  .word{font-size:.6875rem;padding:4px 5px}
+  .seg,.ghost{gap:4px}
+  .tx__track{grid-template-columns:auto 16px auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-camera" viewBox="0 0 24 24"><rect x="2.4" y="6" width="12.6" height="12" rx="2.6"/><path d="M15 10.6l5.9-3a.7.7 0 0 1 1 .62v7.56a.7.7 0 0 1-1 .62l-5.9-3z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M10.4 2.8l1.7 4.6 4.6 1.7-4.6 1.7-1.7 4.6-1.7-4.6L4.1 9.1l4.6-1.7z"/><path d="M18.2 14.4l.85 2.35 2.35.85-2.35.85-.85 2.35-.85-2.35-2.35-.85 2.35-.85z"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6.2" cy="6.2" r="2.5"/><circle cx="6.2" cy="17.8" r="2.5"/><path d="M8.4 7.6L20 18.4"/><path d="M8.4 16.4L20 5.6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10.3 13.7"/><path d="M21 3l-6.6 18-4.1-7.3L3 9.6z"/></symbol>
+  <symbol id="i-kit" viewBox="0 0 24 24"><rect x="3.2" y="3.2" width="7.6" height="7.6" rx="2.2"/><rect x="13.2" y="3.2" width="7.6" height="7.6" rx="2.2"/><rect x="3.2" y="13.2" width="7.6" height="7.6" rx="2.2"/><rect x="13.2" y="13.2" width="7.6" height="7.6" rx="2.2"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><path d="M6 3h7l5.2 5.2V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M13 3v5.4h5.2"/><path d="M8.4 13.2h7M8.4 17h4.6"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9.6 6.4h11M9.6 12h11M9.6 17.6h11"/><path d="M3.4 6.1l1.2 1.2 2.2-2.3"/><path d="M3.4 11.7l1.2 1.2 2.2-2.3"/><path d="M3.4 17.3l1.2 1.2 2.2-2.3"/></symbol>
+  <symbol id="i-frame" viewBox="0 0 24 24"><path d="M3.2 8.4V5.4a2.2 2.2 0 0 1 2.2-2.2h3"/><path d="M15.6 3.2h3a2.2 2.2 0 0 1 2.2 2.2v3"/><path d="M20.8 15.6v3a2.2 2.2 0 0 1-2.2 2.2h-3"/><path d="M8.4 20.8h-3a2.2 2.2 0 0 1-2.2-2.2v-3"/><circle cx="12" cy="12" r="3.1"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15.6V3.6"/><path d="M7.6 8L12 3.6 16.4 8"/><path d="M4 14.6v3.8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3.8"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 17.6a8.6 8.6 0 1 1 16 0"/><path d="M12 17.6l3.8-5"/><circle cx="12" cy="17.6" r="1.5"/></symbol>
+  <symbol id="i-transcript" viewBox="0 0 24 24"><path d="M4 6.4h16M4 11h16M4 15.6h10.5"/><path d="M18 19.4v-4.4"/><circle cx="18" cy="20.6" r="0.4"/></symbol>
+  <symbol id="i-face" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4.4"/><path d="M9.4 10.3v.8M14.6 10.3v.8"/><path d="M9.2 14.8c1.9 1.5 3.7 1.5 5.6 0"/></symbol>
+  <symbol id="i-notes" viewBox="0 0 24 24"><path d="M6.6 3h10.8a1 1 0 0 1 1 1v17l-6.4-3.4L5.6 21V4a1 1 0 0 1 1-1z"/><path d="M9.2 8.4h5.6"/></symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3.2" y="4.2" width="17.6" height="15.6" rx="2.4"/><path d="M3.2 9.4h17.6M9.4 9.4v10.4"/></symbol>
+  <symbol id="i-timeline" viewBox="0 0 24 24"><rect x="3" y="5" width="10.4" height="4" rx="1.3"/><rect x="3" y="10" width="14.2" height="4" rx="1.3"/><rect x="3" y="15" width="7.4" height="4" rx="1.3"/><path d="M19.6 3.2v17.6"/></symbol>
+  <symbol id="i-cc" viewBox="0 0 24 24"><rect x="2.6" y="5" width="18.8" height="14" rx="3.2"/><path d="M10.2 10.4a2.7 2.7 0 1 0 0 3.2"/><path d="M17 10.4a2.7 2.7 0 1 0 0 3.2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.8"/><path d="M8 12.4l2.8 2.8L16.2 9.4"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M3.6 12a8.4 8.4 0 0 1 14.4-5.9l2 2"/><path d="M20 3.4v4.7h-4.7"/><path d="M20.4 12a8.4 8.4 0 0 1-14.4 5.9l-2-2"/><path d="M4 20.6v-4.7h4.7"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 4.5l7.5 7.5L9 19.5"/></symbol>
+  <symbol id="i-deadend" viewBox="0 0 24 24"><path d="M3 12h8.8"/><path d="M9.4 9.2L12.2 12l-2.8 2.8"/><path d="M17.4 5v14"/></symbol>
+</svg>
+
+<header class="hdr">
+  <div class="hdr__in">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">C</span>
+      <span>Cinebody</span>
+      <span class="brand__sub">AI production loop</span>
+    </div>
+    <div class="hdr__spacer"></div>
+    <span class="tag">Internal</span>
+    <button class="toggle" id="themeToggle" type="button" aria-pressed="false">Dark</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================ HERO ============================ -->
+  <section class="hero section--flush">
+    <div class="wrap">
+      <p class="eyebrow">Team explainer</p>
+      <h1>The full AI production loop</h1>
+      <p class="lede">Most &ldquo;AI video&rdquo; tools wait until you dump a full bin, then try to cut it in one shot. Cinebody runs the other way: brand rules shape the brief and the shoot, six jobs read every clip the moment it lands, one word clock keeps the cut, captions, and graphics lined up, and finished work is watched and turned into lessons for the next campaign.</p>
+
+      <div class="flow" style="margin-top:56px">
+        <div class="flow__row">
+          <div class="flow__line" aria-hidden="true"></div>
+          <span class="flow__arrow" style="left:25%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+          <span class="flow__arrow" style="left:50%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+          <span class="flow__arrow" style="left:75%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+
+          <div class="step step--teal">
+            <div class="step__head">
+              <div class="step__dot">1</div>
+              <div class="step__text">
+                <div class="step__name">Shoot</div>
+                <div class="step__meta">capture</div>
+              </div>
+            </div>
+            <div class="prop">
+              <div class="prop__bar">
+                <span class="prop__rec"><span class="prop__dot"></span>REC 0:14</span>
+                <svg class="ico ico--sm"><use href="#i-camera"/></svg>
+              </div>
+              <div class="vf">
+                <span class="vf__c vf__c--tl"></span><span class="vf__c vf__c--tr"></span>
+                <span class="vf__c vf__c--bl"></span><span class="vf__c vf__c--br"></span>
+                <span class="vf__subject"></span>
+                <div class="coach">
+                  <svg class="ico ico--sm"><use href="#i-frame"/></svg>
+                  Step a little closer
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step step--pink">
+            <div class="step__head">
+              <div class="step__dot">2</div>
+              <div class="step__text">
+                <div class="step__name">Understand</div>
+                <div class="step__meta">intelligence</div>
+              </div>
+            </div>
+            <div class="prop">
+              <div class="prop__bar">
+                <span>clip 04 graded</span>
+                <svg class="ico ico--sm"><use href="#i-gauge"/></svg>
+              </div>
+              <div class="score">
+                <span class="score__num">9.1</span>
+                <span class="score__tag">top pick</span>
+              </div>
+              <div class="meters">
+                <div class="meter"><span class="meter__k">audio</span><span class="meter__t"><span class="meter__f" style="width:90%"></span></span><span class="meter__v">90</span></div>
+                <div class="meter"><span class="meter__k">focus</span><span class="meter__t"><span class="meter__f" style="width:94%"></span></span><span class="meter__v">94</span></div>
+                <div class="meter"><span class="meter__k">framing</span><span class="meter__t"><span class="meter__f" style="width:95%"></span></span><span class="meter__v">95</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step step--ink">
+            <div class="step__head">
+              <div class="step__dot">3</div>
+              <div class="step__text">
+                <div class="step__name">Cut</div>
+                <div class="step__meta">edit</div>
+              </div>
+            </div>
+            <div class="prop">
+              <div class="prop__bar">
+                <span class="chip__ico"><svg class="ico ico--sm"><use href="#i-scissors"/></svg>cut on word</span>
+                <svg class="ico ico--sm"><use href="#i-timeline"/></svg>
+              </div>
+              <div class="tl">
+                <div class="tl__head"></div>
+                <div class="tl__lane"><span class="tl__blk tl__blk--v" style="flex:5"></span><span class="tl__blk tl__blk--v" style="flex:4"></span><span class="tl__blk tl__blk--v" style="flex:3"></span></div>
+                <div class="tl__lane"><span class="tl__blk tl__blk--a" style="flex:8"></span><span class="tl__blk tl__blk--a" style="flex:4"></span></div>
+                <div class="tl__lane"><span class="tl__blk tl__blk--c" style="flex:3"></span><span class="tl__blk tl__blk--c" style="flex:5"></span><span class="tl__blk tl__blk--c" style="flex:4"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step step--yellow">
+            <div class="step__head">
+              <div class="step__dot">4</div>
+              <div class="step__text">
+                <div class="step__name">Ship</div>
+                <div class="step__meta">brand</div>
+              </div>
+            </div>
+            <div class="prop">
+              <div class="prop__bar">
+                <span>ready to deliver</span>
+                <svg class="ico ico--sm"><use href="#i-check"/></svg>
+              </div>
+              <div class="ship">
+                <div class="ship__frame"><span class="ship__cap"></span></div>
+                <div class="ship__meta">
+                  <span>0:30</span>
+                  <span>vertical</span>
+                  <span>captioned</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow__return">
+          <div class="flow__u" aria-hidden="true"></div>
+          <div class="return__card">
+            <span class="tile tile--sm tile--yellow"><svg class="ico ico--sm"><use href="#i-loop"/></svg></span>
+            <span class="return__label">Finals feed the next loop</span>
+            <div class="chips">
+              <span class="chip">shot list rules</span>
+              <span class="chip">paper-edit examples</span>
+              <span class="chip">graphics rules</span>
+              <span class="chip">filmer reputation</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="note flow__caption">Shoot, understand, cut, ship, then a thin return path so finished work improves the next brief. Brand Kit, the word clock, and the Recipe run under every step, so every step shares the same rules and the same words.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ THE IDEA ============================ -->
+  <section class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">The idea</p>
+      <div class="stack-16">
+        <h2 style="max-width:20ch">Help while people shoot, not after the bin is full</h2>
+        <p class="lede">Useful production AI should help while people are shooting and while clips are uploading, not only after everything is already in the bin.</p>
+        <p class="lede">Typical tools only help at the end (one big &ldquo;AI cut&rdquo;). Cinebody connects Brand Kit, on-set coaching, grading, face and camera tracking, one word clock, the paper edit, a graphics agent, and a learn-back step so each finished video makes the next shoot and edit a little smarter.</p>
+      </div>
+
+      <div class="compare">
+
+        <div class="panel">
+          <div class="panel__head">
+            <span class="tile tile--sm"><svg class="ico ico--sm"><use href="#i-deadend"/></svg></span>
+            <span class="panel__title">Typical</span>
+            <span class="panel__kind">linear, no feedback</span>
+          </div>
+          <div class="mini">
+            <div class="mini__row mini__row--3">
+              <div class="mini__line" aria-hidden="true"></div>
+              <span class="mini__arrow" style="left:33.33%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+              <span class="mini__arrow" style="left:66.67%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+              <div class="mini__stop">
+                <div class="mini__dot">1</div>
+                <div class="mini__label">Shoot</div>
+              </div>
+              <div class="mini__stop">
+                <div class="mini__dot">2</div>
+                <div class="mini__label">Dump</div>
+              </div>
+              <div class="mini__stop">
+                <div class="mini__dot">3</div>
+                <div class="mini__label">AI cut</div>
+              </div>
+            </div>
+            <div class="deadend">
+              <span class="deadend__bar" aria-hidden="true"></span>
+              <span>nothing returns</span>
+            </div>
+          </div>
+          <p class="panel__note">Shoot, dump everything, then hope an AI cut works. Nothing is scored, tracked, or transcribed until the end, and each clip may get its own word timings.</p>
+        </div>
+
+        <div class="panel">
+          <div class="panel__head">
+            <span class="tile tile--sm tile--teal"><svg class="ico ico--sm"><use href="#i-loop"/></svg></span>
+            <span class="panel__title">Cinebody</span>
+            <span class="panel__kind">looped, learns forward</span>
+          </div>
+          <div class="mini">
+            <div class="mini__row mini__row--4">
+              <div class="mini__line" aria-hidden="true"></div>
+              <span class="mini__arrow" style="left:25%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+              <span class="mini__arrow" style="left:50%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+              <span class="mini__arrow" style="left:75%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+              <div class="mini__stop mini__stop--teal">
+                <div class="mini__dot">1</div>
+                <div class="mini__label">Shoot</div>
+              </div>
+              <div class="mini__stop mini__stop--pink">
+                <div class="mini__dot">2</div>
+                <div class="mini__label">Understand</div>
+              </div>
+              <div class="mini__stop mini__stop--ink">
+                <div class="mini__dot">3</div>
+                <div class="mini__label">Cut</div>
+              </div>
+              <div class="mini__stop mini__stop--yellow">
+                <div class="mini__dot">4</div>
+                <div class="mini__label">Ship</div>
+              </div>
+            </div>
+            <div class="mini__return">
+              <div class="mini__u" aria-hidden="true"></div>
+              <div class="mini__returnlabel">learn back into the next brief</div>
+            </div>
+          </div>
+          <p class="panel__note">As clips land they are certified, transcribed, graded, approved, face-tracked, and motion-read. The cut builds on one word clock. Finished cuts get watched and distilled into lessons for the next brief, edit, and graphics.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ INNOVATIONS ============================ -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Three innovations</p>
+      <h2 style="max-width:22ch">What actually makes the loop hold together</h2>
+
+      <div class="cards-3">
+        <div class="card card--teal">
+          <div class="card__head">
+            <span class="tile tile--teal"><svg class="ico ico--lg"><use href="#i-kit"/></svg></span>
+            <h3>Brand Kit is the recipe</h3>
+          </div>
+          <p>Voice, look, do and don&rsquo;t rules, references, and graphics style live in one place. The brief, the shot list, the coach, the grader, the paper edit, captions, graphics, covers, and the end card all read that kit instead of guessing the brand from a PDF.</p>
+        </div>
+        <div class="card card--pink">
+          <div class="card__head">
+            <span class="tile tile--pink"><svg class="ico ico--lg"><use href="#i-transcript"/></svg></span>
+            <h3>One word clock for the whole cut</h3>
+          </div>
+          <p>Gemini writes a first transcript as each clip lands. When a cut is built, Scribe times every word to a few hundredths of a second. Cuts land on those words, captions read those words, graphics pin to those words. Nothing drifts clip by clip.</p>
+        </div>
+        <div class="card card--yellow">
+          <div class="card__head">
+            <span class="tile tile--yellow"><svg class="ico ico--lg"><use href="#i-loop"/></svg></span>
+            <h3>Finished work teaches the next loop</h3>
+          </div>
+          <p>Finished human cuts get watched by the same model that grades footage. Their choices become examples and short lessons that feed the shot list, the paper edit, and the graphics agent. Filmers earn a reputation score from approvals and grades.</p>
+        </div>
+      </div>
+
+      <div class="stackrow">
+        <span class="chip">Claude</span>
+        <span class="chip">Gemini</span>
+        <span class="chip">ElevenLabs</span>
+        <span class="chip">BlazeFace</span>
+        <span class="chip">ffmpeg</span>
+        <span class="chip">Remotion</span>
+        <span class="chip">Imagen</span>
+      </div>
+      <p class="note" style="margin-top:14px">Claude plans, writes, edits, and designs graphics. Gemini watches footage, grades it, transcribes it, and coaches the camera. ElevenLabs times words (Scribe), speaks interview questions, and cleans voices. BlazeFace tracks faces. ffmpeg reads camera motion and renders picture. Remotion renders graphics. Imagen paints covers. Pulse is an ops screen, not a model.</p>
+    </div>
+  </section>
+
+  <!-- ============================ THE LOOP ============================ -->
+  <section class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">The loop</p>
+      <h2 style="max-width:20ch">Sixteen steps, one set of rules</h2>
+      <p class="lede" style="margin-top:18px">Every step below is live in the product today, read off the code. Anything built but switched off is called out in the accuracy note at the bottom.</p>
+
+      <div class="spine">
+
+        <div class="phase">
+          <div class="phase__label">Brand</div>
+          <div class="spinelist">
+            <div class="node node--yellow">
+              <div class="node__num">01</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--yellow node__icon"><svg class="ico ico--sm"><use href="#i-kit"/></svg></span><span class="node__title">Brand Kit</span>
+                  <span class="node__tool">Brandfetch, Claude with web search</span>
+                </div>
+                <div class="pipes">
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-upload"/></svg><span class="pipe__name">Fill from your website</span></div>
+                    <div class="pipe__tool">Brandfetch, site scrape</div>
+                    <div class="pipe__out">logos, palette, company facts</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-brief"/></svg><span class="pipe__name">Brand profile</span></div>
+                    <div class="pipe__tool">Claude, a few web searches</div>
+                    <div class="pipe__out">industry, audience, voice, avoid list, filming rules</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-notes"/></svg><span class="pipe__name">Brand voice</span></div>
+                    <div class="pipe__tool">Claude chat</div>
+                    <div class="pipe__out">guidelines you can edit and save</div>
+                  </div>
+                </div>
+                <p class="node__why"><b>Why:</b> This is the shared brand source. Without it, each model invents its own voice and look. It also holds references, graphics style, graphics direction, and a brand font, which the graphics agent reads later.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase__label">Plan</div>
+          <div class="spinelist">
+
+            <div class="node node--teal">
+              <div class="node__num">02</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--teal node__icon"><svg class="ico ico--sm"><use href="#i-spark"/></svg></span><span class="node__title">Idea Studio</span>
+                  <span class="node__tool">Claude</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> From the brand profile, Claude writes a year of calendar ideas, a swipe deck of concepts, and the next eight weeks of moments worth shooting around. You pick, it becomes a project.</p>
+              </div>
+            </div>
+
+            <div class="node node--teal">
+              <div class="node__num">03</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--teal node__icon"><svg class="ico ico--sm"><use href="#i-list"/></svg></span><span class="node__title">Brief and shot list</span>
+                  <span class="node__tool">Claude, lessons from finished cuts, Imagen cover</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> The goal, target platforms, length, call to action, and brand rules become concrete shots, each with a prompt the filmer sees and constraints the grader checks. The shot list generator also reads short lessons distilled from finished cuts (step 16), so what worked last time shapes the next list. Imagen paints the project cover. The Recipe then tracks every shot as empty, thin, or full as clips arrive, no model needed.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase__label">Capture</div>
+          <div class="spinelist">
+
+            <div class="node node--teal">
+              <div class="node__num">04</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--teal node__icon"><svg class="ico ico--sm"><use href="#i-frame"/></svg></span><span class="node__title">Camera coach</span>
+                  <span class="node__tool">Gemini, one frame every 4 seconds</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> While recording, the app sends one frame every 4 seconds (every 7 while scouting) with the shot prompt and brand rules. Gemini returns one creative note and a working quality score, shown in the viewfinder. Underneath that, the phone itself reads every frame for brightness, focus, stability, audio level, and a smudged lens with no model at all, and drives the cue dots.</p>
+              </div>
+            </div>
+
+            <div class="node node--teal">
+              <div class="node__num">05</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--teal node__icon"><svg class="ico ico--sm"><use href="#i-face"/></svg></span><span class="node__title">AI interview</span>
+                  <span class="node__tool">ElevenLabs voice, Gemini ears, Claude brain</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> ElevenLabs speaks the question, the person answers on camera, Gemini transcribes the answer, Claude writes the next question against the interview goal and the topics still uncovered. A silence gate stops a quiet take from producing a made-up answer. The finished question and answer map is handed to the editor (step 10) so the cut already knows the story.</p>
+              </div>
+            </div>
+
+            <div class="node node--teal">
+              <div class="node__num">06</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--teal node__icon"><svg class="ico ico--sm"><use href="#i-upload"/></svg></span><span class="node__title">Upload</span>
+                  <span class="node__tool">offline queue, Claude shot matching</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> Clips queue on the phone and survive a lost connection. Teleprompter text rides along and later helps the transcript spell names right. When someone imports footage shot outside the app, Claude looks at the thumbnails and matches each clip to a shot on the list, only asking when unsure.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase__label">Intelligence, the moment a clip lands</div>
+          <div class="spinelist">
+
+            <div class="node node--pink">
+              <div class="node__num">07</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--pink node__icon"><svg class="ico ico--sm"><use href="#i-spark"/></svg></span><span class="node__title">Six jobs, zero clicks</span>
+                  <span class="node__tool">runs on every clip as it lands</span>
+                </div>
+                <div class="pipes">
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-check"/></svg><span class="pipe__name">Proof of Capture</span></div>
+                    <div class="pipe__tool">signed certificate</div>
+                    <div class="pipe__out">hash of the bytes, when and how it arrived, public verify page</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-transcript"/></svg><span class="pipe__name">Transcript</span></div>
+                    <div class="pipe__tool">Gemini, watches the file</div>
+                    <div class="pipe__out">sentences with times, words when it can, teleprompter as reference</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-gauge"/></svg><span class="pipe__name">Grade</span></div>
+                    <div class="pipe__tool">Gemini, watches the whole clip</div>
+                    <div class="pipe__out">0 to 10, verdict, best window, timed moments, focus, exposure, stability, audio, framing</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-list"/></svg><span class="pipe__name">Approve</span></div>
+                    <div class="pipe__tool">thresholds</div>
+                    <div class="pipe__out">7 and up is ready, 3 and under is rejected, the rest waits for a human. Ready pays the filmer.</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-face"/></svg><span class="pipe__name">Face track</span></div>
+                    <div class="pipe__tool">BlazeFace, 6 frames a second</div>
+                    <div class="pipe__out">smoothed crop path for wide to vertical reframe, landscape clips</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-camera"/></svg><span class="pipe__name">Camera motion</span></div>
+                    <div class="pipe__tool">ffmpeg, 4 frames a second</div>
+                    <div class="pipe__out">static, pan, tilt, push-in, pull-out, handheld, subject motion</div>
+                  </div>
+                </div>
+                <p class="node__why"><b>What happens:</b> The clip is fetched once and every job reads it. The grade is judged against the shot prompt, the brand rules, and the transcript, so what was said counts from the first score. If the file cannot be watched, the grader falls back to 3 to 8 stills. The face track is a real per-frame track, sampled at 6 a second and smoothed, so a moving speaker stays in the vertical crop. Camera motion is pixel math over the first 90 seconds, so the editor can prefer moving b-roll and skip shaky shots. Stuck clips get regraded every 15 minutes, and Review All redoes a whole shoot on demand.</p>
+              </div>
+            </div>
+
+            <div class="node node--pink">
+              <div class="node__num">08</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--pink node__icon"><svg class="ico ico--sm"><use href="#i-send"/></svg></span><span class="node__title">The Director</span>
+                  <span class="node__tool">Claude, every 30 minutes while footage is landing</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> Claude reads the Recipe, the brief, who is filming, and its own past proposals, and returns at most one move: message a filmer, add a shot, say the cut is ready, or ask for more people. It runs every half hour when clips landed in the last three hours, plus one pass at end of day. Ask, auto, or quiet mode per project. The quiet rules (one open move at a time, one per project per day) live in code, not in the prompt.</p>
+              </div>
+            </div>
+
+            <div class="node node--pink">
+              <div class="node__num">09</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--pink node__icon"><svg class="ico ico--sm"><use href="#i-notes"/></svg></span><span class="node__title">Running editor notes</span>
+                  <span class="node__tool">Claude, rewritten when the clip set changes</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> Per shot, Claude keeps notes as footage arrives: the best take so far and why, the beat it serves, continuity, and what is still missing. At end of day, if the Recipe is full, it pre-drafts the paper edit and the graphics so the first time someone opens the editor the plan is already there.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase__label">Edit</div>
+          <div class="spinelist">
+
+            <div class="node">
+              <div class="node__num">10</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm  node__icon"><svg class="ico ico--sm"><use href="#i-layout"/></svg></span><span class="node__title">The paper edit</span>
+                  <span class="node__tool">Claude Fable 5.1, one call, plus human examples</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> One call sees the whole job the way an editor would: the brief, the shot list, every clip in shot order with its score, its visual line, and its numbered sentences, the interview story map, the running notes, and four examples of finished human cuts pulled from the library. It returns the story in a sentence, the spine as ordered lines (which clip, which words, or a silent moment), a cover for each line with the reason, and what it left out. A deterministic structure check first decides whether the job is a talking head, a multi-person weave, narrated, or a montage. The machine then executes the plan exactly. It never sees the human edit of the job it is cutting.</p>
+              </div>
+            </div>
+
+            <div class="node node--yellow node--key">
+              <div class="node__num">11</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--yellow node__icon"><svg class="ico ico--sm"><use href="#i-timeline"/></svg></span><span class="node__title">Build on the word clock</span>
+                  <span class="node__tool">Scribe word timings, deterministic passes</span>
+                </div>
+                <div class="pipes">
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-transcript"/></svg><span class="pipe__name">Word clock</span></div>
+                    <div class="pipe__tool">ElevenLabs Scribe</div>
+                    <div class="pipe__out">every word timed, cached per clip</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-cc"/></svg><span class="pipe__name">Captions</span></div>
+                    <div class="pipe__tool">from the word clock</div>
+                    <div class="pipe__out">chunked lines, word by word timing</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-scissors"/></svg><span class="pipe__name">Tighten</span></div>
+                    <div class="pipe__tool">no model</div>
+                    <div class="pipe__out">fillers out, no cut inside a word, trim to a length</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-face"/></svg><span class="pipe__name">Auto-reframe</span></div>
+                    <div class="pipe__tool">face track from step 07</div>
+                    <div class="pipe__out">crop keyframes per piece</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-spark"/></svg><span class="pipe__name">Music</span></div>
+                    <div class="pipe__tool">Soundstripe search, ffmpeg duck</div>
+                    <div class="pipe__out">bed on the edit's own tags, ducked under speech</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-brief"/></svg><span class="pipe__name">Words on screen</span></div>
+                    <div class="pipe__tool">Claude</div>
+                    <div class="pipe__out">lower third, end card, hooks, post copy on click</div>
+                  </div>
+                </div>
+                <p class="node__why"><b>Keystone:</b> Cuts land on words from the one Scribe clock. Captions and graphics use those same timings, so nothing drifts clip by clip. Every pass after the plan is deterministic: the same plan builds the same cut every time, and changing the spine drags covers, captions, and graphics along with it.</p>
+              </div>
+            </div>
+
+            <div class="node">
+              <div class="node__num">12</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm  node__icon"><svg class="ico ico--sm"><use href="#i-layout"/></svg></span><span class="node__title">The graphics agent</span>
+                  <span class="node__tool">Claude with web search, nine families</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> Before the cut exists, Claude reads the paper edit and asks what could be a good graphic here. It can search the web and draw a route, so a road trip in the story becomes a map. It designs pieces pinned to specific lines from nine families (label, lower third, intro, outro, interlude, list, popover, callout, transition) in the brand's graphics style, and can write a brand new piece as code that compiles on the server. Playbook rules ride on every call: one event at a time, hold long enough to read, never cover a speaking face. A popover can follow the person using the face track. Change any one graphic with a sentence.</p>
+              </div>
+            </div>
+
+            <div class="node">
+              <div class="node__num">13</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm  node__icon"><svg class="ico ico--sm"><use href="#i-scissors"/></svg></span><span class="node__title">Editor tools</span>
+                  <span class="node__tool">Claude chat, looks, transitions, ElevenLabs voice cleanup</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> Ask the cut a question, search clips by meaning, or tell one card what to change and only that card moves. Looks are film LUTs and an ffmpeg chain with a matching live preview. Transitions come from one list that the picker, the preview, and the render all share. Clean up the voices runs the whole voice track through one ElevenLabs audio isolation pass and normalizes loudness, then reuses it at render.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase__label">Finish</div>
+          <div class="spinelist">
+            <div class="node node--yellow">
+              <div class="node__num">14</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--yellow node__icon"><svg class="ico ico--sm"><use href="#i-cc"/></svg></span><span class="node__title">Render and export</span>
+                  <span class="node__tool">own ffmpeg engine, Remotion, NLE files</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> One neutral edit file (picture, covers, audio, captions on the word clock, graphics) goes to our own render engine. ffmpeg composites the picture, transitions, and the ducked mix. Remotion renders the graphics and captions to a transparent layer laid on top. Shotstack is only a fallback. The same edit file exports as EDL, FCPXML, Premiere, and CSV for anyone finishing in their own tool.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase__label">Deliver</div>
+          <div class="spinelist">
+            <div class="node">
+              <div class="node__num">15</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm  node__icon"><svg class="ico ico--sm"><use href="#i-check"/></svg></span><span class="node__title">Deliver</span>
+                  <span class="node__tool">first render is delivered, Proof of Capture roll-up</span>
+                </div>
+                <p class="node__why"><b>What happens:</b> There is no approve button. The first finished render gets a public link and a delivered stamp. The delivery page plays the cut, shows Proof of Capture below it with a valid, pending, or missing tally over every source clip, and each certificate has its own verify page showing org, time, hash, and whether the signature checks out. An editor portal shares the raw footage with an auto-written throughline.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase__label">Learn</div>
+          <div class="spinelist">
+            <div class="node node--yellow">
+              <div class="node__num">16</div>
+              <div class="node__card">
+                <div class="node__top">
+                  <span class="tile tile--sm tile--yellow node__icon"><svg class="ico ico--sm"><use href="#i-loop"/></svg></span><span class="node__title">Learn back</span>
+                  <span class="node__tool">Gemini watches, Claude distills, code measures</span>
+                </div>
+                <div class="pipes">
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-gauge"/></svg><span class="pipe__name">Watch finals</span></div>
+                    <div class="pipe__tool">Gemini, same path as grading</div>
+                    <div class="pipe__out">opening, beats, covers, rhythm, the turn, close, graphics</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-layout"/></svg><span class="pipe__name">Example library</span></div>
+                    <div class="pipe__tool">107 human Premiere cuts, finished movie transcripts</div>
+                    <div class="pipe__out">what a human kept, in what order, with what cover</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-notes"/></svg><span class="pipe__name">Lessons</span></div>
+                    <div class="pipe__tool">Claude Fable distills</div>
+                    <div class="pipe__out">short rules by kind of piece, fed to shot list, paper edit, graphics</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-loop"/></svg><span class="pipe__name">Practice</span></div>
+                    <div class="pipe__tool">blind cut vs human cut</div>
+                    <div class="pipe__out">one lesson at a time, kept only if the cut gets closer</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-transcript"/></svg><span class="pipe__name">Cut score</span></div>
+                    <div class="pipe__tool">no model</div>
+                    <div class="pipe__out">clipped words, mid-thought endings, what the window really says</div>
+                  </div>
+                  <div class="pipe">
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-face"/></svg><span class="pipe__name">Filmer reputation</span></div>
+                    <div class="pipe__tool">0 to 100, no model</div>
+                    <div class="pipe__out">approvals, average grade, shots completed; who to hire again</div>
+                  </div>
+                </div>
+                <p class="node__why"><b>What happens:</b> Finished human cuts are watched by the same video model that grades footage, and a second pass watches them with a motion designer's questions. Those notes, plus the parsed human edits, become the example library the paper edit pulls from and the lessons that feed the shot list generator and the graphics agent. The practice loop cuts a job blind, compares it to the human cut, writes one lesson, and keeps it only if the next cut lands closer. Training sets go in through a blind door: the answer key never reaches the editor. Filmers earn a reputation from approvals and grades, so the next casting call starts with who delivered.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ KEYSTONE ============================ -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Keystone</p>
+      <h2 style="max-width:18ch">One shared transcript</h2>
+      <p class="lede" style="margin-top:18px">Gemini writes a first transcript as each clip lands. When a cut is built, ElevenLabs Scribe times every word to a few hundredths of a second, and that word list becomes the clock for the whole project. When you cut (yellow markers), you cut on those words. Captions and graphics read the same list, instead of each clip carrying its own guess that drifts.</p>
+
+      <div class="keystone">
+        <div class="tx-scroll">
+          <div class="tx">
+          <div class="tx__head">
+            <span class="chip__ico"><svg class="ico ico--sm"><use href="#i-transcript"/></svg>Scribe word clock, shared timings</span>
+            <span>cut on word</span>
+          </div>
+
+          <div class="tx__grid">
+
+            <div class="tx__rowlabel">Transcript</div>
+            <div class="tx__track">
+              <div class="seg">
+                <span class="word">we</span>
+                <span class="word">really</span>
+                <span class="word">made</span>
+                <span class="word">this</span>
+              </div>
+              <div class="cutmark" aria-hidden="true" title="cut point"></div>
+              <div class="seg">
+                <span class="word">together</span>
+                <span class="word">on</span>
+                <span class="word">purpose</span>
+              </div>
+            </div>
+
+            <div class="tx__rowlabel">Timeline</div>
+            <div class="tx__track">
+              <div>
+                <div class="ghost" aria-hidden="true"><span class="word">we</span><span class="word">really</span><span class="word">made</span><span class="word">this</span></div>
+                <div class="bar bar--a">clip 04</div>
+              </div>
+              <div class="cutmark cutmark--short" aria-hidden="true"></div>
+              <div>
+                <div class="ghost" aria-hidden="true"><span class="word">together</span><span class="word">on</span><span class="word">purpose</span></div>
+                <div class="bar bar--a">clip 11</div>
+              </div>
+            </div>
+
+            <div class="tx__rowlabel">Captions</div>
+            <div class="tx__track">
+              <div>
+                <div class="ghost" aria-hidden="true"><span class="word">we</span><span class="word">really</span><span class="word">made</span><span class="word">this</span></div>
+                <div class="bar bar--b">we really made this</div>
+              </div>
+              <div class="cutmark cutmark--short" aria-hidden="true"></div>
+              <div>
+                <div class="ghost" aria-hidden="true"><span class="word">together</span><span class="word">on</span><span class="word">purpose</span></div>
+                <div class="bar bar--b">together on purpose</div>
+              </div>
+            </div>
+
+            <div class="tx__rowlabel">Graphics</div>
+            <div class="tx__track">
+              <div>
+                <div class="ghost" aria-hidden="true"><span class="word">we</span><span class="word">really</span><span class="word">made</span><span class="word">this</span></div>
+              </div>
+              <div class="cutmark cutmark--short" aria-hidden="true"></div>
+              <div>
+                <div class="ghost" aria-hidden="true"><span class="word">together</span><span class="word">on</span><span class="word">purpose</span></div>
+                <div class="bar bar--c">lower third in</div>
+              </div>
+            </div>
+
+          </div>
+
+          </div>
+        </div>
+        <p class="tx__foot">Every row breaks on the same word because every row reads the same clock. Move the cut and the caption and the graphic move with it. Tighten never lands an edge inside a word.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ LEARN-BACK ============================ -->
+  <section class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">Close the loop</p>
+      <h2 style="max-width:20ch">Learn-back from Deliver</h2>
+      <p class="lede" style="margin-top:18px">Most of the work runs forward (shoot, understand, cut, ship). A thinner path comes back from the finished video: what the human editor kept, in what order, with what cover, how the graphics moved, and which filmers delivered. That gets written into shot list rules, the paper-edit example library, graphics rules, and filmer reputation, so the next campaign starts smarter.</p>
+
+      <div class="flow" style="margin-top:48px">
+        <div class="flow__row">
+          <div class="flow__line" aria-hidden="true"></div>
+          <span class="flow__arrow" style="left:25%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+          <span class="flow__arrow" style="left:50%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+          <span class="flow__arrow" style="left:75%" aria-hidden="true"><svg class="ico ico--xs"><use href="#i-chev"/></svg></span>
+          <div class="step step--teal">
+            <div class="step__head">
+              <div class="step__dot">1</div>
+              <div class="step__text"><div class="step__name">Shoot</div></div>
+            </div>
+          </div>
+          <div class="step step--pink">
+            <div class="step__head">
+              <div class="step__dot">2</div>
+              <div class="step__text"><div class="step__name">Understand</div></div>
+            </div>
+          </div>
+          <div class="step step--ink">
+            <div class="step__head">
+              <div class="step__dot">3</div>
+              <div class="step__text"><div class="step__name">Cut</div></div>
+            </div>
+          </div>
+          <div class="step step--yellow">
+            <div class="step__head">
+              <div class="step__dot">4</div>
+              <div class="step__text"><div class="step__name">Ship</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow__return">
+          <div class="flow__u" aria-hidden="true"></div>
+          <div class="return__card">
+            <span class="tile tile--sm tile--yellow"><svg class="ico ico--sm"><use href="#i-loop"/></svg></span>
+            <span class="return__label">What comes back from Deliver</span>
+            <div class="chips">
+              <span class="chip chip--teal">shot list rules</span>
+              <span class="chip chip--teal">paper-edit examples and lessons</span>
+              <span class="chip chip--yellow">graphics rules</span>
+              <span class="chip">filmer reputation, who to hire again</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="note flow__caption">The return path sits in its own row under the forward path, so it compounds every campaign without cutting back through the work in progress. The human cut is the answer key: it grades the machine after the fact and never teaches it directly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ COMPOUNDS ============================ -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">How it compounds</p>
+      <h2 style="max-width:22ch">The whole loop, in order</h2>
+
+      <ol class="compounds">
+        <li><span>Brand Kit fills itself from the website; Claude drafts the profile, the voice, and the filming rules</span></li>
+        <li><span>Idea Studio and the brief become a shot list that already carries lessons from finished cuts</span></li>
+        <li><span>On set, the coach reads a frame every few seconds and the interviewer writes the next question</span></li>
+        <li><span>The moment a clip lands: certificate, transcript, grade, approve, face track, camera motion</span></li>
+        <li><span>The Director proposes one move; editor notes build as clips arrive; end of day pre-drafts the cut</span></li>
+        <li><span>The paper edit reads the whole job plus human examples and writes the spine</span></li>
+        <li><span>Scribe times every word; cuts, captions, tighten, and graphics all read that one clock</span></li>
+        <li><span>The graphics agent researches and designs pieces pinned to lines before the cut exists</span></li>
+        <li><span>Our own engine renders; the first render is delivered with Proof of Capture</span></li>
+        <li><span>Finished cuts get watched and distilled into lessons for the shot list, the paper edit, and graphics</span></li>
+      </ol>
+
+      <div class="accuracy">
+        <div class="accuracy__label">Accuracy</div>
+        <p>Every step above is read off the code as of September 7. The upload transcript is Gemini; the word clock for the cut is ElevenLabs Scribe, run when a cut is built. Whisper is not used anywhere. Three things are built but not on: the camera coach is live in the phone app but switched off in the browser camera; the overnight self-training loop is written but parked behind a flag; per-organization model settings are off, everyone runs the platform defaults. Clip Doctor (upscale, stabilize) is gone. Pulse is an ops screen, not a model.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap"><p>Cinebody internal &middot; not indexed</p></div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn  = document.getElementById('themeToggle');
+
+  function read(){
+    try { return localStorage.getItem('cb-ailoop-theme'); } catch(e){ return null; }
+  }
+  function write(v){
+    try { localStorage.setItem('cb-ailoop-theme', v); } catch(e){}
+  }
+  function apply(theme){
+    root.setAttribute('data-theme', theme);
+    btn.textContent = (theme === 'dark') ? 'Light' : 'Dark';
+    btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  }
+
+  // Light is the default for this internal page. Honor a saved choice only.
+  apply(read() === 'dark' ? 'dark' : 'light');
+
+  btn.addEventListener('click', function(){
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    write(next);
+  });
+})();
+</script>
+
+</body>
+</html>
