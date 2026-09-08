@@ -156,6 +156,17 @@ body > * { position: relative; z-index: 1; }
   100% { transform: translate(30px, -20px); }
 }
 
+/* Phones: the four glow blobs use filter: blur(200px+) on 600-1100px elements,
+   two of them animating forever. Mobile GPUs re-rasterize that every frame and
+   the page feels stuck. Same look from a plain radial gradient, no filter. */
+@media (max-width: 768px), (pointer: coarse) {
+  .hero::before, .hero::after, .pipeline::before, .pipeline::after { filter: none; animation: none; opacity: 1; }
+  .hero::before { background: radial-gradient(circle, rgba(0,188,241,0.12) 0%, rgba(0,188,241,0) 68%); }
+  .hero::after { background: radial-gradient(circle, rgba(235,0,139,0.06) 0%, rgba(235,0,139,0) 68%); }
+  .pipeline::before { background: radial-gradient(circle, rgba(0,188,241,0.06) 0%, rgba(0,188,241,0) 68%); }
+  .pipeline::after { background: radial-gradient(circle, rgba(235,0,139,0.05) 0%, rgba(235,0,139,0) 68%); }
+}
+
 .hero .contain {
   display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 80px; align-items: center;
 }
