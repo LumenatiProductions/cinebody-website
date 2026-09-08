@@ -695,7 +695,7 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
     <div class="wrap">
       <p class="eyebrow">Team explainer</p>
       <h1>The full AI production loop</h1>
-      <p class="lede">Most &ldquo;AI video&rdquo; tools wait until you dump a full bin, then try to cut it in one shot. Cinebody runs the other way: brand rules shape the brief and the shoot, six jobs read every clip the moment it lands, one word clock keeps the cut, captions, and graphics lined up, and finished work is watched and turned into lessons for the next campaign.</p>
+      <p class="lede">Most &ldquo;AI video&rdquo; tools wait until you dump a full bin, then try to cut it in one shot. Cinebody runs the other way: brand rules shape the brief and the shoot, six jobs read every clip the moment it lands, one shared transcript keeps the cut, captions, and graphics lined up, and finished work is watched and turned into lessons for the next campaign.</p>
 
       <div class="flow" style="margin-top:56px">
         <div class="flow__row">
@@ -815,7 +815,7 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
           </div>
         </div>
 
-        <p class="note flow__caption">Shoot, understand, cut, ship, then a thin return path so finished work improves the next brief. Brand Kit, the word clock, and the Recipe run under every step, so every step shares the same rules and the same words.</p>
+        <p class="note flow__caption">Shoot, understand, cut, ship, then a thin return path so finished work improves the next brief. Brand Kit, the shared transcript, and the Recipe run under every step, so every step shares the same rules and the same words.</p>
       </div>
     </div>
   </section>
@@ -827,7 +827,7 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
       <div class="stack-16">
         <h2 style="max-width:20ch">Help while people shoot, not after the bin is full</h2>
         <p class="lede">Useful production AI should help while people are shooting and while clips are uploading, not only after everything is already in the bin.</p>
-        <p class="lede">Typical tools only help at the end (one big &ldquo;AI cut&rdquo;). Cinebody connects Brand Kit, on-set coaching, grading, face and camera tracking, one word clock, the paper edit, a graphics agent, and a learn-back step so each finished video makes the next shoot and edit a little smarter.</p>
+        <p class="lede">Typical tools only help at the end (one big &ldquo;AI cut&rdquo;). Cinebody connects Brand Kit, on-set coaching, grading, face and camera tracking, one shared transcript, the paper edit, a graphics agent, and a learn-back step so each finished video makes the next shoot and edit a little smarter.</p>
       </div>
 
       <div class="compare">
@@ -898,7 +898,7 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
               <div class="mini__returnlabel">learn back into the next brief</div>
             </div>
           </div>
-          <p class="panel__note">As clips land they are certified, transcribed, graded, approved, face-tracked, and motion-read. The cut builds on one word clock. Finished cuts get watched and distilled into lessons for the next brief, edit, and graphics.</p>
+          <p class="panel__note">As clips land they are certified, transcribed, graded, approved, face-tracked, and motion-read. The cut builds on one shared transcript. Finished cuts get watched and distilled into lessons for the next brief, edit, and graphics.</p>
         </div>
 
       </div>
@@ -922,7 +922,7 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
         <div class="card card--pink">
           <div class="card__head">
             <span class="tile tile--pink"><svg class="ico ico--lg"><use href="#i-transcript"/></svg></span>
-            <h3>One word clock for the whole cut</h3>
+            <h3>One transcript for the whole cut</h3>
           </div>
           <p>Gemini writes a first transcript as each clip lands. When a cut is built, Scribe times every word to a few hundredths of a second. Cuts land on those words, captions read those words, graphics pin to those words. Nothing drifts clip by clip.</p>
         </div>
@@ -1150,18 +1150,18 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
               <div class="node__num">11</div>
               <div class="node__card">
                 <div class="node__top">
-                  <span class="tile tile--sm tile--yellow node__icon"><svg class="ico ico--sm"><use href="#i-timeline"/></svg></span><span class="node__title">Build on the word clock</span>
+                  <span class="tile tile--sm tile--yellow node__icon"><svg class="ico ico--sm"><use href="#i-timeline"/></svg></span><span class="node__title">Build on the shared transcript</span>
                   <span class="node__tool">Scribe word timings, deterministic passes</span>
                 </div>
                 <div class="pipes">
                   <div class="pipe">
-                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-transcript"/></svg><span class="pipe__name">Word clock</span></div>
+                    <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-transcript"/></svg><span class="pipe__name">Timed transcript</span></div>
                     <div class="pipe__tool">ElevenLabs Scribe</div>
                     <div class="pipe__out">every word timed, cached per clip</div>
                   </div>
                   <div class="pipe">
                     <div class="pipe__head"><svg class="ico ico--sm"><use href="#i-cc"/></svg><span class="pipe__name">Captions</span></div>
-                    <div class="pipe__tool">from the word clock</div>
+                    <div class="pipe__tool">from the transcript</div>
                     <div class="pipe__out">chunked lines, word by word timing</div>
                   </div>
                   <div class="pipe">
@@ -1224,7 +1224,7 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
                   <span class="tile tile--sm tile--yellow node__icon"><svg class="ico ico--sm"><use href="#i-cc"/></svg></span><span class="node__title">Render and export</span>
                   <span class="node__tool">own ffmpeg engine, Remotion, NLE files</span>
                 </div>
-                <p class="node__why"><b>What happens:</b> One neutral edit file (picture, covers, audio, captions on the word clock, graphics) goes to our own render engine. ffmpeg composites the picture, transitions, and the ducked mix. Remotion renders the graphics and captions to a transparent layer laid on top. Shotstack is only a fallback. The same edit file exports as EDL, FCPXML, Premiere, and CSV for anyone finishing in their own tool.</p>
+                <p class="node__why"><b>What happens:</b> One neutral edit file (picture, covers, audio, captions on the transcript, graphics) goes to our own render engine. ffmpeg composites the picture, transitions, and the ducked mix. Remotion renders the graphics and captions to a transparent layer laid on top. Shotstack is only a fallback. The same edit file exports as EDL, FCPXML, Premiere, and CSV for anyone finishing in their own tool.</p>
               </div>
             </div>
           </div>
@@ -1309,7 +1309,7 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
         <div class="tx-scroll">
           <div class="tx">
           <div class="tx__head">
-            <span class="chip__ico"><svg class="ico ico--sm"><use href="#i-transcript"/></svg>Scribe word clock, shared timings</span>
+            <span class="chip__ico"><svg class="ico ico--sm"><use href="#i-transcript"/></svg>Scribe transcript, shared word timings</span>
             <span>cut on word</span>
           </div>
 
@@ -1457,7 +1457,7 @@ html[data-theme="dark"] .tile--ink{background:#fff;border-color:#fff;color:#0a0a
 
       <div class="accuracy">
         <div class="accuracy__label">Accuracy</div>
-        <p>Every step above is read off the code as of September 7. The upload transcript is Gemini; the word clock for the cut is ElevenLabs Scribe, run when a cut is built. Whisper is not used anywhere. Three things are built but not on: the camera coach is live in the phone app but switched off in the browser camera; the overnight self-training loop is written but parked behind a flag; per-organization model settings are off, everyone runs the platform defaults. Clip Doctor (upscale, stabilize) is gone. Pulse is an ops screen, not a model.</p>
+        <p>Every step above is read off the code as of September 7. The upload transcript is Gemini; the timed transcript the cut is built on is ElevenLabs Scribe, run when a cut is built. Whisper is not used anywhere. Three things are built but not on: the camera coach is live in the phone app but switched off in the browser camera; the overnight self-training loop is written but parked behind a flag; per-organization model settings are off, everyone runs the platform defaults. Clip Doctor (upscale, stabilize) is gone. Pulse is an ops screen, not a model.</p>
       </div>
     </div>
   </section>
